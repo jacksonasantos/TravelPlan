@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:gravity="center_horizontal"
+        android:text="@string/vehicle_id"
+        android:textSize="18sp"
+        android:textStyle="bold"/>
+
+    <EditText
+        android:id="@+id/etOIDVehicle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="@string/vehicle_id"
+        android:inputType="text"
+        android:textSize="14sp"
+        android:importantForAutofill="no" />
+
+    <EditText
+        android:id="@+id/etNameVehicle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/Vehicle_name"
+        android:inputType="text"
+        android:textSize="14sp"
+        android:importantForAutofill="no" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="4dp"
+        android:text="@string/Vehicle_Licence_Plate"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:layout_marginStart="4dp" />
+
+    <EditText
+        android:id="@+id/etLicencePlateVehicle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/Vehicle_Licence_Plate"
+        android:inputType="text"
+        android:textSize="14sp"
+        android:importantForAutofill="no" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="4dp"
+        android:text="@string/Vehicle_Full_Capacity"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:layout_marginStart="4dp" />
+
+    <EditText
+        android:id="@+id/etFullCapacity"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/Vehicle_Full_Capacity"
+        android:inputType="number"
+        android:textSize="14sp"
+        android:importantForAutofill="no" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="4dp"
+        android:text="@string/Vehicle_Avg_Consumption"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:layout_marginStart="4dp" />
+
+    <EditText
+        android:id="@+id/etAVGConsumption"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/Vehicle_Avg_Consumption"
+        android:inputType="numberDecimal"
+        android:textSize="14sp"
+        android:importantForAutofill="no" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="save_vehicle"
+        android:text="@string/bt_Save"
+        android:layout_gravity="center_horizontal"/>
+
+</LinearLayout>

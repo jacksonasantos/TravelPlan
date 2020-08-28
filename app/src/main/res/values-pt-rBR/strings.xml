@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="nav_header_title">TRAVEL Plan</string>
+    <string name="action_settings">Configurações</string>
+    <string name="menu_home">Principal</string>
+    <string name="nav_header_subtitle">Planejamento e Controle de Viagens</string>
+    <string name="signature_title">Seu Endereço Eletrônico</string>
+    <string name="personal_name">Seu Nome</string>
+    <string name="personal_age">Sua Idade</string>
+    <string name="personal_gender">Seu Gênero Sexual</string>
+    <string name="personal_header">Dados Pessoais</string>
+    <string name="messages_header">Mensagem Eletrônica</string>
+    <string name="Vehicle_Full_Capacity">Capacidade Combustível (L)</string>
+    <string name="Vehicle_name">Nome do Veículo</string>
+    <string name="vehicle_id">Identificação do Veículo</string>
+    <string name="Vehicle_Avg_Consumption">Consumo Médio (KM/L)</string>
+    <string name="menu_travel">Viagens</string>
+    <string name="Vehicle_Licence_Plate">Placa de Identificação</string>
+    <string name="menu_vehicle">Veículos</string>
+    <string name="menu_add">Adicionar</string>
+    <string name="bt_Save">Salvar</string>
+    <string name="bt_Delete">Excluir</string>
+    <string name="bt_Edit">Editar</string>
+    <string name="definition_header">Definições</string>
+    <string name="color_scheme_dark_title">Esquema de Cores Escuro</string>
+    <string name="color_scheme_off">Esquema de cores normal ativado</string>
+    <string name="color_scheme_on">Esquema de cores escuro ativado</string>
+    <string name="personal_gender_male">Masculino</string>
+    <string name="personal_gender_female">Feminino</string>
+</resources>

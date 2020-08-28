@@ -1,0 +1,46 @@
+<resources>
+    <string name="app_name" translatable="false">TRAVEL Plan</string>
+    <string name="nav_header_title">TRAVEL Plan</string>
+    <string name="nav_header_subtitle">Travel Planning and Control</string>
+    <string name="nav_header_desc" translatable="false">Navigation header</string>
+
+    <!-- Menu Options -->
+    <string name="menu_home">Home</string>
+    <string name="menu_vehicle">Vehicles</string>
+    <string name="menu_travel">Travels</string>
+    <string name="action_settings">Settings</string>
+
+    <!-- Preference Titles -->
+    <string name="personal_header">Personal Data</string>
+    <string name="messages_header">Messages</string>
+    <string name="definition_header">Definitions</string>
+
+    <!-- Personal Data Preferences -->
+    <string name="personal_name">Your name</string>
+    <string name="personal_age">Your age</string>
+    <string name="personal_gender">Your gender</string>
+    <string name="personal_gender_male">Male</string>
+    <string name="personal_gender_female">Female</string>
+
+    <!-- Messages Preferences -->
+    <string name="signature_title">Your signature</string>
+
+    <!-- Definitions Preferences -->
+    <string name="color_scheme_dark_title">Color Scheme Dark</string>
+    <string name="color_scheme_off">Color Scheme Normal actived</string>
+    <string name="color_scheme_on">Color Scheme Dark actived</string>
+
+    <!-- Vehicle Fragment -->
+    <string name="vehicle_id">Id. Vehicle</string>
+    <string name="Vehicle_name">Name Vehicle</string>
+    <string name="Vehicle_Licence_Plate">Licence Plate</string>
+    <string name="Vehicle_Avg_Consumption">Average Consumption (KM/L)</string>
+    <string name="Vehicle_Full_Capacity">Full Capacity (L)</string>
+
+    <!-- Generic -->
+    <string name="bt_Save">Save</string>
+    <string name="bt_Delete">Delete</string>
+    <string name="bt_Edit">Edit</string>
+    <string name="menu_add">Add</string>
+
+</resources>

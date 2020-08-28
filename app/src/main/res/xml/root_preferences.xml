@@ -1,0 +1,44 @@
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <PreferenceCategory app:title="@string/personal_header">
+
+        <EditTextPreference
+            app:key="personal_name"
+            app:title="@string/personal_name"
+            app:useSimpleSummaryProvider="true" />
+
+        <EditTextPreference
+            app:key="personal_age"
+            app:title="@string/personal_age"
+            app:useSimpleSummaryProvider="true" />
+
+        <ListPreference
+            app:defaultValue="gender"
+            app:entries="@array/gender_entries"
+            app:entryValues="@array/gender_entries"
+            app:key="gender"
+            app:title="@string/personal_gender"
+            app:useSimpleSummaryProvider="true" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory app:title="@string/messages_header">
+
+        <EditTextPreference
+            app:key="signature"
+            app:title="@string/signature_title"
+            app:useSimpleSummaryProvider="true" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory app:title="@string/definition_header">
+
+         <SwitchPreferenceCompat
+             app:key="color_scheme_dark"
+             app:title="@string/color_scheme_dark_title"
+             app:summaryOff="@string/color_scheme_off"
+             app:summaryOn="@string/color_scheme_on" />
+
+     </PreferenceCategory>
+
+ </PreferenceScreen>

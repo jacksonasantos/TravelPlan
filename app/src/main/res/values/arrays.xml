@@ -1,0 +1,7 @@
+<resources>
+    <!-- Gender Preference -->
+    <string-array name="gender_entries">
+        <item>@string/personal_gender_male</item>
+        <item>@string/personal_gender_female</item>
+    </string-array>
+ </resources>

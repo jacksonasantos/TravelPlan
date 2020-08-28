@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:startDestination="@+id/nav_home">
+
+    <fragment
+        android:id="@+id/nav_home"
+        android:name="com.jacksonasantos.travelplan.ui.home.HomeFragment"
+        android:label="@string/menu_home"
+        tools:layout="@layout/fragment_home" />
+
+    <fragment
+        android:id="@+id/nav_vehicle"
+        android:name="com.jacksonasantos.travelplan.ui.vehicle.VehicleFragment"
+        android:label="@string/menu_vehicle"
+        tools:layout="@layout/fragment_vehicle" />
+
+    <fragment
+        android:id="@+id/nav_travel"
+        android:name="com.jacksonasantos.travelplan.ui.travel.TravelFragment"
+        android:label="@string/menu_travel"
+        tools:layout="@layout/fragment_travel" />
+
+    <fragment
+        android:id="@+id/nav_settings"
+        android:name="com.jacksonasantos.travelplan.SettingsActivity$SettingsFragment"
+        android:label="@string/action_settings"
+        tools:layout="@layout/settings_activity" />
+</navigation>
