@@ -30,6 +30,13 @@
     <string name="color_scheme_off">Color Scheme Normal actived</string>
     <string name="color_scheme_on">Color Scheme Dark actived</string>
 
+    <!-- Travel Fragment -->
+    <string name="Travel_id">Id. Travel</string>
+    <string name="Travel_name">Name Travel</string>
+    <string name="Travel_Departure_Date">Departure Date Travel</string>
+    <string name="Travel_Return_Date">Return Date Travel</string>
+    <string name="Travel_Note">Note Travel</string>
+
     <!-- Vehicle Fragment -->
     <string name="vehicle_id">Id. Vehicle</string>
     <string name="Vehicle_name">Name Vehicle</string>
@@ -41,6 +48,7 @@
     <string name="bt_Save">Save</string>
     <string name="bt_Delete">Delete</string>
     <string name="bt_Edit">Edit</string>
+    <string name="bt_Add">Add</string>
     <string name="menu_add">Add</string>
 
 </resources>

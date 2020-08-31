@@ -1,4 +1,4 @@
-package com.jacksonasantos.travelplan.ui.vehicle;
+package com.jacksonasantos.travelplan.ui.travel;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -9,62 +9,60 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.recyclerview.widget.RecyclerView;
-
-import com.jacksonasantos.travelplan.DAO.Vehicle;
+import com.jacksonasantos.travelplan.DAO.Travel;
 import com.jacksonasantos.travelplan.R;
-import com.jacksonasantos.travelplan.ui.travel.TravelViewModel;
 
 import java.util.List;
 
-public class VehicleAdapter extends ArrayAdapter<Vehicle> {
-    private List<Vehicle> vehicles;
+public class TravelAdapter extends ArrayAdapter<Travel> {
+    private List<Travel> travels;
     private LayoutInflater inflater;
 
-    public VehicleAdapter(Context context, List<Vehicle> vehicles) {
-        super(context, 0, vehicles);
+    public TravelAdapter(Context context, List<Travel> travels) {
+        super(context, 0, travels);
         //this.inflater = (LayoutInflater) context.getSystemService(context.LAYOUT_INFLATER_SERVICE);
-        this.vehicles = vehicles;
+        this.travels = travels;
     }
 
-    public void novosDados(List<Vehicle> vehicles) {
-        this.vehicles = vehicles;
+    public void novosDados(List<Travel> travels) {
+        this.travels = travels;
         notifyDataSetChanged();
     }
 
     @Override
     public int getCount() {
-        if(vehicles != null) {
-            return vehicles.size();
+        if(travels != null) {
+            return travels.size();
         }else{
             return 0;
         }
     }
 
     @Override
-    public Vehicle getItem(int position) {
-        return vehicles.get(position);
+    public Travel getItem(int position) {
+        return travels.get(position);
     }
 
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
-        View v = inflater.inflate(R.layout.fragment_vehicle_item, null);
-        ((TextView) (v.findViewById(R.id.txtNome))).setText((CharSequence) vehicles.get(position));
+        View v = inflater.inflate(R.layout.fragment_travel_item, null);
+        ((TextView) (v.findViewById(R.id.randomText))).setText((CharSequence) travels.get(position));
 
         ((ImageButton) (v.findViewById(R.id.btnEditar))).setOnClickListener
                 (new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Toast.makeText(getContext(), "Exemplo Toast" + vehicles.get(position), Toast.LENGTH_SHORT).show();
-                        edita(vehicles.get(position));
+                        Toast.makeText(getContext(), "Exemplo Toast" + travels.get(position), Toast.LENGTH_SHORT).show();
+                        edita(travels.get(position));
                     }
                 });
+
         ((ImageButton) (v.findViewById(R.id.btnExcluir)))
                 .setOnClickListener
                         (new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                deleta(vehicles.get(position));
+                                deleta(travels.get(position));
                             }
                         });
 
@@ -76,7 +74,10 @@ public class VehicleAdapter extends ArrayAdapter<Vehicle> {
         return 0;
     }
 
-    public void edita(Vehicle vehicle) {    }
+    public void edita(Travel travel) {   }
 
-    public void deleta(Vehicle vehicle) {    }
+    public void deleta(Travel travel) {    }
 }
+
+
+// Toast.makeText(getContext(), "Exemplo Toast", Toast.LENGTH_SHORT).show();

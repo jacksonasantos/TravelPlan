@@ -6,12 +6,12 @@
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:layout_marginTop="10dp"
         android:gravity="center_horizontal"
         android:text="@string/vehicle_id"
         android:textSize="18sp"
-        android:textStyle="bold"/>
+        android:textStyle="bold" />
 
     <EditText
         android:id="@+id/etOIDVehicle"
@@ -20,7 +20,9 @@
         android:hint="@string/vehicle_id"
         android:inputType="text"
         android:textSize="14sp"
-        android:importantForAutofill="no" />
+        android:importantForAutofill="no"
+        android:layout_marginLeft="4dp"
+        android:layout_marginStart="4dp" />
 
     <EditText
         android:id="@+id/etNameVehicle"
@@ -29,7 +31,9 @@
         android:hint="@string/Vehicle_name"
         android:inputType="text"
         android:textSize="14sp"
-        android:importantForAutofill="no" />
+        android:importantForAutofill="no"
+        android:layout_marginLeft="4dp"
+        android:layout_marginStart="4dp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -47,7 +51,9 @@
         android:hint="@string/Vehicle_Licence_Plate"
         android:inputType="text"
         android:textSize="14sp"
-        android:importantForAutofill="no" />
+        android:importantForAutofill="no"
+        android:layout_marginLeft="4dp"
+        android:layout_marginStart="4dp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -65,7 +71,9 @@
         android:hint="@string/Vehicle_Full_Capacity"
         android:inputType="number"
         android:textSize="14sp"
-        android:importantForAutofill="no" />
+        android:importantForAutofill="no"
+        android:layout_marginLeft="4dp"
+        android:layout_marginStart="4dp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -83,7 +91,9 @@
         android:hint="@string/Vehicle_Avg_Consumption"
         android:inputType="numberDecimal"
         android:textSize="14sp"
-        android:importantForAutofill="no" />
+        android:importantForAutofill="no"
+        android:layout_marginLeft="4dp"
+        android:layout_marginStart="4dp" />
 
     <Button
         android:layout_width="wrap_content"

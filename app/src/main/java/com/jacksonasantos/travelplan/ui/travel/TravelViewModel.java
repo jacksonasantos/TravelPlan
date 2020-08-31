@@ -1,19 +1,20 @@
 package com.jacksonasantos.travelplan.ui.travel;
 
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.ViewModel;
+import android.view.Menu;
+import android.view.View;
+import android.widget.TextView;
+import com.jacksonasantos.travelplan.R;
 
-public class TravelViewModel extends ViewModel {
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 
-    private final MutableLiveData<String> mText;
+public class TravelViewModel extends RecyclerView.ViewHolder {
 
-    public TravelViewModel() {
-        mText = new MutableLiveData<>();
-        mText.setValue("This is slideshow fragment");
+    private TextView view;
+    public TravelViewModel(@NonNull View itemView) {
+        super(itemView);
+        view = itemView.findViewById(R.id.randomText);
     }
 
-    public LiveData<String> getText() {
-        return mText;
-    }
+    public TextView getView(){ return view;  }
 }

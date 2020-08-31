@@ -3,6 +3,6 @@
     <!-- TODO Remove the following "exclude" elements to make them a part of the auto backup -->
     <exclude
         domain="database"
-        path="db_TravelPlan" />
+        path="TravelPlan.db" />
     <!-- Exclude specific shared preferences that contain GCM registration Id -->
 </full-backup-content>

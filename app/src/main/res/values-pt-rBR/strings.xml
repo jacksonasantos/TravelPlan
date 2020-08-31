@@ -27,4 +27,10 @@
     <string name="color_scheme_on">Esquema de cores escuro ativado</string>
     <string name="personal_gender_male">Masculino</string>
     <string name="personal_gender_female">Feminino</string>
+    <string name="bt_Add">Adicionar</string>
+    <string name="Travel_id">Identificação de Viagem</string>
+    <string name="Travel_name">Nome da Viagem</string>
+    <string name="Travel_Departure_Date">Data de Partida da Viagem</string>
+    <string name="Travel_Return_Date">Data de Retorno da Viagem</string>
+    <string name="Travel_Note">Anotações da Viagem</string>
 </resources>

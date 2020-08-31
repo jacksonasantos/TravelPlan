@@ -2,7 +2,8 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    app:startDestination="@+id/nav_home">
+    app:startDestination="@+id/nav_home"
+    tools:ignore="UnusedNavigation">
 
     <fragment
         android:id="@+id/nav_home"
@@ -26,5 +27,5 @@
         android:id="@+id/nav_settings"
         android:name="com.jacksonasantos.travelplan.SettingsActivity$SettingsFragment"
         android:label="@string/action_settings"
-        tools:layout="@layout/settings_activity" />
+        tools:layout="@layout/activity_settings" />
 </navigation>
