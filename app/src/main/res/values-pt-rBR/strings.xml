@@ -33,4 +33,8 @@
     <string name="Travel_Departure_Date">Data de Partida da Viagem</string>
     <string name="Travel_Return_Date">Data de Retorno da Viagem</string>
     <string name="Travel_Note">Anotações da Viagem</string>
+    <string name="Vehicle_type_fuel">Tipo de Combustível</string>
+    <string name="gasoline">Gasolina</string>
+    <string name="electric">Elétrico</string>
+    <string name="ethanol">Etanol</string>
 </resources>

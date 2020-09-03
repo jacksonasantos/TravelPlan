@@ -48,7 +48,7 @@ public class TravelAdapter extends ArrayAdapter<Travel> {
         View v = inflater.inflate(R.layout.fragment_travel_item, null);
         ((TextView) (v.findViewById(R.id.randomText))).setText((CharSequence) travels.get(position));
 
-        ((ImageButton) (v.findViewById(R.id.btnEditar))).setOnClickListener
+        v.findViewById(R.id.btnEditar).setOnClickListener
                 (new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -57,7 +57,7 @@ public class TravelAdapter extends ArrayAdapter<Travel> {
                     }
                 });
 
-        ((ImageButton) (v.findViewById(R.id.btnExcluir)))
+        v.findViewById(R.id.btnExcluir)
                 .setOnClickListener
                         (new View.OnClickListener() {
                             @Override

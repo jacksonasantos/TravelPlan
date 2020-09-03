@@ -2,8 +2,6 @@ package com.jacksonasantos.travelplan.ui.travel;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -22,11 +20,11 @@ public class TravelFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
 
         View root = inflater.inflate(R.layout.fragment_travel, container, false);
-        //final TextView textView = root.findViewById(R.id.text_slideshow);
-        RecyclerView recycleList = root.findViewById(R.id.listTravels);
-        recycleList.setHasFixedSize(true);
-        recycleList.setLayoutManager(new LinearLayoutManager(recycleList.getContext()));
-        recycleList.setAdapter(new RandomNumListAdapter(1234));
+
+        RecyclerView travelList = root.findViewById(R.id.listTravels);
+        travelList.setHasFixedSize(true);
+        travelList.setLayoutManager(new LinearLayoutManager(travelList.getContext()));
+        travelList.setAdapter(new RandomNumListAdapter(1234));
 
        // List<Travel> travels = null;
        // TravelAdapter travelAdapter = new TravelAdapter(this.getActivity(), travels);

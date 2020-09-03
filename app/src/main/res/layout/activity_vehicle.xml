@@ -1,105 +1,158 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_marginTop="10dp"
-        android:gravity="center_horizontal"
-        android:text="@string/vehicle_id"
-        android:textSize="18sp"
-        android:textStyle="bold" />
-
-    <EditText
-        android:id="@+id/etOIDVehicle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:hint="@string/vehicle_id"
-        android:inputType="text"
-        android:textSize="14sp"
-        android:importantForAutofill="no"
-        android:layout_marginLeft="4dp"
-        android:layout_marginStart="4dp" />
-
     <EditText
         android:id="@+id/etNameVehicle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/labels_height"
+        android:layout_marginStart="@dimen/labels_marginLeft"
+        android:layout_marginLeft="@dimen/labels_marginLeft"
+        android:layout_marginTop="@dimen/labels_space_top"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
         android:hint="@string/Vehicle_name"
+        android:importantForAutofill="no"
         android:inputType="text"
         android:textSize="14sp"
-        android:importantForAutofill="no"
-        android:layout_marginLeft="4dp"
-        android:layout_marginStart="4dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="4dp"
+        android:id="@+id/textView2"
+        android:layout_width="@dimen/labels_width"
+        android:layout_height="@dimen/labels_height"
+        android:layout_marginStart="@dimen/labels_marginLeft"
+        android:layout_marginLeft="@dimen/labels_marginLeft"
+        android:layout_marginTop="@dimen/labels_space_top"
+        android:gravity="center_vertical"
         android:text="@string/Vehicle_Licence_Plate"
         android:textSize="14sp"
         android:textStyle="bold"
-        android:layout_marginStart="4dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etNameVehicle" />
 
     <EditText
         android:id="@+id/etLicencePlateVehicle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/labels_height"
+        android:layout_marginStart="@dimen/labels_marginLeft"
+        android:layout_marginLeft="@dimen/labels_marginLeft"
+        android:layout_marginTop="@dimen/labels_space_top"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
         android:hint="@string/Vehicle_Licence_Plate"
+        android:importantForAutofill="no"
         android:inputType="text"
         android:textSize="14sp"
-        android:importantForAutofill="no"
-        android:layout_marginLeft="4dp"
-        android:layout_marginStart="4dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textView2"
+        app:layout_constraintTop_toBottomOf="@+id/etNameVehicle" />
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="4dp"
+        android:id="@+id/textView5"
+        android:layout_width="@dimen/labels_width"
+        android:layout_height="@dimen/labels_height"
+        android:layout_marginStart="@dimen/labels_marginLeft"
+        android:layout_marginLeft="@dimen/labels_marginLeft"
+        android:layout_marginTop="@dimen/labels_space_top"
+        android:gravity="center_vertical"
+        android:text="@string/Vehicle_type_fuel"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
+    <Spinner
+        android:id="@+id/spintypefuel"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/labels_height"
+        android:layout_marginStart="@dimen/labels_marginLeft"
+        android:layout_marginLeft="@dimen/labels_marginLeft"
+        android:layout_marginTop="@dimen/labels_space_top"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textView5"
+        app:layout_constraintTop_toBottomOf="@+id/etLicencePlateVehicle" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="@dimen/labels_width"
+        android:layout_height="@dimen/labels_height"
+        android:layout_marginStart="@dimen/labels_marginLeft"
+        android:layout_marginLeft="@dimen/labels_marginLeft"
+        android:layout_marginTop="@dimen/labels_space_top"
+        android:gravity="center_vertical"
         android:text="@string/Vehicle_Full_Capacity"
         android:textSize="14sp"
         android:textStyle="bold"
-        android:layout_marginStart="4dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView5" />
 
     <EditText
         android:id="@+id/etFullCapacity"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/labels_height"
+        android:layout_marginStart="@dimen/labels_marginLeft"
+        android:layout_marginLeft="@dimen/labels_marginLeft"
+        android:layout_marginTop="@dimen/labels_space_top"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
         android:hint="@string/Vehicle_Full_Capacity"
+        android:importantForAutofill="no"
         android:inputType="number"
         android:textSize="14sp"
-        android:importantForAutofill="no"
-        android:layout_marginLeft="4dp"
-        android:layout_marginStart="4dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textView3"
+        app:layout_constraintTop_toBottomOf="@+id/spintypefuel" />
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="4dp"
+        android:id="@+id/textView4"
+        android:layout_width="@dimen/labels_width"
+        android:layout_height="@dimen/labels_height"
+        android:layout_marginStart="@dimen/labels_marginLeft"
+        android:layout_marginLeft="@dimen/labels_marginLeft"
+        android:layout_marginTop="@dimen/labels_space_top"
+        android:gravity="center_vertical"
         android:text="@string/Vehicle_Avg_Consumption"
         android:textSize="14sp"
         android:textStyle="bold"
-        android:layout_marginStart="4dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
     <EditText
         android:id="@+id/etAVGConsumption"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/labels_height"
+        android:layout_marginStart="@dimen/labels_marginLeft"
+        android:layout_marginLeft="@dimen/labels_marginLeft"
+        android:layout_marginTop="@dimen/labels_space_top"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
         android:hint="@string/Vehicle_Avg_Consumption"
+        android:importantForAutofill="no"
         android:inputType="numberDecimal"
         android:textSize="14sp"
-        android:importantForAutofill="no"
-        android:layout_marginLeft="4dp"
-        android:layout_marginStart="4dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textView4"
+        app:layout_constraintTop_toBottomOf="@+id/etFullCapacity" />
 
     <Button
+        android:id="@+id/btSaveVehicle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/labels_space_top"
         android:onClick="save_vehicle"
         android:text="@string/bt_Save"
-        android:layout_gravity="center_horizontal"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etAVGConsumption" />
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

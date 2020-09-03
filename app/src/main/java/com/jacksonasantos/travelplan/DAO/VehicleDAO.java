@@ -18,11 +18,12 @@ public class VehicleDAO extends DbContentProvider implements VehicleISchema, Veh
 
     private Cursor cursor;
     private ContentValues initialValues;
-    private static final long serialVersionUID = 163383301108440384L;
 
-    public VehicleDAO(SQLiteDatabase db) { super(db); }
+    public VehicleDAO(SQLiteDatabase db) {
+        super(db);
+    }
 
-    public Vehicle fetchUserById(int id) {
+    public Vehicle fetchVehicleById(int id) {
         final String[] selectionArgs = { String.valueOf(id) };
         final String selection = ID + " = ?";
         Vehicle vehicle = new Vehicle();
@@ -39,7 +40,7 @@ public class VehicleDAO extends DbContentProvider implements VehicleISchema, Veh
         return vehicle;
     }
 
-    public List<Vehicle> fetchAllUsers() {
+    public List<Vehicle> fetchAllVehicles() {
         List<Vehicle> vehicleList = new ArrayList<>();
         cursor = super.query(VEHICLE_TABLE, VEHICLE_COLUMNS, null,
                 null, VEHICLE_ID);
@@ -68,6 +69,18 @@ public class VehicleDAO extends DbContentProvider implements VehicleISchema, Veh
         }
     }
 
+    public boolean updateVehicle(Vehicle vehicle) {
+        setContentValue(vehicle);
+        final String[] selectionArgs = { String.valueOf(vehicle.id) };
+        final String selection = ID + " = ?";
+        try {
+            return super.update(VEHICLE_TABLE, getContentValue(), selection, selectionArgs) > 0;
+        } catch (SQLiteConstraintException ex){
+            Log.w("Database", ex.getMessage());
+            return false;
+        }
+    }
+
     public boolean addVehicle(Vehicle vehicle) {
         // set values
         setContentValue(vehicle);
@@ -79,36 +92,22 @@ public class VehicleDAO extends DbContentProvider implements VehicleISchema, Veh
         }
     }
 
-    @Override
-    public boolean addVehicles(List<Vehicle> vehicles) {
-        return false;
-    }
-
-    @Override
-    public boolean deleteAllVehicles() {
-        return false;
-    }
-
     protected Vehicle cursorToEntity(Cursor cursor) {
 
         Vehicle vehicle = new Vehicle();
 
         int idIndex;
-        int OidIndex;
         int NameIndex;
         int license_plateIndex;
         int full_capacityIndex;
         int avg_consumptionIndex;
+        int brandIndex;
+        int type_fuelIndex;
 
         if (cursor != null) {
             if (cursor.getColumnIndex(VEHICLE_ID) != -1) {
                 idIndex = cursor.getColumnIndexOrThrow(VEHICLE_ID);
                 vehicle.id = cursor.getInt(idIndex);
-            }
-            if (cursor.getColumnIndex(VEHICLE_OID) != -1) {
-                OidIndex = cursor.getColumnIndexOrThrow(
-                        VEHICLE_OID);
-                vehicle.oid = cursor.getString(OidIndex);
             }
             if (cursor.getColumnIndex(VEHICLE_NAME) != -1) {
                 NameIndex = cursor.getColumnIndexOrThrow(
@@ -128,6 +127,14 @@ public class VehicleDAO extends DbContentProvider implements VehicleISchema, Veh
                 avg_consumptionIndex = cursor.getColumnIndexOrThrow(VEHICLE_AVG_CONSUMPTION);
                 vehicle.avg_consumption = cursor.getDouble(avg_consumptionIndex);
             }
+            if (cursor.getColumnIndex(VEHICLE_BRAND) != -1) {
+                brandIndex = cursor.getColumnIndexOrThrow(VEHICLE_BRAND);
+                vehicle.brand = cursor.getString(brandIndex);
+            }
+            if (cursor.getColumnIndex(VEHICLE_TYPE_FUEL) != -1) {
+                type_fuelIndex = cursor.getColumnIndexOrThrow(VEHICLE_TYPE_FUEL);
+                vehicle.type_fuel = cursor.getString(type_fuelIndex);
+            }
         }
         return vehicle;
     }
@@ -135,11 +142,12 @@ public class VehicleDAO extends DbContentProvider implements VehicleISchema, Veh
     private void setContentValue(Vehicle vehicle) {
         initialValues = new ContentValues();
         initialValues.put(VEHICLE_ID, vehicle.id);
-        initialValues.put(VEHICLE_OID, vehicle.oid);
         initialValues.put(VEHICLE_NAME, vehicle.name);
         initialValues.put(VEHICLE_LICENCE_PLATE, vehicle.license_plate);
         initialValues.put(VEHICLE_FULL_CAPACITY, vehicle.full_capacity);
         initialValues.put(VEHICLE_AVG_CONSUMPTION, vehicle.avg_consumption);
+        initialValues.put(VEHICLE_BRAND, vehicle.brand);
+        initialValues.put(VEHICLE_TYPE_FUEL, vehicle.type_fuel);
     }
 
     private ContentValues getContentValue() {

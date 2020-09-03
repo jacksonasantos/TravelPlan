@@ -4,17 +4,17 @@ public interface UserISchema {
 
     String USER_TABLE = "users";
 
-    String USER_ID = "_id";
+    String USER_ID = "id";
     String USER_NAME = "user_name";
     String USER_EMAIL = "email";
     String USER_DATE = "created_date";
 
-    String USER_TABLE_CREATE    = "CREATE TABLE IF NOT EXISTS "
-                                + USER_TABLE
-                                + " (" + USER_ID + " INTEGER PRIMARY KEY, "
+    String CREATE_TABLE_USER_V4 = "CREATE TABLE IF NOT EXISTS "
+                                + USER_TABLE + " ("
+                                + USER_ID + " INTEGER PRIMARY KEY, "
                                 + USER_NAME + " TEXT NOT NULL, "
-                                + USER_EMAIL + " TEXT,"
-                                + USER_DATE + "BIGINT "
+                                + USER_EMAIL + " TEXT, "
+                                + USER_DATE + " BIGINT "
                                 + ")";
 
     String[] USER_COLUMNS = new String[] { USER_NAME, USER_ID, USER_EMAIL, USER_DATE };

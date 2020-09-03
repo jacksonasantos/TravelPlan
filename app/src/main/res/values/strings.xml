@@ -43,6 +43,7 @@
     <string name="Vehicle_Licence_Plate">Licence Plate</string>
     <string name="Vehicle_Avg_Consumption">Average Consumption (KM/L)</string>
     <string name="Vehicle_Full_Capacity">Full Capacity (L)</string>
+    <string name="Vehicle_type_fuel">Type Fuel</string>
 
     <!-- Generic -->
     <string name="bt_Save">Save</string>
@@ -51,4 +52,11 @@
     <string name="bt_Add">Add</string>
     <string name="menu_add">Add</string>
 
+    <!-- Arrays -->
+    <string name="ethanol">Ethanol</string>
+    <string name="gasoline">Gasoline</string>
+    <string name="diesel" translatable="false">Diesel</string>
+    <string name="flex" translatable="false">Flex</string>
+    <string name="gnv" translatable="false">GNV</string>
+    <string name="electric">Electric</string>
 </resources>

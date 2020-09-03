@@ -3,8 +3,6 @@ package com.jacksonasantos.travelplan.ui.travel;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -12,8 +10,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.jacksonasantos.travelplan.R;
 
 import java.util.Random;
-
-import static java.security.AccessController.getContext;
 
 public class RandomNumListAdapter extends RecyclerView.Adapter<TravelViewModel> {
     private Random random;

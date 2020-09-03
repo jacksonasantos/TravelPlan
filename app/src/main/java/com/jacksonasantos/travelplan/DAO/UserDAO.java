@@ -81,16 +81,6 @@ public class UserDAO extends DbContentProvider implements UserISchema, UserIDAO 
         }
     }
 
-    @Override
-    public boolean addUsers(List<User> users) {
-        return false;
-    }
-
-    @Override
-    public boolean deleteAllUsers() {
-        return false;
-    }
-
     protected User cursorToEntity(Cursor cursor) {
 
         User user = new User();

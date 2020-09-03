@@ -4,4 +4,13 @@
         <item>@string/personal_gender_male</item>
         <item>@string/personal_gender_female</item>
     </string-array>
+    <!-- Type Fuel -->
+    <string-array name="type_fuel_array">
+        <item>@string/ethanol</item>
+        <item>@string/gasoline</item>
+        <item>@string/diesel</item>
+        <item>@string/flex</item>
+        <item>@string/gnv</item>
+        <item>@string/electric</item>
+    </string-array>
  </resources>

@@ -1,7 +1,9 @@
 package com.jacksonasantos.travelplan;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.MenuItem;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -13,6 +15,7 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.google.android.material.navigation.NavigationView;
 import com.jacksonasantos.travelplan.DAO.Database;
+import com.jacksonasantos.travelplan.ui.vehicle.VehicleActivity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -23,19 +26,13 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        mDb = new Database( this);
+        mDb.open();
+
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        mDb = new Database(this);
-        mDb.open();
-/*
-        //em qualquer parte do seu aplicativo, você pode pegar um usuário por seu id desta forma:
-        UserEntity user = Database.mUserDao.fetchUserByID(userId);
-
-        //e inserir um usuário no banco de dados
-        boolean isSaved = Database.mUserDao.addUser(user)
- */
 /*
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -60,7 +57,6 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupWithNavController(navigationView, navController);
 
     }
-    // Then in your onCreateOptionMenu() method write the following...
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -68,6 +64,24 @@ public class MainActivity extends AppCompatActivity {
         this.menu = menu;
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
+    }
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        MenuItem m = menu.findItem(R.id.addmenu);
+        m.setVisible(true);
+        return super.onPrepareOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch(item.getItemId()) {
+            case R.id.addmenu:
+                Intent intent = new Intent(this, VehicleActivity.class);
+                startActivity(intent);
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override

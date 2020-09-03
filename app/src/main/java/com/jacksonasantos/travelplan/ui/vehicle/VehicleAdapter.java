@@ -5,15 +5,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.jacksonasantos.travelplan.DAO.Vehicle;
 import com.jacksonasantos.travelplan.R;
-import com.jacksonasantos.travelplan.ui.travel.TravelViewModel;
 
 import java.util.List;
 
@@ -26,7 +23,7 @@ public class VehicleAdapter extends ArrayAdapter<Vehicle> {
         //this.inflater = (LayoutInflater) context.getSystemService(context.LAYOUT_INFLATER_SERVICE);
         this.vehicles = vehicles;
     }
-
+/*
     public void novosDados(List<Vehicle> vehicles) {
         this.vehicles = vehicles;
         notifyDataSetChanged();
@@ -51,7 +48,7 @@ public class VehicleAdapter extends ArrayAdapter<Vehicle> {
         View v = inflater.inflate(R.layout.fragment_vehicle_item, null);
         ((TextView) (v.findViewById(R.id.txtNome))).setText((CharSequence) vehicles.get(position));
 
-        ((ImageButton) (v.findViewById(R.id.btnEditar))).setOnClickListener
+        v.findViewById(R.id.btnEditar).setOnClickListener
                 (new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -59,7 +56,7 @@ public class VehicleAdapter extends ArrayAdapter<Vehicle> {
                         edita(vehicles.get(position));
                     }
                 });
-        ((ImageButton) (v.findViewById(R.id.btnExcluir)))
+        v.findViewById(R.id.btnExcluir)
                 .setOnClickListener
                         (new View.OnClickListener() {
                             @Override
@@ -78,5 +75,5 @@ public class VehicleAdapter extends ArrayAdapter<Vehicle> {
 
     public void edita(Vehicle vehicle) {    }
 
-    public void deleta(Vehicle vehicle) {    }
+    public void deleta(Vehicle vehicle) {    }*/
 }

@@ -1,8 +1,26 @@
 package com.jacksonasantos.travelplan.ui.vehicle;
 
+import android.view.Menu;
+import android.view.View;
+import android.widget.TextView;
+import com.jacksonasantos.travelplan.R;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
+public class VehicleViewModel extends RecyclerView.ViewHolder {
+
+    private TextView view;
+    public VehicleViewModel(@NonNull View itemView) {
+        super(itemView);
+        view = itemView.findViewById(R.id.txtNome);
+    }
+
+    public TextView getView(){ return view;  }
+}
+/*
 import android.app.ListActivity;
 import android.os.Bundle;
-import android.view.MenuItem;
 
 import com.jacksonasantos.travelplan.DAO.Database;
 import com.jacksonasantos.travelplan.DAO.Vehicle;
@@ -25,7 +43,7 @@ public class VehicleViewModel extends ListActivity {
         db = new Database(this);
       //  lerVehicles();
     }
-/*
+
     public void lerVehicles(){
         db.abrir();
         vehicles.clear();
@@ -77,5 +95,5 @@ public class VehicleViewModel extends ListActivity {
             }
         }
     }
-*/
-}
+
+}*/
