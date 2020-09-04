@@ -4,7 +4,7 @@ public interface VehicleISchema {
 
     String VEHICLE_TABLE = "vehicle";
 
-    String VEHICLE_ID = "id";
+    String VEHICLE_ID = "rowid";
     String VEHICLE_NAME = "name";
     String VEHICLE_LICENCE_PLATE = "license_plate";
     String VEHICLE_BRAND = "brand";
@@ -15,7 +15,6 @@ public interface VehicleISchema {
     // Version 1
     String CREATE_TABLE_VEHICLE_V1 = "CREATE TABLE IF NOT EXISTS "
             + VEHICLE_TABLE + " ("
-            + VEHICLE_ID + " INTEGER PRIMARY KEY, "
             + VEHICLE_NAME + " TEXT NOT NULL, "
             + VEHICLE_LICENCE_PLATE + " TEXT, "
             + VEHICLE_FULL_CAPACITY + " INT, "

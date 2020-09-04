@@ -4,7 +4,7 @@ public interface UserISchema {
 
     String USER_TABLE = "users";
 
-    String USER_ID = "id";
+    String USER_ID = "rowid";
     String USER_NAME = "user_name";
     String USER_EMAIL = "email";
     String USER_DATE = "created_date";
@@ -17,5 +17,5 @@ public interface UserISchema {
                                 + USER_DATE + " BIGINT "
                                 + ")";
 
-    String[] USER_COLUMNS = new String[] { USER_NAME, USER_ID, USER_EMAIL, USER_DATE };
+    String[] USER_COLUMNS = new String[] { USER_ID, USER_NAME, USER_EMAIL, USER_DATE };
 }

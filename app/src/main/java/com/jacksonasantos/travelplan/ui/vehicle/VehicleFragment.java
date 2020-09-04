@@ -5,32 +5,36 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.jacksonasantos.travelplan.DAO.Database;
+import com.jacksonasantos.travelplan.DAO.Vehicle;
 import com.jacksonasantos.travelplan.R;
-import com.jacksonasantos.travelplan.ui.travel.RandomNumListAdapter;
+
+import java.util.ArrayList;
 
 public class VehicleFragment extends Fragment {
+    ArrayList<Vehicle> vehicles;
+
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             @Nullable ViewGroup container,
-                             @Nullable Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater,
+                             ViewGroup container,
+                             Bundle savedInstanceState) {
+
+        Database mDb = new Database(getContext());
+        mDb.open();
+
+        super.onCreate(savedInstanceState);
 
         View root = inflater.inflate(R.layout.fragment_vehicle, container, false);
+        RecyclerView listVehicles = (RecyclerView) root.findViewById(R.id.listVehicles);
 
-        RecyclerView vehicleList = root.findViewById(R.id.listVehicles);
-        vehicleList.setHasFixedSize(true);
-        vehicleList.setLayoutManager(new LinearLayoutManager(vehicleList.getContext()));
-        vehicleList.setAdapter(new RandomNumListAdapter(1234));
-
-
-        //List<Vehicle> vehicles = null;
-        //VehicleAdapter vehicleAdapter = new VehicleAdapter(this.getActivity(), vehicles);
-        //vehicleList.setAdapter(vehicleAdapter);
+        VehicleListAdapter adapter = new VehicleListAdapter(Database.mVehicleDao.fetchAllVehicles());
+        listVehicles.setAdapter(adapter);
+        listVehicles.setLayoutManager(new LinearLayoutManager(getContext()));
+        mDb.close();
         return root;
     }
 }

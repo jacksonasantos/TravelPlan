@@ -1,22 +1,16 @@
 package com.jacksonasantos.travelplan.ui.vehicle;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
-import android.view.Window;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 import com.jacksonasantos.travelplan.DAO.Database;
 import com.jacksonasantos.travelplan.DAO.Vehicle;
-import com.jacksonasantos.travelplan.DAO.VehicleDAO;
 import com.jacksonasantos.travelplan.R;
 import com.jacksonasantos.travelplan.ui.utility.CustomOnItemSelectedListener;
 
@@ -26,7 +20,8 @@ public class VehicleActivity extends Activity {
     private EditText etLicencePlateVehicle;
     private EditText etFullCapacity;
     private EditText etAVGConsumption;
-    private Spinner spintypefuel;
+    private Spinner spinTypeFuel;
+    private EditText etBrand;
     private Button btSaveVehicle;
     private Vehicle vehicle;
 
@@ -43,12 +38,13 @@ public class VehicleActivity extends Activity {
         etLicencePlateVehicle = findViewById(R.id.etLicencePlateVehicle);
         etFullCapacity = findViewById(R.id.etFullCapacity);
         etAVGConsumption = findViewById(R.id.etAVGConsumption);
-        spintypefuel = findViewById(R.id.spintypefuel);
+        spinTypeFuel = findViewById(R.id.spinTypeFuel);
+        etBrand = findViewById(R.id.etBrand);
 
         ArrayAdapter<CharSequence> adapterSpinner = ArrayAdapter.createFromResource(this,
                 R.array.type_fuel_array, android.R.layout.simple_spinner_item);
         adapterSpinner.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spintypefuel.setAdapter(adapterSpinner);
+        spinTypeFuel.setAdapter(adapterSpinner);
 
         Intent intent = getIntent();
         vehicle = (Vehicle) intent.getSerializableExtra("vehicle");
@@ -58,6 +54,7 @@ public class VehicleActivity extends Activity {
             etFullCapacity.setText(vehicle.full_capacity);
             etAVGConsumption.setText((int) vehicle.avg_consumption);
             //spintypefuel.setText(vehicle.type_fuel);
+            etBrand.setText(vehicle.brand);
         }
     }
 
@@ -66,7 +63,8 @@ public class VehicleActivity extends Activity {
         etLicencePlateVehicle = findViewById(R.id.etLicencePlateVehicle);
         etFullCapacity = findViewById(R.id.etFullCapacity);
         etAVGConsumption = findViewById(R.id.etAVGConsumption);
-        spintypefuel = findViewById(R.id.spintypefuel);
+        spinTypeFuel = findViewById(R.id.spinTypeFuel);
+        etBrand = findViewById(R.id.etBrand);
         btSaveVehicle = findViewById(R.id.btSaveVehicle);
 
         btSaveVehicle.setOnClickListener(new View.OnClickListener() {
@@ -74,32 +72,34 @@ public class VehicleActivity extends Activity {
             public void onClick(View v) {
                 boolean isSave = false;
 
-                Toast.makeText(VehicleActivity.this,
-                        "OnClickListener : " +
-                                "\nSpinner 1 : "+ String.valueOf(spintypefuel.getSelectedItem()),
-                        Toast.LENGTH_SHORT).show();
+                Database mdb = new Database(VehicleActivity.this);
+                mdb.open();
 
-                Database db = new Database(VehicleActivity.this);
-//                db.open();
-
-                //Spinner spinner = (Spinner) findViewById(R.id.spintypefuel);
-/*                if (vehicle != null){
-                    Toast.makeText(this, "Exemplo UPDATE", Toast.LENGTH_SHORT).show();
-                    isSave = Database.mVehicleDao.updateVehicle(vehicle);
+/*                Toast.makeText(VehicleActivity.this,
+                        "ADD : " +
+                                "\nNome : "+ vehicle.getName() +
+                                "\nPlaca : "+ vehicle.getLicense_plate() +
+                                "\ntanque : "+ vehicle.getFull_capacity() +
+                                "\navg : "+vehicle.getAvg_consumption() +
+                                "\nbrand : "+vehicle.getBrand(),
+                        Toast.LENGTH_LONG).show();
+*/
+                Spinner spinner = (Spinner) findViewById(R.id.spinTypeFuel);
+                if (vehicle != null){
+//                    isSave = Database.mVehicleDao.updateVehicle(vehicle);
                 } else {
-                    Toast.makeText(this, "Exemplo ADD", Toast.LENGTH_SHORT).show();
-                    vehicle.oid = etNameVehicle.getText().toString();
-                    vehicle.name = etOIDVehicle.getText().toString();
-                    vehicle.license_plate = etLicencePlateVehicle.getText().toString();
-                    vehicle.full_capacity = Integer.parseInt(etFullCapacity.getText().toString());
-                    vehicle.avg_consumption = Double.parseDouble(etAVGConsumption.getText().toString());
-                    //vehicle.type_fuel = spinner.setOnItemSelectedListener(this);
+                    Vehicle vehicle = new Vehicle();
+                    vehicle.setName(etNameVehicle.getText().toString());
+                    vehicle.setLicense_plate(etLicencePlateVehicle.getText().toString());
+                    vehicle.setFull_capacity(Integer.parseInt(etFullCapacity.getText().toString()));
+                    vehicle.setAvg_consumption(Double.parseDouble(etAVGConsumption.getText().toString()));
+                    //vehicle.type_fuel = spinner.setOnItemSelectedListener();
+                    vehicle.setBrand(etBrand.getText().toString());
 
                     isSave = Database.mVehicleDao.addVehicle(vehicle);
-                    Toast.makeText(this, "Exemplo ADD + "+isSave, Toast.LENGTH_SHORT).show();
                 }
-*/
-//                db.close();
+
+                mdb.close();
                 setResult(isSave ? 1 : 0);
                 finish();
             }
@@ -107,11 +107,7 @@ public class VehicleActivity extends Activity {
     }
 
     public void addListenerOnSpinnerItemSelection() {
-        spintypefuel = (Spinner) findViewById(R.id.spintypefuel);
-        spintypefuel.setOnItemSelectedListener(new CustomOnItemSelectedListener());
+        spinTypeFuel = (Spinner) findViewById(R.id.spinTypeFuel);
+        spinTypeFuel.setOnItemSelectedListener(new CustomOnItemSelectedListener());
     }
 }
-
-/*      //em qualquer parte do seu aplicativo, você pode pegar um usuário por seu id desta forma:
-        Vehicle vehicle = Database.mVehicleDao.fetchVehicleById(VehicleId);
- */

@@ -12,8 +12,6 @@ import com.jacksonasantos.travelplan.DAO.Interface.VehicleISchema;
 import java.util.ArrayList;
 import java.util.List;
 
-import static android.os.Build.ID;
-
 public class VehicleDAO extends DbContentProvider implements VehicleISchema, VehicleIDAO {
 
     private Cursor cursor;
@@ -25,10 +23,9 @@ public class VehicleDAO extends DbContentProvider implements VehicleISchema, Veh
 
     public Vehicle fetchVehicleById(int id) {
         final String[] selectionArgs = { String.valueOf(id) };
-        final String selection = ID + " = ?";
+        final String selection = VEHICLE_ID + " = ?";
         Vehicle vehicle = new Vehicle();
-        cursor = super.query(VEHICLE_TABLE, VEHICLE_COLUMNS, selection,
-                selectionArgs, VEHICLE_ID);
+        cursor = super.query(VEHICLE_TABLE, VEHICLE_COLUMNS, selection, selectionArgs, VEHICLE_ID);
         if (cursor != null) {
             cursor.moveToFirst();
             while (!cursor.isAfterLast()) {
@@ -40,18 +37,18 @@ public class VehicleDAO extends DbContentProvider implements VehicleISchema, Veh
         return vehicle;
     }
 
-    public List<Vehicle> fetchAllVehicles() {
+        public List<Vehicle> fetchAllVehicles() {
         List<Vehicle> vehicleList = new ArrayList<>();
-        cursor = super.query(VEHICLE_TABLE, VEHICLE_COLUMNS, null,
-                null, VEHICLE_ID);
 
-        if (cursor != null) {
-            cursor.moveToFirst();
-            while (!cursor.isAfterLast()) {
+        cursor = super.query(VEHICLE_TABLE, VEHICLE_COLUMNS, null,null, VEHICLE_ID);
+
+        if (cursor.moveToFirst()) {
+            int colIndex = cursor.getColumnIndex("name");
+            do {
                 Vehicle vehicle = cursorToEntity(cursor);
                 vehicleList.add(vehicle);
-                cursor.moveToNext();
-            }
+                } while (cursor.moveToNext());
+
             cursor.close();
         }
         return vehicleList;
@@ -59,7 +56,7 @@ public class VehicleDAO extends DbContentProvider implements VehicleISchema, Veh
 
     public boolean deleteVehicle(int id) {
         final String[] selectionArgs = { String.valueOf(id) };
-        final String selection = ID + " = ?";
+        final String selection = VEHICLE_ID + " = ?";
         Vehicle vehicle = new Vehicle();
         try {
             return super.delete(VEHICLE_TABLE, selection, selectionArgs) > 0;
@@ -71,12 +68,12 @@ public class VehicleDAO extends DbContentProvider implements VehicleISchema, Veh
 
     public boolean updateVehicle(Vehicle vehicle) {
         setContentValue(vehicle);
-        final String[] selectionArgs = { String.valueOf(vehicle.id) };
-        final String selection = ID + " = ?";
+        //final String[] selectionArgs = { vehicle.getID() };
+        final String selection = VEHICLE_ID + " = ?";
         try {
-            return super.update(VEHICLE_TABLE, getContentValue(), selection, selectionArgs) > 0;
+            return super.update(VEHICLE_TABLE, getContentValue(), selection, null) > 0;
         } catch (SQLiteConstraintException ex){
-            Log.w("Database", ex.getMessage());
+            Log.w("Update Table", ex.getMessage());
             return false;
         }
     }
@@ -87,7 +84,7 @@ public class VehicleDAO extends DbContentProvider implements VehicleISchema, Veh
         try {
             return super.insert(VEHICLE_TABLE, getContentValue()) > 0;
         } catch (SQLiteConstraintException ex){
-            Log.w("Database", ex.getMessage());
+            Log.w("Insert Table", ex.getMessage());
             return false;
         }
     }
@@ -97,7 +94,7 @@ public class VehicleDAO extends DbContentProvider implements VehicleISchema, Veh
         Vehicle vehicle = new Vehicle();
 
         int idIndex;
-        int NameIndex;
+        int nameIndex;
         int license_plateIndex;
         int full_capacityIndex;
         int avg_consumptionIndex;
@@ -106,13 +103,14 @@ public class VehicleDAO extends DbContentProvider implements VehicleISchema, Veh
 
         if (cursor != null) {
             if (cursor.getColumnIndex(VEHICLE_ID) != -1) {
-                idIndex = cursor.getColumnIndexOrThrow(VEHICLE_ID);
-                vehicle.id = cursor.getInt(idIndex);
+                idIndex = cursor.getColumnIndexOrThrow(
+                        VEHICLE_ID);
+                vehicle.id = cursor.getString(idIndex);
             }
             if (cursor.getColumnIndex(VEHICLE_NAME) != -1) {
-                NameIndex = cursor.getColumnIndexOrThrow(
+                nameIndex = cursor.getColumnIndexOrThrow(
                         VEHICLE_NAME);
-                vehicle.name = cursor.getString(NameIndex);
+                vehicle.name = cursor.getString(nameIndex);
             }
             if (cursor.getColumnIndex(VEHICLE_LICENCE_PLATE) != -1) {
                 license_plateIndex = cursor.getColumnIndexOrThrow(
@@ -141,7 +139,6 @@ public class VehicleDAO extends DbContentProvider implements VehicleISchema, Veh
 
     private void setContentValue(Vehicle vehicle) {
         initialValues = new ContentValues();
-        initialValues.put(VEHICLE_ID, vehicle.id);
         initialValues.put(VEHICLE_NAME, vehicle.name);
         initialValues.put(VEHICLE_LICENCE_PLATE, vehicle.license_plate);
         initialValues.put(VEHICLE_FULL_CAPACITY, vehicle.full_capacity);

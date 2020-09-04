@@ -11,8 +11,6 @@
     <string name="personal_header">Dados Pessoais</string>
     <string name="messages_header">Mensagem Eletrônica</string>
     <string name="Vehicle_Full_Capacity">Capacidade Combustível (L)</string>
-    <string name="Vehicle_name">Nome do Veículo</string>
-    <string name="vehicle_id">Identificação do Veículo</string>
     <string name="Vehicle_Avg_Consumption">Consumo Médio (KM/L)</string>
     <string name="menu_travel">Viagens</string>
     <string name="Vehicle_Licence_Plate">Placa de Identificação</string>
@@ -33,8 +31,11 @@
     <string name="Travel_Departure_Date">Data de Partida da Viagem</string>
     <string name="Travel_Return_Date">Data de Retorno da Viagem</string>
     <string name="Travel_Note">Anotações da Viagem</string>
-    <string name="Vehicle_type_fuel">Tipo de Combustível</string>
     <string name="gasoline">Gasolina</string>
     <string name="electric">Elétrico</string>
     <string name="ethanol">Etanol</string>
+    <string name="Vehicle_Brand">Fabricante</string>
+    <string name="Vehicle_Name">Nome do Veículo</string>
+    <string name="vehicle_Id">Identificação do Veículo</string>
+    <string name="Vehicle_Type_Fuel">Tipo de Combustível</string>
 </resources>

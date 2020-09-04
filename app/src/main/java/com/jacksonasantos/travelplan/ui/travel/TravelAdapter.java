@@ -79,5 +79,3 @@ public class TravelAdapter extends ArrayAdapter<Travel> {
     public void deleta(Travel travel) {    }
 }
 
-
-// Toast.makeText(getContext(), "Exemplo Toast", Toast.LENGTH_SHORT).show();

@@ -1,7 +1,7 @@
 package com.jacksonasantos.travelplan.DAO;
 
 public class Vehicle {
-    public int id;
+    public String id;
     public String name;
     public String license_plate;
     public int full_capacity;
@@ -9,7 +9,7 @@ public class Vehicle {
     public String brand;
     public String type_fuel;
 
-    Vehicle() {
+    public Vehicle() {
         this.id = id;
         this.name = name;
         this.license_plate = license_plate;
@@ -17,14 +17,6 @@ public class Vehicle {
         this.avg_consumption = avg_consumption;
         this.brand = brand;
         this.type_fuel = type_fuel;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getName() {

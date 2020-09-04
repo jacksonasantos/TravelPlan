@@ -1,62 +1,65 @@
 package com.jacksonasantos.travelplan.ui.vehicle;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.jacksonasantos.travelplan.DAO.Vehicle;
 import com.jacksonasantos.travelplan.R;
 
 import java.util.List;
-import java.util.Random;
 
 public class VehicleListAdapter extends RecyclerView.Adapter<VehicleListAdapter.MyViewHolder> {
-    private String[] mDataset;
 
-    // Provide a reference to the views for each data item
-    // Complex data items may need more than one view per item, and
-    // you provide access to all the views for a data item in a view holder
-    public static class MyViewHolder extends RecyclerView.ViewHolder {
-        // each data item is just a string in this case
+    public class MyViewHolder extends RecyclerView.ViewHolder {
+    // each data item is just a string in this case
         public TextView textView;
-        public MyViewHolder(TextView v) {
+
+        public MyViewHolder(View v) {
             super(v);
-            textView = v;
+            textView = (TextView) v.findViewById(R.id.txtNome);
         }
     }
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public VehicleListAdapter(String[] myDataset) {
-        mDataset = myDataset;
+    private List<Vehicle> mVehicle;
+
+    public VehicleListAdapter(List<Vehicle> vehicles) {
+        mVehicle = vehicles;
     }
 
     // Create new views (invoked by the layout manager)
     @Override
     public VehicleListAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent,
                                                      int viewType) {
+        Context context = parent.getContext();
+
         // create a new view
-        TextView v = (TextView) LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.fragment_vehicle_item, parent, false);
-        MyViewHolder vh = new MyViewHolder(v);
+        LayoutInflater inflater = LayoutInflater.from(context);
+
+        View vehicleView = inflater.inflate(R.layout.fragment_vehicle_item, parent, false);
+        MyViewHolder vh = new MyViewHolder(vehicleView);
         return vh;
     }
 
     // Replace the contents of a view (invoked by the layout manager)
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
-        // - get element from your dataset at this position
-        // - replace the contents of the view with that element
-        holder.textView.setText(mDataset[position]);
+        Vehicle vehicle = mVehicle.get(position);
+
+        TextView textView = holder.textView;
+        textView.setText(vehicle.getName());
+
+        //buttons
 
     }
 
-    // Return the size of your dataset (invoked by the layout manager)
     @Override
     public int getItemCount() {
-        return mDataset.length;
+        return mVehicle.size();
     }
 }

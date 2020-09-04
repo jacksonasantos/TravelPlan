@@ -15,7 +15,7 @@
         android:layout_marginTop="@dimen/labels_space_top"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
-        android:hint="@string/Vehicle_name"
+        android:hint="@string/Vehicle_Name"
         android:importantForAutofill="no"
         android:inputType="text"
         android:textSize="14sp"
@@ -48,11 +48,43 @@
         android:layout_marginRight="8dp"
         android:hint="@string/Vehicle_Licence_Plate"
         android:importantForAutofill="no"
-        android:inputType="text"
+        android:inputType="text|textCapCharacters"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/textView2"
         app:layout_constraintTop_toBottomOf="@+id/etNameVehicle" />
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="@dimen/labels_width"
+        android:layout_height="@dimen/labels_height"
+        android:layout_marginStart="@dimen/labels_marginLeft"
+        android:layout_marginLeft="@dimen/labels_marginLeft"
+        android:layout_marginTop="@dimen/labels_space_top"
+        android:gravity="center_vertical"
+        android:text="@string/Vehicle_Brand"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
+    <EditText
+        android:id="@+id/etBrand"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/labels_height"
+        android:layout_marginStart="@dimen/labels_marginLeft"
+        android:layout_marginLeft="@dimen/labels_marginLeft"
+        android:layout_marginTop="@dimen/labels_space_top"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:hint="@string/Vehicle_Brand"
+        android:importantForAutofill="no"
+        android:inputType="text"
+        android:nextFocusDown="@+id/spinTypeFuel"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textView2"
+        app:layout_constraintTop_toBottomOf="@+id/etLicencePlateVehicle" />
 
     <TextView
         android:id="@+id/textView5"
@@ -62,14 +94,14 @@
         android:layout_marginLeft="@dimen/labels_marginLeft"
         android:layout_marginTop="@dimen/labels_space_top"
         android:gravity="center_vertical"
-        android:text="@string/Vehicle_type_fuel"
+        android:text="@string/Vehicle_Type_Fuel"
         android:textSize="14sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+        app:layout_constraintTop_toBottomOf="@+id/textView6" />
 
     <Spinner
-        android:id="@+id/spintypefuel"
+        android:id="@+id/spinTypeFuel"
         android:layout_width="0dp"
         android:layout_height="@dimen/labels_height"
         android:layout_marginStart="@dimen/labels_marginLeft"
@@ -77,9 +109,10 @@
         android:layout_marginTop="@dimen/labels_space_top"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
+        android:spinnerMode="dropdown"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/textView5"
-        app:layout_constraintTop_toBottomOf="@+id/etLicencePlateVehicle" />
+        app:layout_constraintTop_toBottomOf="@+id/etBrand" />
 
     <TextView
         android:id="@+id/textView3"
@@ -110,7 +143,7 @@
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/textView3"
-        app:layout_constraintTop_toBottomOf="@+id/spintypefuel" />
+        app:layout_constraintTop_toBottomOf="@+id/spinTypeFuel" />
 
     <TextView
         android:id="@+id/textView4"
