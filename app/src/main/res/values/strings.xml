@@ -38,20 +38,32 @@
     <string name="Travel_Note">Note Travel</string>
 
     <!-- Vehicle Fragment -->
-    <string name="vehicle_Id">Id. Vehicle</string>
+    <string name="vehicle_Id">Identification Vehicle</string>
     <string name="Vehicle_Name">Name Vehicle</string>
+    <string name="Vehicle_Short_Name">Short Name </string>
     <string name="Vehicle_Licence_Plate">Licence Plate</string>
     <string name="Vehicle_Avg_Consumption">Average Consumption (KM/L)</string>
     <string name="Vehicle_Full_Capacity">Full Capacity (L)</string>
     <string name="Vehicle_Type_Fuel">Type Fuel</string>
     <string name="Vehicle_Brand">Brand</string>
+    <string name="Vehicle_Acquisition_Sale">Acquisition/Sale</string>
+    <string name="Vehicle_Acquisition">Acquisition/Sale</string>
+    <string name="Vehicle_Sale">Sale</string>
+    <string name="Vehicle_Odometer">Odometer</string>
+    <string name="Vehicle_DtOdometer">Date Odometer</string>
+    <string name="Vehicle_Deleting">Deleting Vehicle</string>
 
     <!-- Generic -->
+    <string name="Yes">Yes</string>
+    <string name="No">No</string>
+    <string name="Ok" translatable="false">Ok</string>
+    <string name="Erro" translatable="false">Erro</string>
     <string name="bt_Save">Save</string>
     <string name="bt_Delete">Delete</string>
     <string name="bt_Edit">Edit</string>
     <string name="bt_Add">Add</string>
     <string name="menu_add">Add</string>
+    <string name="Msg_Confirm">Are you sure you want to perform the operation?</string>
 
     <!-- Arrays -->
     <string name="ethanol">Ethanol</string>

@@ -43,7 +43,6 @@ public class VehicleDAO extends DbContentProvider implements VehicleISchema, Veh
         cursor = super.query(VEHICLE_TABLE, VEHICLE_COLUMNS, null,null, VEHICLE_ID);
 
         if (cursor.moveToFirst()) {
-            int colIndex = cursor.getColumnIndex("name");
             do {
                 Vehicle vehicle = cursorToEntity(cursor);
                 vehicleList.add(vehicle);
@@ -57,7 +56,6 @@ public class VehicleDAO extends DbContentProvider implements VehicleISchema, Veh
     public boolean deleteVehicle(int id) {
         final String[] selectionArgs = { String.valueOf(id) };
         final String selection = VEHICLE_ID + " = ?";
-        Vehicle vehicle = new Vehicle();
         try {
             return super.delete(VEHICLE_TABLE, selection, selectionArgs) > 0;
         } catch (SQLiteConstraintException ex){
@@ -105,7 +103,7 @@ public class VehicleDAO extends DbContentProvider implements VehicleISchema, Veh
             if (cursor.getColumnIndex(VEHICLE_ID) != -1) {
                 idIndex = cursor.getColumnIndexOrThrow(
                         VEHICLE_ID);
-                vehicle.id = cursor.getString(idIndex);
+                vehicle.id = cursor.getLong(idIndex);
             }
             if (cursor.getColumnIndex(VEHICLE_NAME) != -1) {
                 nameIndex = cursor.getColumnIndexOrThrow(

@@ -15,7 +15,7 @@ import com.jacksonasantos.travelplan.R;
 
 import java.util.ArrayList;
 
-public class VehicleFragment extends Fragment {
+public class VehicleFragment extends Fragment  {
     ArrayList<Vehicle> vehicles;
 
     @Override
@@ -34,6 +34,7 @@ public class VehicleFragment extends Fragment {
         VehicleListAdapter adapter = new VehicleListAdapter(Database.mVehicleDao.fetchAllVehicles());
         listVehicles.setAdapter(adapter);
         listVehicles.setLayoutManager(new LinearLayoutManager(getContext()));
+
         mDb.close();
         return root;
     }

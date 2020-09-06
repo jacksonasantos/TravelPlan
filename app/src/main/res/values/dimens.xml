@@ -9,6 +9,6 @@
     <dimen name="labels_width">180dp</dimen>
     <dimen name="labels_height">30dp</dimen>
     <dimen name="labels_marginLeft">8dp</dimen>
-    <dimen name="labels_space_top">18dp</dimen>
+    <dimen name="labels_space_top">10dp</dimen>
 
 </resources>

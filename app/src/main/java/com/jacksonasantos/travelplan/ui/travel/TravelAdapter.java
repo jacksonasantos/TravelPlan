@@ -1,6 +1,7 @@
 package com.jacksonasantos.travelplan.ui.travel;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,7 @@ import android.widget.Toast;
 
 import com.jacksonasantos.travelplan.DAO.Travel;
 import com.jacksonasantos.travelplan.R;
+import com.jacksonasantos.travelplan.ui.vehicle.VehicleActivity;
 
 import java.util.List;
 
@@ -53,6 +55,7 @@ public class TravelAdapter extends ArrayAdapter<Travel> {
                     @Override
                     public void onClick(View v) {
                         Toast.makeText(getContext(), "Exemplo Toast" + travels.get(position), Toast.LENGTH_SHORT).show();
+
                         edita(travels.get(position));
                     }
                 });

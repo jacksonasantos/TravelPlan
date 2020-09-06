@@ -7,25 +7,43 @@
     android:orientation="horizontal" >
 
     <TextView
-        android:id="@+id/txtNome"
-        android:layout_width="0dp"
+        android:id="@+id/txtPlate"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="1"
+        android:layout_weight="2"
         android:gravity="center_vertical"
-        android:text="Medium Text"
-        tools:text="Este é algum texto temporário" />
+        android:text="Text"/>
+
+    <TextView
+        android:id="@+id/txtName"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_weight="1.5"
+        android:gravity="center_vertical"
+        android:text="Text" />
+
+    <TextView
+        android:id="@+id/txtAVG"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="2"
+        android:gravity="center_vertical"
+        android:text="AVG" />
 
     <ImageButton
-        android:id="@+id/btnEditar"
+        android:id="@+id/btnEdit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:contentDescription="@string/bt_Edit"
         android:src="@drawable/ic_menu_edit" />
 
     <ImageButton
-        android:id="@+id/btnExcluir"
+        android:id="@+id/btnDelete"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:contentDescription="@string/bt_Delete"
         android:src="@drawable/ic_menu_delete" />
+
 </LinearLayout>

@@ -4,10 +4,12 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.jacksonasantos.travelplan.DAO.Database;
 import com.jacksonasantos.travelplan.DAO.Vehicle;
@@ -22,14 +24,13 @@ public class VehicleActivity extends Activity {
     private EditText etAVGConsumption;
     private Spinner spinTypeFuel;
     private EditText etBrand;
-    private Button btSaveVehicle;
     private Vehicle vehicle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_vehicle);
-        setTitle("Identificação do Veículo");
+        setTitle(R.string.vehicle_Id);
 
         addListenerOnButton();
         addListenerOnSpinnerItemSelection();
@@ -53,7 +54,7 @@ public class VehicleActivity extends Activity {
             etLicencePlateVehicle.setText(vehicle.license_plate);
             etFullCapacity.setText(vehicle.full_capacity);
             etAVGConsumption.setText((int) vehicle.avg_consumption);
-            //spintypefuel.setText(vehicle.type_fuel);
+            //spinTypeFuel = spinTypeFuel.getSelectedItemId().getType_fuel();
             etBrand.setText(vehicle.brand);
         }
     }
@@ -65,7 +66,7 @@ public class VehicleActivity extends Activity {
         etAVGConsumption = findViewById(R.id.etAVGConsumption);
         spinTypeFuel = findViewById(R.id.spinTypeFuel);
         etBrand = findViewById(R.id.etBrand);
-        btSaveVehicle = findViewById(R.id.btSaveVehicle);
+        Button btSaveVehicle = findViewById(R.id.btSaveVehicle);
 
         btSaveVehicle.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -75,39 +76,41 @@ public class VehicleActivity extends Activity {
                 Database mdb = new Database(VehicleActivity.this);
                 mdb.open();
 
-/*                Toast.makeText(VehicleActivity.this,
-                        "ADD : " +
-                                "\nNome : "+ vehicle.getName() +
-                                "\nPlaca : "+ vehicle.getLicense_plate() +
-                                "\ntanque : "+ vehicle.getFull_capacity() +
-                                "\navg : "+vehicle.getAvg_consumption() +
-                                "\nbrand : "+vehicle.getBrand(),
-                        Toast.LENGTH_LONG).show();
-*/
-                Spinner spinner = (Spinner) findViewById(R.id.spinTypeFuel);
-                if (vehicle != null){
+                if (vehicle != null) {
 //                    isSave = Database.mVehicleDao.updateVehicle(vehicle);
                 } else {
-                    Vehicle vehicle = new Vehicle();
-                    vehicle.setName(etNameVehicle.getText().toString());
-                    vehicle.setLicense_plate(etLicencePlateVehicle.getText().toString());
-                    vehicle.setFull_capacity(Integer.parseInt(etFullCapacity.getText().toString()));
-                    vehicle.setAvg_consumption(Double.parseDouble(etAVGConsumption.getText().toString()));
-                    //vehicle.type_fuel = spinner.setOnItemSelectedListener();
-                    vehicle.setBrand(etBrand.getText().toString());
+                    try {
+                        final Vehicle vehicle = new Vehicle();
+                        vehicle.setName(etNameVehicle.getText().toString());
+                        vehicle.setLicense_plate(etLicencePlateVehicle.getText().toString());
+                        vehicle.setFull_capacity(Integer.parseInt(etFullCapacity.getText().toString()));
+                        vehicle.setAvg_consumption(Double.parseDouble(etAVGConsumption.getText().toString()));
+                        //vehicle.setType_fuel(vnome);
+                        vehicle.setBrand(etBrand.getText().toString());
 
-                    isSave = Database.mVehicleDao.addVehicle(vehicle);
+                        isSave = Database.mVehicleDao.addVehicle(vehicle);
+                    } catch ( Exception e ) {
+                        isSave = false;
+                        Toast.makeText(getApplicationContext(), "Erro Salvando os Dados", Toast.LENGTH_LONG).show();
+                    }
                 }
 
                 mdb.close();
                 setResult(isSave ? 1 : 0);
-                finish();
+                if (isSave ) { finish(); }
             }
         });
     }
 
     public void addListenerOnSpinnerItemSelection() {
-        spinTypeFuel = (Spinner) findViewById(R.id.spinTypeFuel);
-        spinTypeFuel.setOnItemSelectedListener(new CustomOnItemSelectedListener());
+        spinTypeFuel = findViewById(R.id.spinTypeFuel);
+        spinTypeFuel.setOnItemSelectedListener(new CustomOnItemSelectedListener(){
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                //String vnome = spinTypeFuel.getSelectedItem().toString();
+                //Toast.makeText(getApplicationContext(), "Nome: " + vnome, Toast.LENGTH_LONG).show();
+            }
+            public void onNothingSelected(AdapterView<?> adapterView) {
+            }
+        });
     }
 }
