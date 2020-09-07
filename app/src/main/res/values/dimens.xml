@@ -7,8 +7,9 @@
 
 
     <dimen name="labels_width">180dp</dimen>
-    <dimen name="labels_height">30dp</dimen>
+    <dimen name="labels_height">32dp</dimen>
     <dimen name="labels_marginLeft">8dp</dimen>
-    <dimen name="labels_space_top">10dp</dimen>
+    <dimen name="labels_margin">8dp</dimen>
+    <dimen name="labels_space_top">4dp</dimen>
 
 </resources>

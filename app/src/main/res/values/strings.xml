@@ -72,4 +72,7 @@
     <string name="flex" translatable="false">Flex</string>
     <string name="gnv" translatable="false">GNV</string>
     <string name="electric">Electric</string>
+    <string name="title_activity_fullscreen">FullscreenActivity</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
 </resources>

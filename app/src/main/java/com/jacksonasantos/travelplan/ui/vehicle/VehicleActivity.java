@@ -1,6 +1,5 @@
 package com.jacksonasantos.travelplan.ui.vehicle;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -11,12 +10,15 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.jacksonasantos.travelplan.DAO.Database;
 import com.jacksonasantos.travelplan.DAO.Vehicle;
 import com.jacksonasantos.travelplan.R;
 import com.jacksonasantos.travelplan.ui.utility.CustomOnItemSelectedListener;
 
-public class VehicleActivity extends Activity {
+public class VehicleActivity extends AppCompatActivity {
 
     private EditText etNameVehicle;
     private EditText etLicencePlateVehicle;
@@ -30,6 +32,10 @@ public class VehicleActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_vehicle);
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
         setTitle(R.string.vehicle_Id);
 
         addListenerOnButton();
