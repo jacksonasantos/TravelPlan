@@ -10,18 +10,16 @@ public class Vehicle {
     public String type_fuel;
 
     public Vehicle() {
-        this.id = id;
+      //  this.id = id;
         this.name = name;
         this.license_plate = license_plate;
-        this.full_capacity = full_capacity;
-        this.avg_consumption = avg_consumption;
+      // this.full_capacity = full_capacity;
+     //  this.avg_consumption = avg_consumption;
         this.brand = brand;
         this.type_fuel = type_fuel;
     }
 
-    public long getId() {
-        return id;
-    }
+    public long getId() { return id; }
 
     public void setId(Long id) {
         this.id = id;

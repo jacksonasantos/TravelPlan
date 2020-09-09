@@ -47,8 +47,8 @@
     <string name="Vehicle_Type_Fuel">Type Fuel</string>
     <string name="Vehicle_Brand">Brand</string>
     <string name="Vehicle_Acquisition_Sale">Acquisition/Sale</string>
-    <string name="Vehicle_Acquisition">Acquisition/Sale</string>
-    <string name="Vehicle_Sale">Sale</string>
+    <string name="Vehicle_DtAcquisition">Acquisition Data</string>
+    <string name="Vehicle_DtSale">Sale Data</string>
     <string name="Vehicle_Odometer">Odometer</string>
     <string name="Vehicle_DtOdometer">Date Odometer</string>
     <string name="Vehicle_Deleting">Deleting Vehicle</string>
@@ -72,7 +72,4 @@
     <string name="flex" translatable="false">Flex</string>
     <string name="gnv" translatable="false">GNV</string>
     <string name="electric">Electric</string>
-    <string name="title_activity_fullscreen">FullscreenActivity</string>
-    <string name="dummy_button">Dummy Button</string>
-    <string name="dummy_content">DUMMY\nCONTENT</string>
 </resources>

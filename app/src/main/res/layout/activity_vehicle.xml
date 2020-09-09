@@ -1,355 +1,231 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:context=".ui.vehicle.VehicleActivity">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
+    <LinearLayout
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:isScrollContainer="true"
         android:orientation="vertical">
 
-        <EditText
-            android:id="@+id/etNameVehicle"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_marginStart="@dimen/labels_margin"
-            android:layout_marginLeft="@dimen/labels_margin"
-            android:layout_marginEnd="@dimen/labels_margin"
-            android:layout_marginRight="@dimen/labels_margin"
-            android:autofillHints="no"
-            android:hint="@string/Vehicle_Name"
-            android:inputType="text"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/input_layout_etNameVehicle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <EditText
+                android:id="@+id/etNameVehicle"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="@dimen/labels_margin"
+                android:layout_marginLeft="@dimen/labels_margin"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="@dimen/labels_margin"
+                android:layout_marginRight="@dimen/labels_margin"
+                android:autofillHints="no"
+                android:hint="@string/Vehicle_Name"
+                android:inputType="text" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-        <TextView
-            android:id="@+id/textView1"
-            android:layout_width="@dimen/labels_width"
-            android:layout_height="@dimen/labels_height"
-            android:layout_marginStart="@dimen/labels_margin"
-            android:layout_marginLeft="@dimen/labels_margin"
-            android:layout_marginTop="@dimen/labels_space_top"
-            android:layout_marginEnd="@dimen/labels_margin"
-            android:layout_marginRight="@dimen/labels_margin"
-            android:gravity="bottom"
-            android:text="@string/Vehicle_Short_Name"
-            android:textSize="14sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/etNameVehicle" />
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/input_layout_etShortNameVehicle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <EditText
+                android:id="@+id/etShortNameVehicle"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="@dimen/labels_margin"
+                android:layout_marginLeft="@dimen/labels_margin"
+                android:layout_marginTop="@dimen/labels_space_top"
+                android:layout_marginEnd="@dimen/labels_margin"
+                android:layout_marginRight="@dimen/labels_margin"
+                android:autofillHints="no"
+                android:hint="@string/Vehicle_Short_Name"
+                android:inputType="text" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-        <EditText
-            android:id="@+id/etShortNameVehicle"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_marginStart="@dimen/labels_margin"
-            android:layout_marginLeft="@dimen/labels_margin"
-            android:layout_marginTop="@dimen/labels_space_top"
-            android:layout_marginEnd="@dimen/labels_margin"
-            android:layout_marginRight="@dimen/labels_margin"
-            android:autofillHints="no"
-            android:hint="@string/Vehicle_Short_Name"
-            android:inputType="text"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/textView1"
-            app:layout_constraintTop_toBottomOf="@+id/etNameVehicle" />
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/input_layout_etLicencePlateVehicle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:counterEnabled="true"
+            app:counterMaxLength="7">
+            <EditText
+                android:id="@+id/etLicencePlateVehicle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/labels_margin"
+                android:layout_marginLeft="@dimen/labels_margin"
+                android:layout_marginTop="@dimen/labels_space_top"
+                android:layout_marginEnd="@dimen/labels_margin"
+                android:layout_marginRight="@dimen/labels_margin"
+                android:autofillHints="no"
+                android:ems="10"
+                android:hint="@string/Vehicle_Licence_Plate"
+                android:inputType="text|textCapCharacters"
+                android:textAllCaps="true" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-        <TextView
-            android:id="@+id/textView2"
-            android:layout_width="@dimen/labels_width"
-            android:layout_height="@dimen/labels_height"
-            android:layout_marginStart="@dimen/labels_margin"
-            android:layout_marginLeft="@dimen/labels_margin"
-            android:layout_marginTop="@dimen/labels_space_top"
-            android:layout_marginEnd="@dimen/labels_margin"
-            android:layout_marginRight="@dimen/labels_margin"
-            android:gravity="bottom"
-            android:text="@string/Vehicle_Licence_Plate"
-            android:textSize="14sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView1" />
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/input_layout_etBrand"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <EditText
+                android:id="@+id/etBrand"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/labels_margin"
+                android:layout_marginLeft="@dimen/labels_margin"
+                android:layout_marginTop="@dimen/labels_space_top"
+                android:layout_marginEnd="@dimen/labels_margin"
+                android:layout_marginRight="@dimen/labels_margin"
+                android:autofillHints="no"
+                android:ems="10"
+                android:hint="@string/Vehicle_Brand"
+                android:inputType="text" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-        <EditText
-            android:id="@+id/etLicencePlateVehicle"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_marginStart="@dimen/labels_margin"
-            android:layout_marginLeft="@dimen/labels_margin"
-            android:layout_marginTop="@dimen/labels_space_top"
-            android:layout_marginEnd="@dimen/labels_margin"
-            android:layout_marginRight="@dimen/labels_margin"
-            android:autofillHints="no"
-            android:ems="10"
-            android:hint="@string/Vehicle_Licence_Plate"
-            android:inputType="text|textCapCharacters"
-            android:textAllCaps="true"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/textView2"
-            app:layout_constraintTop_toBottomOf="@+id/etShortNameVehicle" />
-
-        <TextView
-            android:id="@+id/textView3"
-            android:layout_width="@dimen/labels_width"
-            android:layout_height="@dimen/labels_height"
-            android:layout_marginStart="@dimen/labels_margin"
-            android:layout_marginLeft="@dimen/labels_margin"
-            android:layout_marginTop="@dimen/labels_space_top"
-            android:layout_marginEnd="@dimen/labels_margin"
-            android:layout_marginRight="@dimen/labels_margin"
-            android:gravity="bottom"
-            android:text="@string/Vehicle_Brand"
-            android:textSize="14sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView2" />
-
-        <EditText
-            android:id="@+id/etBrand"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_marginStart="@dimen/labels_margin"
-            android:layout_marginLeft="@dimen/labels_margin"
-            android:layout_marginTop="@dimen/labels_space_top"
-            android:layout_marginEnd="@dimen/labels_margin"
-            android:layout_marginRight="@dimen/labels_margin"
-            android:autofillHints="no"
-            android:ems="10"
-            android:hint="@string/Vehicle_Brand"
-            android:inputType="text"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/textView3"
-            app:layout_constraintTop_toBottomOf="@+id/etLicencePlateVehicle" />
-
-        <TextView
-            android:id="@+id/textView4"
-            android:layout_width="@dimen/labels_width"
-            android:layout_height="@dimen/labels_height"
-            android:layout_marginStart="@dimen/labels_margin"
-            android:layout_marginLeft="@dimen/labels_margin"
-            android:layout_marginTop="@dimen/labels_space_top"
-            android:layout_marginEnd="@dimen/labels_margin"
-            android:layout_marginRight="@dimen/labels_margin"
-            android:gravity="bottom"
-            android:text="@string/Vehicle_Type_Fuel"
-            android:textSize="14sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView3" />
-
-        <Spinner
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/input_layout_spinTypeFuel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        <com.jaredrummler.materialspinner.MaterialSpinner
             android:id="@+id/spinTypeFuel"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/labels_margin"
             android:layout_marginLeft="@dimen/labels_margin"
             android:layout_marginTop="@dimen/labels_space_top"
             android:layout_marginEnd="@dimen/labels_margin"
             android:layout_marginRight="@dimen/labels_margin"
-            android:spinnerMode="dropdown"
-            android:textSize="14sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/textView4"
-            app:layout_constraintTop_toBottomOf="@+id/etBrand" />
-
-        <TextView
-            android:id="@+id/textView5"
-            android:layout_width="@dimen/labels_width"
-            android:layout_height="@dimen/labels_height"
-            android:layout_marginStart="@dimen/labels_margin"
-            android:layout_marginLeft="@dimen/labels_margin"
-            android:layout_marginTop="@dimen/labels_space_top"
-            android:layout_marginEnd="@dimen/labels_margin"
-            android:layout_marginRight="@dimen/labels_margin"
-            android:gravity="bottom"
-            android:text="@string/Vehicle_Full_Capacity"
-            android:textSize="14sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView4" />
-
-        <EditText
-            android:id="@+id/etAVGConsumption"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_marginStart="@dimen/labels_margin"
-            android:layout_marginLeft="@dimen/labels_margin"
-            android:layout_marginTop="@dimen/labels_space_top"
-            android:layout_marginEnd="@dimen/labels_margin"
-            android:layout_marginRight="@dimen/labels_margin"
-            android:autofillHints="no"
+            android:gravity="left"
             android:ems="10"
-            android:hint="@string/Vehicle_Avg_Consumption"
-            android:inputType="numberDecimal"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/textView6"
-            app:layout_constraintTop_toBottomOf="@+id/etFullCapacity" />
+            android:hint="@string/Vehicle_Type_Fuel" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-        <TextView
-            android:id="@+id/textView6"
-            android:layout_width="@dimen/labels_width"
-            android:layout_height="@dimen/labels_height"
-            android:layout_marginStart="@dimen/labels_margin"
-            android:layout_marginLeft="@dimen/labels_margin"
-            android:layout_marginTop="@dimen/labels_space_top"
-            android:layout_marginEnd="@dimen/labels_margin"
-            android:layout_marginRight="@dimen/labels_margin"
-            android:gravity="bottom"
-            android:text="@string/Vehicle_Avg_Consumption"
-            android:textSize="14sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView5" />
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/input_layout_etFullCapacity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <EditText
+                android:id="@+id/etFullCapacity"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/labels_margin"
+                android:layout_marginLeft="@dimen/labels_margin"
+                android:layout_marginTop="@dimen/labels_space_top"
+                android:layout_marginEnd="@dimen/labels_margin"
+                android:layout_marginRight="@dimen/labels_margin"
+                android:autofillHints="no"
+                android:ems="10"
+                android:hint="@string/Vehicle_Full_Capacity"
+                android:inputType="number" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-        <EditText
-            android:id="@+id/etFullCapacity"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_marginStart="@dimen/labels_margin"
-            android:layout_marginLeft="@dimen/labels_margin"
-            android:layout_marginTop="@dimen/labels_space_top"
-            android:layout_marginEnd="@dimen/labels_margin"
-            android:layout_marginRight="@dimen/labels_margin"
-            android:autofillHints="no"
-            android:ems="10"
-            android:hint="@string/Vehicle_Full_Capacity"
-            android:inputType="number"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.95"
-            app:layout_constraintStart_toEndOf="@+id/textView5"
-            app:layout_constraintTop_toBottomOf="@+id/spinTypeFuel" />
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/input_layout_etAVGConsumption"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <EditText
+                android:id="@+id/etAVGConsumption"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/labels_margin"
+                android:layout_marginLeft="@dimen/labels_margin"
+                android:layout_marginTop="@dimen/labels_space_top"
+                android:layout_marginEnd="@dimen/labels_margin"
+                android:layout_marginRight="@dimen/labels_margin"
+                android:autofillHints="no"
+                android:ems="10"
+                android:hint="@string/Vehicle_Avg_Consumption"
+                android:inputType="numberDecimal" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-        <TextView
-            android:id="@+id/textView7"
-            android:layout_width="@dimen/labels_width"
-            android:layout_height="@dimen/labels_height"
-            android:layout_marginStart="@dimen/labels_margin"
-            android:layout_marginLeft="@dimen/labels_margin"
-            android:layout_marginTop="@dimen/labels_space_top"
-            android:layout_marginEnd="@dimen/labels_margin"
-            android:layout_marginRight="@dimen/labels_margin"
-            android:gravity="bottom"
-            android:text="@string/Vehicle_Acquisition_Sale"
-            android:textSize="14sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView6" />
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/input_layout_etAcquisition"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <EditText
+                android:id="@+id/etAcquisition"
+                android:layout_width="@dimen/labels_width"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/labels_margin"
+                android:layout_marginLeft="@dimen/labels_margin"
+                android:layout_marginTop="@dimen/labels_space_top"
+                android:layout_marginEnd="@dimen/labels_margin"
+                android:layout_marginRight="@dimen/labels_margin"
+                android:autofillHints="no"
+                android:ems="10"
+                android:hint="@string/Vehicle_DtAcquisition"
+                android:inputType="numberDecimal"/>
+        </com.google.android.material.textfield.TextInputLayout>
 
-        <EditText
-            android:id="@+id/editAcquisitionSale"
-            android:layout_width="@dimen/labels_width"
-            android:layout_height="match_parent"
-            android:layout_marginStart="@dimen/labels_margin"
-            android:layout_marginLeft="@dimen/labels_margin"
-            android:layout_marginTop="@dimen/labels_space_top"
-            android:layout_marginEnd="@dimen/labels_margin"
-            android:layout_marginRight="@dimen/labels_margin"
-            android:autofillHints="no"
-            android:ems="10"
-            android:hint="@string/Vehicle_Acquisition"
-            android:inputType="numberDecimal"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView7" />
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/input_layout_etSale"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <EditText
+                android:id="@+id/etSale"
+                android:layout_width="@dimen/labels_width"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/labels_margin"
+                android:layout_marginLeft="@dimen/labels_margin"
+                android:layout_marginTop="@dimen/labels_space_top"
+                android:layout_marginEnd="@dimen/labels_margin"
+                android:layout_marginRight="@dimen/labels_margin"
+                android:autofillHints="no"
+                android:ems="10"
+                android:hint="@string/Vehicle_DtSale"
+                android:inputType="numberDecimal" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-        <EditText
-            android:id="@+id/editSale"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_marginStart="@dimen/labels_margin"
-            android:layout_marginLeft="@dimen/labels_margin"
-            android:layout_marginTop="@dimen/labels_space_top"
-            android:layout_marginEnd="@dimen/labels_margin"
-            android:layout_marginRight="@dimen/labels_margin"
-            android:autofillHints="no"
-            android:ems="10"
-            android:hint="@string/Vehicle_Sale"
-            android:inputType="numberDecimal"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/editAcquisitionSale"
-            app:layout_constraintTop_toBottomOf="@+id/textView7" />
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/input_layout_etDtOdometer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <EditText
+                android:id="@+id/etDtOdometer"
+                android:layout_width="@dimen/labels_width"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/labels_margin"
+                android:layout_marginLeft="@dimen/labels_margin"
+                android:layout_marginTop="@dimen/labels_space_top"
+                android:layout_marginEnd="@dimen/labels_margin"
+                android:layout_marginRight="@dimen/labels_margin"
+                android:autofillHints="no"
+                android:ems="10"
+                android:hint="@string/Vehicle_DtOdometer"
+                android:inputType="numberDecimal" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-        <TextView
-            android:id="@+id/textView8"
-            android:layout_width="@dimen/labels_width"
-            android:layout_height="@dimen/labels_height"
-            android:layout_marginStart="@dimen/labels_margin"
-            android:layout_marginLeft="@dimen/labels_margin"
-            android:layout_marginTop="@dimen/labels_space_top"
-            android:layout_marginEnd="@dimen/labels_margin"
-            android:layout_marginRight="@dimen/labels_margin"
-            android:gravity="bottom"
-            android:text="@string/Vehicle_Odometer"
-            android:textSize="14sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editAcquisitionSale" />
-
-        <EditText
-            android:id="@+id/editDtOdometer"
-            android:layout_width="@dimen/labels_width"
-            android:layout_height="match_parent"
-            android:layout_marginStart="@dimen/labels_margin"
-            android:layout_marginLeft="@dimen/labels_margin"
-            android:layout_marginTop="@dimen/labels_space_top"
-            android:layout_marginEnd="@dimen/labels_margin"
-            android:layout_marginRight="@dimen/labels_margin"
-            android:autofillHints="no"
-            android:ems="10"
-            android:hint="@string/Vehicle_DtOdometer"
-            android:inputType="numberDecimal"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView8" />
-
-        <EditText
-            android:id="@+id/editOdometer"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_marginStart="@dimen/labels_margin"
-            android:layout_marginLeft="@dimen/labels_margin"
-            android:layout_marginTop="@dimen/labels_space_top"
-            android:layout_marginEnd="@dimen/labels_margin"
-            android:layout_marginRight="@dimen/labels_margin"
-            android:autofillHints="no"
-            android:ems="10"
-            android:hint="@string/Vehicle_Odometer"
-            android:inputType="numberDecimal"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/editDtOdometer"
-            app:layout_constraintTop_toBottomOf="@+id/textView8" />
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/input_layout_etOdometer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <EditText
+                android:id="@+id/etOdometer"
+                android:layout_width="@dimen/labels_width"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/labels_margin"
+                android:layout_marginLeft="@dimen/labels_margin"
+                android:layout_marginTop="@dimen/labels_space_top"
+                android:layout_marginEnd="@dimen/labels_margin"
+                android:layout_marginRight="@dimen/labels_margin"
+                android:autofillHints="no"
+                android:ems="10"
+                android:hint="@string/Vehicle_Odometer"
+                android:inputType="numberDecimal"/>
+        </com.google.android.material.textfield.TextInputLayout>
 
         <Button
             android:id="@+id/btSaveVehicle"
             android:layout_width="wrap_content"
-            android:layout_height="@dimen/labels_height"
+            android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="8dp"
-            android:text="@string/bt_Save"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editDtOdometer" />
+            android:text="@string/bt_Save" />
 
-          </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
 </ScrollView>

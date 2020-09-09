@@ -2,17 +2,16 @@ package com.jacksonasantos.travelplan.ui.vehicle;
 
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView.Adapter;
 
 import com.jacksonasantos.travelplan.DAO.Database;
 import com.jacksonasantos.travelplan.DAO.Vehicle;
@@ -20,11 +19,15 @@ import com.jacksonasantos.travelplan.R;
 
 import java.util.List;
 
-public class VehicleListAdapter extends RecyclerView.Adapter<VehicleListAdapter.MyViewHolder> {
+public class VehicleListAdapterOLD extends Adapter<VehicleListAdapterOLD.MyViewHolder> {
 
     private List<Vehicle> mVehicle;
-    Context context;
+    private final Context context;
 
+    public VehicleListAdapterOLD(List<Vehicle> vehicles, final Context context) {
+        this.mVehicle = vehicles;
+        this.context = context;
+    }
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         public TextView txtPlate;
@@ -32,7 +35,6 @@ public class VehicleListAdapter extends RecyclerView.Adapter<VehicleListAdapter.
         public TextView txtAVG;
         public ImageButton btnEdit;
         public ImageButton btnDelete;
-        RelativeLayout rl;
 
         public MyViewHolder(View v) {
             super(v);
@@ -41,7 +43,6 @@ public class VehicleListAdapter extends RecyclerView.Adapter<VehicleListAdapter.
             txtAVG = (TextView) v.findViewById(R.id.txtAVG);
             btnEdit = (ImageButton) v.findViewById(R.id.btnEdit);
             btnDelete = (ImageButton) v.findViewById(R.id.btnDelete);
-            rl=(RelativeLayout)v.findViewById(R.id.parentRelative);
             btnEdit.setOnClickListener(this);
             btnDelete.setOnClickListener(this);
         }
@@ -51,19 +52,18 @@ public class VehicleListAdapter extends RecyclerView.Adapter<VehicleListAdapter.
         }
     }
 
-    public VehicleListAdapter(List<Vehicle> vehicles, Context context) {
-        this.mVehicle = vehicles;
-        this.context = context;
-        Database mdb = new Database(context);
-        mdb.open();
-    }
-
     @Override
-    public VehicleListAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View vehicleView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.fragment_vehicle_item, parent, false);
+    public VehicleListAdapterOLD.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        Context context = parent.getContext();
+        LayoutInflater inflater = LayoutInflater.from(context);
 
-        return new MyViewHolder(vehicleView);
+        Database mDb = new Database(context);
+        mDb.open();
+
+        View vehicleView = inflater.inflate(R.layout.fragment_vehicle_item, parent, false);
+        MyViewHolder vh = new MyViewHolder(vehicleView);
+
+        return vh;
     }
 
     // Replace the contents of a view (invoked by the layout manager)
@@ -79,15 +79,8 @@ public class VehicleListAdapter extends RecyclerView.Adapter<VehicleListAdapter.
         holder.btnEdit.setOnClickListener (new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent (v.getContext(), VehicleActivity.class);
-                intent.putExtra("id", vehicle.getId());
-                intent.putExtra("name", vehicle.getName());
-                intent.putExtra("license_plate", vehicle.getLicense_plate());
-                intent.putExtra("full_capacity", vehicle.getFull_capacity());
-                intent.putExtra("avg_consumption", vehicle.getAvg_consumption());
-                intent.putExtra("brand", vehicle.getBrand());
-                intent.putExtra("type_fuel", vehicle.getType_fuel());
-                context.startActivity(intent);
+//                Intent intent = new Intent(getActivity(), VehicleActivity.class);
+//                intent.putExtra("vehicle.name", vehicle.getName());
                 /*Toast.makeText(v.getContext(), "Exemplo Toast " + vehicle.getId() +
                         "\nname " + vehicle.getName() +
                         "\nlicense_plate " + vehicle.getLicense_plate() +
@@ -96,10 +89,7 @@ public class VehicleListAdapter extends RecyclerView.Adapter<VehicleListAdapter.
                         "\nbrand " + vehicle.getBrand() +
                         "\ntype_fuel " + vehicle.getType_fuel()
                 , Toast.LENGTH_SHORT).show();*/
-
-                //String newValue = "I like sheep.";
-                mVehicle.set(position, vehicle);
-                notifyItemChanged(position);
+  //              context.startActivity(intent);
             }
         });
 

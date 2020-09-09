@@ -44,8 +44,8 @@
     <string name="No">Não</string>
     <string name="Vehicle_Odometer">Odômetro</string>
     <string name="Vehicle_Acquisition_Sale">Aquisição/Venda</string>
-    <string name="Vehicle_Acquisition">Aquisição</string>
-    <string name="Vehicle_Sale">Venda</string>
     <string name="Vehicle_DtOdometer">Data Odômetro</string>
     <string name="Vehicle_Short_Name">Nome Curto</string>
+    <string name="Vehicle_DtAcquisition">Data de Aquisição</string>
+    <string name="Vehicle_DtSale">Data de Venda</string>
 </resources>

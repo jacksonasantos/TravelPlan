@@ -1,13 +1,10 @@
 package com.jacksonasantos.travelplan.ui.vehicle;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.appcompat.app.ActionBar;
@@ -16,7 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.jacksonasantos.travelplan.DAO.Database;
 import com.jacksonasantos.travelplan.DAO.Vehicle;
 import com.jacksonasantos.travelplan.R;
-import com.jacksonasantos.travelplan.ui.utility.CustomOnItemSelectedListener;
+import com.jaredrummler.materialspinner.MaterialSpinner;
 
 public class VehicleActivity extends AppCompatActivity {
 
@@ -24,19 +21,34 @@ public class VehicleActivity extends AppCompatActivity {
     private EditText etLicencePlateVehicle;
     private EditText etFullCapacity;
     private EditText etAVGConsumption;
-    private Spinner spinTypeFuel;
+    private String txSpinTypeFuel = null;
     private EditText etBrand;
-    private Vehicle vehicle;
+    private Vehicle vehicle = new Vehicle();
+    private boolean opInsert = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setTitle(R.string.vehicle_Id);
         setContentView(R.layout.activity_vehicle);
+
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+//            Toast.makeText(getApplicationContext(), "Exemplo Extra " + extras.getString("name"), Toast.LENGTH_SHORT).show();
+            vehicle.setId(extras.getLong("id"));
+            vehicle.setName(extras.getString("name"));
+            vehicle.setLicense_plate(extras.getString("license_plate"));
+            vehicle.setFull_capacity(extras.getInt("full_capacity"));
+            vehicle.setAvg_consumption(extras.getDouble("avg_consumption"));
+            vehicle.setBrand(extras.getString("brand"));
+            vehicle.setType_fuel(extras.getString("type_fuel"));
+            opInsert = false;
+        }
+
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
-        setTitle(R.string.vehicle_Id);
 
         addListenerOnButton();
         addListenerOnSpinnerItemSelection();
@@ -45,23 +57,23 @@ public class VehicleActivity extends AppCompatActivity {
         etLicencePlateVehicle = findViewById(R.id.etLicencePlateVehicle);
         etFullCapacity = findViewById(R.id.etFullCapacity);
         etAVGConsumption = findViewById(R.id.etAVGConsumption);
-        spinTypeFuel = findViewById(R.id.spinTypeFuel);
+        MaterialSpinner spinTypeFuel = findViewById(R.id.spinTypeFuel);
         etBrand = findViewById(R.id.etBrand);
 
-        ArrayAdapter<CharSequence> adapterSpinner = ArrayAdapter.createFromResource(this,
-                R.array.type_fuel_array, android.R.layout.simple_spinner_item);
-        adapterSpinner.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinTypeFuel.setAdapter(adapterSpinner);
+        spinTypeFuel.setItems(getResources().getStringArray(R.array.type_fuel_array));
+        spinTypeFuel.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<String>() {
+             @Override public void onItemSelected(MaterialSpinner view, int position, long id, String item) {
+             txSpinTypeFuel = item;
+            }
+        });
 
-        Intent intent = getIntent();
-        vehicle = (Vehicle) intent.getSerializableExtra("vehicle");
         if (vehicle != null) {
-            etNameVehicle.setText(vehicle.name);
-            etLicencePlateVehicle.setText(vehicle.license_plate);
-            etFullCapacity.setText(vehicle.full_capacity);
-            etAVGConsumption.setText((int) vehicle.avg_consumption);
-            //spinTypeFuel = spinTypeFuel.getSelectedItemId().getType_fuel();
-            etBrand.setText(vehicle.brand);
+            etNameVehicle.setText(vehicle.getName());
+            etLicencePlateVehicle.setText(vehicle.getLicense_plate());
+            etFullCapacity.setText(String.valueOf(vehicle.getFull_capacity()));
+            etAVGConsumption.setText(String.valueOf(vehicle.getAvg_consumption()));
+            spinTypeFuel.setText(vehicle.getType_fuel());
+            etBrand.setText(vehicle.getBrand());
         }
     }
 
@@ -70,7 +82,7 @@ public class VehicleActivity extends AppCompatActivity {
         etLicencePlateVehicle = findViewById(R.id.etLicencePlateVehicle);
         etFullCapacity = findViewById(R.id.etFullCapacity);
         etAVGConsumption = findViewById(R.id.etAVGConsumption);
-        spinTypeFuel = findViewById(R.id.spinTypeFuel);
+        MaterialSpinner spinTypeFuel = (MaterialSpinner) findViewById(R.id.spinTypeFuel);
         etBrand = findViewById(R.id.etBrand);
         Button btSaveVehicle = findViewById(R.id.btSaveVehicle);
 
@@ -82,22 +94,28 @@ public class VehicleActivity extends AppCompatActivity {
                 Database mdb = new Database(VehicleActivity.this);
                 mdb.open();
 
-                if (vehicle != null) {
-//                    isSave = Database.mVehicleDao.updateVehicle(vehicle);
+                final Vehicle v1 = new Vehicle();
+                v1.setName(etNameVehicle.getText().toString());
+                v1.setLicense_plate(etLicencePlateVehicle.getText().toString());
+                v1.setFull_capacity(Integer.parseInt(etFullCapacity.getText().toString()));
+                v1.setAvg_consumption(Double.parseDouble(etAVGConsumption.getText().toString()));
+                v1.setType_fuel(txSpinTypeFuel);
+                v1.setBrand(etBrand.getText().toString());
+
+                if (!opInsert) {
+                    try {
+                        v1.setId(vehicle.getId());
+                        isSave = Database.mVehicleDao.updateVehicle(v1);
+                    } catch (Exception e ){
+                        isSave = false;
+                        Toast.makeText(getApplicationContext(), "Erro Alterando os Dados "+e.getMessage(), Toast.LENGTH_LONG).show();
+                    }
                 } else {
                     try {
-                        final Vehicle vehicle = new Vehicle();
-                        vehicle.setName(etNameVehicle.getText().toString());
-                        vehicle.setLicense_plate(etLicencePlateVehicle.getText().toString());
-                        vehicle.setFull_capacity(Integer.parseInt(etFullCapacity.getText().toString()));
-                        vehicle.setAvg_consumption(Double.parseDouble(etAVGConsumption.getText().toString()));
-                        //vehicle.setType_fuel(vnome);
-                        vehicle.setBrand(etBrand.getText().toString());
-
-                        isSave = Database.mVehicleDao.addVehicle(vehicle);
+                        isSave = Database.mVehicleDao.addVehicle(v1);
                     } catch ( Exception e ) {
                         isSave = false;
-                        Toast.makeText(getApplicationContext(), "Erro Salvando os Dados", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(), "Erro Incluindo os Dados "+e.getMessage(), Toast.LENGTH_LONG).show();
                     }
                 }
 
@@ -109,11 +127,10 @@ public class VehicleActivity extends AppCompatActivity {
     }
 
     public void addListenerOnSpinnerItemSelection() {
-        spinTypeFuel = findViewById(R.id.spinTypeFuel);
-        spinTypeFuel.setOnItemSelectedListener(new CustomOnItemSelectedListener(){
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                //String vnome = spinTypeFuel.getSelectedItem().toString();
-                //Toast.makeText(getApplicationContext(), "Nome: " + vnome, Toast.LENGTH_LONG).show();
+        MaterialSpinner spinTypeFuel = (MaterialSpinner) findViewById(R.id.spinTypeFuel);
+        spinTypeFuel.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<String>(){
+            @Override
+            public void onItemSelected(MaterialSpinner view, int position, long id, String item) {
             }
             public void onNothingSelected(AdapterView<?> adapterView) {
             }

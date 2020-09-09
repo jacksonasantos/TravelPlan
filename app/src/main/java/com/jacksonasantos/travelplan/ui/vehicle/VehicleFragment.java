@@ -31,7 +31,7 @@ public class VehicleFragment extends Fragment  {
         View root = inflater.inflate(R.layout.fragment_vehicle, container, false);
         RecyclerView listVehicles = (RecyclerView) root.findViewById(R.id.listVehicles);
 
-        VehicleListAdapter adapter = new VehicleListAdapter(Database.mVehicleDao.fetchAllVehicles());
+        VehicleListAdapter adapter = new VehicleListAdapter(Database.mVehicleDao.fetchAllVehicles(), getContext());
         listVehicles.setAdapter(adapter);
         listVehicles.setLayoutManager(new LinearLayoutManager(getContext()));
 

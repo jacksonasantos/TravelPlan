@@ -8,6 +8,7 @@ import android.util.Log;
 
 import com.jacksonasantos.travelplan.DAO.Interface.VehicleIDAO;
 import com.jacksonasantos.travelplan.DAO.Interface.VehicleISchema;
+import com.jacksonasantos.travelplan.ui.vehicle.VehicleActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -59,17 +60,17 @@ public class VehicleDAO extends DbContentProvider implements VehicleISchema, Veh
         try {
             return super.delete(VEHICLE_TABLE, selection, selectionArgs) > 0;
         } catch (SQLiteConstraintException ex){
-            Log.w("Database", ex.getMessage());
+            Log.w("Delete Table", ex.getMessage());
             return false;
         }
     }
 
     public boolean updateVehicle(Vehicle vehicle) {
         setContentValue(vehicle);
-        //final String[] selectionArgs = { vehicle.getID() };
+        final String[] selectionArgs = { String.valueOf(vehicle.getId()) };
         final String selection = VEHICLE_ID + " = ?";
         try {
-            return super.update(VEHICLE_TABLE, getContentValue(), selection, null) > 0;
+            return super.update(VEHICLE_TABLE, getContentValue(), selection, selectionArgs) > 0;
         } catch (SQLiteConstraintException ex){
             Log.w("Update Table", ex.getMessage());
             return false;
