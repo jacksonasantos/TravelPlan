@@ -3,14 +3,16 @@ package com.jacksonasantos.travelplan.ui.vehicle;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
-import android.widget.RelativeLayout;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -27,21 +29,21 @@ public class VehicleListAdapter extends RecyclerView.Adapter<VehicleListAdapter.
 
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
+        public ImageView imType;
         public TextView txtPlate;
-        public TextView txtName;
+        public TextView txtShortName;
         public TextView txtAVG;
         public ImageButton btnEdit;
         public ImageButton btnDelete;
-        RelativeLayout rl;
 
         public MyViewHolder(View v) {
             super(v);
+            imType = v.findViewById(R.id.imType);
             txtPlate = (TextView) v.findViewById(R.id.txtPlate);
-            txtName = (TextView) v.findViewById(R.id.txtName);
+            txtShortName = (TextView) v.findViewById(R.id.txtShortName);
             txtAVG = (TextView) v.findViewById(R.id.txtAVG);
             btnEdit = (ImageButton) v.findViewById(R.id.btnEdit);
             btnDelete = (ImageButton) v.findViewById(R.id.btnDelete);
-            rl=(RelativeLayout)v.findViewById(R.id.parentRelative);
             btnEdit.setOnClickListener(this);
             btnDelete.setOnClickListener(this);
         }
@@ -54,6 +56,7 @@ public class VehicleListAdapter extends RecyclerView.Adapter<VehicleListAdapter.
     public VehicleListAdapter(List<Vehicle> vehicles, Context context) {
         this.mVehicle = vehicles;
         this.context = context;
+
         Database mdb = new Database(context);
         mdb.open();
     }
@@ -67,12 +70,27 @@ public class VehicleListAdapter extends RecyclerView.Adapter<VehicleListAdapter.
     }
 
     // Replace the contents of a view (invoked by the layout manager)
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public void onBindViewHolder(@NonNull final MyViewHolder holder, final int position) {
         final Vehicle vehicle = mVehicle.get(position);
 
+        int S = Math.toIntExact(vehicle.getType());
+        switch(S) {
+            case 2131296525:
+                holder.imType.setImageResource(R.drawable.ic_vehicle_car);
+                break;
+            case 2131296526:
+                holder.imType.setImageResource(R.drawable.ic_vehicle_motorcycle);
+                break;
+            case 2131296527:
+                holder.imType.setImageResource(R.drawable.ic_vehicle_suv);
+                break;
+            default:
+                break;
+        }
         holder.txtPlate.setText(vehicle.getLicense_plate());
-        holder.txtName.setText(vehicle.getName());
+        holder.txtShortName.setText(vehicle.getShort_name());
         holder.txtAVG.setText(Double.toString(vehicle.getAvg_consumption())+" Km/L");
 
         // btnEdit
@@ -81,25 +99,20 @@ public class VehicleListAdapter extends RecyclerView.Adapter<VehicleListAdapter.
             public void onClick(View v) {
                 Intent intent = new Intent (v.getContext(), VehicleActivity.class);
                 intent.putExtra("id", vehicle.getId());
+                intent.putExtra("type", vehicle.getType());
                 intent.putExtra("name", vehicle.getName());
+                intent.putExtra("short_name", vehicle.getShort_name());
                 intent.putExtra("license_plate", vehicle.getLicense_plate());
-                intent.putExtra("full_capacity", vehicle.getFull_capacity());
-                intent.putExtra("avg_consumption", vehicle.getAvg_consumption());
                 intent.putExtra("brand", vehicle.getBrand());
                 intent.putExtra("type_fuel", vehicle.getType_fuel());
+                intent.putExtra("full_capacity", vehicle.getFull_capacity());
+                intent.putExtra("avg_consumption", vehicle.getAvg_consumption());
+                intent.putExtra("dt_acquisition", vehicle.getDt_acquisition());
+                intent.putExtra("dt_sale", vehicle.getDt_sale());
+                intent.putExtra("dt_odometer", vehicle.getDt_odometer());
+                intent.putExtra("odometer", vehicle.getOdometer());
                 context.startActivity(intent);
-                /*Toast.makeText(v.getContext(), "Exemplo Toast " + vehicle.getId() +
-                        "\nname " + vehicle.getName() +
-                        "\nlicense_plate " + vehicle.getLicense_plate() +
-                        "\nfull_capacity " + vehicle.getFull_capacity()+
-                        "\navg_consumption " + vehicle.getAvg_consumption() +
-                        "\nbrand " + vehicle.getBrand() +
-                        "\ntype_fuel " + vehicle.getType_fuel()
-                , Toast.LENGTH_SHORT).show();*/
-
-                //String newValue = "I like sheep.";
-                mVehicle.set(position, vehicle);
-                notifyItemChanged(position);
+                notifyDataSetChanged();
             }
         });
 

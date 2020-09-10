@@ -48,4 +48,7 @@
     <string name="Vehicle_Short_Name">Nome Curto</string>
     <string name="Vehicle_DtAcquisition">Data de Aquisição</string>
     <string name="Vehicle_DtSale">Data de Venda</string>
+    <string name="Vehicle_TypeCar">Carro</string>
+    <string name="Vehicle_TypeMotorcycle">Motocicleta</string>
+    <string name="Vehicle_TypeSUV">SUV</string>
 </resources>

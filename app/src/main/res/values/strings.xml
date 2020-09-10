@@ -39,6 +39,9 @@
 
     <!-- Vehicle Fragment -->
     <string name="vehicle_Id">Identification Vehicle</string>
+    <string name="Vehicle_TypeCar">Car</string>
+    <string name="Vehicle_TypeMotorcycle">Motorcycle</string>
+    <string name="Vehicle_TypeSUV">SUV</string>
     <string name="Vehicle_Name">Name Vehicle</string>
     <string name="Vehicle_Short_Name">Short Name </string>
     <string name="Vehicle_Licence_Plate">Licence Plate</string>

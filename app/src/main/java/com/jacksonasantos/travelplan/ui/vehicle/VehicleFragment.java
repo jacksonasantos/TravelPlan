@@ -10,32 +10,28 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.jacksonasantos.travelplan.DAO.Database;
-import com.jacksonasantos.travelplan.DAO.Vehicle;
 import com.jacksonasantos.travelplan.R;
 
-import java.util.ArrayList;
-
 public class VehicleFragment extends Fragment  {
-    ArrayList<Vehicle> vehicles;
 
     @Override
-    public View onCreateView(LayoutInflater inflater,
-                             ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+       return inflater.inflate(R.layout.fragment_vehicle, container, false);
+    }
 
+    @Override
+    public void onResume() {
+        super.onResume();
         Database mDb = new Database(getContext());
         mDb.open();
 
-        super.onCreate(savedInstanceState);
-
-        View root = inflater.inflate(R.layout.fragment_vehicle, container, false);
-        RecyclerView listVehicles = (RecyclerView) root.findViewById(R.id.listVehicles);
-
+        RecyclerView listVehicles = (RecyclerView) this.getView().findViewById(R.id.listVehicles);
         VehicleListAdapter adapter = new VehicleListAdapter(Database.mVehicleDao.fetchAllVehicles(), getContext());
         listVehicles.setAdapter(adapter);
         listVehicles.setLayoutManager(new LinearLayoutManager(getContext()));
 
         mDb.close();
-        return root;
+        adapter.notifyDataSetChanged();
     }
+
 }

@@ -10,22 +10,63 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
+        <RadioGroup
+            android:id="@+id/rgType"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:orientation="horizontal"
+            android:gravity="center_horizontal"
+            android:checkedButton="@id/rbCar">
+
+            <RadioButton
+                android:id="@+id/rbCar"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginStart="@dimen/labels_margin"
+                android:layout_marginLeft="@dimen/labels_margin"
+                android:text="@string/Vehicle_TypeCar"
+                android:textSize="14sp"/>
+
+            <RadioButton
+                android:id="@+id/rbMotorcycle"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginStart="@dimen/labels_margin"
+                android:layout_marginLeft="@dimen/labels_margin"
+                android:text="@string/Vehicle_TypeMotorcycle"
+                android:textSize="14sp" />
+
+            <RadioButton
+                android:id="@+id/rbSUV"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginStart="@dimen/labels_margin"
+                android:layout_marginLeft="@dimen/labels_margin"
+                android:text="@string/Vehicle_TypeSUV"
+                android:textSize="14sp" />
+        </RadioGroup>
+
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/input_layout_etNameVehicle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+
             <EditText
                 android:id="@+id/etNameVehicle"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginStart="@dimen/labels_margin"
                 android:layout_marginLeft="@dimen/labels_margin"
-                android:layout_marginTop="12dp"
+                android:layout_marginTop="@dimen/labels_space_top"
                 android:layout_marginEnd="@dimen/labels_margin"
                 android:layout_marginRight="@dimen/labels_margin"
                 android:autofillHints="no"
                 android:hint="@string/Vehicle_Name"
-                android:inputType="text" />
+                android:inputType="text"
+                android:textSize="14sp" />
+
+
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -43,7 +84,8 @@
                 android:layout_marginRight="@dimen/labels_margin"
                 android:autofillHints="no"
                 android:hint="@string/Vehicle_Short_Name"
-                android:inputType="text" />
+                android:inputType="text"
+                android:textSize="14sp" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -52,6 +94,7 @@
             android:layout_height="wrap_content"
             app:counterEnabled="true"
             app:counterMaxLength="7">
+
             <EditText
                 android:id="@+id/etLicencePlateVehicle"
                 android:layout_width="match_parent"
@@ -65,7 +108,8 @@
                 android:ems="10"
                 android:hint="@string/Vehicle_Licence_Plate"
                 android:inputType="text|textCapCharacters"
-                android:textAllCaps="true" />
+                android:textAllCaps="true"
+                android:textSize="14sp" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -84,25 +128,26 @@
                 android:autofillHints="no"
                 android:ems="10"
                 android:hint="@string/Vehicle_Brand"
-                android:inputType="text" />
+                android:inputType="text"
+                android:textSize="14sp" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/input_layout_spinTypeFuel"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-        <com.jaredrummler.materialspinner.MaterialSpinner
-            android:id="@+id/spinTypeFuel"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/labels_margin"
-            android:layout_marginLeft="@dimen/labels_margin"
-            android:layout_marginTop="@dimen/labels_space_top"
-            android:layout_marginEnd="@dimen/labels_margin"
-            android:layout_marginRight="@dimen/labels_margin"
-            android:gravity="left"
-            android:ems="10"
-            android:hint="@string/Vehicle_Type_Fuel" />
+            <com.jaredrummler.materialspinner.MaterialSpinner
+                android:id="@+id/spinTypeFuel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/labels_margin"
+                android:layout_marginLeft="@dimen/labels_margin"
+                android:layout_marginTop="@dimen/labels_space_top"
+                android:layout_marginEnd="@dimen/labels_margin"
+                android:layout_marginRight="@dimen/labels_margin"
+                android:ems="10"
+                android:hint="@string/Vehicle_Type_Fuel"
+                android:textSize="14sp" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -121,7 +166,8 @@
                 android:autofillHints="no"
                 android:ems="10"
                 android:hint="@string/Vehicle_Full_Capacity"
-                android:inputType="number" />
+                android:inputType="number"
+                android:textSize="14sp"/>
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -140,7 +186,8 @@
                 android:autofillHints="no"
                 android:ems="10"
                 android:hint="@string/Vehicle_Avg_Consumption"
-                android:inputType="numberDecimal" />
+                android:inputType="numberDecimal"
+                android:textSize="14sp" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -159,7 +206,8 @@
                 android:autofillHints="no"
                 android:ems="10"
                 android:hint="@string/Vehicle_DtAcquisition"
-                android:inputType="numberDecimal"/>
+                android:inputType="date"
+                android:textSize="14sp" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -178,7 +226,8 @@
                 android:autofillHints="no"
                 android:ems="10"
                 android:hint="@string/Vehicle_DtSale"
-                android:inputType="numberDecimal" />
+                android:inputType="date"
+                android:textSize="14sp" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -197,7 +246,8 @@
                 android:autofillHints="no"
                 android:ems="10"
                 android:hint="@string/Vehicle_DtOdometer"
-                android:inputType="numberDecimal" />
+                android:inputType="date"
+                android:textSize="14sp" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -216,7 +266,8 @@
                 android:autofillHints="no"
                 android:ems="10"
                 android:hint="@string/Vehicle_Odometer"
-                android:inputType="numberDecimal"/>
+                android:inputType="number"
+                android:textSize="14sp"/>
         </com.google.android.material.textfield.TextInputLayout>
 
         <Button

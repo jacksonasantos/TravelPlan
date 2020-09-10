@@ -8,8 +8,8 @@ import android.util.Log;
 
 import com.jacksonasantos.travelplan.DAO.Interface.VehicleIDAO;
 import com.jacksonasantos.travelplan.DAO.Interface.VehicleISchema;
-import com.jacksonasantos.travelplan.ui.vehicle.VehicleActivity;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -93,27 +93,38 @@ public class VehicleDAO extends DbContentProvider implements VehicleISchema, Veh
         Vehicle vehicle = new Vehicle();
 
         int idIndex;
+        int typeIndex;
         int nameIndex;
+        int short_nameIndex;
         int license_plateIndex;
         int full_capacityIndex;
         int avg_consumptionIndex;
         int brandIndex;
         int type_fuelIndex;
+        int dt_acquisitionIndex;
+        int dt_saleIndex;
+        int dt_odometerIndex;
+        int odometerIndex;
 
         if (cursor != null) {
             if (cursor.getColumnIndex(VEHICLE_ID) != -1) {
-                idIndex = cursor.getColumnIndexOrThrow(
-                        VEHICLE_ID);
+                idIndex = cursor.getColumnIndexOrThrow(VEHICLE_ID);
                 vehicle.id = cursor.getLong(idIndex);
             }
+            if (cursor.getColumnIndex(VEHICLE_TYPE) != -1) {
+                typeIndex = cursor.getColumnIndexOrThrow(VEHICLE_TYPE);
+                vehicle.type = cursor.getInt(typeIndex);
+            }
             if (cursor.getColumnIndex(VEHICLE_NAME) != -1) {
-                nameIndex = cursor.getColumnIndexOrThrow(
-                        VEHICLE_NAME);
+                nameIndex = cursor.getColumnIndexOrThrow(VEHICLE_NAME);
                 vehicle.name = cursor.getString(nameIndex);
             }
+            if (cursor.getColumnIndex(VEHICLE_SHORT_NAME) != -1) {
+                short_nameIndex = cursor.getColumnIndexOrThrow(VEHICLE_SHORT_NAME);
+                vehicle.short_name = cursor.getString(short_nameIndex);
+            }
             if (cursor.getColumnIndex(VEHICLE_LICENCE_PLATE) != -1) {
-                license_plateIndex = cursor.getColumnIndexOrThrow(
-                        VEHICLE_LICENCE_PLATE);
+                license_plateIndex = cursor.getColumnIndexOrThrow(VEHICLE_LICENCE_PLATE);
                 vehicle.license_plate = cursor.getString(license_plateIndex);
             }
             if (cursor.getColumnIndex(VEHICLE_FULL_CAPACITY) != -1) {
@@ -132,60 +143,45 @@ public class VehicleDAO extends DbContentProvider implements VehicleISchema, Veh
                 type_fuelIndex = cursor.getColumnIndexOrThrow(VEHICLE_TYPE_FUEL);
                 vehicle.type_fuel = cursor.getString(type_fuelIndex);
             }
+            if (cursor.getColumnIndex(VEHICLE_DT_ACQUISITION) != -1) {
+                dt_acquisitionIndex = cursor.getColumnIndexOrThrow(VEHICLE_DT_ACQUISITION);
+                vehicle.dt_acquisition = cursor.getLong(dt_acquisitionIndex);
+            }
+            if (cursor.getColumnIndex(VEHICLE_DT_SALE) != -1) {
+                dt_saleIndex = cursor.getColumnIndexOrThrow(VEHICLE_DT_SALE);
+                vehicle.dt_sale = cursor.getLong(dt_saleIndex);
+            }
+            if (cursor.getColumnIndex(VEHICLE_DT_ODOMETER) != -1) {
+                dt_odometerIndex = cursor.getColumnIndexOrThrow(VEHICLE_DT_ODOMETER);
+                vehicle.dt_odometer = cursor.getLong(dt_odometerIndex);
+            }
+            if (cursor.getColumnIndex(VEHICLE_ODOMETER) != -1) {
+                odometerIndex = cursor.getColumnIndexOrThrow(VEHICLE_ODOMETER);
+                vehicle.odometer = cursor.getInt(odometerIndex);
+            }
         }
         return vehicle;
     }
 
     private void setContentValue(Vehicle vehicle) {
         initialValues = new ContentValues();
+        initialValues.put(VEHICLE_TYPE, vehicle.type);
         initialValues.put(VEHICLE_NAME, vehicle.name);
         initialValues.put(VEHICLE_LICENCE_PLATE, vehicle.license_plate);
         initialValues.put(VEHICLE_FULL_CAPACITY, vehicle.full_capacity);
         initialValues.put(VEHICLE_AVG_CONSUMPTION, vehicle.avg_consumption);
         initialValues.put(VEHICLE_BRAND, vehicle.brand);
         initialValues.put(VEHICLE_TYPE_FUEL, vehicle.type_fuel);
+        initialValues.put(VEHICLE_SHORT_NAME, vehicle.short_name);
+        initialValues.put(VEHICLE_DT_ACQUISITION, String.valueOf(vehicle.dt_acquisition));
+        initialValues.put(VEHICLE_DT_SALE, String.valueOf(vehicle.dt_sale));
+        initialValues.put(VEHICLE_DT_ODOMETER, String.valueOf(vehicle.dt_odometer));
+        initialValues.put(VEHICLE_ODOMETER, vehicle.odometer);
+
     }
 
     private ContentValues getContentValue() {
         return initialValues;
     }
 
-    /*
-    public static long insereVehicle(SQLiteDatabase db, String oid_vehicle, String name_vehicle, String license_plate,
-                                     int full_capacity, double avg_consumption) {
-        ContentValues campos = new ContentValues();
-        campos.put(KEY_OID_VEHICLE, oid_vehicle);
-        campos.put(KEY_NAME_VEHICLE, name_vehicle);
-        campos.put(KEY_LICENCE_PLATE, license_plate);
-        campos.put(KEY_FULL_CAPACITY, full_capacity);
-        campos.put(KEY_AVG_CONSUMPTION, avg_consumption);
-        return db.insert(NOME_TABELA, null, campos);
-    }
-
-    public boolean apagaVehicle(SQLiteDatabase db, long id) {
-        return db.delete(NOME_TABELA, KEY_ID + "=" + id, null) > 0;
-    }
-
-    public Cursor retornaTodosVehicle(SQLiteDatabase db) {
-        return db.query(NOME_TABELA,
-                new String[]{KEY_ID,
-                        KEY_OID_VEHICLE,
-                        KEY_NAME_VEHICLE,
-                        KEY_LICENCE_PLATE,
-                        KEY_FULL_CAPACITY,
-                        KEY_AVG_CONSUMPTION},
-                null, null, null, null, null);
-    }
-
-    public static boolean atualizaVehicle(SQLiteDatabase db, long id, String oid_vehicle, String name_vehicle, String license_plate,
-                                          int full_capacity, double avg_consumption) {
-        ContentValues args = new ContentValues();
-        args.put(KEY_OID_VEHICLE, oid_vehicle);
-        args.put(KEY_NAME_VEHICLE, name_vehicle);
-        args.put(KEY_LICENCE_PLATE, license_plate);
-        args.put(KEY_FULL_CAPACITY, full_capacity);
-        args.put(KEY_AVG_CONSUMPTION, avg_consumption);
-        return db.update(NOME_TABELA, args, KEY_ID + "=" + id, null)
-                > 0;
-    }*/
 }

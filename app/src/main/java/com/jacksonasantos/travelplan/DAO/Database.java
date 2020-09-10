@@ -7,21 +7,18 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.jacksonasantos.travelplan.DAO.Interface.UserISchema;
 import com.jacksonasantos.travelplan.DAO.Interface.VehicleISchema;
 
-import static com.jacksonasantos.travelplan.DAO.Interface.UserISchema.USER_TABLE;
 import static com.jacksonasantos.travelplan.DAO.Interface.VehicleISchema.VEHICLE_TABLE;
 
 public class Database {
 
     private static final String DATABASE_NAME = "TravelPlan.db";
-    private static final int DATABASE_VERSION = 4;
+    private static final int DATABASE_VERSION = 7;
 
     private DatabaseHelper mDbHelper;
     private final Context mContext;
 
-    public static UserDAO mUserDao;
     public static VehicleDAO mVehicleDao;
 
     public Database(Context context) {
@@ -33,7 +30,6 @@ public class Database {
         SQLiteDatabase mDb = mDbHelper.getWritableDatabase();  // Chama o onCreate
 
         // Lista de Tabelas DAO
-        mUserDao = new UserDAO(mDb);
         mVehicleDao = new VehicleDAO(mDb);
         return this;
     }
@@ -59,27 +55,49 @@ public class Database {
             db.execSQL(VehicleISchema.CREATE_TABLE_VEHICLE_V1); Log.w("Table "+VEHICLE_TABLE,"V1 - Create Table...");
             db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V2); Log.w("Table "+VEHICLE_TABLE,"V2 - Alter Table...");
             db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V3); Log.w("Table "+VEHICLE_TABLE,"V3 - Alter Table...");
-            db.execSQL(UserISchema.CREATE_TABLE_USER_V4); Log.w("Table "+USER_TABLE,"V4 - Create Table...");
+            db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V5); Log.w("Table "+VEHICLE_TABLE,"V5 - Alter Table...");
+            db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V6); Log.w("Table "+VEHICLE_TABLE,"V6 - Alter Table...");
+            db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V7_1); Log.w("Table "+VEHICLE_TABLE,"V71 - Alter Table...");
+            db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V7_2); Log.w("Table "+VEHICLE_TABLE,"V72 - Alter Table...");
+            db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V7_3); Log.w("Table "+VEHICLE_TABLE,"V73 - Alter Table...");
+            db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V7_4); Log.w("Table "+VEHICLE_TABLE,"V74 - Alter Table...");
         }
 
         @Override
         public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
             Log.w("Database", "Upgrading database from version "
                     + oldVersion + " to "
-                    + newVersion + " which destroys all old data");
+                    + newVersion + " without destroying the old data");
 
             Toast.makeText(mContext,"Database : old " + oldVersion + " new "+ newVersion, Toast.LENGTH_LONG).show();
 
             if (oldVersion == 1) {
                 db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V2);
                 db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V3);
-                db.execSQL(UserISchema.CREATE_TABLE_USER_V4);
+                db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V5);
+                db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V6);
             } else if (oldVersion == 2) {
                 db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V3);
-                db.execSQL(UserISchema.CREATE_TABLE_USER_V4);
+                db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V5);
+                db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V6);
             } else if (oldVersion == 3) {
-                db.execSQL(UserISchema.CREATE_TABLE_USER_V4);
+                db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V5);
+                db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V6);
             } else if (oldVersion == 4) {
+                db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V5);
+                db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V6);
+            } else if (oldVersion == 5) {
+                db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V6);
+                db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V7_1);
+                db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V7_2);
+                db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V7_3);
+                db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V7_4);
+            } else if (oldVersion == 6) {
+                db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V7_1);
+                db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V7_2);
+                db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V7_3);
+                db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V7_4);
+            } else if (oldVersion == 7) {
             }
         }
     }
