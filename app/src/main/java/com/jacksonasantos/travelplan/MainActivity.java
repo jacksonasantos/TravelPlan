@@ -14,7 +14,7 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.google.android.material.navigation.NavigationView;
-import com.jacksonasantos.travelplan.DAO.Database;
+import com.jacksonasantos.travelplan.dao.Database;
 import com.jacksonasantos.travelplan.ui.vehicle.VehicleActivity;
 
 public class MainActivity extends AppCompatActivity {

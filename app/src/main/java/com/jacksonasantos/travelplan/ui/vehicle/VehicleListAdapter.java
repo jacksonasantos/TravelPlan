@@ -16,8 +16,8 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.jacksonasantos.travelplan.DAO.Database;
-import com.jacksonasantos.travelplan.DAO.Vehicle;
+import com.jacksonasantos.travelplan.dao.Database;
+import com.jacksonasantos.travelplan.dao.Vehicle;
 import com.jacksonasantos.travelplan.R;
 
 import java.util.List;
@@ -27,7 +27,7 @@ public class VehicleListAdapter extends RecyclerView.Adapter<VehicleListAdapter.
     private List<Vehicle> mVehicle;
     Context context;
 
-    public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public static class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         public ImageView imType;
         public TextView txtPlate;

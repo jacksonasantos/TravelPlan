@@ -10,8 +10,8 @@ import android.widget.Toast;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.jacksonasantos.travelplan.DAO.Database;
-import com.jacksonasantos.travelplan.DAO.Vehicle;
+import com.jacksonasantos.travelplan.dao.Database;
+import com.jacksonasantos.travelplan.dao.Vehicle;
 import com.jacksonasantos.travelplan.R;
 import com.jacksonasantos.travelplan.ui.utility.Mask;
 import com.jaredrummler.materialspinner.MaterialSpinner;

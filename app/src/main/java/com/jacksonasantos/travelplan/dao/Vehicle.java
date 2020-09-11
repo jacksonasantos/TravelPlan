@@ -1,6 +1,4 @@
-package com.jacksonasantos.travelplan.DAO;
-
-import java.sql.Date;
+package com.jacksonasantos.travelplan.dao;
 
 public class Vehicle {
     public Long id;

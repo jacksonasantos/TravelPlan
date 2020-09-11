@@ -9,7 +9,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.jacksonasantos.travelplan.DAO.Database;
+import com.jacksonasantos.travelplan.dao.Database;
 import com.jacksonasantos.travelplan.R;
 
 public class VehicleFragment extends Fragment  {

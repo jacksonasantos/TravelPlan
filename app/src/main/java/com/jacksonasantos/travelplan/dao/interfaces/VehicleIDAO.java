@@ -1,6 +1,6 @@
-package com.jacksonasantos.travelplan.DAO.Interface;
+package com.jacksonasantos.travelplan.dao.interfaces;
 
-import com.jacksonasantos.travelplan.DAO.Vehicle;
+import com.jacksonasantos.travelplan.dao.Vehicle;
 
 import java.util.List;
 

@@ -1,6 +1,5 @@
 package com.jacksonasantos.travelplan.ui.travel;
 
-import android.view.Menu;
 import android.view.View;
 import android.widget.TextView;
 import com.jacksonasantos.travelplan.R;

@@ -1,4 +1,4 @@
-package com.jacksonasantos.travelplan.DAO;
+package com.jacksonasantos.travelplan.dao;
 
 import android.content.ContentValues;
 import android.database.Cursor;
@@ -6,10 +6,9 @@ import android.database.sqlite.SQLiteConstraintException;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
-import com.jacksonasantos.travelplan.DAO.Interface.VehicleIDAO;
-import com.jacksonasantos.travelplan.DAO.Interface.VehicleISchema;
+import com.jacksonasantos.travelplan.dao.interfaces.VehicleIDAO;
+import com.jacksonasantos.travelplan.dao.interfaces.VehicleISchema;
 
-import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 

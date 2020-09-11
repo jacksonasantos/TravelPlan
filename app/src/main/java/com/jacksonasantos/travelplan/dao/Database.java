@@ -1,4 +1,4 @@
-package com.jacksonasantos.travelplan.DAO;
+package com.jacksonasantos.travelplan.dao;
 
 import android.content.Context;
 import android.database.SQLException;
@@ -7,9 +7,9 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.jacksonasantos.travelplan.DAO.Interface.VehicleISchema;
+import com.jacksonasantos.travelplan.dao.interfaces.VehicleISchema;
 
-import static com.jacksonasantos.travelplan.DAO.Interface.VehicleISchema.VEHICLE_TABLE;
+import static com.jacksonasantos.travelplan.dao.interfaces.VehicleISchema.VEHICLE_TABLE;
 
 public class Database {
 

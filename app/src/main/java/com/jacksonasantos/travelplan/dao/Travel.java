@@ -1,4 +1,4 @@
-package com.jacksonasantos.travelplan.DAO;
+package com.jacksonasantos.travelplan.dao;
 
 import java.sql.Date;
 

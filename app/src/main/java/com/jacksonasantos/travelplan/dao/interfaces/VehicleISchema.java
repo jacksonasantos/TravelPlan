@@ -1,6 +1,4 @@
-package com.jacksonasantos.travelplan.DAO.Interface;
-
-import java.sql.Date;
+package com.jacksonasantos.travelplan.dao.interfaces;
 
 public interface VehicleISchema {
 
