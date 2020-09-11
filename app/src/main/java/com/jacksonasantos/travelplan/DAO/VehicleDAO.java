@@ -145,15 +145,15 @@ public class VehicleDAO extends DbContentProvider implements VehicleISchema, Veh
             }
             if (cursor.getColumnIndex(VEHICLE_DT_ACQUISITION) != -1) {
                 dt_acquisitionIndex = cursor.getColumnIndexOrThrow(VEHICLE_DT_ACQUISITION);
-                vehicle.dt_acquisition = cursor.getLong(dt_acquisitionIndex);
+                vehicle.dt_acquisition = cursor.getString(dt_acquisitionIndex);
             }
             if (cursor.getColumnIndex(VEHICLE_DT_SALE) != -1) {
                 dt_saleIndex = cursor.getColumnIndexOrThrow(VEHICLE_DT_SALE);
-                vehicle.dt_sale = cursor.getLong(dt_saleIndex);
+                vehicle.dt_sale = cursor.getString(dt_saleIndex);
             }
             if (cursor.getColumnIndex(VEHICLE_DT_ODOMETER) != -1) {
                 dt_odometerIndex = cursor.getColumnIndexOrThrow(VEHICLE_DT_ODOMETER);
-                vehicle.dt_odometer = cursor.getLong(dt_odometerIndex);
+                vehicle.dt_odometer = cursor.getString(dt_odometerIndex);
             }
             if (cursor.getColumnIndex(VEHICLE_ODOMETER) != -1) {
                 odometerIndex = cursor.getColumnIndexOrThrow(VEHICLE_ODOMETER);

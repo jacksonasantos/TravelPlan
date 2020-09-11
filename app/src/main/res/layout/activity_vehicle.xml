@@ -1,5 +1,4 @@
-<ScrollView xmlns:mask="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -18,7 +17,8 @@
             android:layout_marginTop="12dp"
             android:orientation="horizontal"
             android:gravity="center_horizontal"
-            android:checkedButton="@id/rbCar">
+            android:checkedButton="@id/rbCar"
+            android:hint="@string/Vehicle_Type">
 
             <RadioButton
                 android:id="@+id/rbCar"
@@ -196,7 +196,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <com.jacksonasantos.travelplan.ui.utility.MaskedEditText
+            <EditText
                 android:id="@+id/etAcquisition"
                 android:layout_width="@dimen/labels_width"
                 android:layout_height="wrap_content"
@@ -209,17 +209,14 @@
                 android:ems="10"
                 android:hint="@string/Vehicle_DtAcquisition"
                 android:inputType="date"
-                android:textSize="14sp"
-                app:keep_hint="true"
-                mask:allowed_chars="1234567890"
-                mask:mask="##/##/####" />
+                android:textSize="14sp" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/input_layout_etSale"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-            <com.jacksonasantos.travelplan.ui.utility.MaskedEditText
+            <EditText
                 android:id="@+id/etSale"
                 android:layout_width="@dimen/labels_width"
                 android:layout_height="wrap_content"
@@ -232,17 +229,14 @@
                 android:ems="10"
                 android:hint="@string/Vehicle_DtSale"
                 android:inputType="date"
-                android:textSize="14sp"
-                mask:allowed_chars="1234567890"
-                mask:mask="##/##/####"
-                app:keep_hint="true" />
+                android:textSize="14sp" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/input_layout_etDtOdometer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-            <com.jacksonasantos.travelplan.ui.utility.MaskedEditText
+            <EditText
                android:id="@+id/etDtOdometer"
                 android:layout_width="@dimen/labels_width"
                 android:layout_height="wrap_content"
@@ -255,10 +249,7 @@
                 android:ems="10"
                 android:hint="@string/Vehicle_DtOdometer"
                 android:inputType="date"
-                android:textSize="14sp"
-                mask:allowed_chars="1234567890"
-                mask:mask="##/##/####"
-                app:keep_hint="true" />
+                android:textSize="14sp" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout

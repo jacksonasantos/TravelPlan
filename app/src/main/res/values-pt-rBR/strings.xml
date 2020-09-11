@@ -36,7 +36,6 @@
     <string name="ethanol">Etanol</string>
     <string name="Vehicle_Brand">Fabricante</string>
     <string name="Vehicle_Name">Nome do Veículo</string>
-    <string name="vehicle_Id">Identificação do Veículo</string>
     <string name="Vehicle_Type_Fuel">Tipo de Combustível</string>
     <string name="Vehicle_Deleting">Excluindo Veículo</string>
     <string name="Msg_Confirm">Tem certeza que deseja executar a operação?</string>
@@ -51,4 +50,6 @@
     <string name="Vehicle_TypeCar">Carro</string>
     <string name="Vehicle_TypeMotorcycle">Motocicleta</string>
     <string name="Vehicle_TypeSUV">SUV</string>
+    <string name="Vehicle_Type">Tipo de Veículo</string>
+    <string name="Vehicle_Id">Identificação do Veículo</string>
 </resources>

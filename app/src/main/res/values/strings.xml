@@ -38,7 +38,8 @@
     <string name="Travel_Note">Note Travel</string>
 
     <!-- Vehicle Fragment -->
-    <string name="vehicle_Id">Identification Vehicle</string>
+    <string name="Vehicle_Id">Identification Vehicle</string>
+    <string name="Vehicle_Type">Type Vehicle</string>
     <string name="Vehicle_TypeCar">Car</string>
     <string name="Vehicle_TypeMotorcycle">Motorcycle</string>
     <string name="Vehicle_TypeSUV">SUV</string>
