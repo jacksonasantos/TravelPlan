@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="nav_header_title">TRAVEL Plan</string>
+    <string name="nav_header_title">Planejamento e Controle de Viagens</string>
     <string name="action_settings">Configurações</string>
     <string name="menu_home">Principal</string>
-    <string name="nav_header_subtitle">Planejamento e Controle de Viagens</string>
     <string name="signature_title">Seu Endereço Eletrônico</string>
     <string name="personal_name">Seu Nome</string>
     <string name="personal_age">Sua Idade</string>

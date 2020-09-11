@@ -1,7 +1,7 @@
 <resources>
-    <string name="app_name" translatable="false">TRAVEL Plan</string>
-    <string name="nav_header_title">TRAVEL Plan</string>
-    <string name="nav_header_subtitle">Travel Planning and Control</string>
+    <string name="app_name" translatable="false">Travel PLAN</string>
+    <string name="nav_header_title">Travel Planning and Control</string>
+    <string name="nav_header_subtitle" translatable="false">v. 1.0.0</string>
     <string name="nav_header_desc" translatable="false">Navigation header</string>
 
     <!-- Menu Options -->
