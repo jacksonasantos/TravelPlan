@@ -15,8 +15,6 @@ import com.jacksonasantos.travelplan.DAO.Vehicle;
 import com.jacksonasantos.travelplan.R;
 import com.jaredrummler.materialspinner.MaterialSpinner;
 
-import java.sql.Date;
-
 public class VehicleActivity extends AppCompatActivity {
 
     private RadioGroup rgType;
@@ -131,12 +129,24 @@ public class VehicleActivity extends AppCompatActivity {
                 v1.setLicense_plate(etLicencePlateVehicle.getText().toString());
                 v1.setBrand(etBrand.getText().toString());
                 v1.setType_fuel(txSpinTypeFuel);
-                v1.setFull_capacity(Integer.parseInt(etFullCapacity.getText().toString()));
-                v1.setAvg_consumption(Double.parseDouble(etAVGConsumption.getText().toString()));
-                v1.setDt_acquisition(Long.parseLong(etAcquisition.getText().toString()));
-                v1.setDt_sale(Long.parseLong(etSale.getText().toString()));
-                v1.setDt_odometer(Long.parseLong(etDtOdometer.getText().toString()));
-                v1.setOdometer(Integer.parseInt(etOdometer.getText().toString()));
+                if (etFullCapacity.getText().toString()!=null && !etFullCapacity.getText().toString().isEmpty()) {
+                    v1.setFull_capacity(Integer.parseInt(etFullCapacity.getText().toString()));
+                } else { v1.setFull_capacity(0); }
+                if (etAVGConsumption.getText().toString()!=null && !etAVGConsumption.getText().toString().isEmpty()) {
+                    v1.setAvg_consumption(Double.parseDouble(etAVGConsumption.getText().toString()));
+                } else { v1.setAvg_consumption((double) 0); }
+                if (etAcquisition.getText().toString()!=null && !etAcquisition.getText().toString().isEmpty()) {
+                    v1.setDt_acquisition(Long.parseLong(etAcquisition.getText().toString()));
+                } else { v1.setDt_acquisition((long) 0); }
+                if (etSale.getText().toString()!=null && !etSale.getText().toString().isEmpty()) {
+                    v1.setDt_sale(Long.parseLong(etSale.getText().toString()));
+                } else { v1.setDt_sale((long) 0); }
+                if (etDtOdometer.getText().toString()!=null && !etDtOdometer.getText().toString().isEmpty()) {
+                    v1.setDt_odometer(Long.parseLong(etDtOdometer.getText().toString()));
+                } else { v1.setDt_odometer((long) 0); }
+                if (etOdometer.getText().toString()!=null && !etOdometer.getText().toString().isEmpty()) {
+                    v1.setOdometer(Integer.parseInt(etOdometer.getText().toString()));
+                } else { v1.setOdometer(0); }
 
                 if (!opInsert) {
                     try {
