@@ -77,13 +77,13 @@ public class VehicleListAdapter extends RecyclerView.Adapter<VehicleListAdapter.
 
         int S = Math.toIntExact(vehicle.getType());
         switch(S) {
-            case 2131296525:
+            case 0:
                 holder.imType.setImageResource(R.drawable.ic_vehicle_car);
                 break;
-            case 2131296526:
+            case 1:
                 holder.imType.setImageResource(R.drawable.ic_vehicle_motorcycle);
                 break;
-            case 2131296527:
+            case 2:
                 holder.imType.setImageResource(R.drawable.ic_vehicle_suv);
                 break;
             default:

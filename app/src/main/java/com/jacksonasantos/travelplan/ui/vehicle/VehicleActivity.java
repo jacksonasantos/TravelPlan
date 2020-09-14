@@ -84,15 +84,16 @@ public class VehicleActivity extends AppCompatActivity {
         etSale.addTextChangedListener(Mask.insert("##/##/####",etSale));
         etDtOdometer.addTextChangedListener(Mask.insert("##/##/####",etDtOdometer));
 
-        rgType.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener()
-        {
+        rgType.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                rbType = checkedId;
-                //Toast.makeText(getApplicationContext(), checkedId+" - "+" - ",Toast.LENGTH_SHORT).show();
+            public void onCheckedChanged(RadioGroup rGroup, int checkedId) {
+                int radioButtonID = rgType.getCheckedRadioButtonId();
+                View radioButton = rgType.findViewById(radioButtonID);
+                rbType = rgType.indexOfChild(radioButton);  // Define o ID do item selecionado 0-Car|1-Motorcycle|2-SUV
+                //RadioButton r = (RadioButton) rgType.getChildAt(rbType);
+                //String selectedText = r.getText().toString();  // define o texto do item selecionado
             }
         });
-
         spinTypeFuel.setItems(getResources().getStringArray(R.array.type_fuel_array));
         spinTypeFuel.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<String>() {
              @Override public void onItemSelected(MaterialSpinner view, int position, long id, String item) {
@@ -101,7 +102,7 @@ public class VehicleActivity extends AppCompatActivity {
         });
 
         if (vehicle != null) {
-            rgType.check(vehicle.getType());
+            rgType.check( rgType.getChildAt(vehicle.getType()).getId() );
             etNameVehicle.setText(vehicle.getName());
             etShortNameVehicle.setText(vehicle.getShort_name());
             etLicencePlateVehicle.setText(vehicle.getLicense_plate());
@@ -129,22 +130,22 @@ public class VehicleActivity extends AppCompatActivity {
                 mdb.open();
 
                 final Vehicle v1 = new Vehicle();
-                v1.setType(rgType.getCheckedRadioButtonId());
+                v1.setType(rbType);
                 v1.setName(etNameVehicle.getText().toString());
                 v1.setShort_name(etShortNameVehicle.getText().toString());
                 v1.setLicense_plate(etLicencePlateVehicle.getText().toString());
                 v1.setBrand(etBrand.getText().toString());
                 v1.setType_fuel(txSpinTypeFuel);
-                if (etFullCapacity.getText().toString()!=null && !etFullCapacity.getText().toString().isEmpty()) {
+                if (!etFullCapacity.getText().toString().isEmpty()) {
                     v1.setFull_capacity(Integer.parseInt(etFullCapacity.getText().toString()));
                 } else { v1.setFull_capacity(0); }
-                if (etAVGConsumption.getText().toString()!=null && !etAVGConsumption.getText().toString().isEmpty()) {
+                if ( !etAVGConsumption.getText().toString().isEmpty()) {
                     v1.setAvg_consumption(Double.parseDouble(etAVGConsumption.getText().toString()));
                 } else { v1.setAvg_consumption((double) 0); }
                 v1.setDt_acquisition(etAcquisition.getText().toString().replace("/","").trim());
                 v1.setDt_sale(etSale.getText().toString().replace("/","").trim());
                 v1.setDt_odometer(etDtOdometer.getText().toString().replace("/","").trim());
-                if (etOdometer.getText().toString()!=null && !etOdometer.getText().toString().isEmpty()) {
+                if (!etOdometer.getText().toString().isEmpty()) {
                     v1.setOdometer(Integer.parseInt(etOdometer.getText().toString()));
                 } else { v1.setOdometer(0); }
 
@@ -153,14 +154,12 @@ public class VehicleActivity extends AppCompatActivity {
                         v1.setId(vehicle.getId());
                         isSave = Database.mVehicleDao.updateVehicle(v1);
                     } catch (Exception e ){
-                        isSave = false;
                         Toast.makeText(getApplicationContext(), "Erro Alterando os Dados "+e.getMessage(), Toast.LENGTH_LONG).show();
                     }
                 } else {
                     try {
                         isSave = Database.mVehicleDao.addVehicle(v1);
                     } catch ( Exception e ) {
-                        isSave = false;
                         Toast.makeText(getApplicationContext(), "Erro Incluindo os Dados "+e.getMessage(), Toast.LENGTH_LONG).show();
                     }
                 }

@@ -1,15 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.jacksonasantos.travelplan">
 
     <application
         android:allowBackup="true"
         android:fullBackupContent="@xml/backup_descriptor"
-        android:icon="@drawable/ic_travelplan"
+        android:icon="@drawable/ic_logo_travelplan"
         android:label="@string/app_name"
-        android:roundIcon="@drawable/ic_travelplan"
+        android:roundIcon="@drawable/ic_logo_travelplan"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar" >
+        <!-- Splash screen -->
+        <activity
+            android:name=".Splash"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Black.NoTitleBar"
+            tools:ignore="Instantiatable">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".ui.vehicle.VehicleActivity"
             android:label="Vehicle"/>
@@ -19,11 +33,6 @@
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
     </application>
 
