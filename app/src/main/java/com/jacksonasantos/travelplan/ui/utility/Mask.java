@@ -1,18 +1,29 @@
 package com.jacksonasantos.travelplan.ui.utility;
 
+import android.annotation.SuppressLint;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.widget.EditText;
 
-/*
-Creditos: https://pt.stackoverflow.com/questions/207341/mascara-de-data-no-edittext/207415 - 11/09/2020
-*/
+/*Creditos: https://pt.stackoverflow.com/questions/207341/mascara-de-data-no-edittext/207415 - 11/09/2020*/
+
 public abstract class Mask {
+    @SuppressLint("DefaultLocale")
+
+    public static String formatDate(String text){
+        int d = Integer.parseInt(text.substring(0,2));
+        int m = Integer.parseInt(text.substring(2,4));
+        int y = Integer.parseInt(text.substring(4,8));
+        return String.format("%02d/%02d/%04d", d, m, y);
+    }
 
     public static TextWatcher insert(final String mask, final EditText et) {
         return new TextWatcher() {
             boolean isUpdating;
             String oldTxt = "";
+
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
             public void onTextChanged(CharSequence s, int start, int before,int count) {
                 String str = Mask.unmask(s.toString());
                 String maskCurrent = "";
@@ -38,10 +49,11 @@ public abstract class Mask {
                 et.setText(maskCurrent);
                 et.setSelection(maskCurrent.length());
             }
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
             public void afterTextChanged(Editable s) {}
         };
     }
+
     private static String unmask(String s) {
         return s.replaceAll("[.]", "").replaceAll("[-]", "")
                 .replaceAll("[/]", "").replaceAll("[(]", "")

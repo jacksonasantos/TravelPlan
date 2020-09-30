@@ -21,8 +21,10 @@
         android:layout_height="match_parent"
         android:layout_marginLeft="12dp"
         android:layout_marginRight="3dp"
-        android:layout_weight="1.8"
-        android:gravity="center_vertical" />
+        android:layout_weight="2"
+        android:gravity="center_vertical"
+        android:layout_marginStart="12dp"
+        android:layout_marginEnd="3dp" />
 
     <TextView
         android:id="@+id/txtShortName"
@@ -30,22 +32,22 @@
         android:layout_height="match_parent"
         android:layout_marginLeft="3dp"
         android:layout_marginRight="3dp"
-        android:layout_weight="1.5"
+        android:layout_weight="1.8"
         android:gravity="center_vertical" />
 
-    <TextView
-        android:id="@+id/txtAVG"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginLeft="3dp"
-        android:layout_marginRight="3dp"
-        android:layout_weight="2"
-        android:gravity="center_vertical" />
+    <ImageButton
+        android:id="@+id/btnRefuel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="0"
+        android:contentDescription="@string/bt_Refuel"
+        android:src="@drawable/ic_supply" />
 
     <ImageButton
         android:id="@+id/btnEdit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_weight="0"
         android:contentDescription="@string/bt_Edit"
         android:src="@drawable/ic_menu_edit" />
 
@@ -53,8 +55,8 @@
         android:id="@+id/btnDelete"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_weight="0"
         android:contentDescription="@string/bt_Delete"
         android:src="@drawable/ic_menu_delete" />
-
 
 </LinearLayout>

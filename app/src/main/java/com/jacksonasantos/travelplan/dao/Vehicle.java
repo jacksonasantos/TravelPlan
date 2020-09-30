@@ -1,13 +1,17 @@
 package com.jacksonasantos.travelplan.dao;
 
+import androidx.annotation.NonNull;
+
+import com.jacksonasantos.travelplan.R;
+
 public class Vehicle {
-    public Long id;
+    public long id;
     public int type;
     public String name;
     public String short_name;
     public String license_plate;
     public int full_capacity;
-    public Double avg_consumption;
+    public float avg_consumption;
     public String brand;
     public String type_fuel;
     public String dt_acquisition;
@@ -29,13 +33,33 @@ public class Vehicle {
         this.dt_sale = dt_sale;
         this.dt_odometer = dt_odometer;
         this.odometer = odometer;
-
     }
+    @NonNull
+    @Override
+    public String toString() { return name; }
 
     public long getId() { return id; }
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public int getTypeImage( int type ) {
+        int draw;
+        switch(type) {
+            case 1:
+                draw = R.drawable.ic_vehicle_car;
+                break;
+            case 2:
+                draw = R.drawable.ic_vehicle_motorcycle;
+                break;
+            case 3:
+                draw = R.drawable.ic_vehicle_suv;
+                break;
+            default:
+                throw new IllegalStateException("Unexpected value: " + type);
+        }
+        return draw;
     }
 
     public int getType() { return type; }
@@ -82,11 +106,11 @@ public class Vehicle {
         this.full_capacity = full_capacity;
     }
 
-    public Double getAvg_consumption() {
+    public float getAvg_consumption() {
         return avg_consumption;
     }
 
-    public void setAvg_consumption(Double avg_consumption) { this.avg_consumption = avg_consumption; }
+    public void setAvg_consumption(float avg_consumption) { this.avg_consumption = avg_consumption; }
 
     public String getShort_name() {return short_name;}
 

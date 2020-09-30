@@ -32,20 +32,21 @@ public class VehicleListAdapter extends RecyclerView.Adapter<VehicleListAdapter.
         public ImageView imType;
         public TextView txtPlate;
         public TextView txtShortName;
-        public TextView txtAVG;
         public ImageButton btnEdit;
         public ImageButton btnDelete;
+        public ImageButton btnRefuel;
 
         public MyViewHolder(View v) {
             super(v);
             imType = v.findViewById(R.id.imType);
             txtPlate = (TextView) v.findViewById(R.id.txtPlate);
             txtShortName = (TextView) v.findViewById(R.id.txtShortName);
-            txtAVG = (TextView) v.findViewById(R.id.txtAVG);
             btnEdit = (ImageButton) v.findViewById(R.id.btnEdit);
             btnDelete = (ImageButton) v.findViewById(R.id.btnDelete);
+            btnRefuel = (ImageButton) v.findViewById(R.id.btnRefuel);
             btnEdit.setOnClickListener(this);
             btnDelete.setOnClickListener(this);
+            btnRefuel.setOnClickListener(this);
         }
 
         @Override
@@ -75,23 +76,20 @@ public class VehicleListAdapter extends RecyclerView.Adapter<VehicleListAdapter.
     public void onBindViewHolder(@NonNull final MyViewHolder holder, final int position) {
         final Vehicle vehicle = mVehicle.get(position);
 
-        int S = Math.toIntExact(vehicle.getType());
-        switch(S) {
-            case 0:
-                holder.imType.setImageResource(R.drawable.ic_vehicle_car);
-                break;
-            case 1:
-                holder.imType.setImageResource(R.drawable.ic_vehicle_motorcycle);
-                break;
-            case 2:
-                holder.imType.setImageResource(R.drawable.ic_vehicle_suv);
-                break;
-            default:
-                break;
-        }
+        holder.imType.setImageResource(vehicle.getTypeImage(vehicle.getType()));
         holder.txtPlate.setText(vehicle.getLicense_plate());
         holder.txtShortName.setText(vehicle.getShort_name());
-        holder.txtAVG.setText(Double.toString(vehicle.getAvg_consumption())+" Km/L");
+
+        // btnRefuel
+        holder.btnRefuel.setOnClickListener (new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent (v.getContext(), FuelSupplyActivity.class);
+                intent.putExtra("vehicle_id", vehicle.getId());
+                context.startActivity(intent);
+                notifyDataSetChanged();
+            }
+        });
 
         // btnEdit
         holder.btnEdit.setOnClickListener (new View.OnClickListener() {

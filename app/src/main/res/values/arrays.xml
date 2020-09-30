@@ -4,6 +4,12 @@
         <item>@string/personal_gender_male</item>
         <item>@string/personal_gender_female</item>
     </string-array>
+    <!-- Type Vehicle -->
+    <string-array name="type_vehicle_array">
+        <item>@string/Vehicle_TypeCar</item>
+        <item>@string/Vehicle_TypeMotorcycle</item>
+        <item>@string/Vehicle_TypeSUV</item>
+    </string-array>
     <!-- Type Fuel -->
     <string-array name="type_fuel_array">
         <item>@string/ethanol</item>
@@ -13,4 +19,28 @@
         <item>@string/gnv</item>
         <item>@string/electric</item>
     </string-array>
- </resources>
+    <!-- Fuel -->
+    <string-array name="fuel_array">
+        <item>@string/ethanol</item>
+        <item>@string/gasoline_common</item>
+        <item>@string/gasoline_additives</item>
+        <item>@string/gasoline_premium</item>
+        <item>@string/diesel</item>
+        <item>@string/gnv</item>
+        <item>@string/electric</item>
+    </string-array>
+    <!-- Currency -->
+    <string-array name="currency_array">
+        <item>Real</item>
+        <item>Dolar</item>
+        <item>Peso Argentino</item>
+        <item>Peso Uruguaio</item>
+        <item>Peso Chileno</item>
+        <item>Euro</item>
+    </string-array>
+    <!-- Reason Travel Type -->
+    <string-array name="travel_type_array">
+        <item>@string/city</item>
+        <item>@string/road</item>
+    </string-array>
+</resources>

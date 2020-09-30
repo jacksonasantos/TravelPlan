@@ -17,42 +17,13 @@
             android:layout_marginTop="12dp"
             android:orientation="horizontal"
             android:gravity="center_horizontal"
-            android:checkedButton="@id/rbCar"
             android:hint="@string/Vehicle_Type">
-
-            <RadioButton
-                android:id="@+id/rbCar"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginStart="@dimen/labels_margin"
-                android:layout_marginLeft="@dimen/labels_margin"
-                android:text="@string/Vehicle_TypeCar"
-                android:textSize="14sp"/>
-
-            <RadioButton
-                android:id="@+id/rbMotorcycle"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginStart="@dimen/labels_margin"
-                android:layout_marginLeft="@dimen/labels_margin"
-                android:text="@string/Vehicle_TypeMotorcycle"
-                android:textSize="14sp" />
-
-            <RadioButton
-                android:id="@+id/rbSUV"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginStart="@dimen/labels_margin"
-                android:layout_marginLeft="@dimen/labels_margin"
-                android:text="@string/Vehicle_TypeSUV"
-                android:textSize="14sp" />
         </RadioGroup>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/input_layout_etNameVehicle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-
             <EditText
                 android:id="@+id/etNameVehicle"
                 android:layout_width="match_parent"
@@ -66,8 +37,6 @@
                 android:hint="@string/Vehicle_Name"
                 android:inputType="text"
                 android:textSize="14sp" />
-
-
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -95,7 +64,6 @@
             android:layout_height="wrap_content"
             app:counterEnabled="true"
             app:counterMaxLength="7">
-
             <EditText
                 android:id="@+id/etLicencePlateVehicle"
                 android:layout_width="match_parent"
@@ -106,7 +74,6 @@
                 android:layout_marginEnd="@dimen/labels_margin"
                 android:layout_marginRight="@dimen/labels_margin"
                 android:autofillHints="no"
-                android:ems="10"
                 android:hint="@string/Vehicle_Licence_Plate"
                 android:inputType="text|textCapCharacters"
                 android:textAllCaps="true"
@@ -127,9 +94,9 @@
                 android:layout_marginEnd="@dimen/labels_margin"
                 android:layout_marginRight="@dimen/labels_margin"
                 android:autofillHints="no"
-                android:ems="10"
                 android:hint="@string/Vehicle_Brand"
                 android:inputType="text"
+                android:nextFocusDown="@+id/spinTypeFuel"
                 android:textSize="14sp" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -137,6 +104,8 @@
             android:id="@+id/input_layout_spinTypeFuel"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+            <!-- TODO Implement Material.Exposed Dropdown Menu in Spinner componets
+                 https://material.io/develop/android/components/menu-->
             <com.jaredrummler.materialspinner.MaterialSpinner
                 android:id="@+id/spinTypeFuel"
                 android:layout_width="match_parent"
@@ -146,131 +115,130 @@
                 android:layout_marginTop="@dimen/labels_space_top"
                 android:layout_marginEnd="@dimen/labels_margin"
                 android:layout_marginRight="@dimen/labels_margin"
-                android:ems="10"
+                android:layout_marginBottom="@dimen/labels_space_top"
                 android:hint="@string/Vehicle_Type_Fuel"
                 android:textSize="14sp" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/input_layout_etFullCapacity"
+        <Button
+            android:id="@+id/buttonSeparator1"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <EditText
-                android:id="@+id/etFullCapacity"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/labels_margin"
-                android:layout_marginLeft="@dimen/labels_margin"
-                android:layout_marginTop="@dimen/labels_space_top"
-                android:layout_marginEnd="@dimen/labels_margin"
-                android:layout_marginRight="@dimen/labels_margin"
-                android:autofillHints="no"
-                android:ems="10"
-                android:hint="@string/Vehicle_Full_Capacity"
-                android:inputType="number"
-                android:textSize="14sp"/>
-        </com.google.android.material.textfield.TextInputLayout>
+            android:layout_height="20dp"
+            android:clickable="false" />
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/input_layout_etAVGConsumption"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <EditText
-                android:id="@+id/etAVGConsumption"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/labels_margin"
-                android:layout_marginLeft="@dimen/labels_margin"
-                android:layout_marginTop="@dimen/labels_space_top"
-                android:layout_marginEnd="@dimen/labels_margin"
-                android:layout_marginRight="@dimen/labels_margin"
-                android:autofillHints="no"
-                android:ems="10"
-                android:hint="@string/Vehicle_Avg_Consumption"
-                android:inputType="numberDecimal"
-                android:textSize="14sp" />
-        </com.google.android.material.textfield.TextInputLayout>
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/labels_margin"
+            android:layout_marginLeft="@dimen/labels_margin"
+            android:layout_marginTop="@dimen/labels_space_top"
+            android:layout_marginEnd="@dimen/labels_margin"
+            android:layout_marginRight="@dimen/labels_margin">
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/input_layout_etAcquisition"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <EditText
-                android:id="@+id/etAcquisition"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/input_layout_etFullCapacity"
                 android:layout_width="@dimen/labels_width"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/labels_margin"
-                android:layout_marginLeft="@dimen/labels_margin"
-                android:layout_marginTop="@dimen/labels_space_top"
-                android:layout_marginEnd="@dimen/labels_margin"
-                android:layout_marginRight="@dimen/labels_margin"
-                android:autofillHints="no"
-                android:ems="10"
-                android:hint="@string/Vehicle_DtAcquisition"
-                android:inputType="date"
-                android:textSize="14sp" />
-        </com.google.android.material.textfield.TextInputLayout>
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+                <EditText
+                    android:id="@+id/etFullCapacity"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:autofillHints="no"
+                    android:hint="@string/Vehicle_Full_Capacity"
+                    android:inputType="number"
+                    android:nextFocusDown="@+id/etAVGConsumption"
+                    android:textSize="14sp" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/input_layout_etSale"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <EditText
-                android:id="@+id/etSale"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/input_layout_etAVGConsumption"
                 android:layout_width="@dimen/labels_width"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/labels_margin"
-                android:layout_marginLeft="@dimen/labels_margin"
-                android:layout_marginTop="@dimen/labels_space_top"
-                android:layout_marginEnd="@dimen/labels_margin"
-                android:layout_marginRight="@dimen/labels_margin"
-                android:autofillHints="no"
-                android:ems="10"
-                android:hint="@string/Vehicle_DtSale"
-                android:inputType="date"
-                android:textSize="14sp" />
-        </com.google.android.material.textfield.TextInputLayout>
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+                <EditText
+                    android:id="@+id/etAVGConsumption"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:autofillHints="no"
+                    android:hint="@string/Vehicle_Avg_Consumption"
+                    android:inputType="numberDecimal"
+                    android:nextFocusDown="@+id/etAcquisition"
+                    android:shadowRadius="1"
+                    android:textSize="14sp" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/input_layout_etDtOdometer"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <EditText
-               android:id="@+id/etDtOdometer"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/input_layout_etAcquisition"
                 android:layout_width="@dimen/labels_width"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/labels_margin"
-                android:layout_marginLeft="@dimen/labels_margin"
-                android:layout_marginTop="@dimen/labels_space_top"
-                android:layout_marginEnd="@dimen/labels_margin"
-                android:layout_marginRight="@dimen/labels_margin"
-                android:autofillHints="no"
-                android:ems="10"
-                android:hint="@string/Vehicle_DtOdometer"
-                android:inputType="date"
-                android:textSize="14sp" />
-        </com.google.android.material.textfield.TextInputLayout>
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/input_layout_etFullCapacity">
+                <EditText
+                    android:id="@+id/etAcquisition"
+                    android:layout_width="@dimen/labels_width"
+                    android:layout_height="wrap_content"
+                    android:autofillHints="no"
+                    android:hint="@string/Vehicle_DtAcquisition"
+                    android:inputType="date"
+                    android:nextFocusDown="@+id/etSale"
+                    android:textSize="14sp" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/input_layout_etOdometer"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <EditText
-                android:id="@+id/etOdometer"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/input_layout_etSale"
                 android:layout_width="@dimen/labels_width"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/labels_margin"
-                android:layout_marginLeft="@dimen/labels_margin"
-                android:layout_marginTop="@dimen/labels_space_top"
-                android:layout_marginEnd="@dimen/labels_margin"
-                android:layout_marginRight="@dimen/labels_margin"
-                android:autofillHints="no"
-                android:ems="10"
-                android:hint="@string/Vehicle_Odometer"
-                android:inputType="number"
-                android:textSize="14sp"/>
-        </com.google.android.material.textfield.TextInputLayout>
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/input_layout_etAVGConsumption">
+                <EditText
+                    android:id="@+id/etSale"
+                    android:layout_width="@dimen/labels_width"
+                    android:layout_height="wrap_content"
+                    android:autofillHints="no"
+                    android:hint="@string/Vehicle_DtSale"
+                    android:inputType="date"
+                    android:nextFocusDown="@+id/etDtOdometer"
+                    android:textSize="14sp" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/input_layout_etDtOdometer"
+                android:layout_width="@dimen/labels_width"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/input_layout_etAcquisition">
+                <EditText
+                    android:id="@+id/etDtOdometer"
+                    android:layout_width="@dimen/labels_width"
+                    android:layout_height="wrap_content"
+                    android:autofillHints="no"
+                    android:hint="@string/Vehicle_DtOdometer"
+                    android:inputType="date"
+                    android:nextFocusDown="@+id/etOdometer"
+                    android:textSize="14sp" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/input_layout_etOdometer"
+                android:layout_width="@dimen/labels_width"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/input_layout_etSale">
+                <EditText
+                    android:id="@+id/etOdometer"
+                    android:layout_width="@dimen/labels_width"
+                    android:layout_height="wrap_content"
+                    android:autofillHints="no"
+                    android:hint="@string/Vehicle_Odometer"
+                    android:inputType="number"
+                    android:nextFocusDown="@+id/btSaveVehicle"
+                    android:textSize="14sp" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <Button
             android:id="@+id/btSaveVehicle"
@@ -279,6 +247,5 @@
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="8dp"
             android:text="@string/bt_Save" />
-
     </LinearLayout>
 </ScrollView>

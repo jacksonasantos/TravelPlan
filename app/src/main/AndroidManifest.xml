@@ -8,12 +8,12 @@
         android:fullBackupContent="@xml/backup_descriptor"
         android:icon="@drawable/ic_logo_travelplan"
         android:label="@string/app_name"
-        android:roundIcon="@drawable/ic_logo_travelplan"
+        android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme.NoActionBar" >
+        android:theme="@style/AppTheme.NoActionBar">
         <!-- Splash screen -->
         <activity
-            android:name=".Splash"
+            android:name=".SplashActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Black.NoTitleBar"
@@ -25,15 +25,17 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".ui.vehicle.FuelSupplyActivity"
+            android:label="Vehicle" />
+        <activity
             android:name=".ui.vehicle.VehicleActivity"
-            android:label="Vehicle"/>
+            android:label="Vehicle" />
         <activity
             android:name=".SettingsActivity"
             android:label="@string/action_settings" />
         <activity
             android:name=".MainActivity"
-            android:label="@string/app_name">
-        </activity>
+            android:label="@string/app_name"/>
     </application>
 
 </manifest>

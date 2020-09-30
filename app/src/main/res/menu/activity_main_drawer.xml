@@ -15,6 +15,10 @@
             android:icon="@drawable/ic_menu_vehicle"
             android:title="@string/menu_vehicle" />
         <item
+            android:id="@+id/nav_fuel_supply"
+            android:icon="@drawable/ic_supply"
+            android:title="@string/menu_fuel_supply" />
+        <item
             android:id="@+id/nav_travel"
             android:icon="@drawable/ic_menu_travel"
             android:title="@string/menu_travel" />

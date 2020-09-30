@@ -9,13 +9,20 @@
         android:id="@+id/nav_home"
         android:name="com.jacksonasantos.travelplan.ui.home.HomeFragment"
         android:label="@string/menu_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+    </fragment>
 
     <fragment
         android:id="@+id/nav_vehicle"
         android:name="com.jacksonasantos.travelplan.ui.vehicle.VehicleFragment"
         android:label="@string/menu_vehicle"
         tools:layout="@layout/fragment_vehicle" />
+
+    <fragment
+        android:id="@+id/nav_fuel_supply"
+        android:name="com.jacksonasantos.travelplan.ui.vehicle.FuelSupplyFragment"
+        android:label="@string/menu_fuel_supply"
+        tools:layout="@layout/fragment_fuel_supply" />
 
     <fragment
         android:id="@+id/nav_travel"

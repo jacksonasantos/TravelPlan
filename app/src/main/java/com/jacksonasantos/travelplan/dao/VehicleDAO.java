@@ -21,23 +21,27 @@ public class VehicleDAO extends DbContentProvider implements VehicleISchema, Veh
         super(db);
     }
 
-    public Vehicle fetchVehicleById(int id) {
+    public Vehicle fetchVehicleById(Long id) {
         final String[] selectionArgs = { String.valueOf(id) };
         final String selection = VEHICLE_ID + " = ?";
         Vehicle vehicle = new Vehicle();
-        cursor = super.query(VEHICLE_TABLE, VEHICLE_COLUMNS, selection, selectionArgs, VEHICLE_ID);
-        if (cursor != null) {
-            cursor.moveToFirst();
-            while (!cursor.isAfterLast()) {
-                vehicle = cursorToEntity(cursor);
-                cursor.moveToNext();
+        try {
+            cursor = super.query(VEHICLE_TABLE, VEHICLE_COLUMNS, selection, selectionArgs, VEHICLE_ID);
+            if (cursor != null) {
+                cursor.moveToFirst();
+                while (!cursor.isAfterLast()) {
+                    vehicle = cursorToEntity(cursor);
+                    cursor.moveToNext();
+                }
+                cursor.close();
             }
-            cursor.close();
+        } catch (SQLiteConstraintException ex) {
+            Log.w("Update Table", ex.getMessage());
         }
         return vehicle;
     }
 
-        public List<Vehicle> fetchAllVehicles() {
+    public List<Vehicle> fetchAllVehicles() {
         List<Vehicle> vehicleList = new ArrayList<>();
 
         cursor = super.query(VEHICLE_TABLE, VEHICLE_COLUMNS, null,null, VEHICLE_ID);
@@ -46,21 +50,33 @@ public class VehicleDAO extends DbContentProvider implements VehicleISchema, Veh
             do {
                 Vehicle vehicle = cursorToEntity(cursor);
                 vehicleList.add(vehicle);
-                } while (cursor.moveToNext());
+            } while (cursor.moveToNext());
 
             cursor.close();
         }
         return vehicleList;
     }
 
-    public boolean deleteVehicle(int id) {
+    public ArrayList<Vehicle> fetchArrayVehicles(){
+        ArrayList<Vehicle> vehicleList = new ArrayList<Vehicle>();
+        Cursor cursor = super.query(VEHICLE_TABLE, VEHICLE_COLUMNS, null,null, VEHICLE_ID);
+        if(cursor != null && cursor.moveToFirst()){
+            do{
+                Vehicle vehicle = cursorToEntity(cursor);
+                vehicleList.add(vehicle);
+                //vehicleList.add(cursor.getString(cursor.getColumnIndex(VEHICLE_NAME)));
+            }while(cursor.moveToNext());
+        }
+        return vehicleList;
+    }
+
+    public void deleteVehicle(int id) {
         final String[] selectionArgs = { String.valueOf(id) };
         final String selection = VEHICLE_ID + " = ?";
         try {
-            return super.delete(VEHICLE_TABLE, selection, selectionArgs) > 0;
+            super.delete(VEHICLE_TABLE, selection, selectionArgs);
         } catch (SQLiteConstraintException ex){
             Log.w("Delete Table", ex.getMessage());
-            return false;
         }
     }
 
@@ -132,7 +148,7 @@ public class VehicleDAO extends DbContentProvider implements VehicleISchema, Veh
             }
             if (cursor.getColumnIndex(VEHICLE_AVG_CONSUMPTION) != -1) {
                 avg_consumptionIndex = cursor.getColumnIndexOrThrow(VEHICLE_AVG_CONSUMPTION);
-                vehicle.avg_consumption = cursor.getDouble(avg_consumptionIndex);
+                vehicle.avg_consumption = cursor.getFloat(avg_consumptionIndex);
             }
             if (cursor.getColumnIndex(VEHICLE_BRAND) != -1) {
                 brandIndex = cursor.getColumnIndexOrThrow(VEHICLE_BRAND);
@@ -176,7 +192,6 @@ public class VehicleDAO extends DbContentProvider implements VehicleISchema, Veh
         initialValues.put(VEHICLE_DT_SALE, String.valueOf(vehicle.dt_sale));
         initialValues.put(VEHICLE_DT_ODOMETER, String.valueOf(vehicle.dt_odometer));
         initialValues.put(VEHICLE_ODOMETER, vehicle.odometer);
-
     }
 
     private ContentValues getContentValue() {
