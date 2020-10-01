@@ -103,27 +103,27 @@
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/input_layout_spinTypeFuel"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <!-- TODO Implement Material.Exposed Dropdown Menu in Spinner componets
-                 https://material.io/develop/android/components/menu-->
-            <com.jaredrummler.materialspinner.MaterialSpinner
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/labels_margin"
+            android:layout_marginLeft="@dimen/labels_margin"
+            android:layout_marginTop="@dimen/labels_space_top"
+            android:layout_marginEnd="@dimen/labels_margin"
+            android:layout_marginRight="@dimen/labels_margin"
+            style = "@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu">
+            <AutoCompleteTextView
                 android:id="@+id/spinTypeFuel"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/labels_margin"
-                android:layout_marginLeft="@dimen/labels_margin"
-                android:layout_marginTop="@dimen/labels_space_top"
-                android:layout_marginEnd="@dimen/labels_margin"
-                android:layout_marginRight="@dimen/labels_margin"
-                android:layout_marginBottom="@dimen/labels_space_top"
                 android:hint="@string/Vehicle_Type_Fuel"
-                android:textSize="14sp" />
+                android:nextFocusDown="@+id/etFullCapacity"
+                android:textSize="14sp"
+                android:inputType="none" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <Button
             android:id="@+id/buttonSeparator1"
             android:layout_width="match_parent"
-            android:layout_height="20dp"
+            android:layout_height="15dp"
             android:clickable="false" />
 
         <androidx.constraintlayout.widget.ConstraintLayout

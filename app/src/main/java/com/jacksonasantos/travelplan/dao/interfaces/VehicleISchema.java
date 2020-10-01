@@ -33,7 +33,7 @@ public interface VehicleISchema {
 
     // Version 3
     String ALTER_TABLE_VEHICLE_V3 = "ALTER TABLE " + VEHICLE_TABLE
-            + " ADD COLUMN " + VEHICLE_TYPE_FUEL + " TEXT";
+            + " ADD COLUMN " + VEHICLE_TYPE_FUEL + " INT";
 
     // Version 5
     String ALTER_TABLE_VEHICLE_V5 = "ALTER TABLE " + VEHICLE_TABLE

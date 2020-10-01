@@ -1,15 +1,22 @@
 package com.jacksonasantos.travelplan.ui.vehicle;
 
+import android.annotation.SuppressLint;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -25,9 +32,9 @@ public class VehicleActivity extends AppCompatActivity {
     private EditText etNameVehicle;
     private EditText etShortNameVehicle;
     private EditText etLicencePlateVehicle;
-    // TODO - Implement API of BRAND´s
-    private EditText etBrand;
-    private String txSpinTypeFuel = null;
+    private EditText etBrand;       // TODO - Implement API of BRAND´s
+    private AutoCompleteTextView spinTypeFuel;
+    private int nrspinTypeFuel;
     private EditText etFullCapacity;
     private EditText etAVGConsumption;
     private EditText etAcquisition;
@@ -37,6 +44,7 @@ public class VehicleActivity extends AppCompatActivity {
     private Vehicle vehicle;
     private boolean opInsert = true;
 
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,7 +60,7 @@ public class VehicleActivity extends AppCompatActivity {
             vehicle.setShort_name(extras.getString("short_name"));
             vehicle.setLicense_plate(extras.getString("license_plate"));
             vehicle.setBrand(extras.getString("brand"));
-            vehicle.setType_fuel(extras.getString("type_fuel"));
+            vehicle.setType_fuel(extras.getInt("type_fuel"));
             vehicle.setFull_capacity(extras.getInt("full_capacity"));
             vehicle.setAvg_consumption(extras.getFloat("avg_consumption"));
             vehicle.setDt_acquisition(extras.getString("dt_acquisition"));
@@ -74,7 +82,7 @@ public class VehicleActivity extends AppCompatActivity {
         etShortNameVehicle = findViewById(R.id.etShortNameVehicle);
         etLicencePlateVehicle = findViewById(R.id.etLicencePlateVehicle);
         etBrand = findViewById(R.id.etBrand);
-        MaterialSpinner spinTypeFuel = findViewById(R.id.spinTypeFuel);
+        spinTypeFuel = findViewById(R.id.spinTypeFuel);
         etFullCapacity = findViewById(R.id.etFullCapacity);
         etAVGConsumption = findViewById(R.id.etAVGConsumption);
         etAcquisition = findViewById(R.id.etAcquisition);
@@ -90,16 +98,17 @@ public class VehicleActivity extends AppCompatActivity {
             }
         });
 
+        addSpinnerResources(R.array.type_fuel_array, spinTypeFuel);
+        nrspinTypeFuel = 0;
+        spinTypeFuel.setOnItemClickListener(new Spinner.OnItemClickListener() {
+            @Override public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                nrspinTypeFuel = (int) adapterView.getItemIdAtPosition(i);
+            }
+        });
+
         etAcquisition.addTextChangedListener(Mask.insert("##/##/####",etAcquisition));
         etSale.addTextChangedListener(Mask.insert("##/##/####",etSale));
         etDtOdometer.addTextChangedListener(Mask.insert("##/##/####",etDtOdometer));
-
-        spinTypeFuel.setItems(getResources().getStringArray(R.array.type_fuel_array));
-        spinTypeFuel.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<String>() {
-             @Override public void onItemSelected(MaterialSpinner view, int position, long id, String item) {
-             txSpinTypeFuel = item;
-            }
-        });
 
         if (vehicle != null) {
             rgType.check(vehicle.getType());
@@ -107,8 +116,8 @@ public class VehicleActivity extends AppCompatActivity {
             etShortNameVehicle.setText(vehicle.getShort_name());
             etLicencePlateVehicle.setText(vehicle.getLicense_plate());
             etBrand.setText(vehicle.getBrand());
-            spinTypeFuel.setText(vehicle.getType_fuel());
-            txSpinTypeFuel=vehicle.getType_fuel();
+            nrspinTypeFuel=vehicle.getType_fuel();
+            spinTypeFuel.setText(getResources().getStringArray(R.array.type_fuel_array)[nrspinTypeFuel],false);
             etFullCapacity.setText(String.valueOf(vehicle.getFull_capacity()));
             etAVGConsumption.setText(String.valueOf(vehicle.getAvg_consumption()));
             etAcquisition.setText(String.valueOf(vehicle.getDt_acquisition()));
@@ -116,6 +125,14 @@ public class VehicleActivity extends AppCompatActivity {
             etDtOdometer.setText(String.valueOf(vehicle.getDt_odometer()));
             etOdometer.setText(String.valueOf(vehicle.getOdometer()));
         }
+    }
+
+    private void addSpinnerResources(int resource_array, AutoCompleteTextView spin) {
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(
+                this,
+                android.R.layout.select_dialog_item,
+                getResources().getStringArray(resource_array));
+        spin.setAdapter(adapter);
     }
 
     private void addRadioButtonResources(int resource_array, RadioGroup rg) {
@@ -155,7 +172,7 @@ public class VehicleActivity extends AppCompatActivity {
                 v1.setShort_name(etShortNameVehicle.getText().toString());
                 v1.setLicense_plate(etLicencePlateVehicle.getText().toString());
                 v1.setBrand(etBrand.getText().toString());
-                v1.setType_fuel(txSpinTypeFuel);
+                v1.setType_fuel(nrspinTypeFuel);
                 if (!etFullCapacity.getText().toString().isEmpty()) {
                     v1.setFull_capacity(Integer.parseInt(etFullCapacity.getText().toString()));
                 } else { v1.setFull_capacity(0); }

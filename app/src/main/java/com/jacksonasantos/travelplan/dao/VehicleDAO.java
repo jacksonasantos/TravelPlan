@@ -156,7 +156,7 @@ public class VehicleDAO extends DbContentProvider implements VehicleISchema, Veh
             }
             if (cursor.getColumnIndex(VEHICLE_TYPE_FUEL) != -1) {
                 type_fuelIndex = cursor.getColumnIndexOrThrow(VEHICLE_TYPE_FUEL);
-                vehicle.type_fuel = cursor.getString(type_fuelIndex);
+                vehicle.type_fuel = cursor.getInt(type_fuelIndex);
             }
             if (cursor.getColumnIndex(VEHICLE_DT_ACQUISITION) != -1) {
                 dt_acquisitionIndex = cursor.getColumnIndexOrThrow(VEHICLE_DT_ACQUISITION);

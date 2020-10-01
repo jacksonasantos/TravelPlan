@@ -7,7 +7,7 @@
 
 
     <dimen name="labels_width">190dp</dimen>
-    <dimen name="labels_height">45dp</dimen>
+    <dimen name="labels_height">0dp</dimen>
     <dimen name="labels_marginLeft">8dp</dimen>
     <dimen name="labels_margin">8dp</dimen>
     <dimen name="labels_space_top">4dp</dimen>

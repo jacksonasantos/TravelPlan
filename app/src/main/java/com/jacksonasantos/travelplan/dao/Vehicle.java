@@ -13,7 +13,7 @@ public class Vehicle {
     public int full_capacity;
     public float avg_consumption;
     public String brand;
-    public String type_fuel;
+    public int type_fuel;
     public String dt_acquisition;
     public String dt_sale;
     public String dt_odometer;
@@ -90,11 +90,11 @@ public class Vehicle {
         this.brand = brand;
     }
 
-    public String getType_fuel() {
+    public int getType_fuel() {
         return type_fuel;
     }
 
-    public void setType_fuel(String type_fuel) {
+    public void setType_fuel(int type_fuel) {
         this.type_fuel = type_fuel;
     }
 
