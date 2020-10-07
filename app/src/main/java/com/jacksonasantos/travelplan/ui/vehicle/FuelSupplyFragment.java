@@ -1,5 +1,6 @@
 package com.jacksonasantos.travelplan.ui.vehicle;
 
+import android.content.ClipData;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -15,6 +16,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.jacksonasantos.travelplan.dao.Database;
 import com.jacksonasantos.travelplan.R;
+import com.multilevelview.MultiLevelRecyclerView;
+
+//TODO - Implantar Filtro para Vehicle Default
 
 public class FuelSupplyFragment extends Fragment  {
 
@@ -31,6 +35,7 @@ public class FuelSupplyFragment extends Fragment  {
         mDb.open();
 
         RecyclerView listFuelSupply = this.getView().findViewById(R.id.listFuelSupply);
+
         FuelSupplyListAdapter adapter = new FuelSupplyListAdapter(Database.mFuelSupplyDao.fetchAllFuelSupplies(), getContext());
         listFuelSupply.setAdapter(adapter);
         listFuelSupply.setLayoutManager(new LinearLayoutManager(getContext()));

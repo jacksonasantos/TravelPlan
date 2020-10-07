@@ -74,7 +74,6 @@
                 android:layout_marginLeft="@dimen/labels_margin"
                 android:layout_marginTop="@dimen/labels_space_top"
                 android:layout_marginBottom="@dimen/labels_space_top"
-
                 android:contentDescription="@string/FuelSupply_Gas_Station_Location"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -102,6 +101,7 @@
                     android:autofillHints="no"
                     android:hint="@string/FuelSupply_Gas_Station"
                     android:inputType="text"
+                    android:layerType="software"
                     android:nextFocusDown="@+id/etGasStationLocation"
                     android:textSize="12sp" />
             </com.google.android.material.textfield.TextInputLayout>
@@ -114,7 +114,6 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/btLocation"
                 app:layout_constraintTop_toBottomOf="@+id/input_layout_etGasStation">
-
                 <EditText
                     android:id="@+id/etGasStationLocation"
                     android:layout_width="match_parent"
@@ -139,235 +138,304 @@
             android:layout_height="15dp"
             android:clickable="false" />
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/input_layout_etSupplyDate"
-                android:layout_width="@dimen/labels_width"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/labels_marginLeft"
-                android:layout_marginLeft="@dimen/labels_marginLeft"
-                android:layout_marginTop="@dimen/labels_space_top"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
-
-                <EditText
-                    android:id="@+id/etSupplyDate"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:autofillHints="no"
-                    android:hint="@string/FuelSupply_Supply_Date"
-                    android:inputType="datetime"
-                    android:nextFocusDown="@+id/etNumberLiters"
-                    android:textSize="12sp" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/input_layout_etNumberLiters"
-                android:layout_width="@dimen/labels_width"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/labels_marginLeft"
-                android:layout_marginLeft="@dimen/labels_marginLeft"
-                android:layout_marginTop="@dimen/labels_space_top"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/input_layout_etSupplyDate"
-                app:layout_constraintTop_toTopOf="parent">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/etNumberLiters"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:autofillHints="no"
-                    android:hint="@string/FuelSupply_Number_Liters"
-                    android:inputType="numberDecimal"
-                    android:nextFocusDown="@+id/spinCombustible"
-                    android:textSize="12sp" />
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/input_layout_spinCombustible"
-                android:layout_width="@dimen/labels_width"
-                android:layout_height="@dimen/labels_height"
-                android:layout_marginStart="@dimen/labels_marginLeft"
-                android:layout_marginLeft="@dimen/labels_marginLeft"
-                android:layout_marginTop="@dimen/labels_space_top"
-                app:layout_constraintBottom_toBottomOf="@+id/input_layout_cbFullTank"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/input_layout_etSupplyDate">
-                <!-- TODO Implement Material.Exposed Dropdown Menu in Spinner componets
-                                 https://material.io/develop/android/components/menu-->
-
-                <Spinner
-                    android:id="@+id/spinCombustible"
-                    android:layout_width="@dimen/labels_width"
-                    android:layout_height="wrap_content"
-                    android:entries="@array/fuel_array"
-                    android:hint="@string/FuelSupply_Combustible"
-                    android:nextFocusDown="@+id/cbFullTank"
-                    android:textSize="12sp" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/input_layout_cbFullTank"
-                android:layout_width="@dimen/labels_width"
-                android:layout_height="@dimen/labels_height"
-                android:layout_marginStart="@dimen/labels_marginLeft"
-                android:layout_marginLeft="@dimen/labels_marginLeft"
-                android:layout_marginTop="@dimen/labels_space_top"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/input_layout_spinCombustible"
-                app:layout_constraintTop_toBottomOf="@+id/input_layout_etNumberLiters">
-                <!-- TODO Implement Material.Exposed Dropdown Menu in Spinner componets
-                                 https://material.io/develop/android/components/menu-->
-
-                <CheckBox
-                    android:id="@+id/cbFullTank"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/FuelSupply_Full_Tank"
-                    android:nextFocusDown="@+id/spinCurrencyType"
-                    android:textSize="12sp" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/input_layout_spinCurrencyType"
-                android:layout_width="@dimen/labels_width"
-                android:layout_height="@dimen/labels_height"
-                android:layout_marginStart="@dimen/labels_marginLeft"
-                android:layout_marginLeft="@dimen/labels_marginLeft"
-                android:layout_marginTop="@dimen/labels_space_top"
                 android:orientation="horizontal"
-                app:layout_constraintBottom_toBottomOf="@+id/input_layout_etCurrencyValue"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/input_layout_spinCombustible">
+                android:weightSum="1"
+                android:baselineAligned="false">
 
-                <!-- TODO Implement Material.Exposed Dropdown Menu in Spinner componets
-                https://material.io/develop/android/components/menu-->
-                <Spinner
-                    android:id="@+id/spinCurrencyType"
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/input_layout_etSupplyDate"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:entries="@array/currency_array"
-                    android:fadingEdge="none"
-                    android:hint="@string/FuelSupply_Currency_Type"
-                    android:nextFocusDown="@+id/etCurrencyValue"
-                    android:textSize="12sp" />
-            </com.google.android.material.textfield.TextInputLayout>
+                    android:layout_marginStart="@dimen/labels_margin"
+                    android:layout_marginLeft="@dimen/labels_margin"
+                    android:layout_marginTop="@dimen/labels_space_top"
+                    android:layout_marginEnd="@dimen/labels_margin"
+                    android:layout_marginRight="@dimen/labels_margin"
+                    android:layout_weight="0.50"
+                    app:layout_constraintBottom_toBottomOf="@+id/input_layout_etNumberLiters"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+                    <EditText
+                        android:id="@+id/etSupplyDate"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:autofillHints="no"
+                        android:hint="@string/FuelSupply_Supply_Date"
+                        android:inputType="datetime"
+                        android:nextFocusDown="@+id/etNumberLiters"
+                        android:textSize="12sp" />
+                </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/input_layout_etCurrencyValue"
-                android:layout_width="@dimen/labels_width"
-                android:layout_height="@dimen/labels_height"
-                android:layout_marginStart="@dimen/labels_margin"
-                android:layout_marginLeft="@dimen/labels_margin"
-                android:layout_marginTop="@dimen/labels_space_top"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/input_layout_spinCurrencyType"
-                app:layout_constraintTop_toBottomOf="@+id/input_layout_cbFullTank">
-
-                <EditText
-                    android:id="@+id/etCurrencyValue"
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/input_layout_etNumberLiters"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:autofillHints="no"
-                    android:fadingEdge="none"
-                    android:focusable="auto"
-                    android:hint="@string/FuelSupply_Currency_Value"
-                    android:inputType="numberDecimal"
-                    android:nextFocusDown="@+id/etSupplyValue"
-                    android:textSize="12sp" />
-            </com.google.android.material.textfield.TextInputLayout>
+                    android:layout_marginStart="@dimen/labels_margin"
+                    android:layout_marginLeft="@dimen/labels_margin"
+                    android:layout_marginTop="@dimen/labels_space_top"
+                    android:layout_marginEnd="@dimen/labels_margin"
+                    android:layout_marginRight="@dimen/labels_margin"
+                    android:layout_weight="0.50"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/input_layout_etSupplyDate"
+                    app:layout_constraintTop_toTopOf="parent">
+                    <EditText
+                        android:id="@+id/etNumberLiters"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:autofillHints="no"
+                        android:hint="@string/FuelSupply_Number_Liters"
+                        android:inputType="numberDecimal"
+                        android:nextFocusDown="@+id/spinCombustible"
+                        android:textSize="12sp" />
+                </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/input_layout_etSupplyValue"
-                android:layout_width="@dimen/labels_width"
-                android:layout_height="@dimen/labels_height"
-                android:layout_marginStart="@dimen/labels_margin"
-                android:layout_marginLeft="@dimen/labels_margin"
-                android:layout_marginTop="@dimen/labels_space_top"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/input_layout_spinCurrencyType">
+            </LinearLayout>
 
-                <EditText
-                    android:id="@+id/etSupplyValue"
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="1"
+                android:baselineAligned="false">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/input_layout_spinCombustible"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:hint="@string/FuelSupply_Supply_Value"
-                    android:inputType="numberDecimal"
-                    android:nextFocusDown="@+id/etFuelValue"
-                    android:textSize="12sp"
-                    android:importantForAutofill="no" />
-            </com.google.android.material.textfield.TextInputLayout>
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/labels_margin"
+                    android:layout_marginLeft="@dimen/labels_margin"
+                    android:layout_marginTop="@dimen/labels_space_top"
+                    android:layout_marginEnd="@dimen/labels_margin"
+                    android:layout_marginRight="@dimen/labels_margin"
+                    android:layout_weight="0.50"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
+                    app:layout_constraintBottom_toBottomOf="@+id/input_layout_cbFullTank"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/input_layout_etSupplyDate">
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/input_layout_etFuelValue"
-                android:layout_width="@dimen/labels_width"
-                android:layout_height="@dimen/labels_height"
-                android:layout_marginStart="@dimen/labels_margin"
-                android:layout_marginLeft="@dimen/labels_margin"
-                android:layout_marginTop="@dimen/labels_space_top"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/input_layout_etSupplyValue"
-                app:layout_constraintTop_toBottomOf="@+id/input_layout_etCurrencyValue">
+                    <AutoCompleteTextView
+                        android:id="@+id/spinCombustible"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:entries="@array/fuel_array"
+                        android:hint="@string/FuelSupply_Combustible"
+                        android:inputType="none"
+                        android:nextFocusDown="@+id/cbFullTank"
+                        android:textSize="12sp" />
+                </com.google.android.material.textfield.TextInputLayout>
 
-                <EditText
-                    android:id="@+id/etFuelValue"
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/input_layout_cbFullTank"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:autofillHints="no"
-                    android:hint="@string/FuelSupply_Fuel_value"
-                    android:inputType="numberDecimal"
-                    android:nextFocusDown="@+id/etVehicleOdometer"
-                    android:textSize="12sp" />
-            </com.google.android.material.textfield.TextInputLayout>
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/labels_margin"
+                    android:layout_marginLeft="@dimen/labels_margin"
+                    android:layout_marginTop="@dimen/labels_space_top"
+                    android:layout_marginEnd="@dimen/labels_margin"
+                    android:layout_marginRight="@dimen/labels_margin"
+                    android:layout_weight="0.50"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/input_layout_spinCombustible"
+                    app:layout_constraintTop_toBottomOf="@+id/input_layout_etNumberLiters">
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/input_layout_etVehicleOdometer"
-                android:layout_width="@dimen/labels_width"
-                android:layout_height="@dimen/labels_height"
-                android:layout_marginStart="@dimen/labels_margin"
-                android:layout_marginLeft="@dimen/labels_margin"
-                android:layout_marginTop="@dimen/labels_space_top"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/input_layout_etSupplyValue">
+                    <com.google.android.material.switchmaterial.SwitchMaterial
+                        android:id="@+id/cbFullTank"
+                        android:layout_width="match_parent"
+                        android:layout_height="36dp"
+                        android:hint="@string/FuelSupply_Full_Tank"
+                        android:nextFocusDown="@+id/spinCurrencyType"
+                        android:textSize="12sp" />
+                </com.google.android.material.textfield.TextInputLayout>
 
-                <EditText
-                    android:id="@+id/etVehicleOdometer"
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="1"
+                android:baselineAligned="false">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/input_layout_spinCurrencyType"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:autofillHints="no"
-                    android:hint="@string/Vehicle_Odometer"
-                    android:inputType="number"
-                    android:nextFocusDown="@+id/etVehicleTravelledDistance"
-                    android:textSize="12sp" />
-            </com.google.android.material.textfield.TextInputLayout>
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/labels_margin"
+                    android:layout_marginLeft="@dimen/labels_margin"
+                    android:layout_marginTop="@dimen/labels_space_top"
+                    android:layout_marginEnd="@dimen/labels_margin"
+                    android:layout_marginRight="@dimen/labels_margin"
+                    android:layout_weight="0.50"
+                    app:layout_constraintBottom_toBottomOf="@+id/input_layout_etCurrencyValue"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/input_layout_spinCombustible"
+                    style = "@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu">
+                    <AutoCompleteTextView
+                        android:id="@+id/spinCurrencyType"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:entries="@array/currency_array"
+                        android:fadingEdge="none"
+                        android:hint="@string/FuelSupply_Currency_Type"
+                        android:nextFocusDown="@+id/etCurrencyValue"
+                        android:textSize="12sp"
+                        android:inputType="none" />
+                </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/input_layout_etVehicleTravelledDistance"
-                android:layout_width="@dimen/labels_width"
-                android:layout_height="@dimen/labels_height"
-                android:layout_marginStart="@dimen/labels_margin"
-                android:layout_marginLeft="@dimen/labels_margin"
-                android:layout_marginTop="@dimen/labels_space_top"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/input_layout_etVehicleOdometer"
-                app:layout_constraintTop_toBottomOf="@+id/input_layout_etFuelValue">
-
-                <EditText
-                    android:id="@+id/etVehicleTravelledDistance"
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/input_layout_etCurrencyValue"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:autofillHints="no"
-                    android:hint="@string/Vehicle_Travelled_Distance"
-                    android:inputType="number"
-                    android:nextFocusDown="@+id/rgSupplyReasonType"
-                    android:textSize="12sp" />
-            </com.google.android.material.textfield.TextInputLayout>
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/labels_margin"
+                    android:layout_marginLeft="@dimen/labels_margin"
+                    android:layout_marginTop="@dimen/labels_space_top"
+                    android:layout_marginEnd="@dimen/labels_margin"
+                    android:layout_marginRight="@dimen/labels_margin"
+                    android:layout_weight="0.50"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/input_layout_spinCurrencyType"
+                    app:layout_constraintTop_toBottomOf="@+id/input_layout_cbFullTank">
+                    <EditText
+                        android:id="@+id/etCurrencyValue"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:autofillHints="no"
+                        android:fadingEdge="none"
+                        android:focusable="auto"
+                        android:hint="@string/FuelSupply_Currency_Value"
+                        android:inputType="numberDecimal"
+                        android:nextFocusDown="@+id/etSupplyValue"
+                        android:textSize="12sp" />
+                </com.google.android.material.textfield.TextInputLayout>
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="1"
+                android:baselineAligned="false">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/input_layout_etSupplyValue"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/labels_margin"
+                    android:layout_marginLeft="@dimen/labels_margin"
+                    android:layout_marginTop="@dimen/labels_space_top"
+                    android:layout_marginEnd="@dimen/labels_margin"
+                    android:layout_marginRight="@dimen/labels_margin"
+                    android:layout_weight="0.50"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/input_layout_spinCurrencyType">
+
+                    <EditText
+                        android:id="@+id/etSupplyValue"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:hint="@string/FuelSupply_Supply_Value"
+                        android:inputType="numberDecimal"
+                        android:nextFocusDown="@+id/etFuelValue"
+                        android:textSize="12sp"
+                        android:importantForAutofill="no" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/input_layout_etFuelValue"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/labels_margin"
+                    android:layout_marginLeft="@dimen/labels_margin"
+                    android:layout_marginTop="@dimen/labels_space_top"
+                    android:layout_marginEnd="@dimen/labels_margin"
+                    android:layout_marginRight="@dimen/labels_margin"
+                    android:layout_weight="0.50"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/input_layout_etSupplyValue"
+                    app:layout_constraintTop_toBottomOf="@+id/input_layout_etCurrencyValue">
+
+                    <EditText
+                        android:id="@+id/etFuelValue"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:autofillHints="no"
+                        android:hint="@string/FuelSupply_Fuel_value"
+                        android:inputType="numberDecimal"
+                        android:nextFocusDown="@+id/etVehicleOdometer"
+                        android:textSize="12sp" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="1"
+                android:baselineAligned="false">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/input_layout_etVehicleOdometer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/labels_margin"
+                    android:layout_marginLeft="@dimen/labels_margin"
+                    android:layout_marginTop="@dimen/labels_space_top"
+                    android:layout_marginEnd="@dimen/labels_margin"
+                    android:layout_marginRight="@dimen/labels_margin"
+                    android:layout_weight="0.50"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/input_layout_etSupplyValue">
+
+                    <EditText
+                        android:id="@+id/etVehicleOdometer"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:autofillHints="no"
+                        android:hint="@string/Vehicle_Odometer"
+                        android:inputType="number"
+                        android:nextFocusDown="@+id/etVehicleTravelledDistance"
+                        android:textSize="12sp" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/input_layout_etVehicleTravelledDistance"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/labels_margin"
+                    android:layout_marginLeft="@dimen/labels_margin"
+                    android:layout_marginTop="@dimen/labels_space_top"
+                    android:layout_marginEnd="@dimen/labels_margin"
+                    android:layout_marginRight="@dimen/labels_margin"
+                    android:layout_weight="0.50"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/input_layout_etVehicleOdometer"
+                    app:layout_constraintTop_toBottomOf="@+id/input_layout_etFuelValue">
+
+                    <EditText
+                        android:id="@+id/etVehicleTravelledDistance"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:autofillHints="no"
+                        android:hint="@string/Vehicle_Travelled_Distance"
+                        android:inputType="number"
+                        android:nextFocusDown="@+id/rgSupplyReasonType"
+                        android:textSize="12sp" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
 
         <Button
             android:id="@+id/buttonSeparator3"
@@ -375,21 +443,28 @@
             android:layout_height="15dp"
             android:clickable="false" />
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="1"
+            android:baselineAligned="false">
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/input_layout_txStatAvgFuelConsumption"
-                android:layout_width="@dimen/labels_width"
-                android:layout_height="@dimen/labels_height"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/labels_margin"
                 android:layout_marginLeft="@dimen/labels_margin"
+                android:layout_marginTop="@dimen/labels_space_top"
+                android:layout_marginEnd="@dimen/labels_margin"
+                android:layout_marginRight="@dimen/labels_margin"
+                android:layout_weight="0.50"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
                 <EditText
                     android:id="@+id/txStatAvgFuelConsumption"
-                    android:layout_width="@dimen/labels_width"
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:autofillHints="no"
                     android:enabled="false"
@@ -401,16 +476,20 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/input_layout_txStatCostPerLitre"
-                android:layout_width="@dimen/labels_width"
-                android:layout_height="@dimen/labels_height"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/labels_margin"
                 android:layout_marginLeft="@dimen/labels_margin"
+                android:layout_marginTop="@dimen/labels_space_top"
+                android:layout_marginEnd="@dimen/labels_margin"
+                android:layout_marginRight="@dimen/labels_margin"
+                android:layout_weight="0.50"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/input_layout_txStatAvgFuelConsumption"
                 app:layout_constraintTop_toTopOf="parent">
                 <EditText
                     android:id="@+id/txStatCostPerLitre"
-                    android:layout_width="@dimen/labels_width"
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:autofillHints="no"
                     android:enabled="false"
@@ -419,7 +498,7 @@
                     android:textSize="12sp"
                     android:inputType="none"/>
             </com.google.android.material.textfield.TextInputLayout>
-         </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
 
         <Button
             android:id="@+id/buttonSeparator4"
@@ -427,10 +506,11 @@
             android:layout_height="15dp"
             android:clickable="false" />
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/constraintLayout2"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:weightSum="1">
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/input_layout_rgSupplyReasonType"
@@ -479,6 +559,7 @@
                     android:hint="@string/FuelSupply_Reason"
                     android:inputType="textMultiLine"
                     android:lines="2"
+                    android:overScrollMode="always"
                     android:nextFocusDown="@+id/spinAssociatedTrip"
                     android:textSize="12sp" />
             </com.google.android.material.textfield.TextInputLayout>
@@ -486,29 +567,28 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/input_layout_spinAssociatedTrip"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/labels_height"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/labels_margin"
                 android:layout_marginLeft="@dimen/labels_margin"
                 android:layout_marginTop="@dimen/labels_space_top"
                 android:layout_marginEnd="@dimen/labels_margin"
                 android:layout_marginRight="@dimen/labels_margin"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/input_layout_etSupplyReason">
-                <!-- TODO Implement Material.Exposed Dropdown Menu in Spinner componets
-                                 https://material.io/develop/android/components/menu-->
-                <Spinner
+                app:layout_constraintTop_toBottomOf="@+id/input_layout_etSupplyReason"
+                style = "@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu">
+                <AutoCompleteTextView
                     android:id="@+id/spinAssociatedTrip"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fadingEdge="none"
                     android:focusable="auto"
                     android:hint="@string/FuelSupply_AssociatedTrip"
-                    android:textSize="12sp" />
-
+                    android:textSize="12sp"
+                    android:inputType="none"  />
 
             </com.google.android.material.textfield.TextInputLayout>
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
 
         <Button
             android:id="@+id/btSaveFuelSupply"

@@ -6,16 +6,16 @@ public class FuelSupply {
     public String gas_station;
     public String gas_station_location;
     public String supply_date;
-    public float number_liters;
+    public Double number_liters;
     public int combustible;
     public int full_tank;
     public int currency_type;
-    public float supply_value;
-    public float fuel_value;
+    public Double supply_value;
+    public Double fuel_value;
     public int vehicle_odometer;
     public int vehicle_travelled_distance;
-    public float stat_avg_fuel_consumption;
-    public float stat_cost_per_litre;
+    public Double stat_avg_fuel_consumption;
+    public Double stat_cost_per_litre;
     public int supply_reason_type;
     public String supply_reason;
     public Long associated_trip;
@@ -61,9 +61,9 @@ public class FuelSupply {
 
     public void setSupply_date(String supply_date) { this.supply_date = supply_date;}
 
-    public float getNumber_liters() {return number_liters;}
+    public Double getNumber_liters() {return number_liters;}
 
-    public void setNumber_liters(float number_liters) {this.number_liters = number_liters;}
+    public void setNumber_liters(Double number_liters) {this.number_liters = number_liters;}
 
     public int getCombustible() { return combustible; }
 
@@ -77,13 +77,13 @@ public class FuelSupply {
 
     public void setCurrency_type(int currency_type) {this.currency_type = currency_type;}
 
-    public float getSupply_value() {return supply_value;}
+    public Double getSupply_value() {return supply_value;}
 
-    public void setSupply_value(float supply_value) {this.supply_value = supply_value;}
+    public void setSupply_value(Double supply_value) {this.supply_value = supply_value;}
 
-    public float getFuel_value() {return fuel_value;}
+    public Double getFuel_value() {return fuel_value;}
 
-    public void setFuel_value(float fuel_value) {this.fuel_value = fuel_value; }
+    public void setFuel_value(Double fuel_value) {this.fuel_value = fuel_value; }
 
     public int getVehicle_odometer() {return vehicle_odometer;}
 
@@ -93,13 +93,13 @@ public class FuelSupply {
 
     public void setVehicle_travelled_distance(int vehicle_travelled_distance) {this.vehicle_travelled_distance = vehicle_travelled_distance;}
 
-    public float getStat_avg_fuel_consumption() {return stat_avg_fuel_consumption; }
+    public Double getStat_avg_fuel_consumption() {return stat_avg_fuel_consumption; }
 
-    public void setStat_avg_fuel_consumption(float stat_avg_fuel_consumption) { this.stat_avg_fuel_consumption = stat_avg_fuel_consumption; }
+    public void setStat_avg_fuel_consumption(Double stat_avg_fuel_consumption) { this.stat_avg_fuel_consumption = stat_avg_fuel_consumption; }
 
-    public float getStat_cost_per_litre() {return stat_cost_per_litre; }
+    public Double getStat_cost_per_litre() {return stat_cost_per_litre; }
 
-    public void setStat_cost_per_litre(float stat_cost_per_litre) { this.stat_cost_per_litre = stat_cost_per_litre; }
+    public void setStat_cost_per_litre(Double stat_cost_per_litre) { this.stat_cost_per_litre = stat_cost_per_litre; }
 
     public String getSupply_reason() {return supply_reason; }
 

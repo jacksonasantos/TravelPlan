@@ -24,7 +24,6 @@ import com.jacksonasantos.travelplan.dao.Database;
 import com.jacksonasantos.travelplan.dao.Vehicle;
 import com.jacksonasantos.travelplan.R;
 import com.jacksonasantos.travelplan.ui.utility.Mask;
-import com.jaredrummler.materialspinner.MaterialSpinner;
 
 public class VehicleActivity extends AppCompatActivity {
 
@@ -106,9 +105,9 @@ public class VehicleActivity extends AppCompatActivity {
             }
         });
 
-        etAcquisition.addTextChangedListener(Mask.insert("##/##/####",etAcquisition));
-        etSale.addTextChangedListener(Mask.insert("##/##/####",etSale));
-        etDtOdometer.addTextChangedListener(Mask.insert("##/##/####",etDtOdometer));
+        etAcquisition.addTextChangedListener(Mask.insert("##/##/####", etAcquisition)); // TODO - Validate input date format
+        etSale.addTextChangedListener(Mask.insert("##/##/####", etSale));
+        etDtOdometer.addTextChangedListener(Mask.insert("##/##/####", etDtOdometer));
 
         if (vehicle != null) {
             rgType.check(vehicle.getType());
@@ -163,48 +162,88 @@ public class VehicleActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 boolean isSave = false;
-
-                Database mdb = new Database(VehicleActivity.this);
-                mdb.open();
-                final Vehicle v1 = new Vehicle();
-                v1.setType(findViewById(rbType).getId());
-                v1.setName(etNameVehicle.getText().toString());
-                v1.setShort_name(etShortNameVehicle.getText().toString());
-                v1.setLicense_plate(etLicencePlateVehicle.getText().toString());
-                v1.setBrand(etBrand.getText().toString());
-                v1.setType_fuel(nrspinTypeFuel);
-                if (!etFullCapacity.getText().toString().isEmpty()) {
-                    v1.setFull_capacity(Integer.parseInt(etFullCapacity.getText().toString()));
-                } else { v1.setFull_capacity(0); }
-                if (!etAVGConsumption.getText().toString().isEmpty()) {
-                    v1.setAvg_consumption(Float.parseFloat(etAVGConsumption.getText().toString()));
-                } else { v1.setAvg_consumption((float) 0); }
-                v1.setDt_acquisition(etAcquisition.getText().toString().replace("/","").trim());
-                v1.setDt_sale(etSale.getText().toString().replace("/","").trim());
-                v1.setDt_odometer(etDtOdometer.getText().toString().replace("/","").trim());
-                if (!etOdometer.getText().toString().isEmpty()) {
-                    v1.setOdometer(Integer.parseInt(etOdometer.getText().toString()));
-                } else { v1.setOdometer(0); }
-
-                if (!opInsert) {
-                    try {
-                        v1.setId(vehicle.getId());
-                        isSave = Database.mVehicleDao.updateVehicle(v1);
-                    } catch (Exception e ){
-                        Toast.makeText(getApplicationContext(), "Erro Alterando os Dados "+e.getMessage(), Toast.LENGTH_LONG).show();
-                    }
+                if (!validateData()) {
+                    Toast.makeText(getApplicationContext(), "Erro na Validação dos Dados... ", Toast.LENGTH_LONG).show();
                 } else {
-                    try {
-                        isSave = Database.mVehicleDao.addVehicle(v1);
-                    } catch ( Exception e ) {
-                        Toast.makeText(getApplicationContext(), "Erro Incluindo os Dados "+e.getMessage(), Toast.LENGTH_LONG).show();
-                    }
-                }
+                    Database mdb = new Database(VehicleActivity.this);
+                    mdb.open();
+                    final Vehicle v1 = new Vehicle();
+                    v1.setType(findViewById(rbType).getId());
+                    v1.setName(etNameVehicle.getText().toString());
+                    v1.setShort_name(etShortNameVehicle.getText().toString());
+                    v1.setLicense_plate(etLicencePlateVehicle.getText().toString());
+                    v1.setBrand(etBrand.getText().toString());
+                    v1.setType_fuel(nrspinTypeFuel);
+                    if (!etFullCapacity.getText().toString().isEmpty()) {
+                        v1.setFull_capacity(Integer.parseInt(etFullCapacity.getText().toString()));
+                    } else { v1.setFull_capacity(0); }
+                    if (!etAVGConsumption.getText().toString().isEmpty()) {
+                        v1.setAvg_consumption(Float.parseFloat(etAVGConsumption.getText().toString()));
+                    } else { v1.setAvg_consumption((float) 0); }
+                    v1.setDt_acquisition(etAcquisition.getText().toString().replace("/","").trim());
+                    v1.setDt_sale(etSale.getText().toString().replace("/","").trim());
+                    v1.setDt_odometer(etDtOdometer.getText().toString().replace("/","").trim());
+                    if (!etOdometer.getText().toString().isEmpty()) {
+                        v1.setOdometer(Integer.parseInt(etOdometer.getText().toString()));
+                    } else { v1.setOdometer(0); }
 
-                mdb.close();
-                setResult(isSave ? 1 : 0);
-                if (isSave ) { finish(); }
+                    if (!opInsert) {
+                        try {
+                            v1.setId(vehicle.getId());
+                            isSave = Database.mVehicleDao.updateVehicle(v1);
+                        } catch (Exception e ){
+                            Toast.makeText(getApplicationContext(), "Erro Alterando os Dados "+e.getMessage(), Toast.LENGTH_LONG).show();
+                        }
+                    } else {
+                        try {
+                            isSave = Database.mVehicleDao.addVehicle(v1);
+                        } catch ( Exception e ) {
+                            Toast.makeText(getApplicationContext(), "Erro Incluindo os Dados "+e.getMessage(), Toast.LENGTH_LONG).show();
+                        }
+                    }
+
+                    mdb.close();
+                    setResult(isSave ? 1 : 0);
+                    if (isSave ) { finish(); }
+                }
             }
         });
+    }
+    private boolean validateData() {
+        boolean isValid = false;
+
+        try {
+            String s1 = String.valueOf(findViewById(rbType).getId());
+            String s2 = etNameVehicle.getText().toString();
+            String s3 = etShortNameVehicle.getText().toString();
+            String s4 = etLicencePlateVehicle.getText().toString();
+            String s5 = etBrand.getText().toString();
+            String s6 = String.valueOf(nrspinTypeFuel);
+            String s7 = etFullCapacity.getText().toString();
+            String s8 = etAVGConsumption.getText().toString();
+            String s9 = etAcquisition.getText().toString();
+            String s10 = etSale.getText().toString();
+            String s11 = etDtOdometer.getText().toString();
+            String s12 = etOdometer.getText().toString();
+
+            if ( s1 != null && !s1.trim().isEmpty() &&
+                 s2 != null && !s2.trim().isEmpty() &&
+                 s3 != null && !s3.trim().isEmpty() &&
+                 s4 != null && !s4.trim().isEmpty() &&
+                 s5 != null && !s5.trim().isEmpty() &&
+                 s6 != null  && !s6.trim().isEmpty() &&
+                 s7 != null && !s7.trim().isEmpty() &&
+                 // s8 != null  && !s8.trim().isEmpty() &&
+                 // s9 != null  && !s9.trim().isEmpty() &&
+                 // s10 != null  && !s10.trim().isEmpty() &&
+                 s11 != null && !s11.trim().isEmpty() &&
+                 s12 != null && !s12.trim().isEmpty())
+            {
+                 isValid = true;
+            }
+        }catch ( Exception e ) {
+            Toast.makeText(getApplicationContext(), "Erro no Validador dos Dados "+e.getMessage(), Toast.LENGTH_LONG).show();
+        }
+        return isValid;
     }
 }

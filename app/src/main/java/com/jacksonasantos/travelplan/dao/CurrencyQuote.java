@@ -1,10 +1,12 @@
 package com.jacksonasantos.travelplan.dao;
 
+import android.icu.text.DecimalFormat;
+
 public class CurrencyQuote {
     public Long id;
-    public String currency_type;
+    public int currency_type;
     public String quote_date;
-    public int currency_value;
+    public double currency_value;
 
     public CurrencyQuote() {
         this.id = id;
@@ -17,15 +19,15 @@ public class CurrencyQuote {
 
     public void setId(Long id) { this.id = id; }
 
-    public String getCurrency_type() { return currency_type; }
+    public int getCurrency_type() { return currency_type; }
 
-    public void setCurrency_type(String currency_type) { this.currency_type = currency_type; }
+    public void setCurrency_type(int currency_type) { this.currency_type = currency_type; }
 
     public String getQuote_date() { return quote_date; }
 
     public void setQuote_date(String quote_date) { this.quote_date = quote_date; }
 
-    public int getCurrency_value() { return currency_value; }
+    public double getCurrency_value() { return currency_value; }
 
-    public void setCurrency_value(int currency_value) { this.currency_value = currency_value; }
+    public void setCurrency_value(double currency_value) { this.currency_value = currency_value; }
 }

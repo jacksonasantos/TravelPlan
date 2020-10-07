@@ -10,4 +10,6 @@ public interface CurrencyQuotelDAO {
     boolean addCurrencyQuote(CurrencyQuote currencyQuote);
     boolean deleteCurrencyQuote(int currencyQuoteId);
     boolean updateCurrencyQuote(CurrencyQuote currencyQuote);
+
+    CurrencyQuote findQuoteDay( int currency_type, String quote_date);
 }

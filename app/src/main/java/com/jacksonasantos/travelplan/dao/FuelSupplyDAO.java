@@ -131,7 +131,7 @@ public class FuelSupplyDAO extends DbContentProvider implements FuelSupplylSchem
             }
             if (cursor.getColumnIndex(FUEL_SUPPLY_NUMBER_LITERS) != -1) {
                 number_litersIndex = cursor.getColumnIndexOrThrow(FUEL_SUPPLY_NUMBER_LITERS);
-                fuelSupply.number_liters = cursor.getFloat(number_litersIndex);
+                fuelSupply.number_liters = cursor.getDouble(number_litersIndex);
             }
             if (cursor.getColumnIndex(FUEL_SUPPLY_COMBUSTIBLE) != -1) {
                 combustibleIndex = cursor.getColumnIndexOrThrow(FUEL_SUPPLY_COMBUSTIBLE);
@@ -147,11 +147,11 @@ public class FuelSupplyDAO extends DbContentProvider implements FuelSupplylSchem
             }
             if (cursor.getColumnIndex(FUEL_SUPPLY_SUPPLY_VALUE) != -1) {
                 supply_valueIndex = cursor.getColumnIndexOrThrow(FUEL_SUPPLY_SUPPLY_VALUE);
-                fuelSupply.supply_value = cursor.getFloat(supply_valueIndex);
+                fuelSupply.supply_value = cursor.getDouble(supply_valueIndex);
             }
             if (cursor.getColumnIndex(FUEL_SUPPLY_FUEL_VALUE) != -1) {
                 fuel_valueIndex = cursor.getColumnIndexOrThrow(FUEL_SUPPLY_FUEL_VALUE);
-                fuelSupply.fuel_value = cursor.getFloat(fuel_valueIndex);
+                fuelSupply.fuel_value = cursor.getDouble(fuel_valueIndex);
             }
             if (cursor.getColumnIndex(FUEL_SUPPLY_VEHICLE_ODOMETER) != -1) {
                 vehicle_odometerIndex = cursor.getColumnIndexOrThrow(FUEL_SUPPLY_VEHICLE_ODOMETER);
@@ -163,11 +163,11 @@ public class FuelSupplyDAO extends DbContentProvider implements FuelSupplylSchem
             }
             if (cursor.getColumnIndex(FUEL_SUPPLY_STAT_AVG_FUEL_CONSUMPTION) != -1) {
                 stat_avg_fuel_consumptionIndex = cursor.getColumnIndexOrThrow(FUEL_SUPPLY_STAT_AVG_FUEL_CONSUMPTION);
-                fuelSupply.stat_avg_fuel_consumption = cursor.getFloat(stat_avg_fuel_consumptionIndex);
+                fuelSupply.stat_avg_fuel_consumption = cursor.getDouble(stat_avg_fuel_consumptionIndex);
             }
             if (cursor.getColumnIndex(FUEL_SUPPLY_STAT_COST_PER_LITRE) != -1) {
                 stat_cost_per_litreIndex = cursor.getColumnIndexOrThrow(FUEL_SUPPLY_STAT_COST_PER_LITRE);
-                fuelSupply.stat_cost_per_litre = cursor.getFloat(stat_cost_per_litreIndex);
+                fuelSupply.stat_cost_per_litre = cursor.getDouble(stat_cost_per_litreIndex);
             }
             if (cursor.getColumnIndex(FUEL_SUPPLY_SUPPLY_REASON_TYPE) != -1) {
                 supply_reason_typeIndex = cursor.getColumnIndexOrThrow(FUEL_SUPPLY_SUPPLY_REASON_TYPE);

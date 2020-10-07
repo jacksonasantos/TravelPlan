@@ -10,6 +10,7 @@ import com.jacksonasantos.travelplan.dao.interfaces.CurrencyQuotelDAO;
 import com.jacksonasantos.travelplan.dao.interfaces.CurrencyQuotelSchema;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class CurrencyQuoteDAO extends DbContentProvider implements CurrencyQuotelSchema, CurrencyQuotelDAO {
@@ -19,6 +20,23 @@ public class CurrencyQuoteDAO extends DbContentProvider implements CurrencyQuote
 
     public CurrencyQuoteDAO(SQLiteDatabase db) {
         super(db);
+    }
+
+    public CurrencyQuote findQuoteDay(int currency_type, String quote_date) {
+        cursor = super.rawQuery("SELECT rowid, * " +
+                                     " FROM " + CURRENCY_QUOTE_TABLE +
+                                    " WHERE " + CURRENCY_QUOTE_CURRENCY_TYPE + "=? " +
+                                      " AND " + CURRENCY_QUOTE_QUOTE_DATE + "=?",
+                new String[] { String.valueOf(currency_type), quote_date});
+        CurrencyQuote currencyQuote = new CurrencyQuote();
+        if (null != cursor) {
+            if (cursor.getCount() > 0){
+                cursor.moveToFirst();
+                currencyQuote = cursorToEntity(cursor);
+            }
+        cursor.close();
+        }
+        return currencyQuote;
     }
 
     public CurrencyQuote fetchCurrencyQuoteById(int id) {
@@ -102,7 +120,7 @@ public class CurrencyQuoteDAO extends DbContentProvider implements CurrencyQuote
             }
             if (cursor.getColumnIndex(CURRENCY_QUOTE_CURRENCY_TYPE) != -1) {
                 currency_typeIndex = cursor.getColumnIndexOrThrow(CURRENCY_QUOTE_CURRENCY_TYPE);
-                currencyQuote.currency_type = cursor.getString(currency_typeIndex);
+                currencyQuote.currency_type = cursor.getInt(currency_typeIndex);
             }
             if (cursor.getColumnIndex(CURRENCY_QUOTE_QUOTE_DATE) != -1) {
                 quote_dateIndex = cursor.getColumnIndexOrThrow(CURRENCY_QUOTE_QUOTE_DATE);
@@ -110,7 +128,7 @@ public class CurrencyQuoteDAO extends DbContentProvider implements CurrencyQuote
             }
             if (cursor.getColumnIndex(CURRENCY_QUOTE_CURRENCY_VALUE) != -1) {
                 currency_valueIndex = cursor.getColumnIndexOrThrow(CURRENCY_QUOTE_CURRENCY_VALUE);
-                currencyQuote.currency_value = cursor.getInt(currency_valueIndex);
+                currencyQuote.currency_value = cursor.getDouble(currency_valueIndex);
             }
         }
         return currencyQuote;
