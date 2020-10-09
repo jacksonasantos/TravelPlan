@@ -2,6 +2,7 @@ package com.jacksonasantos.travelplan.dao.interfaces;
 
 import com.jacksonasantos.travelplan.dao.CurrencyQuote;
 
+import java.util.Date;
 import java.util.List;
 
 public interface CurrencyQuotelDAO {
@@ -11,5 +12,5 @@ public interface CurrencyQuotelDAO {
     boolean deleteCurrencyQuote(int currencyQuoteId);
     boolean updateCurrencyQuote(CurrencyQuote currencyQuote);
 
-    CurrencyQuote findQuoteDay( int currency_type, String quote_date);
+    CurrencyQuote findQuoteDay(int currency_type, Date quote_date);
 }

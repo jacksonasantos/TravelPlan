@@ -28,10 +28,12 @@ import com.jacksonasantos.travelplan.dao.CurrencyQuote;
 import com.jacksonasantos.travelplan.dao.Database;
 import com.jacksonasantos.travelplan.dao.FuelSupply;
 import com.jacksonasantos.travelplan.dao.Vehicle;
+import com.jacksonasantos.travelplan.ui.utility.DateInputMask;
 import com.jacksonasantos.travelplan.ui.utility.Globals;
-import com.jacksonasantos.travelplan.ui.utility.Mask;
+import com.jacksonasantos.travelplan.ui.utility.Utils;
 
 import java.text.NumberFormat;
+import java.text.ParseException;
 import java.util.Locale;
 
 public class FuelSupplyActivity extends AppCompatActivity {
@@ -86,27 +88,12 @@ public class FuelSupplyActivity extends AppCompatActivity {
             fuelSupply = new FuelSupply();
             fuelSupply.setVehicle_id(extras.getLong("vehicle_id"));
             nrVehicleId = extras.getLong("vehicle_id");
+
             if (extras.getLong( "fuel_supply_id") > 0) {
                 fuelSupply.setId(extras.getLong("fuel_supply_id"));
-                FuelSupply f = Database.mFuelSupplyDao.fetchFuelSupplyById(fuelSupply.getId());
-                fuelSupply.setGas_station(f.gas_station);
-                fuelSupply.setGas_station_location(f.gas_station_location);
-                fuelSupply.setSupply_date(f.supply_date);
-                fuelSupply.setNumber_liters(f.number_liters);
-                fuelSupply.setCombustible(f.combustible);
-                fuelSupply.setFull_tank(f.full_tank);
-                fuelSupply.setCurrency_type(f.currency_type);
-                fuelSupply.setSupply_value(f.supply_value);
-                fuelSupply.setFuel_value(f.fuel_value);
-                fuelSupply.setVehicle_odometer(f.vehicle_odometer);
-                fuelSupply.setVehicle_travelled_distance(f.vehicle_travelled_distance);
-                fuelSupply.setStat_avg_fuel_consumption(f.stat_avg_fuel_consumption);
-                fuelSupply.setStat_cost_per_litre(f.stat_cost_per_litre);
-                fuelSupply.setSupply_reason(f.supply_reason);
-                fuelSupply.setSupply_reason_type(f.supply_reason_type);
-                fuelSupply.setAssociated_trip(f.associated_trip);
+                fuelSupply = Database.mFuelSupplyDao.fetchFuelSupplyById(fuelSupply.getId());
 
-                CurrencyQuote c1 = Database.mCurrencyQuoteDao.findQuoteDay(f.currency_type, f.supply_date);
+                CurrencyQuote c1 = Database.mCurrencyQuoteDao.findQuoteDay(fuelSupply.currency_type, fuelSupply.supply_date);
                 if ( c1.getId() != null ) {
                     nrIdCurrencyQuote = c1.getId();
                     nrCurrencyValue = c1.getCurrency_value();
@@ -114,7 +101,6 @@ public class FuelSupplyActivity extends AppCompatActivity {
                     nrIdCurrencyQuote = 0;
                     nrCurrencyValue = 0;
                 }
-
                 opInsert = false;
             }
         }
@@ -162,7 +148,7 @@ public class FuelSupplyActivity extends AppCompatActivity {
         imVehicleType.setImageResource(vehicle.getTypeImage(vehicle.getType()));
         vLastOdometer = vehicle.getOdometer();
 
-        etSupplyDate.addTextChangedListener(Mask.insert("##/##/####", etSupplyDate)); //TODO - Ajustar datas
+        etSupplyDate.addTextChangedListener(new DateInputMask(etSupplyDate));
 
         View.OnFocusChangeListener listenerOdometer = new View.OnFocusChangeListener() {
             public void onFocusChange(View v, boolean hasFocus) {
@@ -204,7 +190,7 @@ public class FuelSupplyActivity extends AppCompatActivity {
         });
         cbFullTank.setOnClickListener(new View.OnClickListener() {
                 @Override public void onClick(View v){
-                    if (!cbFullTank.isChecked()) vlFullTank = 0;
+                    if (!cbFullTank.isChecked()) vlFullTank = 0; // TODO - Testar melhoria tirando o True e colocando a condição do IF
                     else { vlFullTank = 1; }
                 }
         });
@@ -213,8 +199,8 @@ public class FuelSupplyActivity extends AppCompatActivity {
         spinCurrencyType.setOnItemClickListener(new Spinner.OnItemClickListener() {
             @Override public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 nrSpinCurrencyType = (int) adapterView.getItemIdAtPosition(i);
-                //TODO - Eliminar pesquisa para REAIS
-                CurrencyQuote c1 = Database.mCurrencyQuoteDao.findQuoteDay(nrSpinCurrencyType, etSupplyDate.getText().toString().replace("/", "").trim());
+                //TODO - Eliminar pesquisa para REAIS ou moeda Dafault
+                CurrencyQuote c1 = Database.mCurrencyQuoteDao.findQuoteDay(nrSpinCurrencyType, Utils.stringToDate(etSupplyDate.getText().toString()));
                 etCurrencyValue.setText(String.valueOf(c1.getCurrency_value()));
             }
         });
@@ -252,11 +238,11 @@ public class FuelSupplyActivity extends AppCompatActivity {
             etGasStationLocation.setText(fuelSupply.getGas_station_location());
             nrSpinCombustible=fuelSupply.getCombustible();
             spinCombustible.setText(getResources().getStringArray(R.array.fuel_array)[nrSpinCombustible],false);
-            etSupplyDate.setText(fuelSupply.getSupply_date());
+            etSupplyDate.setText(Utils.dateToString(fuelSupply.getSupply_date()));
             if (fuelSupply.getFull_tank() == 1) {
-                cbFullTank.setChecked(true);
-                vlFullTank = 1;
+                cbFullTank.setChecked(true); // TODO - Testar melhoria tirando o True e colocando a condição do IF
             }
+            vlFullTank = fuelSupply.getFull_tank();
             nrSpinCurrencyType=fuelSupply.getCurrency_type();
             spinCurrencyType.setText(getResources().getStringArray(R.array.currency_array)[nrSpinCurrencyType],false);
             etCurrencyValue.setText(String.valueOf(nrCurrencyValue));
@@ -284,12 +270,12 @@ public class FuelSupplyActivity extends AppCompatActivity {
                 if (!validateData()) {
                     Toast.makeText(getApplicationContext(), "Erro na Validação dos Dados... ", Toast.LENGTH_LONG).show();
                 } else {
-
                     final FuelSupply f1 = new FuelSupply();
+
                     f1.setVehicle_id(nrVehicleId);
                     f1.setGas_station(etGasStation.getText().toString());
                     f1.setGas_station_location(etGasStationLocation.getText().toString());
-                    f1.setSupply_date(etSupplyDate.getText().toString().replace("/", "").trim());
+                    f1.setSupply_date( Utils.stringToDate(etSupplyDate.getText().toString()));
                     f1.setNumber_liters(Double.parseDouble(etNumberLiters.getText().toString()));
                     f1.setCombustible(nrSpinCombustible);
                     f1.setFull_tank(vlFullTank);
@@ -307,11 +293,11 @@ public class FuelSupplyActivity extends AppCompatActivity {
                     final CurrencyQuote c1 = new CurrencyQuote();
                     c1.setCurrency_type(nrSpinCurrencyType);
                     c1.setCurrency_value(Float.parseFloat(etCurrencyValue.getText().toString()));
-                    c1.setQuote_date(etSupplyDate.getText().toString().replace("/", "").trim());
+                    c1.setQuote_date( Utils.stringToDate(etSupplyDate.getText().toString()));
 
                     Vehicle v1;
                     v1 = Database.mVehicleDao.fetchVehicleById(nrVehicleId);
-                    v1.setDt_odometer(etSupplyDate.getText().toString().replace("/", "").trim());
+                    v1.setDt_odometer( Utils.stringToDate(etSupplyDate.getText().toString()));
                     v1.setOdometer(Integer.parseInt(etVehicleOdometer.getText().toString()));
 
                     Database mdb = new Database(FuelSupplyActivity.this);

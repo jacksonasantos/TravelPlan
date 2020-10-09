@@ -20,8 +20,9 @@ import com.jacksonasantos.travelplan.R;
 import com.jacksonasantos.travelplan.dao.Database;
 import com.jacksonasantos.travelplan.dao.FuelSupply;
 import com.jacksonasantos.travelplan.dao.Vehicle;
-import com.jacksonasantos.travelplan.ui.utility.Mask;
+import com.jacksonasantos.travelplan.ui.utility.Utils;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 public class FuelSupplyListAdapter extends RecyclerView.Adapter<FuelSupplyListAdapter.MyViewHolder> {
@@ -78,7 +79,7 @@ public class FuelSupplyListAdapter extends RecyclerView.Adapter<FuelSupplyListAd
     public void onBindViewHolder(@NonNull final MyViewHolder holder, final int position) {
         final FuelSupply fuelSupply = mFuelSupply.get(position);
 
-        holder.txtSupplyDate.setText(Mask.formatDate(fuelSupply.getSupply_date()));
+        holder.txtSupplyDate.setText(Utils.dateToString(fuelSupply.getSupply_date()));
         Vehicle v = Database.mVehicleDao.fetchVehicleById(fuelSupply.getVehicle_id());
         holder.txtVehicleName.setText(v.getName());
         holder.txtNumberLiters.setText(fuelSupply.getNumber_liters() +" L");

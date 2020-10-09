@@ -13,7 +13,7 @@ public interface CurrencyQuotelSchema {
     String CREATE_TABLE_CURRENCY_QUOTE_V8 = "CREATE TABLE IF NOT EXISTS "
             + CURRENCY_QUOTE_TABLE + " ("
             + CURRENCY_QUOTE_CURRENCY_TYPE + " INT, "
-            + CURRENCY_QUOTE_QUOTE_DATE + " TEXT, "
+            + CURRENCY_QUOTE_QUOTE_DATE + " DATE, "
             + CURRENCY_QUOTE_CURRENCY_VALUE + " DOUBLE "
             + ")";
 

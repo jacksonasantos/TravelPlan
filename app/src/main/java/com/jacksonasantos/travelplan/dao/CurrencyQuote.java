@@ -2,10 +2,12 @@ package com.jacksonasantos.travelplan.dao;
 
 import android.icu.text.DecimalFormat;
 
+import java.util.Date;
+
 public class CurrencyQuote {
     public Long id;
     public int currency_type;
-    public String quote_date;
+    public Date quote_date;
     public double currency_value;
 
     public CurrencyQuote() {
@@ -23,9 +25,9 @@ public class CurrencyQuote {
 
     public void setCurrency_type(int currency_type) { this.currency_type = currency_type; }
 
-    public String getQuote_date() { return quote_date; }
+    public Date getQuote_date() { return quote_date; }
 
-    public void setQuote_date(String quote_date) { this.quote_date = quote_date; }
+    public void setQuote_date(Date quote_date) { this.quote_date = quote_date; }
 
     public double getCurrency_value() { return currency_value; }
 

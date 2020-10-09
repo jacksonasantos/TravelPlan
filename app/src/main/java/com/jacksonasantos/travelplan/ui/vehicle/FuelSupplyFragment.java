@@ -16,7 +16,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.jacksonasantos.travelplan.dao.Database;
 import com.jacksonasantos.travelplan.R;
-import com.multilevelview.MultiLevelRecyclerView;
+
+import java.text.ParseException;
 
 //TODO - Implantar Filtro para Vehicle Default
 
@@ -36,7 +37,12 @@ public class FuelSupplyFragment extends Fragment  {
 
         RecyclerView listFuelSupply = this.getView().findViewById(R.id.listFuelSupply);
 
-        FuelSupplyListAdapter adapter = new FuelSupplyListAdapter(Database.mFuelSupplyDao.fetchAllFuelSupplies(), getContext());
+        FuelSupplyListAdapter adapter = null;
+        try {
+            adapter = new FuelSupplyListAdapter(Database.mFuelSupplyDao.fetchAllFuelSupplies(), getContext());
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
         listFuelSupply.setAdapter(adapter);
         listFuelSupply.setLayoutManager(new LinearLayoutManager(getContext()));
 

@@ -1,11 +1,13 @@
 package com.jacksonasantos.travelplan.dao;
 
+import java.util.Date;
+
 public class FuelSupply {
     public Long id;
     public Long vehicle_id=0L;
     public String gas_station;
     public String gas_station_location;
-    public String supply_date;
+    public Date supply_date;
     public Double number_liters;
     public int combustible;
     public int full_tank;
@@ -57,9 +59,9 @@ public class FuelSupply {
 
     public void setGas_station_location(String gas_station_location) {this.gas_station_location = gas_station_location; }
 
-    public String getSupply_date() { return supply_date;}
+    public Date getSupply_date() { return supply_date;}
 
-    public void setSupply_date(String supply_date) { this.supply_date = supply_date;}
+    public void setSupply_date(Date supply_date) { this.supply_date = supply_date;}
 
     public Double getNumber_liters() {return number_liters;}
 

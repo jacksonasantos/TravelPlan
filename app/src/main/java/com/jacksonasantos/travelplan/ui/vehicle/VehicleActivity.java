@@ -1,6 +1,5 @@
 package com.jacksonasantos.travelplan.ui.vehicle;
 
-import android.annotation.SuppressLint;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
@@ -23,7 +22,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.jacksonasantos.travelplan.dao.Database;
 import com.jacksonasantos.travelplan.dao.Vehicle;
 import com.jacksonasantos.travelplan.R;
-import com.jacksonasantos.travelplan.ui.utility.Mask;
+import com.jacksonasantos.travelplan.ui.utility.DateInputMask;
+import com.jacksonasantos.travelplan.ui.utility.Utils;
 
 public class VehicleActivity extends AppCompatActivity {
 
@@ -31,7 +31,7 @@ public class VehicleActivity extends AppCompatActivity {
     private EditText etNameVehicle;
     private EditText etShortNameVehicle;
     private EditText etLicencePlateVehicle;
-    private EditText etBrand;       // TODO - Implement API of BRAND´s
+    private EditText etBrand;            // TODO - Implement API of BRAND´s
     private AutoCompleteTextView spinTypeFuel;
     private int nrspinTypeFuel;
     private EditText etFullCapacity;
@@ -54,18 +54,7 @@ public class VehicleActivity extends AppCompatActivity {
         if (extras != null) {
             vehicle = new Vehicle();
             vehicle.setId(extras.getLong("id"));
-            vehicle.setType(extras.getInt("type"));
-            vehicle.setName(extras.getString("name"));
-            vehicle.setShort_name(extras.getString("short_name"));
-            vehicle.setLicense_plate(extras.getString("license_plate"));
-            vehicle.setBrand(extras.getString("brand"));
-            vehicle.setType_fuel(extras.getInt("type_fuel"));
-            vehicle.setFull_capacity(extras.getInt("full_capacity"));
-            vehicle.setAvg_consumption(extras.getFloat("avg_consumption"));
-            vehicle.setDt_acquisition(extras.getString("dt_acquisition"));
-            vehicle.setDt_sale(extras.getString("dt_sale"));
-            vehicle.setDt_odometer(extras.getString("dt_odometer"));
-            vehicle.setOdometer(extras.getInt("odometer"));
+            vehicle = Database.mVehicleDao.fetchVehicleById(vehicle.getId());
             opInsert = false;
         }
 
@@ -105,9 +94,9 @@ public class VehicleActivity extends AppCompatActivity {
             }
         });
 
-        etAcquisition.addTextChangedListener(Mask.insert("##/##/####", etAcquisition)); // TODO - Validate input date format
-        etSale.addTextChangedListener(Mask.insert("##/##/####", etSale));
-        etDtOdometer.addTextChangedListener(Mask.insert("##/##/####", etDtOdometer));
+        etAcquisition.addTextChangedListener(new DateInputMask(etAcquisition));
+        etSale.addTextChangedListener(new DateInputMask(etSale));
+        etDtOdometer.addTextChangedListener(new DateInputMask(etDtOdometer));
 
         if (vehicle != null) {
             rgType.check(vehicle.getType());
@@ -119,9 +108,9 @@ public class VehicleActivity extends AppCompatActivity {
             spinTypeFuel.setText(getResources().getStringArray(R.array.type_fuel_array)[nrspinTypeFuel],false);
             etFullCapacity.setText(String.valueOf(vehicle.getFull_capacity()));
             etAVGConsumption.setText(String.valueOf(vehicle.getAvg_consumption()));
-            etAcquisition.setText(String.valueOf(vehicle.getDt_acquisition()));
-            etSale.setText(String.valueOf(vehicle.getDt_sale()));
-            etDtOdometer.setText(String.valueOf(vehicle.getDt_odometer()));
+            etAcquisition.setText(Utils.dateToString(vehicle.getDt_acquisition()));
+            etSale.setText(Utils.dateToString(vehicle.getDt_sale()));
+            etDtOdometer.setText(Utils.dateToString(vehicle.getDt_odometer()));
             etOdometer.setText(String.valueOf(vehicle.getOdometer()));
         }
     }
@@ -180,9 +169,9 @@ public class VehicleActivity extends AppCompatActivity {
                     if (!etAVGConsumption.getText().toString().isEmpty()) {
                         v1.setAvg_consumption(Float.parseFloat(etAVGConsumption.getText().toString()));
                     } else { v1.setAvg_consumption((float) 0); }
-                    v1.setDt_acquisition(etAcquisition.getText().toString().replace("/","").trim());
-                    v1.setDt_sale(etSale.getText().toString().replace("/","").trim());
-                    v1.setDt_odometer(etDtOdometer.getText().toString().replace("/","").trim());
+                    v1.setDt_acquisition(Utils.stringToDate(etAcquisition.getText().toString()));
+                    v1.setDt_sale(Utils.stringToDate((etSale.getText().toString())));
+                    v1.setDt_odometer(Utils.stringToDate((etDtOdometer.getText().toString())));
                     if (!etOdometer.getText().toString().isEmpty()) {
                         v1.setOdometer(Integer.parseInt(etOdometer.getText().toString()));
                     } else { v1.setOdometer(0); }

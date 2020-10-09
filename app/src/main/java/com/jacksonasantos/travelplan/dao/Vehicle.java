@@ -4,6 +4,8 @@ import androidx.annotation.NonNull;
 
 import com.jacksonasantos.travelplan.R;
 
+import java.util.Date;
+
 public class Vehicle {
     public long id;
     public int type;
@@ -14,9 +16,9 @@ public class Vehicle {
     public float avg_consumption;
     public String brand;
     public int type_fuel;
-    public String dt_acquisition;
-    public String dt_sale;
-    public String dt_odometer;
+    public Date dt_acquisition;
+    public Date dt_sale;
+    public Date dt_odometer;
     public int odometer;
 
     public Vehicle() {
@@ -116,17 +118,17 @@ public class Vehicle {
 
     public void setShort_name(String short_name) {this.short_name = short_name; }
 
-    public String getDt_acquisition() {return dt_acquisition;}
+    public Date getDt_acquisition() {return dt_acquisition;}
 
-    public void setDt_acquisition(String acquisition) {this.dt_acquisition = acquisition;}
+    public void setDt_acquisition(Date acquisition) {this.dt_acquisition = acquisition;}
 
-    public String getDt_sale() {return dt_sale;}
+    public Date getDt_sale() {return dt_sale;}
 
-    public void setDt_sale(String sale) {this.dt_sale = sale;}
+    public void setDt_sale(Date sale) {this.dt_sale = sale;}
 
-    public String getDt_odometer() {return dt_odometer;}
+    public Date getDt_odometer() {return dt_odometer;}
 
-    public void setDt_odometer(String dt_odometer) {this.dt_odometer = dt_odometer;}
+    public void setDt_odometer(Date dt_odometer) {this.dt_odometer = dt_odometer;}
 
     public int getOdometer() {return odometer;}
 

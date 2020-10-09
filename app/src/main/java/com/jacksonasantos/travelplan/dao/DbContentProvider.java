@@ -4,6 +4,8 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import java.text.ParseException;
+
 public abstract class DbContentProvider {
     public SQLiteDatabase mDb;
 
@@ -16,7 +18,7 @@ public abstract class DbContentProvider {
         return mDb.insert(tableName, null, values);
     }
 
-    protected abstract <T> T cursorToEntity(Cursor cursor);
+    protected abstract <T> T cursorToEntity(Cursor cursor) throws ParseException;
 
     public DbContentProvider(SQLiteDatabase db) {
         this.mDb = db;

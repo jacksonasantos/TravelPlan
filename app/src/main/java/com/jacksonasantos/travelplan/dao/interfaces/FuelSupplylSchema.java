@@ -29,7 +29,7 @@ public interface FuelSupplylSchema {
             + FUEL_SUPPLY_VEHICLE_ID + " LONG, "
             + FUEL_SUPPLY_GAS_STATION + " TEXT, "
             + FUEL_SUPPLY_GAS_STATION_LOCATION + " TEXT, "
-            + FUEL_SUPPLY_SUPPLY_DATE + " TEXT, "
+            + FUEL_SUPPLY_SUPPLY_DATE + " DATE, "
             + FUEL_SUPPLY_NUMBER_LITERS + " DOUBLE, "
             + FUEL_SUPPLY_COMBUSTIBLE + " INT, "
             + FUEL_SUPPLY_FULL_TANK + " INT, "

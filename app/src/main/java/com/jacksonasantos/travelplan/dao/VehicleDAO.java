@@ -8,7 +8,9 @@ import android.util.Log;
 
 import com.jacksonasantos.travelplan.dao.interfaces.VehicleIDAO;
 import com.jacksonasantos.travelplan.dao.interfaces.VehicleISchema;
+import com.jacksonasantos.travelplan.ui.utility.Utils;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -160,15 +162,15 @@ public class VehicleDAO extends DbContentProvider implements VehicleISchema, Veh
             }
             if (cursor.getColumnIndex(VEHICLE_DT_ACQUISITION) != -1) {
                 dt_acquisitionIndex = cursor.getColumnIndexOrThrow(VEHICLE_DT_ACQUISITION);
-                vehicle.dt_acquisition = cursor.getString(dt_acquisitionIndex);
+                vehicle.dt_acquisition = Utils.stringToDate(cursor.getString(dt_acquisitionIndex));
             }
             if (cursor.getColumnIndex(VEHICLE_DT_SALE) != -1) {
                 dt_saleIndex = cursor.getColumnIndexOrThrow(VEHICLE_DT_SALE);
-                vehicle.dt_sale = cursor.getString(dt_saleIndex);
+                vehicle.dt_sale = Utils.stringToDate(cursor.getString(dt_saleIndex));
             }
             if (cursor.getColumnIndex(VEHICLE_DT_ODOMETER) != -1) {
                 dt_odometerIndex = cursor.getColumnIndexOrThrow(VEHICLE_DT_ODOMETER);
-                vehicle.dt_odometer = cursor.getString(dt_odometerIndex);
+                vehicle.dt_odometer = Utils.stringToDate(cursor.getString(dt_odometerIndex));
             }
             if (cursor.getColumnIndex(VEHICLE_ODOMETER) != -1) {
                 odometerIndex = cursor.getColumnIndexOrThrow(VEHICLE_ODOMETER);
@@ -188,9 +190,9 @@ public class VehicleDAO extends DbContentProvider implements VehicleISchema, Veh
         initialValues.put(VEHICLE_BRAND, vehicle.brand);
         initialValues.put(VEHICLE_TYPE_FUEL, vehicle.type_fuel);
         initialValues.put(VEHICLE_SHORT_NAME, vehicle.short_name);
-        initialValues.put(VEHICLE_DT_ACQUISITION, String.valueOf(vehicle.dt_acquisition));
-        initialValues.put(VEHICLE_DT_SALE, String.valueOf(vehicle.dt_sale));
-        initialValues.put(VEHICLE_DT_ODOMETER, String.valueOf(vehicle.dt_odometer));
+        initialValues.put(VEHICLE_DT_ACQUISITION, Utils.dateToString(vehicle.dt_acquisition));
+        initialValues.put(VEHICLE_DT_SALE, Utils.dateToString(vehicle.dt_sale));
+        initialValues.put(VEHICLE_DT_ODOMETER, Utils.dateToString(vehicle.dt_odometer));
         initialValues.put(VEHICLE_ODOMETER, vehicle.odometer);
     }
 

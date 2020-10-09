@@ -8,7 +8,10 @@ import android.util.Log;
 
 import com.jacksonasantos.travelplan.dao.interfaces.FuelSupplyIDAO;
 import com.jacksonasantos.travelplan.dao.interfaces.FuelSupplylSchema;
+import com.jacksonasantos.travelplan.ui.utility.Utils;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,7 +40,7 @@ public class FuelSupplyDAO extends DbContentProvider implements FuelSupplylSchem
         return fuelSupply;
     }
 
-    public List<FuelSupply> fetchAllFuelSupplies() {
+    public List<FuelSupply> fetchAllFuelSupplies() throws ParseException {
         List<FuelSupply> fuelSupplyList = new ArrayList<>();
 
         cursor = super.query(FUEL_SUPPLY_TABLE, FUEL_SUPPLY_COLUMNS, null,null, FUEL_SUPPLY_SUPPLY_DATE);
@@ -111,75 +114,75 @@ public class FuelSupplyDAO extends DbContentProvider implements FuelSupplylSchem
         if (cursor != null) {
             if (cursor.getColumnIndex(FUEL_SUPPLY_ID) != -1) {
                 idIndex = cursor.getColumnIndexOrThrow(FUEL_SUPPLY_ID);
-                fuelSupply.id = cursor.getLong(idIndex);
+                fuelSupply.setId(cursor.getLong(idIndex));
             }
             if (cursor.getColumnIndex(FUEL_SUPPLY_VEHICLE_ID) != -1) {
                 vehicle_idIndex = cursor.getColumnIndexOrThrow(FUEL_SUPPLY_VEHICLE_ID);
-                fuelSupply.vehicle_id = cursor.getLong(vehicle_idIndex);
+                fuelSupply.setVehicle_id(cursor.getLong(vehicle_idIndex));
             }
             if (cursor.getColumnIndex(FUEL_SUPPLY_GAS_STATION) != -1) {
                 gas_stationIndex = cursor.getColumnIndexOrThrow(FUEL_SUPPLY_GAS_STATION);
-                fuelSupply.gas_station = cursor.getString(gas_stationIndex);
+                fuelSupply.setGas_station(cursor.getString(gas_stationIndex));
             }
             if (cursor.getColumnIndex(FUEL_SUPPLY_GAS_STATION_LOCATION) != -1) {
                 gas_station_locationIndex = cursor.getColumnIndexOrThrow(FUEL_SUPPLY_GAS_STATION_LOCATION);
-                fuelSupply.gas_station_location = cursor.getString(gas_station_locationIndex);
+                fuelSupply.setGas_station_location(cursor.getString(gas_station_locationIndex));
             }
             if (cursor.getColumnIndex(FUEL_SUPPLY_SUPPLY_DATE) != -1) {
                 supply_dateIndex = cursor.getColumnIndexOrThrow(FUEL_SUPPLY_SUPPLY_DATE);
-                fuelSupply.supply_date = cursor.getString(supply_dateIndex);
+                fuelSupply.setSupply_date(Utils.stringToDate(cursor.getString(supply_dateIndex)));
             }
             if (cursor.getColumnIndex(FUEL_SUPPLY_NUMBER_LITERS) != -1) {
                 number_litersIndex = cursor.getColumnIndexOrThrow(FUEL_SUPPLY_NUMBER_LITERS);
-                fuelSupply.number_liters = cursor.getDouble(number_litersIndex);
+                fuelSupply.setNumber_liters(cursor.getDouble(number_litersIndex));
             }
             if (cursor.getColumnIndex(FUEL_SUPPLY_COMBUSTIBLE) != -1) {
                 combustibleIndex = cursor.getColumnIndexOrThrow(FUEL_SUPPLY_COMBUSTIBLE);
-                fuelSupply.combustible = cursor.getInt(combustibleIndex);
+                fuelSupply.setCombustible(cursor.getInt(combustibleIndex));
             }
             if (cursor.getColumnIndex(FUEL_SUPPLY_FULL_TANK) != -1) {
                 full_tankIndex = cursor.getColumnIndexOrThrow(FUEL_SUPPLY_FULL_TANK);
-                fuelSupply.full_tank = cursor.getInt(full_tankIndex);
+                fuelSupply.setFull_tank(cursor.getInt(full_tankIndex));
             }
             if (cursor.getColumnIndex(FUEL_SUPPLY_CURRENCY_TYPE) != -1) {
                 currency_typeIndex = cursor.getColumnIndexOrThrow(FUEL_SUPPLY_CURRENCY_TYPE);
-                fuelSupply.currency_type = cursor.getInt(currency_typeIndex);
+                fuelSupply.setCurrency_type(cursor.getInt(currency_typeIndex));
             }
             if (cursor.getColumnIndex(FUEL_SUPPLY_SUPPLY_VALUE) != -1) {
                 supply_valueIndex = cursor.getColumnIndexOrThrow(FUEL_SUPPLY_SUPPLY_VALUE);
-                fuelSupply.supply_value = cursor.getDouble(supply_valueIndex);
+                fuelSupply.setSupply_value(cursor.getDouble(supply_valueIndex));
             }
             if (cursor.getColumnIndex(FUEL_SUPPLY_FUEL_VALUE) != -1) {
                 fuel_valueIndex = cursor.getColumnIndexOrThrow(FUEL_SUPPLY_FUEL_VALUE);
-                fuelSupply.fuel_value = cursor.getDouble(fuel_valueIndex);
+                fuelSupply.setFuel_value(cursor.getDouble(fuel_valueIndex));
             }
             if (cursor.getColumnIndex(FUEL_SUPPLY_VEHICLE_ODOMETER) != -1) {
                 vehicle_odometerIndex = cursor.getColumnIndexOrThrow(FUEL_SUPPLY_VEHICLE_ODOMETER);
-                fuelSupply.vehicle_odometer = cursor.getInt(vehicle_odometerIndex);
+                fuelSupply.setVehicle_odometer(cursor.getInt(vehicle_odometerIndex));
             }
             if (cursor.getColumnIndex(FUEL_SUPPLY_VEHICLE_TRAVELLED_DISTANCE) != -1) {
                 vehicle_travelled_distanceIndex = cursor.getColumnIndexOrThrow(FUEL_SUPPLY_VEHICLE_TRAVELLED_DISTANCE);
-                fuelSupply.vehicle_travelled_distance = cursor.getInt(vehicle_travelled_distanceIndex);
+                fuelSupply.setVehicle_travelled_distance(cursor.getInt(vehicle_travelled_distanceIndex));
             }
             if (cursor.getColumnIndex(FUEL_SUPPLY_STAT_AVG_FUEL_CONSUMPTION) != -1) {
                 stat_avg_fuel_consumptionIndex = cursor.getColumnIndexOrThrow(FUEL_SUPPLY_STAT_AVG_FUEL_CONSUMPTION);
-                fuelSupply.stat_avg_fuel_consumption = cursor.getDouble(stat_avg_fuel_consumptionIndex);
+                fuelSupply.setStat_avg_fuel_consumption(cursor.getDouble(stat_avg_fuel_consumptionIndex));
             }
             if (cursor.getColumnIndex(FUEL_SUPPLY_STAT_COST_PER_LITRE) != -1) {
                 stat_cost_per_litreIndex = cursor.getColumnIndexOrThrow(FUEL_SUPPLY_STAT_COST_PER_LITRE);
-                fuelSupply.stat_cost_per_litre = cursor.getDouble(stat_cost_per_litreIndex);
+                fuelSupply.setStat_cost_per_litre(cursor.getDouble(stat_cost_per_litreIndex));
             }
             if (cursor.getColumnIndex(FUEL_SUPPLY_SUPPLY_REASON_TYPE) != -1) {
                 supply_reason_typeIndex = cursor.getColumnIndexOrThrow(FUEL_SUPPLY_SUPPLY_REASON_TYPE);
-                fuelSupply.supply_reason_type = cursor.getInt(supply_reason_typeIndex);
+                fuelSupply.setSupply_reason_type(cursor.getInt(supply_reason_typeIndex));
             }
             if (cursor.getColumnIndex(FUEL_SUPPLY_SUPPLY_REASON) != -1) {
                 supply_reasonIndex = cursor.getColumnIndexOrThrow(FUEL_SUPPLY_SUPPLY_REASON);
-                fuelSupply.supply_reason = cursor.getString(supply_reasonIndex);
+                fuelSupply.setSupply_reason(cursor.getString(supply_reasonIndex));
             }
             if (cursor.getColumnIndex(FUEL_SUPPLY_ASSOCIATED_TRIP) != -1) {
                 associated_tripIndex = cursor.getColumnIndexOrThrow(FUEL_SUPPLY_ASSOCIATED_TRIP);
-                fuelSupply.associated_trip = cursor.getLong(associated_tripIndex);
+                fuelSupply.setAssociated_trip(cursor.getLong(associated_tripIndex));
             }
         }
         return fuelSupply;
@@ -191,7 +194,7 @@ public class FuelSupplyDAO extends DbContentProvider implements FuelSupplylSchem
         initialValues.put(FUEL_SUPPLY_VEHICLE_ID, fuelSupply.vehicle_id);
         initialValues.put(FUEL_SUPPLY_GAS_STATION, fuelSupply.gas_station);
         initialValues.put(FUEL_SUPPLY_GAS_STATION_LOCATION, fuelSupply.gas_station_location);
-        initialValues.put(FUEL_SUPPLY_SUPPLY_DATE, String.valueOf(fuelSupply.supply_date));
+        initialValues.put(FUEL_SUPPLY_SUPPLY_DATE, Utils.dateToString(fuelSupply.supply_date));
         initialValues.put(FUEL_SUPPLY_NUMBER_LITERS, fuelSupply.number_liters);
         initialValues.put(FUEL_SUPPLY_COMBUSTIBLE, fuelSupply.combustible);
         initialValues.put(FUEL_SUPPLY_FULL_TANK, fuelSupply.full_tank);

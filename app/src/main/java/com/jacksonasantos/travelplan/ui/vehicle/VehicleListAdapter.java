@@ -97,18 +97,6 @@ public class VehicleListAdapter extends RecyclerView.Adapter<VehicleListAdapter.
             public void onClick(View v) {
                 Intent intent = new Intent (v.getContext(), VehicleActivity.class);
                 intent.putExtra("id", vehicle.getId());
-                intent.putExtra("type", vehicle.getType());
-                intent.putExtra("name", vehicle.getName());
-                intent.putExtra("short_name", vehicle.getShort_name());
-                intent.putExtra("license_plate", vehicle.getLicense_plate());
-                intent.putExtra("brand", vehicle.getBrand());
-                intent.putExtra("type_fuel", vehicle.getType_fuel());
-                intent.putExtra("full_capacity", vehicle.getFull_capacity());
-                intent.putExtra("avg_consumption", vehicle.getAvg_consumption());
-                intent.putExtra("dt_acquisition", vehicle.getDt_acquisition());
-                intent.putExtra("dt_sale", vehicle.getDt_sale());
-                intent.putExtra("dt_odometer", vehicle.getDt_odometer());
-                intent.putExtra("odometer", vehicle.getOdometer());
                 context.startActivity(intent);
                 notifyDataSetChanged();
             }
