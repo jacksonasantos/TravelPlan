@@ -28,20 +28,20 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        Resources res = getResources();
+        Configuration config = res.getConfiguration();
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(this);
-        Configuration config = getBaseContext().getResources().getConfiguration();
         String lang = settings.getString("language", "");
         if (lang != null && !"".equals(lang) && !config.locale.getLanguage().equals(lang)) {
-            Resources res = getResources();
+            Locale myLocale = new Locale(lang);
+            config.locale = myLocale;
             DisplayMetrics dm = res.getDisplayMetrics();
-            Locale locale = new Locale(lang);
-            Locale.setDefault(locale);
+            Locale.setDefault(myLocale);
             res.updateConfiguration(config, dm);
-            config.locale = locale;
-            getBaseContext().getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
             Intent refresh = new Intent(this, MainActivity.class);
             startActivity(refresh);
         }
+        PreferenceManager.setDefaultValues(this, R.xml.root_preferences, false);
 
         setContentView(R.layout.activity_main);
 
@@ -60,8 +60,6 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
-
-        PreferenceManager.setDefaultValues(this, R.xml.root_preferences, false);
     }
 
     @Override

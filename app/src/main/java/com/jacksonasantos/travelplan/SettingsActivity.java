@@ -5,7 +5,6 @@ import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
-import android.widget.Toast;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -32,8 +31,6 @@ public class SettingsActivity extends AppCompatActivity {
     }
 
     public static class SettingsFragment extends PreferenceFragmentCompat {
-
-        Locale myLocale;
 
         @Override
         public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
@@ -72,16 +69,19 @@ public class SettingsActivity extends AppCompatActivity {
         };
 
         public void setLocale(String lang) {
-            myLocale = new Locale(lang);
             Resources res = getResources();
-            DisplayMetrics dm = res.getDisplayMetrics();
-            Configuration conf = res.getConfiguration();
-            Locale.setDefault(myLocale);
-            conf.locale = myLocale;
-            res.updateConfiguration(conf, dm);
-            Intent refresh = new Intent(getContext(), MainActivity.class);
-            refresh.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(refresh);
+            Configuration config = res.getConfiguration();
+            if (lang != null && !"".equals(lang) && !config.locale.getLanguage().equals(lang)) {
+                Locale myLocale = new Locale(lang);
+                config.locale = myLocale;
+                DisplayMetrics dm = res.getDisplayMetrics();
+                Locale.setDefault(myLocale);
+                res.updateConfiguration(config, dm);
+                Intent refresh = new Intent(getContext(), MainActivity.class);
+                refresh.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                refresh.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(refresh);
+            }
         }
     }
 }
