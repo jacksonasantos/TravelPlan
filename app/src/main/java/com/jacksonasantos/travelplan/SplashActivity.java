@@ -1,13 +1,14 @@
 package com.jacksonasantos.travelplan;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.jacksonasantos.travelplan.dao.Database;
 
-public class SplashActivity extends Activity {
+public class SplashActivity extends AppCompatActivity {
     private static int SPLASH_TIME_OUT = 3000;
     public Database mDb;
 

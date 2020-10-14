@@ -12,7 +12,6 @@
 
     <!-- Preference Titles -->
     <string name="personal_header">Personal Data</string>
-    <string name="messages_header">Messages</string>
     <string name="definition_header">Definitions</string>
 
     <!-- Personal Data Preferences -->
@@ -32,17 +31,10 @@
     <string name="language">Language</string>
     <string name="language_Portuguese">Portuguese</string>
     <string name="language_English">English</string>
-    <string name="pref_languages_default">Language Default</string>
 
     <!-- Travel Fragment -->
-    <string name="Travel_id">Id. Travel</string>
-    <string name="Travel_name">Name Travel</string>
-    <string name="Travel_Departure_Date">Departure Date Travel</string>
-    <string name="Travel_Return_Date">Return Date Travel</string>
-    <string name="Travel_Note">Note Travel</string>
 
     <!-- Vehicle Fragment -->
-    <string name="Vehicle">Vehicle</string>
     <string name="Vehicle_Id">Identification Vehicle</string>
     <string name="Vehicle_Type">Type Vehicle</string>
     <string name="Vehicle_TypeCar">Car</string>
@@ -55,13 +47,11 @@
     <string name="Vehicle_Full_Capacity">Full Capacity (L)</string>
     <string name="Vehicle_Type_Fuel">Type Fuel</string>
     <string name="Vehicle_Brand">Brand</string>
-    <string name="Vehicle_Acquisition_Sale">Acquisition/Sale</string>
     <string name="Vehicle_DtAcquisition">Acquisition Data</string>
     <string name="Vehicle_DtSale">Sale Data</string>
     <string name="Vehicle_Odometer">Odometer</string>
     <string name="Vehicle_DtOdometer">Date Odometer</string>
     <string name="Vehicle_Deleting">Deleting Vehicle</string>
-    <string name="Vehicle_Refuel">Refuel this vehicle</string>
 
     <!-- FuelSupply Fragment -->
     <string name="gasoline_common">Gasoline Common</string>
@@ -88,12 +78,9 @@
     <!-- Generic -->
     <string name="Yes">Yes</string>
     <string name="No">No</string>
-    <string name="OK" translatable="false">OK</string>
-    <string name="Error">Error</string>
     <string name="bt_Save">Save</string>
     <string name="bt_Delete">Delete</string>
     <string name="bt_Edit">Edit</string>
-    <string name="bt_Add">Add</string>
     <string name="bt_Refuel">Refuel</string>
     <string name="menu_add">Add</string>
     <string name="Msg_Confirm">Are you sure you want to perform the operation?</string>

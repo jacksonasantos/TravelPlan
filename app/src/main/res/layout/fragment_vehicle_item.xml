@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -41,7 +42,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="0"
         android:contentDescription="@string/bt_Refuel"
-        android:src="@drawable/ic_supply" />
+        app:srcCompat="@drawable/ic_supply" />
 
     <ImageButton
         android:id="@+id/btnEdit"
@@ -49,7 +50,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="0"
         android:contentDescription="@string/bt_Edit"
-        android:src="@drawable/ic_menu_edit" />
+        app:srcCompat="@drawable/ic_menu_edit" />
 
     <ImageButton
         android:id="@+id/btnDelete"
@@ -57,6 +58,6 @@
         android:layout_height="wrap_content"
         android:layout_weight="0"
         android:contentDescription="@string/bt_Delete"
-        android:src="@drawable/ic_menu_delete" />
+        app:srcCompat="@drawable/ic_menu_delete" />
 
 </LinearLayout>

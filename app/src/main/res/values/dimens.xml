@@ -6,13 +6,8 @@
     <dimen name="nav_header_height">176dp</dimen>
 
 
-    <dimen name="labels_width">190dp</dimen>
-    <dimen name="labels_height">0dp</dimen>
     <dimen name="labels_marginLeft">8dp</dimen>
     <dimen name="labels_margin">8dp</dimen>
     <dimen name="labels_space_top">4dp</dimen>
-    <dimen name="app_bar_height">180dp</dimen>
-    <dimen name="fab_margin">16dp</dimen>
-    <dimen name="text_margin">16dp</dimen>
 
 </resources>

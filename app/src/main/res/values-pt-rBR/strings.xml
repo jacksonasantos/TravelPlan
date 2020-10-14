@@ -8,7 +8,6 @@
     <string name="personal_age">Sua Idade</string>
     <string name="personal_gender">Seu Gênero Sexual</string>
     <string name="personal_header">Dados Pessoais</string>
-    <string name="messages_header">Mensagem Eletrônica</string>
     <string name="Vehicle_Full_Capacity">Capacidade Combustível (L)</string>
     <string name="Vehicle_Avg_Consumption">Consumo Médio (KM/L)</string>
     <string name="menu_travel">Viagens</string>
@@ -24,12 +23,6 @@
     <string name="color_scheme_on">Esquema de cores escuro ativado</string>
     <string name="personal_gender_male">Masculino</string>
     <string name="personal_gender_female">Feminino</string>
-    <string name="bt_Add">Adicionar</string>
-    <string name="Travel_id">Identificação de Viagem</string>
-    <string name="Travel_name">Nome da Viagem</string>
-    <string name="Travel_Departure_Date">Data de Partida da Viagem</string>
-    <string name="Travel_Return_Date">Data de Retorno da Viagem</string>
-    <string name="Travel_Note">Anotações da Viagem</string>
     <string name="gasoline">Gasolina</string>
     <string name="electric">Elétrico</string>
     <string name="ethanol">Etanol</string>
@@ -41,7 +34,6 @@
     <string name="Yes">Sim</string>
     <string name="No">Não</string>
     <string name="Vehicle_Odometer">Odômetro</string>
-    <string name="Vehicle_Acquisition_Sale">Aquisição/Venda</string>
     <string name="Vehicle_DtOdometer">Data Odômetro</string>
     <string name="Vehicle_Short_Name">Nome Curto</string>
     <string name="Vehicle_DtAcquisition">Data de Aquisição</string>
@@ -51,7 +43,6 @@
     <string name="Vehicle_TypeSUV">SUV</string>
     <string name="Vehicle_Type">Tipo de Veículo</string>
     <string name="Vehicle_Id">Identificação do Veículo</string>
-    <string name="Vehicle_Refuel">Reabasteça este Veículo</string>
     <string name="FuelSupply_Gas_Station">Posto de Abastecimento</string>
     <string name="FuelSupply_Vehicle">Veículo do Abastecimento</string>
     <string name="FuelSupply_Deleting">Excluindo Abastecimento de Combustível</string>
@@ -73,12 +64,9 @@
     <string name="FuelSupply_AssociatedTrip">Viagem Associada</string>
     <string name="FuelSupply_Currency_Value">Valor da Moeda</string>
     <string name="menu_fuel_supply">Abastecimento</string>
-    <string name="Vehicle">Veículo</string>
     <string name="city">Cidade</string>
     <string name="road">Estrada</string>
     <string name="FuelSupply_Reason_Type">Tipo de Razão do Abastecimento</string>
-    <string name="Error">Erro</string>
-    <string name="pref_languages_default">Linguagem Padrão</string>
     <string name="language">Linguagem</string>
     <string name="language_Portuguese">Português</string>
     <string name="language_English">Inglês</string>
