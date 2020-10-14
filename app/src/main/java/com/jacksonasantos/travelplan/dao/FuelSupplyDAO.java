@@ -166,11 +166,11 @@ public class FuelSupplyDAO extends DbContentProvider implements FuelSupplylSchem
             }
             if (cursor.getColumnIndex(FUEL_SUPPLY_STAT_AVG_FUEL_CONSUMPTION) != -1) {
                 stat_avg_fuel_consumptionIndex = cursor.getColumnIndexOrThrow(FUEL_SUPPLY_STAT_AVG_FUEL_CONSUMPTION);
-                fuelSupply.setStat_avg_fuel_consumption(cursor.getDouble(stat_avg_fuel_consumptionIndex));
+                fuelSupply.setStat_avg_fuel_consumption(cursor.getFloat(stat_avg_fuel_consumptionIndex));
             }
             if (cursor.getColumnIndex(FUEL_SUPPLY_STAT_COST_PER_LITRE) != -1) {
                 stat_cost_per_litreIndex = cursor.getColumnIndexOrThrow(FUEL_SUPPLY_STAT_COST_PER_LITRE);
-                fuelSupply.setStat_cost_per_litre(cursor.getDouble(stat_cost_per_litreIndex));
+                fuelSupply.setStat_cost_per_litre(cursor.getFloat(stat_cost_per_litreIndex));
             }
             if (cursor.getColumnIndex(FUEL_SUPPLY_SUPPLY_REASON_TYPE) != -1) {
                 supply_reason_typeIndex = cursor.getColumnIndexOrThrow(FUEL_SUPPLY_SUPPLY_REASON_TYPE);

@@ -1,10 +1,13 @@
 package com.jacksonasantos.travelplan.dao;
 
 import android.content.ContentValues;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteConstraintException;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
+
+import androidx.preference.PreferenceManager;
 
 import com.jacksonasantos.travelplan.dao.interfaces.CurrencyQuotelDAO;
 import com.jacksonasantos.travelplan.dao.interfaces.CurrencyQuotelSchema;
@@ -25,6 +28,7 @@ public class CurrencyQuoteDAO extends DbContentProvider implements CurrencyQuote
     }
 
     public CurrencyQuote findQuoteDay(int currency_type, Date quote_date) {
+
         CurrencyQuote currencyQuote = new CurrencyQuote();
         if (quote_date == null ) {
             return currencyQuote;
@@ -35,7 +39,7 @@ public class CurrencyQuoteDAO extends DbContentProvider implements CurrencyQuote
                                       " AND " + CURRENCY_QUOTE_QUOTE_DATE + "=?",
                 new String[] { String.valueOf(currency_type),  Utils.dateToString(quote_date)});
         if (null != cursor) {
-            if (cursor.getCount() > 0){
+            if (cursor.getCount() > 0) {
                 cursor.moveToFirst();
                 currencyQuote = cursorToEntity(cursor);
             }

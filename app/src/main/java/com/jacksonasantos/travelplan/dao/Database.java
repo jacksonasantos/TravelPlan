@@ -31,7 +31,7 @@ public class Database {
         this.mContext = context;
     }
 
-    public Database open() throws SQLException {
+    public void open() throws SQLException {
         mDbHelper = new DatabaseHelper(mContext);
         SQLiteDatabase mDb = mDbHelper.getWritableDatabase();  // Chama o onCreate
 
@@ -39,7 +39,6 @@ public class Database {
         mVehicleDao = new VehicleDAO(mDb);
         mFuelSupplyDao = new FuelSupplyDAO(mDb);
         mCurrencyQuoteDao = new CurrencyQuoteDAO(mDb);
-        return this;
     }
 
     public void close() {

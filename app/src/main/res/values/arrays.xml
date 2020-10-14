@@ -1,4 +1,16 @@
 <resources>
+    <!-- Language Preference Default -->
+    <string translatable="false" name="languages_default">pt</string>
+    <!-- Language Preference -->
+    <string-array name="languages">
+        <item name="pt">@string/language_Portuguese</item>
+        <item name="en">@string/language_English</item>
+    </string-array>
+    <!-- Language values Preference -->
+    <string-array name="listValues">
+        <item name="pt">pt</item>
+        <item name="en">en</item>
+    </string-array>
     <!-- Gender Preference -->
     <string-array name="gender_entries">
         <item>@string/personal_gender_male</item>

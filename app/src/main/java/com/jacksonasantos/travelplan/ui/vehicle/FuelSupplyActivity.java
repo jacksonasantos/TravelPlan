@@ -1,6 +1,7 @@
 package com.jacksonasantos.travelplan.ui.vehicle;
 
 import android.annotation.SuppressLint;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
@@ -21,6 +22,7 @@ import android.widget.Toast;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.preference.PreferenceManager;
 
 import com.google.android.material.switchmaterial.SwitchMaterial;
 import com.jacksonasantos.travelplan.R;
@@ -67,6 +69,8 @@ public class FuelSupplyActivity extends AppCompatActivity {
     private AutoCompleteTextView spinAssociatedTrip;
     private int nrSpinAssociatedTrip;
     private int vLastOdometer;
+    float vStatAvgFuelConsumption = (float) 0;
+    float vStatCostPerLitre = (float) 0;
 
     private FuelSupply fuelSupply;
     private boolean opInsert = true;
@@ -153,22 +157,20 @@ public class FuelSupplyActivity extends AppCompatActivity {
         View.OnFocusChangeListener listenerOdometer = new View.OnFocusChangeListener() {
             public void onFocusChange(View v, boolean hasFocus) {
                 if (!hasFocus) {
-                    String txValor = etVehicleOdometer.getText().toString();
-                    if (!txValor.isEmpty()) {
-                        int valor = Integer.parseInt(txValor);
+                    String txVlrOdometerFuelSupply = etVehicleOdometer.getText().toString();
+                    if (!txVlrOdometerFuelSupply.isEmpty()) {
+                        int valor = Integer.parseInt(txVlrOdometerFuelSupply);
                         int vLastOdometerNew = 0;
                         if ((valor > vLastOdometer) && (vlFullTank==1)) {
                             vLastOdometerNew = valor - vLastOdometer;
                         }
                         etVehicleTravelledDistance.setText(String.valueOf(vLastOdometerNew));
 
-                        Double vStatAvgFuelConsumption = (double) 0;
-                        Double vStatCostPerLitre = (double) 0;
-                        if (vLastOdometerNew > 0) {
-                            vStatAvgFuelConsumption = vLastOdometerNew / Double.parseDouble(etNumberLiters.getText().toString());
-                            vStatCostPerLitre = vLastOdometerNew / Double.parseDouble(etSupplyValue.getText().toString());
+                         if (vLastOdometerNew > 0) {
+                            vStatAvgFuelConsumption = vLastOdometerNew / Float.parseFloat(etNumberLiters.getText().toString());
+                            vStatCostPerLitre = vLastOdometerNew / Float.parseFloat(etSupplyValue.getText().toString());
                         }
-
+                        // TODO - Calcular as medias com os abastecimentos sem tanque cheio
                         NumberFormat numberFormat = NumberFormat.getNumberInstance(locale);
                         txStatAvgFuelConsumption.setText(numberFormat.format(vStatAvgFuelConsumption));
 
@@ -284,8 +286,8 @@ public class FuelSupplyActivity extends AppCompatActivity {
                     f1.setFuel_value(Double.parseDouble(etFuelValue.getText().toString()));
                     f1.setVehicle_odometer(Integer.parseInt(etVehicleOdometer.getText().toString()));
                     f1.setVehicle_travelled_distance(Integer.parseInt(etVehicleTravelledDistance.getText().toString()));
-                    f1.setStat_avg_fuel_consumption(Double.parseDouble(txStatAvgFuelConsumption.getText().toString()));
-                    f1.setStat_cost_per_litre(Double.parseDouble(txStatCostPerLitre.getText().toString()));
+                    f1.setStat_avg_fuel_consumption(vStatAvgFuelConsumption);
+                    f1.setStat_cost_per_litre(vStatCostPerLitre);
                     f1.setSupply_reason_type(findViewById(rbSupplyReasonType).getId());
                     f1.setSupply_reason(etSupplyReason.getText().toString());
                     //f1.setAssociated_trip((long) spinAssociatedTrip.getItemIdAtPosition(nrSpinAssociatedTrip));
@@ -370,8 +372,8 @@ public class FuelSupplyActivity extends AppCompatActivity {
                 s8 != null && !s8.trim().isEmpty() &&
                 s9 != null && !s9.trim().isEmpty() &&
                 s10 != null && !s10.trim().isEmpty() &&
-                s11 != null && !s11.trim().isEmpty() &&
-                s12 != null && !s12.trim().isEmpty() &&
+                //s11 != null && !s11.trim().isEmpty() &&
+                //s12 != null && !s12.trim().isEmpty() &&
                 //s13 != null && !s13.trim().isEmpty() &&
                 //s14 != null && !s14.trim().isEmpty() &&
                 s15 != null && !s15.trim().isEmpty() //&&

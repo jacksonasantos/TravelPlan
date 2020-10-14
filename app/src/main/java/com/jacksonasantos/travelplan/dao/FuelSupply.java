@@ -16,8 +16,8 @@ public class FuelSupply {
     public Double fuel_value;
     public int vehicle_odometer;
     public int vehicle_travelled_distance;
-    public Double stat_avg_fuel_consumption;
-    public Double stat_cost_per_litre;
+    public float stat_avg_fuel_consumption;
+    public float stat_cost_per_litre;
     public int supply_reason_type;
     public String supply_reason;
     public Long associated_trip;
@@ -95,13 +95,13 @@ public class FuelSupply {
 
     public void setVehicle_travelled_distance(int vehicle_travelled_distance) {this.vehicle_travelled_distance = vehicle_travelled_distance;}
 
-    public Double getStat_avg_fuel_consumption() {return stat_avg_fuel_consumption; }
+    public float getStat_avg_fuel_consumption() {return stat_avg_fuel_consumption; }
 
-    public void setStat_avg_fuel_consumption(Double stat_avg_fuel_consumption) { this.stat_avg_fuel_consumption = stat_avg_fuel_consumption; }
+    public void setStat_avg_fuel_consumption(float stat_avg_fuel_consumption) { this.stat_avg_fuel_consumption = stat_avg_fuel_consumption; }
 
-    public Double getStat_cost_per_litre() {return stat_cost_per_litre; }
+    public float getStat_cost_per_litre() {return stat_cost_per_litre; }
 
-    public void setStat_cost_per_litre(Double stat_cost_per_litre) { this.stat_cost_per_litre = stat_cost_per_litre; }
+    public void setStat_cost_per_litre(float stat_cost_per_litre) { this.stat_cost_per_litre = stat_cost_per_litre; }
 
     public String getSupply_reason() {return supply_reason; }
 

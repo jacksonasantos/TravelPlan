@@ -1,6 +1,11 @@
 package com.jacksonasantos.travelplan;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -9,25 +14,36 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
+import androidx.preference.PreferenceManager;
 
 import com.google.android.material.navigation.NavigationView;
-import com.jacksonasantos.travelplan.dao.Database;
+
+import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
-    public Database mDb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_main);
+        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(this);
+        Configuration config = getBaseContext().getResources().getConfiguration();
+        String lang = settings.getString("language", "");
+        if (lang != null && !"".equals(lang) && !config.locale.getLanguage().equals(lang)) {
+            Resources res = getResources();
+            DisplayMetrics dm = res.getDisplayMetrics();
+            Locale locale = new Locale(lang);
+            Locale.setDefault(locale);
+            res.updateConfiguration(config, dm);
+            config.locale = locale;
+            getBaseContext().getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
+            Intent refresh = new Intent(this, MainActivity.class);
+            startActivity(refresh);
+        }
 
-        // Abertura para atualização da estrutura de dados se necessário
-        mDb = new Database( this);
-        mDb.open();
-        mDb.close();
+        setContentView(R.layout.activity_main);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -45,6 +61,7 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
 
+        PreferenceManager.setDefaultValues(this, R.xml.root_preferences, false);
     }
 
     @Override

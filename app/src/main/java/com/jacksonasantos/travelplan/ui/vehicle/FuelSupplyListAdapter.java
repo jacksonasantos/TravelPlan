@@ -22,13 +22,16 @@ import com.jacksonasantos.travelplan.dao.FuelSupply;
 import com.jacksonasantos.travelplan.dao.Vehicle;
 import com.jacksonasantos.travelplan.ui.utility.Utils;
 
-import java.text.SimpleDateFormat;
+import java.text.NumberFormat;
 import java.util.List;
+import java.util.Locale;
 
 public class FuelSupplyListAdapter extends RecyclerView.Adapter<FuelSupplyListAdapter.MyViewHolder> {
 
     private List<FuelSupply> mFuelSupply;
     Context context;
+
+    Locale locale = new Locale("pt", "BR"); // TODO - disponibilizar local dinamico
 
     public static class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
@@ -83,8 +86,8 @@ public class FuelSupplyListAdapter extends RecyclerView.Adapter<FuelSupplyListAd
         Vehicle v = Database.mVehicleDao.fetchVehicleById(fuelSupply.getVehicle_id());
         holder.txtVehicleName.setText(v.getName());
         holder.txtNumberLiters.setText(fuelSupply.getNumber_liters() +" L");
-        holder.txtSupplyValue.setText(Double.toString(fuelSupply.getSupply_value()));
-
+        NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(locale);
+        holder.txtSupplyValue.setText(currencyFormatter.format(fuelSupply.getSupply_value()));
         // btnEdit
         holder.btnEdit.setOnClickListener (new View.OnClickListener() {
             @Override

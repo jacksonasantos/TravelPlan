@@ -1,4 +1,4 @@
-<resources xmlns:android="http://schemas.android.com/apk/res/android">
+<resources>
     <string name="app_name" translatable="false">Travel PLAN</string>
     <string name="nav_header_title">Travel Planning and Control</string>
     <string name="nav_header_desc" translatable="false">Navigation header</string>
@@ -29,6 +29,10 @@
     <string name="color_scheme_dark_title">Color Scheme Dark</string>
     <string name="color_scheme_off">Color Scheme Normal actived</string>
     <string name="color_scheme_on">Color Scheme Dark actived</string>
+    <string name="language">Language</string>
+    <string name="language_Portuguese">Portuguese</string>
+    <string name="language_English">English</string>
+    <string name="pref_languages_default">Language Default</string>
 
     <!-- Travel Fragment -->
     <string name="Travel_id">Id. Travel</string>
@@ -84,8 +88,8 @@
     <!-- Generic -->
     <string name="Yes">Yes</string>
     <string name="No">No</string>
-    <string name="Ok" translatable="false">Ok</string>
-    <string name="Erro" translatable="false">Erro</string>
+    <string name="OK" translatable="false">OK</string>
+    <string name="Error">Error</string>
     <string name="bt_Save">Save</string>
     <string name="bt_Delete">Delete</string>
     <string name="bt_Edit">Edit</string>

@@ -16,9 +16,6 @@
             app:key="gender"
             app:title="@string/personal_gender"
             app:useSimpleSummaryProvider="true" />
-    </PreferenceCategory>
-
-    <PreferenceCategory app:title="@string/messages_header">
         <EditTextPreference
             app:key="signature"
             app:title="@string/signature_title"
@@ -31,6 +28,13 @@
              app:title="@string/color_scheme_dark_title"
              app:summaryOff="@string/color_scheme_off"
              app:summaryOn="@string/color_scheme_on" />
+        <ListPreference
+            app:defaultValue="@string/languages_default"
+            app:entries="@array/languages"
+            app:entryValues="@array/listValues"
+            app:key="language"
+            app:title="@string/language"
+            app:useSimpleSummaryProvider="true" />
      </PreferenceCategory>
 
  </PreferenceScreen>

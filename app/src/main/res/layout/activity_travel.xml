@@ -88,7 +88,6 @@ android:orientation="vertical">
 <Button
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:onClick="save_travel"
     android:text="@string/bt_Save"
     android:layout_gravity="center_horizontal"/>
 

@@ -38,15 +38,18 @@ public class HomeFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        //HomeViewModel homeViewModel = ViewModelProviders.of(this).get(HomeViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_home, container, false);
+        return inflater.inflate(R.layout.fragment_home, container, false);
+    }
 
+    @Override
+    public void onResume() {
+        super.onResume();
         Database mDb = new Database(getActivity());
         mDb.open();
 
-        Spinner spVehicle = root.findViewById(R.id.spVehicle);
-        tvLicencePlate = root.findViewById(R.id.tvLicencePlate);
-        imVehicleType = root.findViewById(R.id.imVehicleType);
+        Spinner spVehicle = this.getView().findViewById(R.id.spVehicle);
+        tvLicencePlate = this.getView().findViewById(R.id.tvLicencePlate);
+        imVehicleType = this.getView().findViewById(R.id.imVehicleType);
 
         List<Vehicle> vehicles =  Database.mVehicleDao.fetchArrayVehicles();
         ArrayAdapter adapter = new ArrayAdapter(getActivity(), android.R.layout.simple_spinner_item, vehicles);
@@ -66,6 +69,8 @@ public class HomeFragment extends Fragment {
             public void onNothingSelected(AdapterView<?> parent) {
             }
         });
-        return root;
+
+        mDb.close();
+        adapter.notifyDataSetChanged();
     }
 }

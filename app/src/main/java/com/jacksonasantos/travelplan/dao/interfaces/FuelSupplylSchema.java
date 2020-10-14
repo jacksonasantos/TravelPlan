@@ -38,8 +38,8 @@ public interface FuelSupplylSchema {
             + FUEL_SUPPLY_FUEL_VALUE + " DOUBLE, "
             + FUEL_SUPPLY_VEHICLE_ODOMETER + " INT, "
             + FUEL_SUPPLY_VEHICLE_TRAVELLED_DISTANCE + " INT, "
-            + FUEL_SUPPLY_STAT_AVG_FUEL_CONSUMPTION + " DOUBLE, "
-            + FUEL_SUPPLY_STAT_COST_PER_LITRE + " DOUBLE, "
+            + FUEL_SUPPLY_STAT_AVG_FUEL_CONSUMPTION + " FLOAT, "
+            + FUEL_SUPPLY_STAT_COST_PER_LITRE + " FLOAT, "
             + FUEL_SUPPLY_SUPPLY_REASON + " TEXT, "
             + FUEL_SUPPLY_ASSOCIATED_TRIP + " LONG "
             + ")";

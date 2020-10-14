@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginLeft="4dp"
-    android:orientation="horizontal" >
+    android:orientation="horizontal"
+    android:layout_marginStart="4dp">
 
     <TextView
         android:id="@+id/randomText"
@@ -12,8 +12,7 @@
         android:layout_height="match_parent"
         android:layout_weight="1"
         android:gravity="center_vertical"
-        android:text="Medium Text"
-        tools:text="Este é algum texto temporário" />
+        android:text="Medium Text" />
 
     <ImageButton
         android:id="@+id/btnEditar"

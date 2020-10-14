@@ -77,4 +77,9 @@
     <string name="city">Cidade</string>
     <string name="road">Estrada</string>
     <string name="FuelSupply_Reason_Type">Tipo de Razão do Abastecimento</string>
+    <string name="Error">Erro</string>
+    <string name="pref_languages_default">Linguagem Padrão</string>
+    <string name="language">Linguagem</string>
+    <string name="language_Portuguese">Português</string>
+    <string name="language_English">Inglês</string>
 </resources>
