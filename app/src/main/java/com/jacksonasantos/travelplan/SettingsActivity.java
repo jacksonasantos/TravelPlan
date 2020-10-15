@@ -51,7 +51,6 @@ public class SettingsActivity extends AppCompatActivity {
         }
 
         Preference.OnPreferenceChangeListener languageChangeListener = new Preference.OnPreferenceChangeListener() {
-
             @Override
             public boolean onPreferenceChange(Preference preference, Object newValue) {
                 switch (newValue.toString()) {

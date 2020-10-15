@@ -75,6 +75,9 @@
     <string name="FuelSupply_AssociatedTrip">Associated Trip</string>
     <string name="FuelSupply_Currency_Value">Currency Value</string>
 
+    <string name="FuelSupply_Last">Last Fuel Supply</string>
+    <string name="InVehicleServices">In-Vehicle Services</string>
+
     <!-- Generic -->
     <string name="Yes">Yes</string>
     <string name="No">No</string>
@@ -84,6 +87,12 @@
     <string name="bt_Refuel">Refuel</string>
     <string name="menu_add">Add</string>
     <string name="Msg_Confirm">Are you sure you want to perform the operation?</string>
+
+    <string name="Data_Validator_Error">Data Validator Error</string>
+    <string name="Error_Saving_Data">Error Saving Data</string>
+    <string name="Error_Including_Data">Error Including Data</string>
+    <string name="Error_Changing_Data">Error Changing Data</string>
+    <string name="Error_Data_Validation">Error in data validation</string>
 
     <!-- Arrays -->
     <string name="ethanol">Ethanol</string>

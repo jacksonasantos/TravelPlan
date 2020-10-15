@@ -59,7 +59,7 @@ public class Vehicle {
                 draw = R.drawable.ic_vehicle_suv;
                 break;
             default:
-                throw new IllegalStateException("Unexpected value: " + type);
+                throw new IllegalStateException("Unexpected value type vehicle: " + type);
         }
         return draw;
     }

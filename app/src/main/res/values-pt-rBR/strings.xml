@@ -70,4 +70,11 @@
     <string name="language">Linguagem</string>
     <string name="language_Portuguese">Português</string>
     <string name="language_English">Inglês</string>
+    <string name="FuelSupply_Last">Último Abastecimento de Combustível</string>
+    <string name="InVehicleServices">Próximos Serviços no Veículo</string>
+    <string name="Error_Data_Validation">Erro na validação dos dados</string>
+    <string name="Error_Changing_Data">"Erro ao alterar dados "</string>
+    <string name="Error_Including_Data">"Erro ao incluir dados "</string>
+    <string name="Error_Saving_Data">"Erro ao salvar dados "</string>
+    <string name="Data_Validator_Error">"Erro do validador de dados "</string>
 </resources>

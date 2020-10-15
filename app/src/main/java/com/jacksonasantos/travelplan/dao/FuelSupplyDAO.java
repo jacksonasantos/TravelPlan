@@ -40,6 +40,26 @@ public class FuelSupplyDAO extends DbContentProvider implements FuelSupplylSchem
         return fuelSupply;
     }
 
+    public FuelSupply findLastFuelSupply(long vehicle_id) {
+        FuelSupply fuelSupply = new FuelSupply();
+        cursor = super.rawQuery("SELECT rowid, * " +
+                        " FROM " + FUEL_SUPPLY_TABLE +
+                        " WHERE " + FUEL_SUPPLY_VEHICLE_ID + "=? " +
+                        " AND " + FUEL_SUPPLY_SUPPLY_DATE +
+                            "=(SELECT MAX( "+ FUEL_SUPPLY_SUPPLY_DATE +
+                            ") FROM " + FUEL_SUPPLY_TABLE +
+                            " WHERE " + FUEL_SUPPLY_VEHICLE_ID + " =?)",
+                new String[] { String.valueOf(vehicle_id), String.valueOf(vehicle_id)});
+        if (null != cursor) {
+            if (cursor.getCount() > 0) {
+                cursor.moveToFirst();
+                fuelSupply = cursorToEntity(cursor);
+            }
+            cursor.close();
+        }
+        return fuelSupply;
+    }
+
     public List<FuelSupply> fetchAllFuelSupplies() throws ParseException {
         List<FuelSupply> fuelSupplyList = new ArrayList<>();
 
@@ -213,4 +233,5 @@ public class FuelSupplyDAO extends DbContentProvider implements FuelSupplylSchem
     private ContentValues getContentValue() {
         return initialValues;
     }
+
 }

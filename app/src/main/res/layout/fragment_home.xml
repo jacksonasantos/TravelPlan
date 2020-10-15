@@ -10,6 +10,11 @@
         android:id="@+id/layerVehicle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/labels_margin"
+        android:layout_marginLeft="@dimen/labels_margin"
+        android:layout_marginTop="@dimen/labels_space_top"
+        android:layout_marginEnd="@dimen/labels_margin"
+        android:layout_marginRight="@dimen/labels_margin"
         tools:ignore="MissingConstraints"
         tools:layout_editor_absoluteX="0dp">
 
@@ -28,6 +33,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/imVehicleType"
             app:layout_constraintTop_toTopOf="parent" />
+
         <ImageView
             android:id="@+id/imVehicleType"
             android:layout_width="45dp"
@@ -36,7 +42,6 @@
             android:layout_marginLeft="@dimen/labels_margin"
             android:contentDescription="@string/Vehicle_Type"
             android:hint="@string/Vehicle_Type"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:ignore="ContentDescription" />
@@ -50,37 +55,163 @@
             android:layout_marginTop="@dimen/labels_space_top"
             android:layout_marginEnd="@dimen/labels_margin"
             android:layout_marginRight="@dimen/labels_margin"
+            android:layout_marginBottom="26dp"
             android:gravity="center_horizontal"
             android:textAlignment="center"
             android:textSize="14sp"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toBottomOf="@+id/buttonSeparator1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/imVehicleType"
             app:layout_constraintTop_toBottomOf="@+id/spVehicle" />
 
+        <Button
+            android:id="@+id/buttonSeparator1"
+            android:layout_width="match_parent"
+            android:layout_height="16dp"
+            android:clickable="false"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imVehicleType" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <Button
-        android:id="@+id/buttonSeparator1"
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layerFuelSupply"
         android:layout_width="match_parent"
-        android:layout_height="16dp"
-        android:clickable="false"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/labels_margin"
+        android:layout_marginLeft="@dimen/labels_margin"
+        android:layout_marginEnd="@dimen/labels_margin"
+        android:layout_marginRight="@dimen/labels_margin"
+        android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/layerVehicle" />
+        app:layout_constraintTop_toBottomOf="@+id/layerVehicle"
+        tools:ignore="MissingConstraints">
 
-    <com.google.android.material.card.MaterialCardView
-        android:layout_width="0dp"
+        <ImageButton
+            android:id="@+id/btnRefuel"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:contentDescription="@string/FuelSupply_Combustible"
+            android:src="@drawable/ic_supply"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvFuelSupplyLast"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/FuelSupply_Last"
+            android:textColor="@color/design_default_color_secondary"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvFuelSupplyDate"
+            android:layout_width="137dp"
+            android:layout_height="24dp"
+            android:layout_marginTop="@dimen/labels_space_top"
+            android:ems="10"
+            android:gravity="center_horizontal|center_vertical"
+            android:text="dd/mm/yyyy"
+            app:layout_constraintEnd_toStartOf="@+id/tvFuelSupplyLastOdometer"
+            app:layout_constraintStart_toEndOf="@+id/btnRefuel"
+            app:layout_constraintTop_toBottomOf="@+id/tvFuelSupplyLast" />
+
+        <TextView
+            android:id="@+id/tvFuelSupplyLastOdometer"
+            android:layout_width="0dp"
+            android:layout_height="24dp"
+            android:layout_marginTop="@dimen/labels_space_top"
+            android:ems="10"
+            android:gravity="center_horizontal|center_vertical"
+            android:text="999.999.999"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvFuelSupplyLast" />
+
+        <TextView
+            android:id="@+id/tvFuelSupplyNumberLiters"
+            android:layout_width="137dp"
+            android:layout_height="24dp"
+            android:ems="10"
+            android:gravity="center_horizontal|center_vertical"
+            android:text="99.9 L"
+            app:layout_constraintBottom_toTopOf="@+id/buttonSeparator2"
+            app:layout_constraintEnd_toStartOf="@+id/tvFuelSupplyValue"
+            app:layout_constraintStart_toEndOf="@+id/btnRefuel"
+            app:layout_constraintTop_toBottomOf="@+id/tvFuelSupplyDate" />
+
+        <TextView
+            android:id="@+id/tvFuelSupplyValue"
+            android:layout_width="0dp"
+            android:layout_height="24dp"
+            android:ems="10"
+            android:gravity="center_horizontal|center_vertical"
+            android:text="R$ 999,99"
+            app:layout_constraintBottom_toTopOf="@+id/buttonSeparator2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvFuelSupplyLastOdometer" />
+
+        <Button
+            android:id="@+id/buttonSeparator2"
+            android:layout_width="match_parent"
+            android:layout_height="16dp"
+            android:clickable="false"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btnRefuel" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layerServiceVehicle"
+        android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:clickable="true"
-        android:focusable="true"
-        android:checkable="true"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginStart="@dimen/labels_margin"
+        android:layout_marginLeft="@dimen/labels_margin"
+        android:layout_marginEnd="@dimen/labels_margin"
+        android:layout_marginRight="@dimen/labels_margin"
+        android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buttonSeparator1" >
+        app:layout_constraintTop_toBottomOf="@+id/layerFuelSupply"
+        tools:ignore="MissingConstraints">
 
-    </com.google.android.material.card.MaterialCardView>
+        <TextView
+            android:id="@+id/tvVehicleServiceNext"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/InVehicleServices"
+            android:textColor="@color/design_default_color_secondary"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/listInVehicleService"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:scrollbars="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvVehicleServiceNext" />
+
+        <Button
+            android:id="@+id/buttonSeparator3"
+            android:layout_width="match_parent"
+            android:layout_height="16dp"
+            android:clickable="false"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/listInVehicleService" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

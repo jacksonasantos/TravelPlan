@@ -69,9 +69,13 @@ public class FuelSupplyActivity extends AppCompatActivity {
 
     @SuppressLint("WrongViewCast")
     @RequiresApi(api = Build.VERSION_CODES.N)
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        Database mDb = new Database(getApplicationContext());
+        mDb.open();
 
         setTitle(R.string.FuelSupply_Vehicle);
         setContentView(R.layout.activity_fuel_supply);
@@ -222,7 +226,6 @@ public class FuelSupplyActivity extends AppCompatActivity {
             });
         }*/
 
-
         if (fuelSupply != null) {
             etGasStation.setText(fuelSupply.getGas_station());
             etGasStationLocation.setText(fuelSupply.getGas_station_location());
@@ -258,7 +261,7 @@ public class FuelSupplyActivity extends AppCompatActivity {
                 boolean isSave = false;
 
                 if (!validateData()) {
-                    Toast.makeText(getApplicationContext(), "Erro na Validação dos Dados... ", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), R.string.Error_Data_Validation, Toast.LENGTH_LONG).show();
                 } else {
                     final FuelSupply f1 = new FuelSupply();
 
@@ -307,7 +310,7 @@ public class FuelSupplyActivity extends AppCompatActivity {
                             //    isSave = Database.mVehicleDao.updateVehicle(v1);
                             //}
                         } catch (Exception e) {
-                            Toast.makeText(getApplicationContext(), "Erro Alterando os Dados " + e.getMessage(), Toast.LENGTH_LONG).show();
+                            Toast.makeText(getApplicationContext(), R.string.Error_Changing_Data + e.getMessage(), Toast.LENGTH_LONG).show();
                         }
                     } else {
                         try {
@@ -315,7 +318,7 @@ public class FuelSupplyActivity extends AppCompatActivity {
                             isSave = Database.mCurrencyQuoteDao.addCurrencyQuote(c1);
                             isSave = Database.mVehicleDao.updateVehicle(v1);
                         } catch (Exception e) {
-                            Toast.makeText(getApplicationContext(), "Erro Incluindo os Dados " + e.getMessage(), Toast.LENGTH_LONG).show();
+                            Toast.makeText(getApplicationContext(), R.string.Error_Including_Data + e.getMessage(), Toast.LENGTH_LONG).show();
                         }
                     }
 
@@ -324,7 +327,7 @@ public class FuelSupplyActivity extends AppCompatActivity {
                     if (isSave) {
                         finish();
                     } else {
-                        Toast.makeText(getApplicationContext(), "Erro Salvando os Dados ", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(), R.string.Error_Saving_Data, Toast.LENGTH_LONG).show();
                     }
                 }
             }
@@ -356,7 +359,7 @@ public class FuelSupplyActivity extends AppCompatActivity {
                 isValid = true;
             }
         } catch (Exception e) {
-            Toast.makeText(getApplicationContext(), "Erro no Validador dos Dados " + e.getMessage(), Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), R.string.Data_Validator_Error +" - " + e.getMessage(), Toast.LENGTH_LONG).show();
         }
         return isValid;
     }

@@ -152,7 +152,7 @@ public class VehicleActivity extends AppCompatActivity {
             public void onClick(View v) {
                 boolean isSave = false;
                 if (!validateData()) {
-                    Toast.makeText(getApplicationContext(), "Erro na Validação dos Dados... ", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), R.string.Error_Data_Validation, Toast.LENGTH_LONG).show();
                 } else {
                     Database mdb = new Database(VehicleActivity.this);
                     mdb.open();
@@ -181,19 +181,23 @@ public class VehicleActivity extends AppCompatActivity {
                             v1.setId(vehicle.getId());
                             isSave = Database.mVehicleDao.updateVehicle(v1);
                         } catch (Exception e ){
-                            Toast.makeText(getApplicationContext(), "Erro Alterando os Dados "+e.getMessage(), Toast.LENGTH_LONG).show();
+                            Toast.makeText(getApplicationContext(), R.string.Error_Changing_Data + e.getMessage(), Toast.LENGTH_LONG).show();
                         }
                     } else {
                         try {
                             isSave = Database.mVehicleDao.addVehicle(v1);
                         } catch ( Exception e ) {
-                            Toast.makeText(getApplicationContext(), "Erro Incluindo os Dados "+e.getMessage(), Toast.LENGTH_LONG).show();
+                            Toast.makeText(getApplicationContext(), R.string.Error_Including_Data + e.getMessage(), Toast.LENGTH_LONG).show();
                         }
                     }
 
                     mdb.close();
                     setResult(isSave ? 1 : 0);
-                    if (isSave ) { finish(); }
+                    if (isSave) {
+                        finish();
+                    } else {
+                        Toast.makeText(getApplicationContext(), R.string.Error_Saving_Data, Toast.LENGTH_LONG).show();
+                    }
                 }
             }
         });
@@ -231,7 +235,7 @@ public class VehicleActivity extends AppCompatActivity {
                  isValid = true;
             }
         }catch ( Exception e ) {
-            Toast.makeText(getApplicationContext(), "Erro no Validador dos Dados "+e.getMessage(), Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), R.string.Data_Validator_Error +" - " + e.getMessage(), Toast.LENGTH_LONG).show();
         }
         return isValid;
     }
