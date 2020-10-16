@@ -1,5 +1,6 @@
 package com.jacksonasantos.travelplan.dao;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
@@ -9,16 +10,18 @@ import android.widget.Toast;
 
 import com.jacksonasantos.travelplan.dao.interfaces.CurrencyQuotelSchema;
 import com.jacksonasantos.travelplan.dao.interfaces.FuelSupplylSchema;
+import com.jacksonasantos.travelplan.dao.interfaces.MaintenanceISchema;
 import com.jacksonasantos.travelplan.dao.interfaces.VehicleISchema;
 
 import static com.jacksonasantos.travelplan.dao.interfaces.VehicleISchema.VEHICLE_TABLE;
 import static com.jacksonasantos.travelplan.dao.interfaces.FuelSupplylSchema.FUEL_SUPPLY_TABLE;
 import static com.jacksonasantos.travelplan.dao.interfaces.CurrencyQuotelSchema.CURRENCY_QUOTE_TABLE;
+import static com.jacksonasantos.travelplan.dao.interfaces.MaintenanceISchema.MAINTENANCE_TABLE;
 
 public class Database {
 
     private static final String DATABASE_NAME = "TravelPlan.db";
-    private static final int DATABASE_VERSION = 9;
+    private static final int DATABASE_VERSION = 10;
 
     private DatabaseHelper mDbHelper;
     private final Context mContext;
@@ -26,6 +29,7 @@ public class Database {
     public static VehicleDAO mVehicleDao;
     public static FuelSupplyDAO mFuelSupplyDao;
     public static CurrencyQuoteDAO mCurrencyQuoteDao;
+    public static MaintenanceDAO mMaintenanceDao;
 
     public Database(Context context) {
         this.mContext = context;
@@ -39,6 +43,7 @@ public class Database {
         mVehicleDao = new VehicleDAO(mDb);
         mFuelSupplyDao = new FuelSupplyDAO(mDb);
         mCurrencyQuoteDao = new CurrencyQuoteDAO(mDb);
+        mMaintenanceDao = new MaintenanceDAO(mDb);
     }
 
     public void close() {
@@ -56,6 +61,7 @@ public class Database {
             db.setForeignKeyConstraintsEnabled(true);
         }
 
+        @SuppressLint("SQLiteString")
         @Override
         public void onCreate(SQLiteDatabase db) {
 
@@ -71,8 +77,10 @@ public class Database {
             db.execSQL(FuelSupplylSchema.CREATE_TABLE_FUEL_SUPPLY_V8); Log.w("Table "+FUEL_SUPPLY_TABLE,"V8 - Create Table...");
             db.execSQL(CurrencyQuotelSchema.CREATE_TABLE_CURRENCY_QUOTE_V8); Log.w("Table "+CURRENCY_QUOTE_TABLE,"V8 - Create Table...");
             db.execSQL(FuelSupplylSchema.ALTER_TABLE_FUEL_SUPPLY_V9); Log.w("Table "+FUEL_SUPPLY_TABLE,"V9 - Alter Table...");
+            db.execSQL(MaintenanceISchema.CREATE_TABLE_MAINTENANCE_V10); Log.w("Table "+MAINTENANCE_TABLE,"V10 - Create Table...");
         }
 
+        @SuppressLint("SQLiteString")
         @Override
         public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
             Log.w("Database", "Upgrading database from version "
@@ -148,6 +156,8 @@ public class Database {
             } else if (oldVersion == 8) {
                 db.execSQL(FuelSupplylSchema.ALTER_TABLE_FUEL_SUPPLY_V9);
             } else if (oldVersion == 9 ) {
+                db.execSQL(MaintenanceISchema.CREATE_TABLE_MAINTENANCE_V10);
+            } else if (oldVersion == 10 ) {
             }
         }
     }

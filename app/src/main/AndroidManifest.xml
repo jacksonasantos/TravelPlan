@@ -26,6 +26,9 @@
             android:name=".ui.vehicle.FuelSupplyActivity"
             android:label="Vehicle" />
         <activity
+            android:name=".ui.vehicle.MaintenanceActivity"
+            android:label="Vehicle" />
+        <activity
             android:name=".ui.vehicle.VehicleActivity"
             android:label="Vehicle" />
         <activity

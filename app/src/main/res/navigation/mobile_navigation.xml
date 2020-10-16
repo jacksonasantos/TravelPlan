@@ -25,6 +25,12 @@
         tools:layout="@layout/fragment_fuel_supply" />
 
     <fragment
+        android:id="@+id/nav_maintenance"
+        android:name="com.jacksonasantos.travelplan.ui.vehicle.MaintenanceFragment"
+        android:label="@string/menu_maintenance"
+        tools:layout="@layout/fragment_maintenance" />
+
+    <fragment
         android:id="@+id/nav_travel"
         android:name="com.jacksonasantos.travelplan.ui.travel.TravelFragment"
         android:label="@string/menu_travel"

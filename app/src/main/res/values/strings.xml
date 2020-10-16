@@ -8,6 +8,7 @@
     <string name="menu_vehicle">Vehicles</string>
     <string name="menu_travel">Travels</string>
     <string name="menu_fuel_supply">Fuel Supply</string>
+    <string name="menu_maintenance">Maintenance Service</string>
     <string name="action_settings">Settings</string>
 
     <!-- Preference Titles -->
@@ -52,6 +53,19 @@
     <string name="Vehicle_Odometer">Odometer</string>
     <string name="Vehicle_DtOdometer">Date Odometer</string>
     <string name="Vehicle_Deleting">Deleting Vehicle</string>
+
+    <!-- Maintenance Fragment -->
+    <string name="Maintenance_Deleting">Deleting Maintenance Vehicle</string>
+    <string name="Maintenance_Vehicle">Maintenance Vehicle</string>
+    <string name="Maintenance_Type">Maintenance Type</string>
+    <string name="Maintenance_Detail">Maintenance Detail</string>
+    <string name="Maintenance_Date">Maintenance Date</string>
+    <string name="Maintenance_Expiration_Date">Maintenance Expiration Date</string>
+    <string name="Maintenance_Expiration_KM">Maintenance Expiration KM</string>
+    <string name="Maintenance_Odometer">Maintenance Odometer</string>
+    <string name="Maintenance_Value">Maintenance Value</string>
+    <string name="Maintenance_Location">Maintenance Location</string>
+    <string name="Maintenance_Note">Maintenance Note</string>
 
     <!-- FuelSupply Fragment -->
     <string name="gasoline_common">Gasoline Common</string>
@@ -103,5 +117,28 @@
     <string name="electric">Electric</string>
     <string name="city">City</string>
     <string name="road">Road</string>
+
+    <!-- Arrays Services -->
+    <string name="alignment">Alignment</string>
+    <string name="balancing">Balancing</string>
+    <string name="battery">Battery</string>
+    <string name="belt">Belt</string>
+    <string name="clutch">Clutch</string>
+    <string name="exhaust">Exhaust</string>
+    <string name="extinguisher">Extinguisher</string>
+    <string name="lighthouse_flashlight">Lighthouse/Flashlight</string>
+    <string name="air_filter">Air filter</string>
+    <string name="fuel_filter">Fuel filter</string>
+    <string name="oil_filter">Oil filter</string>
+    <string name="brakes">Brakes</string>
+    <string name="injection_carburetor">Injection/Carburetor</string>
+    <string name="other_services">Other Services</string>
+    <string name="tire">Tire</string>
+    <string name="radiator">Radiator</string>
+    <string name="suspension">Suspension</string>
+    <string name="streaming">Streaming</string>
+    <string name="parts_exchange">Parts Exchange</string>
+    <string name="oil_change">Oil Change</string>
+    <string name="spark_plug">Spark Plug</string>
 
 </resources>

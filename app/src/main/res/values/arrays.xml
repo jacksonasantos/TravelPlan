@@ -1,6 +1,30 @@
 <resources>
     <!-- Language Preference Default -->
     <string translatable="false" name="languages_default">pt</string>
+    <!-- Services -->
+    <string-array name="vehicle_services">
+        <item>@string/alignment</item>
+        <item>@string/balancing</item>
+        <item>@string/battery</item>
+        <item>@string/belt</item>
+        <item>@string/clutch</item>
+        <item>@string/exhaust</item>
+        <item>@string/extinguisher</item>
+        <item>@string/lighthouse_flashlight</item>
+        <item>@string/air_filter</item>
+        <item>@string/fuel_filter</item>
+        <item>@string/oil_filter</item>
+        <item>@string/brakes</item>
+        <item>@string/injection_carburetor</item>
+        <item>@string/other_services</item>
+        <item>@string/tire</item>
+        <item>@string/radiator</item>
+        <item>@string/suspension</item>
+        <item>@string/streaming</item>
+        <item>@string/parts_exchange</item>
+        <item>@string/oil_change</item>
+        <item>@string/spark_plug</item>
+    </string-array>
     <!-- Language Preference -->
     <string-array name="languages">
         <item name="pt">@string/language_Portuguese</item>
