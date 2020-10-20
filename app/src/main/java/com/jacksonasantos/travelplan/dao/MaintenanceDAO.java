@@ -8,6 +8,7 @@ import android.util.Log;
 
 import com.jacksonasantos.travelplan.dao.interfaces.MaintenanceIDAO;
 import com.jacksonasantos.travelplan.dao.interfaces.MaintenanceISchema;
+import com.jacksonasantos.travelplan.ui.utility.Globals;
 import com.jacksonasantos.travelplan.ui.utility.Utils;
 
 import java.text.ParseException;
@@ -42,7 +43,14 @@ public class MaintenanceDAO extends DbContentProvider implements MaintenanceISch
     public List<Maintenance> fetchAllMaintenance() {
         List<Maintenance> maintenanceList = new ArrayList<>();
 
-        cursor = super.query(MAINTENANCE_TABLE, MAINTENANCE_COLUMNS, null,null, MAINTENANCE_DATE);
+        if (Globals.getInstance().getFilterVehicle()) {
+            final String[] selectionArgs = { String.valueOf(Globals.getInstance().getIdVehicle()) };
+            final String selection = MAINTENANCE_VEHICLE_ID + " = ?";
+
+            cursor = super.query(MAINTENANCE_TABLE, MAINTENANCE_COLUMNS, selection, selectionArgs, MAINTENANCE_DATE);
+        } else {
+            cursor = super.query(MAINTENANCE_TABLE, MAINTENANCE_COLUMNS, null, null, MAINTENANCE_DATE);
+         }
 
         if (cursor.moveToFirst()) {
             do {

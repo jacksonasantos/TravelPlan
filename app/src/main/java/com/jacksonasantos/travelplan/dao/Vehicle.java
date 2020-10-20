@@ -50,7 +50,7 @@ public class Vehicle {
         int draw;
         switch(type) {
             case 1:
-                draw = R.drawable.ic_vehicle_car;
+                draw = R.drawable.ic_vehicle_fusca;
                 break;
             case 2:
                 draw = R.drawable.ic_vehicle_motorcycle;

@@ -8,6 +8,7 @@ import android.util.Log;
 
 import com.jacksonasantos.travelplan.dao.interfaces.VehicleIDAO;
 import com.jacksonasantos.travelplan.dao.interfaces.VehicleISchema;
+import com.jacksonasantos.travelplan.ui.utility.Globals;
 import com.jacksonasantos.travelplan.ui.utility.Utils;
 
 import java.text.SimpleDateFormat;
@@ -46,7 +47,14 @@ public class VehicleDAO extends DbContentProvider implements VehicleISchema, Veh
     public List<Vehicle> fetchAllVehicles() {
         List<Vehicle> vehicleList = new ArrayList<>();
 
-        cursor = super.query(VEHICLE_TABLE, VEHICLE_COLUMNS, null,null, VEHICLE_ID);
+        if (Globals.getInstance().getFilterVehicle()) {
+            final String[] selectionArgs = { String.valueOf(Globals.getInstance().getIdVehicle()) };
+            final String selection = VEHICLE_ID + " = ?";
+
+            cursor = super.query(VEHICLE_TABLE, VEHICLE_COLUMNS, selection, selectionArgs, VEHICLE_ID);
+        } else {
+            cursor = super.query(VEHICLE_TABLE, VEHICLE_COLUMNS, null, null, VEHICLE_ID);
+        }
 
         if (cursor.moveToFirst()) {
             do {

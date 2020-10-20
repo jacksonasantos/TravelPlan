@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.jacksonasantos.travelplan.dao.Database;
 import com.jacksonasantos.travelplan.R;
+import com.jacksonasantos.travelplan.ui.utility.Globals;
 
 import java.text.ParseException;
 
@@ -38,11 +39,8 @@ public class FuelSupplyFragment extends Fragment  {
         RecyclerView listFuelSupply = this.getView().findViewById(R.id.listFuelSupply);
 
         FuelSupplyListAdapter adapter = null;
-        try {
-            adapter = new FuelSupplyListAdapter(Database.mFuelSupplyDao.fetchAllFuelSupplies(), getContext());
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+        adapter = new FuelSupplyListAdapter(Database.mFuelSupplyDao.fetchAllFuelSupplies(), getContext());
+
         listFuelSupply.setAdapter(adapter);
         listFuelSupply.setLayoutManager(new LinearLayoutManager(getContext()));
 
@@ -50,10 +48,13 @@ public class FuelSupplyFragment extends Fragment  {
         adapter.notifyDataSetChanged();
     }
 
+    private Menu mMenu;
+
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         menu.clear();
         inflater.inflate(R.menu.main, menu);
+        this.mMenu = menu;
         super.onCreateOptionsMenu(menu, inflater);
     }
 
@@ -71,7 +72,22 @@ public class FuelSupplyFragment extends Fragment  {
                 intent = new Intent( getContext(), FuelSupplyActivity.class );
                 startActivity( intent );
                 return super.onOptionsItemSelected(item);
+
+            case R.id.filtermenu:
+                Globals.getInstance().setFilterVehicle(!Globals.getInstance().getFilterVehicle());
+                if ( Globals.getInstance().getFilterVehicle() ) {
+                    this.mMenu.getItem(0).setIcon(getResources().getDrawable(R.drawable.ic_menu_filter));
+                } else {
+                    this.mMenu.getItem(0).setIcon(getResources().getDrawable(R.drawable.ic_menu_filter_no));
+                }
+
+                RecyclerView listMaintenance = (RecyclerView) this.getView().findViewById(R.id.listFuelSupply);
+                FuelSupplyListAdapter adapter = new FuelSupplyListAdapter(Database.mFuelSupplyDao.fetchAllFuelSupplies(), getContext());
+                listMaintenance.setAdapter(adapter);
+                return true;
+
+            default:
+                return super.onOptionsItemSelected(item);
         }
-        return super.onOptionsItemSelected(item);
     }
 }

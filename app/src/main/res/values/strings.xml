@@ -100,6 +100,7 @@
     <string name="bt_Edit">Edit</string>
     <string name="bt_Refuel">Refuel</string>
     <string name="menu_add">Add</string>
+    <string name="menu_filter">Vehicle Filter</string>
     <string name="Msg_Confirm">Are you sure you want to perform the operation?</string>
 
     <string name="Data_Validator_Error">Data Validator Error</string>

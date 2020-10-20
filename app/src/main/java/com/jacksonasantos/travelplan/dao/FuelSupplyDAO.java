@@ -8,6 +8,7 @@ import android.util.Log;
 
 import com.jacksonasantos.travelplan.dao.interfaces.FuelSupplyIDAO;
 import com.jacksonasantos.travelplan.dao.interfaces.FuelSupplylSchema;
+import com.jacksonasantos.travelplan.ui.utility.Globals;
 import com.jacksonasantos.travelplan.ui.utility.Utils;
 
 import java.text.ParseException;
@@ -60,10 +61,17 @@ public class FuelSupplyDAO extends DbContentProvider implements FuelSupplylSchem
         return fuelSupply;
     }
 
-    public List<FuelSupply> fetchAllFuelSupplies() throws ParseException {
+    public List<FuelSupply> fetchAllFuelSupplies() {
         List<FuelSupply> fuelSupplyList = new ArrayList<>();
 
-        cursor = super.query(FUEL_SUPPLY_TABLE, FUEL_SUPPLY_COLUMNS, null,null, FUEL_SUPPLY_SUPPLY_DATE);
+        if (Globals.getInstance().getFilterVehicle()) {
+            final String[] selectionArgs = { String.valueOf(Globals.getInstance().getIdVehicle()) };
+            final String selection = FUEL_SUPPLY_VEHICLE_ID + " = ?";
+
+            cursor = super.query(FUEL_SUPPLY_TABLE, FUEL_SUPPLY_COLUMNS, selection, selectionArgs, FUEL_SUPPLY_SUPPLY_DATE);
+        } else {
+            cursor = super.query(FUEL_SUPPLY_TABLE, FUEL_SUPPLY_COLUMNS, null, null, FUEL_SUPPLY_SUPPLY_DATE);
+        }
 
         if (cursor.moveToFirst()) {
             do {

@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.jacksonasantos.travelplan.dao.Database;
 import com.jacksonasantos.travelplan.R;
+import com.jacksonasantos.travelplan.ui.utility.Globals;
 
 public class VehicleFragment extends Fragment  {
 
@@ -39,10 +40,13 @@ public class VehicleFragment extends Fragment  {
         adapter.notifyDataSetChanged();
     }
 
+    private Menu mMenu;
+
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         menu.clear();
         inflater.inflate(R.menu.main, menu);
+        this.mMenu = menu;
         super.onCreateOptionsMenu(menu, inflater);
     }
 
@@ -60,7 +64,22 @@ public class VehicleFragment extends Fragment  {
                 intent = new Intent( getContext(), VehicleActivity.class );
                 startActivity( intent );
                 return super.onOptionsItemSelected(item);
+
+            case R.id.filtermenu:
+                Globals.getInstance().setFilterVehicle(!Globals.getInstance().getFilterVehicle());
+                if ( Globals.getInstance().getFilterVehicle() ) {
+                    this.mMenu.getItem(0).setIcon(getResources().getDrawable(R.drawable.ic_menu_filter));
+                } else {
+                    this.mMenu.getItem(0).setIcon(getResources().getDrawable(R.drawable.ic_menu_filter_no));
+                }
+
+                RecyclerView listMaintenance = (RecyclerView) this.getView().findViewById(R.id.listVehicles);
+                VehicleListAdapter adapter = new VehicleListAdapter(Database.mVehicleDao.fetchAllVehicles(), getContext());
+                listMaintenance.setAdapter(adapter);
+                return true;
+
+            default:
+                return super.onOptionsItemSelected(item);
         }
-        return super.onOptionsItemSelected(item);
     }
 }
