@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.app.assist.AssistStructure;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -46,6 +47,7 @@ import java.util.Locale;
 
 public class HomeFragment extends Fragment implements View.OnClickListener {
 
+    private Spinner spVehicle;
     private TextView tvLicencePlate;
     private ImageView imVehicleType;
     private ImageButton btnRefuel;
@@ -65,7 +67,15 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                              final ViewGroup container, Bundle savedInstanceState) {
 
         View v=inflater.inflate(R.layout.fragment_home, container, false);
+        spVehicle =v.findViewById(R.id.spVehicle);
+        tvLicencePlate = v.findViewById(R.id.tvLicencePlate);
+        imVehicleType = v.findViewById(R.id.imVehicleType);
+        tvFuelSupplyDate = v.findViewById(R.id.tvFuelSupplyDate);
+        tvFuelSupplyLastOdometer = v.findViewById(R.id.tvFuelSupplyLastOdometer);
+        tvFuelSupplyNumberLiters = v.findViewById(R.id.tvFuelSupplyNumberLiters);
+        tvFuelSupplyValue = v.findViewById(R.id.tvFuelSupplyValue);
         btnRefuel = v.findViewById(R.id.btnRefuel);
+
         btnRefuel.setOnClickListener((View.OnClickListener) this);
         return v;
     }
@@ -77,37 +87,38 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         v.getContext().startActivity(intent);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public void onResume() {
         super.onResume();
         final Database mDb = new Database(getActivity());
         mDb.open();
 
-        Spinner spVehicle = this.getView().findViewById(R.id.spVehicle);
-        tvLicencePlate = this.getView().findViewById(R.id.tvLicencePlate);
-        imVehicleType = this.getView().findViewById(R.id.imVehicleType);
-        tvFuelSupplyDate = this.getView().findViewById(R.id.tvFuelSupplyDate);
-        tvFuelSupplyLastOdometer = this.getView().findViewById(R.id.tvFuelSupplyLastOdometer);
-        tvFuelSupplyNumberLiters = this.getView().findViewById(R.id.tvFuelSupplyNumberLiters);
-        tvFuelSupplyValue = this.getView().findViewById(R.id.tvFuelSupplyValue);
-
         final List<Vehicle> vehicles =  Database.mVehicleDao.fetchArrayVehicles();
         ArrayAdapter adapter = new ArrayAdapter(getActivity(), android.R.layout.simple_spinner_item, vehicles);
         adapter.setDropDownViewResource( android.R.layout.simple_spinner_dropdown_item);
         spVehicle.setAdapter(adapter);
+        Vehicle v1 = Database.mVehicleDao.fetchVehicleById(g.getIdVehicle());
+        for (int x = 0; x < spVehicle.getAdapter().getCount(); x++) {
+            if (spVehicle.getItemAtPosition(x).toString().equals(v1.getName())) {
+                spVehicle.setSelection(x);
+                break;
+            }
+        }
+
+        final Vehicle[] vehicle = {new Vehicle()};
+
         spVehicle.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @SuppressLint("SetTextI18n")
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                Vehicle vehicle = (Vehicle) parent.getSelectedItem();
-                tvLicencePlate.setText(vehicle.getLicense_plate());
-                imVehicleType.setImageResource(vehicle.getTypeImage(vehicle.getType()));
+                vehicle[0] = (Vehicle) parent.getItemAtPosition(position);
+                tvLicencePlate.setText(vehicle[0].getLicense_plate());
+                imVehicleType.setImageResource(vehicle[0].getTypeImage(vehicle[0].getType()));
 
-                g.setIdVehicle(vehicle.getId());
+                g.setIdVehicle(vehicle[0].getId());
 
-                mDb.open();
                 FuelSupply fuelSupply = Database.mFuelSupplyDao.findLastFuelSupply( g.getIdVehicle() );
-                mDb.close();
                 tvFuelSupplyDate.setText(Utils.dateToString(fuelSupply.getSupply_date()));
                 tvFuelSupplyLastOdometer.setText("Odometer: "+fuelSupply.getVehicle_odometer());
                 tvFuelSupplyNumberLiters.setText(fuelSupply.getNumber_liters()==null? "0 L" :fuelSupply.getNumber_liters() +" L");
@@ -117,10 +128,10 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
             }
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
+                vehicle[0] = null;
             }
         });
 
-        mDb.close();
         adapter.notifyDataSetChanged();
     }
 }
