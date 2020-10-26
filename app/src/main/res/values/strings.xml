@@ -33,8 +33,6 @@
     <string name="language_Portuguese">Portuguese</string>
     <string name="language_English">English</string>
 
-    <!-- Travel Fragment -->
-
     <!-- Vehicle Fragment -->
     <string name="Vehicle_Id">Identification Vehicle</string>
     <string name="Vehicle_Type">Type Vehicle</string>
@@ -89,8 +87,11 @@
     <string name="FuelSupply_AssociatedTrip">Associated Trip</string>
     <string name="FuelSupply_Currency_Value">Currency Value</string>
 
+    <!-- Home Fragment -->
+    <string name="Odometer">Odometer</string>
     <string name="FuelSupply_Last">Last Fuel Supply</string>
     <string name="InVehicleServices">In-Vehicle Services</string>
+    <string name="bt_Done">Done</string>
 
     <!-- Generic -->
     <string name="Yes">Yes</string>

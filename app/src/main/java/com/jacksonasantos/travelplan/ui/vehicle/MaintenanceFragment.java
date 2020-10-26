@@ -70,6 +70,7 @@ public class MaintenanceFragment extends Fragment  {
             case R.id.addmenu:
                 intent = new Intent( getContext(), MaintenanceActivity.class );
                 startActivity( intent );
+                break;
 
             case R.id.filtermenu:
                 Globals.getInstance().setFilterVehicle(!Globals.getInstance().getFilterVehicle());
@@ -82,10 +83,11 @@ public class MaintenanceFragment extends Fragment  {
                 RecyclerView listMaintenance = (RecyclerView) this.getView().findViewById(R.id.listMaintenance);
                 MaintenanceListAdapter adapter = new MaintenanceListAdapter(Database.mMaintenanceDao.fetchAllMaintenance(), getContext());
                 listMaintenance.setAdapter(adapter);
-                return true;
+                break;
 
             default:
                 return super.onOptionsItemSelected(item);
         }
+        return true;
     }
 }

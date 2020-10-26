@@ -111,4 +111,6 @@
     <string name="Maintenance_Location">Localização do Serviço</string>
     <string name="Maintenance_Note">Observação</string>
     <string name="menu_filter">Filtro por Veículo</string>
+    <string name="Odometer">Odômetro</string>
+    <string name="bt_Done">Feito</string>
 </resources>

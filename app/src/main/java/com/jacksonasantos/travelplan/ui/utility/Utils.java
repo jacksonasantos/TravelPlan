@@ -5,14 +5,10 @@ import java.util.Date;
 import java.text.SimpleDateFormat;
 
 public class Utils {
-    public static Date stringToDate(String date) {
+    public static Date stringToDate(String d) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         try {
-            if (date == null) {
-                return null;
-            } else {
-                SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-                return dateFormat.parse(date);
-            }
+            return (d==null?null:dateFormat.parse(d));
         } catch (ParseException e) {
             e.printStackTrace();
         }

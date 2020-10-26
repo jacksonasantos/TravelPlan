@@ -56,10 +56,11 @@ public class DateInputMask implements TextWatcher {
             //would be automatically corrected to 28/02/2012
 
             day = (day > cal.getActualMaximum(Calendar.DATE))? cal.getActualMaximum(Calendar.DATE):day;
-            clean = String.format("%02d%02d%02d",day, mon, year);
+            clean = String.format("%02d%02d%02d", day, mon, year);
         }
 
-        clean = String.format("%s/%s/%s", clean.substring(0, 2),
+        clean = String.format("%s/%s/%s",
+                clean.substring(0, 2),
                 clean.substring(2, 4),
                 clean.substring(4, 8));
 

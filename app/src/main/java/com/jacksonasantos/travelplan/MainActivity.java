@@ -1,6 +1,5 @@
 package com.jacksonasantos.travelplan;
 
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.content.res.Resources;
@@ -38,8 +37,6 @@ public class MainActivity extends AppCompatActivity {
             DisplayMetrics dm = res.getDisplayMetrics();
             Locale.setDefault(myLocale);
             res.updateConfiguration(config, dm);
-            Intent refresh = new Intent(this, MainActivity.class);
-            startActivity(refresh);
         }
         PreferenceManager.setDefaultValues(this, R.xml.root_preferences, false);
 

@@ -3,6 +3,8 @@ package com.jacksonasantos.travelplan.ui.vehicle;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,6 +25,8 @@ import com.jacksonasantos.travelplan.dao.Vehicle;
 import com.jacksonasantos.travelplan.ui.utility.Utils;
 
 import java.text.NumberFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Locale;
 
@@ -40,7 +44,9 @@ public class MaintenanceListAdapter extends RecyclerView.Adapter<MaintenanceList
         public TextView txtVehicleName;
         public TextView txtType;
         public ImageView imServiceType;
+        public ImageView imServiceExpired;
         public TextView txtMaintenanceValue;
+        public TextView txtMaintenanceDetail;
         public ImageButton btnEdit;
         public ImageButton btnDelete;
 
@@ -50,7 +56,9 @@ public class MaintenanceListAdapter extends RecyclerView.Adapter<MaintenanceList
             txtVehicleName = v.findViewById(R.id.txtVehicleName);
             txtType = v.findViewById(R.id.txtType);
             imServiceType = v.findViewById(R.id.imServiceType);
+            imServiceExpired = v.findViewById(R.id.imServiceExpired);
             txtMaintenanceValue = v.findViewById(R.id.txtMaintenanceValue);
+            txtMaintenanceDetail = v.findViewById(R.id.txtMaintenanceDetail);
             btnEdit = v.findViewById(R.id.btnEdit);
             btnDelete = v.findViewById(R.id.btnDelete);
             btnEdit.setOnClickListener(this);
@@ -84,14 +92,32 @@ public class MaintenanceListAdapter extends RecyclerView.Adapter<MaintenanceList
     @Override
     public void onBindViewHolder(@NonNull final MyViewHolder holder, final int position) {
         final Maintenance maintenance = mMaintenance.get(position);
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 
         holder.txtMaintenanceDate.setText(Utils.dateToString(maintenance.getDate()));
         Vehicle v = Database.mVehicleDao.fetchVehicleById(maintenance.getVehicle_id());
         holder.txtVehicleName.setText(v.getName());
         holder.txtType.setText(serviceArray[maintenance.getType()]);
         holder.imServiceType.setImageResource(maintenance.getTypeImage(maintenance.getType()));
+        holder.imServiceExpired.setImageResource(R.drawable.ic_ball );
+        try {
+            if (maintenance.getStatus() == 1) {
+                holder.imServiceExpired.setColorFilter(Color.BLUE, PorterDuff.Mode.MULTIPLY);
+            } else {
+                if (!(maintenance.getExpiration_date() == null)) {
+                    if (System.currentTimeMillis() < sdf.parse(Utils.dateToString(maintenance.getExpiration_date())).getTime()) {
+                        holder.imServiceExpired.setColorFilter(Color.GREEN, PorterDuff.Mode.MULTIPLY);
+                    } else {
+                        holder.imServiceExpired.setColorFilter(Color.RED, PorterDuff.Mode.MULTIPLY);
+                    }
+                }
+            }
+         } catch (ParseException e) {
+            e.printStackTrace();
+        }
         NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(locale);
         holder.txtMaintenanceValue.setText(currencyFormatter.format(maintenance.getValue()));
+        holder.txtMaintenanceDetail.setText(maintenance.getDetail());
 
         // btnEdit
         holder.btnEdit.setOnClickListener (new View.OnClickListener() {

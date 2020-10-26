@@ -40,6 +40,28 @@ public class MaintenanceDAO extends DbContentProvider implements MaintenanceISch
         return maintenance;
     }
 
+    public List<Maintenance> findReminderMaintenance( Long id) {
+        List<Maintenance> maintenanceList = new ArrayList<>();
+
+        final String[] selectionArgs = { String.valueOf(id) };
+        final String selection = MAINTENANCE_VEHICLE_ID + " = ? AND " +
+                MAINTENANCE_STATUS + " = 0 "; //AND ( " +
+    //            MAINTENANCE_EXPIRATION_DATE + " NOT NULL AND " +
+    //            MAINTENANCE_EXPIRATION_DATE + " > DATE ('now') )" ;
+
+        cursor = super.query(MAINTENANCE_TABLE, MAINTENANCE_COLUMNS, selection, selectionArgs, MAINTENANCE_EXPIRATION_DATE);
+
+        if (cursor.moveToFirst()) {
+            do {
+                Maintenance maintenance = cursorToEntity(cursor);
+                maintenanceList.add(maintenance);
+            } while (cursor.moveToNext());
+
+            cursor.close();
+        }
+        return maintenanceList;
+    }
+
     public List<Maintenance> fetchAllMaintenance() {
         List<Maintenance> maintenanceList = new ArrayList<>();
 
@@ -50,7 +72,7 @@ public class MaintenanceDAO extends DbContentProvider implements MaintenanceISch
             cursor = super.query(MAINTENANCE_TABLE, MAINTENANCE_COLUMNS, selection, selectionArgs, MAINTENANCE_DATE);
         } else {
             cursor = super.query(MAINTENANCE_TABLE, MAINTENANCE_COLUMNS, null, null, MAINTENANCE_DATE);
-         }
+        }
 
         if (cursor.moveToFirst()) {
             do {
@@ -110,6 +132,7 @@ public class MaintenanceDAO extends DbContentProvider implements MaintenanceISch
         int valueIndex;
         int locationIndex;
         int noteIndex;
+        int statusIndex;
 
         if (cursor != null) {
             if (cursor.getColumnIndex(MAINTENANCE_ID) != -1) {
@@ -156,6 +179,10 @@ public class MaintenanceDAO extends DbContentProvider implements MaintenanceISch
                noteIndex = cursor.getColumnIndexOrThrow(MAINTENANCE_NOTE);
                maintenance.setNote(cursor.getString(noteIndex));
             }
+            if (cursor.getColumnIndex(MAINTENANCE_STATUS) != -1) {
+                statusIndex = cursor.getColumnIndexOrThrow(MAINTENANCE_STATUS);
+                maintenance.setStatus(cursor.getInt(statusIndex));
+            }
         }
         return maintenance;
     }
@@ -173,6 +200,7 @@ public class MaintenanceDAO extends DbContentProvider implements MaintenanceISch
         initialValues.put(MAINTENANCE_VALUE, maintenance.value);
         initialValues.put(MAINTENANCE_LOCATION, maintenance.location);
         initialValues.put(MAINTENANCE_NOTE, maintenance.note);
+        initialValues.put(MAINTENANCE_STATUS, maintenance.status);
     }
 
     private ContentValues getContentValue() {

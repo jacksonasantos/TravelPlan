@@ -1,7 +1,12 @@
 package com.jacksonasantos.travelplan.dao;
 
-import com.jacksonasantos.travelplan.R;
+import android.content.pm.InstallSourceInfo;
 
+import com.jacksonasantos.travelplan.R;
+import com.jacksonasantos.travelplan.ui.utility.Utils;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Maintenance {
@@ -16,6 +21,7 @@ public class Maintenance {
     public Double value;
     public String location;
     public String note;
+    public int status;
 
     public Maintenance() {
         this.id = id;
@@ -29,6 +35,7 @@ public class Maintenance {
         this.value=value;
         this.location=location;
         this.note=note;
+        this.status=status;
     }
 
     public Long getId() { return id; }
@@ -103,4 +110,8 @@ public class Maintenance {
     public String getNote() { return note; }
 
     public void setNote(String note) { this.note = note; }
+
+    public int getStatus() { return status; }
+
+    public void setStatus(int status) { this.status = status; }
 }

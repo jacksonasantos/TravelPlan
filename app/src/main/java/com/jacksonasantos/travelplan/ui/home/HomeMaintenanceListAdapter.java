@@ -1,0 +1,128 @@
+package com.jacksonasantos.travelplan.ui.home;
+
+import android.annotation.SuppressLint;
+import android.content.Context;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
+import android.os.Build;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.jacksonasantos.travelplan.R;
+import com.jacksonasantos.travelplan.dao.Database;
+import com.jacksonasantos.travelplan.dao.Maintenance;
+import com.jacksonasantos.travelplan.ui.utility.Utils;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.List;
+
+public class HomeMaintenanceListAdapter extends RecyclerView.Adapter<HomeMaintenanceListAdapter.MyViewHolder> {
+
+    private List<Maintenance> mMaintenance;
+    Context context;
+    String[] typeArray;
+
+    public static class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+
+        private ImageView imServiceType;
+        private ImageView imServiceExpired;
+        private TextView txtMaintenanceExpirationDate;
+        private TextView txtMaintenanceOdometer;
+        private TextView txtType;
+        private ImageButton btnDone;
+
+        public MyViewHolder(View v) {
+            super(v);
+            imServiceType = v.findViewById(R.id.imServiceType);
+            imServiceExpired = v.findViewById(R.id.imServiceExpired);
+            txtMaintenanceExpirationDate = v.findViewById(R.id.txtMaintenanceExpirationDate);
+            txtMaintenanceOdometer = v.findViewById(R.id.txtMaintenanceOdometer);
+            txtType = v.findViewById(R.id.txtType);
+            btnDone = v.findViewById(R.id.btnDone);
+        }
+
+        @Override
+        public void onClick(View view) {
+        }
+    }
+
+    public HomeMaintenanceListAdapter(List<Maintenance> maintenance, Context context) {
+        this.mMaintenance = maintenance;
+        this.context = context;
+
+        Database mdb = new Database(context);
+        mdb.open();
+    }
+
+    @Override
+    public HomeMaintenanceListAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View maintenanceView = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.fragment_home_item_maintenance, parent, false);
+        typeArray = parent.getResources().getStringArray(R.array.vehicle_services);
+
+        return new MyViewHolder(maintenanceView);
+    }
+
+    // Replace the contents of a view (invoked by the layout manager)
+    @SuppressLint("ResourceAsColor")
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    @Override
+    public void onBindViewHolder(@NonNull final MyViewHolder holder, final int position) {
+        final Maintenance maintenance = mMaintenance.get(position);
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+
+        holder.imServiceType.setImageResource(maintenance.getTypeImage(maintenance.getType()));
+        holder.imServiceExpired.setImageResource(R.drawable.ic_ball );
+        try {
+            if (maintenance.getStatus() == 1) {
+                holder.imServiceExpired.setColorFilter(Color.BLUE, PorterDuff.Mode.MULTIPLY);
+            } else {
+                if (!(maintenance.getExpiration_date() == null)) {
+                    if (System.currentTimeMillis() < sdf.parse(Utils.dateToString(maintenance.getExpiration_date())).getTime()) {
+                        holder.imServiceExpired.setColorFilter(Color.GREEN, PorterDuff.Mode.MULTIPLY);
+                    } else {
+                        holder.imServiceExpired.setColorFilter(Color.RED, PorterDuff.Mode.MULTIPLY);
+                    }
+                }
+            }
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        holder.txtMaintenanceExpirationDate.setText(Utils.dateToString(maintenance.getExpiration_date()));
+        holder.txtMaintenanceOdometer.setText(String.valueOf(maintenance.getExpiration_km()));
+        holder.txtType.setText(typeArray[maintenance.getType()]);
+
+        // btnDone - change Status for Service for completed and remove of list
+        holder.btnDone.setOnClickListener (new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    Database mDb = new Database(context);
+                    mDb.open();
+                    Maintenance m1 = Database.mMaintenanceDao.fetchMaintenanceById(maintenance.getId());
+                    m1.setStatus(maintenance.getStatus() == 0 ? 1 : 0);
+                    Boolean isSave = Database.mMaintenanceDao.updateMaintenance(m1);
+                    mDb.close();
+                    notifyDataSetChanged();
+                }  catch (Exception e) {
+                    Toast.makeText(context, R.string.Error_Changing_Data + e.getMessage(), Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+    }
+
+    @Override
+    public int getItemCount() {
+        return mMaintenance.size();
+    }
+}

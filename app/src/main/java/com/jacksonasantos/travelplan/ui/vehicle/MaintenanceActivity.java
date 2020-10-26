@@ -64,7 +64,6 @@ public class MaintenanceActivity extends AppCompatActivity {
             maintenance = new Maintenance();
             maintenance.setVehicle_id(extras.getLong("vehicle_id"));
             nrVehicle_id = extras.getLong("vehicle_id");
-
             if (extras.getLong( "maintenance_id") > 0) {
                 maintenance.setId(extras.getLong("maintenance_id"));
                 maintenance = Database.mMaintenanceDao.fetchMaintenanceById(maintenance.getId());
@@ -210,6 +209,7 @@ public class MaintenanceActivity extends AppCompatActivity {
         ArrayAdapter<String> adapter = new ArrayAdapter<>(
                 this,
                 android.R.layout.select_dialog_item,
+                // TODO - colocar  o icone do resource
                 getResources().getStringArray(resource_array));
         spin.setAdapter(adapter);
     }

@@ -10,13 +10,6 @@ import android.widget.EditText;
 public abstract class Mask {
     @SuppressLint("DefaultLocale")
 
-    public static String formatDate(String text){
-        int d = Integer.parseInt(text.substring(0,2));
-        int m = Integer.parseInt(text.substring(2,4));
-        int y = Integer.parseInt(text.substring(4,8));
-        return String.format("%02d/%02d/%04d", d, m, y);
-    }
-
     public static TextWatcher insert(final String mask, final EditText et) {
         return new TextWatcher() {
             boolean isUpdating;
