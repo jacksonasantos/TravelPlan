@@ -12,10 +12,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/labels_margin"
         android:layout_marginLeft="@dimen/labels_margin"
-        android:layout_marginTop="@dimen/labels_space_top"
         android:layout_marginEnd="@dimen/labels_margin"
         android:layout_marginRight="@dimen/labels_margin"
-        tools:ignore="MissingConstraints"
         tools:layout_editor_absoluteX="0dp">
 
         <Spinner
@@ -40,11 +38,9 @@
             android:layout_height="45dp"
             android:layout_marginStart="@dimen/labels_margin"
             android:layout_marginLeft="@dimen/labels_margin"
-            android:contentDescription="@string/Vehicle_Type"
             android:hint="@string/Vehicle_Type"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="ContentDescription" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/tvLicencePlate"
@@ -75,7 +71,6 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layerFuelSupply"
         android:layout_width="match_parent"
@@ -84,11 +79,9 @@
         android:layout_marginLeft="@dimen/labels_margin"
         android:layout_marginEnd="@dimen/labels_margin"
         android:layout_marginRight="@dimen/labels_margin"
-        android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/layerVehicle"
-        tools:ignore="MissingConstraints">
+        app:layout_constraintTop_toBottomOf="@+id/layerVehicle">
 
         <ImageButton
             android:id="@+id/btnRefuel"
@@ -118,7 +111,6 @@
             android:layout_marginTop="@dimen/labels_space_top"
             android:ems="10"
             android:gravity="center_horizontal|center_vertical"
-            android:text="dd/mm/yyyy"
             app:layout_constraintEnd_toStartOf="@+id/tvFuelSupplyLastOdometer"
             app:layout_constraintStart_toEndOf="@+id/btnRefuel"
             app:layout_constraintTop_toBottomOf="@+id/tvFuelSupplyLast" />
@@ -130,7 +122,6 @@
             android:layout_marginTop="@dimen/labels_space_top"
             android:ems="10"
             android:gravity="center_horizontal|center_vertical"
-            android:text="999.999.999"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvFuelSupplyLast" />
 
@@ -140,7 +131,6 @@
             android:layout_height="24dp"
             android:ems="10"
             android:gravity="center_horizontal|center_vertical"
-            android:text="99.9 L"
             app:layout_constraintBottom_toTopOf="@+id/buttonSeparator2"
             app:layout_constraintEnd_toStartOf="@+id/tvFuelSupplyValue"
             app:layout_constraintStart_toEndOf="@+id/btnRefuel"
@@ -152,7 +142,6 @@
             android:layout_height="24dp"
             android:ems="10"
             android:gravity="center_horizontal|center_vertical"
-            android:text="R$ 999,99"
             app:layout_constraintBottom_toTopOf="@+id/buttonSeparator2"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvFuelSupplyLastOdometer" />
@@ -177,7 +166,6 @@
         android:layout_marginLeft="@dimen/labels_margin"
         android:layout_marginEnd="@dimen/labels_margin"
         android:layout_marginRight="@dimen/labels_margin"
-        android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/layerFuelSupply"

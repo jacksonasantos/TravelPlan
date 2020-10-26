@@ -64,7 +64,6 @@ public class MaintenanceFragment extends Fragment  {
     @SuppressLint("UseCompatLoadingForDrawables")
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-
         Intent intent;
         switch(item.getItemId()) {
             case R.id.addmenu:

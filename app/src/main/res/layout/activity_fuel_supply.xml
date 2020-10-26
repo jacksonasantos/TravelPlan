@@ -187,6 +187,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/input_layout_etSupplyDate"
                     app:layout_constraintTop_toTopOf="parent">
+
                     <EditText
                         android:id="@+id/etNumberLiters"
                         android:layout_width="match_parent"
@@ -524,9 +525,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/constraintLayout2">
-                <!-- TODO Implement Material.Exposed Dropdown Menu in Spinner componets
-                                 https://material.io/develop/android/components/menu-->
-                <RadioGroup
+               <RadioGroup
                     android:id="@+id/rgSupplyReasonType"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

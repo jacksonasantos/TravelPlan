@@ -20,8 +20,6 @@ import com.jacksonasantos.travelplan.ui.utility.Globals;
 
 import java.text.ParseException;
 
-//TODO - Implantar Filtro para Vehicle Default
-
 public class FuelSupplyFragment extends Fragment  {
 
     @Override
@@ -37,15 +35,12 @@ public class FuelSupplyFragment extends Fragment  {
         mDb.open();
 
         RecyclerView listFuelSupply = this.getView().findViewById(R.id.listFuelSupply);
-
-        FuelSupplyListAdapter adapter = null;
-        adapter = new FuelSupplyListAdapter(Database.mFuelSupplyDao.fetchAllFuelSupplies(), getContext());
-
+        FuelSupplyListAdapter adapter = new FuelSupplyListAdapter(Database.mFuelSupplyDao.fetchAllFuelSupplies(), getContext());
         listFuelSupply.setAdapter(adapter);
         listFuelSupply.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        mDb.close();
         adapter.notifyDataSetChanged();
+        mDb.close();
     }
 
     private Menu mMenu;
@@ -71,7 +66,7 @@ public class FuelSupplyFragment extends Fragment  {
             case R.id.addmenu:
                 intent = new Intent( getContext(), FuelSupplyActivity.class );
                 startActivity( intent );
-                return super.onOptionsItemSelected(item);
+                break;
 
             case R.id.filtermenu:
                 Globals.getInstance().setFilterVehicle(!Globals.getInstance().getFilterVehicle());
@@ -81,13 +76,14 @@ public class FuelSupplyFragment extends Fragment  {
                     this.mMenu.getItem(0).setIcon(getResources().getDrawable(R.drawable.ic_menu_filter_no));
                 }
 
-                RecyclerView listMaintenance = (RecyclerView) this.getView().findViewById(R.id.listFuelSupply);
+                RecyclerView listFuelSupply = (RecyclerView) this.getView().findViewById(R.id.listFuelSupply);
                 FuelSupplyListAdapter adapter = new FuelSupplyListAdapter(Database.mFuelSupplyDao.fetchAllFuelSupplies(), getContext());
-                listMaintenance.setAdapter(adapter);
-                return true;
+                listFuelSupply.setAdapter(adapter);
+                break;
 
             default:
                 return super.onOptionsItemSelected(item);
         }
+        return true;
     }
 }

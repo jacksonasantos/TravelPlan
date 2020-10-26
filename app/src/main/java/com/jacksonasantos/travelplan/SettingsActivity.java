@@ -78,7 +78,6 @@ public class SettingsActivity extends AppCompatActivity {
                 res.updateConfiguration(config, dm);
                 Intent refresh = new Intent(getContext(), MainActivity.class);;
                 refresh.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                //TODO - Verificar o fechamento da primeira tela de menu principal
                 startActivity(refresh);
             }
         }

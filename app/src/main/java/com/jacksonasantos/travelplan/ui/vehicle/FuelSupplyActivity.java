@@ -82,11 +82,11 @@ public class FuelSupplyActivity extends AppCompatActivity {
 
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
-            fuelSupply = new FuelSupply();
-            fuelSupply.setVehicle_id(extras.getLong("vehicle_id"));
             nrVehicleId = extras.getLong("vehicle_id");
 
             if (extras.getLong( "fuel_supply_id") > 0) {
+                fuelSupply = new FuelSupply();
+                fuelSupply.setVehicle_id(extras.getLong("vehicle_id"));
                 fuelSupply.setId(extras.getLong("fuel_supply_id"));
                 fuelSupply = Database.mFuelSupplyDao.fetchFuelSupplyById(fuelSupply.getId());
 
@@ -95,11 +95,19 @@ public class FuelSupplyActivity extends AppCompatActivity {
                     nrIdCurrencyQuote = c1.getId();
                     nrCurrencyValue = c1.getCurrency_value();
                 } else {
-                    nrIdCurrencyQuote = 0;
+                    nrIdCurrencyQuote = 0; // TODO - colocar a moeda default
                     nrCurrencyValue = 0;
                 }
                 opInsert = false;
             }
+        }
+        if (opInsert) {
+            if (nrVehicleId == 0L){
+                Globals g = Globals.getInstance();
+                nrVehicleId = g.getIdVehicle();
+            }
+        } else {
+            nrVehicleId = fuelSupply.getVehicle_id();
         }
 
         ActionBar actionBar = getSupportActionBar();
@@ -130,7 +138,7 @@ public class FuelSupplyActivity extends AppCompatActivity {
         etSupplyReason = findViewById(R.id.etSupplyReason);
         AutoCompleteTextView spinAssociatedTrip = findViewById(R.id.spinAssociatedTrip);
 
-        Vehicle vehicle;
+        /*Vehicle vehicle;
         if (opInsert) {
             if (nrVehicleId == 0L){
                 Globals g = Globals.getInstance();
@@ -138,8 +146,8 @@ public class FuelSupplyActivity extends AppCompatActivity {
             }
         } else {
             nrVehicleId = fuelSupply.getVehicle_id();
-        }
-        vehicle = Database.mVehicleDao.fetchVehicleById(nrVehicleId);
+        }*/
+        Vehicle vehicle = Database.mVehicleDao.fetchVehicleById(nrVehicleId);
         txVehicleName.setText(vehicle.getName());
         txVehicleLicencePlate.setText(vehicle.getLicense_plate());
         imVehicleType.setImageResource(vehicle.getTypeImage(vehicle.getType()));
@@ -232,9 +240,7 @@ public class FuelSupplyActivity extends AppCompatActivity {
             nrSpinCombustible=fuelSupply.getCombustible();
             spinCombustible.setText(getResources().getStringArray(R.array.fuel_array)[nrSpinCombustible],false);
             etSupplyDate.setText(Utils.dateToString(fuelSupply.getSupply_date()));
-            if (fuelSupply.getFull_tank() == 1) {
-                cbFullTank.setChecked(true); // TODO - Testar melhoria tirando o True e colocando a condição do IF
-            }
+            cbFullTank.setChecked(fuelSupply.getFull_tank()==1);
             vlFullTank = fuelSupply.getFull_tank();
             nrSpinCurrencyType=fuelSupply.getCurrency_type();
             spinCurrencyType.setText(getResources().getStringArray(R.array.currency_array)[nrSpinCurrencyType],false);

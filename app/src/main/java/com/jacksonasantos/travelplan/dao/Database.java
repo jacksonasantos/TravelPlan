@@ -20,11 +20,11 @@ import static com.jacksonasantos.travelplan.dao.interfaces.MaintenanceISchema.MA
 
 public class Database {
 
-    private static final String DATABASE_NAME = "TravelPlan.db";
-    private static final int DATABASE_VERSION = 10;
-
     private DatabaseHelper mDbHelper;
     private final Context mContext;
+
+    private static final String DATABASE_NAME = "TravelPlan.db";
+    private static final int DATABASE_VERSION = 10;
 
     public static VehicleDAO mVehicleDao;
     public static FuelSupplyDAO mFuelSupplyDao;
@@ -64,7 +64,6 @@ public class Database {
         @SuppressLint("SQLiteString")
         @Override
         public void onCreate(SQLiteDatabase db) {
-
             db.execSQL(VehicleISchema.CREATE_TABLE_VEHICLE_V1); Log.w("Table "+VEHICLE_TABLE,"V1 - Create Table...");
             db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V2); Log.w("Table "+VEHICLE_TABLE,"V2 - Alter Table...");
             db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V3); Log.w("Table "+VEHICLE_TABLE,"V3 - Alter Table...");
@@ -101,6 +100,7 @@ public class Database {
                 db.execSQL(FuelSupplylSchema.CREATE_TABLE_FUEL_SUPPLY_V8);
                 db.execSQL(CurrencyQuotelSchema.CREATE_TABLE_CURRENCY_QUOTE_V8);
                 db.execSQL(FuelSupplylSchema.ALTER_TABLE_FUEL_SUPPLY_V9);
+                db.execSQL(MaintenanceISchema.CREATE_TABLE_MAINTENANCE_V10);
             } else if (oldVersion == 2) {
                 db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V3);
                 db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V5);
@@ -112,6 +112,7 @@ public class Database {
                 db.execSQL(FuelSupplylSchema.CREATE_TABLE_FUEL_SUPPLY_V8);
                 db.execSQL(CurrencyQuotelSchema.CREATE_TABLE_CURRENCY_QUOTE_V8);
                 db.execSQL(FuelSupplylSchema.ALTER_TABLE_FUEL_SUPPLY_V9);
+                db.execSQL(MaintenanceISchema.CREATE_TABLE_MAINTENANCE_V10);
             } else if (oldVersion == 3) {
                 db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V5);
                 db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V6);
@@ -122,6 +123,7 @@ public class Database {
                 db.execSQL(FuelSupplylSchema.CREATE_TABLE_FUEL_SUPPLY_V8);
                 db.execSQL(CurrencyQuotelSchema.CREATE_TABLE_CURRENCY_QUOTE_V8);
                 db.execSQL(FuelSupplylSchema.ALTER_TABLE_FUEL_SUPPLY_V9);
+                db.execSQL(MaintenanceISchema.CREATE_TABLE_MAINTENANCE_V10);
             } else if (oldVersion == 4) {
                 db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V5);
                 db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V6);
@@ -132,6 +134,7 @@ public class Database {
                 db.execSQL(FuelSupplylSchema.CREATE_TABLE_FUEL_SUPPLY_V8);
                 db.execSQL(CurrencyQuotelSchema.CREATE_TABLE_CURRENCY_QUOTE_V8);
                 db.execSQL(FuelSupplylSchema.ALTER_TABLE_FUEL_SUPPLY_V9);
+                db.execSQL(MaintenanceISchema.CREATE_TABLE_MAINTENANCE_V10);
             } else if (oldVersion == 5) {
                 db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V6);
                 db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V7_1);
@@ -141,6 +144,7 @@ public class Database {
                 db.execSQL(FuelSupplylSchema.CREATE_TABLE_FUEL_SUPPLY_V8);
                 db.execSQL(CurrencyQuotelSchema.CREATE_TABLE_CURRENCY_QUOTE_V8);
                 db.execSQL(FuelSupplylSchema.ALTER_TABLE_FUEL_SUPPLY_V9);
+                db.execSQL(MaintenanceISchema.CREATE_TABLE_MAINTENANCE_V10);
             } else if (oldVersion == 6) {
                 db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V7_1);
                 db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V7_2);
@@ -149,12 +153,15 @@ public class Database {
                 db.execSQL(FuelSupplylSchema.CREATE_TABLE_FUEL_SUPPLY_V8);
                 db.execSQL(CurrencyQuotelSchema.CREATE_TABLE_CURRENCY_QUOTE_V8);
                 db.execSQL(FuelSupplylSchema.ALTER_TABLE_FUEL_SUPPLY_V9);
+                db.execSQL(MaintenanceISchema.CREATE_TABLE_MAINTENANCE_V10);
             } else if (oldVersion == 7) {
                 db.execSQL(FuelSupplylSchema.CREATE_TABLE_FUEL_SUPPLY_V8);
                 db.execSQL(CurrencyQuotelSchema.CREATE_TABLE_CURRENCY_QUOTE_V8);
                 db.execSQL(FuelSupplylSchema.ALTER_TABLE_FUEL_SUPPLY_V9);
+                db.execSQL(MaintenanceISchema.CREATE_TABLE_MAINTENANCE_V10);
             } else if (oldVersion == 8) {
                 db.execSQL(FuelSupplylSchema.ALTER_TABLE_FUEL_SUPPLY_V9);
+                db.execSQL(MaintenanceISchema.CREATE_TABLE_MAINTENANCE_V10);
             } else if (oldVersion == 9 ) {
                 db.execSQL(MaintenanceISchema.CREATE_TABLE_MAINTENANCE_V10);
             } else if (oldVersion == 10 ) {
