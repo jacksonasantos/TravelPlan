@@ -150,5 +150,8 @@
     <string name="parts_exchange">Parts Exchange</string>
     <string name="oil_change">Oil Change</string>
     <string name="spark_plug">Spark Plug</string>
+    <string name="title_activity_vehicle_new">VehicleActivityNew</string>
+    <string name="tab_text_1">Tab 1</string>
+    <string name="tab_text_2">Tab 2</string>
 
 </resources>

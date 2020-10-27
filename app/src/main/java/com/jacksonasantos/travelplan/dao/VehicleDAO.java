@@ -74,7 +74,6 @@ public class VehicleDAO extends DbContentProvider implements VehicleISchema, Veh
             do{
                 Vehicle vehicle = cursorToEntity(cursor);
                 vehicleList.add(vehicle);
-                //vehicleList.add(cursor.getString(cursor.getColumnIndex(VEHICLE_NAME)));
             }while(cursor.moveToNext());
         }
         return vehicleList;
@@ -103,7 +102,6 @@ public class VehicleDAO extends DbContentProvider implements VehicleISchema, Veh
     }
 
     public boolean addVehicle(Vehicle vehicle) {
-        // set values
         setContentValue(vehicle);
         try {
             return super.insert(VEHICLE_TABLE, getContentValue()) > 0;
@@ -130,6 +128,18 @@ public class VehicleDAO extends DbContentProvider implements VehicleISchema, Veh
         int dt_saleIndex;
         int dt_odometerIndex;
         int odometerIndex;
+        int modelIndex;
+        int colorIndex;
+        int year_modelIndex;
+        int year_manufactureIndex;
+        int vinIndex;
+        int renavan_numberIndex;
+        int stateIndex;
+        int cityIndex;
+        int doorsIndex;
+        int capacityIndex;
+        int powerIndex;
+        int estimated_valueIndex;
 
         if (cursor != null) {
             if (cursor.getColumnIndex(VEHICLE_ID) != -1) {
@@ -184,6 +194,54 @@ public class VehicleDAO extends DbContentProvider implements VehicleISchema, Veh
                 odometerIndex = cursor.getColumnIndexOrThrow(VEHICLE_ODOMETER);
                 vehicle.odometer = cursor.getInt(odometerIndex);
             }
+            if (cursor.getColumnIndex(VEHICLE_MODEL) != -1) {
+                modelIndex = cursor.getColumnIndexOrThrow(VEHICLE_MODEL);
+                vehicle.model = cursor.getString(modelIndex);
+            }
+            if (cursor.getColumnIndex(VEHICLE_COLOR) != -1) {
+                colorIndex = cursor.getColumnIndexOrThrow(VEHICLE_COLOR);
+                vehicle.color = cursor.getString(colorIndex);
+            }
+            if (cursor.getColumnIndex(VEHICLE_YEAR_MODEL) != -1) {
+                year_modelIndex = cursor.getColumnIndexOrThrow(VEHICLE_YEAR_MODEL);
+                vehicle.year_model = cursor.getString(year_modelIndex);
+            }
+            if (cursor.getColumnIndex(VEHICLE_YEAR_MANUFACTURE) != -1) {
+                year_manufactureIndex = cursor.getColumnIndexOrThrow(VEHICLE_YEAR_MANUFACTURE);
+                vehicle.year_manufacture = cursor.getString(year_manufactureIndex);
+            }
+            if (cursor.getColumnIndex(VEHICLE_VIN) != -1) {
+                vinIndex = cursor.getColumnIndexOrThrow(VEHICLE_VIN);
+                vehicle.vin = cursor.getString(vinIndex);
+            }
+            if (cursor.getColumnIndex(VEHICLE_RENAVAN_NUMBER) != -1) {
+                renavan_numberIndex = cursor.getColumnIndexOrThrow(VEHICLE_RENAVAN_NUMBER);
+                vehicle.renavan_number = cursor.getString(renavan_numberIndex);
+            }
+            if (cursor.getColumnIndex(VEHICLE_STATE) != -1) {
+                stateIndex = cursor.getColumnIndexOrThrow(VEHICLE_STATE);
+                vehicle.state = cursor.getString(stateIndex);
+            }
+            if (cursor.getColumnIndex(VEHICLE_CITY) != -1) {
+                cityIndex = cursor.getColumnIndexOrThrow(VEHICLE_CITY);
+                vehicle.city = cursor.getString(cityIndex);
+            }
+            if (cursor.getColumnIndex(VEHICLE_DOORS) != -1) {
+                doorsIndex = cursor.getColumnIndexOrThrow(VEHICLE_DOORS);
+                vehicle.doors = cursor.getInt(doorsIndex);
+            }
+            if (cursor.getColumnIndex(VEHICLE_CAPACITY) != -1) {
+                capacityIndex = cursor.getColumnIndexOrThrow(VEHICLE_CAPACITY);
+                vehicle.capacity = cursor.getInt(capacityIndex);
+            }
+            if (cursor.getColumnIndex(VEHICLE_POWER) != -1) {
+                powerIndex = cursor.getColumnIndexOrThrow(VEHICLE_POWER);
+                vehicle.power = cursor.getInt(powerIndex);
+            }
+            if (cursor.getColumnIndex(VEHICLE_ESTIMATED_VALUE) != -1) {
+                estimated_valueIndex = cursor.getColumnIndexOrThrow(VEHICLE_ESTIMATED_VALUE);
+                vehicle.estimated_value = cursor.getDouble(estimated_valueIndex);
+            }
         }
         return vehicle;
     }
@@ -202,6 +260,18 @@ public class VehicleDAO extends DbContentProvider implements VehicleISchema, Veh
         initialValues.put(VEHICLE_DT_SALE, Utils.dateToString(vehicle.dt_sale));
         initialValues.put(VEHICLE_DT_ODOMETER, Utils.dateToString(vehicle.dt_odometer));
         initialValues.put(VEHICLE_ODOMETER, vehicle.odometer);
+        initialValues.put(VEHICLE_MODEL, vehicle.model);
+        initialValues.put(VEHICLE_COLOR, vehicle.color);
+        initialValues.put(VEHICLE_YEAR_MODEL, vehicle.year_model);
+        initialValues.put(VEHICLE_YEAR_MANUFACTURE, vehicle.year_manufacture);
+        initialValues.put(VEHICLE_VIN, vehicle.vin);
+        initialValues.put(VEHICLE_RENAVAN_NUMBER, vehicle.renavan_number);
+        initialValues.put(VEHICLE_STATE, vehicle.state);
+        initialValues.put(VEHICLE_CITY, vehicle.city);
+        initialValues.put(VEHICLE_DOORS, vehicle.doors);
+        initialValues.put(VEHICLE_CAPACITY, vehicle.capacity);
+        initialValues.put(VEHICLE_POWER, vehicle.power);
+        initialValues.put(VEHICLE_ESTIMATED_VALUE, vehicle.estimated_value);
     }
 
     private ContentValues getContentValue() {

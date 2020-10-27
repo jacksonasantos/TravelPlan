@@ -24,7 +24,7 @@ public class Database {
     private final Context mContext;
 
     private static final String DATABASE_NAME = "TravelPlan.db";
-    private static final int DATABASE_VERSION = 10;
+    private static final int DATABASE_VERSION = 11;
 
     public static VehicleDAO mVehicleDao;
     public static FuelSupplyDAO mFuelSupplyDao;
@@ -77,6 +77,18 @@ public class Database {
             db.execSQL(CurrencyQuotelSchema.CREATE_TABLE_CURRENCY_QUOTE_V8); Log.w("Table "+CURRENCY_QUOTE_TABLE,"V8 - Create Table...");
             db.execSQL(FuelSupplylSchema.ALTER_TABLE_FUEL_SUPPLY_V9); Log.w("Table "+FUEL_SUPPLY_TABLE,"V9 - Alter Table...");
             db.execSQL(MaintenanceISchema.CREATE_TABLE_MAINTENANCE_V10); Log.w("Table "+MAINTENANCE_TABLE,"V10 - Create Table...");
+            db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V11_1); Log.w("Table "+VEHICLE_TABLE,"V111 - Alter Table...");
+            db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V11_2); Log.w("Table "+VEHICLE_TABLE,"V112 - Alter Table...");
+            db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V11_3); Log.w("Table "+VEHICLE_TABLE,"V113 - Alter Table...");
+            db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V11_4); Log.w("Table "+VEHICLE_TABLE,"V114 - Alter Table...");
+            db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V11_5); Log.w("Table "+VEHICLE_TABLE,"V115 - Alter Table...");
+            db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V11_6); Log.w("Table "+VEHICLE_TABLE,"V116 - Alter Table...");
+            db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V11_7); Log.w("Table "+VEHICLE_TABLE,"V117 - Alter Table...");
+            db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V11_8); Log.w("Table "+VEHICLE_TABLE,"V118 - Alter Table...");
+            db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V11_9); Log.w("Table "+VEHICLE_TABLE,"V119 - Alter Table...");
+            db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V11_10); Log.w("Table "+VEHICLE_TABLE,"V1110 - Alter Table...");
+            db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V11_11); Log.w("Table "+VEHICLE_TABLE,"V1111 - Alter Table...");
+            db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V11_12); Log.w("Table "+VEHICLE_TABLE,"V1112 - Alter Table...");
         }
 
         @SuppressLint("SQLiteString")
@@ -101,6 +113,18 @@ public class Database {
                 db.execSQL(CurrencyQuotelSchema.CREATE_TABLE_CURRENCY_QUOTE_V8);
                 db.execSQL(FuelSupplylSchema.ALTER_TABLE_FUEL_SUPPLY_V9);
                 db.execSQL(MaintenanceISchema.CREATE_TABLE_MAINTENANCE_V10);
+                db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V11_1);
+                db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V11_2);
+                db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V11_3);
+                db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V11_4);
+                db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V11_5);
+                db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V11_6);
+                db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V11_7);
+                db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V11_8);
+                db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V11_9);
+                db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V11_10);
+                db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V11_11);
+                db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V11_12);
             } else if (oldVersion == 2) {
                 db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V3);
                 db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V5);
@@ -113,6 +137,18 @@ public class Database {
                 db.execSQL(CurrencyQuotelSchema.CREATE_TABLE_CURRENCY_QUOTE_V8);
                 db.execSQL(FuelSupplylSchema.ALTER_TABLE_FUEL_SUPPLY_V9);
                 db.execSQL(MaintenanceISchema.CREATE_TABLE_MAINTENANCE_V10);
+                db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V11_1);
+                db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V11_2);
+                db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V11_3);
+                db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V11_4);
+                db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V11_5);
+                db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V11_6);
+                db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V11_7);
+                db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V11_8);
+                db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V11_9);
+                db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V11_10);
+                db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V11_11);
+                db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V11_12);
             } else if (oldVersion == 3) {
                 db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V5);
                 db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V6);
@@ -124,6 +160,18 @@ public class Database {
                 db.execSQL(CurrencyQuotelSchema.CREATE_TABLE_CURRENCY_QUOTE_V8);
                 db.execSQL(FuelSupplylSchema.ALTER_TABLE_FUEL_SUPPLY_V9);
                 db.execSQL(MaintenanceISchema.CREATE_TABLE_MAINTENANCE_V10);
+                db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V11_1);
+                db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V11_2);
+                db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V11_3);
+                db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V11_4);
+                db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V11_5);
+                db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V11_6);
+                db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V11_7);
+                db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V11_8);
+                db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V11_9);
+                db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V11_10);
+                db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V11_11);
+                db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V11_12);
             } else if (oldVersion == 4) {
                 db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V5);
                 db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V6);
@@ -135,6 +183,18 @@ public class Database {
                 db.execSQL(CurrencyQuotelSchema.CREATE_TABLE_CURRENCY_QUOTE_V8);
                 db.execSQL(FuelSupplylSchema.ALTER_TABLE_FUEL_SUPPLY_V9);
                 db.execSQL(MaintenanceISchema.CREATE_TABLE_MAINTENANCE_V10);
+                db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V11_1);
+                db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V11_2);
+                db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V11_3);
+                db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V11_4);
+                db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V11_5);
+                db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V11_6);
+                db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V11_7);
+                db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V11_8);
+                db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V11_9);
+                db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V11_10);
+                db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V11_11);
+                db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V11_12);
             } else if (oldVersion == 5) {
                 db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V6);
                 db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V7_1);
@@ -145,6 +205,18 @@ public class Database {
                 db.execSQL(CurrencyQuotelSchema.CREATE_TABLE_CURRENCY_QUOTE_V8);
                 db.execSQL(FuelSupplylSchema.ALTER_TABLE_FUEL_SUPPLY_V9);
                 db.execSQL(MaintenanceISchema.CREATE_TABLE_MAINTENANCE_V10);
+                db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V11_1);
+                db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V11_2);
+                db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V11_3);
+                db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V11_4);
+                db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V11_5);
+                db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V11_6);
+                db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V11_7);
+                db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V11_8);
+                db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V11_9);
+                db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V11_10);
+                db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V11_11);
+                db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V11_12);
             } else if (oldVersion == 6) {
                 db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V7_1);
                 db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V7_2);
@@ -154,17 +226,78 @@ public class Database {
                 db.execSQL(CurrencyQuotelSchema.CREATE_TABLE_CURRENCY_QUOTE_V8);
                 db.execSQL(FuelSupplylSchema.ALTER_TABLE_FUEL_SUPPLY_V9);
                 db.execSQL(MaintenanceISchema.CREATE_TABLE_MAINTENANCE_V10);
+                db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V11_1);
+                db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V11_2);
+                db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V11_3);
+                db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V11_4);
+                db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V11_5);
+                db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V11_6);
+                db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V11_7);
+                db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V11_8);
+                db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V11_9);
+                db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V11_10);
+                db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V11_11);
+                db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V11_12);
             } else if (oldVersion == 7) {
                 db.execSQL(FuelSupplylSchema.CREATE_TABLE_FUEL_SUPPLY_V8);
                 db.execSQL(CurrencyQuotelSchema.CREATE_TABLE_CURRENCY_QUOTE_V8);
                 db.execSQL(FuelSupplylSchema.ALTER_TABLE_FUEL_SUPPLY_V9);
                 db.execSQL(MaintenanceISchema.CREATE_TABLE_MAINTENANCE_V10);
+                db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V11_1);
+                db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V11_2);
+                db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V11_3);
+                db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V11_4);
+                db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V11_5);
+                db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V11_6);
+                db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V11_7);
+                db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V11_8);
+                db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V11_9);
+                db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V11_10);
+                db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V11_11);
+                db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V11_12);
             } else if (oldVersion == 8) {
                 db.execSQL(FuelSupplylSchema.ALTER_TABLE_FUEL_SUPPLY_V9);
                 db.execSQL(MaintenanceISchema.CREATE_TABLE_MAINTENANCE_V10);
+                db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V11_1);
+                db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V11_2);
+                db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V11_3);
+                db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V11_4);
+                db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V11_5);
+                db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V11_6);
+                db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V11_7);
+                db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V11_8);
+                db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V11_9);
+                db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V11_10);
+                db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V11_11);
+                db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V11_12);
             } else if (oldVersion == 9 ) {
                 db.execSQL(MaintenanceISchema.CREATE_TABLE_MAINTENANCE_V10);
+                db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V11_1);
+                db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V11_2);
+                db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V11_3);
+                db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V11_4);
+                db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V11_5);
+                db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V11_6);
+                db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V11_7);
+                db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V11_8);
+                db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V11_9);
+                db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V11_10);
+                db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V11_11);
+                db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V11_12);
             } else if (oldVersion == 10 ) {
+                db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V11_1);
+                db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V11_2);
+                db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V11_3);
+                db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V11_4);
+                db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V11_5);
+                db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V11_6);
+                db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V11_7);
+                db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V11_8);
+                db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V11_9);
+                db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V11_10);
+                db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V11_11);
+                db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V11_12);
+            } else if (oldVersion == 11 ) {
             }
         }
     }
