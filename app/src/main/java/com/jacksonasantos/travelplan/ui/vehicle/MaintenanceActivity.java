@@ -44,8 +44,6 @@ public class MaintenanceActivity extends AppCompatActivity {
     private boolean opInsert = true;
     private Maintenance maintenance;
 
-    Locale locale = new Locale("pt", "BR");
-
     @SuppressLint("WrongViewCast")
     @RequiresApi(api = Build.VERSION_CODES.N)
 

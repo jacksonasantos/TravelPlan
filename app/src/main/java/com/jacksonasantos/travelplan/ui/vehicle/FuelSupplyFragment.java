@@ -1,6 +1,5 @@
 package com.jacksonasantos.travelplan.ui.vehicle;
 
-import android.content.ClipData;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -17,8 +16,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.jacksonasantos.travelplan.dao.Database;
 import com.jacksonasantos.travelplan.R;
 import com.jacksonasantos.travelplan.ui.utility.Globals;
-
-import java.text.ParseException;
 
 public class FuelSupplyFragment extends Fragment  {
 

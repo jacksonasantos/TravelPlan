@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/linearLayout"
+    android:id="@+id/llMaintenanceItem"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     tools:context=".ui.home.HomeFragment">
@@ -26,9 +26,9 @@
         android:layout_marginStart="@dimen/labels_marginLeft"
         android:layout_marginLeft="@dimen/labels_marginLeft"
         android:contentDescription="@string/Maintenance_Type"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/btnDone"
         app:layout_constraintStart_toEndOf="@+id/imServiceType"
-        app:layout_constraintTop_toTopOf="@+id/txtMaintenanceExpirationDate" />
+        app:layout_constraintTop_toTopOf="@+id/btnDone" />
 
     <TextView
         android:id="@+id/txtMaintenanceExpirationDate"

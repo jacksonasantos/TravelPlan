@@ -16,6 +16,7 @@ import androidx.navigation.ui.NavigationUI;
 import androidx.preference.PreferenceManager;
 
 import com.google.android.material.navigation.NavigationView;
+import com.jacksonasantos.travelplan.ui.utility.Globals;
 
 import java.util.Locale;
 
@@ -23,15 +24,19 @@ public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
 
+    Globals g = Globals.getInstance();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
 
         Resources res = getResources();
         Configuration config = res.getConfiguration();
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(this);
         String lang = settings.getString("language", "");
         if (lang != null && !"".equals(lang) && !config.locale.getLanguage().equals(lang)) {
+            g.setLanguage(lang);
             Locale myLocale = new Locale(lang);
             config.locale = myLocale;
             DisplayMetrics dm = res.getDisplayMetrics();
@@ -40,7 +45,6 @@ public class MainActivity extends AppCompatActivity {
         }
         PreferenceManager.setDefaultValues(this, R.xml.root_preferences, false);
 
-        setContentView(R.layout.activity_main);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);

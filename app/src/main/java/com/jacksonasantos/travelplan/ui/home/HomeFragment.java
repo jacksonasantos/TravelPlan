@@ -45,19 +45,15 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     private TextView tvFuelSupplyNumberLiters;
     private TextView tvFuelSupplyValue;
 
-    private RecyclerView listInVehicleService;
-    private View vMaintenance;
-
-    Locale locale = new Locale("pt", "BR"); // TODO - disponibilizar local dinamico
-
     Globals g = Globals.getInstance();
+
+    Locale locale = new Locale(g.getLanguage(), "BR"); // TODO - disponibilizar local dinamico
 
     @Override
     public View onCreateView(@NonNull final LayoutInflater inflater,
                              final ViewGroup container, Bundle savedInstanceState) {
 
         View v=inflater.inflate(R.layout.fragment_home, container, false);
-        View vMaintenance=inflater.inflate(R.layout.fragment_home_item_maintenance, container, false);
         spVehicle =v.findViewById(R.id.spVehicle);
         tvLicencePlate = v.findViewById(R.id.tvLicencePlate);
         imVehicleType = v.findViewById(R.id.imVehicleType);
@@ -90,7 +86,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         ArrayAdapter adapter = new ArrayAdapter(getActivity(), android.R.layout.simple_spinner_item, vehicles);
         adapter.setDropDownViewResource( android.R.layout.simple_spinner_dropdown_item);
         spVehicle.setAdapter(adapter);
-        // TODO - rever posicionamento do Veiculo global no Spinner
         Vehicle v1 = Database.mVehicleDao.fetchVehicleById(g.getIdVehicle());
         for (int x = 0; x < spVehicle.getAdapter().getCount(); x++) {
             if (spVehicle.getItemAtPosition(x).toString().equals(v1.getName())) {

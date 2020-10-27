@@ -35,6 +35,5 @@
             app:key="language"
             app:title="@string/language"
             app:useSimpleSummaryProvider="true" />
-     </PreferenceCategory>
-
+    </PreferenceCategory>
  </PreferenceScreen>

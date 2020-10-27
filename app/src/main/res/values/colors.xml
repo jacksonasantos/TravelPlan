@@ -3,5 +3,7 @@
     <color name="colorAccent">#34A6A6</color>
     <color name="colorBackgroundLogo">#18FFFF</color>
     <color name="colorAccent2">#FF7125</color>
+    <color name="colorItem">#D1C4E9</color>
+    <color name="colorItem1">#FFFFFF</color>
 </resources>
 

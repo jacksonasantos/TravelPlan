@@ -20,6 +20,7 @@ import com.jacksonasantos.travelplan.R;
 import com.jacksonasantos.travelplan.dao.Database;
 import com.jacksonasantos.travelplan.dao.FuelSupply;
 import com.jacksonasantos.travelplan.dao.Vehicle;
+import com.jacksonasantos.travelplan.ui.utility.Globals;
 import com.jacksonasantos.travelplan.ui.utility.Utils;
 
 import java.text.NumberFormat;
@@ -31,7 +32,9 @@ public class FuelSupplyListAdapter extends RecyclerView.Adapter<FuelSupplyListAd
     private List<FuelSupply> mFuelSupply;
     Context context;
 
-    Locale locale = new Locale("pt", "BR"); // TODO - disponibilizar local dinamico
+    Globals g = Globals.getInstance();
+
+    Locale locale = new Locale(g.getLanguage(), g.getCountry());
 
     public static class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
@@ -81,9 +84,9 @@ public class FuelSupplyListAdapter extends RecyclerView.Adapter<FuelSupplyListAd
     @Override
     public void onBindViewHolder(@NonNull final MyViewHolder holder, final int position) {
         final FuelSupply fuelSupply = mFuelSupply.get(position);
+        Vehicle v = Database.mVehicleDao.fetchVehicleById(fuelSupply.getVehicle_id());
 
         holder.txtSupplyDate.setText(Utils.dateToString(fuelSupply.getSupply_date()));
-        Vehicle v = Database.mVehicleDao.fetchVehicleById(fuelSupply.getVehicle_id());
         holder.txtVehicleName.setText(v.getName());
         holder.txtNumberLiters.setText(fuelSupply.getNumber_liters() +" L");
         NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(locale);
@@ -99,7 +102,6 @@ public class FuelSupplyListAdapter extends RecyclerView.Adapter<FuelSupplyListAd
                 notifyDataSetChanged();
             }
         });
-
         // btnDelete
         holder.btnDelete.setOnClickListener (new View.OnClickListener() {
             @Override

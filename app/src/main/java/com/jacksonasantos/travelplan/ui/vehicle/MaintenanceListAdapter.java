@@ -22,6 +22,7 @@ import com.jacksonasantos.travelplan.R;
 import com.jacksonasantos.travelplan.dao.Database;
 import com.jacksonasantos.travelplan.dao.Maintenance;
 import com.jacksonasantos.travelplan.dao.Vehicle;
+import com.jacksonasantos.travelplan.ui.utility.Globals;
 import com.jacksonasantos.travelplan.ui.utility.Utils;
 
 import java.text.NumberFormat;
@@ -36,7 +37,9 @@ public class MaintenanceListAdapter extends RecyclerView.Adapter<MaintenanceList
     Context context;
     String[] serviceArray;
 
-    Locale locale = new Locale("pt", "BR"); // TODO - disponibilizar local dinamico
+    Globals g = Globals.getInstance();
+
+    Locale locale = new Locale(g.getLanguage(), g.getCountry());
 
     public static class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 

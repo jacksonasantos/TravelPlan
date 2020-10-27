@@ -65,7 +65,9 @@ public class FuelSupplyActivity extends AppCompatActivity {
     private boolean opInsert = true;
     private FuelSupply fuelSupply;
 
-    Locale locale = new Locale("pt", "BR");
+    Globals g = Globals.getInstance();
+
+    Locale locale = new Locale(g.getLanguage(), g.getCountry());
 
     @SuppressLint("WrongViewCast")
     @RequiresApi(api = Build.VERSION_CODES.N)
@@ -103,7 +105,6 @@ public class FuelSupplyActivity extends AppCompatActivity {
         }
         if (opInsert) {
             if (nrVehicleId == 0L){
-                Globals g = Globals.getInstance();
                 nrVehicleId = g.getIdVehicle();
             }
         } else {
@@ -138,15 +139,6 @@ public class FuelSupplyActivity extends AppCompatActivity {
         etSupplyReason = findViewById(R.id.etSupplyReason);
         AutoCompleteTextView spinAssociatedTrip = findViewById(R.id.spinAssociatedTrip);
 
-        /*Vehicle vehicle;
-        if (opInsert) {
-            if (nrVehicleId == 0L){
-                Globals g = Globals.getInstance();
-                nrVehicleId = g.getIdVehicle();
-            }
-        } else {
-            nrVehicleId = fuelSupply.getVehicle_id();
-        }*/
         Vehicle vehicle = Database.mVehicleDao.fetchVehicleById(nrVehicleId);
         txVehicleName.setText(vehicle.getName());
         txVehicleLicencePlate.setText(vehicle.getLicense_plate());
@@ -161,9 +153,7 @@ public class FuelSupplyActivity extends AppCompatActivity {
         });
         cbFullTank.setOnClickListener(new View.OnClickListener() {
             @Override public void onClick(View v){
-                // TODO - Testar melhoria tirando o True e colocando a condição do IF
-                if (!cbFullTank.isChecked()) vlFullTank = 0;
-                else { vlFullTank = 1; }
+                vlFullTank = !cbFullTank.isChecked()?0:1;
             }
         });
         createSpinnerResources(R.array.currency_array, spinCurrencyType);
@@ -176,6 +166,16 @@ public class FuelSupplyActivity extends AppCompatActivity {
                 etCurrencyValue.setText(String.valueOf(c1.getCurrency_value()));
             }
         });
+        View.OnFocusChangeListener listenerSupplyValue = new View.OnFocusChangeListener() {
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus) {
+                    String vSupplyValue = etSupplyValue.getText().toString();
+                    String vNumberLiters = etNumberLiters.getText().toString();
+                    etFuelValue.setText( String.valueOf(Double.parseDouble(vSupplyValue) / Double.parseDouble(vNumberLiters)));
+                }
+            }
+        };
+        etSupplyValue.setOnFocusChangeListener(listenerSupplyValue);
 
         vLastOdometer = vehicle.getOdometer();
         View.OnFocusChangeListener listenerOdometer = new View.OnFocusChangeListener() {

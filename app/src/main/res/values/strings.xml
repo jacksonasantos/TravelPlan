@@ -110,6 +110,14 @@
     <string name="Error_Changing_Data">Error Changing Data</string>
     <string name="Error_Data_Validation">Error in data validation</string>
 
+    <!-- Currency -->
+    <string name="real">R$ - Real</string>
+    <string name="dollar">US$ - Dollar</string>
+    <string name="argentinian_peso">$ - Argentinian Peso</string>
+    <string name="uruguayan_peso">$ - Uruguayan Peso</string>
+    <string name="chilean_peso">$ - Chilean Peso</string>
+    <string name="euro">€ - Euro</string>
+
     <!-- Arrays -->
     <string name="ethanol">Ethanol</string>
     <string name="gasoline">Gasoline</string>

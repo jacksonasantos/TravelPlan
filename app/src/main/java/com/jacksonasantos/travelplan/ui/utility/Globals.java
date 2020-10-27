@@ -6,6 +6,8 @@ public class Globals{
     private static Globals instance;
     private Long idVehicle;
     private boolean blFilterVehicle;
+    private String txLanguage = "pt";
+    private String txCountry = "BR";
 
     private Globals() { }
 
@@ -14,6 +16,12 @@ public class Globals{
 
     public Boolean getFilterVehicle() { return this.blFilterVehicle; }
     public void setFilterVehicle(Boolean filter) { this.blFilterVehicle = filter; }
+
+    public String getLanguage() { return this.txLanguage; }
+    public void setLanguage(String lang) { this.txLanguage = lang; }
+
+    public String getCountry() { return this.txCountry; }
+    public void setCountry(String country) { this.txCountry = country; }
 
     public static synchronized Globals getInstance() { if(instance==null){ instance=new Globals(); } return instance;
     }

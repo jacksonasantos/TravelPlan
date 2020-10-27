@@ -1,6 +1,5 @@
 package com.jacksonasantos.travelplan.ui.home;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
@@ -15,6 +14,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.jacksonasantos.travelplan.R;
@@ -34,6 +34,7 @@ public class HomeMaintenanceListAdapter extends RecyclerView.Adapter<HomeMainten
 
     public static class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
+        private ConstraintLayout llMaintenanceItem;
         private ImageView imServiceType;
         private ImageView imServiceExpired;
         private TextView txtMaintenanceExpirationDate;
@@ -43,6 +44,7 @@ public class HomeMaintenanceListAdapter extends RecyclerView.Adapter<HomeMainten
 
         public MyViewHolder(View v) {
             super(v);
+            llMaintenanceItem = v.findViewById(R.id.llMaintenanceItem);
             imServiceType = v.findViewById(R.id.imServiceType);
             imServiceExpired = v.findViewById(R.id.imServiceExpired);
             txtMaintenanceExpirationDate = v.findViewById(R.id.txtMaintenanceExpirationDate);
@@ -74,13 +76,17 @@ public class HomeMaintenanceListAdapter extends RecyclerView.Adapter<HomeMainten
     }
 
     // Replace the contents of a view (invoked by the layout manager)
-    @SuppressLint("ResourceAsColor")
+    //@SuppressLint("ResourceAsColor")
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public void onBindViewHolder(@NonNull final MyViewHolder holder, final int position) {
         final Maintenance maintenance = mMaintenance.get(position);
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-
+        if (position%2==0) {
+            holder.llMaintenanceItem.setBackgroundColor(Color.rgb(209,193,233));
+        } else {
+            holder.llMaintenanceItem.setBackgroundColor(Color.WHITE);
+        }
         holder.imServiceType.setImageResource(maintenance.getTypeImage(maintenance.getType()));
         holder.imServiceExpired.setImageResource(R.drawable.ic_ball );
         try {

@@ -13,9 +13,12 @@ import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.PreferenceManager;
 
+import com.jacksonasantos.travelplan.ui.utility.Globals;
+
 import java.util.Locale;
 
 public class SettingsActivity extends AppCompatActivity {
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,9 +71,12 @@ public class SettingsActivity extends AppCompatActivity {
         };
 
         public void setLocale(String lang) {
+
+            Globals g = Globals.getInstance();
             Resources res = getResources();
             Configuration config = res.getConfiguration();
             if (lang != null && !"".equals(lang) && !config.locale.getLanguage().equals(lang)) {
+                g.setLanguage(lang);
                 Locale myLocale = new Locale(lang);
                 config.locale = myLocale;
                 DisplayMetrics dm = res.getDisplayMetrics();

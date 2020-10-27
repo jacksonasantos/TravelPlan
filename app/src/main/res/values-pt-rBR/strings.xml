@@ -113,4 +113,10 @@
     <string name="menu_filter">Filtro por Veículo</string>
     <string name="Odometer">Odômetro</string>
     <string name="bt_Done">Feito</string>
+    <string name="real">R$ - Real</string>
+    <string name="dollar">US$ - Dólar</string>
+    <string name="argentinian_peso">$ - Peso Argentino</string>
+    <string name="uruguayan_peso">$ - Peso Urugaio</string>
+    <string name="chilean_peso">$ - Peso Chileno</string>
+    <string name="euro">€ - Euro</string>
 </resources>
