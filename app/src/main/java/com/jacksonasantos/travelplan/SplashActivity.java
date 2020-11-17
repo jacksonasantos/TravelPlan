@@ -9,7 +9,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.jacksonasantos.travelplan.dao.Database;
 
 public class SplashActivity extends AppCompatActivity {
-    private static int SPLASH_TIME_OUT = 3000;
     public Database mDb;
 
     @Override
@@ -21,6 +20,7 @@ public class SplashActivity extends AppCompatActivity {
         mDb.open();
         mDb.close();
 
+        int SPLASH_TIME_OUT = 3000;
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {

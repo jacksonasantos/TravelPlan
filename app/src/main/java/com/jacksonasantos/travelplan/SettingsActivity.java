@@ -56,15 +56,12 @@ public class SettingsActivity extends AppCompatActivity {
         Preference.OnPreferenceChangeListener languageChangeListener = new Preference.OnPreferenceChangeListener() {
             @Override
             public boolean onPreferenceChange(Preference preference, Object newValue) {
-                switch (newValue.toString()) {
-                    case "en":
-                        PreferenceManager.getDefaultSharedPreferences(getContext()).edit().putString("LANG", "en").apply();
-                        setLocale("en");
-                        break;
-                    default:
-                        PreferenceManager.getDefaultSharedPreferences(getContext()).edit().putString("LANG", "pt").apply();
-                        setLocale("pt");
-                        break;
+                if ("en".equals(newValue.toString())) {
+                    PreferenceManager.getDefaultSharedPreferences(getContext()).edit().putString("LANG", "en").apply();
+                    setLocale("en");
+                } else {
+                    PreferenceManager.getDefaultSharedPreferences(getContext()).edit().putString("LANG", "pt").apply();
+                    setLocale("pt");
                 }
                 return true;
             }

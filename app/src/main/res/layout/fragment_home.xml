@@ -9,12 +9,8 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layerVehicle"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/labels_margin"
-        android:layout_marginLeft="@dimen/labels_margin"
-        android:layout_marginEnd="@dimen/labels_margin"
-        android:layout_marginRight="@dimen/labels_margin"
-        tools:layout_editor_absoluteX="0dp">
+        android:layout_height="60dp"
+        app:layout_constraintTop_toTopOf="parent">
 
         <Spinner
             android:id="@+id/spVehicle"
@@ -40,7 +36,9 @@
             android:layout_marginLeft="@dimen/labels_margin"
             android:hint="@string/Vehicle_Type"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:contentDescription="@string/Vehicle_Type"
+            tools:ignore="ContentDescription" />
 
         <TextView
             android:id="@+id/tvLicencePlate"
@@ -74,7 +72,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layerFuelSupply"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_marginStart="@dimen/labels_margin"
         android:layout_marginLeft="@dimen/labels_margin"
         android:layout_marginEnd="@dimen/labels_margin"
@@ -99,7 +97,7 @@
             android:layout_height="wrap_content"
             android:text="@string/FuelSupply_Last"
             android:textColor="@color/design_default_color_secondary"
-            android:textSize="12sp"
+            android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -177,7 +175,7 @@
             android:layout_height="wrap_content"
             android:text="@string/InVehicleServices"
             android:textColor="@color/design_default_color_secondary"
-            android:textSize="12sp"
+            android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

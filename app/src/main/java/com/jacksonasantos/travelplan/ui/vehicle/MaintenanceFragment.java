@@ -18,10 +18,6 @@ import com.jacksonasantos.travelplan.R;
 import com.jacksonasantos.travelplan.dao.Database;
 import com.jacksonasantos.travelplan.ui.utility.Globals;
 
-import java.text.ParseException;
-
-import static com.jacksonasantos.travelplan.ui.vehicle.MaintenanceListAdapter.*;
-
 public class MaintenanceFragment extends Fragment  {
 
     @Override

@@ -26,8 +26,6 @@ import com.jacksonasantos.travelplan.ui.utility.DateInputMask;
 import com.jacksonasantos.travelplan.ui.utility.Globals;
 import com.jacksonasantos.travelplan.ui.utility.Utils;
 
-import java.util.Locale;
-
 public class MaintenanceActivity extends AppCompatActivity {
 
     private Long nrVehicle_id=0L;

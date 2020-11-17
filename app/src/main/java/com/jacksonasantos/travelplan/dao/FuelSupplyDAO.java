@@ -11,8 +11,6 @@ import com.jacksonasantos.travelplan.dao.interfaces.FuelSupplylSchema;
 import com.jacksonasantos.travelplan.ui.utility.Globals;
 import com.jacksonasantos.travelplan.ui.utility.Utils;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 

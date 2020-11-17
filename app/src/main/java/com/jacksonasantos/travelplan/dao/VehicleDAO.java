@@ -11,7 +11,6 @@ import com.jacksonasantos.travelplan.dao.interfaces.VehicleISchema;
 import com.jacksonasantos.travelplan.ui.utility.Globals;
 import com.jacksonasantos.travelplan.ui.utility.Utils;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -68,7 +67,7 @@ public class VehicleDAO extends DbContentProvider implements VehicleISchema, Veh
     }
 
     public ArrayList<Vehicle> fetchArrayVehicles(){
-        ArrayList<Vehicle> vehicleList = new ArrayList<Vehicle>();
+        ArrayList<Vehicle> vehicleList = new ArrayList<>();
         Cursor cursor = super.query(VEHICLE_TABLE, VEHICLE_COLUMNS, null,null, VEHICLE_ID);
         if(cursor != null && cursor.moveToFirst()){
             do{

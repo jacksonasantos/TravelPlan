@@ -1,12 +1,7 @@
 package com.jacksonasantos.travelplan.dao;
 
-import android.content.pm.InstallSourceInfo;
-
 import com.jacksonasantos.travelplan.R;
-import com.jacksonasantos.travelplan.ui.utility.Utils;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Maintenance {

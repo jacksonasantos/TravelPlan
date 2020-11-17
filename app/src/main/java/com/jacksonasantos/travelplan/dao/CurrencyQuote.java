@@ -1,7 +1,5 @@
 package com.jacksonasantos.travelplan.dao;
 
-import android.icu.text.DecimalFormat;
-
 import java.util.Date;
 
 public class CurrencyQuote {

@@ -1,19 +1,15 @@
 package com.jacksonasantos.travelplan.dao;
 
 import android.content.ContentValues;
-import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteConstraintException;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
-import androidx.preference.PreferenceManager;
-
 import com.jacksonasantos.travelplan.dao.interfaces.CurrencyQuotelDAO;
 import com.jacksonasantos.travelplan.dao.interfaces.CurrencyQuotelSchema;
 import com.jacksonasantos.travelplan.ui.utility.Utils;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
