@@ -2,6 +2,9 @@ package com.jacksonasantos.travelplan.ui.vehicle;
 
 import android.os.Build;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -18,6 +21,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import com.jacksonasantos.travelplan.dao.Database;
 import com.jacksonasantos.travelplan.dao.Vehicle;
@@ -27,19 +31,35 @@ import com.jacksonasantos.travelplan.ui.utility.Utils;
 
 public class VehicleActivity extends AppCompatActivity {
 
+    private RadioGroup rgType;
     private int rbType;
     private EditText etNameVehicle;
     private EditText etShortNameVehicle;
-    private EditText etLicencePlateVehicle;
-    private EditText etBrand;            // TODO - Implement API of BRAND´s
+    private EditText etBrand;                            // TODO - Implement API of BRAND´s
+    private EditText etModel;
     private AutoCompleteTextView spinTypeFuel;
     private int nrspinTypeFuel;
-    private EditText etFullCapacity;
-    private EditText etAVGConsumption;
+
+    private EditText etYearModel;
+    private EditText etYearManufacture;
+    private EditText etLicencePlateVehicle;
+    private EditText etColor;
+    private EditText etVin;
+    private EditText etLicenceNumber;
+    private EditText etStateVehicle;
+    private EditText etCityVehicle;
     private EditText etAcquisition;
     private EditText etSale;
+
+    private EditText etDoors;
+    private EditText etCapacity;
+    private EditText etPower;
+    private EditText etEstimatedValue;
+    private EditText etFullCapacity;
+    private EditText etAVGConsumption;
     private EditText etDtOdometer;
     private EditText etOdometer;
+
     private Vehicle vehicle;
     private boolean opInsert = true;
 
@@ -63,18 +83,30 @@ public class VehicleActivity extends AppCompatActivity {
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
 
-        addListenerOnButton();
+        addListenerOnButtonSave();
 
-        RadioGroup rgType = findViewById(R.id.rgType);
+        rgType = findViewById(R.id.rgType);
         etNameVehicle = findViewById(R.id.etNameVehicle);
         etShortNameVehicle = findViewById(R.id.etShortNameVehicle);
-        etLicencePlateVehicle = findViewById(R.id.etLicencePlateVehicle);
         etBrand = findViewById(R.id.etBrand);
+        etModel = findViewById(R.id.etModel);
         spinTypeFuel = findViewById(R.id.spinTypeFuel);
-        etFullCapacity = findViewById(R.id.etFullCapacity);
-        etAVGConsumption = findViewById(R.id.etAVGConsumption);
+        etYearModel = findViewById(R.id.etYearModel);
+        etYearManufacture = findViewById(R.id.etYearManufacture);
+        etLicencePlateVehicle = findViewById(R.id.etLicencePlateVehicle);
+        etColor = findViewById(R.id.etColor);
+        etVin = findViewById(R.id.etVin);
+        etLicenceNumber = findViewById(R.id.etLicenceNumber);
+        etStateVehicle = findViewById(R.id.etStateVehicle);
+        etCityVehicle = findViewById(R.id.etCityVehicle);
         etAcquisition = findViewById(R.id.etAcquisition);
         etSale = findViewById(R.id.etSale);
+        etDoors = findViewById(R.id.etDoors);
+        etCapacity = findViewById(R.id.etCapacity);
+        etPower = findViewById(R.id.etPower);
+        etEstimatedValue = findViewById(R.id.etEstimatedValue);
+        etFullCapacity = findViewById(R.id.etFullCapacity);
+        etAVGConsumption = findViewById(R.id.etAVGConsumption);
         etDtOdometer = findViewById(R.id.etDtOdometer);
         etOdometer = findViewById(R.id.etOdometer);
 
@@ -85,7 +117,6 @@ public class VehicleActivity extends AppCompatActivity {
                 rbType = checkedId;
             }
         });
-
         addSpinnerResources(R.array.type_fuel_array, spinTypeFuel);
         nrspinTypeFuel = 0;
         spinTypeFuel.setOnItemClickListener(new Spinner.OnItemClickListener() {
@@ -93,7 +124,6 @@ public class VehicleActivity extends AppCompatActivity {
                 nrspinTypeFuel = (int) adapterView.getItemIdAtPosition(i);
             }
         });
-
         etAcquisition.addTextChangedListener(new DateInputMask(etAcquisition));
         etSale.addTextChangedListener(new DateInputMask(etSale));
         etDtOdometer.addTextChangedListener(new DateInputMask(etDtOdometer));
@@ -102,14 +132,26 @@ public class VehicleActivity extends AppCompatActivity {
             rgType.check(vehicle.getType());
             etNameVehicle.setText(vehicle.getName());
             etShortNameVehicle.setText(vehicle.getShort_name());
-            etLicencePlateVehicle.setText(vehicle.getLicense_plate());
             etBrand.setText(vehicle.getBrand());
+            etModel.setText(vehicle.getModel());
             nrspinTypeFuel=vehicle.getType_fuel();
             spinTypeFuel.setText(getResources().getStringArray(R.array.type_fuel_array)[nrspinTypeFuel],false);
-            etFullCapacity.setText(String.valueOf(vehicle.getFull_capacity()));
-            etAVGConsumption.setText(String.valueOf(vehicle.getAvg_consumption()));
+            etYearModel.setText(vehicle.getYear_model());
+            etYearManufacture.setText(vehicle.getYear_manufacture());
+            etLicencePlateVehicle.setText(vehicle.getLicense_plate());
+            etColor.setText(vehicle.getColor());
+            etVin.setText(vehicle.getVin());
+            etLicenceNumber.setText(vehicle.getLicence_number());
+            etStateVehicle.setText(vehicle.getState());
+            etCityVehicle.setText(vehicle.getCity());
             etAcquisition.setText(Utils.dateToString(vehicle.getDt_acquisition()));
             etSale.setText(Utils.dateToString(vehicle.getDt_sale()));
+            etDoors.setText(String.valueOf(vehicle.getDoors()));
+            etCapacity.setText(String.valueOf(vehicle.getCapacity()));
+            etPower.setText(String.valueOf(vehicle.getPower()));
+            etEstimatedValue.setText(String.valueOf(vehicle.getEstimated_value()));
+            etFullCapacity.setText(String.valueOf(vehicle.getFull_capacity()));
+            etAVGConsumption.setText(String.valueOf(vehicle.getAvg_consumption()));
             etDtOdometer.setText(Utils.dateToString(vehicle.getDt_odometer()));
             etOdometer.setText(String.valueOf(vehicle.getOdometer()));
         }
@@ -144,7 +186,7 @@ public class VehicleActivity extends AppCompatActivity {
         return nRadio;
     }
 
-    public void addListenerOnButton() {
+    public void addListenerOnButtonSave() {
        Button btSaveVehicle = findViewById(R.id.btSaveVehicle);
 
         btSaveVehicle.setOnClickListener(new View.OnClickListener() {
@@ -157,21 +199,41 @@ public class VehicleActivity extends AppCompatActivity {
                     Database mdb = new Database(VehicleActivity.this);
                     mdb.open();
                     final Vehicle v1 = new Vehicle();
-                    v1.setType(findViewById(rbType).getId());
+                    v1.setType(rbType);
                     v1.setName(etNameVehicle.getText().toString());
                     v1.setShort_name(etShortNameVehicle.getText().toString());
-                    v1.setLicense_plate(etLicencePlateVehicle.getText().toString());
                     v1.setBrand(etBrand.getText().toString());
+                    v1.setModel(etModel.getText().toString());
                     v1.setType_fuel(nrspinTypeFuel);
+                    v1.setYear_model(etYearModel.getText().toString());
+                    v1.setYear_manufacture(etYearManufacture.getText().toString());
+                    v1.setLicense_plate(etLicencePlateVehicle.getText().toString());
+                    v1.setColor(etColor.getText().toString());
+                    v1.setVin(etVin.getText().toString());
+                    v1.setLicence_number(etLicenceNumber.getText().toString());
+                    v1.setState(etStateVehicle.getText().toString());
+                    v1.setCity(etCityVehicle.getText().toString());
+                    v1.setDt_acquisition(Utils.stringToDate(etAcquisition.getText().toString()));
+                    v1.setDt_sale(Utils.stringToDate(etSale.getText().toString()));
+                    if (!etDoors.getText().toString().isEmpty()) {
+                        v1.setDoors(Integer.parseInt(etDoors.getText().toString()));
+                    } else { v1.setDoors(0); }
+                    if (!etCapacity.getText().toString().isEmpty()) {
+                        v1.setCapacity(Integer.parseInt(etCapacity.getText().toString()));
+                    } else { v1.setCapacity(0); }
+                    if (!etPower.getText().toString().isEmpty()) {
+                        v1.setPower(Integer.parseInt(etPower.getText().toString()));
+                    } else { v1.setPower(0); }
+                    if (!etEstimatedValue.getText().toString().isEmpty()) {
+                        v1.setEstimated_value(Double.parseDouble(etEstimatedValue.getText().toString()));
+                    } else { v1.setEstimated_value(0); }
                     if (!etFullCapacity.getText().toString().isEmpty()) {
                         v1.setFull_capacity(Integer.parseInt(etFullCapacity.getText().toString()));
                     } else { v1.setFull_capacity(0); }
                     if (!etAVGConsumption.getText().toString().isEmpty()) {
                         v1.setAvg_consumption(Float.parseFloat(etAVGConsumption.getText().toString()));
-                    } else { v1.setAvg_consumption((float) 0); }
-                    v1.setDt_acquisition(Utils.stringToDate(etAcquisition.getText().toString()));
-                    v1.setDt_sale(Utils.stringToDate((etSale.getText().toString())));
-                    v1.setDt_odometer(Utils.stringToDate((etDtOdometer.getText().toString())));
+                    } else { v1.setAvg_consumption(0); }
+                    v1.setDt_odometer(Utils.stringToDate(etDtOdometer.getText().toString()));
                     if (!etOdometer.getText().toString().isEmpty()) {
                         v1.setOdometer(Integer.parseInt(etOdometer.getText().toString()));
                     } else { v1.setOdometer(0); }
@@ -202,40 +264,39 @@ public class VehicleActivity extends AppCompatActivity {
             }
         });
     }
+
     private boolean validateData() {
-        boolean isValid = false;
-
+        boolean isValid = true;
         try {
-            String s1 = String.valueOf(findViewById(rbType).getId());
-            String s2 = etNameVehicle.getText().toString();
-            String s3 = etShortNameVehicle.getText().toString();
-            String s4 = etLicencePlateVehicle.getText().toString();
-            String s5 = etBrand.getText().toString();
-            String s6 = String.valueOf(nrspinTypeFuel);
-            String s7 = etFullCapacity.getText().toString();
-            String s8 = etAVGConsumption.getText().toString();
-            String s9 = etAcquisition.getText().toString();
-            String s10 = etSale.getText().toString();
-            String s11 = etDtOdometer.getText().toString();
-            String s12 = etOdometer.getText().toString();
-
-            if ( s1 != null && !s1.trim().isEmpty() &&
-                 s2 != null && !s2.trim().isEmpty() &&
-                 s3 != null && !s3.trim().isEmpty() &&
-                 s4 != null && !s4.trim().isEmpty() &&
-                 s5 != null && !s5.trim().isEmpty() &&
-                 s6 != null  && !s6.trim().isEmpty() &&
-                 s7 != null && !s7.trim().isEmpty() &&
-                 // s8 != null  && !s8.trim().isEmpty() &&
-                 // s9 != null  && !s9.trim().isEmpty() &&
-                 // s10 != null  && !s10.trim().isEmpty() &&
-                 s11 != null && !s11.trim().isEmpty() &&
-                 s12 != null && !s12.trim().isEmpty())
-            {
-                 isValid = true;
+            if ( rbType==0 ||
+                etNameVehicle.getText().toString().isEmpty() ||
+                etShortNameVehicle.getText().toString().isEmpty() ||
+                etBrand.getText().toString().isEmpty() ||
+                etModel.getText().toString().isEmpty() ||
+                String.valueOf(nrspinTypeFuel).isEmpty() ||
+                etYearModel.getText().toString().isEmpty() ||
+                etYearManufacture.getText().toString().isEmpty() ||
+                etLicencePlateVehicle.getText().toString().isEmpty() ||
+                etColor.getText().toString().isEmpty() ||
+                etVin.getText().toString().isEmpty() ||
+                etLicenceNumber.getText().toString().isEmpty() ||
+                etStateVehicle.getText().toString().isEmpty() ||
+                etCityVehicle.getText().toString().isEmpty() ||
+                etAcquisition.getText().toString().isEmpty() ||
+                //etSale.getText().toString().isEmpty() ||
+                etDoors.getText().toString().isEmpty() ||
+                etCapacity.getText().toString().isEmpty() ||
+                etPower.getText().toString().isEmpty() ||
+                //etEstimatedValue.getText().toString().isEmpty() ||
+                etFullCapacity.getText().toString().isEmpty() //||
+                //etAVGConsumption.getText().toString().isEmpty() ||
+                //etDtOdometer.getText().toString().isEmpty() ||
+                //etOdometer.getText().toString().isEmpty()
+            ){
+                isValid = false;
             }
         }catch ( Exception e ) {
-            Toast.makeText(getApplicationContext(), R.string.Data_Validator_Error +" - " + e.getMessage(), Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), getResources().getString(R.string.Data_Validator_Error )+" - " + e.getMessage(), Toast.LENGTH_LONG).show();
         }
         return isValid;
     }

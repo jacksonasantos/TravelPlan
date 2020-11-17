@@ -57,8 +57,12 @@ public class MaintenanceFragment extends Fragment  {
 
     @Override
     public void onPrepareOptionsMenu(Menu menu) {
-        MenuItem m = menu.findItem(R.id.addmenu);
-        m.setVisible(true);
+        MenuItem m1 = menu.findItem(R.id.addmenu);
+        MenuItem m2 = menu.findItem(R.id.savemenu);
+        MenuItem m3 = menu.findItem(R.id.filtermenu);
+        m1.setVisible(true);
+        m2.setVisible(false);
+        m3.setVisible(true);
     }
 
     @SuppressLint("UseCompatLoadingForDrawables")

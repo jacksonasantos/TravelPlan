@@ -34,6 +34,7 @@
     <string name="language_English">English</string>
 
     <!-- Vehicle Fragment -->
+    <string name="Vehicle_Detail">Details</string>
     <string name="Vehicle_Id">Identification Vehicle</string>
     <string name="Vehicle_Type">Type Vehicle</string>
     <string name="Vehicle_TypeCar">Car</string>
@@ -41,15 +42,32 @@
     <string name="Vehicle_TypeSUV">SUV</string>
     <string name="Vehicle_Name">Name Vehicle</string>
     <string name="Vehicle_Short_Name">Short Name </string>
-    <string name="Vehicle_Licence_Plate">Licence Plate</string>
-    <string name="Vehicle_Avg_Consumption">Average Consumption (KM/L)</string>
-    <string name="Vehicle_Full_Capacity">Full Capacity (L)</string>
-    <string name="Vehicle_Type_Fuel">Type Fuel</string>
     <string name="Vehicle_Brand">Brand</string>
+    <string name="Vehicle_Model">Model</string>
+    <string name="Vehicle_Type_Fuel">Type Fuel</string>
+
+    <string name="Legal_Vehicle">Legal</string>
+    <string name="Vehicle_Year_Mode">Year Model</string>
+    <string name="Vehicle_Year_Manufacture">Year Manufacture</string>
+    <string name="Vehicle_Licence_Plate">Licence Plate</string>
+    <string name="Vehicle_Vin">VIN</string>
+    <string name="Vehicle_Licence_Number">Licence Number</string>
+    <string name="Vehicle_State">State</string>
+    <string name="Vehicle_City">City</string>
+    <string name="Vehicle_Color">Color</string>
     <string name="Vehicle_DtAcquisition">Acquisition Data</string>
     <string name="Vehicle_DtSale">Sale Data</string>
+
+    <string name="Vehicle_Statistics">Statistics</string>
+    <string name="Vehicle_Doors">Doors</string>
+    <string name="Vehicle_Capacity">Capacity</string>
+    <string name="Vehicle_Power">Power</string>
+    <string name="Vehicle_Full_Capacity">Full Capacity (L)</string>
+    <string name="Vehicle_Avg_Consumption">Average Consumption (KM/L)</string>
     <string name="Vehicle_Odometer">Odometer</string>
     <string name="Vehicle_DtOdometer">Date Odometer</string>
+    <string name="Vehicle_Estimated_Value">Estimated Value</string>
+
     <string name="Vehicle_Deleting">Deleting Vehicle</string>
 
     <!-- Maintenance Fragment -->
@@ -102,6 +120,7 @@
     <string name="bt_Refuel">Refuel</string>
     <string name="menu_add">Add</string>
     <string name="menu_filter">Vehicle Filter</string>
+    <string name="menu_save">Save</string>
     <string name="Msg_Confirm">Are you sure you want to perform the operation?</string>
 
     <string name="Data_Validator_Error">Data Validator Error</string>
@@ -150,8 +169,5 @@
     <string name="parts_exchange">Parts Exchange</string>
     <string name="oil_change">Oil Change</string>
     <string name="spark_plug">Spark Plug</string>
-    <string name="title_activity_vehicle_new">VehicleActivityNew</string>
-    <string name="tab_text_1">Tab 1</string>
-    <string name="tab_text_2">Tab 2</string>
 
 </resources>

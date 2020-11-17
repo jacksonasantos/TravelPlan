@@ -39,7 +39,7 @@ public class VehicleListAdapter extends RecyclerView.Adapter<VehicleListAdapter.
         public MyViewHolder(View v) {
             super(v);
             imType = v.findViewById(R.id.imType);
-            txtPlate = (TextView) v.findViewById(R.id.txtPlate);
+            txtPlate = v.findViewById(R.id.txtPlate);
             txtShortName = (TextView) v.findViewById(R.id.txtShortName);
             btnEdit = (ImageButton) v.findViewById(R.id.btnEdit);
             btnDelete = (ImageButton) v.findViewById(R.id.btnDelete);

@@ -133,7 +133,7 @@ public class VehicleDAO extends DbContentProvider implements VehicleISchema, Veh
         int year_modelIndex;
         int year_manufactureIndex;
         int vinIndex;
-        int renavan_numberIndex;
+        int licence_numberIndex;
         int stateIndex;
         int cityIndex;
         int doorsIndex;
@@ -214,9 +214,9 @@ public class VehicleDAO extends DbContentProvider implements VehicleISchema, Veh
                 vinIndex = cursor.getColumnIndexOrThrow(VEHICLE_VIN);
                 vehicle.vin = cursor.getString(vinIndex);
             }
-            if (cursor.getColumnIndex(VEHICLE_RENAVAN_NUMBER) != -1) {
-                renavan_numberIndex = cursor.getColumnIndexOrThrow(VEHICLE_RENAVAN_NUMBER);
-                vehicle.renavan_number = cursor.getString(renavan_numberIndex);
+            if (cursor.getColumnIndex(VEHICLE_LICENCE_NUMBER) != -1) {
+                licence_numberIndex = cursor.getColumnIndexOrThrow(VEHICLE_LICENCE_NUMBER);
+                vehicle.licence_number = cursor.getString(licence_numberIndex);
             }
             if (cursor.getColumnIndex(VEHICLE_STATE) != -1) {
                 stateIndex = cursor.getColumnIndexOrThrow(VEHICLE_STATE);
@@ -265,7 +265,7 @@ public class VehicleDAO extends DbContentProvider implements VehicleISchema, Veh
         initialValues.put(VEHICLE_YEAR_MODEL, vehicle.year_model);
         initialValues.put(VEHICLE_YEAR_MANUFACTURE, vehicle.year_manufacture);
         initialValues.put(VEHICLE_VIN, vehicle.vin);
-        initialValues.put(VEHICLE_RENAVAN_NUMBER, vehicle.renavan_number);
+        initialValues.put(VEHICLE_LICENCE_NUMBER, vehicle.licence_number);
         initialValues.put(VEHICLE_STATE, vehicle.state);
         initialValues.put(VEHICLE_CITY, vehicle.city);
         initialValues.put(VEHICLE_DOORS, vehicle.doors);

@@ -22,7 +22,7 @@ public interface VehicleISchema {
     String VEHICLE_YEAR_MODEL = "year_model";
     String VEHICLE_YEAR_MANUFACTURE = "year_manufacture";
     String VEHICLE_VIN = "vin";
-    String VEHICLE_RENAVAN_NUMBER = "renavan_number";
+    String VEHICLE_LICENCE_NUMBER = "licence_number";
     String VEHICLE_STATE = "state";
     String VEHICLE_CITY = "city";
     String VEHICLE_DOORS = "doors";
@@ -66,7 +66,7 @@ public interface VehicleISchema {
     String ALTER_TABLE_VEHICLE_V11_3 = "ALTER TABLE " + VEHICLE_TABLE + " ADD COLUMN " + VEHICLE_YEAR_MODEL + " TEXT";
     String ALTER_TABLE_VEHICLE_V11_4 = "ALTER TABLE " + VEHICLE_TABLE + " ADD COLUMN " + VEHICLE_YEAR_MANUFACTURE + " TEXT";
     String ALTER_TABLE_VEHICLE_V11_5 = "ALTER TABLE " + VEHICLE_TABLE + " ADD COLUMN " + VEHICLE_VIN + " TEXT";
-    String ALTER_TABLE_VEHICLE_V11_6 = "ALTER TABLE " + VEHICLE_TABLE + " ADD COLUMN " + VEHICLE_RENAVAN_NUMBER + " TEXT";
+    String ALTER_TABLE_VEHICLE_V11_6 = "ALTER TABLE " + VEHICLE_TABLE + " ADD COLUMN " + VEHICLE_LICENCE_NUMBER + " TEXT";
     String ALTER_TABLE_VEHICLE_V11_7 = "ALTER TABLE " + VEHICLE_TABLE + " ADD COLUMN " + VEHICLE_STATE + " TEXT";
     String ALTER_TABLE_VEHICLE_V11_8 = "ALTER TABLE " + VEHICLE_TABLE + " ADD COLUMN " + VEHICLE_CITY + " TEXT";
     String ALTER_TABLE_VEHICLE_V11_9 = "ALTER TABLE " + VEHICLE_TABLE + " ADD COLUMN " + VEHICLE_DOORS + " INT";
@@ -93,7 +93,7 @@ public interface VehicleISchema {
             VEHICLE_YEAR_MODEL,
             VEHICLE_YEAR_MANUFACTURE,
             VEHICLE_VIN,
-            VEHICLE_RENAVAN_NUMBER,
+            VEHICLE_LICENCE_NUMBER,
             VEHICLE_STATE,
             VEHICLE_CITY,
             VEHICLE_DOORS,

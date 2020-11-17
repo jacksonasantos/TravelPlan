@@ -47,7 +47,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
     Globals g = Globals.getInstance();
 
-    Locale locale = new Locale(g.getLanguage(), "BR"); // TODO - disponibilizar local dinamico
+    Locale locale = new Locale(g.getLanguage(), g.getCountry());
 
     @Override
     public View onCreateView(@NonNull final LayoutInflater inflater,

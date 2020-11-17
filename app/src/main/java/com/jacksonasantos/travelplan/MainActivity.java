@@ -45,7 +45,6 @@ public class MainActivity extends AppCompatActivity {
         }
         PreferenceManager.setDefaultValues(this, R.xml.root_preferences, false);
 
-
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 

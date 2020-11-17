@@ -7,11 +7,19 @@
             android:id="@+id/filtermenu"
             android:icon="@drawable/ic_menu_filter_no"
             android:title="@string/menu_filter"
+            android:visible="true"
+            app:showAsAction="ifRoom|withText" />
+        <item
+            android:id="@+id/savemenu"
+            android:icon="@drawable/ic_menu_save"
+            android:title="@string/menu_save"
+            android:visible="true"
             app:showAsAction="ifRoom|withText" />
         <item
             android:id="@+id/addmenu"
             android:icon="@drawable/ic_menu_add"
             android:title="@string/menu_add"
+            android:visible="true"
             app:showAsAction="ifRoom|withText" />
     </group>
 </menu>

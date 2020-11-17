@@ -31,7 +31,7 @@ public class VehicleFragment extends Fragment  {
         Database mDb = new Database(getContext());
         mDb.open();
 
-        RecyclerView listVehicles = (RecyclerView) this.getView().findViewById(R.id.listVehicles);
+        RecyclerView listVehicles = this.getView().findViewById(R.id.listVehicles);
         VehicleListAdapter adapter = new VehicleListAdapter(Database.mVehicleDao.fetchAllVehicles(), getContext());
         listVehicles.setAdapter(adapter);
         listVehicles.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -52,8 +52,12 @@ public class VehicleFragment extends Fragment  {
 
     @Override
     public void onPrepareOptionsMenu(Menu menu) {
-        MenuItem m = menu.findItem(R.id.addmenu);
-        m.setVisible(true);
+        MenuItem m1 = menu.findItem(R.id.addmenu);
+        MenuItem m2 = menu.findItem(R.id.savemenu);
+        MenuItem m3 = menu.findItem(R.id.filtermenu);
+        m1.setVisible(true);
+        m2.setVisible(false);
+        m3.setVisible(true);
     }
 
     @Override

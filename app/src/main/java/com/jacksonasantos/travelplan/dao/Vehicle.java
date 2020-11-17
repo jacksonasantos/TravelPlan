@@ -11,58 +11,57 @@ public class Vehicle {
     public int type;
     public String name;
     public String short_name;
-    public String license_plate;
-    public int full_capacity;
-    public float avg_consumption;
     public String brand;
-    public int type_fuel;
-    public Date dt_acquisition;
-    public Date dt_sale;
-    public Date dt_odometer;
-    public int odometer;
-
     public String model;
-    public String color;
+    public int type_fuel;
+
     public String year_model;
     public String year_manufacture;
+    public String license_plate;
+    public String color;
     public String vin;
-    public String renavan_number;
+    public String licence_number;
     public String state;
     public String city;
+    public Date dt_acquisition;
+    public Date dt_sale;
 
     public int doors;
     public int capacity;
     public int power;
     public double estimated_value;
-
+    public int full_capacity;
+    public float avg_consumption;
+    public Date dt_odometer;
+    public int odometer;
 
     public Vehicle() {
         this.id = id;
         this.type = type;
         this.name = name;
         this.short_name = short_name;
-        this.license_plate = license_plate;
-        this.full_capacity = full_capacity;
-        this.avg_consumption = avg_consumption;
         this.brand = brand;
-        this.type_fuel = type_fuel;
-        this.dt_acquisition = dt_acquisition;
-        this.dt_sale = dt_sale;
-        this.dt_odometer = dt_odometer;
-        this.odometer = odometer;
-
         this.model = model;
-        this.color = color;
+        this.type_fuel = type_fuel;
+
         this.year_model = year_model;
         this.year_manufacture = year_manufacture;
+        this.license_plate = license_plate;
         this.vin = vin;
-        this.renavan_number = renavan_number;
+        this.licence_number = licence_number;
         this.state = state;
         this.city = city;
+        this.color = color;
+        this.dt_acquisition = dt_acquisition;
+        this.dt_sale = dt_sale;
 
         this.doors = doors;
         this.capacity = capacity;
         this.power = power;
+        this.full_capacity = full_capacity;
+        this.avg_consumption = avg_consumption;
+        this.dt_odometer = dt_odometer;
+        this.odometer = odometer;
         this.estimated_value = estimated_value;
     }
     @NonNull
@@ -87,7 +86,8 @@ public class Vehicle {
                 draw = R.drawable.ic_vehicle_suv;
                 break;
             default:
-                throw new IllegalStateException("Unexpected value type vehicle: " + type);
+                draw = R.drawable.ic_button_error;
+                break;
         }
         return draw;
     }
@@ -164,8 +164,8 @@ public class Vehicle {
     public String getVin() {return vin;}
     public void setVin(String vin) {this.vin = vin;}
 
-    public String getRenavan_number() {return renavan_number;}
-    public void setRenavan_number(String renavan_number) {this.renavan_number = renavan_number;}
+    public String getLicence_number() {return licence_number;}
+    public void setLicence_number(String licence_number) {this.licence_number = licence_number;}
 
     public String getState() {return state;}
     public void setState(String state) {this.state = state;}

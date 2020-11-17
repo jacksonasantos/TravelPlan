@@ -35,7 +35,7 @@
     <string name="No">Não</string>
     <string name="Vehicle_Odometer">Odômetro</string>
     <string name="Vehicle_DtOdometer">Data Odômetro</string>
-    <string name="Vehicle_Short_Name">Nome Curto</string>
+    <string name="Vehicle_Short_Name">Apelido</string>
     <string name="Vehicle_DtAcquisition">Data de Aquisição</string>
     <string name="Vehicle_DtSale">Data de Venda</string>
     <string name="Vehicle_TypeCar">Carro</string>
@@ -119,4 +119,20 @@
     <string name="uruguayan_peso">$ - Peso Urugaio</string>
     <string name="chilean_peso">$ - Peso Chileno</string>
     <string name="euro">€ - Euro</string>
+    <string name="Vehicle_Detail">Detalhes</string>
+    <string name="Legal_Vehicle">Legais</string>
+    <string name="Vehicle_Statistics">Estatísticas</string>
+    <string name="Vehicle_Model">Modelo</string>
+    <string name="Vehicle_Vin">Chassi</string>
+    <string name="Vehicle_Licence_Number">Número Renavan</string>
+    <string name="Vehicle_State">Estado</string>
+    <string name="Vehicle_City">Cidade</string>
+    <string name="Vehicle_Color">Cor</string>
+    <string name="Vehicle_Doors">Portas</string>
+    <string name="Vehicle_Capacity">Capacidade</string>
+    <string name="Vehicle_Power">Potência</string>
+    <string name="Vehicle_Year_Mode">Ano Modelo</string>
+    <string name="Vehicle_Year_Manufacture">Ano Fabricação</string>
+    <string name="Vehicle_Estimated_Value">Valor Estimado</string>
+    <string name="menu_save">Salvar</string>
 </resources>
