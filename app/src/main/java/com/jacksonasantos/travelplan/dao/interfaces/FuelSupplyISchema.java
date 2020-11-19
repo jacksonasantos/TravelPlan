@@ -1,6 +1,6 @@
 package com.jacksonasantos.travelplan.dao.interfaces;
 
-public interface FuelSupplylSchema {
+public interface FuelSupplyISchema {
 
     String FUEL_SUPPLY_TABLE = "fuel_supply";
 

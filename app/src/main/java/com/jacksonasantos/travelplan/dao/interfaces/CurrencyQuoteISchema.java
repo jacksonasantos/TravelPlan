@@ -1,6 +1,6 @@
 package com.jacksonasantos.travelplan.dao.interfaces;
 
-public interface CurrencyQuotelSchema {
+public interface CurrencyQuoteISchema {
 
     String CURRENCY_QUOTE_TABLE = "currency_quote";
 

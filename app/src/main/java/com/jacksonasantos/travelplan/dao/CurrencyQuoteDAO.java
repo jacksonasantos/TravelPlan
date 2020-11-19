@@ -6,15 +6,15 @@ import android.database.sqlite.SQLiteConstraintException;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
-import com.jacksonasantos.travelplan.dao.interfaces.CurrencyQuotelDAO;
-import com.jacksonasantos.travelplan.dao.interfaces.CurrencyQuotelSchema;
+import com.jacksonasantos.travelplan.dao.interfaces.CurrencyQuoteIDAO;
+import com.jacksonasantos.travelplan.dao.interfaces.CurrencyQuoteISchema;
 import com.jacksonasantos.travelplan.ui.utility.Utils;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class CurrencyQuoteDAO extends DbContentProvider implements CurrencyQuotelSchema, CurrencyQuotelDAO {
+public class CurrencyQuoteDAO extends DbContentProvider implements CurrencyQuoteISchema, CurrencyQuoteIDAO {
 
     private Cursor cursor;
     private ContentValues initialValues;

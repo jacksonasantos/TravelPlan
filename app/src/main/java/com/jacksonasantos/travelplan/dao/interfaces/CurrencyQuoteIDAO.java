@@ -5,7 +5,7 @@ import com.jacksonasantos.travelplan.dao.CurrencyQuote;
 import java.util.Date;
 import java.util.List;
 
-public interface CurrencyQuotelDAO {
+public interface CurrencyQuoteIDAO {
     CurrencyQuote fetchCurrencyQuoteById(int currencyQuoteId);
     List<CurrencyQuote> fetchAllCurrencyQuotes();
     boolean addCurrencyQuote(CurrencyQuote currencyQuote);

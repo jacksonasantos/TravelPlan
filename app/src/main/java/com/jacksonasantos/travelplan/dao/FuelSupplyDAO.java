@@ -7,14 +7,14 @@ import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
 import com.jacksonasantos.travelplan.dao.interfaces.FuelSupplyIDAO;
-import com.jacksonasantos.travelplan.dao.interfaces.FuelSupplylSchema;
+import com.jacksonasantos.travelplan.dao.interfaces.FuelSupplyISchema;
 import com.jacksonasantos.travelplan.ui.utility.Globals;
 import com.jacksonasantos.travelplan.ui.utility.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class FuelSupplyDAO extends DbContentProvider implements FuelSupplylSchema, FuelSupplyIDAO {
+public class FuelSupplyDAO extends DbContentProvider implements FuelSupplyISchema, FuelSupplyIDAO {
 
     private Cursor cursor;
     private ContentValues initialValues;
