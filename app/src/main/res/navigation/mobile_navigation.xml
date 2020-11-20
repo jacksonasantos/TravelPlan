@@ -41,4 +41,10 @@
         android:name="com.jacksonasantos.travelplan.SettingsActivity$SettingsFragment"
         android:label="@string/action_settings"
         tools:layout="@layout/activity_settings" />
+
+    <fragment
+        android:id="@+id/nav_insurance_company"
+        android:name="com.jacksonasantos.travelplan.ui.general.InsuranceCompanyFragment"
+        android:label="@string/menu_insurance_company"
+        tools:layout="@layout/fragment_insurance_company" />
 </navigation>

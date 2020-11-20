@@ -56,7 +56,7 @@ public class InsuranceCompanyDAO extends DbContentProvider implements InsuranceC
 
     public List<InsuranceCompany> fetchAllInsuranceCompanies() {
         List<InsuranceCompany> insuranceCompanyList = new ArrayList<>();
-        cursor = super.query(INSURANCE_COMPANY_TABLE, INSURANCE_COMPANY_COLUMNS, null, null, null);
+        cursor = super.query(INSURANCE_COMPANY_TABLE, INSURANCE_COMPANY_COLUMNS, null, null, INSURANCE_COMPANY_COMPANY_NAME);
         if (cursor.moveToFirst()) {
             do {
                 InsuranceCompany insuranceCompany = cursorToEntity(cursor);
@@ -68,7 +68,7 @@ public class InsuranceCompanyDAO extends DbContentProvider implements InsuranceC
         return insuranceCompanyList;
     }
 
-    public void deleteInsuranceCompany(int id) {
+    public void deleteInsuranceCompany(Long id) {
         final String[] selectionArgs = { String.valueOf(id) };
         final String selection = INSURANCE_COMPANY_ID + " = ?";
         try {

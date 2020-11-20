@@ -135,4 +135,16 @@
     <string name="Vehicle_Year_Manufacture">Ano Fabricação</string>
     <string name="Vehicle_Estimated_Value">Valor Estimado</string>
     <string name="menu_save">Salvar</string>
+    <string name="menu_insurance_company">Seguradoras</string>
+    <string name="InsuranceCompany_Name">Nome Seguradora</string>
+    <string name="InsuranceCompany_Cnpj">CNPJ</string>
+    <string name="InsuranceCompany_Address">Endereço</string>
+    <string name="InsuranceCompany_City">Cidade</string>
+    <string name="InsuranceCompany_State">Estado</string>
+    <string name="InsuranceCompany_ZipCode">CEP</string>
+    <string name="InsuranceCompany_Telephone">Telefone</string>
+    <string name="InsuranceCompany_Authorization_Date">Data de Autorização</string>
+    <string name="Insurance_Company_Deleting">Deletar Seguradora</string>
+    <string name="InsuranceCompany_Fip_Code">Código FIP</string>
+    <string name="Insurance_Company">Companhias de Seguros</string>
 </resources>

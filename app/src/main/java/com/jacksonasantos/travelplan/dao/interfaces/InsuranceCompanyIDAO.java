@@ -10,6 +10,6 @@ public interface InsuranceCompanyIDAO {
     InsuranceCompany fetchInsuranceCompanyByCNPJ(String cnpj) throws ParseException;
     List<InsuranceCompany> fetchAllInsuranceCompanies() throws ParseException;
     boolean addInsuranceCompany(InsuranceCompany insuranceCompany);
-    void deleteInsuranceCompany(int insuranceCompany);
+    void deleteInsuranceCompany(Long insuranceCompany);
     boolean updateInsuranceCompany(InsuranceCompany insuranceCompany);
 }

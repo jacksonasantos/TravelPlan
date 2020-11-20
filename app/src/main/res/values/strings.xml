@@ -10,6 +10,7 @@
     <string name="menu_fuel_supply">Fuel Supply</string>
     <string name="menu_maintenance">Maintenance Service</string>
     <string name="action_settings">Settings</string>
+    <string name="menu_insurance_company">Insurance Company</string>
 
     <!-- Preference Titles -->
     <string name="personal_header">Personal Data</string>
@@ -110,6 +111,20 @@
     <string name="FuelSupply_Last">Last Fuel Supply</string>
     <string name="InVehicleServices">In-Vehicle Services</string>
     <string name="bt_Done">Done</string>
+
+    <!-- Insurance Company Fragment -->
+    <string name="InsuranceCompany_Name">Company Name</string>
+    <string name="InsuranceCompany_Cnpj">CNPJ</string>
+    <string name="InsuranceCompany_Fip_Code">Fip Code</string>
+    <string name="InsuranceCompany_Address">Address</string>
+    <string name="InsuranceCompany_City">City</string>
+    <string name="InsuranceCompany_State">State</string>
+    <string name="InsuranceCompany_ZipCode">Zip Code</string>
+    <string name="InsuranceCompany_Telephone">Telephone</string>
+    <string name="InsuranceCompany_Authorization_Date">Authorization Date</string>
+
+    <string name="Insurance_Company">Insurance Company</string>
+    <string name="Insurance_Company_Deleting">Deleting Insurance Company</string>
 
     <!-- Generic -->
     <string name="Yes">Yes</string>
