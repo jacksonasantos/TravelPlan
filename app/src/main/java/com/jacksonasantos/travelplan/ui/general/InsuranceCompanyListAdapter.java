@@ -92,7 +92,7 @@ public class InsuranceCompanyListAdapter extends RecyclerView.Adapter<InsuranceC
                         .setPositiveButton(R.string.Yes, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
-                                Database.mInsuranceCompanyDAO.deleteInsuranceCompany(insuranceCompany.getId());
+                                Database.mInsuranceCompanyDao.deleteInsuranceCompany(insuranceCompany.getId());
                                 mInsuranceCompany.remove(position);
                                 notifyItemRemoved(position);
                             }

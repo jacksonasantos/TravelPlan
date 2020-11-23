@@ -26,13 +26,13 @@ public class Database {
     private final Context mContext;
 
     private static final String DATABASE_NAME = "TravelPlan.db";
-    private static final int DATABASE_VERSION = 12;
+    private static final int DATABASE_VERSION = 13;
 
     public static VehicleDAO mVehicleDao;
     public static FuelSupplyDAO mFuelSupplyDao;
     public static CurrencyQuoteDAO mCurrencyQuoteDao;
     public static MaintenanceDAO mMaintenanceDao;
-    public static InsuranceCompanyDAO mInsuranceCompanyDAO;
+    public static InsuranceCompanyDAO mInsuranceCompanyDao;
 
     public Database(Context context) {
         this.mContext = context;
@@ -47,7 +47,7 @@ public class Database {
         mFuelSupplyDao = new FuelSupplyDAO(mDb);
         mCurrencyQuoteDao = new CurrencyQuoteDAO(mDb);
         mMaintenanceDao = new MaintenanceDAO(mDb);
-        mInsuranceCompanyDAO = new InsuranceCompanyDAO(mDb);
+        mInsuranceCompanyDao = new InsuranceCompanyDAO(mDb);
     }
 
     public void close() {
@@ -64,7 +64,7 @@ public class Database {
             super.onConfigure(db);
             db.setForeignKeyConstraintsEnabled(true);
         }
-
+// TODO - Ajustar para melhorar a chamada dos comandos de manutenção de BD
         @SuppressLint("SQLiteString")
         @Override
         public void onCreate(SQLiteDatabase db) {

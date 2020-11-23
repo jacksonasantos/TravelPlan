@@ -97,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
 
             while ((lineStr = reader.readLine()) != null) {
                 String[] dataLine = lineStr.split(";");
-                InsuranceCompany insuranceCompany = Database.mInsuranceCompanyDAO.fetchInsuranceCompanyByCNPJ(dataLine[1]);
+                InsuranceCompany insuranceCompany = Database.mInsuranceCompanyDao.fetchInsuranceCompanyByCNPJ(dataLine[1]);
                 insuranceCompany.setCompany_name(dataLine[0]);
                 insuranceCompany.setCnpj(dataLine[1]);
                 insuranceCompany.setFip_code(dataLine[2]);
@@ -110,11 +110,11 @@ public class MainActivity extends AppCompatActivity {
                     insuranceCompany.setAuthorization_date(Utils.stringToDate(dataLine[8]));
                 }
                 if (insuranceCompany.getId() != null) {
-                    if (!Database.mInsuranceCompanyDAO.updateInsuranceCompany(insuranceCompany)) {
+                    if (!Database.mInsuranceCompanyDao.updateInsuranceCompany(insuranceCompany)) {
                         Toast.makeText(ctx, String.valueOf(R.string.Error_Changing_Data) + dataLine, Toast.LENGTH_LONG).show();
                     }
                 } else {
-                    if (!Database.mInsuranceCompanyDAO.addInsuranceCompany(insuranceCompany)) {
+                    if (!Database.mInsuranceCompanyDao.addInsuranceCompany(insuranceCompany)) {
                         Toast.makeText(ctx, String.valueOf(R.string.Error_Including_Data) + dataLine, Toast.LENGTH_LONG).show();
                     }
                 }

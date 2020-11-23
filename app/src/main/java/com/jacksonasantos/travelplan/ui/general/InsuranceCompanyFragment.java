@@ -33,7 +33,7 @@ public class InsuranceCompanyFragment extends Fragment  {
         mDb.open();
 
         RecyclerView listInsuranceCompany = (RecyclerView) this.getView().findViewById(R.id.listInsuranceCompany);
-        InsuranceCompanyListAdapter adapter = new InsuranceCompanyListAdapter(Database.mInsuranceCompanyDAO.fetchAllInsuranceCompanies(), getContext());
+        InsuranceCompanyListAdapter adapter = new InsuranceCompanyListAdapter(Database.mInsuranceCompanyDao.fetchAllInsuranceCompanies(), getContext());
         listInsuranceCompany.setAdapter(adapter);
         listInsuranceCompany.setLayoutManager(new LinearLayoutManager(getContext()));
 

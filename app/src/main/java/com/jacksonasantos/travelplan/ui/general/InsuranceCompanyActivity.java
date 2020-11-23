@@ -50,7 +50,7 @@ public class InsuranceCompanyActivity extends AppCompatActivity {
             insuranceCompany = new InsuranceCompany();
             if (extras.getLong( "insuranceCompany_id") > 0) {
                 insuranceCompany.setId(extras.getLong("insuranceCompany_id"));
-                insuranceCompany = Database.mInsuranceCompanyDAO.fetchInsuranceCompanyById(insuranceCompany.getId());
+                insuranceCompany = Database.mInsuranceCompanyDao.fetchInsuranceCompanyById(insuranceCompany.getId());
                 opInsert = false;
             }
         }
@@ -116,13 +116,13 @@ public class InsuranceCompanyActivity extends AppCompatActivity {
                     if (!opInsert) {
                         try {
                             i1.setId(insuranceCompany.getId());
-                            isSave = Database.mInsuranceCompanyDAO.updateInsuranceCompany(i1);
+                            isSave = Database.mInsuranceCompanyDao.updateInsuranceCompany(i1);
                         } catch (Exception e) {
                             Toast.makeText(getApplicationContext(), R.string.Error_Changing_Data + e.getMessage(), Toast.LENGTH_LONG).show();
                         }
                     } else {
                         try {
-                            isSave = Database.mInsuranceCompanyDAO.addInsuranceCompany(i1);
+                            isSave = Database.mInsuranceCompanyDao.addInsuranceCompany(i1);
                         } catch (Exception e) {
                             Toast.makeText(getApplicationContext(), R.string.Error_Including_Data + e.getMessage(), Toast.LENGTH_LONG).show();
                         }
