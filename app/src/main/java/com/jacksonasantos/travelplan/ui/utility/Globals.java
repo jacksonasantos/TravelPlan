@@ -1,6 +1,5 @@
 package com.jacksonasantos.travelplan.ui.utility;
 
-
 public class Globals{
 
     private static Globals instance;
@@ -8,6 +7,7 @@ public class Globals{
     private boolean blFilterVehicle;
     private String txLanguage = "pt";
     private String txCountry = "BR";
+    private String txMeasureConsumption = "km/l";
 
     private Globals() { }
 
@@ -22,6 +22,9 @@ public class Globals{
 
     public String getCountry() { return this.txCountry; }
     public void setCountry(String country) { this.txCountry = country; }
+
+    public String getMeasureConsumption() { return this.txMeasureConsumption; }
+    public void setMeasureConsumption(String MeasureConsumption) { this.txMeasureConsumption = MeasureConsumption; }
 
     public static synchronized Globals getInstance() { if(instance==null){ instance=new Globals(); } return instance;
     }

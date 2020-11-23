@@ -40,11 +40,14 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     private TextView tvLicencePlate;
     private ImageView imVehicleType;
 
-    private ImageButton btnRefuel;
     private TextView tvFuelSupplyDate;
     private TextView tvFuelSupplyLastOdometer;
     private TextView tvFuelSupplyNumberLiters;
     private TextView tvFuelSupplyValue;
+
+    private RecyclerView vehicleStatisticsList;
+
+    private RecyclerView maintenanceList;
 
     Globals g = Globals.getInstance();
 
@@ -58,13 +61,15 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         spVehicle =v.findViewById(R.id.spVehicle);
         tvLicencePlate = v.findViewById(R.id.tvLicencePlate);
         imVehicleType = v.findViewById(R.id.imVehicleType);
-        btnRefuel = v.findViewById(R.id.btnRefuel);
+        ImageButton btnRefuel = v.findViewById(R.id.btnRefuel);
         tvFuelSupplyDate = v.findViewById(R.id.tvFuelSupplyDate);
         tvFuelSupplyLastOdometer = v.findViewById(R.id.tvFuelSupplyLastOdometer);
         tvFuelSupplyNumberLiters = v.findViewById(R.id.tvFuelSupplyNumberLiters);
         tvFuelSupplyValue = v.findViewById(R.id.tvFuelSupplyValue);
+        vehicleStatisticsList = v.findViewById(R.id.listVehicleStatistics);
+        maintenanceList = v.findViewById(R.id.listInVehicleService);
 
-        btnRefuel.setOnClickListener( new View.OnClickListener() {
+        btnRefuel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent (v.getContext(), FuelSupplyActivity.class);
@@ -100,19 +105,16 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
+                // Displays maintenance service reminder data for the selected vehicle
+                Database mDb = new Database(getContext());
+                mDb.open();
+
                 // Recupera dados do veículo selecionado no Spinner
                 vehicle[0] = (Vehicle) parent.getItemAtPosition(position);
                 tvLicencePlate.setText(vehicle[0].getLicense_plate());
                 imVehicleType.setImageResource(vehicle[0].getVehicleTypeImage(vehicle[0].getVehicle_type()));
 
                 g.setIdVehicle(vehicle[0].getId());
-
-                // Statistics of Vehicle in Global selection
-                RecyclerView vehicleStatistics = (RecyclerView) getView().findViewById(R.id.listVehicleStatistics);
-
-                HomeStatisticsListAdapter adapterVehicle = new HomeStatisticsListAdapter(Database.mVehicleStatisticsDao.findVehicleStatisticsbyId(g.getIdVehicle()), getContext());
-                vehicleStatistics.setAdapter(adapterVehicle);
-                vehicleStatistics.setLayoutManager(new LinearLayoutManager(getContext()));
 
                 // Last Fuel Supply of Vehicle in Global selection
                 FuelSupply fuelSupply = Database.mFuelSupplyDao.findLastFuelSupply( g.getIdVehicle() );
@@ -122,19 +124,19 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                 NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(locale);
                 tvFuelSupplyValue.setText(currencyFormatter.format(fuelSupply.getSupply_value()==null?BigDecimal.ZERO:fuelSupply.getSupply_value()));
 
-                // Displays maintenance service reminder data for the selected vehicle
-                Database mDb = new Database(getContext());
-                mDb.open();
+                // Statistics of Vehicle in Global selection
+                HomeStatisticsListAdapter adapterVehicle = new HomeStatisticsListAdapter(Database.mVehicleStatisticsDao.findVehicleStatisticsbyId(g.getIdVehicle()), getContext());
+                vehicleStatisticsList.setAdapter(adapterVehicle);
+                vehicleStatisticsList.setLayoutManager(new LinearLayoutManager(getContext()));
 
-                //RecyclerView maintenanceList = vMaintenance.findViewById(R.id.listInVehicleService);
-                RecyclerView maintenanceList = (RecyclerView) getView().findViewById(R.id.listInVehicleService);
-
-                HomeMaintenanceListAdapter adapter = new HomeMaintenanceListAdapter(Database.mMaintenanceDao.findReminderMaintenance( g.getIdVehicle() ), getContext());
-                maintenanceList.setAdapter(adapter);
+                // In-Vehicle Services
+                HomeMaintenanceListAdapter adapterMaintenance = new HomeMaintenanceListAdapter(Database.mMaintenanceDao.findReminderMaintenance( g.getIdVehicle() ), getContext());
+                maintenanceList.setAdapter(adapterMaintenance);
                 maintenanceList.setLayoutManager(new LinearLayoutManager(getContext()));
 
                 mDb.close();
-                adapter.notifyDataSetChanged();
+                adapterVehicle.notifyDataSetChanged();
+                adapterMaintenance.notifyDataSetChanged();
             }
 
             @Override
