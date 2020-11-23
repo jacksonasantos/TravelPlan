@@ -147,4 +147,6 @@
     <string name="InsuranceCompany_Fip_Code">Código FIP</string>
     <string name="Insurance_Company">Companhias de Seguros</string>
     <string name="Vehicle_Fuel_Type">Tipo de Combustível</string>
+    <string name="VehicleStatistics">Estatísticas do Veículo</string>
+    <string name="VehicleConsumption">Consumo</string>
 </resources>

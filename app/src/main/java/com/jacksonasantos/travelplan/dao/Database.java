@@ -13,12 +13,14 @@ import com.jacksonasantos.travelplan.dao.interfaces.FuelSupplyISchema;
 import com.jacksonasantos.travelplan.dao.interfaces.MaintenanceISchema;
 import com.jacksonasantos.travelplan.dao.interfaces.VehicleISchema;
 import com.jacksonasantos.travelplan.dao.interfaces.InsuranceCompanyISchema;
+import com.jacksonasantos.travelplan.dao.interfaces.VehicleStatisticsISchema;
 
 import static com.jacksonasantos.travelplan.dao.interfaces.VehicleISchema.VEHICLE_TABLE;
 import static com.jacksonasantos.travelplan.dao.interfaces.FuelSupplyISchema.FUEL_SUPPLY_TABLE;
 import static com.jacksonasantos.travelplan.dao.interfaces.CurrencyQuoteISchema.CURRENCY_QUOTE_TABLE;
 import static com.jacksonasantos.travelplan.dao.interfaces.MaintenanceISchema.MAINTENANCE_TABLE;
 import static com.jacksonasantos.travelplan.dao.interfaces.InsuranceCompanyISchema.INSURANCE_COMPANY_TABLE;
+import static com.jacksonasantos.travelplan.dao.interfaces.VehicleStatisticsISchema.VEHICLE_STATISTICS_TABLE;
 
 public class Database {
 
@@ -26,13 +28,14 @@ public class Database {
     private final Context mContext;
 
     private static final String DATABASE_NAME = "TravelPlan.db";
-    private static final int DATABASE_VERSION = 13;
+    private static final int DATABASE_VERSION = 14;
 
     public static VehicleDAO mVehicleDao;
     public static FuelSupplyDAO mFuelSupplyDao;
     public static CurrencyQuoteDAO mCurrencyQuoteDao;
     public static MaintenanceDAO mMaintenanceDao;
     public static InsuranceCompanyDAO mInsuranceCompanyDao;
+    public static VehicleStatisticsDAO mVehicleStatisticsDao;
 
     public Database(Context context) {
         this.mContext = context;
@@ -48,6 +51,7 @@ public class Database {
         mCurrencyQuoteDao = new CurrencyQuoteDAO(mDb);
         mMaintenanceDao = new MaintenanceDAO(mDb);
         mInsuranceCompanyDao = new InsuranceCompanyDAO(mDb);
+        mVehicleStatisticsDao = new VehicleStatisticsDAO(mDb);
     }
 
     public void close() {
@@ -94,6 +98,7 @@ public class Database {
             db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V11_11); Log.w("Table "+VEHICLE_TABLE,"V11.11 - Alter Table...");
             db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V11_12); Log.w("Table "+VEHICLE_TABLE,"V11.12 - Alter Table...");
             db.execSQL(InsuranceCompanyISchema.CREATE_TABLE_INSURANCE_COMPANY_V12); Log.w("Table "+INSURANCE_COMPANY_TABLE,"V12 - Create Table...");
+            db.execSQL(VehicleStatisticsISchema.CREATE_TABLE_VEHICLE_STATISTICS_V14); Log.w("Tab: "+VEHICLE_STATISTICS_TABLE,"V14 - Create Table...");
         }
 
         @SuppressLint("SQLiteString")
@@ -131,6 +136,7 @@ public class Database {
                 db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V11_11);
                 db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V11_12);
                 db.execSQL(InsuranceCompanyISchema.CREATE_TABLE_INSURANCE_COMPANY_V12);
+                db.execSQL(VehicleStatisticsISchema.CREATE_TABLE_VEHICLE_STATISTICS_V14);
             } else if (oldVersion == 2) {
                 db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V3);
                 db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V5);
@@ -156,6 +162,7 @@ public class Database {
                 db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V11_11);
                 db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V11_12);
                 db.execSQL(InsuranceCompanyISchema.CREATE_TABLE_INSURANCE_COMPANY_V12);
+                db.execSQL(VehicleStatisticsISchema.CREATE_TABLE_VEHICLE_STATISTICS_V14);
             } else if (oldVersion == 3) {
                 db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V5);
                 db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V6);
@@ -180,6 +187,7 @@ public class Database {
                 db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V11_11);
                 db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V11_12);
                 db.execSQL(InsuranceCompanyISchema.CREATE_TABLE_INSURANCE_COMPANY_V12);
+                db.execSQL(VehicleStatisticsISchema.CREATE_TABLE_VEHICLE_STATISTICS_V14);
             } else if (oldVersion == 4) {
                 db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V5);
                 db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V6);
@@ -204,6 +212,7 @@ public class Database {
                 db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V11_11);
                 db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V11_12);
                 db.execSQL(InsuranceCompanyISchema.CREATE_TABLE_INSURANCE_COMPANY_V12);
+                db.execSQL(VehicleStatisticsISchema.CREATE_TABLE_VEHICLE_STATISTICS_V14);
             } else if (oldVersion == 5) {
                 db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V6);
                 db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V7_1);
@@ -227,6 +236,7 @@ public class Database {
                 db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V11_11);
                 db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V11_12);
                 db.execSQL(InsuranceCompanyISchema.CREATE_TABLE_INSURANCE_COMPANY_V12);
+                db.execSQL(VehicleStatisticsISchema.CREATE_TABLE_VEHICLE_STATISTICS_V14);
             } else if (oldVersion == 6) {
                 db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V7_1);
                 db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V7_2);
@@ -249,6 +259,7 @@ public class Database {
                 db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V11_11);
                 db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V11_12);
                 db.execSQL(InsuranceCompanyISchema.CREATE_TABLE_INSURANCE_COMPANY_V12);
+                db.execSQL(VehicleStatisticsISchema.CREATE_TABLE_VEHICLE_STATISTICS_V14);
             } else if (oldVersion == 7) {
                 db.execSQL(FuelSupplyISchema.CREATE_TABLE_FUEL_SUPPLY_V8);
                 db.execSQL(CurrencyQuoteISchema.CREATE_TABLE_CURRENCY_QUOTE_V8);
@@ -267,6 +278,7 @@ public class Database {
                 db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V11_11);
                 db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V11_12);
                 db.execSQL(InsuranceCompanyISchema.CREATE_TABLE_INSURANCE_COMPANY_V12);
+                db.execSQL(VehicleStatisticsISchema.CREATE_TABLE_VEHICLE_STATISTICS_V14);
             } else if (oldVersion == 8) {
                 db.execSQL(FuelSupplyISchema.ALTER_TABLE_FUEL_SUPPLY_V9);
                 db.execSQL(MaintenanceISchema.CREATE_TABLE_MAINTENANCE_V10);
@@ -283,6 +295,7 @@ public class Database {
                 db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V11_11);
                 db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V11_12);
                 db.execSQL(InsuranceCompanyISchema.CREATE_TABLE_INSURANCE_COMPANY_V12);
+                db.execSQL(VehicleStatisticsISchema.CREATE_TABLE_VEHICLE_STATISTICS_V14);
             } else if (oldVersion == 9 ) {
                 db.execSQL(MaintenanceISchema.CREATE_TABLE_MAINTENANCE_V10);
                 db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V11_1);
@@ -298,6 +311,7 @@ public class Database {
                 db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V11_11);
                 db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V11_12);
                 db.execSQL(InsuranceCompanyISchema.CREATE_TABLE_INSURANCE_COMPANY_V12);
+                db.execSQL(VehicleStatisticsISchema.CREATE_TABLE_VEHICLE_STATISTICS_V14);
             } else if (oldVersion == 10 ) {
                 db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V11_1);
                 db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V11_2);
@@ -312,9 +326,15 @@ public class Database {
                 db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V11_11);
                 db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V11_12);
                 db.execSQL(InsuranceCompanyISchema.CREATE_TABLE_INSURANCE_COMPANY_V12);
+                db.execSQL(VehicleStatisticsISchema.CREATE_TABLE_VEHICLE_STATISTICS_V14);
             } else if (oldVersion == 11 ) {
                 db.execSQL(InsuranceCompanyISchema.CREATE_TABLE_INSURANCE_COMPANY_V12);
+                db.execSQL(VehicleStatisticsISchema.CREATE_TABLE_VEHICLE_STATISTICS_V14);
             } else if (oldVersion == 12 ) {
+                db.execSQL(VehicleStatisticsISchema.CREATE_TABLE_VEHICLE_STATISTICS_V14);
+            } else if (oldVersion == 13 ) {
+                db.execSQL(VehicleStatisticsISchema.CREATE_TABLE_VEHICLE_STATISTICS_V14);
+            } else if (oldVersion == 14 ) {
             }
         }
     }

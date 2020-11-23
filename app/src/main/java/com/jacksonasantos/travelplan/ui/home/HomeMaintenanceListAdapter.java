@@ -1,5 +1,6 @@
 package com.jacksonasantos.travelplan.ui.home;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
@@ -25,22 +26,23 @@ import com.jacksonasantos.travelplan.ui.utility.Utils;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.Objects;
 
 public class HomeMaintenanceListAdapter extends RecyclerView.Adapter<HomeMaintenanceListAdapter.MyViewHolder> {
 
-    private List<Maintenance> mMaintenance;
+    private final List<Maintenance> mMaintenance;
     Context context;
     String[] typeArray;
 
     public static class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        private ConstraintLayout llMaintenanceItem;
-        private ImageView imServiceType;
-        private ImageView imServiceExpired;
-        private TextView txtMaintenanceExpirationDate;
-        private TextView txtMaintenanceOdometer;
-        private TextView txtServiceType;
-        private ImageButton btnDone;
+        private final ConstraintLayout llMaintenanceItem;
+        private final ImageView imServiceType;
+        private final ImageView imServiceExpired;
+        private final TextView txtMaintenanceExpirationDate;
+        private final TextView txtMaintenanceOdometer;
+        private final TextView txtServiceType;
+        private final ImageButton btnDone;
 
         public MyViewHolder(View v) {
             super(v);
@@ -66,6 +68,7 @@ public class HomeMaintenanceListAdapter extends RecyclerView.Adapter<HomeMainten
         mdb.open();
     }
 
+    @NonNull
     @Override
     public HomeMaintenanceListAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View maintenanceView = LayoutInflater.from(parent.getContext())
@@ -81,7 +84,7 @@ public class HomeMaintenanceListAdapter extends RecyclerView.Adapter<HomeMainten
     @Override
     public void onBindViewHolder(@NonNull final MyViewHolder holder, final int position) {
         final Maintenance maintenance = mMaintenance.get(position);
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         if (position%2==0) {
             holder.llMaintenanceItem.setBackgroundColor(Color.rgb(209,193,233));
         } else {
@@ -94,7 +97,7 @@ public class HomeMaintenanceListAdapter extends RecyclerView.Adapter<HomeMainten
                 holder.imServiceExpired.setColorFilter(Color.BLUE, PorterDuff.Mode.MULTIPLY);
             } else {
                 if (!(maintenance.getExpiration_date() == null)) {
-                    if (System.currentTimeMillis() < sdf.parse(Utils.dateToString(maintenance.getExpiration_date())).getTime()) {
+                    if (System.currentTimeMillis() < Objects.requireNonNull(sdf.parse(Objects.requireNonNull(Utils.dateToString(maintenance.getExpiration_date())))).getTime()) {
                         holder.imServiceExpired.setColorFilter(Color.GREEN, PorterDuff.Mode.MULTIPLY);
                     } else {
                         holder.imServiceExpired.setColorFilter(Color.RED, PorterDuff.Mode.MULTIPLY);
@@ -117,7 +120,7 @@ public class HomeMaintenanceListAdapter extends RecyclerView.Adapter<HomeMainten
                     mDb.open();
                     Maintenance m1 = Database.mMaintenanceDao.fetchMaintenanceById(maintenance.getId());
                     m1.setStatus(maintenance.getStatus() == 0 ? 1 : 0);
-                    Boolean isSave = Database.mMaintenanceDao.updateMaintenance(m1);
+                    Database.mMaintenanceDao.updateMaintenance(m1);
                     mDb.close();
                     notifyDataSetChanged();
                 }  catch (Exception e) {

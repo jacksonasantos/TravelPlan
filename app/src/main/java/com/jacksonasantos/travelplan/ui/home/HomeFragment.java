@@ -24,6 +24,7 @@ import com.jacksonasantos.travelplan.R;
 import com.jacksonasantos.travelplan.dao.Database;
 import com.jacksonasantos.travelplan.dao.FuelSupply;
 import com.jacksonasantos.travelplan.dao.Vehicle;
+import com.jacksonasantos.travelplan.dao.VehicleStatistics;
 import com.jacksonasantos.travelplan.ui.utility.Globals;
 import com.jacksonasantos.travelplan.ui.utility.Utils;
 import com.jacksonasantos.travelplan.ui.vehicle.FuelSupplyActivity;
@@ -62,7 +63,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         tvFuelSupplyLastOdometer = v.findViewById(R.id.tvFuelSupplyLastOdometer);
         tvFuelSupplyNumberLiters = v.findViewById(R.id.tvFuelSupplyNumberLiters);
         tvFuelSupplyValue = v.findViewById(R.id.tvFuelSupplyValue);
-
 
         btnRefuel.setOnClickListener( new View.OnClickListener() {
             @Override
@@ -106,6 +106,13 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                 imVehicleType.setImageResource(vehicle[0].getVehicleTypeImage(vehicle[0].getVehicle_type()));
 
                 g.setIdVehicle(vehicle[0].getId());
+
+                // Statistics of Vehicle in Global selection
+                RecyclerView vehicleStatistics = (RecyclerView) getView().findViewById(R.id.listVehicleStatistics);
+
+                HomeStatisticsListAdapter adapterVehicle = new HomeStatisticsListAdapter(Database.mVehicleStatisticsDao.findVehicleStatisticsbyId(g.getIdVehicle()), getContext());
+                vehicleStatistics.setAdapter(adapterVehicle);
+                vehicleStatistics.setLayoutManager(new LinearLayoutManager(getContext()));
 
                 // Last Fuel Supply of Vehicle in Global selection
                 FuelSupply fuelSupply = Database.mFuelSupplyDao.findLastFuelSupply( g.getIdVehicle() );

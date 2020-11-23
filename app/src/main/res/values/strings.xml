@@ -110,6 +110,8 @@
     <string name="Odometer">Odometer</string>
     <string name="FuelSupply_Last">Last Fuel Supply</string>
     <string name="InVehicleServices">In-Vehicle Services</string>
+    <string name="VehicleStatistics">Vehicle Statistics</string>
+    <string name="VehicleConsumption">Consumption</string>
     <string name="bt_Done">Done</string>
 
     <!-- Insurance Company Fragment -->

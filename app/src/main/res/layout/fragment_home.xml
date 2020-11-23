@@ -157,7 +157,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/layerServiceVehicle"
+        android:id="@+id/layerStatisticsVehicle"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginStart="@dimen/labels_margin"
@@ -167,6 +167,62 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/layerFuelSupply"
+        tools:ignore="MissingConstraints">
+
+        <TextView
+            android:id="@+id/tvVehicleStatistics"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/VehicleStatistics"
+            android:textColor="@color/design_default_color_secondary"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvConsumption"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/VehicleConsumption"
+            android:textColor="@color/design_default_color_secondary"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvVehicleStatistics" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/listVehicleStatistics"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="@dimen/labels_margin"
+            android:layout_marginLeft="@dimen/labels_margin"
+            android:scrollbars="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/tvConsumption"
+            app:layout_constraintTop_toBottomOf="@+id/tvVehicleStatistics" />
+
+        <Button
+            android:id="@+id/buttonSeparator3"
+            android:layout_width="match_parent"
+            android:layout_height="16dp"
+            android:clickable="false"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/listVehicleStatistics" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layerServiceVehicle"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginStart="@dimen/labels_margin"
+        android:layout_marginLeft="@dimen/labels_margin"
+        android:layout_marginEnd="@dimen/labels_margin"
+        android:layout_marginRight="@dimen/labels_margin"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/layerStatisticsVehicle"
         tools:ignore="MissingConstraints">
 
         <TextView
@@ -190,7 +246,7 @@
             app:layout_constraintTop_toBottomOf="@+id/tvVehicleServiceNext" />
 
         <Button
-            android:id="@+id/buttonSeparator3"
+            android:id="@+id/buttonSeparator4"
             android:layout_width="match_parent"
             android:layout_height="16dp"
             android:clickable="false"
