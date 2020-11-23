@@ -45,7 +45,7 @@ public class MaintenanceListAdapter extends RecyclerView.Adapter<MaintenanceList
 
         public TextView txtMaintenanceDate;
         public TextView txtVehicleName;
-        public TextView txtType;
+        public TextView txtServiceType;
         public ImageView imServiceType;
         public ImageView imServiceExpired;
         public TextView txtMaintenanceValue;
@@ -57,7 +57,7 @@ public class MaintenanceListAdapter extends RecyclerView.Adapter<MaintenanceList
             super(v);
             txtMaintenanceDate = v.findViewById(R.id.txtMaintenanceDate);
             txtVehicleName = v.findViewById(R.id.txtVehicleName);
-            txtType = v.findViewById(R.id.txtType);
+            txtServiceType = v.findViewById(R.id.txtServiceType);
             imServiceType = v.findViewById(R.id.imServiceType);
             imServiceExpired = v.findViewById(R.id.imServiceExpired);
             txtMaintenanceValue = v.findViewById(R.id.txtMaintenanceValue);
@@ -100,8 +100,8 @@ public class MaintenanceListAdapter extends RecyclerView.Adapter<MaintenanceList
         holder.txtMaintenanceDate.setText(Utils.dateToString(maintenance.getDate()));
         Vehicle v = Database.mVehicleDao.fetchVehicleById(maintenance.getVehicle_id());
         holder.txtVehicleName.setText(v.getName());
-        holder.txtType.setText(serviceArray[maintenance.getType()]);
-        holder.imServiceType.setImageResource(maintenance.getTypeImage(maintenance.getType()));
+        holder.txtServiceType.setText(serviceArray[maintenance.getService_type()]);
+        holder.imServiceType.setImageResource(maintenance.getServiceTypeImage(maintenance.getService_type()));
         holder.imServiceExpired.setImageResource(R.drawable.ic_ball );
         try {
             if (maintenance.getStatus() == 1) {

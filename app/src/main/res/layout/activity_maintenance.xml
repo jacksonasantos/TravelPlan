@@ -74,7 +74,7 @@
                 android:baselineAligned="false">
 
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/input_layout_spinType"
+                    android:id="@+id/input_layout_spinService_type"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/labels_margin"
@@ -86,7 +86,7 @@
                     style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu">
 
                     <AutoCompleteTextView
-                        android:id="@+id/spinType"
+                        android:id="@+id/spinService_type"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:entries="@array/vehicle_services"

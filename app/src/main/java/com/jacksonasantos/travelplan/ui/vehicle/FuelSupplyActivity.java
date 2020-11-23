@@ -142,7 +142,7 @@ public class FuelSupplyActivity extends AppCompatActivity {
         Vehicle vehicle = Database.mVehicleDao.fetchVehicleById(nrVehicleId);
         txVehicleName.setText(vehicle.getName());
         txVehicleLicencePlate.setText(vehicle.getLicense_plate());
-        imVehicleType.setImageResource(vehicle.getTypeImage(vehicle.getType()));
+        imVehicleType.setImageResource(vehicle.getVehicleTypeImage(vehicle.getVehicle_type()));
         etSupplyDate.addTextChangedListener(new DateInputMask(etSupplyDate));
         createSpinnerResources(R.array.fuel_array, spinCombustible);
         nrSpinCombustible = 0;

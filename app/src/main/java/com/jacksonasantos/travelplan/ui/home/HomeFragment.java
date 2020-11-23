@@ -103,7 +103,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                 // Recupera dados do veículo selecionado no Spinner
                 vehicle[0] = (Vehicle) parent.getItemAtPosition(position);
                 tvLicencePlate.setText(vehicle[0].getLicense_plate());
-                imVehicleType.setImageResource(vehicle[0].getTypeImage(vehicle[0].getType()));
+                imVehicleType.setImageResource(vehicle[0].getVehicleTypeImage(vehicle[0].getVehicle_type()));
 
                 g.setIdVehicle(vehicle[0].getId());
 

@@ -115,14 +115,14 @@ public class VehicleDAO extends DbContentProvider implements VehicleISchema, Veh
         Vehicle vehicle = new Vehicle();
 
         int idIndex;
-        int typeIndex;
+        int vehicle_typeIndex;
         int nameIndex;
         int short_nameIndex;
         int license_plateIndex;
         int full_capacityIndex;
         int avg_consumptionIndex;
         int brandIndex;
-        int type_fuelIndex;
+        int fuel_typeIndex;
         int dt_acquisitionIndex;
         int dt_saleIndex;
         int dt_odometerIndex;
@@ -145,9 +145,9 @@ public class VehicleDAO extends DbContentProvider implements VehicleISchema, Veh
                 idIndex = cursor.getColumnIndexOrThrow(VEHICLE_ID);
                 vehicle.id = cursor.getLong(idIndex);
             }
-            if (cursor.getColumnIndex(VEHICLE_TYPE) != -1) {
-                typeIndex = cursor.getColumnIndexOrThrow(VEHICLE_TYPE);
-                vehicle.type = cursor.getInt(typeIndex);
+            if (cursor.getColumnIndex(VEHICLE_VEHICLE_TYPE) != -1) {
+                vehicle_typeIndex = cursor.getColumnIndexOrThrow(VEHICLE_VEHICLE_TYPE);
+                vehicle.vehicle_type = cursor.getInt(vehicle_typeIndex);
             }
             if (cursor.getColumnIndex(VEHICLE_NAME) != -1) {
                 nameIndex = cursor.getColumnIndexOrThrow(VEHICLE_NAME);
@@ -173,9 +173,9 @@ public class VehicleDAO extends DbContentProvider implements VehicleISchema, Veh
                 brandIndex = cursor.getColumnIndexOrThrow(VEHICLE_BRAND);
                 vehicle.brand = cursor.getString(brandIndex);
             }
-            if (cursor.getColumnIndex(VEHICLE_TYPE_FUEL) != -1) {
-                type_fuelIndex = cursor.getColumnIndexOrThrow(VEHICLE_TYPE_FUEL);
-                vehicle.type_fuel = cursor.getInt(type_fuelIndex);
+            if (cursor.getColumnIndex(VEHICLE_FUEL_TYPE) != -1) {
+                fuel_typeIndex = cursor.getColumnIndexOrThrow(VEHICLE_FUEL_TYPE);
+                vehicle.fuel_type = cursor.getInt(fuel_typeIndex);
             }
             if (cursor.getColumnIndex(VEHICLE_DT_ACQUISITION) != -1) {
                 dt_acquisitionIndex = cursor.getColumnIndexOrThrow(VEHICLE_DT_ACQUISITION);
@@ -247,13 +247,13 @@ public class VehicleDAO extends DbContentProvider implements VehicleISchema, Veh
 
     private void setContentValue(Vehicle vehicle) {
         initialValues = new ContentValues();
-        initialValues.put(VEHICLE_TYPE, vehicle.type);
+        initialValues.put(VEHICLE_VEHICLE_TYPE, vehicle.vehicle_type);
         initialValues.put(VEHICLE_NAME, vehicle.name);
         initialValues.put(VEHICLE_LICENCE_PLATE, vehicle.license_plate);
         initialValues.put(VEHICLE_FULL_CAPACITY, vehicle.full_capacity);
         initialValues.put(VEHICLE_AVG_CONSUMPTION, vehicle.avg_consumption);
         initialValues.put(VEHICLE_BRAND, vehicle.brand);
-        initialValues.put(VEHICLE_TYPE_FUEL, vehicle.type_fuel);
+        initialValues.put(VEHICLE_FUEL_TYPE, vehicle.fuel_type);
         initialValues.put(VEHICLE_SHORT_NAME, vehicle.short_name);
         initialValues.put(VEHICLE_DT_ACQUISITION, Utils.dateToString(vehicle.dt_acquisition));
         initialValues.put(VEHICLE_DT_SALE, Utils.dateToString(vehicle.dt_sale));

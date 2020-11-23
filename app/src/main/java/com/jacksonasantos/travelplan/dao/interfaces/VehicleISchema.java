@@ -5,11 +5,11 @@ public interface VehicleISchema {
     String VEHICLE_TABLE = "vehicle";
 
     String VEHICLE_ID = "rowid";
-    String VEHICLE_TYPE = "type";
+    String VEHICLE_VEHICLE_TYPE = "vehicle_type";
     String VEHICLE_NAME = "name";
     String VEHICLE_LICENCE_PLATE = "license_plate";
     String VEHICLE_BRAND = "brand";
-    String VEHICLE_TYPE_FUEL = "type_fuel";
+    String VEHICLE_FUEL_TYPE = "fuel_type";
     String VEHICLE_FULL_CAPACITY = "full_capacity";
     String VEHICLE_AVG_CONSUMPTION = "avg_consumption";
     String VEHICLE_SHORT_NAME = "short_name";
@@ -45,11 +45,11 @@ public interface VehicleISchema {
 
     // Version 3
     String ALTER_TABLE_VEHICLE_V3 = "ALTER TABLE " + VEHICLE_TABLE
-            + " ADD COLUMN " + VEHICLE_TYPE_FUEL + " INT";
+            + " ADD COLUMN " + VEHICLE_FUEL_TYPE + " INT";
 
     // Version 5
     String ALTER_TABLE_VEHICLE_V5 = "ALTER TABLE " + VEHICLE_TABLE
-            + " ADD COLUMN " + VEHICLE_TYPE + " INT";
+            + " ADD COLUMN " + VEHICLE_VEHICLE_TYPE + " INT";
 
     // Version 6
     String ALTER_TABLE_VEHICLE_V6 = "ALTER TABLE " + VEHICLE_TABLE + " ADD COLUMN " + VEHICLE_SHORT_NAME + " TEXT";
@@ -76,13 +76,13 @@ public interface VehicleISchema {
 
     String[] VEHICLE_COLUMNS = new String[] {
             VEHICLE_ID,
-            VEHICLE_TYPE,
+            VEHICLE_VEHICLE_TYPE,
             VEHICLE_NAME,
             VEHICLE_LICENCE_PLATE,
             VEHICLE_FULL_CAPACITY,
             VEHICLE_AVG_CONSUMPTION,
             VEHICLE_BRAND,
-            VEHICLE_TYPE_FUEL,
+            VEHICLE_FUEL_TYPE,
             VEHICLE_SHORT_NAME,
             VEHICLE_DT_ACQUISITION,
             VEHICLE_DT_SALE,

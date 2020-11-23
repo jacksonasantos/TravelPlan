@@ -17,13 +17,13 @@
         <item>@string/personal_gender_female</item>
     </string-array>
     <!-- Type Vehicle -->
-    <string-array name="type_vehicle_array">
+    <string-array name="vehicle_type_array">
         <item>@string/Vehicle_TypeCar</item>
         <item>@string/Vehicle_TypeMotorcycle</item>
         <item>@string/Vehicle_TypeSUV</item>
     </string-array>
     <!-- Type Fuel -->
-    <string-array name="type_fuel_array">
+    <string-array name="fuel_type_array">
         <item>@string/ethanol</item>
         <item>@string/gasoline</item>
         <item>@string/diesel</item>

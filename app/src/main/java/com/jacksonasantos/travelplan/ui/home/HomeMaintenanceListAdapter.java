@@ -39,7 +39,7 @@ public class HomeMaintenanceListAdapter extends RecyclerView.Adapter<HomeMainten
         private ImageView imServiceExpired;
         private TextView txtMaintenanceExpirationDate;
         private TextView txtMaintenanceOdometer;
-        private TextView txtType;
+        private TextView txtServiceType;
         private ImageButton btnDone;
 
         public MyViewHolder(View v) {
@@ -49,7 +49,7 @@ public class HomeMaintenanceListAdapter extends RecyclerView.Adapter<HomeMainten
             imServiceExpired = v.findViewById(R.id.imServiceExpired);
             txtMaintenanceExpirationDate = v.findViewById(R.id.txtMaintenanceExpirationDate);
             txtMaintenanceOdometer = v.findViewById(R.id.txtMaintenanceOdometer);
-            txtType = v.findViewById(R.id.txtType);
+            txtServiceType = v.findViewById(R.id.txtServiceType);
             btnDone = v.findViewById(R.id.btnDone);
         }
 
@@ -87,7 +87,7 @@ public class HomeMaintenanceListAdapter extends RecyclerView.Adapter<HomeMainten
         } else {
             holder.llMaintenanceItem.setBackgroundColor(Color.WHITE);
         }
-        holder.imServiceType.setImageResource(maintenance.getTypeImage(maintenance.getType()));
+        holder.imServiceType.setImageResource(maintenance.getServiceTypeImage(maintenance.getService_type()));
         holder.imServiceExpired.setImageResource(R.drawable.ic_ball );
         try {
             if (maintenance.getStatus() == 1) {
@@ -106,7 +106,7 @@ public class HomeMaintenanceListAdapter extends RecyclerView.Adapter<HomeMainten
         }
         holder.txtMaintenanceExpirationDate.setText(Utils.dateToString(maintenance.getExpiration_date()));
         holder.txtMaintenanceOdometer.setText(String.valueOf(maintenance.getExpiration_km()));
-        holder.txtType.setText(typeArray[maintenance.getType()]);
+        holder.txtServiceType.setText(typeArray[maintenance.getService_type()]);
 
         // btnDone - change Status for Service for completed and remove of list
         holder.btnDone.setOnClickListener (new View.OnClickListener() {

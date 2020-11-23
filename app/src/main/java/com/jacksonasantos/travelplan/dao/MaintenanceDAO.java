@@ -122,7 +122,7 @@ public class MaintenanceDAO extends DbContentProvider implements MaintenanceISch
 
         int idIndex;
         int vehicle_idIndex;
-        int typeIndex;
+        int service_typeIndex;
         int detailIndex;
         int dateIndex;
         int expiration_dateIndex;
@@ -142,9 +142,9 @@ public class MaintenanceDAO extends DbContentProvider implements MaintenanceISch
                 vehicle_idIndex = cursor.getColumnIndexOrThrow(MAINTENANCE_VEHICLE_ID);
                 maintenance.setVehicle_id(cursor.getLong(vehicle_idIndex));
             }
-            if (cursor.getColumnIndex(MAINTENANCE_TYPE) != -1) {
-                typeIndex = cursor.getColumnIndexOrThrow(MAINTENANCE_TYPE);
-                maintenance.setType(cursor.getInt(typeIndex));
+            if (cursor.getColumnIndex(MAINTENANCE_SERVICE_TYPE) != -1) {
+                service_typeIndex = cursor.getColumnIndexOrThrow(MAINTENANCE_SERVICE_TYPE);
+                maintenance.setService_type(cursor.getInt(service_typeIndex));
             }
             if (cursor.getColumnIndex(MAINTENANCE_DETAIL) != -1) {
                 detailIndex = cursor.getColumnIndexOrThrow(MAINTENANCE_DETAIL);
@@ -190,7 +190,7 @@ public class MaintenanceDAO extends DbContentProvider implements MaintenanceISch
         initialValues = new ContentValues();
         initialValues.put(MAINTENANCE_ID, maintenance.id);
         initialValues.put(MAINTENANCE_VEHICLE_ID, maintenance.vehicle_id);
-        initialValues.put(MAINTENANCE_TYPE, maintenance.type);
+        initialValues.put(MAINTENANCE_SERVICE_TYPE, maintenance.service_type);
         initialValues.put(MAINTENANCE_DETAIL, maintenance.detail);
         initialValues.put(MAINTENANCE_DATE, Utils.dateToString(maintenance.date));
         initialValues.put(MAINTENANCE_EXPIRATION_DATE, Utils.dateToString(maintenance.expiration_date));

@@ -29,7 +29,7 @@ public class VehicleListAdapter extends RecyclerView.Adapter<VehicleListAdapter.
 
     public static class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        public ImageView imType;
+        public ImageView imVehicleType;
         public TextView txtPlate;
         public TextView txtShortName;
         public ImageButton btnEdit;
@@ -38,7 +38,7 @@ public class VehicleListAdapter extends RecyclerView.Adapter<VehicleListAdapter.
 
         public MyViewHolder(View v) {
             super(v);
-            imType = v.findViewById(R.id.imType);
+            imVehicleType = v.findViewById(R.id.imVehicleType);
             txtPlate = v.findViewById(R.id.txtPlate);
             txtShortName = (TextView) v.findViewById(R.id.txtShortName);
             btnEdit = (ImageButton) v.findViewById(R.id.btnEdit);
@@ -76,7 +76,7 @@ public class VehicleListAdapter extends RecyclerView.Adapter<VehicleListAdapter.
     public void onBindViewHolder(@NonNull final MyViewHolder holder, final int position) {
         final Vehicle vehicle = mVehicle.get(position);
 
-        holder.imType.setImageResource(vehicle.getTypeImage(vehicle.getType()));
+        holder.imVehicleType.setImageResource(vehicle.getVehicleTypeImage(vehicle.getVehicle_type()));
         holder.txtPlate.setText(vehicle.getLicense_plate());
         holder.txtShortName.setText(vehicle.getShort_name());
 

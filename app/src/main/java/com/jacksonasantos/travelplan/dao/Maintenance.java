@@ -7,7 +7,7 @@ import java.util.Date;
 public class Maintenance {
     public Long id;
     public Long vehicle_id=0L;
-    public int type;
+    public int service_type;
     public String detail;
     public Date date;
     public Date expiration_date;
@@ -21,7 +21,7 @@ public class Maintenance {
     public Maintenance() {
         this.id = id;
         this.vehicle_id=vehicle_id;
-        this.type=type;
+        this.service_type=service_type;
         this.detail=detail;
         this.date=date;
         this.expiration_date=expiration_date;
@@ -41,9 +41,9 @@ public class Maintenance {
 
     public void setVehicle_id(Long vehicle_id) { this.vehicle_id = vehicle_id; }
 
-    public int getTypeImage( int type ) {
+    public int getServiceTypeImage( int service_type ) {
         int draw;
-        switch(type) {
+        switch(service_type) {
             case 0: draw = R.drawable.ic_service_alignment; break;
             case 1: draw = R.drawable.ic_service_balancing; break;
             case 2: draw = R.drawable.ic_service_battery; break;
@@ -70,9 +70,9 @@ public class Maintenance {
         return draw;
     }
 
-    public int getType() { return type; }
+    public int getService_type() { return service_type; }
 
-    public void setType(int type) { this.type = type; }
+    public void setService_type(int service_type) { this.service_type = service_type; }
 
     public String getDetail() { return detail; }
 

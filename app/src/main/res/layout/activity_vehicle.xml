@@ -13,11 +13,11 @@
         android:orientation="vertical">
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/input_layout_rgType"
+            android:id="@+id/input_layout_rgVehicleType"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <RadioGroup
-                android:id="@+id/rgType"
+                android:id="@+id/rgVehicleType"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginStart="@dimen/labels_margin"
@@ -105,12 +105,12 @@
                 android:autofillHints="no"
                 android:hint="@string/Vehicle_Model"
                 android:inputType="text|textCapWords"
-                android:nextFocusDown="@+id/spinTypeFuel"
+                android:nextFocusDown="@+id/spinFuelType"
                 android:textSize="14sp" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/input_layout_spinTypeFuel"
+            android:id="@+id/input_layout_spinFuelType"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/labels_margin"
@@ -120,11 +120,11 @@
             android:layout_marginRight="@dimen/labels_margin"
             style = "@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu">
             <AutoCompleteTextView
-                android:id="@+id/spinTypeFuel"
+                android:id="@+id/spinFuelType"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:autofillHints="no"
-                android:hint="@string/Vehicle_Type_Fuel"
+                android:hint="@string/Vehicle_Fuel_Type"
                 android:nextFocusDown="@+id/etYearModel"
                 android:textSize="14sp"
                 android:inputType="none" />

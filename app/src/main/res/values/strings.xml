@@ -37,7 +37,7 @@
     <!-- Vehicle Fragment -->
     <string name="Vehicle_Detail">Details</string>
     <string name="Vehicle_Id">Identification Vehicle</string>
-    <string name="Vehicle_Type">Type Vehicle</string>
+    <string name="Vehicle_Type">Vehicle Type</string>
     <string name="Vehicle_TypeCar">Car</string>
     <string name="Vehicle_TypeMotorcycle">Motorcycle</string>
     <string name="Vehicle_TypeSUV">SUV</string>
@@ -45,7 +45,7 @@
     <string name="Vehicle_Short_Name">Short Name </string>
     <string name="Vehicle_Brand">Brand</string>
     <string name="Vehicle_Model">Model</string>
-    <string name="Vehicle_Type_Fuel">Type Fuel</string>
+    <string name="Vehicle_Fuel_Type">Fuel Type</string>
 
     <string name="Legal_Vehicle">Legal</string>
     <string name="Vehicle_Year_Mode">Year Model</string>

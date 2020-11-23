@@ -29,7 +29,7 @@ import com.jacksonasantos.travelplan.ui.utility.Utils;
 public class MaintenanceActivity extends AppCompatActivity {
 
     private Long nrVehicle_id=0L;
-    private int nrSpinType;
+    private int nrSpinService_type;
     private EditText etDetail;
     private EditText etDate;
     private EditText etExpiration_date;
@@ -77,7 +77,7 @@ public class MaintenanceActivity extends AppCompatActivity {
         TextView txVehicleName = findViewById(R.id.txVehicleName);
         ImageView imVehicleType = findViewById(R.id.imVehicleType);
         TextView txVehicleLicencePlate = findViewById(R.id.txVehicleLicencePlate);
-        AutoCompleteTextView spinType = findViewById(R.id.spinType);
+        AutoCompleteTextView spinService_type = findViewById(R.id.spinService_type);
         etDetail = findViewById(R.id.etDetail);
         etDate = findViewById(R.id.etDate);
         etExpiration_date = findViewById(R.id.etExpiration_date);
@@ -99,21 +99,21 @@ public class MaintenanceActivity extends AppCompatActivity {
         vehicle = Database.mVehicleDao.fetchVehicleById(nrVehicle_id);
         txVehicleName.setText(vehicle.getName());
         txVehicleLicencePlate.setText(vehicle.getLicense_plate());
-        imVehicleType.setImageResource(vehicle.getTypeImage(vehicle.getType()));
+        imVehicleType.setImageResource(vehicle.getVehicleTypeImage(vehicle.getVehicle_type()));
 
         etDate.addTextChangedListener(new DateInputMask(etDate));
         etExpiration_date.addTextChangedListener(new DateInputMask(etExpiration_date));
-        createSpinnerResources(R.array.vehicle_services, spinType);
-        nrSpinType = 0;
-        spinType.setOnItemClickListener(new Spinner.OnItemClickListener() {
+        createSpinnerResources(R.array.vehicle_services, spinService_type);
+        nrSpinService_type = 0;
+        spinService_type.setOnItemClickListener(new Spinner.OnItemClickListener() {
             @Override public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                nrSpinType = (int) adapterView.getItemIdAtPosition(i);
+                nrSpinService_type = (int) adapterView.getItemIdAtPosition(i);
             }
         });
 
         if (maintenance != null) {
-            nrSpinType=maintenance.getType();
-            spinType.setText(getResources().getStringArray(R.array.vehicle_services)[nrSpinType],false);
+            nrSpinService_type=maintenance.getService_type();
+            spinService_type.setText(getResources().getStringArray(R.array.vehicle_services)[nrSpinService_type],false);
             etDetail.setText(maintenance.getDetail());
             etDate.setText(Utils.dateToString(maintenance.getDate()));
             etExpiration_date.setText(Utils.dateToString(maintenance.getExpiration_date()));
@@ -139,7 +139,7 @@ public class MaintenanceActivity extends AppCompatActivity {
                     final Maintenance m1 = new Maintenance();
 
                     m1.setVehicle_id(nrVehicle_id);
-                    m1.setType(nrSpinType);
+                    m1.setService_type(nrSpinService_type);
                     m1.setDetail(etDetail.getText().toString());
                     m1.setDate(Utils.stringToDate(etDate.getText().toString()));
                     m1.setExpiration_date(Utils.stringToDate(etExpiration_date.getText().toString()));
@@ -182,7 +182,7 @@ public class MaintenanceActivity extends AppCompatActivity {
         boolean isValid = false;
 
         try {
-            if (!String.valueOf(nrSpinType).trim().isEmpty()
+            if (!String.valueOf(nrSpinService_type).trim().isEmpty()
 //                && !etDetail.getText().toString().trim().isEmpty()
                 && !etDate.getText().toString().trim().isEmpty()
 //                && !etExpiration_date.getText().toString().trim().isEmpty()

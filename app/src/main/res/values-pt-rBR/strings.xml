@@ -28,7 +28,6 @@
     <string name="ethanol">Etanol</string>
     <string name="Vehicle_Brand">Fabricante</string>
     <string name="Vehicle_Name">Nome do Veículo</string>
-    <string name="Vehicle_Type_Fuel">Tipo de Combustível</string>
     <string name="Vehicle_Deleting">Excluindo Veículo</string>
     <string name="Msg_Confirm">Tem certeza que deseja executar a operação?</string>
     <string name="Yes">Sim</string>
@@ -147,4 +146,5 @@
     <string name="Insurance_Company_Deleting">Deletar Seguradora</string>
     <string name="InsuranceCompany_Fip_Code">Código FIP</string>
     <string name="Insurance_Company">Companhias de Seguros</string>
+    <string name="Vehicle_Fuel_Type">Tipo de Combustível</string>
 </resources>

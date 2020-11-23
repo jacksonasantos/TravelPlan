@@ -6,7 +6,7 @@ public interface MaintenanceISchema {
 
     String MAINTENANCE_ID = "rowid";
     String MAINTENANCE_VEHICLE_ID = "vehicle_id";
-    String MAINTENANCE_TYPE = "type";
+    String MAINTENANCE_SERVICE_TYPE = "service_type";
     String MAINTENANCE_DETAIL = "detail";
     String MAINTENANCE_DATE = "date";
     String MAINTENANCE_EXPIRATION_DATE = "expiration_date";
@@ -21,7 +21,7 @@ public interface MaintenanceISchema {
     String CREATE_TABLE_MAINTENANCE_V10 = "CREATE TABLE IF NOT EXISTS "
             + MAINTENANCE_TABLE + " ("
             + MAINTENANCE_VEHICLE_ID + " LONG, "
-            + MAINTENANCE_TYPE + " INT, "
+            + MAINTENANCE_SERVICE_TYPE + " INT, "
             + MAINTENANCE_DETAIL + " TEXT, "
             + MAINTENANCE_DATE + " DATE, "
             + MAINTENANCE_EXPIRATION_DATE + " DATE, "
@@ -36,7 +36,7 @@ public interface MaintenanceISchema {
     String[] MAINTENANCE_COLUMNS = new String[] {
             MAINTENANCE_ID,
             MAINTENANCE_VEHICLE_ID,
-            MAINTENANCE_TYPE,
+            MAINTENANCE_SERVICE_TYPE,
             MAINTENANCE_DETAIL,
             MAINTENANCE_DATE,
             MAINTENANCE_EXPIRATION_DATE,

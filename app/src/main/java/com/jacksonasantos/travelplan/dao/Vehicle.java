@@ -8,12 +8,12 @@ import java.util.Date;
 
 public class Vehicle {
     public long id;
-    public int type;
+    public int vehicle_type;
     public String name;
     public String short_name;
     public String brand;
     public String model;
-    public int type_fuel;
+    public int fuel_type;
 
     public String year_model;
     public String year_manufacture;
@@ -37,12 +37,12 @@ public class Vehicle {
 
     public Vehicle() {
         this.id = id;
-        this.type = type;
+        this.vehicle_type = vehicle_type;
         this.name = name;
         this.short_name = short_name;
         this.brand = brand;
         this.model = model;
-        this.type_fuel = type_fuel;
+        this.fuel_type = fuel_type;
 
         this.year_model = year_model;
         this.year_manufacture = year_manufacture;
@@ -73,9 +73,9 @@ public class Vehicle {
         this.id = id;
     }
 
-    public int getTypeImage( int type ) {
+    public int getVehicleTypeImage( int vehicle_type ) {
         int draw;
-        switch(type) {
+        switch(vehicle_type) {
             case 1:
                 draw = R.drawable.ic_vehicle_fusca;
                 break;
@@ -91,9 +91,9 @@ public class Vehicle {
         }
         return draw;
     }
-    public int getType() { return type; }
-    public void setType(int type) {
-        this.type = type;
+    public int getVehicle_type() { return vehicle_type; }
+    public void setVehicle_type(int vehicle_type) {
+        this.vehicle_type = vehicle_type;
     }
 
     public String getName() {
@@ -115,11 +115,11 @@ public class Vehicle {
         this.brand = brand;
     }
 
-    public int getType_fuel() {
-        return type_fuel;
+    public int getFuel_type() {
+        return fuel_type;
     }
-    public void setType_fuel(int type_fuel) {
-        this.type_fuel = type_fuel;
+    public void setFuel_type(int fuel_type) {
+        this.fuel_type = fuel_type;
     }
 
     public int getFull_capacity() {

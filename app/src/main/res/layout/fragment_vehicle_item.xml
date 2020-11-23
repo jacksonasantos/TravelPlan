@@ -11,7 +11,7 @@
     tools:context=".ui.vehicle.VehicleFragment">
 
     <ImageView
-        android:id="@+id/imType"
+        android:id="@+id/imVehicleType"
         android:layout_width="30dp"
         android:layout_height="match_parent"
         android:layout_weight="0"

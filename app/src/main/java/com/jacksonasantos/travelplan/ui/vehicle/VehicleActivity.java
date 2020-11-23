@@ -27,14 +27,14 @@ import com.jacksonasantos.travelplan.ui.utility.Utils;
 
 public class VehicleActivity extends AppCompatActivity {
 
-    private RadioGroup rgType;
-    private int rbType;
+    private RadioGroup rgVehicleType;
+    private int rbVehicleType;
     private EditText etNameVehicle;
     private EditText etShortNameVehicle;
     private EditText etBrand;                            // TODO - Implement API of BRAND´s
     private EditText etModel;
-    private AutoCompleteTextView spinTypeFuel;
-    private int nrspinTypeFuel;
+    private AutoCompleteTextView spinFuelType;
+    private int nrspinFuelType;
 
     private EditText etYearModel;
     private EditText etYearManufacture;
@@ -81,12 +81,12 @@ public class VehicleActivity extends AppCompatActivity {
 
         addListenerOnButtonSave();
 
-        rgType = findViewById(R.id.rgType);
+        rgVehicleType = findViewById(R.id.rgVehicleType);
         etNameVehicle = findViewById(R.id.etNameVehicle);
         etShortNameVehicle = findViewById(R.id.etShortNameVehicle);
         etBrand = findViewById(R.id.etBrand);
         etModel = findViewById(R.id.etModel);
-        spinTypeFuel = findViewById(R.id.spinTypeFuel);
+        spinFuelType = findViewById(R.id.spinFuelType);
         etYearModel = findViewById(R.id.etYearModel);
         etYearManufacture = findViewById(R.id.etYearManufacture);
         etLicencePlateVehicle = findViewById(R.id.etLicencePlateVehicle);
@@ -106,18 +106,18 @@ public class VehicleActivity extends AppCompatActivity {
         etDtOdometer = findViewById(R.id.etDtOdometer);
         etOdometer = findViewById(R.id.etOdometer);
 
-        addRadioButtonResources(R.array.type_vehicle_array, rgType);
-        rgType.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+        addRadioButtonResources(R.array.vehicle_type_array, rgVehicleType);
+        rgVehicleType.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-                rbType = checkedId;
+                rbVehicleType = checkedId;
             }
         });
-        addSpinnerResources(R.array.type_fuel_array, spinTypeFuel);
-        nrspinTypeFuel = 0;
-        spinTypeFuel.setOnItemClickListener(new Spinner.OnItemClickListener() {
+        addSpinnerResources(R.array.fuel_type_array, spinFuelType);
+        nrspinFuelType = 0;
+        spinFuelType.setOnItemClickListener(new Spinner.OnItemClickListener() {
             @Override public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                nrspinTypeFuel = (int) adapterView.getItemIdAtPosition(i);
+                nrspinFuelType = (int) adapterView.getItemIdAtPosition(i);
             }
         });
         etAcquisition.addTextChangedListener(new DateInputMask(etAcquisition));
@@ -125,13 +125,13 @@ public class VehicleActivity extends AppCompatActivity {
         etDtOdometer.addTextChangedListener(new DateInputMask(etDtOdometer));
 
         if (vehicle != null) {
-            rgType.check(vehicle.getType());
+            rgVehicleType.check(vehicle.getVehicle_type());
             etNameVehicle.setText(vehicle.getName());
             etShortNameVehicle.setText(vehicle.getShort_name());
             etBrand.setText(vehicle.getBrand());
             etModel.setText(vehicle.getModel());
-            nrspinTypeFuel=vehicle.getType_fuel();
-            spinTypeFuel.setText(getResources().getStringArray(R.array.type_fuel_array)[nrspinTypeFuel],false);
+            nrspinFuelType=vehicle.getFuel_type();
+            spinFuelType.setText(getResources().getStringArray(R.array.fuel_type_array)[nrspinFuelType],false);
             etYearModel.setText(vehicle.getYear_model());
             etYearManufacture.setText(vehicle.getYear_manufacture());
             etLicencePlateVehicle.setText(vehicle.getLicense_plate());
@@ -195,12 +195,12 @@ public class VehicleActivity extends AppCompatActivity {
                     Database mdb = new Database(VehicleActivity.this);
                     mdb.open();
                     final Vehicle v1 = new Vehicle();
-                    v1.setType(rbType);
+                    v1.setVehicle_type(rbVehicleType);
                     v1.setName(etNameVehicle.getText().toString());
                     v1.setShort_name(etShortNameVehicle.getText().toString());
                     v1.setBrand(etBrand.getText().toString());
                     v1.setModel(etModel.getText().toString());
-                    v1.setType_fuel(nrspinTypeFuel);
+                    v1.setFuel_type(nrspinFuelType);
                     v1.setYear_model(etYearModel.getText().toString());
                     v1.setYear_manufacture(etYearManufacture.getText().toString());
                     v1.setLicense_plate(etLicencePlateVehicle.getText().toString());
@@ -264,12 +264,12 @@ public class VehicleActivity extends AppCompatActivity {
     private boolean validateData() {
         boolean isValid = true;
         try {
-            if ( rbType==0 ||
+            if ( rbVehicleType==0 ||
                 etNameVehicle.getText().toString().isEmpty() ||
                 etShortNameVehicle.getText().toString().isEmpty() ||
                 etBrand.getText().toString().isEmpty() ||
                 etModel.getText().toString().isEmpty() ||
-                String.valueOf(nrspinTypeFuel).isEmpty() ||
+                String.valueOf(nrspinFuelType).isEmpty() ||
                 etYearModel.getText().toString().isEmpty() ||
                 etYearManufacture.getText().toString().isEmpty() ||
                 etLicencePlateVehicle.getText().toString().isEmpty() ||
