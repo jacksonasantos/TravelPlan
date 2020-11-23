@@ -23,7 +23,7 @@ public class MaintenanceFragment extends Fragment  {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         setHasOptionsMenu(true);
-        return inflater.inflate(R.layout.fragment_maintenance, container, false);
+        return inflater.inflate(R.layout.fragment_generic_list, container, false);
     }
 
     @Override
@@ -32,7 +32,7 @@ public class MaintenanceFragment extends Fragment  {
         Database mDb = new Database(getContext());
         mDb.open();
 
-        RecyclerView listMaintenance = (RecyclerView) this.getView().findViewById(R.id.listMaintenance);
+        RecyclerView listMaintenance = (RecyclerView) this.getView().findViewById(R.id.list);
         MaintenanceListAdapter adapter = new MaintenanceListAdapter(Database.mMaintenanceDao.fetchAllMaintenance(), getContext());
         listMaintenance.setAdapter(adapter);
         listMaintenance.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -79,7 +79,7 @@ public class MaintenanceFragment extends Fragment  {
                     this.mMenu.getItem(0).setIcon(getResources().getDrawable(R.drawable.ic_menu_filter_no));
                 }
 
-                RecyclerView listMaintenance = (RecyclerView) this.getView().findViewById(R.id.listMaintenance);
+                RecyclerView listMaintenance = (RecyclerView) this.getView().findViewById(R.id.list);
                 MaintenanceListAdapter adapter = new MaintenanceListAdapter(Database.mMaintenanceDao.fetchAllMaintenance(), getContext());
                 listMaintenance.setAdapter(adapter);
                 break;

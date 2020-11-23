@@ -22,7 +22,7 @@ public class FuelSupplyFragment extends Fragment  {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         setHasOptionsMenu(true);
-        return inflater.inflate(R.layout.fragment_fuel_supply, container, false);
+        return inflater.inflate(R.layout.fragment_generic_list, container, false);
     }
 
     @Override
@@ -31,7 +31,7 @@ public class FuelSupplyFragment extends Fragment  {
         Database mDb = new Database(getContext());
         mDb.open();
 
-        RecyclerView listFuelSupply = this.getView().findViewById(R.id.listFuelSupply);
+        RecyclerView listFuelSupply = this.getView().findViewById(R.id.list);
         FuelSupplyListAdapter adapter = new FuelSupplyListAdapter(Database.mFuelSupplyDao.fetchAllFuelSupplies(), getContext());
         listFuelSupply.setAdapter(adapter);
         listFuelSupply.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -77,7 +77,7 @@ public class FuelSupplyFragment extends Fragment  {
                     this.mMenu.getItem(0).setIcon(getResources().getDrawable(R.drawable.ic_menu_filter_no));
                 }
 
-                RecyclerView listFuelSupply = (RecyclerView) this.getView().findViewById(R.id.listFuelSupply);
+                RecyclerView listFuelSupply = (RecyclerView) this.getView().findViewById(R.id.list);
                 FuelSupplyListAdapter adapter = new FuelSupplyListAdapter(Database.mFuelSupplyDao.fetchAllFuelSupplies(), getContext());
                 listFuelSupply.setAdapter(adapter);
                 break;

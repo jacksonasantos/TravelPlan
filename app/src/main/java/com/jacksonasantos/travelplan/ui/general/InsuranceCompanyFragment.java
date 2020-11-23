@@ -23,7 +23,7 @@ public class InsuranceCompanyFragment extends Fragment  {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         setHasOptionsMenu(true);
-        return inflater.inflate(R.layout.fragment_insurance_company, container, false);
+        return inflater.inflate(R.layout.fragment_generic_list, container, false);
     }
 
     @Override
@@ -32,7 +32,7 @@ public class InsuranceCompanyFragment extends Fragment  {
         Database mDb = new Database(getContext());
         mDb.open();
 
-        RecyclerView listInsuranceCompany = (RecyclerView) this.getView().findViewById(R.id.listInsuranceCompany);
+        RecyclerView listInsuranceCompany = (RecyclerView) this.getView().findViewById(R.id.list);
         InsuranceCompanyListAdapter adapter = new InsuranceCompanyListAdapter(Database.mInsuranceCompanyDao.fetchAllInsuranceCompanies(), getContext());
         listInsuranceCompany.setAdapter(adapter);
         listInsuranceCompany.setLayoutManager(new LinearLayoutManager(getContext()));

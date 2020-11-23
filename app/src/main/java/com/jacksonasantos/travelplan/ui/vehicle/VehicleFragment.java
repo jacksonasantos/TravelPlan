@@ -22,7 +22,7 @@ public class VehicleFragment extends Fragment  {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         setHasOptionsMenu(true);
-        return inflater.inflate(R.layout.fragment_vehicle, container, false);
+        return inflater.inflate(R.layout.fragment_generic_list, container, false);
     }
 
     @Override
@@ -31,7 +31,7 @@ public class VehicleFragment extends Fragment  {
         Database mDb = new Database(getContext());
         mDb.open();
 
-        RecyclerView listVehicles = this.getView().findViewById(R.id.listVehicles);
+        RecyclerView listVehicles = this.getView().findViewById(R.id.list);
         VehicleListAdapter adapter = new VehicleListAdapter(Database.mVehicleDao.fetchAllVehicles(), getContext());
         listVehicles.setAdapter(adapter);
         listVehicles.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -77,7 +77,7 @@ public class VehicleFragment extends Fragment  {
                     this.mMenu.getItem(0).setIcon(getResources().getDrawable(R.drawable.ic_menu_filter_no));
                 }
 
-                RecyclerView listMaintenance = (RecyclerView) this.getView().findViewById(R.id.listVehicles);
+                RecyclerView listMaintenance = (RecyclerView) this.getView().findViewById(R.id.list);
                 VehicleListAdapter adapter = new VehicleListAdapter(Database.mVehicleDao.fetchAllVehicles(), getContext());
                 listMaintenance.setAdapter(adapter);
                 return true;

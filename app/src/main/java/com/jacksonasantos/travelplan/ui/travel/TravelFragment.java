@@ -19,9 +19,9 @@ public class TravelFragment extends Fragment {
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
 
-        View root = inflater.inflate(R.layout.fragment_travel, container, false);
+        View root = inflater.inflate(R.layout.fragment_generic_list, container, false);
 
-        RecyclerView travelList = root.findViewById(R.id.listTravels);
+        RecyclerView travelList = root.findViewById(R.id.list);
         travelList.setHasFixedSize(true);
         travelList.setLayoutManager(new LinearLayoutManager(travelList.getContext()));
         travelList.setAdapter(new RandomNumListAdapter(1234));
