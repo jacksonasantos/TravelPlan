@@ -69,18 +69,10 @@ public class VehicleStatisticsDAO extends DbContentProvider implements VehicleSt
 
     public List<VehicleStatistics> findVehicleStatisticsbyId(Long id) {
         List<VehicleStatistics> vehicleStatisticsList = new ArrayList<>();
+        final String[] selectionArgs = { String.valueOf(Globals.getInstance().getIdVehicle()) };
+        final String selection = VEHICLE_STATISTICS_VEHICLE_ID + " = ?";
 
-        cursor = super.rawQuery(
-                "SELECT * " +
-                     "FROM " + VEHICLE_STATISTICS_TABLE + " a, " +
-                     "(SELECT " +VEHICLE_STATISTICS_SUPPLY_REASON_TYPE +" supply_reason_type, "+
-                              "MAX("+VEHICLE_STATISTICS_STATISTIC_DATE+") statistic_date "+
-                        "FROM " + VEHICLE_STATISTICS_TABLE +
-                        " WHERE " + VEHICLE_STATISTICS_VEHICLE_ID + " = ? "+
-                        "GROUP BY " + VEHICLE_STATISTICS_SUPPLY_REASON_TYPE + ") b " +
-                     "WHERE a.supply_reason_type = b.supply_reason_type "+
-                     "AND a.statistic_date = b.statistic_date ",
-                new String[] { String.valueOf(id)});
+        cursor = super.query(VEHICLE_STATISTICS_TABLE, VEHICLE_STATISTICS_COLUMNS, selection, selectionArgs, null);
 
         if (cursor.moveToFirst()) {
             do {
