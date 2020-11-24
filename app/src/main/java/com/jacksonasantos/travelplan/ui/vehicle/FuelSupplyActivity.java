@@ -93,7 +93,7 @@ public class FuelSupplyActivity extends AppCompatActivity {
                 fuelSupply = Database.mFuelSupplyDao.fetchFuelSupplyById(fuelSupply.getId());
 
                 CurrencyQuote c1 = Database.mCurrencyQuoteDao.findQuoteDay(fuelSupply.currency_type, fuelSupply.supply_date);
-                if ( c1.getId() != null ) {
+                if ( c1.getId() != 0 ) {
                     nrIdCurrencyQuote = c1.getId();
                     nrCurrencyValue = c1.getCurrency_value();
                 } else {
@@ -144,7 +144,7 @@ public class FuelSupplyActivity extends AppCompatActivity {
         txVehicleLicencePlate.setText(vehicle.getLicense_plate());
         imVehicleType.setImageResource(vehicle.getVehicleTypeImage(vehicle.getVehicle_type()));
         etSupplyDate.addTextChangedListener(new DateInputMask(etSupplyDate));
-        createSpinnerResources(R.array.fuel_array, spinCombustible);
+        Utils.createSpinnerResources(R.array.fuel_array, spinCombustible, this);
         nrSpinCombustible = 0;
         spinCombustible.setOnItemClickListener(new Spinner.OnItemClickListener() {
             @Override public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -156,7 +156,7 @@ public class FuelSupplyActivity extends AppCompatActivity {
                 vlFullTank = !cbFullTank.isChecked()?0:1;
             }
         });
-        createSpinnerResources(R.array.currency_array, spinCurrencyType);
+        Utils.createSpinnerResources(R.array.currency_array, spinCurrencyType, this);
         nrSpinCurrencyType = 0;
         spinCurrencyType.setOnItemClickListener(new Spinner.OnItemClickListener() {
             @Override public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -368,14 +368,6 @@ public class FuelSupplyActivity extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), R.string.Data_Validator_Error +" - " + e.getMessage(), Toast.LENGTH_LONG).show();
         }
         return isValid;
-    }
-
-    private void createSpinnerResources(int resource_array, AutoCompleteTextView spin) {
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(
-                this,
-                android.R.layout.select_dialog_item,
-                getResources().getStringArray(resource_array));
-        spin.setAdapter(adapter);
     }
 
     private RadioButton createRadioButton(String txt, int i) {

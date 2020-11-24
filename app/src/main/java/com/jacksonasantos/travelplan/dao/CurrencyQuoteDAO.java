@@ -44,7 +44,7 @@ public class CurrencyQuoteDAO extends DbContentProvider implements CurrencyQuote
         return currencyQuote;
     }
 
-    public CurrencyQuote fetchCurrencyQuoteById(int id) {
+    public CurrencyQuote fetchCurrencyQuoteById(Long id) {
         final String[] selectionArgs = { String.valueOf(id) };
         final String selection = CURRENCY_QUOTE_ID + " = ?";
         CurrencyQuote currencyQuote = new CurrencyQuote();
@@ -63,7 +63,7 @@ public class CurrencyQuoteDAO extends DbContentProvider implements CurrencyQuote
     public List<CurrencyQuote> fetchAllCurrencyQuotes() {
         List<CurrencyQuote> currencyQuoteList = new ArrayList<>();
 
-        cursor = super.query(CURRENCY_QUOTE_TABLE, CURRENCY_QUOTE_COLUMNS, null,null, CURRENCY_QUOTE_ID);
+        cursor = super.query(CURRENCY_QUOTE_TABLE, CURRENCY_QUOTE_COLUMNS, null,null, CURRENCY_QUOTE_QUOTE_DATE);
 
         if (cursor.moveToFirst()) {
             do {
@@ -76,7 +76,7 @@ public class CurrencyQuoteDAO extends DbContentProvider implements CurrencyQuote
         return currencyQuoteList;
     }
 
-    public boolean deleteCurrencyQuote(int id) {
+    public boolean deleteCurrencyQuote(Long id) {
         final String[] selectionArgs = { String.valueOf(id) };
         final String selection = CURRENCY_QUOTE_ID + " = ?";
         try {

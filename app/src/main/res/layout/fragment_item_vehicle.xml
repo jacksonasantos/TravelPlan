@@ -5,8 +5,8 @@
     android:id="@+id/llVehicleItem"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginLeft="2dp"
     android:orientation="horizontal"
+    android:layout_marginLeft="2dp"
     android:layout_marginStart="2dp"
     tools:context=".ui.vehicle.VehicleFragment">
 

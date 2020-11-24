@@ -1,6 +1,5 @@
-package com.jacksonasantos.travelplan.ui.vehicle;
+package com.jacksonasantos.travelplan.ui.general;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -18,8 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.jacksonasantos.travelplan.R;
 import com.jacksonasantos.travelplan.dao.Database;
-import com.jacksonasantos.travelplan.dao.FuelSupply;
-import com.jacksonasantos.travelplan.dao.Vehicle;
+import com.jacksonasantos.travelplan.dao.CurrencyQuote;
 import com.jacksonasantos.travelplan.ui.utility.Globals;
 import com.jacksonasantos.travelplan.ui.utility.Utils;
 
@@ -27,10 +25,11 @@ import java.text.NumberFormat;
 import java.util.List;
 import java.util.Locale;
 
-public class FuelSupplyListAdapter extends RecyclerView.Adapter<FuelSupplyListAdapter.MyViewHolder> {
+public class CurrencyQuoteListAdapter extends RecyclerView.Adapter<CurrencyQuoteListAdapter.MyViewHolder> {
 
-    private List<FuelSupply> mFuelSupply;
+    private final List<CurrencyQuote> mCurrencyQuote;
     Context context;
+    String[] currencyArray;
 
     Globals g = Globals.getInstance();
 
@@ -38,19 +37,17 @@ public class FuelSupplyListAdapter extends RecyclerView.Adapter<FuelSupplyListAd
 
     public static class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        public TextView txtSupplyDate;
-        public TextView txtVehicleName;
-        public TextView txtNumberLiters;
-        public TextView txtSupplyValue;
+        public TextView txtCurrency;
+        public TextView txtDate;
+        public TextView txtQuote;
         public ImageButton btnEdit;
         public ImageButton btnDelete;
 
         public MyViewHolder(View v) {
             super(v);
-            txtSupplyDate = v.findViewById(R.id.txtSupplyDate);
-            txtVehicleName = v.findViewById(R.id.txtVehicleName);
-            txtNumberLiters = v.findViewById(R.id.txtNumberLiters);
-            txtSupplyValue = v.findViewById(R.id.txtSupplyValue);
+            txtCurrency = v.findViewById(R.id.txtCurrency);
+            txtDate = v.findViewById(R.id.txtDate);
+            txtQuote = v.findViewById(R.id.txtQuote);
             btnEdit = v.findViewById(R.id.btnEdit);
             btnDelete = v.findViewById(R.id.btnDelete);
             btnEdit.setOnClickListener(this);
@@ -62,8 +59,8 @@ public class FuelSupplyListAdapter extends RecyclerView.Adapter<FuelSupplyListAd
         }
     }
 
-    public FuelSupplyListAdapter(List<FuelSupply> supplies, Context context) {
-        this.mFuelSupply = supplies;
+    public CurrencyQuoteListAdapter(List<CurrencyQuote> currencyQuote, Context context) {
+        this.mCurrencyQuote = currencyQuote;
         this.context = context;
 
         Database mdb = new Database(context);
@@ -72,48 +69,47 @@ public class FuelSupplyListAdapter extends RecyclerView.Adapter<FuelSupplyListAd
 
     @NonNull
     @Override
-    public FuelSupplyListAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View supplyView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.fragment_item_fuel_supply, parent, false);
-        return new MyViewHolder(supplyView);
+    public CurrencyQuoteListAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View currencyQuoteView = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.fragment_item_currency_quote, parent, false);
+        currencyArray = parent.getResources().getStringArray(R.array.currency_array);
+
+        return new MyViewHolder(currencyQuoteView);
     }
 
-    // Replace the contents of a view (invoked by the layout manager)
-    @SuppressLint({"DefaultLocale", "SetTextI18n"})
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public void onBindViewHolder(@NonNull final MyViewHolder holder, final int position) {
-        final FuelSupply fuelSupply = mFuelSupply.get(position);
-        Vehicle v = Database.mVehicleDao.fetchVehicleById(fuelSupply.getVehicle_id());
+        final CurrencyQuote currencyQuote = mCurrencyQuote.get(position);
 
-        holder.txtSupplyDate.setText(Utils.dateToString(fuelSupply.getSupply_date()));
-        holder.txtVehicleName.setText(v.getName());
-        holder.txtNumberLiters.setText(fuelSupply.getNumber_liters() +" L");
-        NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(locale);
-        holder.txtSupplyValue.setText(currencyFormatter.format(fuelSupply.getSupply_value()));
+        holder.txtCurrency.setText(currencyArray[currencyQuote.getCurrency_type()]);
+        holder.txtDate.setText(Utils.dateToString(currencyQuote.getQuote_date()));
+        //NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(locale);
+        holder.txtQuote.setText(String.valueOf(currencyQuote.getCurrency_value()));
+
         // btnEdit
         holder.btnEdit.setOnClickListener (new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent (v.getContext(), FuelSupplyActivity.class);
-                intent.putExtra("fuel_supply_id", fuelSupply.getId());
-                intent.putExtra("vehicle_id", fuelSupply.getVehicle_id());
+                Intent intent = new Intent (v.getContext(), CurrencyQuoteActivity.class);
+                intent.putExtra("currencyQuote_id", currencyQuote.getId());
                 context.startActivity(intent);
                 notifyDataSetChanged();
             }
         });
+
         // btnDelete
         holder.btnDelete.setOnClickListener (new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 new AlertDialog.Builder(v.getContext())
-                        .setTitle(R.string.FuelSupply_Deleting)
+                        .setTitle(R.string.Currency_Quote_Deleting)
                         .setMessage(R.string.Msg_Confirm)
                         .setPositiveButton(R.string.Yes, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
-                                Database.mFuelSupplyDao.deleteFuelSupply((int) fuelSupply.getId());  // invoca a deleção do registro
-                                mFuelSupply.remove(position);
+                                Database.mCurrencyQuoteDao.deleteCurrencyQuote(currencyQuote.getId());
+                                mCurrencyQuote.remove(position);
                                 notifyItemRemoved(position);
                             }
                         }).setNegativeButton(R.string.No, null)
@@ -124,6 +120,6 @@ public class FuelSupplyListAdapter extends RecyclerView.Adapter<FuelSupplyListAd
 
     @Override
     public int getItemCount() {
-        return mFuelSupply.size();
+        return mCurrencyQuote.size();
     }
 }

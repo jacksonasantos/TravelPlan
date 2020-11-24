@@ -44,7 +44,7 @@ public class TravelAdapter extends ArrayAdapter<Travel> {
 
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
-        View v = inflater.inflate(R.layout.fragment_travel_item, null);
+        View v = inflater.inflate(R.layout.fragment_item_travel, null);
         ((TextView) (v.findViewById(R.id.randomText))).setText((CharSequence) travels.get(position));
 
         v.findViewById(R.id.btnEditar).setOnClickListener

@@ -60,7 +60,7 @@ public class InsuranceCompanyListAdapter extends RecyclerView.Adapter<InsuranceC
     @Override
     public InsuranceCompanyListAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View insuranceCompanyView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.fragment_insurance_company_item, parent, false);
+                .inflate(R.layout.fragment_item_insurance_company, parent, false);
 
         return new MyViewHolder(insuranceCompanyView);
     }

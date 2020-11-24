@@ -47,4 +47,10 @@
         android:name="com.jacksonasantos.travelplan.ui.general.InsuranceCompanyFragment"
         android:label="@string/menu_insurance_company"
         tools:layout="@layout/fragment_generic_list" />
+
+    <fragment
+        android:id="@+id/nav_currency_quote"
+        android:name="com.jacksonasantos.travelplan.ui.general.CurrencyQuoteFragment"
+        android:label="@string/menu_currency_quote"
+        tools:layout="@layout/fragment_generic_list" />
 </navigation>

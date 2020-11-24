@@ -149,4 +149,10 @@
     <string name="Vehicle_Fuel_Type">Tipo de Combustível</string>
     <string name="VehicleStatistics">Estatísticas do Veículo</string>
     <string name="VehicleConsumption">Consumo</string>
+    <string name="Currency_Quote_Deleting">Deletar Cotação da Moeda</string>
+    <string name="Currency_Quote">Cotação de Moeda</string>
+    <string name="CurrencyQuote_Value">Valor da Cotação</string>
+    <string name="CurrencyQuote_Date">Data da Cotação</string>
+    <string name="CurrencyQuote_Type">Tipo de Moeda</string>
+    <string name="menu_currency_quote">Cotação Moedas</string>
 </resources>

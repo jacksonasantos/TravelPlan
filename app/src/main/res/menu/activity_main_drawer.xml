@@ -45,5 +45,9 @@
             android:id="@+id/nav_insurance_company"
             android:icon="@drawable/ic_menu_insurance_company"
             android:title="@string/menu_insurance_company" />
+        <item
+            android:id="@+id/nav_currency_quote"
+            android:icon="@drawable/ic_menu_currency_quote"
+            android:title="@string/menu_currency_quote" />
     </group>
 </menu>

@@ -20,7 +20,7 @@ public class RandomNumListAdapter extends RecyclerView.Adapter<TravelViewModel> 
 
     @Override
     public int getItemViewType(final int position) {
-        return R.layout.fragment_travel_item;
+        return R.layout.fragment_item_travel;
     }
 
     @NonNull

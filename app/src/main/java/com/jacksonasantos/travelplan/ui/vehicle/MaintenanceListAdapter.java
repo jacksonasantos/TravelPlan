@@ -85,7 +85,7 @@ public class MaintenanceListAdapter extends RecyclerView.Adapter<MaintenanceList
     @Override
     public MaintenanceListAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View maintenanceView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.fragment_maintenance_item, parent, false);
+                .inflate(R.layout.fragment_item_maintenance, parent, false);
         serviceArray = parent.getResources().getStringArray(R.array.vehicle_services);
 
         return new MyViewHolder(maintenanceView);
