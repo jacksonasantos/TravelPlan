@@ -27,7 +27,7 @@
         android:contentDescription="@string/bt_Edit"
         app:layout_constraintEnd_toStartOf="@+id/btnDelete"
         app:srcCompat="@drawable/ic_menu_edit"
-        tools:ignore="VectorDrawableCompat" />
+        tools:ignore="MissingConstraints,VectorDrawableCompat" />
 
     <ImageButton
         android:id="@+id/btnDelete"
