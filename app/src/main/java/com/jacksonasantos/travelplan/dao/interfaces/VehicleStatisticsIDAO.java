@@ -11,4 +11,5 @@ public interface VehicleStatisticsIDAO {
     boolean addVehicleStatistics(VehicleStatistics vehicleStatistics);
     void deleteVehicleStatistics(int vehicleStatisticsId);
     boolean updateVehicleStatistics(VehicleStatistics vehicleStatistics);
+    boolean changeVehicleStatistics(VehicleStatistics vehicleStatistics);
 }

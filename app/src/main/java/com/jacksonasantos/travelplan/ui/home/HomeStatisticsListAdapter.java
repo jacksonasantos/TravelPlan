@@ -15,11 +15,17 @@ import com.jacksonasantos.travelplan.dao.VehicleStatistics;
 import com.jacksonasantos.travelplan.ui.utility.Globals;
 import com.jacksonasantos.travelplan.ui.utility.Utils;
 
+import java.math.BigDecimal;
+import java.text.NumberFormat;
 import java.util.List;
+import java.util.Locale;
 
 public class HomeStatisticsListAdapter extends RecyclerView.Adapter<HomeStatisticsListAdapter.MyViewHolder> {
 
     Globals g = Globals.getInstance();
+
+    Locale locale = new Locale(g.getLanguage(), g.getCountry());
+    NumberFormat numberFormat = NumberFormat.getNumberInstance(locale);
 
     private final List<VehicleStatistics> mVehicleStatistics;
     Context context;
@@ -69,9 +75,9 @@ public class HomeStatisticsListAdapter extends RecyclerView.Adapter<HomeStatisti
     public void onBindViewHolder(@NonNull final MyViewHolder holder, final int position) {
         final VehicleStatistics vehicleStatistics = mVehicleStatistics.get(position);
 
-        holder.txtReason.setText(reasonTypeArray[vehicleStatistics.getSupply_reason_type()]);
+        holder.txtReason.setText(reasonTypeArray[vehicleStatistics.getSupply_reason_type()-1]);
         holder.txtStatisticDate.setText(Utils.dateToString(vehicleStatistics.getStatistic_date()));
-        holder.txtAVGConsumption.setText(String.valueOf(vehicleStatistics.getAvg_consumption()));
+        holder.txtAVGConsumption.setText(numberFormat.format(vehicleStatistics.getAvg_consumption()));
         holder.txtMeasureConsumption.setText(g.getMeasureConsumption());
     }
 

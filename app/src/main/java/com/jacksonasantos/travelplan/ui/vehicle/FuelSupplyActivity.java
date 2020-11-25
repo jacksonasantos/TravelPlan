@@ -5,7 +5,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
@@ -27,6 +26,7 @@ import com.jacksonasantos.travelplan.dao.CurrencyQuote;
 import com.jacksonasantos.travelplan.dao.Database;
 import com.jacksonasantos.travelplan.dao.FuelSupply;
 import com.jacksonasantos.travelplan.dao.Vehicle;
+import com.jacksonasantos.travelplan.dao.VehicleStatistics;
 import com.jacksonasantos.travelplan.ui.utility.DateInputMask;
 import com.jacksonasantos.travelplan.ui.utility.Globals;
 import com.jacksonasantos.travelplan.ui.utility.Utils;
@@ -68,6 +68,9 @@ public class FuelSupplyActivity extends AppCompatActivity {
     Globals g = Globals.getInstance();
 
     Locale locale = new Locale(g.getLanguage(), g.getCountry());
+    NumberFormat numberFormat = NumberFormat.getNumberInstance(locale);
+    NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(locale);
+   // String currencySymbol = currencyFormatter.getCurrency().getSymbol();
 
     @SuppressLint("WrongViewCast")
     @RequiresApi(api = Build.VERSION_CODES.N)
@@ -162,6 +165,8 @@ public class FuelSupplyActivity extends AppCompatActivity {
             @Override public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 nrSpinCurrencyType = (int) adapterView.getItemIdAtPosition(i);
                 // TODO - Eliminar pesquisa para REAIS ou moeda Default
+
+                // currencyFormatter.getCurrency().getSymbol()
                 CurrencyQuote c1 = Database.mCurrencyQuoteDao.findQuoteDay(nrSpinCurrencyType, Utils.stringToDate(etSupplyDate.getText().toString()));
                 etCurrencyValue.setText(String.valueOf(c1.getCurrency_value()));
             }
@@ -194,9 +199,9 @@ public class FuelSupplyActivity extends AppCompatActivity {
                             vStatCostPerLitre = vLastOdometerNew / Float.parseFloat(etSupplyValue.getText().toString());
                             // TODO - Calcular as medias com os abastecimentos sem tanque cheio
                             // TODO - Verifiar ajustes nas estatisicas quando for alterados o Odometro e a Distancia viajada
-                            NumberFormat numberFormat = NumberFormat.getNumberInstance(locale);
+                            //NumberFormat numberFormat = NumberFormat.getNumberInstance(locale);
                             txStatAvgFuelConsumption.setText(numberFormat.format(vStatAvgFuelConsumption));
-                            NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(locale);
+                            //NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(locale);
                             txStatCostPerLitre.setText(currencyFormatter.format(vStatCostPerLitre));
                         }
                     }
@@ -294,6 +299,12 @@ public class FuelSupplyActivity extends AppCompatActivity {
                     c1.setCurrency_value(Float.parseFloat(etCurrencyValue.getText().toString()));
                     c1.setQuote_date( Utils.stringToDate(etSupplyDate.getText().toString()));
 
+                    final VehicleStatistics ve1 = new VehicleStatistics();
+                    ve1.setVehicle_id(nrVehicleId);
+                    ve1.setSupply_reason_type(findViewById(rbSupplyReasonType).getId());
+                    ve1.setStatistic_date(Utils.stringToDate(etSupplyDate.getText().toString()));
+                    ve1.setAvg_consumption(vStatAvgFuelConsumption);
+
                     Vehicle v1;
                     v1 = Database.mVehicleDao.fetchVehicleById(nrVehicleId);
                     v1.setDt_odometer( Utils.stringToDate(etSupplyDate.getText().toString()));
@@ -314,6 +325,7 @@ public class FuelSupplyActivity extends AppCompatActivity {
                             }
                             //if (vLastOdometerNew > 0) {
                             //    isSave = Database.mVehicleDao.updateVehicle(v1);
+                            //    isSave = Database.mVehicleStatisticsDao.addVehicleStatistics(ve1);
                             //}
                         } catch (Exception e) {
                             Toast.makeText(getApplicationContext(), R.string.Error_Changing_Data + e.getMessage(), Toast.LENGTH_LONG).show();
@@ -323,6 +335,13 @@ public class FuelSupplyActivity extends AppCompatActivity {
                             isSave = Database.mFuelSupplyDao.addFuelSupply(f1);
                             isSave = Database.mCurrencyQuoteDao.addCurrencyQuote(c1);
                             isSave = Database.mVehicleDao.updateVehicle(v1);
+
+                            // TODO - verificar abastecimentos antigos para não atualizar estatísticas
+                            if (Database.mVehicleStatisticsDao.changeVehicleStatistics(ve1)) {
+                                isSave = true;
+                            } else {
+                                isSave = Database.mVehicleStatisticsDao.addVehicleStatistics(ve1);
+                            }
                         } catch (Exception e) {
                             Toast.makeText(getApplicationContext(), R.string.Error_Including_Data + e.getMessage(), Toast.LENGTH_LONG).show();
                         }

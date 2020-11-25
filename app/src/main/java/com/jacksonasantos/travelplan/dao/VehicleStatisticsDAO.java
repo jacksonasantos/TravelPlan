@@ -107,6 +107,18 @@ public class VehicleStatisticsDAO extends DbContentProvider implements VehicleSt
         }
     }
 
+    public boolean changeVehicleStatistics(VehicleStatistics vehicleStatistics) {
+        setContentValue(vehicleStatistics);
+        final String[] selectionArgs = { String.valueOf(vehicleStatistics.getVehicle_id()), String.valueOf(vehicleStatistics.getSupply_reason_type())};
+        final String selection = VEHICLE_STATISTICS_VEHICLE_ID + " = ? AND " + VEHICLE_STATISTICS_SUPPLY_REASON_TYPE + " = ?";
+        try {
+            return super.update(VEHICLE_STATISTICS_TABLE, getContentValue(), selection, selectionArgs) > 0;
+        } catch (SQLiteConstraintException ex){
+            Log.w("Update Table", ex.getMessage());
+            return false;
+        }
+    }
+
     public boolean addVehicleStatistics(VehicleStatistics vehicleStatistics) {
         setContentValue(vehicleStatistics);
         try {

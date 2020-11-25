@@ -52,6 +52,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     Globals g = Globals.getInstance();
 
     Locale locale = new Locale(g.getLanguage(), g.getCountry());
+    NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(locale);
 
     @Override
     public View onCreateView(@NonNull final LayoutInflater inflater,
@@ -121,7 +122,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                 tvFuelSupplyDate.setText(Utils.dateToString(fuelSupply.getSupply_date()));
                 tvFuelSupplyLastOdometer.setText(getString(R.string.Odometer)+ ": "+fuelSupply.getVehicle_odometer());
                 tvFuelSupplyNumberLiters.setText(fuelSupply.getNumber_liters()==null? "0 L" :fuelSupply.getNumber_liters() +" L");
-                NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(locale);
                 tvFuelSupplyValue.setText(currencyFormatter.format(fuelSupply.getSupply_value()==null?BigDecimal.ZERO:fuelSupply.getSupply_value()));
 
                 // Statistics of Vehicle in Global selection
