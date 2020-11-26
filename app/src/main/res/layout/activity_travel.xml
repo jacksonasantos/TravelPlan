@@ -1,0 +1,146 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.general.InsuranceCompanyActivity">
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/input_layout_etDescription"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/labels_margin"
+                android:layout_marginLeft="@dimen/labels_margin"
+                android:layout_marginTop="@dimen/labels_space_top"
+                android:layout_marginEnd="@dimen/labels_margin"
+                android:layout_marginRight="@dimen/labels_margin">
+                <EditText
+                    android:id="@+id/etDescription"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:autofillHints="no"
+                    android:hint="@string/Travel_Description"
+                    android:nextFocusDown="@+id/etDeparture_date"
+                    android:textSize="12sp"
+                    android:inputType="text" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="1"
+                android:baselineAligned="false">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/input_layout_etDeparture_date"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/labels_margin"
+                    android:layout_marginLeft="@dimen/labels_margin"
+                    android:layout_marginTop="@dimen/labels_space_top"
+                    android:layout_weight="0.50">
+                    <EditText
+                        android:id="@+id/etDeparture_date"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:autofillHints="no"
+                        android:hint="@string/Travel_Departure_Date"
+                        android:inputType="date"
+                        android:nextFocusDown="@+id/etReturn_date"
+                        android:textSize="12sp" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/input_layout_etReturn_date"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/labels_margin"
+                    android:layout_marginLeft="@dimen/labels_margin"
+                    android:layout_marginTop="@dimen/labels_space_top"
+                    android:layout_marginEnd="@dimen/labels_margin"
+                    android:layout_marginRight="@dimen/labels_margin"
+                    android:layout_weight="0.50">
+                    <EditText
+                        android:id="@+id/etReturn_date"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:autofillHints="no"
+                        android:hint="@string/Travel_Return_Date"
+                        android:inputType="date"
+                        android:nextFocusDown="@+id/etNote"
+                        android:textSize="12sp" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+            </LinearLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/input_layout_etNote"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/labels_margin"
+                android:layout_marginLeft="@dimen/labels_margin"
+                android:layout_marginTop="@dimen/labels_space_top"
+                android:layout_marginEnd="@dimen/labels_margin"
+                android:layout_marginRight="@dimen/labels_margin">
+
+                <EditText
+                    android:id="@+id/etNote"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:hint="@string/Travel_Note"
+                    android:inputType="text"
+                    android:nextFocusDown="@+id/tvStatus"
+                    android:textSize="12sp"
+                    android:autofillHints="no" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/input_layout_tvStatus"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/labels_margin"
+                android:layout_marginLeft="@dimen/labels_margin"
+                android:layout_marginTop="@dimen/labels_space_top"
+                android:layout_marginEnd="@dimen/labels_margin"
+                android:layout_marginRight="@dimen/labels_margin">
+
+                <EditText
+                    android:id="@+id/tvStatus"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:autofillHints="no"
+                    android:clickable="false"
+                    android:hint="@string/Travel_Status"
+                    android:nextFocusDown="@+id/btSaveTravel"
+                    android:textSize="12sp"
+                    android:inputType="none" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/buttonSeparator3"
+            android:layout_width="match_parent"
+            android:layout_height="15dp"
+            android:clickable="false" />
+
+        <Button
+            android:id="@+id/btSaveTravel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="8dp"
+            android:text="@string/bt_Save" />
+
+    </LinearLayout>
+</ScrollView>

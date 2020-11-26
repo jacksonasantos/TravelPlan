@@ -24,19 +24,22 @@
         </activity>
         <activity
             android:name=".ui.general.InsuranceCompanyActivity"
-            android:label="Insurance Company" />
+            android:label="@string/Insurance_Company" />
         <activity
             android:name=".ui.general.CurrencyQuoteActivity"
-            android:label="Insurance Company" />
+            android:label="@string/Currency_Quote" />
         <activity
             android:name=".ui.vehicle.FuelSupplyActivity"
-            android:label="Vehicle" />
+            android:label="@string/FuelSupply_Vehicle" />
         <activity
             android:name=".ui.vehicle.MaintenanceActivity"
-            android:label="Vehicle" />
+            android:label="@string/Maintenance_Vehicle" />
         <activity
             android:name=".ui.vehicle.VehicleActivity"
-            android:label="Vehicle" />
+            android:label="@string/Vehicle" />
+        <activity
+            android:name=".ui.travel.TravelActivity"
+            android:label="@string/Travel" />
         <activity
             android:name=".SettingsActivity"
             android:label="@string/action_settings" />

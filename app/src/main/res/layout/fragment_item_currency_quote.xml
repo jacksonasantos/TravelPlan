@@ -42,8 +42,7 @@
         android:layout_height="match_parent"
         android:layout_weight="0"
         android:contentDescription="@string/bt_Edit"
-        app:srcCompat="@drawable/ic_menu_edit"
-        tools:ignore="VectorDrawableCompat" />
+        app:srcCompat="@drawable/ic_menu_edit" />
 
     <ImageButton
         android:id="@+id/btnDelete"
@@ -51,8 +50,7 @@
         android:layout_height="match_parent"
         android:layout_weight="0"
         android:contentDescription="@string/bt_Delete"
-        app:srcCompat="@drawable/ic_menu_delete"
-        tools:ignore="VectorDrawableCompat" />
+        app:srcCompat="@drawable/ic_menu_delete" />
 
 </LinearLayout>
 

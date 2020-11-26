@@ -51,9 +51,16 @@
         <item>@string/euro</item>
     </string-array>
     <!-- Reason Travel Type -->
-    <string-array name="travel_type_array">
+    <string-array name="supply_reason_type_array">
         <item>@string/city</item>
         <item>@string/road</item>
+    </string-array>
+    <!-- Travel Status -->
+    <string-array name="travel_status_array">
+        <item>@string/registered</item>
+        <item>@string/planning</item>
+        <item>@string/running</item>
+        <item>@string/executed</item>
     </string-array>
     <!-- Services -->
     <string-array name="vehicle_services">

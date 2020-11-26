@@ -155,4 +155,16 @@
     <string name="CurrencyQuote_Date">Data da Cotação</string>
     <string name="CurrencyQuote_Type">Tipo de Moeda</string>
     <string name="menu_currency_quote">Cotação Moedas</string>
+    <string name="planning">Em Planejamento</string>
+    <string name="executed">Executada</string>
+    <string name="Travel">Viagens</string>
+    <string name="Travel_Deleting">Deletar Viagem</string>
+    <string name="Travel_Status">Status da Viagem</string>
+    <string name="Travel_Description">Descrição</string>
+    <string name="Travel_Departure_Date">Data Partida</string>
+    <string name="Travel_Return_Date">Data Retorno</string>
+    <string name="Travel_Note">Observação</string>
+    <string name="running">Em Execução</string>
+    <string name="registered">Cadastrada</string>
+    <string name="Vehicle" >Veículo</string>
 </resources>

@@ -35,11 +35,10 @@
         android:id="@+id/txtNumberLiters"
         android:layout_width="85dp"
         android:layout_height="wrap_content"
-        android:gravity="right|center_vertical"
+        android:gravity="end|center_vertical"
         app:layout_constraintBaseline_toBaselineOf="@+id/txtSupplyValue"
         app:layout_constraintStart_toStartOf="@+id/txtVehicleName"
-        app:layout_constraintTop_toBottomOf="@+id/txtVehicleName"
-        tools:ignore="RtlHardcoded" />
+        app:layout_constraintTop_toBottomOf="@+id/txtVehicleName" />
 
     <TextView
         android:id="@+id/txtSupplyValue"
@@ -47,12 +46,11 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/labels_marginLeft"
         android:layout_marginLeft="@dimen/labels_marginLeft"
-        android:gravity="right|center_vertical"
+        android:gravity="end|center_vertical"
         app:layout_constraintBottom_toTopOf="@+id/button"
         app:layout_constraintEnd_toEndOf="@+id/txtVehicleName"
         app:layout_constraintStart_toEndOf="@+id/txtNumberLiters"
-        app:layout_constraintTop_toBottomOf="@+id/txtVehicleName"
-        tools:ignore="RtlHardcoded" />
+        app:layout_constraintTop_toBottomOf="@+id/txtVehicleName" />
 
     <ImageButton
         android:id="@+id/btnEdit"
@@ -65,8 +63,7 @@
         app:layout_constraintBottom_toTopOf="@+id/button"
         app:layout_constraintEnd_toStartOf="@+id/btnDelete"
         app:layout_constraintStart_toEndOf="@+id/txtVehicleName"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="VectorDrawableCompat" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
         android:id="@+id/btnDelete"
@@ -81,8 +78,7 @@
         app:layout_constraintBottom_toTopOf="@+id/button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/btnEdit"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="VectorDrawableCompat" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/button"

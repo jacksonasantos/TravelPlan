@@ -48,8 +48,7 @@
         android:gravity="start|center_vertical"
         app:layout_constraintBottom_toTopOf="@+id/txtServiceType"
         app:layout_constraintEnd_toStartOf="@+id/btnDone"
-        app:layout_constraintTop_toTopOf="@+id/btnDone"
-        tools:ignore="RtlHardcoded" />
+        app:layout_constraintTop_toTopOf="@+id/btnDone" />
 
     <TextView
         android:id="@+id/txtServiceType"
@@ -58,8 +57,7 @@
         android:gravity="start|center_vertical"
         app:layout_constraintBottom_toBottomOf="@+id/btnDone"
         app:layout_constraintEnd_toStartOf="@+id/btnDone"
-        app:layout_constraintStart_toEndOf="@+id/imServiceExpired"
-        tools:ignore="RtlHardcoded" />
+        app:layout_constraintStart_toEndOf="@+id/imServiceExpired" />
 
     <ImageButton
         android:id="@+id/btnDone"
@@ -68,8 +66,7 @@
         android:contentDescription="@string/bt_Done"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_button_done"
-        tools:ignore="VectorDrawableCompat" />
+        app:srcCompat="@drawable/ic_button_done" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

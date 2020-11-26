@@ -36,6 +36,7 @@
     <string name="language_English">English</string>
 
     <!-- Vehicle Fragment -->
+    <string name="Vehicle">Vehicle</string>
     <string name="Vehicle_Detail">Details</string>
     <string name="Vehicle_Id">Identification Vehicle</string>
     <string name="Vehicle_Type">Vehicle Type</string>
@@ -195,5 +196,20 @@
     <string name="parts_exchange">Parts Exchange</string>
     <string name="oil_change">Oil Change</string>
     <string name="spark_plug">Spark Plug</string>
+
+    <!-- Arrays Travel -->
+    <string name="Travel">Travel</string>
+    <string name="Travel_Deleting">Deleting Travel</string>
+
+    <string name="Travel_Description">Description</string>
+    <string name="Travel_Departure_Date">Departure Date</string>
+    <string name="Travel_Return_Date">Return Date</string>
+    <string name="Travel_Note">Note</string>
+    <string name="Travel_Status">Status</string>
+
+    <string name="registered">Registered</string>
+    <string name="planning">Planning</string>
+    <string name="running">Running</string>
+    <string name="executed">Executed</string>
 
 </resources>

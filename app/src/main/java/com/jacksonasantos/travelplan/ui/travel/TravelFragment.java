@@ -1,35 +1,75 @@
 package com.jacksonasantos.travelplan.ui.travel;
 
+import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.jacksonasantos.travelplan.R;
+import com.jacksonasantos.travelplan.dao.Database;
 
 public class TravelFragment extends Fragment {
+
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             @Nullable ViewGroup container,
-                             @Nullable Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        setHasOptionsMenu(true);
+        return inflater.inflate(R.layout.fragment_generic_list, container, false);
+    }
 
-        View root = inflater.inflate(R.layout.fragment_generic_list, container, false);
+    @Override
+    public void onResume() {
+        super.onResume();
+        Database mDb = new Database(getContext());
+        mDb.open();
 
-        RecyclerView travelList = root.findViewById(R.id.list);
-        travelList.setHasFixedSize(true);
-        travelList.setLayoutManager(new LinearLayoutManager(travelList.getContext()));
-        travelList.setAdapter(new RandomNumListAdapter(1234));
+        RecyclerView listTravel = this.getView().findViewById(R.id.list);
+        TravelListAdapter adapter = new TravelListAdapter(Database.mTravelDao.fetchAllTravel(), getContext());
+        listTravel.setAdapter(adapter);
+        listTravel.setLayoutManager(new LinearLayoutManager(getContext()));
 
-       // List<Travel> travels = null;
-       // TravelAdapter travelAdapter = new TravelAdapter(this.getActivity(), travels);
-       // recycleList.setAdapter(travelAdapter);
+        adapter.notifyDataSetChanged();
+        mDb.close();
+    }
 
-        return root;
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        menu.clear();
+        inflater.inflate(R.menu.main, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public void onPrepareOptionsMenu(Menu menu) {
+        MenuItem m1 = menu.findItem(R.id.addmenu);
+        MenuItem m2 = menu.findItem(R.id.savemenu);
+        MenuItem m3 = menu.findItem(R.id.filtermenu);
+        m1.setVisible(true);
+        m2.setVisible(false);
+        m3.setVisible(false);
+    }
+
+    @SuppressLint("UseCompatLoadingForDrawables")
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        Intent intent;
+        switch(item.getItemId()) {
+            case R.id.addmenu:
+                intent = new Intent( getContext(), TravelActivity.class );
+                startActivity( intent );
+                break;
+
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+        return true;
     }
 }

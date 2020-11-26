@@ -65,7 +65,7 @@ public class HomeStatisticsListAdapter extends RecyclerView.Adapter<HomeStatisti
         View vehicleStatisticsView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.fragment_home_item_statistics, parent, false);
 
-        reasonTypeArray = parent.getResources().getStringArray(R.array.travel_type_array);
+        reasonTypeArray = parent.getResources().getStringArray(R.array.supply_reason_type_array);
 
         return new MyViewHolder(vehicleStatisticsView);
     }

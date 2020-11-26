@@ -62,8 +62,7 @@
         android:gravity="start|center_vertical"
         app:layout_constraintBottom_toTopOf="@+id/txtMaintenanceDetail"
         app:layout_constraintEnd_toStartOf="@+id/btnEdit"
-        app:layout_constraintTop_toTopOf="@+id/btnEdit"
-        tools:ignore="RtlHardcoded" />
+        app:layout_constraintTop_toTopOf="@+id/btnEdit" />
 
     <TextView
         android:id="@+id/txtServiceType"
@@ -74,8 +73,7 @@
         android:gravity="start|center_vertical"
         app:layout_constraintBottom_toBottomOf="@+id/btnEdit"
         app:layout_constraintEnd_toStartOf="@+id/txtMaintenanceValue"
-        app:layout_constraintStart_toEndOf="@+id/imServiceType"
-        tools:ignore="RtlHardcoded" />
+        app:layout_constraintStart_toEndOf="@+id/imServiceType" />
 
     <TextView
         android:id="@+id/txtMaintenanceDetail"
@@ -86,8 +84,7 @@
         android:gravity="start|center_vertical"
         app:layout_constraintBottom_toBottomOf="@+id/btnEdit"
         app:layout_constraintEnd_toStartOf="@+id/btnEdit"
-        app:layout_constraintTop_toTopOf="@+id/txtServiceType"
-        tools:ignore="RtlHardcoded" />
+        app:layout_constraintTop_toTopOf="@+id/txtServiceType" />
 
     <ImageButton
         android:id="@+id/btnEdit"
@@ -96,8 +93,7 @@
         android:contentDescription="@string/bt_Edit"
         app:layout_constraintEnd_toStartOf="@+id/btnDelete"
         app:layout_constraintTop_toBottomOf="@+id/txtVehicleName"
-        app:srcCompat="@drawable/ic_menu_edit"
-        tools:ignore="VectorDrawableCompat" />
+        app:srcCompat="@drawable/ic_menu_edit" />
 
     <ImageButton
         android:id="@+id/btnDelete"
@@ -107,8 +103,7 @@
         app:layout_constraintBottom_toBottomOf="@+id/btnEdit"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/btnEdit"
-        app:srcCompat="@drawable/ic_menu_delete"
-        tools:ignore="VectorDrawableCompat" />
+        app:srcCompat="@drawable/ic_menu_delete" />
 
     <Button
         android:id="@+id/button"

@@ -34,11 +34,9 @@
             android:layout_height="45dp"
             android:layout_marginStart="@dimen/labels_margin"
             android:layout_marginLeft="@dimen/labels_margin"
-            android:hint="@string/Vehicle_Type"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:contentDescription="@string/Vehicle_Type"
-            tools:ignore="ContentDescription" />
+            android:contentDescription="@string/Vehicle_Type" />
 
         <TextView
             android:id="@+id/tvLicencePlate"
@@ -86,7 +84,7 @@
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:contentDescription="@string/FuelSupply_Combustible"
-            android:src="@drawable/ic_supply"
+            app:srcCompat="@drawable/ic_supply"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

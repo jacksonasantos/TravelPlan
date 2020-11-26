@@ -1,31 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/llTravelItem"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginLeft="4dp"
     android:orientation="horizontal"
-    android:layout_marginStart="4dp">
+    android:layout_marginLeft="2dp"
+    android:layout_marginStart="2dp"
+    tools:context=".ui.travel.TravelFragment">
+
+    <ImageView
+        android:id="@+id/imStatus"
+        android:layout_width="30dp"
+        android:layout_height="match_parent"
+        android:layout_weight="0"
+        android:contentDescription="@string/Travel_Status" />
 
     <TextView
-        android:id="@+id/randomText"
-        android:layout_width="0dp"
+        android:id="@+id/txtDescription"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="1"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="3dp"
+        android:layout_weight="2"
         android:gravity="center_vertical"
-        android:text="Medium Text" />
+        android:layout_marginStart="12dp"
+        android:layout_marginEnd="3dp" />
+
+    <TextView
+        android:id="@+id/txtDeparture"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="3dp"
+        android:layout_marginRight="3dp"
+        android:layout_weight="2.8"
+        android:gravity="center_vertical" />
 
     <ImageButton
-        android:id="@+id/btnEditar"
+        android:id="@+id/btnEdit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_weight="0"
         android:contentDescription="@string/bt_Edit"
         app:srcCompat="@drawable/ic_menu_edit" />
 
     <ImageButton
-        android:id="@+id/btnExcluir"
+        android:id="@+id/btnDelete"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_weight="0"
         android:contentDescription="@string/bt_Delete"
         app:srcCompat="@drawable/ic_menu_delete" />
+
 </LinearLayout>

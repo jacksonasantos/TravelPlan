@@ -212,7 +212,7 @@ public class FuelSupplyActivity extends AppCompatActivity {
         etVehicleTravelledDistance.setOnFocusChangeListener(listenerOdometer);
 
         int i = 0;
-        String[] S = getResources().getStringArray(R.array.travel_type_array);
+        String[] S = getResources().getStringArray(R.array.supply_reason_type_array);
         for (String item : S) {
             RadioButton newRadio = createRadioButton(item, ++i);
             rgSupplyReasonType.addView(newRadio);
@@ -283,7 +283,7 @@ public class FuelSupplyActivity extends AppCompatActivity {
                     f1.setNumber_liters(Double.parseDouble(etNumberLiters.getText().toString()));
                     f1.setCombustible(nrSpinCombustible);
                     f1.setFull_tank(vlFullTank);
-                    f1.setCurrency_type(nrSpinCurrencyType);
+                    f1.setCurrency_type(nrSpinCurrencyType); // TODO - Ajustar para guardar o ID do currency_quote
                     f1.setSupply_value(Double.parseDouble(etSupplyValue.getText().toString()));
                     f1.setFuel_value(Double.parseDouble(etFuelValue.getText().toString()));
                     f1.setVehicle_odometer(Integer.parseInt(etVehicleOdometer.getText().toString()));

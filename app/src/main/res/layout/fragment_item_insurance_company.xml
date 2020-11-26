@@ -26,8 +26,8 @@
         android:layout_height="wrap_content"
         android:contentDescription="@string/bt_Edit"
         app:layout_constraintEnd_toStartOf="@+id/btnDelete"
-        app:srcCompat="@drawable/ic_menu_edit"
-        tools:ignore="MissingConstraints,VectorDrawableCompat" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_menu_edit" />
 
     <ImageButton
         android:id="@+id/btnDelete"
@@ -37,8 +37,7 @@
         app:layout_constraintBottom_toBottomOf="@+id/btnEdit"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/btnEdit"
-        app:srcCompat="@drawable/ic_menu_delete"
-        tools:ignore="VectorDrawableCompat" />
+        app:srcCompat="@drawable/ic_menu_delete" />
 
     <Button
         android:id="@+id/button"
