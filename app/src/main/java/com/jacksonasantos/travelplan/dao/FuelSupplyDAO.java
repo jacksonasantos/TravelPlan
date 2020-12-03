@@ -41,7 +41,7 @@ public class FuelSupplyDAO extends DbContentProvider implements FuelSupplyISchem
 
     public FuelSupply findLastFuelSupply(Long vehicle_id) {
         FuelSupply fuelSupply = new FuelSupply();
-        cursor = super.rawQuery("SELECT rowid, * " +
+        cursor = super.rawQuery("SELECT " + FUEL_SUPPLY_ID + ", * " +
                         " FROM " + FUEL_SUPPLY_TABLE +
                         " WHERE " + FUEL_SUPPLY_VEHICLE_ID + "=? " +
                         " AND " + FUEL_SUPPLY_SUPPLY_DATE +

@@ -1,5 +1,6 @@
 package com.jacksonasantos.travelplan.ui.vehicle;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -60,6 +61,7 @@ public class VehicleFragment extends Fragment  {
         m3.setVisible(true);
     }
 
+    @SuppressLint("UseCompatLoadingForDrawables")
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         Intent intent;
@@ -77,7 +79,7 @@ public class VehicleFragment extends Fragment  {
                     this.mMenu.getItem(0).setIcon(getResources().getDrawable(R.drawable.ic_menu_filter_no));
                 }
 
-                RecyclerView listMaintenance = (RecyclerView) this.getView().findViewById(R.id.list);
+                RecyclerView listMaintenance = this.getView().findViewById(R.id.list);
                 VehicleListAdapter adapter = new VehicleListAdapter(Database.mVehicleDao.fetchAllVehicles(), getContext());
                 listMaintenance.setAdapter(adapter);
                 return true;

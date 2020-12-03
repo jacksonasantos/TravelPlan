@@ -1,5 +1,7 @@
 package com.jacksonasantos.travelplan.dao;
 
+import androidx.annotation.NonNull;
+
 import java.util.Date;
 
 public class Travel {
@@ -18,6 +20,9 @@ public class Travel {
         this.note = note;
         this.status = status;
     }
+    @NonNull
+    @Override
+    public String toString() { return description; }
 
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }

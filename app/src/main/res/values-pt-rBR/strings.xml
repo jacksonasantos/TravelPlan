@@ -118,9 +118,6 @@
     <string name="uruguayan_peso">$ - Peso Urugaio</string>
     <string name="chilean_peso">$ - Peso Chileno</string>
     <string name="euro">€ - Euro</string>
-    <string name="Vehicle_Detail">Detalhes</string>
-    <string name="Legal_Vehicle">Legais</string>
-    <string name="Vehicle_Statistics">Estatísticas</string>
     <string name="Vehicle_Model">Modelo</string>
     <string name="Vehicle_Vin">Chassi</string>
     <string name="Vehicle_Licence_Number">Número Renavan</string>

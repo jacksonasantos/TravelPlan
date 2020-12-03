@@ -12,7 +12,6 @@ import com.jacksonasantos.travelplan.ui.utility.Globals;
 import com.jacksonasantos.travelplan.ui.utility.Utils;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class VehicleStatisticsDAO extends DbContentProvider implements VehicleStatisticsISchema, VehicleStatisticsIDAO {

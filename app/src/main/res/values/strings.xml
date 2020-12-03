@@ -39,7 +39,6 @@
 
     <!-- Vehicle Fragment -->
     <string name="Vehicle">Vehicle</string>
-    <string name="Vehicle_Detail">Details</string>
     <string name="Vehicle_Id">Identification Vehicle</string>
     <string name="Vehicle_Type">Vehicle Type</string>
     <string name="Vehicle_TypeCar">Car</string>
@@ -51,7 +50,6 @@
     <string name="Vehicle_Model">Model</string>
     <string name="Vehicle_Fuel_Type">Fuel Type</string>
 
-    <string name="Legal_Vehicle">Legal</string>
     <string name="Vehicle_Year_Mode">Year Model</string>
     <string name="Vehicle_Year_Manufacture">Year Manufacture</string>
     <string name="Vehicle_Licence_Plate">Licence Plate</string>
@@ -63,7 +61,6 @@
     <string name="Vehicle_DtAcquisition">Acquisition Data</string>
     <string name="Vehicle_DtSale">Sale Data</string>
 
-    <string name="Vehicle_Statistics">Statistics</string>
     <string name="Vehicle_Doors">Doors</string>
     <string name="Vehicle_Capacity">Capacity</string>
     <string name="Vehicle_Power">Power</string>

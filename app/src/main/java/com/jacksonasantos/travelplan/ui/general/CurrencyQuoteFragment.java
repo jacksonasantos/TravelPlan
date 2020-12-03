@@ -31,7 +31,7 @@ public class CurrencyQuoteFragment extends Fragment  {
         Database mDb = new Database(getContext());
         mDb.open();
 
-        RecyclerView listCurrencyQuote = (RecyclerView) this.getView().findViewById(R.id.list);
+        RecyclerView listCurrencyQuote = this.getView().findViewById(R.id.list);
         CurrencyQuoteListAdapter adapter = new CurrencyQuoteListAdapter(Database.mCurrencyQuoteDao.fetchAllCurrencyQuotes(), getContext());
         listCurrencyQuote.setAdapter(adapter);
         listCurrencyQuote.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -40,13 +40,10 @@ public class CurrencyQuoteFragment extends Fragment  {
         mDb.close();
     }
 
-    private Menu mMenu;
-
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         menu.clear();
         inflater.inflate(R.menu.main, menu);
-        this.mMenu = menu;
         super.onCreateOptionsMenu(menu, inflater);
     }
 

@@ -71,7 +71,6 @@ public class Database {
             db.setForeignKeyConstraintsEnabled(true);
         }
 
-        // TODO - Ajustar para melhorar a chamada dos comandos de manutenção de BD
         @SuppressLint("SQLiteString")
         @Override
         public void onCreate(SQLiteDatabase db) {

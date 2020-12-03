@@ -1,5 +1,6 @@
 package com.jacksonasantos.travelplan.ui.vehicle;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -60,6 +61,7 @@ public class FuelSupplyFragment extends Fragment  {
         m3.setVisible(true);
     }
 
+    @SuppressLint("UseCompatLoadingForDrawables")
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         Intent intent;
@@ -77,7 +79,7 @@ public class FuelSupplyFragment extends Fragment  {
                     this.mMenu.getItem(0).setIcon(getResources().getDrawable(R.drawable.ic_menu_filter_no));
                 }
 
-                RecyclerView listFuelSupply = (RecyclerView) this.getView().findViewById(R.id.list);
+                RecyclerView listFuelSupply = this.getView().findViewById(R.id.list);
                 FuelSupplyListAdapter adapter = new FuelSupplyListAdapter(Database.mFuelSupplyDao.fetchAllFuelSupplies(), getContext());
                 listFuelSupply.setAdapter(adapter);
                 break;

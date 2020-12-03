@@ -16,7 +16,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.jacksonasantos.travelplan.R;
 import com.jacksonasantos.travelplan.dao.Database;
-import com.jacksonasantos.travelplan.ui.vehicle.MaintenanceActivity;
 
 public class InsuranceCompanyFragment extends Fragment  {
 
@@ -32,7 +31,7 @@ public class InsuranceCompanyFragment extends Fragment  {
         Database mDb = new Database(getContext());
         mDb.open();
 
-        RecyclerView listInsuranceCompany = (RecyclerView) this.getView().findViewById(R.id.list);
+        RecyclerView listInsuranceCompany = this.getView().findViewById(R.id.list);
         InsuranceCompanyListAdapter adapter = new InsuranceCompanyListAdapter(Database.mInsuranceCompanyDao.fetchAllInsuranceCompanies(), getContext());
         listInsuranceCompany.setAdapter(adapter);
         listInsuranceCompany.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -41,13 +40,10 @@ public class InsuranceCompanyFragment extends Fragment  {
         mDb.close();
     }
 
-    private Menu mMenu;
-
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         menu.clear();
         inflater.inflate(R.menu.main, menu);
-        this.mMenu = menu;
         super.onCreateOptionsMenu(menu, inflater);
     }
 

@@ -68,6 +68,18 @@ public class TravelDAO extends DbContentProvider implements TravelISchema, Trave
         return travelList;
     }
 
+    public ArrayList<Travel> fetchArrayTravel(){
+        ArrayList<Travel> travelList = new ArrayList<>();
+        Cursor cursor = super.query(TRAVEL_TABLE, TRAVEL_COLUMNS, null,null, TRAVEL_DESCRIPTION);
+        if(cursor != null && cursor.moveToFirst()){
+            do{
+                Travel travel = cursorToEntity(cursor);
+                travelList.add(travel);
+            }while(cursor.moveToNext());
+        }
+        return travelList;
+    }
+
     public void deleteTravel(Long id) {
         final String[] selectionArgs = { String.valueOf(id) };
         final String selection = TRAVEL_ID + " = ?";

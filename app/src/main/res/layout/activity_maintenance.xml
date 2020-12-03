@@ -241,7 +241,7 @@
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/input_layout_etValue"
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/labels_margin"
                     android:layout_marginLeft="@dimen/labels_margin"

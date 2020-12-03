@@ -3,12 +3,14 @@ package com.jacksonasantos.travelplan.dao.interfaces;
 import com.jacksonasantos.travelplan.dao.Travel;
 
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.List;
 
 public interface TravelIDAO {
-    Travel fetchTravelById(Long id) throws ParseException;
-    Travel fetchTravelByStatus(int status) throws ParseException;
-    List<Travel> fetchAllTravel() throws ParseException;
+    Travel fetchTravelById(Long id);
+    Travel fetchTravelByStatus(int status);
+    List<Travel> fetchAllTravel();
+    ArrayList<Travel> fetchArrayTravel();
     boolean addTravel(Travel travel);
     void deleteTravel(Long id);
     boolean updateTravel(Travel travel);

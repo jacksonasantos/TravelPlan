@@ -7,11 +7,9 @@ import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.text.ParseException;
-import java.util.Calendar;
 import java.util.Date;
 import java.text.SimpleDateFormat;
 
@@ -29,25 +27,6 @@ public class Utils extends AppCompatActivity  {
     public static String dateToString(Date d) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         return (d==null?null:dateFormat.format(d));
-    }
-
-    public static long getTimeMillis(String dateString, String dateFormat) throws ParseException {
-        /*Use date format as according to your need! Ex. - yyyy/MM/dd HH:mm:ss */
-        String myDate = dateString;//"2017/12/20 18:10:45";
-        SimpleDateFormat sdf = new SimpleDateFormat(dateFormat/*"yyyy/MM/dd HH:mm:ss"*/);
-        Date date = sdf.parse(myDate);
-        long millis = date.getTime();
-        return millis;
-    }
-
-    public static String getDate(long milliSeconds, String dateFormat) {
-        // Create a DateFormatter object for displaying date in specified format.
-        SimpleDateFormat formatter = new SimpleDateFormat(dateFormat/*"yyyy/MM/dd HH:mm:ss"*/);
-
-        // Create a calendar object that will convert the date and time value in milliseconds to date.
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(milliSeconds);
-        return formatter.format(calendar.getTime());
     }
 
     public static void createSpinnerResources(int resource_array, AutoCompleteTextView spin, Context context) {

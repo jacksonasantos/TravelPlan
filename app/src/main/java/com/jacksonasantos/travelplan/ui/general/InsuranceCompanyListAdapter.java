@@ -18,7 +18,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.jacksonasantos.travelplan.R;
 import com.jacksonasantos.travelplan.dao.Database;
 import com.jacksonasantos.travelplan.dao.InsuranceCompany;
-import com.jacksonasantos.travelplan.ui.utility.Globals;
 import java.util.List;
 
 public class InsuranceCompanyListAdapter extends RecyclerView.Adapter<InsuranceCompanyListAdapter.MyViewHolder> {

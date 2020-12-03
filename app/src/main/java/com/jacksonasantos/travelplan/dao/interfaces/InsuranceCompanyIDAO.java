@@ -7,11 +7,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public interface InsuranceCompanyIDAO {
-    InsuranceCompany fetchInsuranceCompanyById(Long id) throws ParseException;
-    InsuranceCompany fetchInsuranceCompanyByCNPJ(String cnpj) throws ParseException;
-    Long fetchInsuranceCompanyByName(String name) throws ParseException;
-    List<InsuranceCompany> fetchAllInsuranceCompanies() throws ParseException;
-    ArrayList<InsuranceCompany> fetchArrayInsuranceCompany() throws ParseException;
+    InsuranceCompany fetchInsuranceCompanyById(Long id);
+    InsuranceCompany fetchInsuranceCompanyByCNPJ(String cnpj);
+    Long fetchInsuranceCompanyByName(String name);
+    List<InsuranceCompany> fetchAllInsuranceCompanies();
+    ArrayList<InsuranceCompany> fetchArrayInsuranceCompany();
     boolean addInsuranceCompany(InsuranceCompany insuranceCompany);
     void deleteInsuranceCompany(Long id);
     boolean updateInsuranceCompany(InsuranceCompany insuranceCompany);

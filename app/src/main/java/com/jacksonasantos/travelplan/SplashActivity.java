@@ -74,11 +74,11 @@ public class SplashActivity extends AppCompatActivity {
                 }
                 if (insuranceCompany.getId() != null) {
                     if (!Database.mInsuranceCompanyDao.updateInsuranceCompany(insuranceCompany)) {
-                        Toast.makeText(ctx, String.valueOf(R.string.Error_Changing_Data) + Arrays.toString(dataLine), Toast.LENGTH_LONG).show();
+                        Toast.makeText(ctx, R.string.Error_Changing_Data + Arrays.toString(dataLine), Toast.LENGTH_LONG).show();
                     }
                 } else {
                     if (!Database.mInsuranceCompanyDao.addInsuranceCompany(insuranceCompany)) {
-                        Toast.makeText(ctx, String.valueOf(R.string.Error_Including_Data) + Arrays.toString(dataLine), Toast.LENGTH_LONG).show();
+                        Toast.makeText(ctx, R.string.Error_Including_Data + Arrays.toString(dataLine), Toast.LENGTH_LONG).show();
                     }
                 }
             }

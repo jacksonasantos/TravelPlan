@@ -81,7 +81,7 @@ public class SettingsActivity extends AppCompatActivity {
                 DisplayMetrics dm = res.getDisplayMetrics();
                 Locale.setDefault(myLocale);
                 res.updateConfiguration(config, dm);
-                Intent refresh = new Intent(getContext(), MainActivity.class);;
+                Intent refresh = new Intent(getContext(), MainActivity.class);
                 refresh.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(refresh);
             }

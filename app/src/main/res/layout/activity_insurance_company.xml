@@ -32,7 +32,9 @@
                     android:layout_height="wrap_content"
                     android:hint="@string/InsuranceCompany_Name"
                     android:nextFocusDown="@+id/etCnpj"
-                    android:textSize="12sp" />
+                    android:textSize="12sp"
+                    android:inputType="text"
+                    android:autofillHints="no" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout

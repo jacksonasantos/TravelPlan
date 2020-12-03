@@ -24,7 +24,6 @@ import com.jacksonasantos.travelplan.R;
 import com.jacksonasantos.travelplan.dao.Database;
 import com.jacksonasantos.travelplan.dao.FuelSupply;
 import com.jacksonasantos.travelplan.dao.Vehicle;
-import com.jacksonasantos.travelplan.dao.VehicleStatistics;
 import com.jacksonasantos.travelplan.ui.utility.Globals;
 import com.jacksonasantos.travelplan.ui.utility.Utils;
 import com.jacksonasantos.travelplan.ui.vehicle.FuelSupplyActivity;

@@ -6,8 +6,8 @@ import java.text.ParseException;
 import java.util.List;
 
 public interface MaintenanceIDAO {
-    Maintenance fetchMaintenanceById(Long id) throws ParseException;
-    List<Maintenance> fetchAllMaintenance() throws ParseException;
+    Maintenance fetchMaintenanceById(Long id);
+    List<Maintenance> fetchAllMaintenance();
     List<Maintenance> findReminderMaintenance( Long id);
     boolean addMaintenance(Maintenance maintenance);
     void deleteMaintenance(Long id);
