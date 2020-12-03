@@ -310,9 +310,6 @@ public class FuelSupplyActivity extends AppCompatActivity {
                     v1.setDt_odometer( Utils.stringToDate(etSupplyDate.getText().toString()));
                     v1.setOdometer(Integer.parseInt(etVehicleOdometer.getText().toString()));
 
-                    Database mdb = new Database(FuelSupplyActivity.this);
-                    mdb.open();
-
                     if (!opInsert) {
                         try {
                             f1.setId(fuelSupply.getId());
@@ -347,7 +344,6 @@ public class FuelSupplyActivity extends AppCompatActivity {
                         }
                     }
 
-                    mdb.close();
                     setResult(isSave ? 1 : 0);
                     if (isSave) {
                         finish();

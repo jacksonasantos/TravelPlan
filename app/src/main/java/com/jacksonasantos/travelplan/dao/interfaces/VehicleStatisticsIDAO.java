@@ -9,7 +9,7 @@ public interface VehicleStatisticsIDAO {
     List<VehicleStatistics> fetchAllVehicleStatistics();
     List<VehicleStatistics> findVehicleStatisticsbyId(Long id);
     boolean addVehicleStatistics(VehicleStatistics vehicleStatistics);
-    void deleteVehicleStatistics(int vehicleStatisticsId);
+    void deleteVehicleStatistics(Long id);
     boolean updateVehicleStatistics(VehicleStatistics vehicleStatistics);
     boolean changeVehicleStatistics(VehicleStatistics vehicleStatistics);
 }

@@ -99,7 +99,7 @@ public class MaintenanceDAO extends DbContentProvider implements MaintenanceISch
         final String[] selectionArgs = { String.valueOf(maintenance.getId()) };
         final String selection = MAINTENANCE_ID + " = ?";
         try {
-            return super.update(MAINTENANCE_TABLE, getContentValue(), selection, selectionArgs) > 0;
+            return (super.update(MAINTENANCE_TABLE, getContentValue(), selection, selectionArgs) > 0);
         } catch (SQLiteConstraintException ex){
             Log.w("Update Table", ex.getMessage());
             return false;
@@ -109,7 +109,7 @@ public class MaintenanceDAO extends DbContentProvider implements MaintenanceISch
     public boolean addMaintenance(Maintenance maintenance) {
         setContentValue(maintenance);
         try {
-            return super.insert(MAINTENANCE_TABLE, getContentValue()) > 0;
+            return (super.insert(MAINTENANCE_TABLE, getContentValue()) > 0);
         } catch (SQLiteConstraintException ex){
             Log.w("Insert Table", ex.getMessage());
             return false;

@@ -43,13 +43,13 @@ public class FuelSupply {
         this.associated_trip=associated_trip;
     }
 
-    public long getId() { return id;}
+    public Long getId() { return id;}
 
-    public void setId(long id) { this.id = id;}
+    public void setId(Long id) { this.id = id;}
 
-    public long getVehicle_id() {return vehicle_id;}
+    public Long getVehicle_id() {return vehicle_id;}
 
-    public void setVehicle_id(long vehicle_id) {this.vehicle_id = vehicle_id;}
+    public void setVehicle_id(Long vehicle_id) {this.vehicle_id = vehicle_id;}
 
     public String getGas_station() {return gas_station;}
 

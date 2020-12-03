@@ -1,4 +1,4 @@
-package com.jacksonasantos.travelplan;
+package com.jacksonasantos.travelplan.ui.general;
 
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -13,6 +13,8 @@ import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.PreferenceManager;
 
+import com.jacksonasantos.travelplan.MainActivity;
+import com.jacksonasantos.travelplan.R;
 import com.jacksonasantos.travelplan.ui.utility.Globals;
 
 import java.util.Locale;

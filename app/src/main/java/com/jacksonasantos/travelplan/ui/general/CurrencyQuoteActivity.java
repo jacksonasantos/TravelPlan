@@ -98,9 +98,6 @@ public class CurrencyQuoteActivity extends AppCompatActivity {
                     c1.setQuote_date(Utils.stringToDate(etQuoteDate.getText().toString()));
                     c1.setCurrency_value(Double.parseDouble(etCurrencyValue.getText().toString()));
 
-                    Database mdb = new Database(CurrencyQuoteActivity.this);
-                    mdb.open();
-
                     if (!opInsert) {
                         try {
                             c1.setId(currencyQuote.getId());
@@ -116,7 +113,6 @@ public class CurrencyQuoteActivity extends AppCompatActivity {
                         }
                     }
 
-                    mdb.close();
                     setResult(isSave ? 1 : 0);
                     if (isSave) {
                         finish();

@@ -38,7 +38,7 @@
 
     <fragment
         android:id="@+id/nav_settings"
-        android:name="com.jacksonasantos.travelplan.SettingsActivity$SettingsFragment"
+        android:name="com.jacksonasantos.travelplan.ui.general.SettingsActivity$SettingsFragment"
         android:label="@string/action_settings"
         tools:layout="@layout/activity_settings" />
 
@@ -46,6 +46,18 @@
         android:id="@+id/nav_insurance_company"
         android:name="com.jacksonasantos.travelplan.ui.general.InsuranceCompanyFragment"
         android:label="@string/menu_insurance_company"
+        tools:layout="@layout/fragment_generic_list" />
+
+    <fragment
+        android:id="@+id/nav_insurance"
+        android:name="com.jacksonasantos.travelplan.ui.general.InsuranceFragment"
+        android:label="@string/menu_insurance"
+        tools:layout="@layout/fragment_generic_list" />
+
+    <fragment
+        android:id="@+id/nav_broker"
+        android:name="com.jacksonasantos.travelplan.ui.general.BrokerFragment"
+        android:label="@string/menu_broker"
         tools:layout="@layout/fragment_generic_list" />
 
     <fragment

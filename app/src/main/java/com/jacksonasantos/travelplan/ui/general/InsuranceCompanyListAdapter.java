@@ -23,10 +23,9 @@ import java.util.List;
 
 public class InsuranceCompanyListAdapter extends RecyclerView.Adapter<InsuranceCompanyListAdapter.MyViewHolder> {
 
-    private List<InsuranceCompany> mInsuranceCompany;
+    private final List<InsuranceCompany> mInsuranceCompany;
     Context context;
 
-    Globals g = Globals.getInstance();
 
     public static class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 

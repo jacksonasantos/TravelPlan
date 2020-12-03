@@ -85,7 +85,7 @@ public class TravelDAO extends DbContentProvider implements TravelISchema, Trave
         final String[] selectionArgs = { String.valueOf(travel.getId()) };
         final String selection = TRAVEL_ID + " = ?";
         try {
-            return super.update(TRAVEL_TABLE, getContentValue(), selection, selectionArgs) > 0;
+            return (super.update(TRAVEL_TABLE, getContentValue(), selection, selectionArgs) > 0);
         } catch (SQLiteConstraintException ex){
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
                 Log.w("Update Table", Objects.requireNonNull(ex.getMessage()));
@@ -97,7 +97,7 @@ public class TravelDAO extends DbContentProvider implements TravelISchema, Trave
     public boolean addTravel(Travel travel) {
         setContentValue(travel);
         try {
-            return super.insert(TRAVEL_TABLE, getContentValue()) > 0;
+            return (super.insert(TRAVEL_TABLE, getContentValue()) > 0);
         } catch (SQLiteConstraintException ex){
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
                 Log.w("Insert Table", Objects.requireNonNull(ex.getMessage()));

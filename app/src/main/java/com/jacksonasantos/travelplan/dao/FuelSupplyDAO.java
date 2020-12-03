@@ -39,7 +39,7 @@ public class FuelSupplyDAO extends DbContentProvider implements FuelSupplyISchem
         return fuelSupply;
     }
 
-    public FuelSupply findLastFuelSupply(long vehicle_id) {
+    public FuelSupply findLastFuelSupply(Long vehicle_id) {
         FuelSupply fuelSupply = new FuelSupply();
         cursor = super.rawQuery("SELECT rowid, * " +
                         " FROM " + FUEL_SUPPLY_TABLE +
@@ -82,7 +82,7 @@ public class FuelSupplyDAO extends DbContentProvider implements FuelSupplyISchem
         return fuelSupplyList;
     }
 
-    public void deleteFuelSupply(int id) {
+    public void deleteFuelSupply(Long id) {
         final String[] selectionArgs = { String.valueOf(id) };
         final String selection = FUEL_SUPPLY_ID + " = ?";
         try {
@@ -97,7 +97,7 @@ public class FuelSupplyDAO extends DbContentProvider implements FuelSupplyISchem
         final String[] selectionArgs = { String.valueOf(fuelSupply.getId()) };
         final String selection = FUEL_SUPPLY_ID + " = ?";
         try {
-            return super.update(FUEL_SUPPLY_TABLE, getContentValue(), selection, selectionArgs) > 0;
+            return (super.update(FUEL_SUPPLY_TABLE, getContentValue(), selection, selectionArgs) > 0);
         } catch (SQLiteConstraintException ex){
             Log.w("Update Table", ex.getMessage());
             return false;
@@ -107,7 +107,7 @@ public class FuelSupplyDAO extends DbContentProvider implements FuelSupplyISchem
     public boolean addFuelSupply(FuelSupply fuelSupply) {
         setContentValue(fuelSupply);
         try {
-            return super.insert(FUEL_SUPPLY_TABLE, getContentValue()) > 0;
+            return (super.insert(FUEL_SUPPLY_TABLE, getContentValue()) > 0);
         } catch (SQLiteConstraintException ex){
             Log.w("Insert Table", ex.getMessage());
             return false;

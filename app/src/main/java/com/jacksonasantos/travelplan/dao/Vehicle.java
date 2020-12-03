@@ -7,7 +7,7 @@ import com.jacksonasantos.travelplan.R;
 import java.util.Date;
 
 public class Vehicle {
-    public long id;
+    public Long id;
     public int vehicle_type;
     public String name;
     public String short_name;
@@ -68,8 +68,8 @@ public class Vehicle {
     @Override
     public String toString() { return name; }
 
-    public long getId() { return id; }
-    public void setId(long id) {
+    public Long getId() { return id; }
+    public void setId(Long id) {
         this.id = id;
     }
 

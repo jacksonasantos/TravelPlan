@@ -20,6 +20,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
 
 public class SplashActivity extends AppCompatActivity {
     public Database mDb;
@@ -50,8 +51,6 @@ public class SplashActivity extends AppCompatActivity {
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     public void InitialLoadCSV(Context ctx) {
-        Database mdb = new Database(ctx);
-        mdb.open();
         // Carga de Seguradoras
         try {
             AssetManager assetManager = ctx.getAssets();
@@ -75,11 +74,11 @@ public class SplashActivity extends AppCompatActivity {
                 }
                 if (insuranceCompany.getId() != null) {
                     if (!Database.mInsuranceCompanyDao.updateInsuranceCompany(insuranceCompany)) {
-                        Toast.makeText(ctx, String.valueOf(R.string.Error_Changing_Data) + dataLine, Toast.LENGTH_LONG).show();
+                        Toast.makeText(ctx, String.valueOf(R.string.Error_Changing_Data) + Arrays.toString(dataLine), Toast.LENGTH_LONG).show();
                     }
                 } else {
                     if (!Database.mInsuranceCompanyDao.addInsuranceCompany(insuranceCompany)) {
-                        Toast.makeText(ctx, String.valueOf(R.string.Error_Including_Data) + dataLine, Toast.LENGTH_LONG).show();
+                        Toast.makeText(ctx, String.valueOf(R.string.Error_Including_Data) + Arrays.toString(dataLine), Toast.LENGTH_LONG).show();
                     }
                 }
             }
@@ -87,6 +86,5 @@ public class SplashActivity extends AppCompatActivity {
         } catch (IOException ex) {
             Log.i("debug", "Error: " + ex.getMessage());
         }
-        mdb.close();
     }
 }

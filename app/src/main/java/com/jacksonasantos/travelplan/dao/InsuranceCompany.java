@@ -1,5 +1,7 @@
 package com.jacksonasantos.travelplan.dao;
 
+import androidx.annotation.NonNull;
+
 import java.util.Date;
 
 public class InsuranceCompany {
@@ -26,6 +28,10 @@ public class InsuranceCompany {
         this.telephone = telephone;
         this.authorization_date = authorization_date;
     }
+
+    @NonNull
+    @Override
+    public String toString() { return company_name; }
 
     public Long getId() { return id;}
 

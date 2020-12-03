@@ -92,23 +92,19 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         ArrayAdapter adapter = new ArrayAdapter(getActivity(), android.R.layout.simple_spinner_item, vehicles);
         adapter.setDropDownViewResource( android.R.layout.simple_spinner_dropdown_item);
         spVehicle.setAdapter(adapter);
-        Vehicle v1 = Database.mVehicleDao.fetchVehicleById(g.getIdVehicle());
+        /*Vehicle v1 = Database.mVehicleDao.fetchVehicleById(g.getIdVehicle());
         for (int x = 0; x < spVehicle.getAdapter().getCount(); x++) {
             if (spVehicle.getItemAtPosition(x).toString().equals(v1.getName())) {
                 spVehicle.setSelection(x);
                 break;
             }
-        }
+        }*/
 
         final Vehicle[] vehicle = {new Vehicle()};
         spVehicle.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @SuppressLint("SetTextI18n")
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
-                // Displays maintenance service reminder data for the selected vehicle
-                Database mDb = new Database(getContext());
-                mDb.open();
 
                 // Recupera dados do veículo selecionado no Spinner
                 vehicle[0] = (Vehicle) parent.getItemAtPosition(position);
@@ -134,7 +130,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                 maintenanceList.setAdapter(adapterMaintenance);
                 maintenanceList.setLayoutManager(new LinearLayoutManager(getContext()));
 
-                mDb.close();
                 adapterVehicle.notifyDataSetChanged();
                 adapterMaintenance.notifyDataSetChanged();
             }

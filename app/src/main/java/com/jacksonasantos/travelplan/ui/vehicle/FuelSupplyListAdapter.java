@@ -29,7 +29,7 @@ import java.util.Locale;
 
 public class FuelSupplyListAdapter extends RecyclerView.Adapter<FuelSupplyListAdapter.MyViewHolder> {
 
-    private List<FuelSupply> mFuelSupply;
+    private final List<FuelSupply> mFuelSupply;
     Context context;
 
     Globals g = Globals.getInstance();
@@ -112,7 +112,7 @@ public class FuelSupplyListAdapter extends RecyclerView.Adapter<FuelSupplyListAd
                         .setPositiveButton(R.string.Yes, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
-                                Database.mFuelSupplyDao.deleteFuelSupply((int) fuelSupply.getId());  // invoca a deleção do registro
+                                Database.mFuelSupplyDao.deleteFuelSupply(fuelSupply.getId());  // invoca a deleção do registro
                                 mFuelSupply.remove(position);
                                 notifyItemRemoved(position);
                             }

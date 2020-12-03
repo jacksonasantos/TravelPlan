@@ -149,9 +149,6 @@ public class MaintenanceActivity extends AppCompatActivity {
                     m1.setLocation(etLocation.getText().toString());
                     m1.setNote(etNote.getText().toString());
 
-                    Database mdb = new Database(MaintenanceActivity.this);
-                    mdb.open();
-
                     if (!opInsert) {
                         try {
                             m1.setId(maintenance.getId());
@@ -167,7 +164,6 @@ public class MaintenanceActivity extends AppCompatActivity {
                         }
                     }
 
-                    mdb.close();
                     setResult(isSave ? 1 : 0);
                     if (isSave) {
                         finish();

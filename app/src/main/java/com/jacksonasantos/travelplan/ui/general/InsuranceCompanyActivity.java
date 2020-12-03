@@ -110,9 +110,6 @@ public class InsuranceCompanyActivity extends AppCompatActivity {
                     i1.setTelephone(etTelephone.getText().toString());
                     i1.setAuthorization_date(Utils.stringToDate(etAuthorization_Date.getText().toString()));
 
-                    Database mdb = new Database(InsuranceCompanyActivity.this);
-                    mdb.open();
-
                     if (!opInsert) {
                         try {
                             i1.setId(insuranceCompany.getId());
@@ -128,7 +125,6 @@ public class InsuranceCompanyActivity extends AppCompatActivity {
                         }
                     }
 
-                    mdb.close();
                     setResult(isSave ? 1 : 0);
                     if (isSave) {
                         finish();

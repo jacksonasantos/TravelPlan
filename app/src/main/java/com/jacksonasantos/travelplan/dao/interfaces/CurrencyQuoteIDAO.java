@@ -6,11 +6,10 @@ import java.util.Date;
 import java.util.List;
 
 public interface CurrencyQuoteIDAO {
-    CurrencyQuote fetchCurrencyQuoteById(Long currencyQuoteId);
+    CurrencyQuote fetchCurrencyQuoteById(Long id);
     List<CurrencyQuote> fetchAllCurrencyQuotes();
     boolean addCurrencyQuote(CurrencyQuote currencyQuote);
-    boolean deleteCurrencyQuote(Long currencyQuoteId);
+    void deleteCurrencyQuote(Long id);
     boolean updateCurrencyQuote(CurrencyQuote currencyQuote);
-
     CurrencyQuote findQuoteDay(int currency_type, Date quote_date);
 }

@@ -86,4 +86,16 @@
         <item>@string/oil_change</item>
         <item>@string/spark_plug</item>
     </string-array>
+    <!-- Insurance Type -->
+    <string-array name="insurance_type_array">
+        <item>@string/insurance_type_vehicle</item>
+        <item>@string/insurance_type_life</item>
+        <item>@string/insurance_type_property</item>
+        <item>@string/insurance_type_travel</item>
+    </string-array>
+    <!-- Insurance Status -->
+    <string-array name="insurance_status_array">
+        <item>@string/registered</item>
+        <item>@string/unsuccessful</item>
+    </string-array>
 </resources>

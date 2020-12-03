@@ -11,7 +11,9 @@
     <string name="menu_maintenance">Maintenance Service</string>
     <string name="action_settings">Settings</string>
     <string name="menu_insurance_company">Insurance Company</string>
+    <string name="menu_broker">Broker</string>
     <string name="menu_currency_quote">Currency Quote</string>
+    <string name="menu_insurance">Insurance</string>
 
     <!-- Preference Titles -->
     <string name="personal_header">Personal Data</string>
@@ -116,6 +118,30 @@
     <string name="VehicleConsumption">Consumption</string>
     <string name="bt_Done">Done</string>
 
+    <!-- Insurance Activity -->
+    <string name="Insurance_Type">Insurance Type</string>
+    <string name="Insurance_Description">Description</string>
+    <string name="Insurance_Insurance_Policy">Policy</string>
+    <string name="Insurance_Issuance_Date">Issuance Date</string>
+    <string name="Insurance_Broker">Broker</string>
+    <string name="Insurance_Initial_Effective_Date">Initial Effective Date</string>
+    <string name="Insurance_Final_Effective_Date">Final Effective Date</string>
+    <string name="Insurance_Net_Premium_Value">Net Premium Value</string>
+    <string name="Insurance_Tax_Amount">Tax Amount</string>
+    <string name="Insurance_Total_Premium_Value">Total Premium Value</string>
+    <string name="Insurance_Insurance_Deductible">Insurance Deductible</string>
+    <string name="Insurance_Bonus_Class">Bonus Class</string>
+    <string name="Insurance_Note">Note</string>
+    <string name="Insurance_Status">Status</string>
+
+    <string name="insurance_type_vehicle">Vehicle</string>
+    <string name="insurance_type_life">Life</string>
+    <string name="insurance_type_property">Property</string>
+    <string name="insurance_type_travel">Travel</string>
+
+    <string name="Insurance">Insurance</string>
+    <string name="Insurance_Deleting">Deleting Insurance</string>
+
     <!-- Insurance Company Fragment -->
     <string name="InsuranceCompany_Name">Company Name</string>
     <string name="InsuranceCompany_Cnpj">CNPJ</string>
@@ -129,6 +155,14 @@
 
     <string name="Insurance_Company">Insurance Company</string>
     <string name="Insurance_Company_Deleting">Deleting Insurance Company</string>
+
+    <!-- Broker Fragment -->
+    <string name="Broker_Name">Name</string>
+    <string name="Broker_Phone">Phone</string>
+    <string name="Broker_Email">Email</string>
+
+    <string name="Broker">Broker</string>
+    <string name="Broker_Deleting">Deleting Broker</string>
 
     <!-- Insurance Company Fragment -->
     <string name="CurrencyQuote_Type">Currency Type</string>
@@ -211,5 +245,6 @@
     <string name="planning">Planning</string>
     <string name="running">Running</string>
     <string name="executed">Executed</string>
+    <string name="unsuccessful">Unsuccessful</string>
 
 </resources>

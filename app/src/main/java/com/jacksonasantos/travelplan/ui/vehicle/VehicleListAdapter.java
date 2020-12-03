@@ -24,7 +24,7 @@ import java.util.List;
 
 public class VehicleListAdapter extends RecyclerView.Adapter<VehicleListAdapter.MyViewHolder> {
 
-    private List<Vehicle> mVehicle;
+    private final List<Vehicle> mVehicle;
     Context context;
 
     public static class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -40,10 +40,10 @@ public class VehicleListAdapter extends RecyclerView.Adapter<VehicleListAdapter.
             super(v);
             imVehicleType = v.findViewById(R.id.imVehicleType);
             txtPlate = v.findViewById(R.id.txtPlate);
-            txtShortName = (TextView) v.findViewById(R.id.txtShortName);
-            btnEdit = (ImageButton) v.findViewById(R.id.btnEdit);
-            btnDelete = (ImageButton) v.findViewById(R.id.btnDelete);
-            btnRefuel = (ImageButton) v.findViewById(R.id.btnRefuel);
+            txtShortName = v.findViewById(R.id.txtShortName);
+            btnEdit = v.findViewById(R.id.btnEdit);
+            btnDelete = v.findViewById(R.id.btnDelete);
+            btnRefuel = v.findViewById(R.id.btnRefuel);
             btnEdit.setOnClickListener(this);
             btnDelete.setOnClickListener(this);
             btnRefuel.setOnClickListener(this);
@@ -62,6 +62,7 @@ public class VehicleListAdapter extends RecyclerView.Adapter<VehicleListAdapter.
         mdb.open();
     }
 
+    @NonNull
     @Override
     public VehicleListAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View vehicleView = LayoutInflater.from(parent.getContext())
@@ -112,7 +113,7 @@ public class VehicleListAdapter extends RecyclerView.Adapter<VehicleListAdapter.
                         .setPositiveButton(R.string.Yes, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
-                                Database.mVehicleDao.deleteVehicle((int)vehicle.getId());  // invoca a deleção do registro
+                                Database.mVehicleDao.deleteVehicle(vehicle.getId());  // invoca a deleção do registro
                                 mVehicle.remove(position);
                                 notifyItemRemoved(position);
                             }

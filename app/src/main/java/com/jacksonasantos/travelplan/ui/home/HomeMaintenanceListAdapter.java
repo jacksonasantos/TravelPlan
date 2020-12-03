@@ -117,7 +117,7 @@ public class HomeMaintenanceListAdapter extends RecyclerView.Adapter<HomeMainten
             public void onClick(View v) {
                 try {
                     Database mDb = new Database(context);
-                    mDb.open();
+                    //mDb.open();
                     Maintenance m1 = Database.mMaintenanceDao.fetchMaintenanceById(maintenance.getId());
                     m1.setStatus(maintenance.getStatus() == 0 ? 1 : 0);
                     Database.mMaintenanceDao.updateMaintenance(m1);

@@ -33,7 +33,7 @@ import java.util.Locale;
 
 public class MaintenanceListAdapter extends RecyclerView.Adapter<MaintenanceListAdapter.MyViewHolder> {
 
-    private List<Maintenance> mMaintenance;
+    private final List<Maintenance> mMaintenance;
     Context context;
     String[] serviceArray;
 
@@ -95,7 +95,7 @@ public class MaintenanceListAdapter extends RecyclerView.Adapter<MaintenanceList
     @Override
     public void onBindViewHolder(@NonNull final MyViewHolder holder, final int position) {
         final Maintenance maintenance = mMaintenance.get(position);
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", locale);
 
         holder.txtMaintenanceDate.setText(Utils.dateToString(maintenance.getDate()));
         Vehicle v = Database.mVehicleDao.fetchVehicleById(maintenance.getVehicle_id());

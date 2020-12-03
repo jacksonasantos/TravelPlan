@@ -54,6 +54,22 @@ public class InsuranceCompanyDAO extends DbContentProvider implements InsuranceC
         return insuranceCompany;
     }
 
+    public Long fetchInsuranceCompanyByName(String name) {
+        final String[] selectionArgs = { String.valueOf(name) };
+        final String selection = INSURANCE_COMPANY_COMPANY_NAME + " = ?";
+        InsuranceCompany insuranceCompany = new InsuranceCompany();
+        cursor = super.query(INSURANCE_COMPANY_TABLE, INSURANCE_COMPANY_COLUMNS, selection, selectionArgs, INSURANCE_COMPANY_ID);
+        if (cursor != null) {
+            cursor.moveToFirst();
+            while (!cursor.isAfterLast()) {
+                insuranceCompany = cursorToEntity(cursor);
+                cursor.moveToNext();
+            }
+            cursor.close();
+        }
+        return insuranceCompany.getId();
+    }
+
     public List<InsuranceCompany> fetchAllInsuranceCompanies() {
         List<InsuranceCompany> insuranceCompanyList = new ArrayList<>();
         cursor = super.query(INSURANCE_COMPANY_TABLE, INSURANCE_COMPANY_COLUMNS, null, null, INSURANCE_COMPANY_COMPANY_NAME);
@@ -64,6 +80,18 @@ public class InsuranceCompanyDAO extends DbContentProvider implements InsuranceC
             } while (cursor.moveToNext());
 
             cursor.close();
+        }
+        return insuranceCompanyList;
+    }
+
+    public ArrayList<InsuranceCompany> fetchArrayInsuranceCompany(){
+        ArrayList<InsuranceCompany> insuranceCompanyList = new ArrayList<>();
+        Cursor cursor = super.query(INSURANCE_COMPANY_TABLE, INSURANCE_COMPANY_COLUMNS, null,null, INSURANCE_COMPANY_COMPANY_NAME);
+               if(cursor != null && cursor.moveToFirst()){
+            do{
+                InsuranceCompany insuranceCompany = cursorToEntity(cursor);
+                insuranceCompanyList.add(insuranceCompany);
+            }while(cursor.moveToNext());
         }
         return insuranceCompanyList;
     }
@@ -83,7 +111,7 @@ public class InsuranceCompanyDAO extends DbContentProvider implements InsuranceC
         final String[] selectionArgs = { String.valueOf(insuranceCompany.getId()) };
         final String selection = INSURANCE_COMPANY_ID + " = ?";
         try {
-            return super.update(INSURANCE_COMPANY_TABLE, getContentValue(), selection, selectionArgs) > 0;
+            return (super.update(INSURANCE_COMPANY_TABLE, getContentValue(), selection, selectionArgs) > 0);
         } catch (SQLiteConstraintException ex){
             Log.w("Update Table", ex.getMessage());
             return false;
@@ -93,7 +121,7 @@ public class InsuranceCompanyDAO extends DbContentProvider implements InsuranceC
     public boolean addInsuranceCompany(InsuranceCompany insuranceCompany) {
         setContentValue(insuranceCompany);
         try {
-            return super.insert(INSURANCE_COMPANY_TABLE, getContentValue()) > 0;
+            return (super.insert(INSURANCE_COMPANY_TABLE, getContentValue()) > 0);
         } catch (SQLiteConstraintException ex){
             Log.w("Insert Table", ex.getMessage());
             return false;

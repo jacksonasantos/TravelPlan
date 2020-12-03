@@ -76,14 +76,13 @@ public class CurrencyQuoteDAO extends DbContentProvider implements CurrencyQuote
         return currencyQuoteList;
     }
 
-    public boolean deleteCurrencyQuote(Long id) {
+    public void deleteCurrencyQuote(Long id) {
         final String[] selectionArgs = { String.valueOf(id) };
         final String selection = CURRENCY_QUOTE_ID + " = ?";
         try {
-            return super.delete(CURRENCY_QUOTE_TABLE, selection, selectionArgs) > 0;
+            super.delete(CURRENCY_QUOTE_TABLE, selection, selectionArgs);
         } catch (SQLiteConstraintException ex){
             Log.w("Delete Table", ex.getMessage());
-            return false;
         }
     }
 
@@ -92,7 +91,7 @@ public class CurrencyQuoteDAO extends DbContentProvider implements CurrencyQuote
         final String[] selectionArgs = { String.valueOf(currencyQuote.getId()) };
         final String selection = CURRENCY_QUOTE_ID + " = ?";
         try {
-            return super.update(CURRENCY_QUOTE_TABLE, getContentValue(), selection, selectionArgs) > 0;
+            return (super.update(CURRENCY_QUOTE_TABLE, getContentValue(), selection, selectionArgs) > 0);
         } catch (SQLiteConstraintException ex){
             Log.w("Update Table", ex.getMessage());
             return false;
@@ -102,7 +101,7 @@ public class CurrencyQuoteDAO extends DbContentProvider implements CurrencyQuote
     public boolean addCurrencyQuote(CurrencyQuote currencyQuote) {
         setContentValue(currencyQuote);
         try {
-            return super.insert(CURRENCY_QUOTE_TABLE, getContentValue()) > 0;
+            return (super.insert(CURRENCY_QUOTE_TABLE, getContentValue()) > 0);
         } catch (SQLiteConstraintException ex){
             Log.w("Insert Table", ex.getMessage());
             return false;

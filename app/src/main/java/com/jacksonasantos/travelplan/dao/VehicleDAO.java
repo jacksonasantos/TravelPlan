@@ -78,7 +78,7 @@ public class VehicleDAO extends DbContentProvider implements VehicleISchema, Veh
         return vehicleList;
     }
 
-    public void deleteVehicle(int id) {
+    public void deleteVehicle(Long id) {
         final String[] selectionArgs = { String.valueOf(id) };
         final String selection = VEHICLE_ID + " = ?";
         try {
@@ -93,7 +93,7 @@ public class VehicleDAO extends DbContentProvider implements VehicleISchema, Veh
         final String[] selectionArgs = { String.valueOf(vehicle.getId()) };
         final String selection = VEHICLE_ID + " = ?";
         try {
-            return super.update(VEHICLE_TABLE, getContentValue(), selection, selectionArgs) > 0;
+            return (super.update(VEHICLE_TABLE, getContentValue(), selection, selectionArgs) > 0);
         } catch (SQLiteConstraintException ex){
             Log.w("Update Table", ex.getMessage());
             return false;
@@ -103,7 +103,7 @@ public class VehicleDAO extends DbContentProvider implements VehicleISchema, Veh
     public boolean addVehicle(Vehicle vehicle) {
         setContentValue(vehicle);
         try {
-            return super.insert(VEHICLE_TABLE, getContentValue()) > 0;
+            return (super.insert(VEHICLE_TABLE, getContentValue()) > 0);
         } catch (SQLiteConstraintException ex){
             Log.w("Insert Table", ex.getMessage());
             return false;

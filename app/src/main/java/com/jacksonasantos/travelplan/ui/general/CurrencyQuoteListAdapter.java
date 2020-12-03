@@ -18,12 +18,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.jacksonasantos.travelplan.R;
 import com.jacksonasantos.travelplan.dao.Database;
 import com.jacksonasantos.travelplan.dao.CurrencyQuote;
-import com.jacksonasantos.travelplan.ui.utility.Globals;
 import com.jacksonasantos.travelplan.ui.utility.Utils;
 
-import java.text.NumberFormat;
 import java.util.List;
-import java.util.Locale;
 
 public class CurrencyQuoteListAdapter extends RecyclerView.Adapter<CurrencyQuoteListAdapter.MyViewHolder> {
 
@@ -31,9 +28,6 @@ public class CurrencyQuoteListAdapter extends RecyclerView.Adapter<CurrencyQuote
     Context context;
     String[] currencyArray;
 
-    Globals g = Globals.getInstance();
-
-    Locale locale = new Locale(g.getLanguage(), g.getCountry());
 
     public static class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 

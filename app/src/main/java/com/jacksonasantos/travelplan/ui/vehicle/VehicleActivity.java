@@ -106,14 +106,14 @@ public class VehicleActivity extends AppCompatActivity {
         etDtOdometer = findViewById(R.id.etDtOdometer);
         etOdometer = findViewById(R.id.etOdometer);
 
-        addRadioButtonResources(R.array.vehicle_type_array, rgVehicleType);
+        Utils.addRadioButtonResources(R.array.vehicle_type_array, rgVehicleType, this);
         rgVehicleType.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 rbVehicleType = checkedId;
             }
         });
-        addSpinnerResources(R.array.fuel_type_array, spinFuelType);
+        Utils.createSpinnerResources(R.array.fuel_type_array, spinFuelType, this);
         nrspinFuelType = 0;
         spinFuelType.setOnItemClickListener(new Spinner.OnItemClickListener() {
             @Override public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -153,35 +153,6 @@ public class VehicleActivity extends AppCompatActivity {
         }
     }
 
-    private void addSpinnerResources(int resource_array, AutoCompleteTextView spin) {
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(
-                this,
-                android.R.layout.select_dialog_item,
-                getResources().getStringArray(resource_array));
-        spin.setAdapter(adapter);
-    }
-
-    private void addRadioButtonResources(int resource_array, RadioGroup rg) {
-        int i = 0;
-        String[] S = getResources().getStringArray(resource_array);
-        for (String item : S) {
-            RadioButton newRadio = createRadioButton(item, ++i);
-            rg.addView(newRadio);
-        }
-    }
-
-    @NonNull
-    private RadioButton createRadioButton(String txt, int i) {
-        RadioButton nRadio = new RadioButton(this );
-        LinearLayout.LayoutParams params = new RadioGroup.LayoutParams(
-                RadioGroup.LayoutParams.WRAP_CONTENT,
-                RadioGroup.LayoutParams.WRAP_CONTENT);
-        nRadio.setLayoutParams(params);
-        nRadio.setText(txt); // define o texto
-        nRadio.setId(i);     // define o codigo - sequencia do for
-        return nRadio;
-    }
-
     public void addListenerOnButtonSave() {
        Button btSaveVehicle = findViewById(R.id.btSaveVehicle);
 
@@ -192,8 +163,6 @@ public class VehicleActivity extends AppCompatActivity {
                 if (!validateData()) {
                     Toast.makeText(getApplicationContext(), R.string.Error_Data_Validation, Toast.LENGTH_LONG).show();
                 } else {
-                    Database mdb = new Database(VehicleActivity.this);
-                    mdb.open();
                     final Vehicle v1 = new Vehicle();
                     v1.setVehicle_type(rbVehicleType);
                     v1.setName(etNameVehicle.getText().toString());
@@ -249,7 +218,6 @@ public class VehicleActivity extends AppCompatActivity {
                         }
                     }
 
-                    mdb.close();
                     setResult(isSave ? 1 : 0);
                     if (isSave) {
                         finish();

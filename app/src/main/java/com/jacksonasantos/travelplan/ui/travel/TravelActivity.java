@@ -67,7 +67,6 @@ public class TravelActivity extends AppCompatActivity {
 
         etDeparture_date.addTextChangedListener(new DateInputMask(etDeparture_date));
         etReturn_date.addTextChangedListener(new DateInputMask(etReturn_date));
-        tvStatus.setText(getResources().getStringArray(R.array.travel_status_array)[nrStatus]);
 
         if (travel != null) {
             etDescription.setText(travel.getDescription());
@@ -98,9 +97,6 @@ public class TravelActivity extends AppCompatActivity {
                     t1.setNote(etNote.getText().toString());
                     t1.setStatus(nrStatus);
 
-                    Database mdb = new Database(TravelActivity.this);
-                    mdb.open();
-
                     if (!opInsert) {
                         try {
                             t1.setId(travel.getId());
@@ -116,7 +112,6 @@ public class TravelActivity extends AppCompatActivity {
                         }
                     }
 
-                    mdb.close();
                     setResult(isSave ? 1 : 0);
                     if (isSave) {
                         finish();

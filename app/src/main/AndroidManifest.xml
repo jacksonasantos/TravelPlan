@@ -26,6 +26,12 @@
             android:name=".ui.general.InsuranceCompanyActivity"
             android:label="@string/Insurance_Company" />
         <activity
+            android:name=".ui.general.InsuranceActivity"
+            android:label="@string/Insurance" />
+        <activity
+            android:name=".ui.general.BrokerActivity"
+            android:label="@string/Broker" />
+        <activity
             android:name=".ui.general.CurrencyQuoteActivity"
             android:label="@string/Currency_Quote" />
         <activity
@@ -41,10 +47,11 @@
             android:name=".ui.travel.TravelActivity"
             android:label="@string/Travel" />
         <activity
-            android:name=".SettingsActivity"
+            android:name=".ui.general.SettingsActivity"
             android:label="@string/action_settings" />
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name" />
     </application>
+
 </manifest>

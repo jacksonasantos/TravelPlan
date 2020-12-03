@@ -9,6 +9,6 @@ public interface FuelSupplyIDAO {
     FuelSupply fetchFuelSupplyById(Long id) throws ParseException;
     List<FuelSupply> fetchAllFuelSupplies() throws ParseException;
     boolean addFuelSupply(FuelSupply fuelSupply);
-    void deleteFuelSupply(int fuelSupplyId);
+    void deleteFuelSupply(Long id);
     boolean updateFuelSupply(FuelSupply fuelSupply);
 }
