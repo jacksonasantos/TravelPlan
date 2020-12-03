@@ -319,10 +319,41 @@
                         android:autofillHints="no"
                         android:hint="@string/Maintenance_Note"
                         android:inputType="text"
-                        android:nextFocusDown="@+id/btSaveMaintenance"
+                        android:nextFocusDown="@+id/tvStatus"
                         android:textSize="12sp" />
                 </com.google.android.material.textfield.TextInputLayout>
 
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="1"
+                android:baselineAligned="false">
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/input_layout_tvStatus"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/labels_margin"
+                    android:layout_marginLeft="@dimen/labels_margin"
+                    android:layout_marginTop="@dimen/labels_space_top"
+                    android:layout_marginEnd="@dimen/labels_margin"
+                    android:layout_marginRight="@dimen/labels_margin"
+                    android:layout_weight="1">
+
+                    <EditText
+                        android:id="@+id/tvStatus"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:autofillHints="no"
+                        android:clickable="false"
+                        android:enabled="false"
+                        android:hint="@string/Maintenance_Status"
+                        android:inputType="none"
+                        android:nextFocusDown="@+id/btSaveMaintenance"
+                        android:textSize="12sp" />
+                </com.google.android.material.textfield.TextInputLayout>
             </LinearLayout>
 
         </LinearLayout>

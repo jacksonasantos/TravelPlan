@@ -87,6 +87,7 @@
     <string name="Maintenance_Value">Maintenance Value</string>
     <string name="Maintenance_Location">Maintenance Location</string>
     <string name="Maintenance_Note">Maintenance Note</string>
+    <string name="Maintenance_Status">Maintenance Status</string>
 
     <!-- FuelSupply Fragment -->
     <string name="gasoline_common">Gasoline Common</string>

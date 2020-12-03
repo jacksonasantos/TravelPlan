@@ -38,6 +38,8 @@ public class MaintenanceActivity extends AppCompatActivity {
     private EditText etValue;
     private EditText etLocation;
     private EditText etNote;
+    private TextView tvStatus;
+    private int nrStatus;
 
     private boolean opInsert = true;
     private Maintenance maintenance;
@@ -86,6 +88,7 @@ public class MaintenanceActivity extends AppCompatActivity {
         etValue = findViewById(R.id.etValue);
         etLocation = findViewById(R.id.etLocation);
         etNote = findViewById(R.id.etNote);
+        tvStatus = findViewById(R.id.tvStatus);
 
         Vehicle vehicle;
         if (opInsert) {
@@ -122,6 +125,7 @@ public class MaintenanceActivity extends AppCompatActivity {
             etValue.setText(String.valueOf(maintenance.getValue()));
             etLocation.setText(maintenance.getLocation());
             etNote.setText(maintenance.getNote());
+            tvStatus.setText(getResources().getStringArray(R.array.maintenance_status_array)[nrStatus]);
         }
     }
 
@@ -148,6 +152,7 @@ public class MaintenanceActivity extends AppCompatActivity {
                     m1.setValue(Double.valueOf(etValue.getText().toString()));
                     m1.setLocation(etLocation.getText().toString());
                     m1.setNote(etNote.getText().toString());
+                    m1.setStatus(nrStatus);
 
                     if (!opInsert) {
                         try {
@@ -187,6 +192,7 @@ public class MaintenanceActivity extends AppCompatActivity {
                 && !etValue.getText().toString().trim().isEmpty()
 //                && !etLocation.getText().toString().trim().isEmpty()
 //                && !etNote.getText().toString().trim().isEmpty()
+//                && !tvStats.getText().toString().trim().isEmpty()
                )
             {
                 isValid = true;

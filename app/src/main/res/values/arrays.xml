@@ -98,4 +98,10 @@
         <item>@string/registered</item>
         <item>@string/unsuccessful</item>
     </string-array>
+    <!-- Maintenance Status -->
+    <string-array name="maintenance_status_array">
+        <item>@string/registered</item>
+        <item>@string/executed</item>
+        <item>@string/unsuccessful</item>
+    </string-array>
 </resources>

@@ -338,6 +338,7 @@
                 android:layout_marginRight="@dimen/labels_margin"
                 android:autofillHints="no"
                 android:clickable="false"
+                android:enabled="false"
                 android:hint="@string/Insurance_Status"
                 android:inputType="none"
                 android:textSize="14sp" />

@@ -99,7 +99,7 @@
                     android:layout_height="match_parent"
                     android:hint="@string/Travel_Note"
                     android:inputType="text"
-                    android:nextFocusDown="@+id/tvStatus"
+                    android:nextFocusDown="@+id/btSaveTravel"
                     android:textSize="12sp"
                     android:autofillHints="no" />
             </com.google.android.material.textfield.TextInputLayout>
@@ -120,6 +120,7 @@
                     android:layout_height="match_parent"
                     android:autofillHints="no"
                     android:clickable="false"
+                    android:enabled="false"
                     android:hint="@string/Travel_Status"
                     android:nextFocusDown="@+id/btSaveTravel"
                     android:textSize="12sp"
