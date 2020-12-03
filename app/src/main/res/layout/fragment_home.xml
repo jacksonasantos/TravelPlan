@@ -164,8 +164,7 @@
         android:layout_marginRight="@dimen/labels_margin"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/layerFuelSupply"
-        tools:ignore="MissingConstraints">
+        app:layout_constraintTop_toBottomOf="@+id/layerFuelSupply">
 
         <TextView
             android:id="@+id/tvVehicleStatistics"
@@ -220,8 +219,7 @@
         android:layout_marginRight="@dimen/labels_margin"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/layerStatisticsVehicle"
-        tools:ignore="MissingConstraints">
+        app:layout_constraintTop_toBottomOf="@+id/layerStatisticsVehicle">
 
         <TextView
             android:id="@+id/tvVehicleServiceNext"
@@ -254,4 +252,46 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layerInsuranceExpiration"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginStart="@dimen/labels_margin"
+        android:layout_marginLeft="@dimen/labels_margin"
+        android:layout_marginEnd="@dimen/labels_margin"
+        android:layout_marginRight="@dimen/labels_margin"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/layerServiceVehicle">
+
+        <TextView
+            android:id="@+id/tvInsuranceExpiration"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/InsuranceExpiration"
+            android:textColor="@color/design_default_color_secondary"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/listInsuranceExpiration"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:scrollbars="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvInsuranceExpiration" />
+
+        <Button
+            android:id="@+id/buttonSeparator5"
+            android:layout_width="match_parent"
+            android:layout_height="16dp"
+            android:clickable="false"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/listInsuranceExpiration" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

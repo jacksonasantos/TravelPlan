@@ -38,6 +38,27 @@ public class InsuranceDAO extends DbContentProvider implements InsuranceISchema,
         return insurance;
     }
 
+    public List<Insurance> findReminderInsurance() {
+        List<Insurance> insuranceList = new ArrayList<>();
+
+        final String[] selectionArgs = { };
+        final String selection = INSURANCE_STATUS + " = 0 "; //AND ( " +
+        //            MAINTENANCE_EXPIRATION_DATE + " NOT NULL AND " +
+        //            MAINTENANCE_EXPIRATION_DATE + " > DATE ('now') )" ;
+
+        cursor = super.query(INSURANCE_TABLE, INSURANCE_COLUMNS, selection, selectionArgs, INSURANCE_FINAL_EFFECTIVE_DATE);
+
+        if (cursor.moveToFirst()) {
+            do {
+                Insurance insurance = cursorToEntity(cursor);
+                insuranceList.add(insurance);
+            } while (cursor.moveToNext());
+
+            cursor.close();
+        }
+        return insuranceList;
+    }
+
     public List<Insurance> fetchAllInsurance() {
         List<Insurance> insuranceList = new ArrayList<>();
         cursor = super.query(INSURANCE_TABLE, INSURANCE_COLUMNS, null, null, INSURANCE_INSURANCE_POLICY);

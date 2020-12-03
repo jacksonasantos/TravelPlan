@@ -190,7 +190,8 @@
     <string name="insurance_type_property">Propriedade</string>
     <string name="insurance_type_travel">Viagem</string>
     <string name="menu_insurance">Seguros</string>
-    <string name="unsuccessful">Vencida</string>
     <string name="Insurance_Description">Descrição</string>
     <string name="Maintenance_Status">Status</string>
+    <string name="InsuranceExpiration">Vencimento de Seguros</string>
+    <string name="overdue">Em atrasi</string>
 </resources>

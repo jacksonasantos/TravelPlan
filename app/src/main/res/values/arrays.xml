@@ -96,12 +96,12 @@
     <!-- Insurance Status -->
     <string-array name="insurance_status_array">
         <item>@string/registered</item>
-        <item>@string/unsuccessful</item>
+        <item>@string/overdue</item>
     </string-array>
     <!-- Maintenance Status -->
     <string-array name="maintenance_status_array">
         <item>@string/registered</item>
         <item>@string/executed</item>
-        <item>@string/unsuccessful</item>
+        <item>@string/overdue</item>
     </string-array>
 </resources>

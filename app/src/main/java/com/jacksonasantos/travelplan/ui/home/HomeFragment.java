@@ -48,6 +48,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
     private RecyclerView maintenanceList;
 
+    private RecyclerView insuranceList;
+
     Globals g = Globals.getInstance();
 
     Locale locale = new Locale(g.getLanguage(), g.getCountry());
@@ -68,6 +70,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         tvFuelSupplyValue = v.findViewById(R.id.tvFuelSupplyValue);
         vehicleStatisticsList = v.findViewById(R.id.listVehicleStatistics);
         maintenanceList = v.findViewById(R.id.listInVehicleService);
+        insuranceList = v.findViewById(R.id.listInsuranceExpiration);
 
         btnRefuel.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -91,13 +94,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         ArrayAdapter adapter = new ArrayAdapter(getActivity(), android.R.layout.simple_spinner_item, vehicles);
         adapter.setDropDownViewResource( android.R.layout.simple_spinner_dropdown_item);
         spVehicle.setAdapter(adapter);
-        /*Vehicle v1 = Database.mVehicleDao.fetchVehicleById(g.getIdVehicle());
-        for (int x = 0; x < spVehicle.getAdapter().getCount(); x++) {
-            if (spVehicle.getItemAtPosition(x).toString().equals(v1.getName())) {
-                spVehicle.setSelection(x);
-                break;
-            }
-        }*/
 
         final Vehicle[] vehicle = {new Vehicle()};
         spVehicle.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -129,8 +125,14 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                 maintenanceList.setAdapter(adapterMaintenance);
                 maintenanceList.setLayoutManager(new LinearLayoutManager(getContext()));
 
+                // Insurance
+                HomeInsuranceListAdapter adapterInsurance = new HomeInsuranceListAdapter(Database.mInsuranceDao.findReminderInsurance(), getContext());
+                insuranceList.setAdapter(adapterInsurance);
+                insuranceList.setLayoutManager(new LinearLayoutManager(getContext()));
+
                 adapterVehicle.notifyDataSetChanged();
                 adapterMaintenance.notifyDataSetChanged();
+                adapterInsurance.notifyDataSetChanged();
             }
 
             @Override

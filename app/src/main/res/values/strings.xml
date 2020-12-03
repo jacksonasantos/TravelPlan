@@ -114,6 +114,7 @@
     <string name="InVehicleServices">In-Vehicle Services</string>
     <string name="VehicleStatistics">Vehicle Statistics</string>
     <string name="VehicleConsumption">Consumption</string>
+    <string name="InsuranceExpiration">Insurance Expiration</string>
     <string name="bt_Done">Done</string>
 
     <!-- Insurance Activity -->
@@ -243,6 +244,6 @@
     <string name="planning">Planning</string>
     <string name="running">Running</string>
     <string name="executed">Executed</string>
-    <string name="unsuccessful">Unsuccessful</string>
+    <string name="overdue">Overdue</string>
 
 </resources>
