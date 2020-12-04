@@ -3,12 +3,15 @@ package com.jacksonasantos.travelplan.ui.general;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.sqlite.SQLiteConstraintException;
+import android.database.sqlite.SQLiteException;
 import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
@@ -90,12 +93,17 @@ public class BrokerListAdapter extends RecyclerView.Adapter<BrokerListAdapter.My
                         .setPositiveButton(R.string.Yes, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
-                                Database.mBrokerDao.deleteBroker(broker.getId());
-                                mBroker.remove(position);
-                                notifyItemRemoved(position);
+                                try {
+                                    Database.mBrokerDao.deleteBroker(broker.getId());
+                                    mBroker.remove(position);
+                                    notifyItemRemoved(position);
+                                } catch (SQLiteConstraintException e) {
+                                    Toast.makeText(context, R.string.Error_Deleting_Data + e.getMessage() , Toast.LENGTH_LONG).show();
+                                }
                             }
                         }).setNegativeButton(R.string.No, null)
                         .show();
+
             }
         });
     }

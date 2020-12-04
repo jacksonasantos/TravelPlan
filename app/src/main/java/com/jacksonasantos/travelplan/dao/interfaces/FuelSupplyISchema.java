@@ -4,7 +4,7 @@ public interface FuelSupplyISchema {
 
     String FUEL_SUPPLY_TABLE = "fuel_supply";
 
-    String FUEL_SUPPLY_ID = "rowid";
+    String FUEL_SUPPLY_ID = "id";
     String FUEL_SUPPLY_VEHICLE_ID = "vehicle_id";
     String FUEL_SUPPLY_GAS_STATION = "gas_station";
     String FUEL_SUPPLY_GAS_STATION_LOCATION = "gas_station_location";
@@ -26,7 +26,8 @@ public interface FuelSupplyISchema {
     // Version 8
     String CREATE_TABLE_FUEL_SUPPLY_V8 = "CREATE TABLE IF NOT EXISTS "
             + FUEL_SUPPLY_TABLE + " ("
-            + FUEL_SUPPLY_VEHICLE_ID + " LONG, "
+            + FUEL_SUPPLY_ID + " INTEGER PRIMARY KEY, "
+            + FUEL_SUPPLY_VEHICLE_ID + " LONG REFERENCES " + VehicleISchema.VEHICLE_TABLE + ", "
             + FUEL_SUPPLY_GAS_STATION + " TEXT, "
             + FUEL_SUPPLY_GAS_STATION_LOCATION + " TEXT, "
             + FUEL_SUPPLY_SUPPLY_DATE + " DATE, "

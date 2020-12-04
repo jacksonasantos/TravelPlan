@@ -194,4 +194,5 @@
     <string name="Maintenance_Status">Status</string>
     <string name="InsuranceExpiration">Vencimento de Seguros</string>
     <string name="overdue">Em atrasi</string>
+    <string name="Error_Deleting_Data">Erro ao excluir dados</string>
 </resources>

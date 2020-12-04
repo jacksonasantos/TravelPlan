@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
@@ -96,9 +97,13 @@ public class InsuranceListAdapter extends RecyclerView.Adapter<InsuranceListAdap
                         .setPositiveButton(R.string.Yes, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
-                                Database.mInsuranceDao.deleteInsurance(insurance.getId());
-                                mInsurance.remove(position);
-                                notifyItemRemoved(position);
+                                try {
+                                    Database.mInsuranceDao.deleteInsurance(insurance.getId());
+                                    mInsurance.remove(position);
+                                    notifyItemRemoved(position);
+                                } catch (Exception e) {
+                                    Toast.makeText(context, R.string.Error_Deleting_Data + e.getMessage() , Toast.LENGTH_LONG).show();
+                                }
                             }
                         }).setNegativeButton(R.string.No, null)
                         .show();

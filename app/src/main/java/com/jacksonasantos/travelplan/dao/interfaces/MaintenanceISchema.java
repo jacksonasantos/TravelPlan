@@ -4,7 +4,7 @@ public interface MaintenanceISchema {
 
     String MAINTENANCE_TABLE = "maintenance";
 
-    String MAINTENANCE_ID = "rowid";
+    String MAINTENANCE_ID = "id";
     String MAINTENANCE_VEHICLE_ID = "vehicle_id";
     String MAINTENANCE_SERVICE_TYPE = "service_type";
     String MAINTENANCE_DETAIL = "detail";
@@ -20,7 +20,8 @@ public interface MaintenanceISchema {
     // Version 10
     String CREATE_TABLE_MAINTENANCE_V10 = "CREATE TABLE IF NOT EXISTS "
             + MAINTENANCE_TABLE + " ("
-            + MAINTENANCE_VEHICLE_ID + " LONG, "
+            + MAINTENANCE_ID + " INTEGER PRIMARY KEY, "
+            + MAINTENANCE_VEHICLE_ID + " LONG REFERENCES " + VehicleISchema.VEHICLE_TABLE + ", "
             + MAINTENANCE_SERVICE_TYPE + " INT, "
             + MAINTENANCE_DETAIL + " TEXT, "
             + MAINTENANCE_DATE + " DATE, "

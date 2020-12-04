@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
@@ -113,9 +114,13 @@ public class VehicleListAdapter extends RecyclerView.Adapter<VehicleListAdapter.
                         .setPositiveButton(R.string.Yes, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
-                                Database.mVehicleDao.deleteVehicle(vehicle.getId());  // invoca a deleção do registro
-                                mVehicle.remove(position);
-                                notifyItemRemoved(position);
+                                try {
+                                    Database.mVehicleDao.deleteVehicle(vehicle.getId());  // invoca a deleção do registro
+                                    mVehicle.remove(position);
+                                    notifyItemRemoved(position);
+                                } catch (Exception e) {
+                                    Toast.makeText(context, R.string.Error_Deleting_Data + e.getMessage() , Toast.LENGTH_LONG).show();
+                                }
                             }
                         }).setNegativeButton(R.string.No, null)
                         .show();

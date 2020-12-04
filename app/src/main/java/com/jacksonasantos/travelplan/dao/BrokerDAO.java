@@ -5,7 +5,9 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteConstraintException;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
+import android.widget.Toast;
 
+import com.jacksonasantos.travelplan.R;
 import com.jacksonasantos.travelplan.dao.interfaces.BrokerIDAO;
 import com.jacksonasantos.travelplan.dao.interfaces.BrokerISchema;
 
@@ -68,11 +70,11 @@ public class BrokerDAO extends DbContentProvider implements BrokerISchema, Broke
     public void deleteBroker(Long id) {
         final String[] selectionArgs = { String.valueOf(id) };
         final String selection = BROKER_ID + " = ?";
-        try {
+        //try {
             super.delete(BROKER_TABLE, selection, selectionArgs);
-        } catch (SQLiteConstraintException ex){
-            Log.w("Delete Table", ex.getMessage());
-        }
+        //} catch (SQLiteConstraintException ex){
+         //   Log.w("Delete Table", ex.getMessage());
+        //}
     }
 
     public boolean updateBroker(Broker broker) {

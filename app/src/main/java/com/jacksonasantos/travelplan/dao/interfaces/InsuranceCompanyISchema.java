@@ -4,7 +4,7 @@ public interface InsuranceCompanyISchema {
 
     String INSURANCE_COMPANY_TABLE = "insurance_company";
 
-    String INSURANCE_COMPANY_ID = "rowid";
+    String INSURANCE_COMPANY_ID = "id";
     String INSURANCE_COMPANY_COMPANY_NAME = "company_name";
     String INSURANCE_COMPANY_CNPJ = "cnpj";
     String INSURANCE_COMPANY_FIP_CODE = "fip_code";
@@ -18,6 +18,7 @@ public interface InsuranceCompanyISchema {
     // Version 12
     String CREATE_TABLE_INSURANCE_COMPANY_V12 = "CREATE TABLE IF NOT EXISTS "
             + INSURANCE_COMPANY_TABLE + " ("
+            + INSURANCE_COMPANY_ID + " INTEGER PRIMARY KEY, "
             + INSURANCE_COMPANY_COMPANY_NAME + " TEXT, "
             + INSURANCE_COMPANY_CNPJ + " TEXT, "
             + INSURANCE_COMPANY_FIP_CODE + " TEXT, "

@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
@@ -102,9 +103,13 @@ public class CurrencyQuoteListAdapter extends RecyclerView.Adapter<CurrencyQuote
                         .setPositiveButton(R.string.Yes, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
-                                Database.mCurrencyQuoteDao.deleteCurrencyQuote(currencyQuote.getId());
-                                mCurrencyQuote.remove(position);
-                                notifyItemRemoved(position);
+                                try {
+                                    Database.mCurrencyQuoteDao.deleteCurrencyQuote(currencyQuote.getId());
+                                    mCurrencyQuote.remove(position);
+                                    notifyItemRemoved(position);
+                                } catch (Exception e) {
+                                    Toast.makeText(context, R.string.Error_Deleting_Data + e.getMessage() , Toast.LENGTH_LONG).show();
+                                }
                             }
                         }).setNegativeButton(R.string.No, null)
                         .show();

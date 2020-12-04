@@ -247,6 +247,7 @@ public class VehicleDAO extends DbContentProvider implements VehicleISchema, Veh
 
     private void setContentValue(Vehicle vehicle) {
         initialValues = new ContentValues();
+        initialValues.put(VEHICLE_ID, vehicle.id);
         initialValues.put(VEHICLE_VEHICLE_TYPE, vehicle.vehicle_type);
         initialValues.put(VEHICLE_NAME, vehicle.name);
         initialValues.put(VEHICLE_LICENCE_PLATE, vehicle.license_plate);

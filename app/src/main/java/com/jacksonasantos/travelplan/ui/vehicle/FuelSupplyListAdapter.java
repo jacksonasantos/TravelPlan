@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
@@ -112,9 +113,13 @@ public class FuelSupplyListAdapter extends RecyclerView.Adapter<FuelSupplyListAd
                         .setPositiveButton(R.string.Yes, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
-                                Database.mFuelSupplyDao.deleteFuelSupply(fuelSupply.getId());  // invoca a deleção do registro
-                                mFuelSupply.remove(position);
-                                notifyItemRemoved(position);
+                                try {
+                                    Database.mFuelSupplyDao.deleteFuelSupply(fuelSupply.getId());  // invoca a deleção do registro
+                                    mFuelSupply.remove(position);
+                                    notifyItemRemoved(position);
+                                } catch (Exception e) {
+                                    Toast.makeText(context, R.string.Error_Deleting_Data + e.getMessage() , Toast.LENGTH_LONG).show();
+                                }
                             }
                         }).setNegativeButton(R.string.No, null)
                         .show();

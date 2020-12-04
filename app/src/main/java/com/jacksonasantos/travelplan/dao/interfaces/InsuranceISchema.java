@@ -1,10 +1,12 @@
 package com.jacksonasantos.travelplan.dao.interfaces;
 
+import com.jacksonasantos.travelplan.dao.Broker;
+
 public interface InsuranceISchema {
 
     String INSURANCE_TABLE = "insurance";
 
-    String INSURANCE_ID = "rowid";
+    String INSURANCE_ID = "id";
     String INSURANCE_INSURANCE_COMPANY_ID = "insurance_company_id";
     String INSURANCE_BROKER_ID = "broker_id";
     String INSURANCE_INSURANCE_TYPE = "insurance_type";
@@ -26,8 +28,9 @@ public interface InsuranceISchema {
     // Version 16
     String CREATE_TABLE_INSURANCE_V16 = "CREATE TABLE IF NOT EXISTS "
             + INSURANCE_TABLE + " ("
-            + INSURANCE_INSURANCE_COMPANY_ID + " LONG, "
-            + INSURANCE_BROKER_ID + " LONG, "
+            + INSURANCE_ID + " INTEGER PRIMARY KEY, "
+            + INSURANCE_INSURANCE_COMPANY_ID + " LONG REFERENCES " + InsuranceCompanyISchema.INSURANCE_COMPANY_TABLE + ", "
+            + INSURANCE_BROKER_ID + " LONG REFERENCES " + BrokerISchema.BROKER_TABLE + ", "
             + INSURANCE_INSURANCE_TYPE + " INT, "
             + INSURANCE_INSURANCE_POLICY + " TEXT, "
             + INSURANCE_ISSUANCE_DATE + " DATE, "
@@ -48,9 +51,9 @@ public interface InsuranceISchema {
 
     // Version 19
     String ALTER_TABLE_INSURANCE_V19_1 = "ALTER TABLE " + INSURANCE_TABLE
-            + " ADD COLUMN " + INSURANCE_TRAVEL_ID + " LONG ";
+            + " ADD COLUMN " + INSURANCE_TRAVEL_ID + " LONG REFERENCES " + TravelISchema.TRAVEL_TABLE;
     String ALTER_TABLE_INSURANCE_V19_2 = "ALTER TABLE " + INSURANCE_TABLE
-            + " ADD COLUMN " + INSURANCE_VEHICLE_ID + " LONG ";
+            + " ADD COLUMN " + INSURANCE_VEHICLE_ID + " LONG REFERENCES " + VehicleISchema.VEHICLE_TABLE;
 
 
     String[] INSURANCE_COLUMNS = new String[] {

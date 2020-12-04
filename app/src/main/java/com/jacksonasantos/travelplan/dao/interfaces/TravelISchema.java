@@ -4,7 +4,7 @@ public interface TravelISchema {
 
     String TRAVEL_TABLE = "travel";
 
-    String TRAVEL_ID = "rowid";
+    String TRAVEL_ID = "id";
     String TRAVEL_DESCRIPTION = "description";
     String TRAVEL_DEPARTURE_DATE = "departure_date";
     String TRAVEL_RETURN_DATE = "return_date";
@@ -14,6 +14,7 @@ public interface TravelISchema {
     // Version 15
     String CREATE_TABLE_TRAVEL_V15 = "CREATE TABLE IF NOT EXISTS "
             + TRAVEL_TABLE + " ("
+            + TRAVEL_ID + " INTEGER PRIMARY KEY, "
             + TRAVEL_DESCRIPTION + " TEXT, "
             + TRAVEL_DEPARTURE_DATE + " DATE, "
             + TRAVEL_RETURN_DATE + " DATE, "

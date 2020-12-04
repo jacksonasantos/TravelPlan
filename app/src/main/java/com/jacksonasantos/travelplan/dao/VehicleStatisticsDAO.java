@@ -166,6 +166,7 @@ public class VehicleStatisticsDAO extends DbContentProvider implements VehicleSt
 
     private void setContentValue(VehicleStatistics vehicleStatistics) {
         initialValues = new ContentValues();
+        initialValues.put(VEHICLE_STATISTICS_ID, vehicleStatistics.id);
         initialValues.put(VEHICLE_STATISTICS_VEHICLE_ID, vehicleStatistics.vehicle_id);
         initialValues.put(VEHICLE_STATISTICS_STATISTIC_DATE, Utils.dateToString(vehicleStatistics.statistic_date));
         initialValues.put(VEHICLE_STATISTICS_SUPPLY_REASON_TYPE, vehicleStatistics.supply_reason_type);
