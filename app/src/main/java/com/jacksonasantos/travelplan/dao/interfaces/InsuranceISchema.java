@@ -20,6 +20,8 @@ public interface InsuranceISchema {
     String INSURANCE_BONUS_CLASS = "bonus_class";
     String INSURANCE_NOTE = "note";
     String INSURANCE_STATUS = "status";
+    String INSURANCE_TRAVEL_ID = "travel_id";
+    String INSURANCE_VEHICLE_ID = "vehicle_id";
 
     // Version 16
     String CREATE_TABLE_INSURANCE_V16 = "CREATE TABLE IF NOT EXISTS "
@@ -44,6 +46,13 @@ public interface InsuranceISchema {
     String ALTER_TABLE_INSURANCE_V18 = "ALTER TABLE " + INSURANCE_TABLE
             + " ADD COLUMN " + INSURANCE_DESCRIPTION + " STRING ";
 
+    // Version 19
+    String ALTER_TABLE_INSURANCE_V19_1 = "ALTER TABLE " + INSURANCE_TABLE
+            + " ADD COLUMN " + INSURANCE_TRAVEL_ID + " LONG ";
+    String ALTER_TABLE_INSURANCE_V19_2 = "ALTER TABLE " + INSURANCE_TABLE
+            + " ADD COLUMN " + INSURANCE_VEHICLE_ID + " LONG ";
+
+
     String[] INSURANCE_COLUMNS = new String[] {
             INSURANCE_ID,
             INSURANCE_INSURANCE_COMPANY_ID,
@@ -60,6 +69,8 @@ public interface InsuranceISchema {
             INSURANCE_INSURANCE_DEDUCTIBLE,
             INSURANCE_BONUS_CLASS,
             INSURANCE_NOTE,
-            INSURANCE_STATUS
+            INSURANCE_STATUS,
+            INSURANCE_TRAVEL_ID,
+            INSURANCE_VEHICLE_ID
     };
 }

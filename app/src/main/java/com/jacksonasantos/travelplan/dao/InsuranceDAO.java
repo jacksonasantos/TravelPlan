@@ -125,6 +125,8 @@ public class InsuranceDAO extends DbContentProvider implements InsuranceISchema,
         int bonus_classIndex;
         int noteIndex;
         int statusIndex;
+        int travel_idIndex;
+        int vehicle_idIndex;
 
         if (cursor != null) {
             if (cursor.getColumnIndex(INSURANCE_ID) != -1) {
@@ -191,6 +193,14 @@ public class InsuranceDAO extends DbContentProvider implements InsuranceISchema,
                 statusIndex = cursor.getColumnIndexOrThrow(INSURANCE_STATUS);
                 insurance.setStatus(cursor.getInt(statusIndex));
             }
+            if (cursor.getColumnIndex(INSURANCE_TRAVEL_ID) != -1) {
+                travel_idIndex = cursor.getColumnIndexOrThrow(INSURANCE_TRAVEL_ID);
+                insurance.setTravel_id(cursor.getLong(travel_idIndex));
+            }
+            if (cursor.getColumnIndex(INSURANCE_VEHICLE_ID) != -1) {
+                vehicle_idIndex = cursor.getColumnIndexOrThrow(INSURANCE_VEHICLE_ID);
+                insurance.setVehicle_id(cursor.getLong(vehicle_idIndex));
+            }
         }
         return insurance;
     }
@@ -213,6 +223,8 @@ public class InsuranceDAO extends DbContentProvider implements InsuranceISchema,
         initialValues.put(INSURANCE_BONUS_CLASS, insurance.bonus_class);
         initialValues.put(INSURANCE_NOTE, insurance.note);
         initialValues.put(INSURANCE_STATUS, insurance.status);
+        initialValues.put(INSURANCE_TRAVEL_ID, insurance.travel_id);
+        initialValues.put(INSURANCE_VEHICLE_ID, insurance.vehicle_id);
     }
 
     private ContentValues getContentValue() {

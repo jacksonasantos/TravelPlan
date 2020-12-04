@@ -24,7 +24,7 @@ public class Database {
     private final Context mContext;
 
     private static final String DATABASE_NAME = "TravelPlan.db";
-    private static final int DATABASE_VERSION = 18;
+    private static final int DATABASE_VERSION = 19;
 
     public static VehicleDAO mVehicleDao;
     public static FuelSupplyDAO mFuelSupplyDao;
@@ -105,6 +105,8 @@ public class Database {
             db.execSQL(BrokerISchema.CREATE_TABLE_BROKER_V16); Log.w("Tab: "+BrokerISchema.BROKER_TABLE,"V16 - Create Table...");
             db.execSQL(InsuranceISchema.CREATE_TABLE_INSURANCE_V16); Log.w("Table "+InsuranceISchema.INSURANCE_TABLE,"V16 - Create Table...");
             db.execSQL(InsuranceISchema.ALTER_TABLE_INSURANCE_V18); Log.w("Table "+InsuranceISchema.INSURANCE_TABLE,"V18 - Alter Table...");
+            db.execSQL(InsuranceISchema.ALTER_TABLE_INSURANCE_V19_1); Log.w("Table "+InsuranceISchema.INSURANCE_TABLE,"V19.1 - Alter Table...");
+            db.execSQL(InsuranceISchema.ALTER_TABLE_INSURANCE_V19_2); Log.w("Table "+InsuranceISchema.INSURANCE_TABLE,"V19.2 - Alter Table...");
         }
 
         @SuppressLint("SQLiteString")
@@ -178,6 +180,10 @@ public class Database {
                         break;
                     case 18:
                         db.execSQL(InsuranceISchema.ALTER_TABLE_INSURANCE_V18);
+                        break;
+                    case 19:
+                        db.execSQL(InsuranceISchema.ALTER_TABLE_INSURANCE_V19_1);
+                        db.execSQL(InsuranceISchema.ALTER_TABLE_INSURANCE_V19_2);
                         break;
                     default:
                         break;

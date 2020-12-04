@@ -21,6 +21,8 @@ public class Insurance {
     public int bonus_class;
     public String note;
     public int status;
+    public Long travel_id;
+    public Long vehicle_id;
 
     public Insurance() {
         this.id = id;
@@ -39,6 +41,8 @@ public class Insurance {
         this.bonus_class = bonus_class;
         this.note = note;
         this.status = status;
+        this.travel_id = travel_id;
+        this.vehicle_id = vehicle_id;
     }
 
     public Long getId() {return id;}
@@ -100,4 +104,11 @@ public class Insurance {
 
     public int getStatus() { return status; }
     public void setStatus(int status) { this.status = status; }
+
+    public Long getTravel_id() { return travel_id; }
+    public void setTravel_id(Long travel_id) { this.travel_id = travel_id; }
+
+    public Long getVehicle_id() { return vehicle_id; }
+    public void setVehicle_id(Long vehicle_id) { this.vehicle_id = vehicle_id; }
+
 }

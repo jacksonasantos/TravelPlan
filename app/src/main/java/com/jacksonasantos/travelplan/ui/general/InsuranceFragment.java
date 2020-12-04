@@ -40,13 +40,10 @@ public class InsuranceFragment extends Fragment  {
         mDb.close();
     }
 
-    private Menu mMenu;
-
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         menu.clear();
         inflater.inflate(R.menu.main, menu);
-        this.mMenu = menu;
         super.onCreateOptionsMenu(menu, inflater);
     }
 
