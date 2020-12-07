@@ -102,7 +102,7 @@ public class InsuranceListAdapter extends RecyclerView.Adapter<InsuranceListAdap
                                     mInsurance.remove(position);
                                     notifyItemRemoved(position);
                                 } catch (Exception e) {
-                                    Toast.makeText(context, R.string.Error_Deleting_Data + e.getMessage() , Toast.LENGTH_LONG).show();
+                                    Toast.makeText(context, context.getString(R.string.Error_Deleting_Data) + "\n" + e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
                                 }
                             }
                         }).setNegativeButton(R.string.No, null)

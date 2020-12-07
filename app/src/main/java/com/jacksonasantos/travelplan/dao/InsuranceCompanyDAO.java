@@ -99,11 +99,7 @@ public class InsuranceCompanyDAO extends DbContentProvider implements InsuranceC
     public void deleteInsuranceCompany(Long id) {
         final String[] selectionArgs = { String.valueOf(id) };
         final String selection = INSURANCE_COMPANY_ID + " = ?";
-        try {
-            super.delete(INSURANCE_COMPANY_TABLE, selection, selectionArgs);
-        } catch (SQLiteConstraintException ex){
-            Log.w("Delete Table", ex.getMessage());
-        }
+        super.delete(INSURANCE_COMPANY_TABLE, selection, selectionArgs);
     }
 
     public boolean updateInsuranceCompany(InsuranceCompany insuranceCompany) {

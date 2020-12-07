@@ -85,11 +85,7 @@ public class FuelSupplyDAO extends DbContentProvider implements FuelSupplyISchem
     public void deleteFuelSupply(Long id) {
         final String[] selectionArgs = { String.valueOf(id) };
         final String selection = FUEL_SUPPLY_ID + " = ?";
-        try {
-            super.delete(FUEL_SUPPLY_TABLE, selection, selectionArgs);
-        } catch (SQLiteConstraintException ex){
-            Log.w("Delete Table", ex.getMessage());
-        }
+        super.delete(FUEL_SUPPLY_TABLE, selection, selectionArgs);
     }
 
     public boolean updateFuelSupply(FuelSupply fuelSupply) {

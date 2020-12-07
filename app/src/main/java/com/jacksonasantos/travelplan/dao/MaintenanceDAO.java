@@ -87,11 +87,7 @@ public class MaintenanceDAO extends DbContentProvider implements MaintenanceISch
     public void deleteMaintenance(Long id) {
         final String[] selectionArgs = { String.valueOf(id) };
         final String selection = MAINTENANCE_ID + " = ?";
-        try {
-            super.delete(MAINTENANCE_TABLE, selection, selectionArgs);
-        } catch (SQLiteConstraintException ex){
-            Log.w("Delete Table", ex.getMessage());
-        }
+        super.delete(MAINTENANCE_TABLE, selection, selectionArgs);
     }
 
     public boolean updateMaintenance(Maintenance maintenance) {

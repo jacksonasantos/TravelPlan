@@ -217,7 +217,7 @@ public  class InsuranceActivity extends AppCompatActivity {
             nrspinBroker=insurance.getBroker_id();
             Broker b1 = Database.mBrokerDao.fetchBrokerById(nrspinBroker);
             if (b1.getName() != null) {
-                for (int x = 1; x <= spinBroker.getAdapter().getCount(); x++) {
+                for (int x = 0; x <= spinBroker.getAdapter().getCount(); x++) {
                     if (spinBroker.getAdapter().getItem(x).toString().equals(b1.getName())) {
                         spinBroker.setText(spinBroker.getAdapter().getItem(x).toString(), false);
                         break;

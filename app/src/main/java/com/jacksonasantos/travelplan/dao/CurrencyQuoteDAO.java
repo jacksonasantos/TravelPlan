@@ -79,11 +79,7 @@ public class CurrencyQuoteDAO extends DbContentProvider implements CurrencyQuote
     public void deleteCurrencyQuote(Long id) {
         final String[] selectionArgs = { String.valueOf(id) };
         final String selection = CURRENCY_QUOTE_ID + " = ?";
-        try {
-            super.delete(CURRENCY_QUOTE_TABLE, selection, selectionArgs);
-        } catch (SQLiteConstraintException ex){
-            Log.w("Delete Table", ex.getMessage());
-        }
+        super.delete(CURRENCY_QUOTE_TABLE, selection, selectionArgs);
     }
 
     public boolean updateCurrencyQuote(CurrencyQuote currencyQuote) {

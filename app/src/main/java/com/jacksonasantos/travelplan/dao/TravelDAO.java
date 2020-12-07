@@ -83,13 +83,7 @@ public class TravelDAO extends DbContentProvider implements TravelISchema, Trave
     public void deleteTravel(Long id) {
         final String[] selectionArgs = { String.valueOf(id) };
         final String selection = TRAVEL_ID + " = ?";
-        try {
-            super.delete(TRAVEL_TABLE, selection, selectionArgs);
-        } catch (SQLiteConstraintException ex){
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-                Log.w("Delete Table", Objects.requireNonNull(ex.getMessage()));
-            }
-        }
+        super.delete(TRAVEL_TABLE, selection, selectionArgs);
     }
 
     public boolean updateTravel(Travel travel) {

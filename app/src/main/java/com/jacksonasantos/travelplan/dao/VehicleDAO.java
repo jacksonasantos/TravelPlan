@@ -81,11 +81,7 @@ public class VehicleDAO extends DbContentProvider implements VehicleISchema, Veh
     public void deleteVehicle(Long id) {
         final String[] selectionArgs = { String.valueOf(id) };
         final String selection = VEHICLE_ID + " = ?";
-        try {
-            super.delete(VEHICLE_TABLE, selection, selectionArgs);
-        } catch (SQLiteConstraintException ex){
-            Log.w("Delete Table", ex.getMessage());
-        }
+        super.delete(VEHICLE_TABLE, selection, selectionArgs);
     }
 
     public boolean updateVehicle(Vehicle vehicle) {

@@ -76,11 +76,7 @@ public class InsuranceDAO extends DbContentProvider implements InsuranceISchema,
     public void deleteInsurance(Long id) {
         final String[] selectionArgs = { String.valueOf(id) };
         final String selection = INSURANCE_ID + " = ?";
-        try {
-            super.delete(INSURANCE_TABLE, selection, selectionArgs);
-        } catch (SQLiteConstraintException ex){
-            Log.w("Delete Table", ex.getMessage());
-        }
+        super.delete(INSURANCE_TABLE, selection, selectionArgs);
     }
 
     public boolean updateInsurance(Insurance insurance) {

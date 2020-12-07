@@ -27,7 +27,7 @@ public class BrokerDAO extends DbContentProvider implements BrokerISchema, Broke
         final String[] selectionArgs = { String.valueOf(id) };
         final String selection = BROKER_ID + " = ?";
         Broker broker = new Broker();
-        cursor = super.query(BROKER_TABLE, BROKER_COLUMNS, selection, selectionArgs, BROKER_ID);
+        cursor = super.query(BROKER_TABLE, BROKER_COLUMNS, selection, selectionArgs, null);
         if (cursor != null) {
             cursor.moveToFirst();
             while (!cursor.isAfterLast()) {
@@ -70,11 +70,7 @@ public class BrokerDAO extends DbContentProvider implements BrokerISchema, Broke
     public void deleteBroker(Long id) {
         final String[] selectionArgs = { String.valueOf(id) };
         final String selection = BROKER_ID + " = ?";
-        //try {
-            super.delete(BROKER_TABLE, selection, selectionArgs);
-        //} catch (SQLiteConstraintException ex){
-         //   Log.w("Delete Table", ex.getMessage());
-        //}
+        super.delete(BROKER_TABLE, selection, selectionArgs);
     }
 
     public boolean updateBroker(Broker broker) {

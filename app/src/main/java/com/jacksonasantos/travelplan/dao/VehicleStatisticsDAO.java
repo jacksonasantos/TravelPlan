@@ -87,11 +87,7 @@ public class VehicleStatisticsDAO extends DbContentProvider implements VehicleSt
     public void deleteVehicleStatistics(Long id) {
         final String[] selectionArgs = { String.valueOf(id) };
         final String selection = VEHICLE_STATISTICS_ID + " = ?";
-        try {
-            super.delete(VEHICLE_STATISTICS_TABLE, selection, selectionArgs);
-        } catch (SQLiteConstraintException ex){
-            Log.w("Delete Table", ex.getMessage());
-        }
+        super.delete(VEHICLE_STATISTICS_TABLE, selection, selectionArgs);
     }
 
     public boolean updateVehicleStatistics(VehicleStatistics vehicleStatistics) {
