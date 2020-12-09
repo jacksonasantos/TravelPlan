@@ -23,7 +23,7 @@ public class FuelSupplyDAO extends DbContentProvider implements FuelSupplyISchem
         super(db);
     }
 
-    public FuelSupply fetchFuelSupplyById(Long id) {
+    public FuelSupply fetchFuelSupplyById(Integer id) {
         final String[] selectionArgs = { String.valueOf(id) };
         final String selection = FUEL_SUPPLY_ID + " = ?";
         FuelSupply fuelSupply = new FuelSupply();
@@ -39,7 +39,7 @@ public class FuelSupplyDAO extends DbContentProvider implements FuelSupplyISchem
         return fuelSupply;
     }
 
-    public FuelSupply findLastFuelSupply(Long vehicle_id) {
+    public FuelSupply findLastFuelSupply(Integer vehicle_id) {
         FuelSupply fuelSupply = new FuelSupply();
         cursor = super.rawQuery("SELECT " + FUEL_SUPPLY_ID + ", * " +
                         " FROM " + FUEL_SUPPLY_TABLE +
@@ -82,7 +82,7 @@ public class FuelSupplyDAO extends DbContentProvider implements FuelSupplyISchem
         return fuelSupplyList;
     }
 
-    public void deleteFuelSupply(Long id) {
+    public void deleteFuelSupply(Integer id) {
         final String[] selectionArgs = { String.valueOf(id) };
         final String selection = FUEL_SUPPLY_ID + " = ?";
         super.delete(FUEL_SUPPLY_TABLE, selection, selectionArgs);
@@ -131,16 +131,16 @@ public class FuelSupplyDAO extends DbContentProvider implements FuelSupplyISchem
         int stat_cost_per_litreIndex;
         int supply_reason_typeIndex;
         int supply_reasonIndex;
-        int associated_tripIndex;
+        int associated_travel_idIndex;
 
         if (cursor != null) {
             if (cursor.getColumnIndex(FUEL_SUPPLY_ID) != -1) {
                 idIndex = cursor.getColumnIndexOrThrow(FUEL_SUPPLY_ID);
-                fuelSupply.setId(cursor.getLong(idIndex));
+                fuelSupply.setId(cursor.getInt(idIndex));
             }
             if (cursor.getColumnIndex(FUEL_SUPPLY_VEHICLE_ID) != -1) {
                 vehicle_idIndex = cursor.getColumnIndexOrThrow(FUEL_SUPPLY_VEHICLE_ID);
-                fuelSupply.setVehicle_id(cursor.getLong(vehicle_idIndex));
+                fuelSupply.setVehicle_id(cursor.getInt(vehicle_idIndex));
             }
             if (cursor.getColumnIndex(FUEL_SUPPLY_GAS_STATION) != -1) {
                 gas_stationIndex = cursor.getColumnIndexOrThrow(FUEL_SUPPLY_GAS_STATION);
@@ -202,9 +202,9 @@ public class FuelSupplyDAO extends DbContentProvider implements FuelSupplyISchem
                 supply_reasonIndex = cursor.getColumnIndexOrThrow(FUEL_SUPPLY_SUPPLY_REASON);
                 fuelSupply.setSupply_reason(cursor.getString(supply_reasonIndex));
             }
-            if (cursor.getColumnIndex(FUEL_SUPPLY_ASSOCIATED_TRIP) != -1) {
-                associated_tripIndex = cursor.getColumnIndexOrThrow(FUEL_SUPPLY_ASSOCIATED_TRIP);
-                fuelSupply.setAssociated_trip(cursor.getLong(associated_tripIndex));
+            if (cursor.getColumnIndex(FUEL_SUPPLY_ASSOCIATED_TRAVEL_ID) != -1) {
+                associated_travel_idIndex = cursor.getColumnIndexOrThrow(FUEL_SUPPLY_ASSOCIATED_TRAVEL_ID);
+                fuelSupply.setAssociated_travel_id(cursor.getInt(associated_travel_idIndex));
             }
         }
         return fuelSupply;
@@ -229,7 +229,7 @@ public class FuelSupplyDAO extends DbContentProvider implements FuelSupplyISchem
         initialValues.put(FUEL_SUPPLY_STAT_COST_PER_LITRE, fuelSupply.stat_cost_per_litre);
         initialValues.put(FUEL_SUPPLY_SUPPLY_REASON_TYPE, fuelSupply.supply_reason_type);
         initialValues.put(FUEL_SUPPLY_SUPPLY_REASON, fuelSupply.supply_reason);
-        initialValues.put(FUEL_SUPPLY_ASSOCIATED_TRIP, fuelSupply.associated_trip);
+        initialValues.put(FUEL_SUPPLY_ASSOCIATED_TRAVEL_ID, fuelSupply.associated_travel_id);
     }
 
     private ContentValues getContentValue() {

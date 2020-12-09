@@ -45,8 +45,8 @@ public class TravelActivity extends AppCompatActivity {
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             travel = new Travel();
-            if (extras.getLong( "travel_id") > 0) {
-                travel.setId(extras.getLong("travel_id"));
+            if (extras.getInt( "travel_id") > 0) {
+                travel.setId(extras.getInt("travel_id"));
                 travel = Database.mTravelDao.fetchTravelById(travel.getId());
                 opInsert = false;
             }

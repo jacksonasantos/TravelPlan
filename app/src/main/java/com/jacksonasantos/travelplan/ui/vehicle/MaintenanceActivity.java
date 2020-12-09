@@ -28,7 +28,7 @@ import com.jacksonasantos.travelplan.ui.utility.Utils;
 
 public class MaintenanceActivity extends AppCompatActivity {
 
-    private Long nrVehicle_id=0L;
+    private Integer nrVehicle_id;
     private int nrSpinService_type;
     private EditText etDetail;
     private EditText etDate;
@@ -60,10 +60,10 @@ public class MaintenanceActivity extends AppCompatActivity {
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             maintenance = new Maintenance();
-            maintenance.setVehicle_id(extras.getLong("vehicle_id"));
-            nrVehicle_id = extras.getLong("vehicle_id");
-            if (extras.getLong( "maintenance_id") > 0) {
-                maintenance.setId(extras.getLong("maintenance_id"));
+            maintenance.setVehicle_id(extras.getInt("vehicle_id"));
+            nrVehicle_id = extras.getInt("vehicle_id");
+            if (extras.getInt( "maintenance_id") > 0) {
+                maintenance.setId(extras.getInt("maintenance_id"));
                 maintenance = Database.mMaintenanceDao.fetchMaintenanceById(maintenance.getId());
                 opInsert = false;
             }
@@ -92,7 +92,7 @@ public class MaintenanceActivity extends AppCompatActivity {
 
         Vehicle vehicle;
         if (opInsert) {
-            if (nrVehicle_id == 0L){
+            if (nrVehicle_id == 0){
                 Globals g = Globals.getInstance();
                 nrVehicle_id = g.getIdVehicle();
             }

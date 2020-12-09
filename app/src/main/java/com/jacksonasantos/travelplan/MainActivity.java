@@ -1,5 +1,6 @@
 package com.jacksonasantos.travelplan;
 
+import android.annotation.SuppressLint;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.content.res.Resources;
@@ -27,11 +28,12 @@ public class MainActivity extends AppCompatActivity {
 
     Globals g = Globals.getInstance();
 
+    @SuppressLint("ResourceType")
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.menu.activity_main);
 
         Resources res = getResources();
         Configuration config = res.getConfiguration();
@@ -56,7 +58,10 @@ public class MainActivity extends AppCompatActivity {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.nav_vehicle, R.id.nav_fuel_supply, R.id.nav_maintenance, R.id.nav_travel, R.id.nav_settings, R.id.nav_insurance_company, R.id.nav_currency_quote)
+                R.id.nav_home, R.id.nav_vehicle, R.id.nav_fuel_supply, R.id.nav_maintenance,
+                R.id.nav_travel,
+                R.id.nav_settings,
+                R.id.nav_insurance, R.id.nav_insurance_company, R.id.nav_broker, R.id.nav_currency_quote)
                 .setOpenableLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);

@@ -65,7 +65,7 @@ public class VehicleActivity extends AppCompatActivity {
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             vehicle = new Vehicle();
-            vehicle.setId(extras.getLong("id"));
+            vehicle.setId(extras.getInt("id"));
             vehicle = Database.mVehicleDao.fetchVehicleById(vehicle.getId());
             opInsert = false;
         }

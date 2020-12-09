@@ -3,7 +3,7 @@ package com.jacksonasantos.travelplan.dao;
 import java.util.Date;
 
 public class CurrencyQuote {
-    public Long id;
+    public Integer id;
     public int currency_type;
     public Date quote_date;
     public double currency_value;
@@ -15,8 +15,8 @@ public class CurrencyQuote {
         this.currency_value = currency_value;
     }
 
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
+    public Integer getId() { return id; }
+    public void setId(Integer id) { this.id = id; }
 
     public int getCurrency_type() { return currency_type; }
     public void setCurrency_type(int currency_type) { this.currency_type = currency_type; }

@@ -6,10 +6,10 @@ import java.text.ParseException;
 import java.util.List;
 
 public interface MaintenanceIDAO {
-    Maintenance fetchMaintenanceById(Long id);
+    Maintenance fetchMaintenanceById(Integer id);
     List<Maintenance> fetchAllMaintenance();
-    List<Maintenance> findReminderMaintenance( Long id);
+    List<Maintenance> findReminderMaintenance( Integer id);
     boolean addMaintenance(Maintenance maintenance);
-    void deleteMaintenance(Long id);
+    void deleteMaintenance(Integer id);
     boolean updateMaintenance(Maintenance maintenance);
 }

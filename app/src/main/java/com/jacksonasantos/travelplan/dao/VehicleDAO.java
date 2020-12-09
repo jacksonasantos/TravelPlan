@@ -23,7 +23,7 @@ public class VehicleDAO extends DbContentProvider implements VehicleISchema, Veh
         super(db);
     }
 
-    public Vehicle fetchVehicleById(Long id) {
+    public Vehicle fetchVehicleById(Integer id) {
         final String[] selectionArgs = { String.valueOf(id) };
         final String selection = VEHICLE_ID + " = ?";
         Vehicle vehicle = new Vehicle();
@@ -78,7 +78,7 @@ public class VehicleDAO extends DbContentProvider implements VehicleISchema, Veh
         return vehicleList;
     }
 
-    public void deleteVehicle(Long id) {
+    public void deleteVehicle(Integer id) {
         final String[] selectionArgs = { String.valueOf(id) };
         final String selection = VEHICLE_ID + " = ?";
         super.delete(VEHICLE_TABLE, selection, selectionArgs);
@@ -139,7 +139,7 @@ public class VehicleDAO extends DbContentProvider implements VehicleISchema, Veh
         if (cursor != null) {
             if (cursor.getColumnIndex(VEHICLE_ID) != -1) {
                 idIndex = cursor.getColumnIndexOrThrow(VEHICLE_ID);
-                vehicle.id = cursor.getLong(idIndex);
+                vehicle.id = cursor.getInt(idIndex);
             }
             if (cursor.getColumnIndex(VEHICLE_VEHICLE_TYPE) != -1) {
                 vehicle_typeIndex = cursor.getColumnIndexOrThrow(VEHICLE_VEHICLE_TYPE);

@@ -23,7 +23,7 @@ public class MaintenanceDAO extends DbContentProvider implements MaintenanceISch
         super(db);
     }
 
-    public Maintenance fetchMaintenanceById(Long id) {
+    public Maintenance fetchMaintenanceById(Integer id) {
         final String[] selectionArgs = { String.valueOf(id) };
         final String selection = MAINTENANCE_ID + " = ?";
         Maintenance maintenance = new Maintenance();
@@ -39,7 +39,7 @@ public class MaintenanceDAO extends DbContentProvider implements MaintenanceISch
         return maintenance;
     }
 
-    public List<Maintenance> findReminderMaintenance( Long id) {
+    public List<Maintenance> findReminderMaintenance( Integer id) {
         List<Maintenance> maintenanceList = new ArrayList<>();
 
         final String[] selectionArgs = { String.valueOf(id) };
@@ -84,7 +84,7 @@ public class MaintenanceDAO extends DbContentProvider implements MaintenanceISch
         return maintenanceList;
     }
 
-    public void deleteMaintenance(Long id) {
+    public void deleteMaintenance(Integer id) {
         final String[] selectionArgs = { String.valueOf(id) };
         final String selection = MAINTENANCE_ID + " = ?";
         super.delete(MAINTENANCE_TABLE, selection, selectionArgs);
@@ -132,11 +132,11 @@ public class MaintenanceDAO extends DbContentProvider implements MaintenanceISch
         if (cursor != null) {
             if (cursor.getColumnIndex(MAINTENANCE_ID) != -1) {
                 idIndex = cursor.getColumnIndexOrThrow(MAINTENANCE_ID);
-                maintenance.setId(cursor.getLong(idIndex));
+                maintenance.setId(cursor.getInt(idIndex));
             }
             if (cursor.getColumnIndex(MAINTENANCE_VEHICLE_ID) != -1) {
                 vehicle_idIndex = cursor.getColumnIndexOrThrow(MAINTENANCE_VEHICLE_ID);
-                maintenance.setVehicle_id(cursor.getLong(vehicle_idIndex));
+                maintenance.setVehicle_id(cursor.getInt(vehicle_idIndex));
             }
             if (cursor.getColumnIndex(MAINTENANCE_SERVICE_TYPE) != -1) {
                 service_typeIndex = cursor.getColumnIndexOrThrow(MAINTENANCE_SERVICE_TYPE);

@@ -6,9 +6,9 @@ import java.text.ParseException;
 import java.util.List;
 
 public interface FuelSupplyIDAO {
-    FuelSupply fetchFuelSupplyById(Long id);
+    FuelSupply fetchFuelSupplyById(Integer id);
     List<FuelSupply> fetchAllFuelSupplies();
     boolean addFuelSupply(FuelSupply fuelSupply);
-    void deleteFuelSupply(Long id);
+    void deleteFuelSupply(Integer id);
     boolean updateFuelSupply(FuelSupply fuelSupply);
 }

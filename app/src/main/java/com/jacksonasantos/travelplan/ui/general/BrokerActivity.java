@@ -40,8 +40,8 @@ public class BrokerActivity extends AppCompatActivity {
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             broker = new Broker();
-            if (extras.getLong( "broker_id") > 0) {
-                broker.setId(extras.getLong("broker_id"));
+            if (extras.getInt( "broker_id") > 0) {
+                broker.setId(extras.getInt("broker_id"));
                 broker = Database.mBrokerDao.fetchBrokerById(broker.getId());
                 opInsert = false;
             }

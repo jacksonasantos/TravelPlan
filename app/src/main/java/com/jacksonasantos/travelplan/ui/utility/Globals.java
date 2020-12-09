@@ -3,7 +3,7 @@ package com.jacksonasantos.travelplan.ui.utility;
 public class Globals{
 
     private static Globals instance;
-    private Long idVehicle;
+    private Integer idVehicle;
     private boolean blFilterVehicle;
     private String txLanguage = "pt";
     private String txCountry = "BR";
@@ -11,8 +11,8 @@ public class Globals{
 
     private Globals() { }
 
-    public Long getIdVehicle() { return this.idVehicle; }
-    public void setIdVehicle(Long id) { this.idVehicle = id; }
+    public Integer getIdVehicle() { return this.idVehicle; }
+    public void setIdVehicle(Integer id) { this.idVehicle = id; }
 
     public Boolean getFilterVehicle() { return this.blFilterVehicle; }
     public void setFilterVehicle(Boolean filter) { this.blFilterVehicle = filter; }

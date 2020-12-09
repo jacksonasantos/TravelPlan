@@ -21,7 +21,7 @@ public interface MaintenanceISchema {
     String CREATE_TABLE_MAINTENANCE_V10 = "CREATE TABLE IF NOT EXISTS "
             + MAINTENANCE_TABLE + " ("
             + MAINTENANCE_ID + " INTEGER PRIMARY KEY, "
-            + MAINTENANCE_VEHICLE_ID + " LONG REFERENCES " + VehicleISchema.VEHICLE_TABLE + ", "
+            + MAINTENANCE_VEHICLE_ID + " INTEGER REFERENCES " + VehicleISchema.VEHICLE_TABLE + ", "
             + MAINTENANCE_SERVICE_TYPE + " INT, "
             + MAINTENANCE_DETAIL + " TEXT, "
             + MAINTENANCE_DATE + " DATE, "

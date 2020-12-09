@@ -5,11 +5,11 @@ import com.jacksonasantos.travelplan.dao.VehicleStatistics;
 import java.util.List;
 
 public interface VehicleStatisticsIDAO {
-    VehicleStatistics fetchVehicleStatisticsById(Long id);
+    VehicleStatistics fetchVehicleStatisticsById(Integer id);
     List<VehicleStatistics> fetchAllVehicleStatistics();
-    List<VehicleStatistics> findVehicleStatisticsbyId(Long id);
+    List<VehicleStatistics> findVehicleStatisticsbyId(Integer id);
     boolean addVehicleStatistics(VehicleStatistics vehicleStatistics);
-    void deleteVehicleStatistics(Long id);
+    void deleteVehicleStatistics(Integer id);
     boolean updateVehicleStatistics(VehicleStatistics vehicleStatistics);
     boolean changeVehicleStatistics(VehicleStatistics vehicleStatistics);
 }

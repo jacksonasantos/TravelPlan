@@ -35,12 +35,12 @@ public  class InsuranceActivity extends AppCompatActivity {
     private RadioGroup rgInsuranceType;
     private int rbInsuranceType;
     private AutoCompleteTextView spinInsurance_Company;
-    private long nrspinInsurance_Company;
+    private Integer nrspinInsurance_Company;
     private EditText etDescription;
     private EditText etInsurance_Policy;
     private EditText etIssuance_Date;
     private AutoCompleteTextView spinBroker;
-    private long nrspinBroker;
+    private Integer nrspinBroker;
     private EditText etInitial_Effective_Date;
     private EditText etFinal_Effective_Date;
     private EditText etNet_Premium_Value;
@@ -52,9 +52,9 @@ public  class InsuranceActivity extends AppCompatActivity {
     private TextView tvStatus;
     private int nrStatus;
     private AutoCompleteTextView spinTravel;
-    private long nrspinTravel;
+    private Integer nrspinTravel;
     private AutoCompleteTextView spinVehicle;
-    private long nrspinVehicle;
+    private Integer nrspinVehicle;
     private TextInputLayout input_layout_spinVehicle;
     private TextInputLayout input_layout_spinTravel;
 
@@ -77,8 +77,8 @@ public  class InsuranceActivity extends AppCompatActivity {
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             insurance = new Insurance();
-            if (extras.getLong( "insurance_id") > 0) {
-                insurance.setId(extras.getLong("insurance_id"));
+            if (extras.getInt( "insurance_id") > 0) {
+                insurance.setId(extras.getInt("insurance_id"));
                 insurance = Database.mInsuranceDao.fetchInsuranceById(insurance.getId());
                 opInsert = false;
             }
@@ -285,29 +285,29 @@ public  class InsuranceActivity extends AppCompatActivity {
                     i1.setBonus_class(Integer.parseInt(etBonus_Class.getText().toString()));
                     i1.setNote(etNote.getText().toString());
                     i1.setStatus(nrStatus);
-                    i1.setTravel_id(nrspinTravel);
-                    i1.setVehicle_id(nrspinVehicle);
+                    i1.setTravel_id(nrspinTravel==0 ? null : nrspinTravel);
+                    i1.setVehicle_id(nrspinVehicle == 0 ? null : nrspinVehicle);
 
-                    if (!opInsert) {
-                        try {
-                            i1.setId(insurance.getId());
-                            isSave = Database.mInsuranceDao.updateInsurance(i1);
-                        } catch (Exception e) {
-                            Toast.makeText(getApplicationContext(), R.string.Error_Changing_Data + e.getMessage(), Toast.LENGTH_LONG).show();
+                    try {
+                        if (!opInsert) {
+                            try {
+                                i1.setId(insurance.getId());
+                                isSave = Database.mInsuranceDao.updateInsurance(i1);
+                            } catch (Exception e) {
+                                Toast.makeText(getApplicationContext(), getApplicationContext().getString(R.string.Error_Changing_Data) + "\n"+ e.getMessage(), Toast.LENGTH_LONG).show();
+                            }
+                        } else {
+                            try {
+                                i1.setId(null);
+                                isSave = Database.mInsuranceDao.addInsurance(i1);
+                            } catch (Exception e) {
+                                Toast.makeText(getApplicationContext(), getApplicationContext().getString(R.string.Error_Including_Data)+ "\n" + e.getMessage(), Toast.LENGTH_LONG).show();
+                            }
                         }
-                    } else {
-                        try {
-                            isSave = Database.mInsuranceDao.addInsurance(i1);
-                        } catch (Exception e) {
-                            Toast.makeText(getApplicationContext(), R.string.Error_Including_Data + e.getMessage(), Toast.LENGTH_LONG).show();
-                        }
-                    }
-
-                    setResult(isSave ? 1 : 0);
-                    if (isSave) {
-                        finish();
-                    } else {
-                        Toast.makeText(getApplicationContext(), R.string.Error_Saving_Data, Toast.LENGTH_LONG).show();
+                        setResult(isSave ? 1 : 0);
+                        if (isSave) { finish(); }
+                    } catch (Exception e) {
+                        Toast.makeText(getApplicationContext(), getApplicationContext().getString(R.string.Error_Saving_Data) + "\n" + e.getMessage(), Toast.LENGTH_LONG).show();
                     }
                 }
             }

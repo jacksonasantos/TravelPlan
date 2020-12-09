@@ -24,7 +24,7 @@ public class TravelDAO extends DbContentProvider implements TravelISchema, Trave
         super(db);
     }
 
-    public Travel fetchTravelById(Long id) {
+    public Travel fetchTravelById(Integer id) {
         final String[] selectionArgs = { String.valueOf(id) };
         final String selection = TRAVEL_ID + " = ?";
         Travel travel = new Travel();
@@ -80,7 +80,7 @@ public class TravelDAO extends DbContentProvider implements TravelISchema, Trave
         return travelList;
     }
 
-    public void deleteTravel(Long id) {
+    public void deleteTravel(Integer id) {
         final String[] selectionArgs = { String.valueOf(id) };
         final String selection = TRAVEL_ID + " = ?";
         super.delete(TRAVEL_TABLE, selection, selectionArgs);
@@ -126,7 +126,7 @@ public class TravelDAO extends DbContentProvider implements TravelISchema, Trave
         if (cursor != null) {
             if (cursor.getColumnIndex(TRAVEL_ID) != -1) {
                 idIndex = cursor.getColumnIndexOrThrow(TRAVEL_ID);
-                travel.setId(cursor.getLong(idIndex));
+                travel.setId(cursor.getInt(idIndex));
             }
             if (cursor.getColumnIndex(TRAVEL_DESCRIPTION) != -1) {
                 descriptionIndex = cursor.getColumnIndexOrThrow(TRAVEL_DESCRIPTION);

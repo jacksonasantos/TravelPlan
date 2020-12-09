@@ -22,7 +22,7 @@ public class InsuranceCompanyDAO extends DbContentProvider implements InsuranceC
         super(db);
     }
 
-    public InsuranceCompany fetchInsuranceCompanyById(Long id) {
+    public InsuranceCompany fetchInsuranceCompanyById(Integer id) {
         final String[] selectionArgs = { String.valueOf(id) };
         final String selection = INSURANCE_COMPANY_ID + " = ?";
         InsuranceCompany insuranceCompany = new InsuranceCompany();
@@ -54,7 +54,7 @@ public class InsuranceCompanyDAO extends DbContentProvider implements InsuranceC
         return insuranceCompany;
     }
 
-    public Long fetchInsuranceCompanyByName(String name) {
+    public Integer fetchInsuranceCompanyByName(String name) {
         final String[] selectionArgs = { String.valueOf(name) };
         final String selection = INSURANCE_COMPANY_COMPANY_NAME + " = ?";
         InsuranceCompany insuranceCompany = new InsuranceCompany();
@@ -96,7 +96,7 @@ public class InsuranceCompanyDAO extends DbContentProvider implements InsuranceC
         return insuranceCompanyList;
     }
 
-    public void deleteInsuranceCompany(Long id) {
+    public void deleteInsuranceCompany(Integer id) {
         final String[] selectionArgs = { String.valueOf(id) };
         final String selection = INSURANCE_COMPANY_ID + " = ?";
         super.delete(INSURANCE_COMPANY_TABLE, selection, selectionArgs);
@@ -142,7 +142,7 @@ public class InsuranceCompanyDAO extends DbContentProvider implements InsuranceC
         if (cursor != null) {
             if (cursor.getColumnIndex(INSURANCE_COMPANY_ID) != -1) {
                 idIndex = cursor.getColumnIndexOrThrow(INSURANCE_COMPANY_ID);
-                insuranceCompany.setId(cursor.getLong(idIndex));
+                insuranceCompany.setId(cursor.getInt(idIndex));
             }
             if (cursor.getColumnIndex(INSURANCE_COMPANY_COMPANY_NAME) != -1) {
                 company_nameIndex = cursor.getColumnIndexOrThrow(INSURANCE_COMPANY_COMPANY_NAME);

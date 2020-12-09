@@ -46,8 +46,8 @@ public class CurrencyQuoteActivity extends AppCompatActivity {
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             currencyQuote = new CurrencyQuote();
-            if (extras.getLong( "currencyQuote_id") > 0) {
-                currencyQuote.setId(extras.getLong("currencyQuote_id"));
+            if (extras.getInt( "currencyQuote_id") > 0) {
+                currencyQuote.setId(extras.getInt("currencyQuote_id"));
                 currencyQuote = Database.mCurrencyQuoteDao.fetchCurrencyQuoteById(currencyQuote.getId());
                 opInsert = false;
             }

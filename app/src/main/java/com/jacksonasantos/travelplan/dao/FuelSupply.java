@@ -3,8 +3,8 @@ package com.jacksonasantos.travelplan.dao;
 import java.util.Date;
 
 public class FuelSupply {
-    public Long id;
-    public Long vehicle_id=0L;
+    public Integer id;
+    public Integer vehicle_id;
     public String gas_station;
     public String gas_station_location;
     public Date supply_date;
@@ -20,7 +20,7 @@ public class FuelSupply {
     public float stat_cost_per_litre;
     public int supply_reason_type;
     public String supply_reason;
-    public Long associated_trip;
+    public Integer associated_travel_id;
 
     public FuelSupply() {
         this.id = id;
@@ -40,16 +40,16 @@ public class FuelSupply {
         this.stat_cost_per_litre=stat_cost_per_litre;
         this.supply_reason_type = supply_reason_type;
         this.supply_reason=supply_reason;
-        this.associated_trip=associated_trip;
+        this.associated_travel_id=associated_travel_id;
     }
 
-    public Long getId() { return id;}
+    public Integer getId() { return id;}
 
-    public void setId(Long id) { this.id = id;}
+    public void setId(Integer id) { this.id = id;}
 
-    public Long getVehicle_id() {return vehicle_id;}
+    public Integer getVehicle_id() {return vehicle_id;}
 
-    public void setVehicle_id(Long vehicle_id) {this.vehicle_id = vehicle_id;}
+    public void setVehicle_id(Integer vehicle_id) {this.vehicle_id = vehicle_id;}
 
     public String getGas_station() {return gas_station;}
 
@@ -111,7 +111,7 @@ public class FuelSupply {
 
     public void setSupply_reason_type(int supply_reason_type) { this.supply_reason_type = supply_reason_type; }
 
-    public Long getAssociated_trip() {return associated_trip;}
+    public Integer getAssociated_travel_id() {return associated_travel_id;}
 
-    public void setAssociated_trip(Long associated_trip) {this.associated_trip = associated_trip; }
+    public void setAssociated_travel_id(Integer associated_travel_id) {this.associated_travel_id = associated_travel_id; }
 }

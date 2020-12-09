@@ -5,10 +5,10 @@ import com.jacksonasantos.travelplan.dao.Insurance;
 import java.util.List;
 
 public interface InsuranceIDAO {
-    Insurance fetchInsuranceById(Long id);
+    Insurance fetchInsuranceById(Integer id);
     List<Insurance> fetchAllInsurance();
     boolean addInsurance(Insurance insurance);
-    void deleteInsurance(Long id);
+    void deleteInsurance(Integer id);
     boolean updateInsurance(Insurance insurance);
 
 }

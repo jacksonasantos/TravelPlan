@@ -3,7 +3,7 @@ package com.jacksonasantos.travelplan.dao;
 import androidx.annotation.NonNull;
 
 public class Broker {
-    public Long id;
+    public Integer id;
     public String name;
     public String phone;
     public String email;
@@ -19,8 +19,8 @@ public class Broker {
     @Override
     public String toString() { return name; }
 
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
+    public Integer getId() { return id; }
+    public void setId(Integer id) { this.id = id; }
 
     public String getName() { return name; }
     public void setName(String name) { this.name = name; }

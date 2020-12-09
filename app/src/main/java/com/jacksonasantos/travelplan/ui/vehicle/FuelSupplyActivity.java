@@ -41,7 +41,7 @@ import java.util.Locale;
 
 public class FuelSupplyActivity extends AppCompatActivity {
 
-    private Long nrVehicleId=0L;
+    private Integer nrVehicleId;
     private EditText etGasStation;
     private EditText etGasStationLocation;
     private EditText etSupplyDate;
@@ -52,7 +52,7 @@ public class FuelSupplyActivity extends AppCompatActivity {
     private int nrSpinCurrencyType;
     private EditText etCurrencyValue;
     private double nrCurrencyValue = 0;
-    private long nrIdCurrencyQuote = 0L;
+    private Integer nrIdCurrencyQuote;
     private EditText etSupplyValue;
     private EditText etFuelValue;
     private EditText etVehicleOdometer;
@@ -61,7 +61,7 @@ public class FuelSupplyActivity extends AppCompatActivity {
     private TextView txStatCostPerLitre;
     private int rbSupplyReasonType;
     private EditText etSupplyReason;
-    private long nrSpinAssociatedTrip;
+    private Integer nrSpinAssociatedTravelId;
     private int vLastOdometer;
     private int vLastOdometerNew;
     private float vStatAvgFuelConsumption = (float) 0;
@@ -75,7 +75,6 @@ public class FuelSupplyActivity extends AppCompatActivity {
     Locale locale = new Locale(g.getLanguage(), g.getCountry());
     NumberFormat numberFormat = NumberFormat.getNumberInstance(locale);
     NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(locale);
-   // String currencySymbol = currencyFormatter.getCurrency().getSymbol();
 
     @SuppressLint("WrongViewCast")
     @RequiresApi(api = Build.VERSION_CODES.N)
@@ -92,12 +91,12 @@ public class FuelSupplyActivity extends AppCompatActivity {
 
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
-            nrVehicleId = extras.getLong("vehicle_id");
+            nrVehicleId = extras.getInt("vehicle_id");
 
-            if (extras.getLong( "fuel_supply_id") > 0) {
+            if (extras.getInt( "fuel_supply_id") > 0) {
                 fuelSupply = new FuelSupply();
-                fuelSupply.setVehicle_id(extras.getLong("vehicle_id"));
-                fuelSupply.setId(extras.getLong("fuel_supply_id"));
+                fuelSupply.setVehicle_id(extras.getInt("vehicle_id"));
+                fuelSupply.setId(extras.getInt("fuel_supply_id"));
                 fuelSupply = Database.mFuelSupplyDao.fetchFuelSupplyById(fuelSupply.getId());
 
                 CurrencyQuote c1 = Database.mCurrencyQuoteDao.findQuoteDay(fuelSupply.currency_type, fuelSupply.supply_date);
@@ -112,7 +111,7 @@ public class FuelSupplyActivity extends AppCompatActivity {
             }
         }
         if (opInsert) {
-            if (nrVehicleId == 0L){
+            if (nrVehicleId == 0){
                 nrVehicleId = g.getIdVehicle();
             }
         } else {
@@ -145,7 +144,7 @@ public class FuelSupplyActivity extends AppCompatActivity {
         txStatCostPerLitre = findViewById(R.id.txStatCostPerLitre);
         RadioGroup rgSupplyReasonType = findViewById(R.id.rgSupplyReasonType);
         etSupplyReason = findViewById(R.id.etSupplyReason);
-        AutoCompleteTextView spinAssociatedTrip = findViewById(R.id.spinAssociatedTrip);
+        AutoCompleteTextView spinAssociatedTravelId = findViewById(R.id.spinAssociatedTravelId);
 
         Vehicle vehicle = Database.mVehicleDao.fetchVehicleById(nrVehicleId);
         txVehicleName.setText(vehicle.getName());
@@ -170,7 +169,7 @@ public class FuelSupplyActivity extends AppCompatActivity {
             @Override public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 nrSpinCurrencyType = (int) adapterView.getItemIdAtPosition(i);
                 // TODO - Eliminar pesquisa para REAIS ou moeda Default
-
+                // TODO - Salvar ID da cotação
                 // currencyFormatter.getCurrency().getSymbol()
                 CurrencyQuote c1 = Database.mCurrencyQuoteDao.findQuoteDay(nrSpinCurrencyType, Utils.stringToDate(etSupplyDate.getText().toString()));
                 etCurrencyValue.setText(String.valueOf(c1.getCurrency_value()));
@@ -232,14 +231,14 @@ public class FuelSupplyActivity extends AppCompatActivity {
         final List<Travel> travels =  Database.mTravelDao.fetchArrayTravel();
         ArrayAdapter adapterT = new ArrayAdapter(this, android.R.layout.simple_spinner_item, travels);
         adapterT.setDropDownViewResource( android.R.layout.simple_spinner_dropdown_item);
-        spinAssociatedTrip.setAdapter(adapterT);
+        spinAssociatedTravelId.setAdapter(adapterT);
 
         final Travel[] t1 = {new Travel()};
-        spinAssociatedTrip.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        spinAssociatedTravelId.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 t1[0] = (Travel) parent.getItemAtPosition(position);
-                nrSpinAssociatedTrip = t1[0].getId();
+                nrSpinAssociatedTravelId = t1[0].getId();
             }
 
         });
@@ -265,12 +264,12 @@ public class FuelSupplyActivity extends AppCompatActivity {
             txStatCostPerLitre.setText(String.valueOf(fuelSupply.getStat_cost_per_litre()));
             rgSupplyReasonType.check(fuelSupply.getSupply_reason_type());
             etSupplyReason.setText(fuelSupply.getSupply_reason());
-            nrSpinAssociatedTrip=fuelSupply.getAssociated_trip();
-            if (nrSpinAssociatedTrip > 0) {
-                Travel trip1 = Database.mTravelDao.fetchTravelById(nrSpinAssociatedTrip);
-                for (int x = 0; x <= spinAssociatedTrip.getAdapter().getCount(); x++) {
-                    if (spinAssociatedTrip.getAdapter().getItem(x).toString().equals(trip1.getDescription())) {
-                        spinAssociatedTrip.setText(spinAssociatedTrip.getAdapter().getItem(x).toString(),false);
+            nrSpinAssociatedTravelId=fuelSupply.getAssociated_travel_id();
+            if (nrSpinAssociatedTravelId > 0) {
+                Travel trip1 = Database.mTravelDao.fetchTravelById(nrSpinAssociatedTravelId);
+                for (int x = 0; x <= spinAssociatedTravelId.getAdapter().getCount(); x++) {
+                    if (spinAssociatedTravelId.getAdapter().getItem(x).toString().equals(trip1.getDescription())) {
+                        spinAssociatedTravelId.setText(spinAssociatedTravelId.getAdapter().getItem(x).toString(),false);
                         break;
                     }
                 }
@@ -307,7 +306,7 @@ public class FuelSupplyActivity extends AppCompatActivity {
                     f1.setStat_cost_per_litre(vStatCostPerLitre);
                     f1.setSupply_reason_type(findViewById(rbSupplyReasonType).getId());
                     f1.setSupply_reason(etSupplyReason.getText().toString());
-                    f1.setAssociated_trip(nrSpinAssociatedTrip);
+                    f1.setAssociated_travel_id(nrSpinAssociatedTravelId);
 
                     final CurrencyQuote c1 = new CurrencyQuote();
                     c1.setCurrency_type(nrSpinCurrencyType);

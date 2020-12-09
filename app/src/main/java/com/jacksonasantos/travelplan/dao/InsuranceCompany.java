@@ -5,7 +5,7 @@ import androidx.annotation.NonNull;
 import java.util.Date;
 
 public class InsuranceCompany {
-    public Long id;
+    public Integer id;
     public String company_name;
     public String cnpj;
     public String fip_code;
@@ -33,9 +33,9 @@ public class InsuranceCompany {
     @Override
     public String toString() { return company_name; }
 
-    public Long getId() { return id;}
+    public Integer getId() { return id;}
 
-    public void setId(Long id) { this.id = id;}
+    public void setId(Integer id) { this.id = id;}
 
     public String getCompany_name() { return company_name; }
 

@@ -44,7 +44,7 @@ public class CurrencyQuoteDAO extends DbContentProvider implements CurrencyQuote
         return currencyQuote;
     }
 
-    public CurrencyQuote fetchCurrencyQuoteById(Long id) {
+    public CurrencyQuote fetchCurrencyQuoteById(Integer id) {
         final String[] selectionArgs = { String.valueOf(id) };
         final String selection = CURRENCY_QUOTE_ID + " = ?";
         CurrencyQuote currencyQuote = new CurrencyQuote();
@@ -76,7 +76,7 @@ public class CurrencyQuoteDAO extends DbContentProvider implements CurrencyQuote
         return currencyQuoteList;
     }
 
-    public void deleteCurrencyQuote(Long id) {
+    public void deleteCurrencyQuote(Integer id) {
         final String[] selectionArgs = { String.valueOf(id) };
         final String selection = CURRENCY_QUOTE_ID + " = ?";
         super.delete(CURRENCY_QUOTE_TABLE, selection, selectionArgs);
@@ -116,7 +116,7 @@ public class CurrencyQuoteDAO extends DbContentProvider implements CurrencyQuote
         if (cursor != null) {
             if (cursor.getColumnIndex(CURRENCY_QUOTE_ID) != -1) {
                 idIndex = cursor.getColumnIndexOrThrow(CURRENCY_QUOTE_ID);
-                currencyQuote.id = cursor.getLong(idIndex);
+                currencyQuote.id = cursor.getInt(idIndex);
             }
             if (cursor.getColumnIndex(CURRENCY_QUOTE_CURRENCY_TYPE) != -1) {
                 currency_typeIndex = cursor.getColumnIndexOrThrow(CURRENCY_QUOTE_CURRENCY_TYPE);

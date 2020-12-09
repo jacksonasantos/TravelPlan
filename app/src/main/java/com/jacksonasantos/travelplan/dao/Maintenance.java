@@ -5,8 +5,8 @@ import com.jacksonasantos.travelplan.R;
 import java.util.Date;
 
 public class Maintenance {
-    public Long id;
-    public Long vehicle_id=0L;
+    public Integer id;
+    public Integer vehicle_id;
     public int service_type;
     public String detail;
     public Date date;
@@ -33,13 +33,13 @@ public class Maintenance {
         this.status=status;
     }
 
-    public Long getId() { return id; }
+    public Integer getId() { return id; }
 
-    public void setId(Long id) { this.id = id; }
+    public void setId(Integer id) { this.id = id; }
 
-    public Long getVehicle_id() { return vehicle_id; }
+    public Integer getVehicle_id() { return vehicle_id; }
 
-    public void setVehicle_id(Long vehicle_id) { this.vehicle_id = vehicle_id; }
+    public void setVehicle_id(Integer vehicle_id) { this.vehicle_id = vehicle_id; }
 
     public int getServiceTypeImage( int service_type ) {
         int draw;

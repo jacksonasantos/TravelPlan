@@ -49,7 +49,7 @@ public class InsuranceCompanyActivity extends AppCompatActivity {
         if (extras != null) {
             insuranceCompany = new InsuranceCompany();
             if (extras.getLong( "insuranceCompany_id") > 0) {
-                insuranceCompany.setId(extras.getLong("insuranceCompany_id"));
+                insuranceCompany.setId(extras.getInt("insuranceCompany_id"));
                 insuranceCompany = Database.mInsuranceCompanyDao.fetchInsuranceCompanyById(insuranceCompany.getId());
                 opInsert = false;
             }

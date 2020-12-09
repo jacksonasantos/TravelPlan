@@ -564,7 +564,7 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/input_layout_spinAssociatedTrip"
+                android:id="@+id/input_layout_spinAssociatedTravelId"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/labels_margin"
@@ -576,12 +576,12 @@
                 app:layout_constraintTop_toBottomOf="@+id/input_layout_etSupplyReason"
                 style = "@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu">
                 <AutoCompleteTextView
-                    android:id="@+id/spinAssociatedTrip"
+                    android:id="@+id/spinAssociatedTravelId"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fadingEdge="none"
                     android:focusable="auto"
-                    android:hint="@string/FuelSupply_AssociatedTrip"
+                    android:hint="@string/FuelSupply_AssociatedTravel"
                     android:textSize="12sp"
                     android:inputType="none"  />
 

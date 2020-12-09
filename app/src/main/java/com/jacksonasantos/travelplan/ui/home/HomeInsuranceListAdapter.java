@@ -114,15 +114,13 @@ public class HomeInsuranceListAdapter extends RecyclerView.Adapter<HomeInsurance
             @Override
             public void onClick(View v) {
                 try {
-                    Database mDb = new Database(context);
-                    mDb.open();
                     Insurance i1 = Database.mInsuranceDao.fetchInsuranceById(insurance.getId());
                     i1.setStatus(insurance.getStatus() == 0 ? 1 : 0);
-                    Database.mInsuranceDao.updateInsurance(i1);
-                    mDb.close();
-                    notifyDataSetChanged();
-                }  catch (Exception e) {
-                    Toast.makeText(context, R.string.Error_Changing_Data + e.getMessage(), Toast.LENGTH_LONG).show();
+                    if (Database.mInsuranceDao.updateInsurance(i1)) {
+                        notifyDataSetChanged();
+                    }
+                } catch (Exception e) {
+                    Toast.makeText(context, context.getString(R.string.Error_Changing_Data)+ "\n" + e.getMessage(), Toast.LENGTH_LONG).show();
                 }
             }
         });

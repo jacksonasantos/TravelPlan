@@ -22,7 +22,7 @@ public class InsuranceDAO extends DbContentProvider implements InsuranceISchema,
         super(db);
     }
 
-    public Insurance fetchInsuranceById(Long id) {
+    public Insurance fetchInsuranceById(Integer id) {
         final String[] selectionArgs = { String.valueOf(id) };
         final String selection = INSURANCE_ID + " = ?";
         Insurance insurance = new Insurance();
@@ -73,7 +73,7 @@ public class InsuranceDAO extends DbContentProvider implements InsuranceISchema,
         return insuranceList;
     }
 
-    public void deleteInsurance(Long id) {
+    public void deleteInsurance(Integer id) {
         final String[] selectionArgs = { String.valueOf(id) };
         final String selection = INSURANCE_ID + " = ?";
         super.delete(INSURANCE_TABLE, selection, selectionArgs);
@@ -83,22 +83,22 @@ public class InsuranceDAO extends DbContentProvider implements InsuranceISchema,
         setContentValue(insurance);
         final String[] selectionArgs = { String.valueOf(insurance.getId()) };
         final String selection = INSURANCE_ID + " = ?";
-        try {
+        //try {
             return (super.update(INSURANCE_TABLE, getContentValue(), selection, selectionArgs) > 0);
-        } catch (SQLiteConstraintException ex){
-            Log.w("Update Table", ex.getMessage());
-            return false;
-        }
+        //} catch (SQLiteConstraintException ex){
+        //    Log.w("Update Table", ex.getMessage());
+        //    return false;
+        //}
     }
 
     public boolean addInsurance(Insurance insurance) {
         setContentValue(insurance);
-        try {
+        //try {
             return (super.insert(INSURANCE_TABLE, getContentValue()) > 0);
-        } catch (SQLiteConstraintException ex){
-            Log.w("Insert Table", ex.getMessage());
-            return false;
-        }
+       // } catch (SQLiteConstraintException ex){
+       //     Log.w("Insert Table", ex.getMessage());
+       //     return false;
+       // }
     }
 
     protected Insurance cursorToEntity(Cursor cursor) {
@@ -127,15 +127,15 @@ public class InsuranceDAO extends DbContentProvider implements InsuranceISchema,
         if (cursor != null) {
             if (cursor.getColumnIndex(INSURANCE_ID) != -1) {
                 idIndex = cursor.getColumnIndexOrThrow(INSURANCE_ID);
-                insurance.setId(cursor.getLong(idIndex));
+                insurance.setId(cursor.getInt(idIndex));
             }
             if (cursor.getColumnIndex(INSURANCE_INSURANCE_COMPANY_ID) != -1) {
                 insurance_company_idIndex = cursor.getColumnIndexOrThrow(INSURANCE_INSURANCE_COMPANY_ID);
-                insurance.setInsurance_company_id(cursor.getLong(insurance_company_idIndex));
+                insurance.setInsurance_company_id(cursor.getInt(insurance_company_idIndex));
             }
             if (cursor.getColumnIndex(INSURANCE_BROKER_ID) != -1) {
                 broker_idIndex = cursor.getColumnIndexOrThrow(INSURANCE_BROKER_ID);
-                insurance.setBroker_id(cursor.getLong(broker_idIndex));
+                insurance.setBroker_id(cursor.getInt(broker_idIndex));
             }
             if (cursor.getColumnIndex(INSURANCE_INSURANCE_TYPE) != -1) {
                 insurance_typeIndex = cursor.getColumnIndexOrThrow(INSURANCE_INSURANCE_TYPE);
@@ -191,11 +191,11 @@ public class InsuranceDAO extends DbContentProvider implements InsuranceISchema,
             }
             if (cursor.getColumnIndex(INSURANCE_TRAVEL_ID) != -1) {
                 travel_idIndex = cursor.getColumnIndexOrThrow(INSURANCE_TRAVEL_ID);
-                insurance.setTravel_id(cursor.getLong(travel_idIndex));
+                insurance.setTravel_id(cursor.getInt(travel_idIndex));
             }
             if (cursor.getColumnIndex(INSURANCE_VEHICLE_ID) != -1) {
                 vehicle_idIndex = cursor.getColumnIndexOrThrow(INSURANCE_VEHICLE_ID);
-                insurance.setVehicle_id(cursor.getLong(vehicle_idIndex));
+                insurance.setVehicle_id(cursor.getInt(vehicle_idIndex));
             }
         }
         return insurance;

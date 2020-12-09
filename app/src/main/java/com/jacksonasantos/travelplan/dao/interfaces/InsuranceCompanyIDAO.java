@@ -7,12 +7,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public interface InsuranceCompanyIDAO {
-    InsuranceCompany fetchInsuranceCompanyById(Long id);
+    InsuranceCompany fetchInsuranceCompanyById(Integer id);
     InsuranceCompany fetchInsuranceCompanyByCNPJ(String cnpj);
-    Long fetchInsuranceCompanyByName(String name);
+    Integer fetchInsuranceCompanyByName(String name);
     List<InsuranceCompany> fetchAllInsuranceCompanies();
     ArrayList<InsuranceCompany> fetchArrayInsuranceCompany();
     boolean addInsuranceCompany(InsuranceCompany insuranceCompany);
-    void deleteInsuranceCompany(Long id);
+    void deleteInsuranceCompany(Integer id);
     boolean updateInsuranceCompany(InsuranceCompany insuranceCompany);
 }

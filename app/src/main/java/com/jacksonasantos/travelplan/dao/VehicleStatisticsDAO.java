@@ -23,7 +23,7 @@ public class VehicleStatisticsDAO extends DbContentProvider implements VehicleSt
         super(db);
     }
 
-    public VehicleStatistics fetchVehicleStatisticsById(Long id) {
+    public VehicleStatistics fetchVehicleStatisticsById(Integer id) {
         final String[] selectionArgs = { String.valueOf(id) };
         final String selection = VEHICLE_STATISTICS_ID + " = ?";
         VehicleStatistics vehicleStatistics = new VehicleStatistics();
@@ -66,7 +66,7 @@ public class VehicleStatisticsDAO extends DbContentProvider implements VehicleSt
         return vehicleStatisticsList;
     }
 
-    public List<VehicleStatistics> findVehicleStatisticsbyId(Long id) {
+    public List<VehicleStatistics> findVehicleStatisticsbyId(Integer id) {
         List<VehicleStatistics> vehicleStatisticsList = new ArrayList<>();
         final String[] selectionArgs = { String.valueOf(Globals.getInstance().getIdVehicle()) };
         final String selection = VEHICLE_STATISTICS_VEHICLE_ID + " = ?";
@@ -84,7 +84,7 @@ public class VehicleStatisticsDAO extends DbContentProvider implements VehicleSt
         return vehicleStatisticsList;
     }
 
-    public void deleteVehicleStatistics(Long id) {
+    public void deleteVehicleStatistics(Integer id) {
         final String[] selectionArgs = { String.valueOf(id) };
         final String selection = VEHICLE_STATISTICS_ID + " = ?";
         super.delete(VEHICLE_STATISTICS_TABLE, selection, selectionArgs);
@@ -137,11 +137,11 @@ public class VehicleStatisticsDAO extends DbContentProvider implements VehicleSt
         if (cursor != null) {
             if (cursor.getColumnIndex(VEHICLE_STATISTICS_ID) != -1) {
                 idIndex = cursor.getColumnIndexOrThrow(VEHICLE_STATISTICS_ID);
-                vehicleStatistics.id = cursor.getLong(idIndex);
+                vehicleStatistics.id = cursor.getInt(idIndex);
             }
             if (cursor.getColumnIndex(VEHICLE_STATISTICS_VEHICLE_ID) != -1) {
                 vehicle_idIndex = cursor.getColumnIndexOrThrow(VEHICLE_STATISTICS_VEHICLE_ID);
-                vehicleStatistics.setVehicle_id(cursor.getLong(vehicle_idIndex));
+                vehicleStatistics.setVehicle_id(cursor.getInt(vehicle_idIndex));
             }
             if (cursor.getColumnIndex(VEHICLE_STATISTICS_STATISTIC_DATE) != -1) {
                 statistic_dateIndex = cursor.getColumnIndexOrThrow(VEHICLE_STATISTICS_STATISTIC_DATE);

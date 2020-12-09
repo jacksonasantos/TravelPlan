@@ -3,8 +3,8 @@ package com.jacksonasantos.travelplan.dao;
 import java.util.Date;
 
 public class VehicleStatistics {
-    public Long id;
-    public Long vehicle_id;
+    public Integer id;
+    public Integer vehicle_id;
     public int supply_reason_type;
     public Date statistic_date;
     public float avg_consumption;
@@ -17,11 +17,11 @@ public class VehicleStatistics {
         this.avg_consumption = avg_consumption;
     }
 
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
+    public Integer getId() { return id; }
+    public void setId(Integer id) { this.id = id; }
 
-    public Long getVehicle_id() { return vehicle_id; }
-    public void setVehicle_id(Long vehicle_id) { this.vehicle_id = vehicle_id; }
+    public Integer getVehicle_id() { return vehicle_id; }
+    public void setVehicle_id(Integer vehicle_id) { this.vehicle_id = vehicle_id; }
 
     public Date getStatistic_date() { return statistic_date; }
     public void setStatistic_date(Date statistic_date) { this.statistic_date = statistic_date; }

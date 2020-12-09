@@ -115,7 +115,7 @@ public class VehicleListAdapter extends RecyclerView.Adapter<VehicleListAdapter.
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
                                 try {
-                                    Database.mVehicleDao.deleteVehicle(vehicle.getId());  // invoca a deleção do registro
+                                    Database.mVehicleDao.deleteVehicle(vehicle.getId());
                                     mVehicle.remove(position);
                                     notifyItemRemoved(position);
                                 } catch (Exception e) {

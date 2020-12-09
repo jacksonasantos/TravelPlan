@@ -23,7 +23,7 @@ public class BrokerDAO extends DbContentProvider implements BrokerISchema, Broke
         super(db);
     }
 
-    public Broker fetchBrokerById(Long id) {
+    public Broker fetchBrokerById(Integer id) {
         final String[] selectionArgs = { String.valueOf(id) };
         final String selection = BROKER_ID + " = ?";
         Broker broker = new Broker();
@@ -67,7 +67,7 @@ public class BrokerDAO extends DbContentProvider implements BrokerISchema, Broke
         return brokerList;
     }
 
-    public void deleteBroker(Long id) {
+    public void deleteBroker(Integer id) {
         final String[] selectionArgs = { String.valueOf(id) };
         final String selection = BROKER_ID + " = ?";
         super.delete(BROKER_TABLE, selection, selectionArgs);
@@ -107,7 +107,7 @@ public class BrokerDAO extends DbContentProvider implements BrokerISchema, Broke
         if (cursor != null) {
             if (cursor.getColumnIndex(BROKER_ID) != -1) {
                 idIndex = cursor.getColumnIndexOrThrow(BROKER_ID);
-                broker.id = cursor.getLong(idIndex);
+                broker.id = cursor.getInt(idIndex);
             }
             if (cursor.getColumnIndex(BROKER_NAME) != -1) {
                 nameIndex = cursor.getColumnIndexOrThrow(BROKER_NAME);

@@ -5,9 +5,9 @@ import com.jacksonasantos.travelplan.R;
 import java.util.Date;
 
 public class Insurance {
-    public Long id;
-    public Long insurance_company_id;
-    public Long broker_id;
+    public Integer id;
+    public Integer insurance_company_id;
+    public Integer broker_id;
     public int insurance_type;
     public String description;
     public String insurance_policy;
@@ -21,8 +21,8 @@ public class Insurance {
     public int bonus_class;
     public String note;
     public int status;
-    public Long travel_id;
-    public Long vehicle_id;
+    public Integer travel_id;
+    public Integer vehicle_id;
 
     public Insurance() {
         this.id = id;
@@ -45,14 +45,14 @@ public class Insurance {
         this.vehicle_id = vehicle_id;
     }
 
-    public Long getId() {return id;}
-    public void setId(Long id) {this.id = id;}
+    public Integer getId() {return id;}
+    public void setId(Integer id) {this.id = id;}
 
-    public Long getInsurance_company_id() { return insurance_company_id; }
-    public void setInsurance_company_id(Long insurance_company_id) { this.insurance_company_id = insurance_company_id; }
+    public Integer getInsurance_company_id() { return insurance_company_id; }
+    public void setInsurance_company_id(Integer insurance_company_id) { this.insurance_company_id = insurance_company_id; }
 
-    public Long getBroker_id() { return broker_id; }
-    public void setBroker_id(Long broker_id) { this.broker_id = broker_id; }
+    public Integer getBroker_id() { return broker_id; }
+    public void setBroker_id(Integer broker_id) { this.broker_id = broker_id; }
 
     public int getInsurance_typeImage( int insurance_type ) {
         int draw;
@@ -105,10 +105,10 @@ public class Insurance {
     public int getStatus() { return status; }
     public void setStatus(int status) { this.status = status; }
 
-    public Long getTravel_id() { return travel_id; }
-    public void setTravel_id(Long travel_id) { this.travel_id = travel_id; }
+    public Integer getTravel_id() { return travel_id; }
+    public void setTravel_id(Integer travel_id) { this.travel_id = travel_id; }
 
-    public Long getVehicle_id() { return vehicle_id; }
-    public void setVehicle_id(Long vehicle_id) { this.vehicle_id = vehicle_id; }
+    public Integer getVehicle_id() { return vehicle_id; }
+    public void setVehicle_id(Integer vehicle_id) { this.vehicle_id = vehicle_id; }
 
 }

@@ -60,7 +60,6 @@
     <string name="Vehicle_Travelled_Distance">Distância Percorrida</string>
     <string name="FuelSupply_Reason">Razão do Abastecimento</string>
     <string name="Vehicle_Stat_Cost_Per_Litre">Custo por Litro</string>
-    <string name="FuelSupply_AssociatedTrip">Viagem Associada</string>
     <string name="FuelSupply_Currency_Value">Valor da Moeda</string>
     <string name="menu_fuel_supply">Abastecimento</string>
     <string name="city">Cidade</string>
@@ -195,4 +194,6 @@
     <string name="InsuranceExpiration">Vencimento de Seguros</string>
     <string name="overdue">Em atrasi</string>
     <string name="Error_Deleting_Data">Erro ao excluir dados</string>
+    <string name="menu_general">Gerais</string>
+    <string name="FuelSupply_AssociatedTravel">Viagem Associada</string>
 </resources>

@@ -21,13 +21,13 @@ public interface FuelSupplyISchema {
     String FUEL_SUPPLY_STAT_COST_PER_LITRE = "stat_cost_per_litre";
     String FUEL_SUPPLY_SUPPLY_REASON_TYPE = "supply_reason_type";
     String FUEL_SUPPLY_SUPPLY_REASON = "supply_reason";
-    String FUEL_SUPPLY_ASSOCIATED_TRIP = "associated_trip";
+    String FUEL_SUPPLY_ASSOCIATED_TRAVEL_ID = "associated_travel_id";
 
     // Version 8
     String CREATE_TABLE_FUEL_SUPPLY_V8 = "CREATE TABLE IF NOT EXISTS "
             + FUEL_SUPPLY_TABLE + " ("
             + FUEL_SUPPLY_ID + " INTEGER PRIMARY KEY, "
-            + FUEL_SUPPLY_VEHICLE_ID + " LONG REFERENCES " + VehicleISchema.VEHICLE_TABLE + ", "
+            + FUEL_SUPPLY_VEHICLE_ID + " INTEGER REFERENCES " + VehicleISchema.VEHICLE_TABLE + ", "
             + FUEL_SUPPLY_GAS_STATION + " TEXT, "
             + FUEL_SUPPLY_GAS_STATION_LOCATION + " TEXT, "
             + FUEL_SUPPLY_SUPPLY_DATE + " DATE, "
@@ -42,7 +42,7 @@ public interface FuelSupplyISchema {
             + FUEL_SUPPLY_STAT_AVG_FUEL_CONSUMPTION + " FLOAT, "
             + FUEL_SUPPLY_STAT_COST_PER_LITRE + " FLOAT, "
             + FUEL_SUPPLY_SUPPLY_REASON + " TEXT, "
-            + FUEL_SUPPLY_ASSOCIATED_TRIP + " LONG "
+            + FUEL_SUPPLY_ASSOCIATED_TRAVEL_ID + " INTEGER "
             + ")";
 
     // Version 9
@@ -67,6 +67,6 @@ public interface FuelSupplyISchema {
             FUEL_SUPPLY_STAT_COST_PER_LITRE,
             FUEL_SUPPLY_SUPPLY_REASON_TYPE,
             FUEL_SUPPLY_SUPPLY_REASON,
-            FUEL_SUPPLY_ASSOCIATED_TRIP
+            FUEL_SUPPLY_ASSOCIATED_TRAVEL_ID
     };
 }

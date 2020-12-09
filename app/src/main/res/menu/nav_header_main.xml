@@ -14,9 +14,9 @@
     <ImageView
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:paddingTop="@dimen/activity_vertical_margin"
         android:layout_gravity="center"
         android:contentDescription="@string/nav_header_desc"
+        android:paddingTop="@dimen/activity_vertical_margin"
         app:srcCompat="@drawable/ic_logo_travelplan" />
 
     <TextView

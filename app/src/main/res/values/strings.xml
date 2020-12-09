@@ -14,6 +14,7 @@
     <string name="menu_broker">Broker</string>
     <string name="menu_currency_quote">Currency Quote</string>
     <string name="menu_insurance">Insurance</string>
+    <string name="menu_general">General</string>
 
     <!-- Preference Titles -->
     <string name="personal_header">Personal Data</string>
@@ -105,7 +106,7 @@
     <string name="FuelSupply_Reason_Type">Supply Reason Type</string>
     <string name="FuelSupply_Reason">Reason</string>
     <string name="Vehicle_Stat_Cost_Per_Litre">Cost Per Litre</string>
-    <string name="FuelSupply_AssociatedTrip">Associated Trip</string>
+    <string name="FuelSupply_AssociatedTravel">Associated Travel</string>
     <string name="FuelSupply_Currency_Value">Currency Value</string>
 
     <!-- Home Fragment -->

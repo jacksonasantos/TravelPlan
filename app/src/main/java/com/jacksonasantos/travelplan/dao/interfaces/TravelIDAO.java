@@ -7,11 +7,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public interface TravelIDAO {
-    Travel fetchTravelById(Long id);
+    Travel fetchTravelById(Integer id);
     Travel fetchTravelByStatus(int status);
     List<Travel> fetchAllTravel();
     ArrayList<Travel> fetchArrayTravel();
     boolean addTravel(Travel travel);
-    void deleteTravel(Long id);
+    void deleteTravel(Integer id);
     boolean updateTravel(Travel travel);
 }

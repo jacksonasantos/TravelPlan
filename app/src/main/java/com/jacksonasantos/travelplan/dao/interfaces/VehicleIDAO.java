@@ -6,10 +6,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public interface VehicleIDAO {
-    Vehicle fetchVehicleById(Long id);
+    Vehicle fetchVehicleById(Integer id);
     List<Vehicle> fetchAllVehicles();
     ArrayList<Vehicle> fetchArrayVehicles();
     boolean addVehicle(Vehicle vehicle);
-    void deleteVehicle(Long id);
+    void deleteVehicle(Integer id);
     boolean updateVehicle(Vehicle vehicle);
 }

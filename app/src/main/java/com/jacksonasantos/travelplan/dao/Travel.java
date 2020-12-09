@@ -5,7 +5,7 @@ import androidx.annotation.NonNull;
 import java.util.Date;
 
 public class Travel {
-    public Long id;
+    public Integer id;
     public String description;
     public Date departure_date;
     public Date return_date;
@@ -24,8 +24,8 @@ public class Travel {
     @Override
     public String toString() { return description; }
 
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
+    public Integer getId() { return id; }
+    public void setId(Integer id) { this.id = id; }
 
     public String getDescription() { return description; }
     public void setDescription(String description) { this.description = description; }
