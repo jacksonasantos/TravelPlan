@@ -16,7 +16,6 @@ import java.text.SimpleDateFormat;
 
 public class Utils extends AppCompatActivity  {
 
-
     public static Date dateParse(String data ){
         Globals g = Globals.getInstance();
         Date d = null;
@@ -31,14 +30,14 @@ public class Utils extends AppCompatActivity  {
 
     public static String dateFormat(Date data ){
         Globals g = Globals.getInstance();
-        String d = null;
+        String d;
         @SuppressLint("SimpleDateFormat") SimpleDateFormat dateFormat = new SimpleDateFormat(g.getDateFormat());
         d = (data == null ? null : dateFormat.format(data));
         return d;
     }
 
     public static Date stringToDate(String d) {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         try {
             return (d==null?null:dateFormat.parse(d));
         } catch (ParseException e) {
@@ -48,7 +47,7 @@ public class Utils extends AppCompatActivity  {
     }
 
     public static String dateToString(Date d) {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         return (d==null?null:dateFormat.format(d));
     }
 

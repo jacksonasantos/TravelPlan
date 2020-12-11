@@ -2,7 +2,6 @@ package com.jacksonasantos.travelplan.dao.interfaces;
 
 import com.jacksonasantos.travelplan.dao.FuelSupply;
 
-import java.text.ParseException;
 import java.util.List;
 
 public interface FuelSupplyIDAO {

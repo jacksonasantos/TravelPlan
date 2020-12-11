@@ -3,8 +3,6 @@ package com.jacksonasantos.travelplan.ui.general;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.database.sqlite.SQLiteConstraintException;
-import android.database.sqlite.SQLiteException;
 import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;

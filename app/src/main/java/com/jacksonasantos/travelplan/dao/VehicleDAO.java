@@ -1,6 +1,5 @@
 package com.jacksonasantos.travelplan.dao;
 
-import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteConstraintException;

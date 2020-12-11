@@ -1,7 +1,5 @@
 package com.jacksonasantos.travelplan.dao.interfaces;
 
-import com.jacksonasantos.travelplan.dao.Broker;
-
 public interface InsuranceISchema {
 
     String INSURANCE_TABLE = "insurance";

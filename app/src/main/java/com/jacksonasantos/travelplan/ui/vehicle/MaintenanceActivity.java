@@ -5,7 +5,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
@@ -106,7 +105,7 @@ public class MaintenanceActivity extends AppCompatActivity {
 
         etDate.addTextChangedListener(new DateInputMask(etDate));
         etExpiration_date.addTextChangedListener(new DateInputMask(etExpiration_date));
-        createSpinnerResources(R.array.vehicle_services, spinService_type);
+        Utils.createSpinnerResources(R.array.vehicle_services, spinService_type, this);
         nrSpinService_type = 0;
         spinService_type.setOnItemClickListener(new Spinner.OnItemClickListener() {
             @Override public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -202,14 +201,5 @@ public class MaintenanceActivity extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), R.string.Data_Validator_Error +" - " + e.getMessage(), Toast.LENGTH_LONG).show();
         }
         return isValid;
-    }
-
-    private void createSpinnerResources(int resource_array, AutoCompleteTextView spin) {
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(
-                this,
-                android.R.layout.select_dialog_item,
-                // TODO - colocar  o icone do resource
-                getResources().getStringArray(resource_array));
-        spin.setAdapter(adapter);
     }
 }

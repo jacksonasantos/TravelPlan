@@ -2,7 +2,6 @@ package com.jacksonasantos.travelplan.dao.interfaces;
 
 import com.jacksonasantos.travelplan.dao.InsuranceCompany;
 
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
