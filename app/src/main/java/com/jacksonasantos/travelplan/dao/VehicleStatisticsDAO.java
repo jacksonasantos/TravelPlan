@@ -18,6 +18,7 @@ public class VehicleStatisticsDAO extends DbContentProvider implements VehicleSt
 
     private Cursor cursor;
     private ContentValues initialValues;
+    private ContentValues initialValuesChange;
 
     public VehicleStatisticsDAO(SQLiteDatabase db) {
         super(db);
@@ -103,25 +104,15 @@ public class VehicleStatisticsDAO extends DbContentProvider implements VehicleSt
     }
 
     public boolean changeVehicleStatistics(VehicleStatistics vehicleStatistics) {
-        setContentValue(vehicleStatistics);
+        setContentValueChange(vehicleStatistics);
         final String[] selectionArgs = { String.valueOf(vehicleStatistics.getVehicle_id()), String.valueOf(vehicleStatistics.getSupply_reason_type())};
         final String selection = VEHICLE_STATISTICS_VEHICLE_ID + " = ? AND " + VEHICLE_STATISTICS_SUPPLY_REASON_TYPE + " = ?";
-        try {
-            return (super.update(VEHICLE_STATISTICS_TABLE, getContentValue(), selection, selectionArgs) > 0);
-        } catch (SQLiteConstraintException ex){
-            Log.w("Update Table", ex.getMessage());
-            return false;
-        }
+        return (super.update(VEHICLE_STATISTICS_TABLE, getContentValueChange(), selection, selectionArgs) > 0);
     }
 
     public boolean addVehicleStatistics(VehicleStatistics vehicleStatistics) {
         setContentValue(vehicleStatistics);
-        try {
-            return super.insert(VEHICLE_STATISTICS_TABLE, getContentValue()) > 0;
-        } catch (SQLiteConstraintException ex){
-            Log.w("Insert Table", ex.getMessage());
-            return false;
-        }
+        return super.insert(VEHICLE_STATISTICS_TABLE, getContentValue()) > 0;
     }
 
     protected VehicleStatistics cursorToEntity(Cursor cursor) {
@@ -145,7 +136,7 @@ public class VehicleStatisticsDAO extends DbContentProvider implements VehicleSt
             }
             if (cursor.getColumnIndex(VEHICLE_STATISTICS_STATISTIC_DATE) != -1) {
                 statistic_dateIndex = cursor.getColumnIndexOrThrow(VEHICLE_STATISTICS_STATISTIC_DATE);
-                vehicleStatistics.setStatistic_date(Utils.stringToDate(cursor.getString(statistic_dateIndex)));
+                vehicleStatistics.setStatistic_date(Utils.dateParse(cursor.getString(statistic_dateIndex)));
             }
 
             if (cursor.getColumnIndex(VEHICLE_STATISTICS_SUPPLY_REASON_TYPE) != -1) {
@@ -164,9 +155,19 @@ public class VehicleStatisticsDAO extends DbContentProvider implements VehicleSt
         initialValues = new ContentValues();
         initialValues.put(VEHICLE_STATISTICS_ID, vehicleStatistics.id);
         initialValues.put(VEHICLE_STATISTICS_VEHICLE_ID, vehicleStatistics.vehicle_id);
-        initialValues.put(VEHICLE_STATISTICS_STATISTIC_DATE, Utils.dateToString(vehicleStatistics.statistic_date));
+        initialValues.put(VEHICLE_STATISTICS_STATISTIC_DATE, Utils.dateFormat(vehicleStatistics.statistic_date));
         initialValues.put(VEHICLE_STATISTICS_SUPPLY_REASON_TYPE, vehicleStatistics.supply_reason_type);
         initialValues.put(VEHICLE_STATISTICS_AVG_CONSUMPTION, vehicleStatistics.avg_consumption);
+    }
+    private void setContentValueChange(VehicleStatistics vehicleStatistics) {
+        initialValuesChange = new ContentValues();
+        initialValuesChange.put(VEHICLE_STATISTICS_VEHICLE_ID, vehicleStatistics.vehicle_id);
+        initialValuesChange.put(VEHICLE_STATISTICS_STATISTIC_DATE, Utils.dateFormat(vehicleStatistics.statistic_date));
+        initialValuesChange.put(VEHICLE_STATISTICS_SUPPLY_REASON_TYPE, vehicleStatistics.supply_reason_type);
+        initialValuesChange.put(VEHICLE_STATISTICS_AVG_CONSUMPTION, vehicleStatistics.avg_consumption);
+    }
+    private ContentValues getContentValueChange() {
+        return initialValuesChange;
     }
 
     private ContentValues getContentValue() {

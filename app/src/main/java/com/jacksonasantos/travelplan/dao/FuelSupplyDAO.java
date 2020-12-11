@@ -2,9 +2,7 @@ package com.jacksonasantos.travelplan.dao;
 
 import android.content.ContentValues;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteConstraintException;
 import android.database.sqlite.SQLiteDatabase;
-import android.util.Log;
 
 import com.jacksonasantos.travelplan.dao.interfaces.FuelSupplyIDAO;
 import com.jacksonasantos.travelplan.dao.interfaces.FuelSupplyISchema;
@@ -47,7 +45,8 @@ public class FuelSupplyDAO extends DbContentProvider implements FuelSupplyISchem
                         " AND " + FUEL_SUPPLY_SUPPLY_DATE +
                             "=(SELECT MAX( "+ FUEL_SUPPLY_SUPPLY_DATE +
                             ") FROM " + FUEL_SUPPLY_TABLE +
-                            " WHERE " + FUEL_SUPPLY_VEHICLE_ID + " =?)",
+                            " WHERE " + FUEL_SUPPLY_VEHICLE_ID + " =?) " +
+                        " ORDER BY "+FUEL_SUPPLY_SUPPLY_DATE,
                 new String[] { String.valueOf(vehicle_id), String.valueOf(vehicle_id)});
         if (null != cursor) {
             if (cursor.getCount() > 0) {
@@ -92,22 +91,12 @@ public class FuelSupplyDAO extends DbContentProvider implements FuelSupplyISchem
         setContentValue(fuelSupply);
         final String[] selectionArgs = { String.valueOf(fuelSupply.getId()) };
         final String selection = FUEL_SUPPLY_ID + " = ?";
-        try {
-            return (super.update(FUEL_SUPPLY_TABLE, getContentValue(), selection, selectionArgs) > 0);
-        } catch (SQLiteConstraintException ex){
-            Log.w("Update Table", ex.getMessage());
-            return false;
-        }
+        return (super.update(FUEL_SUPPLY_TABLE, getContentValue(), selection, selectionArgs) > 0);
     }
 
     public boolean addFuelSupply(FuelSupply fuelSupply) {
         setContentValue(fuelSupply);
-        try {
-            return (super.insert(FUEL_SUPPLY_TABLE, getContentValue()) > 0);
-        } catch (SQLiteConstraintException ex){
-            Log.w("Insert Table", ex.getMessage());
-            return false;
-        }
+        return (super.insert(FUEL_SUPPLY_TABLE, getContentValue()) > 0);
     }
 
     protected FuelSupply cursorToEntity(Cursor cursor) {
@@ -123,6 +112,7 @@ public class FuelSupplyDAO extends DbContentProvider implements FuelSupplyISchem
         int combustibleIndex;
         int full_tankIndex;
         int currency_typeIndex;
+        int currency_quote_idIndex;
         int supply_valueIndex;
         int fuel_valueIndex;
         int vehicle_odometerIndex;
@@ -152,7 +142,7 @@ public class FuelSupplyDAO extends DbContentProvider implements FuelSupplyISchem
             }
             if (cursor.getColumnIndex(FUEL_SUPPLY_SUPPLY_DATE) != -1) {
                 supply_dateIndex = cursor.getColumnIndexOrThrow(FUEL_SUPPLY_SUPPLY_DATE);
-                fuelSupply.setSupply_date(Utils.stringToDate(cursor.getString(supply_dateIndex)));
+                fuelSupply.setSupply_date(Utils.dateParse(cursor.getString(supply_dateIndex)));
             }
             if (cursor.getColumnIndex(FUEL_SUPPLY_NUMBER_LITERS) != -1) {
                 number_litersIndex = cursor.getColumnIndexOrThrow(FUEL_SUPPLY_NUMBER_LITERS);
@@ -169,6 +159,10 @@ public class FuelSupplyDAO extends DbContentProvider implements FuelSupplyISchem
             if (cursor.getColumnIndex(FUEL_SUPPLY_CURRENCY_TYPE) != -1) {
                 currency_typeIndex = cursor.getColumnIndexOrThrow(FUEL_SUPPLY_CURRENCY_TYPE);
                 fuelSupply.setCurrency_type(cursor.getInt(currency_typeIndex));
+            }
+            if (cursor.getColumnIndex(FUEL_SUPPLY_CURRENCY_QUOTE_ID) != -1) {
+                currency_quote_idIndex = cursor.getColumnIndexOrThrow(FUEL_SUPPLY_CURRENCY_QUOTE_ID);
+                fuelSupply.setCurrency_quote_id(cursor.getInt(currency_quote_idIndex));
             }
             if (cursor.getColumnIndex(FUEL_SUPPLY_SUPPLY_VALUE) != -1) {
                 supply_valueIndex = cursor.getColumnIndexOrThrow(FUEL_SUPPLY_SUPPLY_VALUE);
@@ -211,16 +205,18 @@ public class FuelSupplyDAO extends DbContentProvider implements FuelSupplyISchem
     }
 
     private void setContentValue(FuelSupply fuelSupply) {
+
         initialValues = new ContentValues();
         initialValues.put(FUEL_SUPPLY_ID, fuelSupply.id);
         initialValues.put(FUEL_SUPPLY_VEHICLE_ID, fuelSupply.vehicle_id);
         initialValues.put(FUEL_SUPPLY_GAS_STATION, fuelSupply.gas_station);
         initialValues.put(FUEL_SUPPLY_GAS_STATION_LOCATION, fuelSupply.gas_station_location);
-        initialValues.put(FUEL_SUPPLY_SUPPLY_DATE, Utils.dateToString(fuelSupply.supply_date));
+        initialValues.put(FUEL_SUPPLY_SUPPLY_DATE, Utils.dateFormat(fuelSupply.supply_date));
         initialValues.put(FUEL_SUPPLY_NUMBER_LITERS, fuelSupply.number_liters);
         initialValues.put(FUEL_SUPPLY_COMBUSTIBLE, fuelSupply.combustible);
         initialValues.put(FUEL_SUPPLY_FULL_TANK, fuelSupply.full_tank);
         initialValues.put(FUEL_SUPPLY_CURRENCY_TYPE, fuelSupply.currency_type);
+        initialValues.put(FUEL_SUPPLY_CURRENCY_QUOTE_ID, fuelSupply.currency_quote_id);
         initialValues.put(FUEL_SUPPLY_SUPPLY_VALUE, fuelSupply.supply_value);
         initialValues.put(FUEL_SUPPLY_FUEL_VALUE, fuelSupply.fuel_value);
         initialValues.put(FUEL_SUPPLY_VEHICLE_ODOMETER, fuelSupply.vehicle_odometer);

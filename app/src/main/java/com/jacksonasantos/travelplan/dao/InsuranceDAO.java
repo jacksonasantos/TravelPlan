@@ -2,9 +2,7 @@ package com.jacksonasantos.travelplan.dao;
 
 import android.content.ContentValues;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteConstraintException;
 import android.database.sqlite.SQLiteDatabase;
-import android.util.Log;
 
 import com.jacksonasantos.travelplan.dao.interfaces.InsuranceIDAO;
 import com.jacksonasantos.travelplan.dao.interfaces.InsuranceISchema;
@@ -83,22 +81,12 @@ public class InsuranceDAO extends DbContentProvider implements InsuranceISchema,
         setContentValue(insurance);
         final String[] selectionArgs = { String.valueOf(insurance.getId()) };
         final String selection = INSURANCE_ID + " = ?";
-        //try {
-            return (super.update(INSURANCE_TABLE, getContentValue(), selection, selectionArgs) > 0);
-        //} catch (SQLiteConstraintException ex){
-        //    Log.w("Update Table", ex.getMessage());
-        //    return false;
-        //}
+        return (super.update(INSURANCE_TABLE, getContentValue(), selection, selectionArgs) > 0);
     }
 
     public boolean addInsurance(Insurance insurance) {
         setContentValue(insurance);
-        //try {
-            return (super.insert(INSURANCE_TABLE, getContentValue()) > 0);
-       // } catch (SQLiteConstraintException ex){
-       //     Log.w("Insert Table", ex.getMessage());
-       //     return false;
-       // }
+        return (super.insert(INSURANCE_TABLE, getContentValue()) > 0);
     }
 
     protected Insurance cursorToEntity(Cursor cursor) {
@@ -151,15 +139,15 @@ public class InsuranceDAO extends DbContentProvider implements InsuranceISchema,
             }
             if (cursor.getColumnIndex(INSURANCE_ISSUANCE_DATE) != -1) {
                 issuance_dateIndex = cursor.getColumnIndexOrThrow(INSURANCE_ISSUANCE_DATE);
-                insurance.setIssuance_date(Utils.stringToDate(cursor.getString(issuance_dateIndex)));
+                insurance.setIssuance_date(Utils.dateParse(cursor.getString(issuance_dateIndex)));
             }
             if (cursor.getColumnIndex(INSURANCE_INITIAL_EFFECTIVE_DATE) != -1) {
                 initial_effective_dateIndex = cursor.getColumnIndexOrThrow(INSURANCE_INITIAL_EFFECTIVE_DATE);
-                insurance.setInitial_effective_date(Utils.stringToDate(cursor.getString(initial_effective_dateIndex)));
+                insurance.setInitial_effective_date(Utils.dateParse(cursor.getString(initial_effective_dateIndex)));
             }
             if (cursor.getColumnIndex(INSURANCE_FINAL_EFFECTIVE_DATE) != -1) {
                 final_effective_dateIndex = cursor.getColumnIndexOrThrow(INSURANCE_FINAL_EFFECTIVE_DATE);
-                insurance.setFinal_effective_date(Utils.stringToDate(cursor.getString(final_effective_dateIndex)));
+                insurance.setFinal_effective_date(Utils.dateParse(cursor.getString(final_effective_dateIndex)));
             }
             if (cursor.getColumnIndex(INSURANCE_NET_PREMIUM_VALUE) != -1) {
                 net_premium_valueIndex = cursor.getColumnIndexOrThrow(INSURANCE_NET_PREMIUM_VALUE);
@@ -209,9 +197,9 @@ public class InsuranceDAO extends DbContentProvider implements InsuranceISchema,
         initialValues.put(INSURANCE_INSURANCE_TYPE, insurance.insurance_type);
         initialValues.put(INSURANCE_INSURANCE_POLICY, insurance.insurance_policy);
         initialValues.put(INSURANCE_DESCRIPTION, insurance.description);
-        initialValues.put(INSURANCE_ISSUANCE_DATE, Utils.dateToString(insurance.issuance_date));
-        initialValues.put(INSURANCE_INITIAL_EFFECTIVE_DATE, Utils.dateToString(insurance.initial_effective_date));
-        initialValues.put(INSURANCE_FINAL_EFFECTIVE_DATE, Utils.dateToString(insurance.final_effective_date));
+        initialValues.put(INSURANCE_ISSUANCE_DATE, Utils.dateFormat(insurance.issuance_date));
+        initialValues.put(INSURANCE_INITIAL_EFFECTIVE_DATE, Utils.dateFormat(insurance.initial_effective_date));
+        initialValues.put(INSURANCE_FINAL_EFFECTIVE_DATE, Utils.dateFormat(insurance.final_effective_date));
         initialValues.put(INSURANCE_NET_PREMIUM_VALUE, insurance.net_premium_value);
         initialValues.put(INSURANCE_TAX_AMOUNT, insurance.tax_amount);
         initialValues.put(INSURANCE_TOTAL_PREMIUM_VALUE, insurance.total_premium_value);

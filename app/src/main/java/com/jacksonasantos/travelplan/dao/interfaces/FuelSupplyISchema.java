@@ -13,6 +13,7 @@ public interface FuelSupplyISchema {
     String FUEL_SUPPLY_COMBUSTIBLE = "combustible";
     String FUEL_SUPPLY_FULL_TANK = "full_tank";
     String FUEL_SUPPLY_CURRENCY_TYPE = "currency_type";
+    String FUEL_SUPPLY_CURRENCY_QUOTE_ID = "currency_quote_id";
     String FUEL_SUPPLY_SUPPLY_VALUE = "supply_value";
     String FUEL_SUPPLY_FUEL_VALUE = "fuel_value";
     String FUEL_SUPPLY_VEHICLE_ODOMETER = "vehicle_odometer";
@@ -27,7 +28,7 @@ public interface FuelSupplyISchema {
     String CREATE_TABLE_FUEL_SUPPLY_V8 = "CREATE TABLE IF NOT EXISTS "
             + FUEL_SUPPLY_TABLE + " ("
             + FUEL_SUPPLY_ID + " INTEGER PRIMARY KEY, "
-            + FUEL_SUPPLY_VEHICLE_ID + " INTEGER REFERENCES " + VehicleISchema.VEHICLE_TABLE + ", "
+            + FUEL_SUPPLY_VEHICLE_ID + " INTEGER REFERENCES " + VehicleISchema.VEHICLE_TABLE + " ("+VehicleISchema.VEHICLE_ID+"), "
             + FUEL_SUPPLY_GAS_STATION + " TEXT, "
             + FUEL_SUPPLY_GAS_STATION_LOCATION + " TEXT, "
             + FUEL_SUPPLY_SUPPLY_DATE + " DATE, "
@@ -42,12 +43,16 @@ public interface FuelSupplyISchema {
             + FUEL_SUPPLY_STAT_AVG_FUEL_CONSUMPTION + " FLOAT, "
             + FUEL_SUPPLY_STAT_COST_PER_LITRE + " FLOAT, "
             + FUEL_SUPPLY_SUPPLY_REASON + " TEXT, "
-            + FUEL_SUPPLY_ASSOCIATED_TRAVEL_ID + " INTEGER "
+            + FUEL_SUPPLY_ASSOCIATED_TRAVEL_ID + " INTEGER REFERENCES " + TravelISchema.TRAVEL_TABLE + " ("+TravelISchema.TRAVEL_ID + ") "
             + ")";
 
     // Version 9
     String ALTER_TABLE_FUEL_SUPPLY_V9 = "ALTER TABLE " + FUEL_SUPPLY_TABLE
-            + " ADD COLUMN " + FUEL_SUPPLY_SUPPLY_REASON_TYPE + " INT";
+            + " ADD COLUMN " + FUEL_SUPPLY_SUPPLY_REASON_TYPE + " INT ";
+
+    // Version 20
+    String ALTER_TABLE_FUEL_SUPPLY_V20 = "ALTER TABLE " + FUEL_SUPPLY_TABLE
+            + " ADD COLUMN " + FUEL_SUPPLY_CURRENCY_QUOTE_ID + " INTEGER REFERENCES " + CurrencyQuoteISchema.CURRENCY_QUOTE_TABLE + " ("+CurrencyQuoteISchema.CURRENCY_QUOTE_ID+") ";
 
     String[] FUEL_SUPPLY_COLUMNS = new String[] {
             FUEL_SUPPLY_ID,
@@ -59,6 +64,7 @@ public interface FuelSupplyISchema {
             FUEL_SUPPLY_COMBUSTIBLE,
             FUEL_SUPPLY_FULL_TANK,
             FUEL_SUPPLY_CURRENCY_TYPE,
+            FUEL_SUPPLY_CURRENCY_QUOTE_ID,
             FUEL_SUPPLY_SUPPLY_VALUE,
             FUEL_SUPPLY_FUEL_VALUE,
             FUEL_SUPPLY_VEHICLE_ODOMETER,

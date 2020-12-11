@@ -2,9 +2,7 @@ package com.jacksonasantos.travelplan.dao;
 
 import android.content.ContentValues;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteConstraintException;
 import android.database.sqlite.SQLiteDatabase;
-import android.util.Log;
 
 import com.jacksonasantos.travelplan.dao.interfaces.InsuranceCompanyIDAO;
 import com.jacksonasantos.travelplan.dao.interfaces.InsuranceCompanyISchema;
@@ -106,22 +104,12 @@ public class InsuranceCompanyDAO extends DbContentProvider implements InsuranceC
         setContentValue(insuranceCompany);
         final String[] selectionArgs = { String.valueOf(insuranceCompany.getId()) };
         final String selection = INSURANCE_COMPANY_ID + " = ?";
-        try {
-            return (super.update(INSURANCE_COMPANY_TABLE, getContentValue(), selection, selectionArgs) > 0);
-        } catch (SQLiteConstraintException ex){
-            Log.w("Update Table", ex.getMessage());
-            return false;
-        }
+        return (super.update(INSURANCE_COMPANY_TABLE, getContentValue(), selection, selectionArgs) > 0);
     }
 
     public boolean addInsuranceCompany(InsuranceCompany insuranceCompany) {
         setContentValue(insuranceCompany);
-        try {
-            return (super.insert(INSURANCE_COMPANY_TABLE, getContentValue()) > 0);
-        } catch (SQLiteConstraintException ex){
-            Log.w("Insert Table", ex.getMessage());
-            return false;
-        }
+        return (super.insert(INSURANCE_COMPANY_TABLE, getContentValue()) > 0);
     }
 
     protected InsuranceCompany cursorToEntity(Cursor cursor) {
@@ -178,7 +166,7 @@ public class InsuranceCompanyDAO extends DbContentProvider implements InsuranceC
             }
             if (cursor.getColumnIndex(INSURANCE_COMPANY_AUTHORIZATION_DATE) != -1) {
                 authorization_dateIndex = cursor.getColumnIndexOrThrow(INSURANCE_COMPANY_AUTHORIZATION_DATE);
-                insuranceCompany.setAuthorization_date(Utils.stringToDate(cursor.getString(authorization_dateIndex)));
+                insuranceCompany.setAuthorization_date(Utils.dateParse(cursor.getString(authorization_dateIndex)));
             }
         }
         return insuranceCompany;
@@ -195,7 +183,7 @@ public class InsuranceCompanyDAO extends DbContentProvider implements InsuranceC
         initialValues.put(INSURANCE_COMPANY_STATE, insuranceCompany.state);
         initialValues.put(INSURANCE_COMPANY_ZIP_CODE, insuranceCompany.zip_code);
         initialValues.put(INSURANCE_COMPANY_TELEPHONE, insuranceCompany.telephone);
-        initialValues.put(INSURANCE_COMPANY_AUTHORIZATION_DATE, Utils.dateToString(insuranceCompany.authorization_date));
+        initialValues.put(INSURANCE_COMPANY_AUTHORIZATION_DATE, Utils.dateFormat(insuranceCompany.authorization_date));
     }
 
     private ContentValues getContentValue() {

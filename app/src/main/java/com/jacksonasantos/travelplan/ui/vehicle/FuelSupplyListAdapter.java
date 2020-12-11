@@ -114,7 +114,7 @@ public class FuelSupplyListAdapter extends RecyclerView.Adapter<FuelSupplyListAd
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
                                 try {
-                                    Database.mFuelSupplyDao.deleteFuelSupply(fuelSupply.getId());  // invoca a deleção do registro
+                                    Database.mFuelSupplyDao.deleteFuelSupply(fuelSupply.getId());
                                     mFuelSupply.remove(position);
                                     notifyItemRemoved(position);
                                 } catch (Exception e) {

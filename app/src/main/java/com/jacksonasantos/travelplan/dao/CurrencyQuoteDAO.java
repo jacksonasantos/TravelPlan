@@ -2,9 +2,7 @@ package com.jacksonasantos.travelplan.dao;
 
 import android.content.ContentValues;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteConstraintException;
 import android.database.sqlite.SQLiteDatabase;
-import android.util.Log;
 
 import com.jacksonasantos.travelplan.dao.interfaces.CurrencyQuoteIDAO;
 import com.jacksonasantos.travelplan.dao.interfaces.CurrencyQuoteISchema;
@@ -86,22 +84,12 @@ public class CurrencyQuoteDAO extends DbContentProvider implements CurrencyQuote
         setContentValue(currencyQuote);
         final String[] selectionArgs = { String.valueOf(currencyQuote.getId()) };
         final String selection = CURRENCY_QUOTE_ID + " = ?";
-        try {
-            return (super.update(CURRENCY_QUOTE_TABLE, getContentValue(), selection, selectionArgs) > 0);
-        } catch (SQLiteConstraintException ex){
-            Log.w("Update Table", ex.getMessage());
-            return false;
-        }
+        return (super.update(CURRENCY_QUOTE_TABLE, getContentValue(), selection, selectionArgs) > 0);
     }
 
     public boolean addCurrencyQuote(CurrencyQuote currencyQuote) {
         setContentValue(currencyQuote);
-        try {
-            return (super.insert(CURRENCY_QUOTE_TABLE, getContentValue()) > 0);
-        } catch (SQLiteConstraintException ex){
-            Log.w("Insert Table", ex.getMessage());
-            return false;
-        }
+        return (super.insert(CURRENCY_QUOTE_TABLE, getContentValue()) > 0);
     }
 
     protected CurrencyQuote cursorToEntity(Cursor cursor) {
@@ -124,7 +112,7 @@ public class CurrencyQuoteDAO extends DbContentProvider implements CurrencyQuote
             }
             if (cursor.getColumnIndex(CURRENCY_QUOTE_QUOTE_DATE) != -1) {
                 quote_dateIndex = cursor.getColumnIndexOrThrow(CURRENCY_QUOTE_QUOTE_DATE);
-                currencyQuote.quote_date = Utils.stringToDate(cursor.getString(quote_dateIndex));
+                currencyQuote.quote_date = Utils.dateParse(cursor.getString(quote_dateIndex));
             }
             if (cursor.getColumnIndex(CURRENCY_QUOTE_CURRENCY_VALUE) != -1) {
                 currency_valueIndex = cursor.getColumnIndexOrThrow(CURRENCY_QUOTE_CURRENCY_VALUE);
@@ -138,7 +126,7 @@ public class CurrencyQuoteDAO extends DbContentProvider implements CurrencyQuote
         initialValues = new ContentValues();
         initialValues.put(CURRENCY_QUOTE_ID, currencyQuote.id);
         initialValues.put(CURRENCY_QUOTE_CURRENCY_TYPE, currencyQuote.currency_type);
-        initialValues.put(CURRENCY_QUOTE_QUOTE_DATE, Utils.dateToString(currencyQuote.quote_date));
+        initialValues.put(CURRENCY_QUOTE_QUOTE_DATE, Utils.dateFormat(currencyQuote.quote_date));
         initialValues.put(CURRENCY_QUOTE_CURRENCY_VALUE, currencyQuote.currency_value);
     }
 

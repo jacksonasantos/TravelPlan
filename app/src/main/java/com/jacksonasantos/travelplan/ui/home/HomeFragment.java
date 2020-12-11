@@ -30,6 +30,8 @@ import com.jacksonasantos.travelplan.ui.vehicle.FuelSupplyActivity;
 
 import java.math.BigDecimal;
 import java.text.NumberFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Locale;
 

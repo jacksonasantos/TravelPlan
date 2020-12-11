@@ -96,7 +96,7 @@ public class HomeMaintenanceListAdapter extends RecyclerView.Adapter<HomeMainten
             if (maintenance.getStatus() == 1) {
                 holder.imServiceExpired.setColorFilter(Color.BLUE, PorterDuff.Mode.MULTIPLY);
             } else {
-                if (!(maintenance.getExpiration_date() == null)) {
+                if (!(maintenance.getExpiration_date() == null)) { // TODO - VER ISSO sdf
                     if (System.currentTimeMillis() < Objects.requireNonNull(sdf.parse(Objects.requireNonNull(Utils.dateToString(maintenance.getExpiration_date())))).getTime()) {
                         holder.imServiceExpired.setColorFilter(Color.GREEN, PorterDuff.Mode.MULTIPLY);
                     } else {
@@ -116,13 +116,12 @@ public class HomeMaintenanceListAdapter extends RecyclerView.Adapter<HomeMainten
             @Override
             public void onClick(View v) {
                 try {
-                    Database mDb = new Database(context);
-                    mDb.open();
                     Maintenance m1 = Database.mMaintenanceDao.fetchMaintenanceById(maintenance.getId());
                     m1.setStatus(maintenance.getStatus() == 0 ? 1 : 0);
-                    Database.mMaintenanceDao.updateMaintenance(m1);
-                    mDb.close();
-                    notifyDataSetChanged();
+                    if (Database.mMaintenanceDao.updateMaintenance(m1)) {
+                        mMaintenance.remove(position);
+                        notifyDataSetChanged();
+                    }
                 }  catch (Exception e) {
                     Toast.makeText(context, R.string.Error_Changing_Data + e.getMessage(), Toast.LENGTH_LONG).show();
                 }

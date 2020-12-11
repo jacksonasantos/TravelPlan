@@ -28,7 +28,7 @@ import com.jacksonasantos.travelplan.ui.utility.Utils;
 
 public class MaintenanceActivity extends AppCompatActivity {
 
-    private Integer nrVehicle_id;
+    private Integer nrVehicle_id =0;
     private int nrSpinService_type;
     private EditText etDetail;
     private EditText etDate;
@@ -113,6 +113,7 @@ public class MaintenanceActivity extends AppCompatActivity {
                 nrSpinService_type = (int) adapterView.getItemIdAtPosition(i);
             }
         });
+        nrStatus = 0;  // TODO- Marcar status sem pendencia
 
         if (maintenance != null) {
             nrSpinService_type=maintenance.getService_type();

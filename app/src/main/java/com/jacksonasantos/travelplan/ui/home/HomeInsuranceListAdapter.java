@@ -117,6 +117,7 @@ public class HomeInsuranceListAdapter extends RecyclerView.Adapter<HomeInsurance
                     Insurance i1 = Database.mInsuranceDao.fetchInsuranceById(insurance.getId());
                     i1.setStatus(insurance.getStatus() == 0 ? 1 : 0);
                     if (Database.mInsuranceDao.updateInsurance(i1)) {
+                        mInsurance.remove(position);
                         notifyDataSetChanged();
                     }
                 } catch (Exception e) {

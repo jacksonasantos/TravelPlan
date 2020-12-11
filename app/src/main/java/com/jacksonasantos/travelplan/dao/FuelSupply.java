@@ -12,6 +12,7 @@ public class FuelSupply {
     public int combustible;
     public int full_tank;
     public int currency_type;
+    public Integer currency_quote_id;
     public Double supply_value;
     public Double fuel_value;
     public int vehicle_odometer;
@@ -32,6 +33,7 @@ public class FuelSupply {
         this.combustible=combustible;
         this.full_tank=full_tank;
         this.currency_type=currency_type;
+        this.currency_quote_id=currency_quote_id;
         this.supply_value=supply_value;
         this.fuel_value=fuel_value;
         this.vehicle_odometer=vehicle_odometer;
@@ -78,6 +80,10 @@ public class FuelSupply {
     public int getCurrency_type() {return currency_type;}
 
     public void setCurrency_type(int currency_type) {this.currency_type = currency_type;}
+
+    public Integer getCurrency_quote_id() {return currency_quote_id;}
+
+    public void setCurrency_quote_id(Integer currency_quote_id) {this.currency_quote_id = currency_quote_id;}
 
     public Double getSupply_value() {return supply_value;}
 

@@ -29,8 +29,8 @@ public interface InsuranceISchema {
     String CREATE_TABLE_INSURANCE_V16 = "CREATE TABLE IF NOT EXISTS "
             + INSURANCE_TABLE + " ("
             + INSURANCE_ID + " INTEGER PRIMARY KEY, "
-            + INSURANCE_INSURANCE_COMPANY_ID + " INTEGER REFERENCES " + InsuranceCompanyISchema.INSURANCE_COMPANY_TABLE + ", "
-            + INSURANCE_BROKER_ID + " INTEGER REFERENCES " + BrokerISchema.BROKER_TABLE + ", "
+            + INSURANCE_INSURANCE_COMPANY_ID + " INTEGER REFERENCES " + InsuranceCompanyISchema.INSURANCE_COMPANY_TABLE + " ("+InsuranceCompanyISchema.INSURANCE_COMPANY_ID+"), "
+            + INSURANCE_BROKER_ID + " INTEGER REFERENCES " + BrokerISchema.BROKER_TABLE + " ("+BrokerISchema.BROKER_ID+"), "
             + INSURANCE_INSURANCE_TYPE + " INT, "
             + INSURANCE_INSURANCE_POLICY + " TEXT, "
             + INSURANCE_ISSUANCE_DATE + " DATE, "
@@ -51,9 +51,9 @@ public interface InsuranceISchema {
 
     // Version 19
     String ALTER_TABLE_INSURANCE_V19_1 = "ALTER TABLE " + INSURANCE_TABLE
-            + " ADD COLUMN " + INSURANCE_TRAVEL_ID + " INTEGER REFERENCES " + TravelISchema.TRAVEL_TABLE;
+            + " ADD COLUMN " + INSURANCE_TRAVEL_ID + " INTEGER REFERENCES " + TravelISchema.TRAVEL_TABLE + " ("+TravelISchema.TRAVEL_ID+") ";
     String ALTER_TABLE_INSURANCE_V19_2 = "ALTER TABLE " + INSURANCE_TABLE
-            + " ADD COLUMN " + INSURANCE_VEHICLE_ID + " INTEGER REFERENCES " + VehicleISchema.VEHICLE_TABLE;
+            + " ADD COLUMN " + INSURANCE_VEHICLE_ID + " INTEGER REFERENCES " + VehicleISchema.VEHICLE_TABLE+ " ("+VehicleISchema.VEHICLE_ID+") ";
 
 
     String[] INSURANCE_COLUMNS = new String[] {

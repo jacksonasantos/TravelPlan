@@ -2,10 +2,7 @@ package com.jacksonasantos.travelplan.dao;
 
 import android.content.ContentValues;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteConstraintException;
 import android.database.sqlite.SQLiteDatabase;
-import android.os.Build;
-import android.util.Log;
 
 import com.jacksonasantos.travelplan.dao.interfaces.TravelIDAO;
 import com.jacksonasantos.travelplan.dao.interfaces.TravelISchema;
@@ -13,7 +10,6 @@ import com.jacksonasantos.travelplan.ui.utility.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 public class TravelDAO extends DbContentProvider implements TravelISchema, TravelIDAO {
 
@@ -90,26 +86,12 @@ public class TravelDAO extends DbContentProvider implements TravelISchema, Trave
         setContentValue(travel);
         final String[] selectionArgs = { String.valueOf(travel.getId()) };
         final String selection = TRAVEL_ID + " = ?";
-        try {
-            return (super.update(TRAVEL_TABLE, getContentValue(), selection, selectionArgs) > 0);
-        } catch (SQLiteConstraintException ex){
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-                Log.w("Update Table", Objects.requireNonNull(ex.getMessage()));
-            }
-            return false;
-        }
+        return (super.update(TRAVEL_TABLE, getContentValue(), selection, selectionArgs) > 0);
     }
 
     public boolean addTravel(Travel travel) {
         setContentValue(travel);
-        try {
-            return (super.insert(TRAVEL_TABLE, getContentValue()) > 0);
-        } catch (SQLiteConstraintException ex){
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-                Log.w("Insert Table", Objects.requireNonNull(ex.getMessage()));
-            }
-            return false;
-        }
+        return (super.insert(TRAVEL_TABLE, getContentValue()) > 0);
     }
 
     protected Travel cursorToEntity(Cursor cursor) {
@@ -134,11 +116,11 @@ public class TravelDAO extends DbContentProvider implements TravelISchema, Trave
             }
             if (cursor.getColumnIndex(TRAVEL_DEPARTURE_DATE) != -1) {
                 departure_dateIndex = cursor.getColumnIndexOrThrow(TRAVEL_DEPARTURE_DATE);
-                travel.setDeparture_date(Utils.stringToDate(cursor.getString(departure_dateIndex)));
+                travel.setDeparture_date(Utils.dateParse(cursor.getString(departure_dateIndex)));
             }
             if (cursor.getColumnIndex(TRAVEL_RETURN_DATE) != -1) {
                 return_dateIndex = cursor.getColumnIndexOrThrow(TRAVEL_RETURN_DATE);
-                travel.setReturn_date(Utils.stringToDate(cursor.getString(return_dateIndex)));
+                travel.setReturn_date(Utils.dateParse(cursor.getString(return_dateIndex)));
             }
             if (cursor.getColumnIndex(TRAVEL_NOTE) != -1) {
                 noteIndex = cursor.getColumnIndexOrThrow(TRAVEL_NOTE);
@@ -156,8 +138,8 @@ public class TravelDAO extends DbContentProvider implements TravelISchema, Trave
         initialValues = new ContentValues();
         initialValues.put(TRAVEL_ID, travel.id);
         initialValues.put(TRAVEL_DESCRIPTION, travel.description);
-        initialValues.put(TRAVEL_DEPARTURE_DATE, Utils.dateToString(travel.departure_date));
-        initialValues.put(TRAVEL_RETURN_DATE, Utils.dateToString(travel.return_date));
+        initialValues.put(TRAVEL_DEPARTURE_DATE, Utils.dateFormat(travel.departure_date));
+        initialValues.put(TRAVEL_RETURN_DATE, Utils.dateFormat(travel.return_date));
         initialValues.put(TRAVEL_NOTE, travel.note);
         initialValues.put(TRAVEL_STATUS, travel.status);
     }

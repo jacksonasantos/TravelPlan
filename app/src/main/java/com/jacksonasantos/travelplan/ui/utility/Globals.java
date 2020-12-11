@@ -7,7 +7,9 @@ public class Globals{
     private boolean blFilterVehicle;
     private String txLanguage = "pt";
     private String txCountry = "BR";
+    private Integer nrIdCurrency = 0;
     private String txMeasureConsumption = "km/l";
+    private String txDateFormat = "yyyy-MM-dd HH:mm:ss";
 
     private Globals() { }
 
@@ -23,8 +25,14 @@ public class Globals{
     public String getCountry() { return this.txCountry; }
     public void setCountry(String country) { this.txCountry = country; }
 
+    public Integer getIdCurrency() { return this.nrIdCurrency; }
+    public void setIdCurrency(Integer idCurrency) { this.nrIdCurrency = idCurrency; }
+
     public String getMeasureConsumption() { return this.txMeasureConsumption; }
     public void setMeasureConsumption(String MeasureConsumption) { this.txMeasureConsumption = MeasureConsumption; }
+
+    public String getDateFormat() { return this.txDateFormat; }
+    public void setDateFormat(String df) { this.txDateFormat = df; }
 
     public static synchronized Globals getInstance() { if(instance==null){ instance=new Globals(); } return instance;
     }

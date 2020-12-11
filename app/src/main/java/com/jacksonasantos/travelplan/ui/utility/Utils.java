@@ -1,5 +1,6 @@
 package com.jacksonasantos.travelplan.ui.utility;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -14,6 +15,28 @@ import java.util.Date;
 import java.text.SimpleDateFormat;
 
 public class Utils extends AppCompatActivity  {
+
+
+    public static Date dateParse(String data ){
+        Globals g = Globals.getInstance();
+        Date d = null;
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat dateFormat = new SimpleDateFormat(g.getDateFormat());
+        try {
+            d = (data == null ? null : dateFormat.parse(data));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return d;
+    }
+
+    public static String dateFormat(Date data ){
+        Globals g = Globals.getInstance();
+        String d = null;
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat dateFormat = new SimpleDateFormat(g.getDateFormat());
+        d = (data == null ? null : dateFormat.format(data));
+        return d;
+    }
+
     public static Date stringToDate(String d) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         try {

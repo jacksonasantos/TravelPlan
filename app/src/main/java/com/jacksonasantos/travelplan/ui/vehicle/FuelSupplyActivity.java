@@ -36,12 +36,14 @@ import com.jacksonasantos.travelplan.ui.utility.Globals;
 import com.jacksonasantos.travelplan.ui.utility.Utils;
 
 import java.text.NumberFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Locale;
 
 public class FuelSupplyActivity extends AppCompatActivity {
 
-    private Integer nrVehicleId;
+    private Integer nrVehicleId = 0;
     private EditText etGasStation;
     private EditText etGasStationLocation;
     private EditText etSupplyDate;
@@ -51,8 +53,7 @@ public class FuelSupplyActivity extends AppCompatActivity {
     private int vlFullTank = 0;
     private int nrSpinCurrencyType;
     private EditText etCurrencyValue;
-    private double nrCurrencyValue = 0;
-    private Integer nrIdCurrencyQuote;
+    private Integer nrCurrencyQuoteId;
     private EditText etSupplyValue;
     private EditText etFuelValue;
     private EditText etVehicleOdometer;
@@ -101,11 +102,9 @@ public class FuelSupplyActivity extends AppCompatActivity {
 
                 CurrencyQuote c1 = Database.mCurrencyQuoteDao.findQuoteDay(fuelSupply.currency_type, fuelSupply.supply_date);
                 if ( c1.getId() != null && c1.getId() != 0 ) {
-                    nrIdCurrencyQuote = c1.getId();
-                    nrCurrencyValue = c1.getCurrency_value();
+                    nrCurrencyQuoteId = c1.getId();
                 } else {
-                    nrIdCurrencyQuote = 0; // TODO - colocar a moeda default
-                    nrCurrencyValue = 0;
+                    nrCurrencyQuoteId = 0;
                 }
                 opInsert = false;
             }
@@ -168,11 +167,14 @@ public class FuelSupplyActivity extends AppCompatActivity {
         spinCurrencyType.setOnItemClickListener(new Spinner.OnItemClickListener() {
             @Override public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 nrSpinCurrencyType = (int) adapterView.getItemIdAtPosition(i);
-                // TODO - Eliminar pesquisa para REAIS ou moeda Default
-                // TODO - Salvar ID da cotação
-                // currencyFormatter.getCurrency().getSymbol()
-                CurrencyQuote c1 = Database.mCurrencyQuoteDao.findQuoteDay(nrSpinCurrencyType, Utils.stringToDate(etSupplyDate.getText().toString()));
-                etCurrencyValue.setText(String.valueOf(c1.getCurrency_value()));
+                if (g.getIdCurrency() != nrSpinCurrencyType ) {
+                    CurrencyQuote c1 = Database.mCurrencyQuoteDao.findQuoteDay(nrSpinCurrencyType, Utils.stringToDate(etSupplyDate.getText().toString()));
+                    etCurrencyValue.setText(String.valueOf(c1.getCurrency_value()));
+                    nrSpinAssociatedTravelId = c1.getId();
+                } else {
+                    etCurrencyValue.setText(null);
+                    nrSpinAssociatedTravelId = null;
+                }
             }
         });
         View.OnFocusChangeListener listenerSupplyValue = new View.OnFocusChangeListener() {
@@ -194,7 +196,7 @@ public class FuelSupplyActivity extends AppCompatActivity {
                     if (!txVlrOdometerFuelSupply.isEmpty()) {
                         int valor = Integer.parseInt(txVlrOdometerFuelSupply);
                         vLastOdometerNew = 0;
-                        if ((valor > vLastOdometer) && (vlFullTank==1)) {
+                        if ((valor >= vLastOdometer) && (vlFullTank==1)) {
                             vLastOdometerNew = valor - vLastOdometer;
                             etVehicleTravelledDistance.setText(String.valueOf(vLastOdometerNew));
                         }
@@ -254,7 +256,16 @@ public class FuelSupplyActivity extends AppCompatActivity {
             vlFullTank = fuelSupply.getFull_tank();
             nrSpinCurrencyType=fuelSupply.getCurrency_type();
             spinCurrencyType.setText(getResources().getStringArray(R.array.currency_array)[nrSpinCurrencyType],false);
-            etCurrencyValue.setText(String.valueOf(nrCurrencyValue));
+
+            if (g.getIdCurrency() != nrSpinCurrencyType ) {
+                nrCurrencyQuoteId = fuelSupply.getCurrency_quote_id();
+                CurrencyQuote c1 = Database.mCurrencyQuoteDao.fetchCurrencyQuoteById(nrSpinAssociatedTravelId);
+                etCurrencyValue.setText(String.valueOf(c1.getCurrency_value()));
+            } else {
+                nrCurrencyQuoteId = null;
+                etCurrencyValue.setText(null);
+            }
+
             etNumberLiters.setText(String.valueOf(fuelSupply.getNumber_liters()));
             etSupplyValue.setText(String.valueOf(fuelSupply.getSupply_value()));
             etFuelValue.setText(String.valueOf(fuelSupply.getFuel_value()));
@@ -290,6 +301,19 @@ public class FuelSupplyActivity extends AppCompatActivity {
                 } else {
                     final FuelSupply f1 = new FuelSupply();
 
+                    if (g.getIdCurrency() != nrSpinCurrencyType ) {
+                        final CurrencyQuote c1 = new CurrencyQuote();
+                        c1.setId(nrCurrencyQuoteId);
+                        c1.setCurrency_type(nrSpinCurrencyType);
+                        c1.setCurrency_value(Float.parseFloat(etCurrencyValue.getText().toString()));
+                        c1.setQuote_date( Utils.stringToDate(etSupplyDate.getText().toString()));
+                        if (nrCurrencyQuoteId > 0) {
+                            isSave = Database.mCurrencyQuoteDao.updateCurrencyQuote(c1);
+                        } else {
+                            isSave = Database.mCurrencyQuoteDao.addCurrencyQuote(c1);
+                        }
+                    }
+
                     f1.setVehicle_id(nrVehicleId);
                     f1.setGas_station(etGasStation.getText().toString());
                     f1.setGas_station_location(etGasStationLocation.getText().toString());
@@ -297,7 +321,8 @@ public class FuelSupplyActivity extends AppCompatActivity {
                     f1.setNumber_liters(Double.parseDouble(etNumberLiters.getText().toString()));
                     f1.setCombustible(nrSpinCombustible);
                     f1.setFull_tank(vlFullTank);
-                    f1.setCurrency_type(nrSpinCurrencyType); // TODO - Ajustar para guardar o ID do currency_quote
+                    f1.setCurrency_type(nrSpinCurrencyType);
+                    f1.setCurrency_quote_id(nrCurrencyQuoteId); // TODO - ver id correto
                     f1.setSupply_value(Double.parseDouble(etSupplyValue.getText().toString()));
                     f1.setFuel_value(Double.parseDouble(etFuelValue.getText().toString()));
                     f1.setVehicle_odometer(Integer.parseInt(etVehicleOdometer.getText().toString()));
@@ -307,11 +332,6 @@ public class FuelSupplyActivity extends AppCompatActivity {
                     f1.setSupply_reason_type(findViewById(rbSupplyReasonType).getId());
                     f1.setSupply_reason(etSupplyReason.getText().toString());
                     f1.setAssociated_travel_id(nrSpinAssociatedTravelId);
-
-                    final CurrencyQuote c1 = new CurrencyQuote();
-                    c1.setCurrency_type(nrSpinCurrencyType);
-                    c1.setCurrency_value(Float.parseFloat(etCurrencyValue.getText().toString()));
-                    c1.setQuote_date( Utils.stringToDate(etSupplyDate.getText().toString()));
 
                     final VehicleStatistics ve1 = new VehicleStatistics();
                     ve1.setVehicle_id(nrVehicleId);
@@ -328,12 +348,6 @@ public class FuelSupplyActivity extends AppCompatActivity {
                         try {
                             f1.setId(fuelSupply.getId());
                             isSave = Database.mFuelSupplyDao.updateFuelSupply(f1);
-                            if (nrIdCurrencyQuote > 0) {
-                                c1.setId(nrIdCurrencyQuote);
-                                isSave = Database.mCurrencyQuoteDao.updateCurrencyQuote(c1);
-                            } else {
-                                isSave = Database.mCurrencyQuoteDao.addCurrencyQuote(c1);
-                            }
                             //if (vLastOdometerNew > 0) {
                             //    isSave = Database.mVehicleDao.updateVehicle(v1);
                             //    isSave = Database.mVehicleStatisticsDao.addVehicleStatistics(ve1);
@@ -344,7 +358,6 @@ public class FuelSupplyActivity extends AppCompatActivity {
                     } else {
                         try {
                             isSave = Database.mFuelSupplyDao.addFuelSupply(f1);
-                            isSave = Database.mCurrencyQuoteDao.addCurrencyQuote(c1);
                             isSave = Database.mVehicleDao.updateVehicle(v1);
 
                             // TODO - verificar abastecimentos antigos para não atualizar estatísticas
@@ -378,7 +391,7 @@ public class FuelSupplyActivity extends AppCompatActivity {
                 && !etSupplyDate.getText().toString().trim().isEmpty()
                 //&& !cbFullTank.getText().toString().trim().isEmpty()
                 && !String.valueOf(nrSpinCurrencyType).trim().isEmpty()
-                && !etCurrencyValue.getText().toString().trim().isEmpty()
+                //&& !etCurrencyValue.getText().toString().trim().isEmpty()
                 && !etNumberLiters.getText().toString().trim().isEmpty()
                 && !etSupplyValue.getText().toString().trim().isEmpty()
                 && !etFuelValue.getText().toString().trim().isEmpty()

@@ -1,5 +1,6 @@
 package com.jacksonasantos.travelplan.dao;
 
+import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteConstraintException;
@@ -88,22 +89,12 @@ public class VehicleDAO extends DbContentProvider implements VehicleISchema, Veh
         setContentValue(vehicle);
         final String[] selectionArgs = { String.valueOf(vehicle.getId()) };
         final String selection = VEHICLE_ID + " = ?";
-        try {
-            return (super.update(VEHICLE_TABLE, getContentValue(), selection, selectionArgs) > 0);
-        } catch (SQLiteConstraintException ex){
-            Log.w("Update Table", ex.getMessage());
-            return false;
-        }
+        return (super.update(VEHICLE_TABLE, getContentValue(), selection, selectionArgs) > 0);
     }
 
     public boolean addVehicle(Vehicle vehicle) {
         setContentValue(vehicle);
-        try {
-            return (super.insert(VEHICLE_TABLE, getContentValue()) > 0);
-        } catch (SQLiteConstraintException ex){
-            Log.w("Insert Table", ex.getMessage());
-            return false;
-        }
+        return (super.insert(VEHICLE_TABLE, getContentValue()) > 0);
     }
 
     protected Vehicle cursorToEntity(Cursor cursor) {
@@ -175,15 +166,17 @@ public class VehicleDAO extends DbContentProvider implements VehicleISchema, Veh
             }
             if (cursor.getColumnIndex(VEHICLE_DT_ACQUISITION) != -1) {
                 dt_acquisitionIndex = cursor.getColumnIndexOrThrow(VEHICLE_DT_ACQUISITION);
-                vehicle.dt_acquisition = Utils.stringToDate(cursor.getString(dt_acquisitionIndex));
+                    vehicle.dt_acquisition = Utils.dateParse(cursor.getString(dt_acquisitionIndex));
             }
             if (cursor.getColumnIndex(VEHICLE_DT_SALE) != -1) {
                 dt_saleIndex = cursor.getColumnIndexOrThrow(VEHICLE_DT_SALE);
-                vehicle.dt_sale = Utils.stringToDate(cursor.getString(dt_saleIndex));
+//                    vehicle.dt_sale = (cursor.getString(dt_saleIndex)==null?null:dateFormat.parse(cursor.getString(dt_saleIndex)));
+                    vehicle.dt_sale = Utils.dateParse(cursor.getString(dt_saleIndex));
             }
+
             if (cursor.getColumnIndex(VEHICLE_DT_ODOMETER) != -1) {
                 dt_odometerIndex = cursor.getColumnIndexOrThrow(VEHICLE_DT_ODOMETER);
-                vehicle.dt_odometer = Utils.stringToDate(cursor.getString(dt_odometerIndex));
+                    vehicle.dt_odometer = Utils.dateParse(cursor.getString(dt_odometerIndex));
             }
             if (cursor.getColumnIndex(VEHICLE_ODOMETER) != -1) {
                 odometerIndex = cursor.getColumnIndexOrThrow(VEHICLE_ODOMETER);
@@ -252,9 +245,9 @@ public class VehicleDAO extends DbContentProvider implements VehicleISchema, Veh
         initialValues.put(VEHICLE_BRAND, vehicle.brand);
         initialValues.put(VEHICLE_FUEL_TYPE, vehicle.fuel_type);
         initialValues.put(VEHICLE_SHORT_NAME, vehicle.short_name);
-        initialValues.put(VEHICLE_DT_ACQUISITION, Utils.dateToString(vehicle.dt_acquisition));
-        initialValues.put(VEHICLE_DT_SALE, Utils.dateToString(vehicle.dt_sale));
-        initialValues.put(VEHICLE_DT_ODOMETER, Utils.dateToString(vehicle.dt_odometer));
+        initialValues.put(VEHICLE_DT_ACQUISITION, Utils.dateFormat(vehicle.dt_acquisition));
+        initialValues.put(VEHICLE_DT_SALE, Utils.dateFormat(vehicle.dt_sale));
+        initialValues.put(VEHICLE_DT_ODOMETER, Utils.dateFormat(vehicle.dt_odometer));
         initialValues.put(VEHICLE_ODOMETER, vehicle.odometer);
         initialValues.put(VEHICLE_MODEL, vehicle.model);
         initialValues.put(VEHICLE_COLOR, vehicle.color);

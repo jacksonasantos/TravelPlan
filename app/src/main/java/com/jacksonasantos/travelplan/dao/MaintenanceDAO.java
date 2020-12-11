@@ -2,9 +2,7 @@ package com.jacksonasantos.travelplan.dao;
 
 import android.content.ContentValues;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteConstraintException;
 import android.database.sqlite.SQLiteDatabase;
-import android.util.Log;
 
 import com.jacksonasantos.travelplan.dao.interfaces.MaintenanceIDAO;
 import com.jacksonasantos.travelplan.dao.interfaces.MaintenanceISchema;
@@ -94,22 +92,12 @@ public class MaintenanceDAO extends DbContentProvider implements MaintenanceISch
         setContentValue(maintenance);
         final String[] selectionArgs = { String.valueOf(maintenance.getId()) };
         final String selection = MAINTENANCE_ID + " = ?";
-        try {
-            return (super.update(MAINTENANCE_TABLE, getContentValue(), selection, selectionArgs) > 0);
-        } catch (SQLiteConstraintException ex){
-            Log.w("Update Table", ex.getMessage());
-            return false;
-        }
+        return (super.update(MAINTENANCE_TABLE, getContentValue(), selection, selectionArgs) > 0);
     }
 
     public boolean addMaintenance(Maintenance maintenance) {
         setContentValue(maintenance);
-        try {
-            return (super.insert(MAINTENANCE_TABLE, getContentValue()) > 0);
-        } catch (SQLiteConstraintException ex){
-            Log.w("Insert Table", ex.getMessage());
-            return false;
-        }
+        return (super.insert(MAINTENANCE_TABLE, getContentValue()) > 0);
     }
 
     protected Maintenance cursorToEntity(Cursor cursor) {
@@ -148,11 +136,11 @@ public class MaintenanceDAO extends DbContentProvider implements MaintenanceISch
             }
             if (cursor.getColumnIndex(MAINTENANCE_DATE) != -1) {
                 dateIndex = cursor.getColumnIndexOrThrow(MAINTENANCE_DATE);
-                maintenance.setDate(Utils.stringToDate(cursor.getString(dateIndex)));
+                maintenance.setDate(Utils.dateParse(cursor.getString(dateIndex)));
             }
             if (cursor.getColumnIndex(MAINTENANCE_EXPIRATION_DATE) != -1) {
                 expiration_dateIndex = cursor.getColumnIndexOrThrow(MAINTENANCE_EXPIRATION_DATE);
-                maintenance.setExpiration_date(Utils.stringToDate(cursor.getString(expiration_dateIndex)));
+                maintenance.setExpiration_date(Utils.dateParse(cursor.getString(expiration_dateIndex)));
             }
             if (cursor.getColumnIndex(MAINTENANCE_EXPIRATION_KM) != -1) {
                 expiration_kmIndex = cursor.getColumnIndexOrThrow(MAINTENANCE_EXPIRATION_KM);
@@ -188,8 +176,8 @@ public class MaintenanceDAO extends DbContentProvider implements MaintenanceISch
         initialValues.put(MAINTENANCE_VEHICLE_ID, maintenance.vehicle_id);
         initialValues.put(MAINTENANCE_SERVICE_TYPE, maintenance.service_type);
         initialValues.put(MAINTENANCE_DETAIL, maintenance.detail);
-        initialValues.put(MAINTENANCE_DATE, Utils.dateToString(maintenance.date));
-        initialValues.put(MAINTENANCE_EXPIRATION_DATE, Utils.dateToString(maintenance.expiration_date));
+        initialValues.put(MAINTENANCE_DATE, Utils.dateFormat(maintenance.date));
+        initialValues.put(MAINTENANCE_EXPIRATION_DATE, Utils.dateFormat(maintenance.expiration_date));
         initialValues.put(MAINTENANCE_EXPIRATION_KM, maintenance.expiration_km);
         initialValues.put(MAINTENANCE_ODOMETER, maintenance.odometer);
         initialValues.put(MAINTENANCE_VALUE, maintenance.value);
