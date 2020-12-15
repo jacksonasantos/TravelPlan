@@ -3,6 +3,7 @@ package com.jacksonasantos.travelplan.ui.general;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 
@@ -15,8 +16,12 @@ import androidx.preference.PreferenceManager;
 
 import com.jacksonasantos.travelplan.MainActivity;
 import com.jacksonasantos.travelplan.R;
+import com.jacksonasantos.travelplan.dao.Database;
+import com.jacksonasantos.travelplan.dao.Vehicle;
 import com.jacksonasantos.travelplan.ui.utility.Globals;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 
 public class SettingsActivity extends AppCompatActivity {
@@ -40,8 +45,8 @@ public class SettingsActivity extends AppCompatActivity {
         @Override
         public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
             setPreferencesFromResource(R.xml.root_preferences, rootKey);
-            ListPreference langPref = findPreference("language");
 
+            ListPreference langPref = findPreference("language");
             assert langPref != null;
             langPref.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
                 @Override
@@ -53,6 +58,21 @@ public class SettingsActivity extends AppCompatActivity {
             ListPreference langPreference = findPreference("language");
             assert langPreference != null;
             langPreference.setOnPreferenceChangeListener(languageChangeListener);
+
+            ListPreference vehicleList = findPreference("vehicle_default");
+            Cursor v = Database.mVehicleDao.selectVehicles();
+            List<String> entries = new ArrayList<String>();
+            List<String> entryValues = new ArrayList<String>();
+            if(v != null && v.moveToFirst()){
+                do {entries.add(v.getString(1));
+                    entryValues.add(Integer.toString(v.getInt(0)));
+                } while (v.moveToNext());
+            }
+            v.close();
+            final CharSequence[] entryCharSeq = entries.toArray(new CharSequence[entries.size()]);
+            final CharSequence[] entryValsChar = entryValues.toArray(new CharSequence[entryValues.size()]);
+            vehicleList.setEntries(entryCharSeq);
+            vehicleList.setEntryValues(entryValsChar);
         }
 
         Preference.OnPreferenceChangeListener languageChangeListener = new Preference.OnPreferenceChangeListener() {

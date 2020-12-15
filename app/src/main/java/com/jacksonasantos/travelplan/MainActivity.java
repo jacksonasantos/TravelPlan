@@ -38,8 +38,12 @@ public class MainActivity extends AppCompatActivity {
         Resources res = getResources();
         Configuration config = res.getConfiguration();
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(this);
+
+        String vehicle_pref = settings.getString("vehicle_default", "");
+        g.setIdVehicle(Integer.valueOf(vehicle_pref));
+
         String lang = settings.getString("language", "");
-        if (lang != null && !"".equals(lang) && !config.locale.getLanguage().equals(lang)) {
+                if (lang != null && !"".equals(lang) && !config.locale.getLanguage().equals(lang)) {
             g.setLanguage(lang);
             Locale myLocale = new Locale(lang);
             config.locale = myLocale;

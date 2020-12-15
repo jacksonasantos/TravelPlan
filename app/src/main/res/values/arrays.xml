@@ -7,15 +7,24 @@
         <item name="en">@string/language_English</item>
     </string-array>
     <!-- Language values Preference -->
-    <string-array name="listValues">
+    <string-array name="languagesValues">
         <item name="pt">pt</item>
         <item name="en">en</item>
     </string-array>
     <!-- Gender Preference -->
-    <string-array name="gender_entries">
+    <string-array name="gender">
         <item>@string/personal_gender_male</item>
         <item>@string/personal_gender_female</item>
     </string-array>
+
+    <!-- Vehicle Array-->
+    <string-array name="vehicle_array">
+    </string-array>
+
+    <!-- Vehicle Array-->
+    <string-array name="vehicle_arrayValues">
+    </string-array>
+
     <!-- Type Vehicle -->
     <string-array name="vehicle_type_array">
         <item>@string/Vehicle_TypeCar</item>

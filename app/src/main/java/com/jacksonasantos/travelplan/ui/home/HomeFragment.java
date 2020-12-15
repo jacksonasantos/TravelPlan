@@ -2,6 +2,7 @@ package com.jacksonasantos.travelplan.ui.home;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -17,6 +18,10 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.preference.ListPreference;
+import androidx.preference.PreferenceManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -24,6 +29,7 @@ import com.jacksonasantos.travelplan.R;
 import com.jacksonasantos.travelplan.dao.Database;
 import com.jacksonasantos.travelplan.dao.FuelSupply;
 import com.jacksonasantos.travelplan.dao.Vehicle;
+import com.jacksonasantos.travelplan.ui.general.SettingsActivity;
 import com.jacksonasantos.travelplan.ui.utility.Globals;
 import com.jacksonasantos.travelplan.ui.utility.Utils;
 import com.jacksonasantos.travelplan.ui.vehicle.FuelSupplyActivity;
@@ -45,10 +51,10 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     private TextView tvFuelSupplyValue;
 
     private RecyclerView vehicleStatisticsList;
-
     private RecyclerView maintenanceList;
-
     private RecyclerView insuranceList;
+
+    private FragmentActivity myPrefs;
 
     Globals g = Globals.getInstance();
 
@@ -94,6 +100,9 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         ArrayAdapter adapter = new ArrayAdapter(getActivity(), android.R.layout.simple_spinner_item, vehicles);
         adapter.setDropDownViewResource( android.R.layout.simple_spinner_dropdown_item);
         spVehicle.setAdapter(adapter);
+
+        int nposVehicle = g.getIdVehicle()-1;
+        spVehicle.setSelection(nposVehicle);
 
         final Vehicle[] vehicle = {new Vehicle()};
         spVehicle.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {

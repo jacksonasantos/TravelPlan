@@ -11,8 +11,8 @@
             app:useSimpleSummaryProvider="true" />
         <ListPreference
             app:defaultValue="gender"
-            app:entries="@array/gender_entries"
-            app:entryValues="@array/gender_entries"
+            app:entries="@array/gender"
+            app:entryValues="@array/gender"
             app:key="gender"
             app:title="@string/personal_gender"
             app:useSimpleSummaryProvider="true" />
@@ -31,9 +31,19 @@
         <ListPreference
             app:defaultValue="@string/languages_default"
             app:entries="@array/languages"
-            app:entryValues="@array/listValues"
+            app:entryValues="@array/languagesValues"
             app:key="language"
             app:title="@string/language"
             app:useSimpleSummaryProvider="true" />
     </PreferenceCategory>
+
+    <PreferenceCategory app:title="@string/preferences_header">
+        <ListPreference
+            app:entries="@array/vehicle_array"
+            app:entryValues="@array/vehicle_arrayValues"
+            app:key="vehicle_default"
+            app:title="@string/vehicle_default"
+            app:useSimpleSummaryProvider="true" />
+    </PreferenceCategory>
+
  </PreferenceScreen>

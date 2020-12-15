@@ -196,4 +196,6 @@
     <string name="Error_Deleting_Data">Erro ao excluir dados</string>
     <string name="menu_general">Gerais</string>
     <string name="FuelSupply_AssociatedTravel">Viagem Associada</string>
+    <string name="preferences_header">Preferências</string>
+    <string name="vehicle_default">Veículo Padrão</string>
 </resources>

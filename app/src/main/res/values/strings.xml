@@ -19,6 +19,7 @@
     <!-- Preference Titles -->
     <string name="personal_header">Personal Data</string>
     <string name="definition_header">Definitions</string>
+    <string name="preferences_header">Preferences</string>
 
     <!-- Personal Data Preferences -->
     <string name="personal_name">Your name</string>
@@ -26,8 +27,6 @@
     <string name="personal_gender">Your gender</string>
     <string name="personal_gender_male">Male</string>
     <string name="personal_gender_female">Female</string>
-
-    <!-- Messages Preferences -->
     <string name="signature_title">Your signature</string>
 
     <!-- Definitions Preferences -->
@@ -37,6 +36,9 @@
     <string name="language">Language</string>
     <string name="language_Portuguese">Portuguese</string>
     <string name="language_English">English</string>
+
+    <!-- Preferences -->
+    <string name="vehicle_default">Vehicle Default</string>
 
     <!-- Vehicle Fragment -->
     <string name="Vehicle">Vehicle</string>

@@ -1,12 +1,17 @@
 package com.jacksonasantos.travelplan.ui.utility;
 
-public class Globals{
+import android.content.SharedPreferences;
+
+import androidx.preference.PreferenceManager;
+
+public class Globals {
 
     private static Globals instance;
-    private Integer idVehicle;          // TODO - Criar formulario para configurar as variáveis Globais
+
+    private Integer idVehicle;
     private boolean blFilterVehicle;
     private String txLanguage = "pt";
-    private String txCountry = "BR";
+    private String txCountry = "BR";                 // TODO - Criar formulario para configurar as variáveis Globais
     private Integer nrIdCurrency = 0;   // R$
     private String txMeasureConsumption = "km/l";
     private String txDateFormat = "yyyy-MM-dd HH:mm:ss";

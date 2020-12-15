@@ -78,6 +78,14 @@ public class VehicleDAO extends DbContentProvider implements VehicleISchema, Veh
         return vehicleList;
     }
 
+    public Cursor selectVehicles(){
+        String[] VEHICLE_COLUMNS = new String[] {
+                VEHICLE_ID,
+                VEHICLE_NAME
+        };
+        return super.query(VEHICLE_TABLE, VEHICLE_COLUMNS, null,null, VEHICLE_NAME);
+    }
+
     public void deleteVehicle(Integer id) {
         final String[] selectionArgs = { String.valueOf(id) };
         final String selection = VEHICLE_ID + " = ?";

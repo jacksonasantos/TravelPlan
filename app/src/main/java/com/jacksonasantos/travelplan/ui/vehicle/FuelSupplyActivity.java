@@ -327,7 +327,7 @@ public class FuelSupplyActivity extends AppCompatActivity {
                     f1.setStat_cost_per_litre(vStatCostPerLitre);
                     f1.setSupply_reason_type(findViewById(rbSupplyReasonType).getId());
                     f1.setSupply_reason(etSupplyReason.getText().toString());
-                    f1.setAssociated_travel_id(nrSpinAssociatedTravelId);
+                    f1.setAssociated_travel_id(nrSpinAssociatedTravelId==0?null:nrSpinAssociatedTravelId);
 
                     final VehicleStatistics ve1 = new VehicleStatistics();
                     ve1.setVehicle_id(nrVehicleId);
