@@ -6,6 +6,7 @@ import android.database.sqlite.SQLiteConstraintException;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
+import com.jacksonasantos.travelplan.dao.interfaces.FuelSupplyISchema;
 import com.jacksonasantos.travelplan.dao.interfaces.VehicleStatisticsIDAO;
 import com.jacksonasantos.travelplan.dao.interfaces.VehicleStatisticsISchema;
 import com.jacksonasantos.travelplan.ui.utility.Globals;
@@ -62,6 +63,29 @@ public class VehicleStatisticsDAO extends DbContentProvider implements VehicleSt
                 vehicleStatisticsList.add(vehicle);
             } while (cursor.moveToNext());
 
+            cursor.close();
+        }
+        return vehicleStatisticsList;
+    }
+
+    public List<VehicleStatistics> findLastVehicleStatistics(Integer vehicle_id) {
+        List<VehicleStatistics> vehicleStatisticsList = new ArrayList<>();
+        cursor = super.rawQuery("SELECT " + FuelSupplyISchema.FUEL_SUPPLY_VEHICLE_ID + ", " +
+                                                FuelSupplyISchema.FUEL_SUPPLY_SUPPLY_REASON_TYPE + ", " +
+                                                "MAX(" + FuelSupplyISchema.FUEL_SUPPLY_SUPPLY_DATE + ") statistic_date, " +
+                                                "(SUM("+ FuelSupplyISchema.FUEL_SUPPLY_VEHICLE_TRAVELLED_DISTANCE+") / SUM(" + FuelSupplyISchema.FUEL_SUPPLY_NUMBER_LITERS+") ) avg_consumption " +
+                                    "FROM " + FuelSupplyISchema.FUEL_SUPPLY_TABLE + " " +
+                                    "WHERE " + FuelSupplyISchema.FUEL_SUPPLY_VEHICLE_TRAVELLED_DISTANCE + " > 0 " +
+                                    "AND " + FuelSupplyISchema.FUEL_SUPPLY_VEHICLE_ID + "=? " +
+                                    "GROUP BY " + FuelSupplyISchema.FUEL_SUPPLY_SUPPLY_REASON_TYPE + ", " + FuelSupplyISchema.FUEL_SUPPLY_VEHICLE_ID,
+                new String[] { String.valueOf(vehicle_id)});
+        if (null != cursor) {
+            if (cursor.moveToFirst()) {
+                do {
+                    VehicleStatistics vehicle = cursorToEntity(cursor);
+                    vehicleStatisticsList.add(vehicle);
+                } while (cursor.moveToNext());
+            }
             cursor.close();
         }
         return vehicleStatisticsList;

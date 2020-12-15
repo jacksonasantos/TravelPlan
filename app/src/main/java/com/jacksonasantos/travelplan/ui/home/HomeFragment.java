@@ -125,7 +125,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                 tvFuelSupplyValue.setText(currencyFormatter.format(fuelSupply.getSupply_value()==null?BigDecimal.ZERO:fuelSupply.getSupply_value()));
 
                 // Statistics of Vehicle in Global selection
-                HomeStatisticsListAdapter adapterVehicle = new HomeStatisticsListAdapter(Database.mVehicleStatisticsDao.findVehicleStatisticsbyId(g.getIdVehicle()), getContext());
+                HomeStatisticsListAdapter adapterVehicle = new HomeStatisticsListAdapter(Database.mVehicleStatisticsDao.findLastVehicleStatistics(g.getIdVehicle()), getContext()); //findVehicleStatisticsbyId
                 vehicleStatisticsList.setAdapter(adapterVehicle);
                 vehicleStatisticsList.setLayoutManager(new LinearLayoutManager(getContext()));
 
