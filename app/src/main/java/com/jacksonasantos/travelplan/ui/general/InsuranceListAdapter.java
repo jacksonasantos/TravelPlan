@@ -1,8 +1,11 @@
 package com.jacksonasantos.travelplan.ui.general;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,8 +23,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.jacksonasantos.travelplan.R;
 import com.jacksonasantos.travelplan.dao.Database;
 import com.jacksonasantos.travelplan.dao.Insurance;
+import com.jacksonasantos.travelplan.ui.utility.Utils;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.Objects;
 
 public class InsuranceListAdapter extends RecyclerView.Adapter<InsuranceListAdapter.MyViewHolder> {
 
@@ -33,12 +40,14 @@ public class InsuranceListAdapter extends RecyclerView.Adapter<InsuranceListAdap
         public TextView txtInsurancePolicy;
         public TextView txtInsuranceDescription;
         public ImageView imInsuranceType;
+        public ImageView imInsuranceStatus;
         public ImageButton btnEdit;
         public ImageButton btnDelete;
 
         public MyViewHolder(View v) {
             super(v);
             imInsuranceType = v.findViewById(R.id.imInsuranceType);
+            imInsuranceStatus = v.findViewById(R.id.imInsuranceStatus);
             txtInsurancePolicy = v.findViewById(R.id.txtPolicy);
             txtInsuranceDescription = v.findViewById(R.id.txtDescription);
             btnEdit = v.findViewById(R.id.btnEdit);
@@ -73,9 +82,25 @@ public class InsuranceListAdapter extends RecyclerView.Adapter<InsuranceListAdap
     @Override
     public void onBindViewHolder(@NonNull final MyViewHolder holder, final int position) {
         final Insurance insurance = mInsurance.get(position);
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 
         holder.imInsuranceType.setImageResource(insurance.getInsurance_typeImage(insurance.getInsurance_type()));
-        holder.txtInsurancePolicy.setText(insurance.getInsurance_policy());
+        holder.imInsuranceStatus.setImageResource(R.drawable.ic_ball );
+        try {
+            if (insurance.getStatus() == 1) {
+                holder.imInsuranceStatus.setColorFilter(Color.BLUE, PorterDuff.Mode.MULTIPLY);
+            } else {
+                if (!(insurance.getFinal_effective_date() == null)) {
+                    if (System.currentTimeMillis() < Objects.requireNonNull(sdf.parse(Objects.requireNonNull(Utils.dateToString(insurance.getFinal_effective_date())))).getTime()) {
+                        holder.imInsuranceStatus.setColorFilter(Color.GREEN, PorterDuff.Mode.MULTIPLY);
+                    } else {
+                        holder.imInsuranceStatus.setColorFilter(Color.RED, PorterDuff.Mode.MULTIPLY);
+                    }
+                }
+            }
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }holder.txtInsurancePolicy.setText(insurance.getInsurance_policy());
         holder.txtInsuranceDescription.setText(insurance.getDescription());
         // btnEdit
         holder.btnEdit.setOnClickListener (new View.OnClickListener() {

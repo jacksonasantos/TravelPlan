@@ -2,7 +2,6 @@ package com.jacksonasantos.travelplan.ui.home;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -18,10 +17,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
-import androidx.fragment.app.FragmentManager;
-import androidx.preference.ListPreference;
-import androidx.preference.PreferenceManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -29,7 +24,6 @@ import com.jacksonasantos.travelplan.R;
 import com.jacksonasantos.travelplan.dao.Database;
 import com.jacksonasantos.travelplan.dao.FuelSupply;
 import com.jacksonasantos.travelplan.dao.Vehicle;
-import com.jacksonasantos.travelplan.ui.general.SettingsActivity;
 import com.jacksonasantos.travelplan.ui.utility.Globals;
 import com.jacksonasantos.travelplan.ui.utility.Utils;
 import com.jacksonasantos.travelplan.ui.vehicle.FuelSupplyActivity;
@@ -51,10 +45,9 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     private TextView tvFuelSupplyValue;
 
     private RecyclerView vehicleStatisticsList;
+    private RecyclerView vehicleStatisticsTotalList;
     private RecyclerView maintenanceList;
     private RecyclerView insuranceList;
-
-    private FragmentActivity myPrefs;
 
     Globals g = Globals.getInstance();
 
@@ -75,6 +68,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         tvFuelSupplyNumberLiters = v.findViewById(R.id.tvFuelSupplyNumberLiters);
         tvFuelSupplyValue = v.findViewById(R.id.tvFuelSupplyValue);
         vehicleStatisticsList = v.findViewById(R.id.listVehicleStatistics);
+        vehicleStatisticsTotalList = v.findViewById(R.id.listVehicleStatisticsTotal);
         maintenanceList = v.findViewById(R.id.listInVehicleService);
         insuranceList = v.findViewById(R.id.listInsuranceExpiration);
 
@@ -125,9 +119,13 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                 tvFuelSupplyValue.setText(currencyFormatter.format(fuelSupply.getSupply_value()==null?BigDecimal.ZERO:fuelSupply.getSupply_value()));
 
                 // Statistics of Vehicle in Global selection
-                HomeStatisticsListAdapter adapterVehicle = new HomeStatisticsListAdapter(Database.mVehicleStatisticsDao.findLastVehicleStatistics(g.getIdVehicle()), getContext()); //findVehicleStatisticsbyId
+                HomeStatisticsListAdapter adapterVehicle = new HomeStatisticsListAdapter(Database.mVehicleStatisticsDao.findLastVehicleStatistics(g.getIdVehicle()), getContext());
                 vehicleStatisticsList.setAdapter(adapterVehicle);
                 vehicleStatisticsList.setLayoutManager(new LinearLayoutManager(getContext()));
+
+                HomeStatisticsListAdapter adapterTotalVehicle = new HomeStatisticsListAdapter(Database.mVehicleStatisticsDao.findTotalVehicleStatistics(g.getIdVehicle()), getContext());
+                vehicleStatisticsTotalList.setAdapter(adapterTotalVehicle);
+                vehicleStatisticsTotalList.setLayoutManager(new LinearLayoutManager(getContext()));
 
                 // In-Vehicle Services
                 HomeMaintenanceListAdapter adapterMaintenance = new HomeMaintenanceListAdapter(Database.mMaintenanceDao.findReminderMaintenance( g.getIdVehicle() ), getContext());
@@ -135,7 +133,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                 maintenanceList.setLayoutManager(new LinearLayoutManager(getContext()));
 
                 // Insurance
-                HomeInsuranceListAdapter adapterInsurance = new HomeInsuranceListAdapter(Database.mInsuranceDao.findReminderInsurance(), getContext());
+                HomeInsuranceListAdapter adapterInsurance = new HomeInsuranceListAdapter(Database.mInsuranceDao.findReminderInsurance( g.getIdVehicle() ), getContext());
                 insuranceList.setAdapter(adapterInsurance);
                 insuranceList.setLayoutManager(new LinearLayoutManager(getContext()));
 

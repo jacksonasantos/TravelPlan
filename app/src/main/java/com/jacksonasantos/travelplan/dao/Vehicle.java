@@ -17,7 +17,7 @@ public class Vehicle {
 
     public String year_model;
     public String year_manufacture;
-    public String license_plate;
+    public String license_plate;        // TODO - Verificar tamanho do numero da placa
     public String color;
     public String vin;
     public String licence_number;

@@ -16,13 +16,13 @@
         android:textStyle="bold" />
 
     <TextView
-        android:id="@+id/txtStatisticDate"
+        android:id="@+id/txtAVGCostLitre"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/labels_marginLeft"
         android:layout_marginLeft="@dimen/labels_marginLeft"
         android:layout_weight="0.3"
-        android:gravity="center|center_vertical" />
+        android:gravity="center_vertical|start" />
 
     <TextView
         android:id="@+id/txtAVGConsumption"

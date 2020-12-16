@@ -8,7 +8,6 @@
     android:layout_height="wrap_content"
     tools:context=".ui.vehicle.MaintenanceFragment">
 
-
     <TextView
         android:id="@+id/txtVehicleName"
         android:layout_width="0dp"

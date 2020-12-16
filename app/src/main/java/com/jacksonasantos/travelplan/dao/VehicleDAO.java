@@ -50,9 +50,9 @@ public class VehicleDAO extends DbContentProvider implements VehicleISchema, Veh
             final String[] selectionArgs = { String.valueOf(Globals.getInstance().getIdVehicle()) };
             final String selection = VEHICLE_ID + " = ?";
 
-            cursor = super.query(VEHICLE_TABLE, VEHICLE_COLUMNS, selection, selectionArgs, VEHICLE_ID);
+            cursor = super.query(VEHICLE_TABLE, VEHICLE_COLUMNS, selection, selectionArgs, VEHICLE_SHORT_NAME);
         } else {
-            cursor = super.query(VEHICLE_TABLE, VEHICLE_COLUMNS, null, null, VEHICLE_ID);
+            cursor = super.query(VEHICLE_TABLE, VEHICLE_COLUMNS, null, null, VEHICLE_SHORT_NAME);
         }
 
         if (cursor.moveToFirst()) {

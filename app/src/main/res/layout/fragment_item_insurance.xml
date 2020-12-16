@@ -19,15 +19,22 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <ImageView
+        android:id="@+id/imInsuranceStatus"
+        android:layout_width="22dp"
+        android:layout_height="0dp"
+        android:contentDescription="@string/Insurance_Type"
+        app:layout_constraintBottom_toBottomOf="@+id/txtPolicy"
+        app:layout_constraintStart_toEndOf="@+id/imInsuranceType"
+        app:layout_constraintTop_toTopOf="@+id/txtPolicy" />
+
     <TextView
         android:id="@+id/txtPolicy"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/labels_marginLeft"
-        android:layout_marginLeft="@dimen/labels_marginLeft"
         android:gravity="center_horizontal|center_vertical"
         app:layout_constraintBottom_toTopOf="@+id/button"
-        app:layout_constraintStart_toEndOf="@+id/imInsuranceType"
+        app:layout_constraintStart_toEndOf="@+id/imInsuranceStatus"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView

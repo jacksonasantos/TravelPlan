@@ -24,7 +24,7 @@ public class Database {
     private final Context mContext;
 
     private static final String DATABASE_NAME = "TravelPlan.db";
-    private static final int DATABASE_VERSION = 20;
+    private static final int DATABASE_VERSION = 21;
 
     public static VehicleDAO mVehicleDao;
     public static FuelSupplyDAO mFuelSupplyDao;
@@ -108,6 +108,7 @@ public class Database {
             db.execSQL(InsuranceISchema.ALTER_TABLE_INSURANCE_V19_1); Log.w("Table "+InsuranceISchema.INSURANCE_TABLE,"V19.1 - Alter Table...");
             db.execSQL(InsuranceISchema.ALTER_TABLE_INSURANCE_V19_2); Log.w("Table "+InsuranceISchema.INSURANCE_TABLE,"V19.2 - Alter Table...");
             db.execSQL(FuelSupplyISchema.ALTER_TABLE_FUEL_SUPPLY_V20); Log.w("Table "+FuelSupplyISchema.FUEL_SUPPLY_TABLE,"V20 - Alter Table...");
+            db.execSQL(VehicleStatisticsISchema.ALTER_TABLE_VEHICLE_STATISTICS_V21);; Log.w("Tab "+VehicleStatisticsISchema.VEHICLE_STATISTICS_TABLE,"V21 - Alter Table...");
         }
 
         @SuppressLint("SQLiteString")
@@ -119,7 +120,7 @@ public class Database {
 
             Toast.makeText(mContext,"Upgrading database from version : old " + oldVersion + " to new "+ newVersion, Toast.LENGTH_LONG).show();
 
-            for (int i = oldVersion ; i <= newVersion; i += 1) {
+            for (int i = oldVersion+1 ; i <= newVersion; i += 1) {
                 switch (i) {
                     case 1:
                         db.execSQL(VehicleISchema.CREATE_TABLE_VEHICLE_V1);
@@ -188,6 +189,9 @@ public class Database {
                         break;
                     case 20:
                         db.execSQL(FuelSupplyISchema.ALTER_TABLE_FUEL_SUPPLY_V20);
+                        break;
+                    case 21:
+                        db.execSQL(VehicleStatisticsISchema.ALTER_TABLE_VEHICLE_STATISTICS_V21);
                         break;
                     default:
                         break;

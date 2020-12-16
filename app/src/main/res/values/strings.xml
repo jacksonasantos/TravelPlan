@@ -40,6 +40,8 @@
     <!-- Preferences -->
     <string name="vehicle_default">Vehicle Default</string>
 
+    <string name="general">General</string>
+
     <!-- Vehicle Fragment -->
     <string name="Vehicle">Vehicle</string>
     <string name="Vehicle_Id">Identification Vehicle</string>

@@ -8,6 +8,7 @@ public class VehicleStatistics {
     public int supply_reason_type;
     public Date statistic_date;
     public float avg_consumption;
+    public float avg_cost_litre;
 
     public VehicleStatistics() {
         this.id = id;
@@ -15,6 +16,7 @@ public class VehicleStatistics {
         this.supply_reason_type = supply_reason_type;
         this.statistic_date = statistic_date;
         this.avg_consumption = avg_consumption;
+        this.avg_cost_litre = avg_cost_litre;
     }
 
     public Integer getId() { return id; }
@@ -31,4 +33,7 @@ public class VehicleStatistics {
 
     public float getAvg_consumption() { return avg_consumption; }
     public void setAvg_consumption(float avg_consumption) { this.avg_consumption = avg_consumption; }
+
+    public float getAvg_cost_litre() { return avg_cost_litre; }
+    public void setAvg_cost_litre(float avg_cost_litre) { this.avg_cost_litre = avg_cost_litre; }
 }

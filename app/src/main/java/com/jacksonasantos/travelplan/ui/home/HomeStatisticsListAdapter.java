@@ -1,6 +1,7 @@
 package com.jacksonasantos.travelplan.ui.home;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +14,6 @@ import com.jacksonasantos.travelplan.R;
 import com.jacksonasantos.travelplan.dao.Database;
 import com.jacksonasantos.travelplan.dao.VehicleStatistics;
 import com.jacksonasantos.travelplan.ui.utility.Globals;
-import com.jacksonasantos.travelplan.ui.utility.Utils;
 
 import java.text.NumberFormat;
 import java.util.List;
@@ -25,6 +25,7 @@ public class HomeStatisticsListAdapter extends RecyclerView.Adapter<HomeStatisti
 
     Locale locale = new Locale(g.getLanguage(), g.getCountry());
     NumberFormat numberFormat = NumberFormat.getNumberInstance(locale);
+    NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(locale);
 
     private final List<VehicleStatistics> mVehicleStatistics;
     Context context;
@@ -33,16 +34,16 @@ public class HomeStatisticsListAdapter extends RecyclerView.Adapter<HomeStatisti
     public static class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         private final TextView txtReason;
+        private final TextView txtAVGCostLitre;
         private final TextView txtAVGConsumption;
         private final TextView txtMeasureConsumption;
-        private final TextView txtStatisticDate;
 
         public MyViewHolder(View v) {
             super(v);
             txtReason = v.findViewById(R.id.txtReason);
+            txtAVGCostLitre = v.findViewById(R.id.txtAVGCostLitre);
             txtAVGConsumption = v.findViewById(R.id.txtAVGConsumption);
             txtMeasureConsumption = v.findViewById(R.id.txtMeasureConsumption);
-            txtStatisticDate = v.findViewById(R.id.txtStatisticDate);
         }
 
         @Override
@@ -74,8 +75,12 @@ public class HomeStatisticsListAdapter extends RecyclerView.Adapter<HomeStatisti
     public void onBindViewHolder(@NonNull final MyViewHolder holder, final int position) {
         final VehicleStatistics vehicleStatistics = mVehicleStatistics.get(position);
 
-        holder.txtReason.setText(reasonTypeArray[vehicleStatistics.getSupply_reason_type()-1]);
-        holder.txtStatisticDate.setText(Utils.dateToString(vehicleStatistics.getStatistic_date()));
+        if ( vehicleStatistics.getSupply_reason_type() == 9) {
+            holder.txtReason.setText(context.getString(R.string.general));
+        } else {
+            holder.txtReason.setText(reasonTypeArray[vehicleStatistics.getSupply_reason_type() - 1]);
+        }
+        holder.txtAVGCostLitre.setText(currencyFormatter.format(vehicleStatistics.getAvg_cost_litre()));
         holder.txtAVGConsumption.setText(numberFormat.format(vehicleStatistics.getAvg_consumption()));
         holder.txtMeasureConsumption.setText(g.getMeasureConsumption());
     }

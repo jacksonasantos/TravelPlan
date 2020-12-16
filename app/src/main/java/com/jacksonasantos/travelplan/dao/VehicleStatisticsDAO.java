@@ -68,16 +68,39 @@ public class VehicleStatisticsDAO extends DbContentProvider implements VehicleSt
         return vehicleStatisticsList;
     }
 
+    public List<VehicleStatistics> findTotalVehicleStatistics(Integer vehicle_id) {
+        List<VehicleStatistics> vehicleStatisticsList = new ArrayList<>();
+        cursor = super.rawQuery("SELECT " + FuelSupplyISchema.FUEL_SUPPLY_VEHICLE_ID + ", " +
+                        "9 supply_reason_type, " +
+                        "(SUM(" + FuelSupplyISchema.FUEL_SUPPLY_SUPPLY_VALUE+") / SUM(" + FuelSupplyISchema.FUEL_SUPPLY_VEHICLE_TRAVELLED_DISTANCE + ") ) avg_cost_litre, " +
+                        "(SUM("+ FuelSupplyISchema.FUEL_SUPPLY_VEHICLE_TRAVELLED_DISTANCE+") / SUM(" + FuelSupplyISchema.FUEL_SUPPLY_NUMBER_LITERS+") ) avg_consumption " +
+                        "FROM " + FuelSupplyISchema.FUEL_SUPPLY_TABLE + " " +
+                        "WHERE " + FuelSupplyISchema.FUEL_SUPPLY_VEHICLE_TRAVELLED_DISTANCE + " > 0 " +
+                        "AND " + FuelSupplyISchema.FUEL_SUPPLY_VEHICLE_ID + "=? " +
+                        "GROUP BY " + FuelSupplyISchema.FUEL_SUPPLY_VEHICLE_ID,
+                new String[] { String.valueOf(vehicle_id)});
+        if (null != cursor) {
+            if (cursor.moveToFirst()) {
+                do {
+                    VehicleStatistics vehicle = cursorToEntity(cursor);
+                    vehicleStatisticsList.add(vehicle);
+                } while (cursor.moveToNext());
+            }
+            cursor.close();
+        }
+        return vehicleStatisticsList;
+    }
+
     public List<VehicleStatistics> findLastVehicleStatistics(Integer vehicle_id) {
         List<VehicleStatistics> vehicleStatisticsList = new ArrayList<>();
         cursor = super.rawQuery("SELECT " + FuelSupplyISchema.FUEL_SUPPLY_VEHICLE_ID + ", " +
-                                                FuelSupplyISchema.FUEL_SUPPLY_SUPPLY_REASON_TYPE + ", " +
-                                                "MAX(" + FuelSupplyISchema.FUEL_SUPPLY_SUPPLY_DATE + ") statistic_date, " +
-                                                "(SUM("+ FuelSupplyISchema.FUEL_SUPPLY_VEHICLE_TRAVELLED_DISTANCE+") / SUM(" + FuelSupplyISchema.FUEL_SUPPLY_NUMBER_LITERS+") ) avg_consumption " +
-                                    "FROM " + FuelSupplyISchema.FUEL_SUPPLY_TABLE + " " +
-                                    "WHERE " + FuelSupplyISchema.FUEL_SUPPLY_VEHICLE_TRAVELLED_DISTANCE + " > 0 " +
-                                    "AND " + FuelSupplyISchema.FUEL_SUPPLY_VEHICLE_ID + "=? " +
-                                    "GROUP BY " + FuelSupplyISchema.FUEL_SUPPLY_SUPPLY_REASON_TYPE + ", " + FuelSupplyISchema.FUEL_SUPPLY_VEHICLE_ID,
+                        FuelSupplyISchema.FUEL_SUPPLY_SUPPLY_REASON_TYPE + ", " +
+                        "(SUM(" + FuelSupplyISchema.FUEL_SUPPLY_SUPPLY_VALUE+") / SUM(" + FuelSupplyISchema.FUEL_SUPPLY_VEHICLE_TRAVELLED_DISTANCE + ") ) avg_cost_litre, " +
+                        "(SUM("+ FuelSupplyISchema.FUEL_SUPPLY_VEHICLE_TRAVELLED_DISTANCE+") / SUM(" + FuelSupplyISchema.FUEL_SUPPLY_NUMBER_LITERS+") ) avg_consumption " +
+                        "FROM " + FuelSupplyISchema.FUEL_SUPPLY_TABLE + " " +
+                        "WHERE " + FuelSupplyISchema.FUEL_SUPPLY_VEHICLE_TRAVELLED_DISTANCE + " > 0 " +
+                        "AND " + FuelSupplyISchema.FUEL_SUPPLY_VEHICLE_ID + "=? " +
+                        "GROUP BY " + FuelSupplyISchema.FUEL_SUPPLY_SUPPLY_REASON_TYPE + ", " + FuelSupplyISchema.FUEL_SUPPLY_VEHICLE_ID,
                 new String[] { String.valueOf(vehicle_id)});
         if (null != cursor) {
             if (cursor.moveToFirst()) {
@@ -148,6 +171,7 @@ public class VehicleStatisticsDAO extends DbContentProvider implements VehicleSt
         int statistic_dateIndex;
         int supply_reason_typeIndex;
         int avg_consumptionIndex;
+        int avg_cost_litreIndex;
 
         if (cursor != null) {
             if (cursor.getColumnIndex(VEHICLE_STATISTICS_ID) != -1) {
@@ -162,10 +186,13 @@ public class VehicleStatisticsDAO extends DbContentProvider implements VehicleSt
                 statistic_dateIndex = cursor.getColumnIndexOrThrow(VEHICLE_STATISTICS_STATISTIC_DATE);
                 vehicleStatistics.setStatistic_date(Utils.dateParse(cursor.getString(statistic_dateIndex)));
             }
-
             if (cursor.getColumnIndex(VEHICLE_STATISTICS_SUPPLY_REASON_TYPE) != -1) {
                 supply_reason_typeIndex = cursor.getColumnIndexOrThrow(VEHICLE_STATISTICS_SUPPLY_REASON_TYPE);
                 vehicleStatistics.setSupply_reason_type(cursor.getInt(supply_reason_typeIndex));
+            }
+            if (cursor.getColumnIndex(VEHICLE_STATISTICS_AVG_COST_LITRE) != -1) {
+                avg_cost_litreIndex = cursor.getColumnIndexOrThrow(VEHICLE_STATISTICS_AVG_COST_LITRE);
+                vehicleStatistics.setAvg_cost_litre(cursor.getFloat(avg_cost_litreIndex));
             }
             if (cursor.getColumnIndex(VEHICLE_STATISTICS_AVG_CONSUMPTION) != -1) {
                 avg_consumptionIndex = cursor.getColumnIndexOrThrow(VEHICLE_STATISTICS_AVG_CONSUMPTION);
@@ -179,14 +206,16 @@ public class VehicleStatisticsDAO extends DbContentProvider implements VehicleSt
         initialValues = new ContentValues();
         initialValues.put(VEHICLE_STATISTICS_ID, vehicleStatistics.id);
         initialValues.put(VEHICLE_STATISTICS_VEHICLE_ID, vehicleStatistics.vehicle_id);
-        initialValues.put(VEHICLE_STATISTICS_STATISTIC_DATE, Utils.dateFormat(vehicleStatistics.statistic_date));
+        initialValues.put(VEHICLE_STATISTICS_STATISTIC_DATE, Utils.dateToString(vehicleStatistics.statistic_date));
+        initialValues.put(VEHICLE_STATISTICS_AVG_COST_LITRE, vehicleStatistics.avg_cost_litre);
         initialValues.put(VEHICLE_STATISTICS_SUPPLY_REASON_TYPE, vehicleStatistics.supply_reason_type);
         initialValues.put(VEHICLE_STATISTICS_AVG_CONSUMPTION, vehicleStatistics.avg_consumption);
     }
     private void setContentValueChange(VehicleStatistics vehicleStatistics) {
         initialValuesChange = new ContentValues();
         initialValuesChange.put(VEHICLE_STATISTICS_VEHICLE_ID, vehicleStatistics.vehicle_id);
-        initialValuesChange.put(VEHICLE_STATISTICS_STATISTIC_DATE, Utils.dateFormat(vehicleStatistics.statistic_date));
+        initialValues.put(VEHICLE_STATISTICS_STATISTIC_DATE, Utils.dateToString(vehicleStatistics.statistic_date));
+        initialValuesChange.put(VEHICLE_STATISTICS_AVG_COST_LITRE, vehicleStatistics.avg_cost_litre);
         initialValuesChange.put(VEHICLE_STATISTICS_SUPPLY_REASON_TYPE, vehicleStatistics.supply_reason_type);
         initialValuesChange.put(VEHICLE_STATISTICS_AVG_CONSUMPTION, vehicleStatistics.avg_consumption);
     }

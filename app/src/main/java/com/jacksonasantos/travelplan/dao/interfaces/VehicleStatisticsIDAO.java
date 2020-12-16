@@ -8,6 +8,7 @@ public interface VehicleStatisticsIDAO {
     VehicleStatistics fetchVehicleStatisticsById(Integer id);
     List<VehicleStatistics> fetchAllVehicleStatistics();
     List<VehicleStatistics> findVehicleStatisticsbyId(Integer id);
+    List<VehicleStatistics> findTotalVehicleStatistics(Integer vehicle_id);
     List<VehicleStatistics> findLastVehicleStatistics(Integer vehicle_id);
     boolean addVehicleStatistics(VehicleStatistics vehicleStatistics);
     void deleteVehicleStatistics(Integer id);
