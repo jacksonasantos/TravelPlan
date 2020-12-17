@@ -46,7 +46,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/labels_marginLeft"
         android:layout_marginLeft="@dimen/labels_marginLeft"
-        android:layout_weight="0.2"
+        android:layout_weight="0.15"
         android:gravity="start|center_vertical" />
 
 </LinearLayout>

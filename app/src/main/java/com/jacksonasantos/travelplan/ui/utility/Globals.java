@@ -1,9 +1,5 @@
 package com.jacksonasantos.travelplan.ui.utility;
 
-import android.content.SharedPreferences;
-
-import androidx.preference.PreferenceManager;
-
 public class Globals {
 
     private static Globals instance;
@@ -11,11 +7,12 @@ public class Globals {
     private Integer idVehicle;
     private boolean blFilterVehicle;
     private String txLanguage = "pt";
-    private String txCountry = "BR";                 // TODO - Criar formulario para configurar as variáveis Globais
-    private Integer nrIdCurrency = 0;   // R$
-    private String txMeasureConsumption = "km/l";
-    private String txMeasureCost = "km";
-    private String txDateFormat = "yyyy-MM-dd HH:mm:ss";
+    private String txCountry = "BR";
+    private Integer nrIdCurrency;
+    private String txMeasureCost;
+    private String txMeasureCapacity;
+    private String txMeasureConsumption;
+    private String txDateFormat;
 
     private Globals() { }
 
@@ -39,6 +36,9 @@ public class Globals {
 
     public String getMeasureCost() { return this.txMeasureCost; }
     public void setMeasureCost(String MeasureCost) { this.txMeasureCost = MeasureCost; }
+
+    public String getMeasureCapacity() { return this.txMeasureCapacity; }
+    public void setMeasureCapacity(String MeasureCapacity) { this.txMeasureCapacity = MeasureCapacity; }
 
     public String getDateFormat() { return this.txDateFormat; }
     public void setDateFormat(String df) { this.txDateFormat = df; }
