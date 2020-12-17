@@ -35,6 +35,7 @@ public class HomeStatisticsListAdapter extends RecyclerView.Adapter<HomeStatisti
 
         private final TextView txtReason;
         private final TextView txtAVGCostLitre;
+        private final TextView txtMeasureCost;
         private final TextView txtAVGConsumption;
         private final TextView txtMeasureConsumption;
 
@@ -42,6 +43,7 @@ public class HomeStatisticsListAdapter extends RecyclerView.Adapter<HomeStatisti
             super(v);
             txtReason = v.findViewById(R.id.txtReason);
             txtAVGCostLitre = v.findViewById(R.id.txtAVGCostLitre);
+            txtMeasureCost = v.findViewById(R.id.txtMeasureCost);
             txtAVGConsumption = v.findViewById(R.id.txtAVGConsumption);
             txtMeasureConsumption = v.findViewById(R.id.txtMeasureConsumption);
         }
@@ -81,6 +83,7 @@ public class HomeStatisticsListAdapter extends RecyclerView.Adapter<HomeStatisti
             holder.txtReason.setText(reasonTypeArray[vehicleStatistics.getSupply_reason_type() - 1]);
         }
         holder.txtAVGCostLitre.setText(currencyFormatter.format(vehicleStatistics.getAvg_cost_litre()));
+        holder.txtMeasureCost.setText("/"+g.getMeasureCost());
         holder.txtAVGConsumption.setText(numberFormat.format(vehicleStatistics.getAvg_consumption()));
         holder.txtMeasureConsumption.setText(g.getMeasureConsumption());
     }

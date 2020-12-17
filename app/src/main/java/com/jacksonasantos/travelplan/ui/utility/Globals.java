@@ -14,6 +14,7 @@ public class Globals {
     private String txCountry = "BR";                 // TODO - Criar formulario para configurar as variáveis Globais
     private Integer nrIdCurrency = 0;   // R$
     private String txMeasureConsumption = "km/l";
+    private String txMeasureCost = "km";
     private String txDateFormat = "yyyy-MM-dd HH:mm:ss";
 
     private Globals() { }
@@ -35,6 +36,9 @@ public class Globals {
 
     public String getMeasureConsumption() { return this.txMeasureConsumption; }
     public void setMeasureConsumption(String MeasureConsumption) { this.txMeasureConsumption = MeasureConsumption; }
+
+    public String getMeasureCost() { return this.txMeasureCost; }
+    public void setMeasureCost(String MeasureCost) { this.txMeasureCost = MeasureCost; }
 
     public String getDateFormat() { return this.txDateFormat; }
     public void setDateFormat(String df) { this.txDateFormat = df; }
