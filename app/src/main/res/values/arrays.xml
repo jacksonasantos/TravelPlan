@@ -95,6 +95,12 @@
         <item>@string/oil_change</item>
         <item>@string/spark_plug</item>
     </string-array>
+    <!-- Measure Plan -->
+    <string-array name="measure_plan">
+        <item>@string/indeterminate</item>
+        <item>@string/km</item>
+        <item>@string/days</item>
+    </string-array>
     <!-- Insurance Type -->
     <string-array name="insurance_type_array">
         <item>@string/insurance_type_vehicle</item>

@@ -199,4 +199,14 @@
     <string name="preferences_header">Preferências</string>
     <string name="vehicle_default">Veículo Padrão</string>
     <string name="general">Geral</string>
+    <string name="MaintenancePlan_Deleting">Excluindo Plano de Manutenção</string>
+    <string name="indeterminate">Indeterminado</string>
+    <string name="km">KMs</string>
+    <string name="days">Dias</string>
+    <string name="Maintenance_Plan_Description">Descrição</string>
+    <string name="Maintenance_Plan_Measure">Medida</string>
+    <string name="Maintenance_Plan_Expiration">Expiração</string>
+    <string name="Maintenance_Plan_Recommendation">Recomendação</string>
+    <string name="Maintenance_Plan">Plano de Manutenção</string>
+    <string name="menu_maintenance_plan">Plano de Manutenção</string>
 </resources>

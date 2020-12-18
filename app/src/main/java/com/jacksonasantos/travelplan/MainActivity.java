@@ -24,9 +24,10 @@ import androidx.preference.PreferenceManager;
 
 import com.google.android.material.navigation.NavigationView;
 import com.jacksonasantos.travelplan.dao.Database;
-import com.jacksonasantos.travelplan.dao.InsuranceCompany;
 import com.jacksonasantos.travelplan.ui.utility.Globals;
 import com.jacksonasantos.travelplan.ui.utility.Utils;
+import com.jacksonasantos.travelplan.dao.InsuranceCompany;
+import com.jacksonasantos.travelplan.dao.MaintenancePlan;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -65,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.nav_vehicle, R.id.nav_fuel_supply, R.id.nav_maintenance,
+                R.id.nav_home, R.id.nav_vehicle, R.id.nav_fuel_supply, R.id.nav_maintenance_plan, R.id.nav_maintenance,
                 R.id.nav_travel,
                 R.id.nav_settings,
                 R.id.nav_insurance, R.id.nav_insurance_company, R.id.nav_broker, R.id.nav_currency_quote)
@@ -110,6 +111,48 @@ public class MainActivity extends AppCompatActivity {
                     }
                 } else {
                     if (!Database.mInsuranceCompanyDao.addInsuranceCompany(insuranceCompany)) {
+                        Toast.makeText(ctx, R.string.Error_Including_Data + Arrays.toString(dataLine), Toast.LENGTH_LONG).show();
+                    }
+                }
+            }
+            is.close();
+        } catch (IOException ex) {
+            Log.i("debug", "Error: " + ex.getMessage());
+        }
+        // Carga de Plano de Manutenção
+        try {
+            AssetManager assetManager = ctx.getAssets();
+            InputStreamReader is = new InputStreamReader(assetManager.open("service_type.csv"), StandardCharsets.UTF_8);
+            BufferedReader reader = new BufferedReader(is);
+            String lineStr;
+
+            while ((lineStr = reader.readLine()) != null) {
+                String[] dataLine = lineStr.split(";");
+                MaintenancePlan maintenancePlan = Database.mMaintenancePlanDao.fetchMaintenancePlanByService(Integer.parseInt(dataLine[0]),dataLine[1]);
+                maintenancePlan.setService_type(Integer.parseInt(dataLine[0]));
+                maintenancePlan.setDescription(dataLine[1]);
+                int x;
+                switch(dataLine[2]) {
+                    case "km":
+                        x = 1;
+                        break;
+                    case "dias":
+                        x = 2;
+                        break;
+                    default:
+                        x = 0;
+                }
+                maintenancePlan.setMeasure(x);
+                if (dataLine[3] != null && !dataLine[3].isEmpty()){
+                    maintenancePlan.setExpiration(Integer.parseInt(dataLine[3].replace(".","")));
+                }
+                maintenancePlan.setRecommendation(dataLine[4]);
+                if (maintenancePlan.getId() != null) {
+                    if (!Database.mMaintenancePlanDao.updateMaintenancePlan(maintenancePlan)) {
+                        Toast.makeText(ctx, R.string.Error_Changing_Data + Arrays.toString(dataLine), Toast.LENGTH_LONG).show();
+                    }
+                } else {
+                    if (!Database.mMaintenancePlanDao.addMaintenancePlan(maintenancePlan)) {
                         Toast.makeText(ctx, R.string.Error_Including_Data + Arrays.toString(dataLine), Toast.LENGTH_LONG).show();
                     }
                 }

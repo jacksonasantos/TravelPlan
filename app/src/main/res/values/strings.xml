@@ -8,6 +8,7 @@
     <string name="menu_vehicle">Vehicles</string>
     <string name="menu_travel">Travels</string>
     <string name="menu_fuel_supply">Fuel Supply</string>
+    <string name="menu_maintenance_plan">Maintenance Plan</string>
     <string name="menu_maintenance">Maintenance Service</string>
     <string name="action_settings">Settings</string>
     <string name="menu_insurance_company">Insurance Company</string>
@@ -90,6 +91,17 @@
     <string name="Maintenance_Location">Maintenance Location</string>
     <string name="Maintenance_Note">Maintenance Note</string>
     <string name="Maintenance_Status">Maintenance Status</string>
+
+    <!-- Maintenance Plan Fragment -->
+    <string name="MaintenancePlan_Deleting">Deleting Maintenance Plan</string>
+    <string name="Maintenance_Plan">Maintenance Plan</string>
+    <string name="Maintenance_Plan_Description">Description</string>
+    <string name="Maintenance_Plan_Measure">Measure</string>
+    <string name="Maintenance_Plan_Expiration">Expiration</string>
+    <string name="Maintenance_Plan_Recommendation">Recommendation</string>
+    <string name="indeterminate">Indeterminate</string>
+    <string name="km">Km</string>
+    <string name="days">Days</string>
 
     <!-- FuelSupply Fragment -->
     <string name="gasoline_common">Gasoline Common</string>

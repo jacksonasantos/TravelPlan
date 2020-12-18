@@ -17,6 +17,8 @@ import com.jacksonasantos.travelplan.dao.interfaces.VehicleStatisticsISchema;
 import com.jacksonasantos.travelplan.dao.interfaces.TravelISchema;
 import com.jacksonasantos.travelplan.dao.interfaces.BrokerISchema;
 import com.jacksonasantos.travelplan.dao.interfaces.InsuranceISchema;
+import com.jacksonasantos.travelplan.dao.interfaces.MaintenancePlanISchema;
+import com.jacksonasantos.travelplan.dao.interfaces.VehicleHasPlanISchema;
 
 public class Database {
 
@@ -24,7 +26,7 @@ public class Database {
     private final Context mContext;
 
     private static final String DATABASE_NAME = "TravelPlan.db";
-    private static final int DATABASE_VERSION = 21;
+    private static final int DATABASE_VERSION = 23;
 
     public static VehicleDAO mVehicleDao;
     public static FuelSupplyDAO mFuelSupplyDao;
@@ -35,6 +37,8 @@ public class Database {
     public static TravelDAO mTravelDao;
     public static BrokerDAO mBrokerDao;
     public static InsuranceDAO mInsuranceDao;
+    public static MaintenancePlanDAO mMaintenancePlanDao;
+    public static VehicleHasPlanDAO mVehicleHasPlanDao;
 
     public Database(Context context) {
         this.mContext = context;
@@ -54,6 +58,8 @@ public class Database {
         mTravelDao = new TravelDAO(mDb);
         mBrokerDao = new BrokerDAO(mDb);
         mInsuranceDao = new InsuranceDAO(mDb);
+        mMaintenancePlanDao = new MaintenancePlanDAO(mDb);
+        mVehicleHasPlanDao = new VehicleHasPlanDAO(mDb);
     }
 
     public void close() {
@@ -108,7 +114,9 @@ public class Database {
             db.execSQL(InsuranceISchema.ALTER_TABLE_INSURANCE_V19_1); Log.w("Table "+InsuranceISchema.INSURANCE_TABLE,"V19.1 - Alter Table...");
             db.execSQL(InsuranceISchema.ALTER_TABLE_INSURANCE_V19_2); Log.w("Table "+InsuranceISchema.INSURANCE_TABLE,"V19.2 - Alter Table...");
             db.execSQL(FuelSupplyISchema.ALTER_TABLE_FUEL_SUPPLY_V20); Log.w("Table "+FuelSupplyISchema.FUEL_SUPPLY_TABLE,"V20 - Alter Table...");
-            db.execSQL(VehicleStatisticsISchema.ALTER_TABLE_VEHICLE_STATISTICS_V21);; Log.w("Tab "+VehicleStatisticsISchema.VEHICLE_STATISTICS_TABLE,"V21 - Alter Table...");
+            db.execSQL(VehicleStatisticsISchema.ALTER_TABLE_VEHICLE_STATISTICS_V21); Log.w("Tab "+VehicleStatisticsISchema.VEHICLE_STATISTICS_TABLE,"V21 - Alter Table...");
+            db.execSQL(MaintenancePlanISchema.CREATE_TABLE_MAINTENANCE_PLAN_V22); Log.w("Table  "+MaintenancePlanISchema.MAINTENANCE_PLAN_TABLE,"V22 - Create Table...");
+            db.execSQL(VehicleHasPlanISchema.CREATE_TABLE_VEHICLE_HAS_PLAN_V23); Log.w("Table "+ VehicleHasPlanISchema.VEHICLE_HAS_PLAN_TABLE,"V23 - Create Table...");
         }
 
         @SuppressLint("SQLiteString")
@@ -192,6 +200,12 @@ public class Database {
                         break;
                     case 21:
                         db.execSQL(VehicleStatisticsISchema.ALTER_TABLE_VEHICLE_STATISTICS_V21);
+                        break;
+                    case 22:
+                        db.execSQL(MaintenancePlanISchema.CREATE_TABLE_MAINTENANCE_PLAN_V22);
+                        break;
+                    case 23:
+                        db.execSQL(VehicleHasPlanISchema.CREATE_TABLE_VEHICLE_HAS_PLAN_V23);
                         break;
                     default:
                         break;

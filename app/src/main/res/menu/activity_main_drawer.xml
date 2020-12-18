@@ -20,6 +20,10 @@
             android:icon="@drawable/ic_supply"
             android:title="@string/menu_fuel_supply" />
         <item
+            android:id="@+id/nav_maintenance_plan"
+            android:icon="@drawable/ic_menu_maintenance_plan"
+            android:title="@string/menu_maintenance_plan" />
+        <item
             android:id="@+id/nav_maintenance"
             android:icon="@drawable/ic_menu_maintenance"
             android:title="@string/menu_maintenance" />
