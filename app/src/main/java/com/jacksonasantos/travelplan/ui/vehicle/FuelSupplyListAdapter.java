@@ -89,7 +89,7 @@ public class FuelSupplyListAdapter extends RecyclerView.Adapter<FuelSupplyListAd
 
         holder.txtSupplyDate.setText(Utils.dateToString(fuelSupply.getSupply_date()));
         holder.txtVehicleName.setText(v.getName());
-        holder.txtNumberLiters.setText(fuelSupply.getNumber_liters() +" L");
+        holder.txtNumberLiters.setText(fuelSupply.getNumber_liters() +" "+g.getMeasureCapacity());
         NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(locale);
         holder.txtSupplyValue.setText(currencyFormatter.format(fuelSupply.getSupply_value()));
         // btnEdit
@@ -116,6 +116,12 @@ public class FuelSupplyListAdapter extends RecyclerView.Adapter<FuelSupplyListAd
                                 try {
                                     Database.mFuelSupplyDao.deleteFuelSupply(fuelSupply.getId());
                                     mFuelSupply.remove(position);
+                                    FuelSupply f1 = Database.mFuelSupplyDao.findLastFuelSupply(fuelSupply.getVehicle_id());
+                                    Vehicle v1;
+                                    v1 = Database.mVehicleDao.fetchVehicleById(fuelSupply.getVehicle_id());
+                                    v1.setDt_odometer( f1.getSupply_date());
+                                    v1.setOdometer(f1.getVehicle_odometer());
+                                    boolean isSave = Database.mVehicleDao.updateVehicle(v1);
                                     notifyItemRemoved(position);
                                 } catch (Exception e) {
                                     Toast.makeText(context, context.getString(R.string.Error_Deleting_Data) + "\n" + e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
