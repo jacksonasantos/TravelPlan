@@ -17,12 +17,12 @@ import androidx.preference.PreferenceManager;
 import com.jacksonasantos.travelplan.MainActivity;
 import com.jacksonasantos.travelplan.R;
 import com.jacksonasantos.travelplan.dao.Database;
-import com.jacksonasantos.travelplan.dao.Vehicle;
 import com.jacksonasantos.travelplan.ui.utility.Globals;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 
 public class SettingsActivity extends AppCompatActivity {
 
@@ -68,6 +68,7 @@ public class SettingsActivity extends AppCompatActivity {
                     entryValues.add(Integer.toString(v.getInt(0)));
                 } while (v.moveToNext());
             }
+            assert v != null;
             v.close();
             final CharSequence[] entryCharSeq = entries.toArray(new CharSequence[entries.size()]);
             final CharSequence[] entryValsChar = entryValues.toArray(new CharSequence[entryValues.size()]);
@@ -79,10 +80,10 @@ public class SettingsActivity extends AppCompatActivity {
             @Override
             public boolean onPreferenceChange(Preference preference, Object newValue) {
                 if ("en".equals(newValue.toString())) {
-                    PreferenceManager.getDefaultSharedPreferences(getContext()).edit().putString("LANG", "en").apply();
+                    PreferenceManager.getDefaultSharedPreferences(requireContext()).edit().putString("LANG", "en").apply();
                     setLocale("en");
                 } else {
-                    PreferenceManager.getDefaultSharedPreferences(getContext()).edit().putString("LANG", "pt").apply();
+                    PreferenceManager.getDefaultSharedPreferences(requireContext()).edit().putString("LANG", "pt").apply();
                     setLocale("pt");
                 }
                 return true;

@@ -91,12 +91,12 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         mDb.open();
 
         final List<Vehicle> vehicles =  Database.mVehicleDao.fetchArrayVehicles();
-        ArrayAdapter adapter = new ArrayAdapter(getActivity(), android.R.layout.simple_spinner_item, vehicles);
+        ArrayAdapter<Vehicle> adapter = new ArrayAdapter<>(requireActivity(), android.R.layout.simple_spinner_item, vehicles);
         adapter.setDropDownViewResource( android.R.layout.simple_spinner_dropdown_item);
         spVehicle.setAdapter(adapter);
 
-        int nposVehicle = g.getIdVehicle()-1;
-        spVehicle.setSelection(nposVehicle);
+        int nrPosVehicle = g.getIdVehicle()-1;
+        spVehicle.setSelection(nrPosVehicle);
 
         final Vehicle[] vehicle = {new Vehicle()};
         spVehicle.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {

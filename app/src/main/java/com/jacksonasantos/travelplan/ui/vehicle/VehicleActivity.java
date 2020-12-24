@@ -145,7 +145,7 @@ public class VehicleActivity extends AppCompatActivity {
             etFullCapacity.setText(String.valueOf(vehicle.getFull_capacity()));
             etAVGConsumption.setText(String.valueOf(vehicle.getAvg_consumption()));
             etDtOdometer.setText(Utils.dateToString(vehicle.getDt_odometer()));
-            etOdometer.setText(String.valueOf(vehicle.getOdometer()));
+            etOdometer.setText(vehicle.getOdometer()==0?null:String.valueOf(vehicle.getOdometer()));
         }
     }
 

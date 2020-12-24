@@ -36,6 +36,7 @@ public class VehicleListAdapter extends RecyclerView.Adapter<VehicleListAdapter.
         public ImageButton btnEdit;
         public ImageButton btnDelete;
         public ImageButton btnRefuel;
+        public ImageButton btnPlan;
 
         public MyViewHolder(View v) {
             super(v);
@@ -45,9 +46,11 @@ public class VehicleListAdapter extends RecyclerView.Adapter<VehicleListAdapter.
             btnEdit = v.findViewById(R.id.btnEdit);
             btnDelete = v.findViewById(R.id.btnDelete);
             btnRefuel = v.findViewById(R.id.btnRefuel);
+            btnPlan = v.findViewById(R.id.btnPlan);
             btnEdit.setOnClickListener(this);
             btnDelete.setOnClickListener(this);
             btnRefuel.setOnClickListener(this);
+            btnPlan.setOnClickListener(this);
         }
 
         @Override
@@ -81,6 +84,17 @@ public class VehicleListAdapter extends RecyclerView.Adapter<VehicleListAdapter.
         holder.imVehicleType.setImageResource(vehicle.getVehicleTypeImage(vehicle.getVehicle_type()));
         holder.txtPlate.setText(vehicle.getLicense_plate());
         holder.txtShortName.setText(vehicle.getShort_name());
+
+        // btnPlan
+        holder.btnPlan.setOnClickListener (new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent (v.getContext(), VehiclePlanActivity.class);
+                intent.putExtra("vehicle_id", vehicle.getId());
+                context.startActivity(intent);
+                notifyDataSetChanged();
+            }
+        });
 
         // btnRefuel
         holder.btnRefuel.setOnClickListener (new View.OnClickListener() {

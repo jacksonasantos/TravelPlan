@@ -106,7 +106,6 @@ public class Database {
             db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V11_11); Log.w("Table "+VehicleISchema.VEHICLE_TABLE,"V11.11 - Alter Table...");
             db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V11_12); Log.w("Table "+VehicleISchema.VEHICLE_TABLE,"V11.12 - Alter Table...");
             db.execSQL(InsuranceCompanyISchema.CREATE_TABLE_INSURANCE_COMPANY_V12); Log.w("Table "+InsuranceCompanyISchema.INSURANCE_COMPANY_TABLE,"V12 - Create Table...");
-            db.execSQL(VehicleStatisticsISchema.CREATE_TABLE_VEHICLE_STATISTICS_V14); Log.w("Tab: "+VehicleStatisticsISchema.VEHICLE_STATISTICS_TABLE,"V14 - Create Table...");
             db.execSQL(TravelISchema.CREATE_TABLE_TRAVEL_V15); Log.w("Tab: "+TravelISchema.TRAVEL_TABLE,"V15 - Create Table...");
             db.execSQL(BrokerISchema.CREATE_TABLE_BROKER_V16); Log.w("Tab: "+BrokerISchema.BROKER_TABLE,"V16 - Create Table...");
             db.execSQL(InsuranceISchema.CREATE_TABLE_INSURANCE_V16); Log.w("Table "+InsuranceISchema.INSURANCE_TABLE,"V16 - Create Table...");
@@ -114,7 +113,6 @@ public class Database {
             db.execSQL(InsuranceISchema.ALTER_TABLE_INSURANCE_V19_1); Log.w("Table "+InsuranceISchema.INSURANCE_TABLE,"V19.1 - Alter Table...");
             db.execSQL(InsuranceISchema.ALTER_TABLE_INSURANCE_V19_2); Log.w("Table "+InsuranceISchema.INSURANCE_TABLE,"V19.2 - Alter Table...");
             db.execSQL(FuelSupplyISchema.ALTER_TABLE_FUEL_SUPPLY_V20); Log.w("Table "+FuelSupplyISchema.FUEL_SUPPLY_TABLE,"V20 - Alter Table...");
-            db.execSQL(VehicleStatisticsISchema.ALTER_TABLE_VEHICLE_STATISTICS_V21); Log.w("Tab "+VehicleStatisticsISchema.VEHICLE_STATISTICS_TABLE,"V21 - Alter Table...");
             db.execSQL(MaintenancePlanISchema.CREATE_TABLE_MAINTENANCE_PLAN_V22); Log.w("Table  "+MaintenancePlanISchema.MAINTENANCE_PLAN_TABLE,"V22 - Create Table...");
             db.execSQL(VehicleHasPlanISchema.CREATE_TABLE_VEHICLE_HAS_PLAN_V23); Log.w("Table "+ VehicleHasPlanISchema.VEHICLE_HAS_PLAN_TABLE,"V23 - Create Table...");
         }
@@ -178,9 +176,6 @@ public class Database {
                     case 12:
                         db.execSQL(InsuranceCompanyISchema.CREATE_TABLE_INSURANCE_COMPANY_V12);
                         break;
-                    case 14:
-                        db.execSQL(VehicleStatisticsISchema.CREATE_TABLE_VEHICLE_STATISTICS_V14);
-                        break;
                     case 15:
                         db.execSQL(TravelISchema.CREATE_TABLE_TRAVEL_V15);
                         break;
@@ -197,9 +192,6 @@ public class Database {
                         break;
                     case 20:
                         db.execSQL(FuelSupplyISchema.ALTER_TABLE_FUEL_SUPPLY_V20);
-                        break;
-                    case 21:
-                        db.execSQL(VehicleStatisticsISchema.ALTER_TABLE_VEHICLE_STATISTICS_V21);
                         break;
                     case 22:
                         db.execSQL(MaintenancePlanISchema.CREATE_TABLE_MAINTENANCE_PLAN_V22);

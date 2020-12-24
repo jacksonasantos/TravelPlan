@@ -11,11 +11,13 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.jacksonasantos.travelplan.R;
 import com.jacksonasantos.travelplan.dao.Database;
+
 
 public class InsuranceCompanyFragment extends Fragment  {
 
@@ -31,10 +33,11 @@ public class InsuranceCompanyFragment extends Fragment  {
         Database mDb = new Database(getContext());
         mDb.open();
 
-        RecyclerView listInsuranceCompany = this.getView().findViewById(R.id.list);
+        RecyclerView listInsuranceCompany = this.requireView().findViewById(R.id.list);
         InsuranceCompanyListAdapter adapter = new InsuranceCompanyListAdapter(Database.mInsuranceCompanyDao.fetchAllInsuranceCompanies(), getContext());
         listInsuranceCompany.setAdapter(adapter);
         listInsuranceCompany.setLayoutManager(new LinearLayoutManager(getContext()));
+        listInsuranceCompany.addItemDecoration(new DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL));
 
         adapter.notifyDataSetChanged();
         mDb.close();
@@ -61,14 +64,11 @@ public class InsuranceCompanyFragment extends Fragment  {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         Intent intent;
-        switch(item.getItemId()) {
-            case R.id.addmenu:
-                intent = new Intent( getContext(), InsuranceCompanyActivity.class );
-                startActivity( intent );
-                break;
-
-            default:
-                return super.onOptionsItemSelected(item);
+        if (item.getItemId() == R.id.addmenu) {
+            intent = new Intent(getContext(), InsuranceCompanyActivity.class);
+            startActivity(intent);
+        } else {
+            return super.onOptionsItemSelected(item);
         }
         return true;
     }

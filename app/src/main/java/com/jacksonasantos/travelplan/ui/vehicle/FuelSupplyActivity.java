@@ -28,7 +28,6 @@ import com.jacksonasantos.travelplan.dao.Database;
 import com.jacksonasantos.travelplan.dao.FuelSupply;
 import com.jacksonasantos.travelplan.dao.Travel;
 import com.jacksonasantos.travelplan.dao.Vehicle;
-import com.jacksonasantos.travelplan.dao.VehicleStatistics;
 import com.jacksonasantos.travelplan.ui.utility.DateInputMask;
 import com.jacksonasantos.travelplan.ui.utility.Globals;
 import com.jacksonasantos.travelplan.ui.utility.Utils;
@@ -160,6 +159,7 @@ public class FuelSupplyActivity extends AppCompatActivity {
         });
         Utils.createSpinnerResources(R.array.currency_array, spinCurrencyType, this);
         nrSpinCurrencyType = 0;
+        spinCurrencyType.setText(getResources().getStringArray(R.array.currency_array)[nrSpinCurrencyType],false);
         spinCurrencyType.setOnItemClickListener(new Spinner.OnItemClickListener() {
             @Override public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 nrSpinCurrencyType = (int) adapterView.getItemIdAtPosition(i);
@@ -178,7 +178,7 @@ public class FuelSupplyActivity extends AppCompatActivity {
                 if (!hasFocus) {
                     String vSupplyValue = etSupplyValue.getText().toString();
                     String vNumberLiters = etNumberLiters.getText().toString();
-                    etFuelValue.setText( String.valueOf(Double.parseDouble(vSupplyValue) / Double.parseDouble(vNumberLiters)));
+                    etFuelValue.setText( numberFormat.format(Double.parseDouble(vSupplyValue) / Double.parseDouble(vNumberLiters)));
                 }
             }
         };
@@ -201,9 +201,7 @@ public class FuelSupplyActivity extends AppCompatActivity {
                             vStatCostPerLitre = vLastOdometerNew / Float.parseFloat(etSupplyValue.getText().toString());
                             // TODO - Calcular as medias com os abastecimentos sem tanque cheio
                             // TODO - Verifiar ajustes nas estatisicas quando for alterados o Odometro e a Distancia viajada
-                            //NumberFormat numberFormat = NumberFormat.getNumberInstance(locale);
                             txStatAvgFuelConsumption.setText(numberFormat.format(vStatAvgFuelConsumption));
-                            //NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(locale);
                             txStatCostPerLitre.setText(currencyFormatter.format(vStatCostPerLitre));
                         }
                     }
@@ -227,7 +225,7 @@ public class FuelSupplyActivity extends AppCompatActivity {
         });
 
         final List<Travel> travels =  Database.mTravelDao.fetchArrayTravel();
-        ArrayAdapter adapterT = new ArrayAdapter(this, android.R.layout.simple_spinner_item, travels);
+        ArrayAdapter<Travel> adapterT = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, travels);
         adapterT.setDropDownViewResource( android.R.layout.simple_spinner_dropdown_item);
         spinAssociatedTravelId.setAdapter(adapterT);
 
@@ -264,11 +262,11 @@ public class FuelSupplyActivity extends AppCompatActivity {
 
             etNumberLiters.setText(String.valueOf(fuelSupply.getNumber_liters()));
             etSupplyValue.setText(String.valueOf(fuelSupply.getSupply_value()));
-            etFuelValue.setText(String.valueOf(fuelSupply.getFuel_value()));
+            etFuelValue.setText(numberFormat.format(fuelSupply.getFuel_value()));
             etVehicleOdometer.setText(String.valueOf(fuelSupply.getVehicle_odometer()));
             etVehicleTravelledDistance.setText(String.valueOf(fuelSupply.getVehicle_travelled_distance()));
-            txStatAvgFuelConsumption.setText(String.valueOf(fuelSupply.getStat_avg_fuel_consumption()));
-            txStatCostPerLitre.setText(String.valueOf(fuelSupply.getStat_cost_per_litre()));
+            txStatAvgFuelConsumption.setText(numberFormat.format(fuelSupply.getStat_avg_fuel_consumption()));
+            txStatCostPerLitre.setText(currencyFormatter.format(fuelSupply.getStat_cost_per_litre()));
             rgSupplyReasonType.check(fuelSupply.getSupply_reason_type());
             etSupplyReason.setText(fuelSupply.getSupply_reason());
             nrSpinAssociatedTravelId=fuelSupply.getAssociated_travel_id();
@@ -296,6 +294,7 @@ public class FuelSupplyActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), R.string.Error_Data_Validation, Toast.LENGTH_LONG).show();
                 } else {
                     final FuelSupply f1 = new FuelSupply();
+                    Vehicle v1 = Database.mVehicleDao.fetchVehicleById(nrVehicleId);
 
                     if (g.getIdCurrency() != nrSpinCurrencyType ) {
                         final CurrencyQuote c1 = new CurrencyQuote();
@@ -318,60 +317,45 @@ public class FuelSupplyActivity extends AppCompatActivity {
                     f1.setCombustible(nrSpinCombustible);
                     f1.setFull_tank(vlFullTank);
                     f1.setCurrency_type(nrSpinCurrencyType);
-                    f1.setCurrency_quote_id(nrCurrencyQuoteId); // TODO - ver id correto
+                    f1.setCurrency_quote_id(nrCurrencyQuoteId); // TODO - ver id correto da moeda
                     f1.setSupply_value(Double.parseDouble(etSupplyValue.getText().toString()));
-                    f1.setFuel_value(Double.parseDouble(etFuelValue.getText().toString()));
-                    f1.setVehicle_odometer(Integer.parseInt(etVehicleOdometer.getText().toString()));
-                    f1.setVehicle_travelled_distance(Integer.parseInt(etVehicleTravelledDistance.getText().toString()));
-                    f1.setStat_avg_fuel_consumption(vStatAvgFuelConsumption);
-                    f1.setStat_cost_per_litre(vStatCostPerLitre);
+                    f1.setFuel_value(Double.parseDouble(etFuelValue.getText().toString().replace(",",".")));
                     f1.setSupply_reason_type(findViewById(rbSupplyReasonType).getId());
                     f1.setSupply_reason(etSupplyReason.getText().toString());
-                    f1.setAssociated_travel_id(nrSpinAssociatedTravelId==0?null:nrSpinAssociatedTravelId);
+                    f1.setAssociated_travel_id(nrSpinAssociatedTravelId);
+                    if (!etVehicleOdometer.getText().toString().isEmpty()) {
+                        f1.setVehicle_odometer(Integer.parseInt(etVehicleOdometer.getText().toString()));
+                        f1.setVehicle_travelled_distance(Integer.parseInt(etVehicleTravelledDistance.getText().toString()));
+                        f1.setStat_avg_fuel_consumption(vStatAvgFuelConsumption);
+                        f1.setStat_cost_per_litre(vStatCostPerLitre);
 
-                    final VehicleStatistics ve1 = new VehicleStatistics();
-                    ve1.setVehicle_id(nrVehicleId);
-                    ve1.setSupply_reason_type(findViewById(rbSupplyReasonType).getId());
-                    ve1.setStatistic_date(Utils.stringToDate(etSupplyDate.getText().toString()));
-                    ve1.setAvg_consumption(vStatAvgFuelConsumption);
-
-                    Vehicle v1;
-                    v1 = Database.mVehicleDao.fetchVehicleById(nrVehicleId);
-                    v1.setDt_odometer( Utils.stringToDate(etSupplyDate.getText().toString()));
-                    v1.setOdometer(Integer.parseInt(etVehicleOdometer.getText().toString()));
-
-                    if (!opInsert) {
-                        try {
-                            f1.setId(fuelSupply.getId());
-                            isSave = Database.mFuelSupplyDao.updateFuelSupply(f1);
-                            //if (vLastOdometerNew > 0) {
-                            //    isSave = Database.mVehicleDao.updateVehicle(v1);
-                            //    isSave = Database.mVehicleStatisticsDao.addVehicleStatistics(ve1);
-                            //}
-                        } catch (Exception e) {
-                            Toast.makeText(getApplicationContext(), R.string.Error_Changing_Data + e.getMessage(), Toast.LENGTH_LONG).show();
-                        }
-                    } else {
-                        try {
-                            isSave = Database.mFuelSupplyDao.addFuelSupply(f1);
-                            isSave = Database.mVehicleDao.updateVehicle(v1);
-
-                            // TODO - verificar abastecimentos antigos para não atualizar estatísticas
-                            if (Database.mVehicleStatisticsDao.changeVehicleStatistics(ve1)) {
-                                isSave = true;
-                            } else {
-                                isSave = Database.mVehicleStatisticsDao.addVehicleStatistics(ve1);
-                            }
-                        } catch (Exception e) {
-                            Toast.makeText(getApplicationContext(), R.string.Error_Including_Data + e.getMessage(), Toast.LENGTH_LONG).show();
-                        }
+                        v1.setDt_odometer(Utils.stringToDate(etSupplyDate.getText().toString()));
+                        v1.setOdometer(Integer.parseInt(etVehicleOdometer.getText().toString()));
                     }
-
+                    try {
+                        if (!opInsert) {
+                            //try {
+                                f1.setId(fuelSupply.getId());
+                                isSave = Database.mFuelSupplyDao.updateFuelSupply(f1);
+                            //} catch (Exception e) {
+                            //    Toast.makeText(getApplicationContext(), R.string.Error_Changing_Data + e.getMessage(), Toast.LENGTH_LONG).show();
+                            //}
+                        } else {
+                            //try {
+                                isSave = Database.mFuelSupplyDao.addFuelSupply(f1);
+                                if (!etVehicleOdometer.getText().toString().isEmpty()) {
+                                    isSave = Database.mVehicleDao.updateVehicle(v1);
+                                }
+                            //} catch (Exception e) {
+                            //    Toast.makeText(getApplicationContext(), R.string.Error_Including_Data + e.getMessage(), Toast.LENGTH_LONG).show();
+                            //}
+                        }
+                    } catch (Exception e) {
+                        Toast.makeText(getApplicationContext(),  R.string.Error_Saving_Data + e.getMessage(), Toast.LENGTH_LONG).show();
+                    }
                     setResult(isSave ? 1 : 0);
                     if (isSave) {
                         finish();
-                    } else {
-                        Toast.makeText(getApplicationContext(), R.string.Error_Saving_Data, Toast.LENGTH_LONG).show();
                     }
                 }
             }

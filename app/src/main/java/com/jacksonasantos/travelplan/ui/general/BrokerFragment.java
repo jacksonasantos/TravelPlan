@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -35,6 +36,7 @@ public class BrokerFragment extends Fragment  {
         BrokerListAdapter adapter = new BrokerListAdapter(Database.mBrokerDao.fetchAllBroker(), getContext());
         listBroker.setAdapter(adapter);
         listBroker.setLayoutManager(new LinearLayoutManager(getContext()));
+        listBroker.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
 
         adapter.notifyDataSetChanged();
         mDb.close();

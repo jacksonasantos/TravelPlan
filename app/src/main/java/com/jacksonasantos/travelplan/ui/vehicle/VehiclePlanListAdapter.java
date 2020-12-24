@@ -21,22 +21,22 @@ import com.jacksonasantos.travelplan.R;
 import com.jacksonasantos.travelplan.dao.Database;
 import com.jacksonasantos.travelplan.dao.Maintenance;
 import com.jacksonasantos.travelplan.dao.MaintenancePlan;
+import com.jacksonasantos.travelplan.dao.VehicleHasPlan;
 
 import java.util.List;
 
-public class MaintenancePlanListAdapter extends RecyclerView.Adapter<MaintenancePlanListAdapter.MyViewHolder> {
+public class VehiclePlanListAdapter extends RecyclerView.Adapter<VehiclePlanListAdapter.MyViewHolder> {
 
-    private final List<MaintenancePlan> mMaintenancePlan;
+    private final List<VehicleHasPlan> mVehicleHasPlan;
     Context context;
     String[] measureArray;
-
 
     public static class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         public ImageView imServiceType;
         public TextView txtDescription;
         public TextView txtMeasure;
-        public TextView txtExpiration_default;
+        public TextView txtExpiration;
         public ImageButton btnEdit;
         public ImageButton btnDelete;
 
@@ -45,7 +45,7 @@ public class MaintenancePlanListAdapter extends RecyclerView.Adapter<Maintenance
             imServiceType = v.findViewById(R.id.imServiceType);
             txtDescription = v.findViewById(R.id.txtDescription);
             txtMeasure = v.findViewById(R.id.txtMeasure);
-            txtExpiration_default = v.findViewById(R.id.txtExpiration_default);
+            txtExpiration = v.findViewById(R.id.txtExpiration);
             btnEdit = v.findViewById(R.id.btnEdit);
             btnDelete = v.findViewById(R.id.btnDelete);
             btnEdit.setOnClickListener(this);
@@ -57,47 +57,41 @@ public class MaintenancePlanListAdapter extends RecyclerView.Adapter<Maintenance
         }
     }
 
-    public MaintenancePlanListAdapter(List<MaintenancePlan> maintenancePlan, Context context) {
-        this.mMaintenancePlan = maintenancePlan;
+    public VehiclePlanListAdapter(List<VehicleHasPlan> vehicleHasPlans, Context context) {
+        this.mVehicleHasPlan = vehicleHasPlans;
         this.context = context;
-
-        Database mdb = new Database(context);
-        mdb.open();
     }
 
     @NonNull
     @Override
-    public MaintenancePlanListAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View maintenancePlanView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.fragment_item_maintenance_plan, parent, false);
+    public VehiclePlanListAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View vehicleView = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.fragment_item_vehicle_plan, parent, false);
         measureArray = parent.getResources().getStringArray(R.array.measure_plan);
-
-        return new MyViewHolder(maintenancePlanView);
+        return new MyViewHolder(vehicleView);
     }
 
+    // Replace the contents of a view (invoked by the layout manager)
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public void onBindViewHolder(@NonNull final MyViewHolder holder, final int position) {
-        final MaintenancePlan maintenancePlan = mMaintenancePlan.get(position);
+        final VehicleHasPlan vehicleHasPlan = mVehicleHasPlan.get(position);
+        final MaintenancePlan maintenancePlan = Database.mMaintenancePlanDao.fetchMaintenancePlanById(vehicleHasPlan.getMaintenance_plan_id());
         final Maintenance maintenance = new Maintenance();
 
         holder.imServiceType.setImageResource(maintenance.getServiceTypeImage(maintenancePlan.getService_type()));
         holder.txtDescription.setText(maintenancePlan.getDescription());
-        if (maintenancePlan.getExpiration_default()>0) {
-            holder.txtExpiration_default.setText(String.valueOf(maintenancePlan.getExpiration_default()));
-        } else {
-            holder.txtExpiration_default.setText("");
-        }
         holder.txtMeasure.setText(measureArray[maintenancePlan.getMeasure()]);
+        holder.txtExpiration.setText(vehicleHasPlan.getExpiration()==0?null:String.valueOf(vehicleHasPlan.getExpiration()));
 
         // btnEdit
         holder.btnEdit.setOnClickListener (new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                Intent intent = new Intent (v.getContext(), MaintenancePlanActivity.class);
-                intent.putExtra("maintenance_plan_id", maintenancePlan.getId());
+            public void onClick(View v) { // TODO - Arrumar o funcionamento desta manutenção
+                Intent intent = new Intent (v.getContext(), VehiclePlanActivity.class);
+                intent.putExtra("vehicle_id", vehicleHasPlan.getVehicle_id());
+                intent.putExtra("maintenance_plan_id", vehicleHasPlan.getMaintenance_plan_id());
                 context.startActivity(intent);
-                notifyDataSetChanged();
             }
         });
 
@@ -106,14 +100,14 @@ public class MaintenancePlanListAdapter extends RecyclerView.Adapter<Maintenance
             @Override
             public void onClick(View v) {
                 new AlertDialog.Builder(v.getContext())
-                        .setTitle(R.string.MaintenancePlan_Deleting)
+                        .setTitle(R.string.Vehicle_Plan_Deleting)
                         .setMessage(R.string.Msg_Confirm)
                         .setPositiveButton(R.string.Yes, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
                                 try {
-                                    Database.mMaintenancePlanDao.deleteMaintenancePlan(maintenancePlan.getId());
-                                    mMaintenancePlan.remove(position);
+                                    Database.mVehicleHasPlanDao.deleteVehicleHasPlan(vehicleHasPlan.getVehicle_id(),vehicleHasPlan.getMaintenance_plan_id());
+                                    mVehicleHasPlan.remove(position);
                                     notifyItemRemoved(position);
                                 } catch (Exception e) {
                                     Toast.makeText(context, context.getString(R.string.Error_Deleting_Data) + "\n" + e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
@@ -127,6 +121,6 @@ public class MaintenancePlanListAdapter extends RecyclerView.Adapter<Maintenance
 
     @Override
     public int getItemCount() {
-        return mMaintenancePlan.size();
+        return mVehicleHasPlan.size();
     }
 }

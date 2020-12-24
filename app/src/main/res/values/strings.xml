@@ -70,13 +70,16 @@
     <string name="Vehicle_Doors">Doors</string>
     <string name="Vehicle_Capacity">Capacity</string>
     <string name="Vehicle_Power">Power</string>
-    <string name="Vehicle_Full_Capacity">Full Capacity (L)</string>
-    <string name="Vehicle_Avg_Consumption">Average Consumption (KM/L)</string>
+    <string name="Vehicle_Full_Capacity">Full Capacity</string>
+    <string name="Vehicle_Avg_Consumption">Average Consumption</string>
     <string name="Vehicle_Odometer">Odometer</string>
     <string name="Vehicle_DtOdometer">Date Odometer</string>
     <string name="Vehicle_Estimated_Value">Estimated Value</string>
 
     <string name="Vehicle_Deleting">Deleting Vehicle</string>
+
+    <string name="Vehicle_Plan">Vehicle Maintenance Plan</string>
+    <string name="Vehicle_Plan_Deleting">Deleting Vehicle Plan</string>
 
     <!-- Maintenance Fragment -->
     <string name="Maintenance_Deleting">Deleting Maintenance Vehicle</string>
@@ -147,10 +150,10 @@
     <string name="Insurance_Total_Premium_Value">Total Premium Value</string>
     <string name="Insurance_Insurance_Deductible">Insurance Deductible</string>
     <string name="Insurance_Bonus_Class">Bonus Class</string>
-    <string name="Insurance_Note">Note</string>
-    <string name="Insurance_Status">Status</string>
+    <string name="Insurance_Note">Insurance Note</string>
+    <string name="Insurance_Status">Insurance Status</string>
 
-    <string name="insurance_type_vehicle">Vehicle</string>
+    <string name="insurance_type_vehicle">Type Vehicle</string>
     <string name="insurance_type_life">Life</string>
     <string name="insurance_type_property">Property</string>
     <string name="insurance_type_travel">Travel</string>
@@ -195,6 +198,7 @@
     <string name="bt_Delete">Delete</string>
     <string name="bt_Edit">Edit</string>
     <string name="bt_Refuel">Refuel</string>
+    <string name="bt_maintenance_plan">Maintenance Plan</string>
     <string name="menu_add">Add</string>
     <string name="menu_filter">Vehicle Filter</string>
     <string name="menu_save">Save</string>
@@ -255,8 +259,8 @@
     <string name="Travel_Description">Description</string>
     <string name="Travel_Departure_Date">Departure Date</string>
     <string name="Travel_Return_Date">Return Date</string>
-    <string name="Travel_Note">Note</string>
-    <string name="Travel_Status">Status</string>
+    <string name="Travel_Note">Travel Note</string>
+    <string name="Travel_Status">Travel Status</string>
 
     <string name="registered">Registered</string>
     <string name="planning">Planning</string>

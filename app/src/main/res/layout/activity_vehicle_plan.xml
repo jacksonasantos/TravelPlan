@@ -1,0 +1,222 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.vehicle.VehiclePlanActivity">
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/txVehicleName"
+                android:layout_width="330dp"
+                android:layout_height="20dp"
+                android:layout_marginStart="@dimen/labels_margin"
+                android:layout_marginLeft="@dimen/labels_margin"
+                android:layout_marginTop="@dimen/labels_space_top"
+                android:gravity="bottom|center_horizontal"
+                android:hint="@string/Vehicle_Name"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/imVehicleType"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/imVehicleType"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:layout_marginStart="@dimen/labels_margin"
+                android:layout_marginLeft="@dimen/labels_margin"
+                android:contentDescription="@string/Vehicle_Type"
+                android:hint="@string/Vehicle_Type"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="ContentDescription" />
+
+            <TextView
+                android:id="@+id/txVehicleLicencePlate"
+                android:layout_width="330dp"
+                android:layout_height="25dp"
+                android:layout_marginStart="@dimen/labels_margin"
+                android:layout_marginLeft="@dimen/labels_margin"
+                android:layout_marginTop="@dimen/labels_space_top"
+                android:gravity="bottom|center_horizontal"
+                android:hint="@string/Vehicle_Licence_Plate"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/imVehicleType"
+                app:layout_constraintTop_toBottomOf="@+id/txVehicleName" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <Button
+            android:id="@+id/buttonSeparator"
+            android:layout_width="match_parent"
+            android:layout_height="15sp"
+            android:clickable="false" />
+
+        <LinearLayout
+            android:id="@+id/llVehiclePlanChange"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:baselineAligned="false"
+                android:orientation="horizontal"
+                android:weightSum="1">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/input_layout_spinService_description"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/labels_margin"
+                    android:layout_marginLeft="@dimen/labels_margin"
+                    android:layout_marginTop="@dimen/labels_space_top"
+                    android:layout_marginEnd="@dimen/labels_margin"
+                    android:layout_marginRight="@dimen/labels_margin"
+                    android:layout_weight="1">
+
+                    <AutoCompleteTextView
+                        android:id="@+id/spinService_description"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/Maintenance_Plan_Description"
+                        android:inputType="none"
+                        android:nextFocusDown="@+id/etRecommendation"
+                        android:textSize="12sp" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:baselineAligned="false"
+                android:orientation="horizontal"
+                android:weightSum="1">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/input_layout_etRecommendation"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/labels_margin"
+                    android:layout_marginLeft="@dimen/labels_margin"
+                    android:layout_marginTop="@dimen/labels_space_top"
+                    android:layout_marginEnd="@dimen/labels_margin"
+                    android:layout_marginRight="@dimen/labels_margin"
+                    android:layout_weight="1">
+
+                    <EditText
+                        android:id="@+id/etRecommendation"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:autofillHints="no"
+                        android:clickable="false"
+                        android:focusable="false"
+                        android:hint="@string/Maintenance_Plan_Recommendation"
+                        android:inputType="text"
+                        android:nextFocusDown="@+id/etMeasure"
+                        android:textSize="12sp" />
+                </com.google.android.material.textfield.TextInputLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:baselineAligned="false"
+                android:orientation="horizontal"
+                android:weightSum="1">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/input_layout_etMeasure"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/labels_margin"
+                    android:layout_marginLeft="@dimen/labels_margin"
+                    android:layout_marginTop="@dimen/labels_space_top"
+                    android:layout_marginEnd="@dimen/labels_margin"
+                    android:layout_marginRight="@dimen/labels_margin"
+                    android:layout_weight="0.50">
+
+                    <EditText
+                        android:id="@+id/etMeasure"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:autofillHints="no"
+                        android:hint="@string/Maintenance_Plan_Measure"
+                        android:inputType="none"
+                        android:nextFocusDown="@+id/etExpirationNumber"
+                        android:textSize="12sp"
+                        android:clickable="false"
+                        android:focusable="false" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/input_layout_etExpiration"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/labels_margin"
+                    android:layout_marginLeft="@dimen/labels_margin"
+                    android:layout_marginTop="@dimen/labels_space_top"
+                    android:layout_marginEnd="@dimen/labels_margin"
+                    android:layout_marginRight="@dimen/labels_margin"
+                    android:layout_weight="0.50">
+
+                    <EditText
+                        android:id="@+id/etExpirationNumber"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:autofillHints="no"
+                        android:hint="@string/Maintenance_Plan_Expiration"
+                        android:inputType="number"
+                        android:nextFocusDown="@+id/btSaveVehiclePlan"
+                        android:textSize="12sp" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/btSaveVehiclePlan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="8dp"
+                android:text="@string/bt_Save" />
+
+            <Button
+                android:id="@+id/buttonSeparator2"
+                android:layout_width="match_parent"
+                android:layout_height="15dp"
+                android:clickable="false" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/llVehiclePlan"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:baselineAligned="false"
+            android:orientation="horizontal"
+            android:weightSum="1">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvVehiclePlan"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+</ScrollView>

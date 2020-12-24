@@ -35,12 +35,12 @@ public  class InsuranceActivity extends AppCompatActivity {
     private RadioGroup rgInsuranceType;
     private int rbInsuranceType;
     private AutoCompleteTextView spinInsurance_Company;
-    private Integer nrspinInsurance_Company;
+    private Integer nrSpinInsurance_Company;
     private EditText etDescription;
     private EditText etInsurance_Policy;
     private EditText etIssuance_Date;
     private AutoCompleteTextView spinBroker;
-    private Integer nrspinBroker;
+    private Integer nrSpinBroker;
     private EditText etInitial_Effective_Date;
     private EditText etFinal_Effective_Date;
     private EditText etNet_Premium_Value;
@@ -52,9 +52,9 @@ public  class InsuranceActivity extends AppCompatActivity {
     private TextView tvStatus;
     private int nrStatus;
     private AutoCompleteTextView spinTravel;
-    private Integer nrspinTravel;
+    private Integer nrSpinTravel;
     private AutoCompleteTextView spinVehicle;
-    private Integer nrspinVehicle;
+    private Integer nrSpinVehicle;
     private TextInputLayout input_layout_spinVehicle;
     private TextInputLayout input_layout_spinTravel;
 
@@ -122,24 +122,24 @@ public  class InsuranceActivity extends AppCompatActivity {
                     case 1:
                         input_layout_spinVehicle.setVisibility(View.VISIBLE);
                         input_layout_spinTravel.setVisibility(View.GONE);
-                        nrspinTravel=0; spinTravel.setText("");
+                        nrSpinTravel=0; spinTravel.setText("");
                         break;
                     case 4:
                         input_layout_spinTravel.setVisibility(View.VISIBLE);
                         input_layout_spinVehicle.setVisibility(View.GONE);
-                        nrspinVehicle=0; spinVehicle.setText("");
+                        nrSpinVehicle=0; spinVehicle.setText("");
                         break;
                     default:
                         input_layout_spinTravel.setVisibility(View.GONE);
                         input_layout_spinVehicle.setVisibility(View.GONE);
-                        nrspinTravel=0; spinTravel.setText("");
-                        nrspinVehicle=0; spinVehicle.setText("");
+                        nrSpinTravel=0; spinTravel.setText("");
+                        nrSpinVehicle=0; spinVehicle.setText("");
                         break;
                 }
             }
         });
         final List<InsuranceCompany> insuranceCompanies =  Database.mInsuranceCompanyDao.fetchArrayInsuranceCompany();
-        ArrayAdapter adapterIC = new ArrayAdapter(this, android.R.layout.simple_spinner_item, insuranceCompanies);
+        ArrayAdapter<InsuranceCompany> adapterIC = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, insuranceCompanies);
         adapterIC.setDropDownViewResource( android.R.layout.simple_spinner_dropdown_item);
         spinInsurance_Company.setAdapter(adapterIC);
         final InsuranceCompany[] insuranceCompany = {new InsuranceCompany()};
@@ -147,14 +147,14 @@ public  class InsuranceActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 insuranceCompany[0] = (InsuranceCompany) parent.getItemAtPosition(position);
-                nrspinInsurance_Company = insuranceCompany[0].getId();
+                nrSpinInsurance_Company = insuranceCompany[0].getId();
             }
 
         });
         adapterIC.notifyDataSetChanged();
 
         final List<Broker> brokers =  Database.mBrokerDao.fetchArrayBroker();
-        ArrayAdapter adapterB = new ArrayAdapter(this, android.R.layout.simple_spinner_item, brokers);
+        ArrayAdapter<Broker> adapterB = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, brokers);
         adapterB.setDropDownViewResource( android.R.layout.simple_spinner_dropdown_item);
         spinBroker.setAdapter(adapterB);
         final Broker[] broker = {new Broker()};
@@ -162,13 +162,13 @@ public  class InsuranceActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 broker[0] = (Broker) parent.getItemAtPosition(position);
-                nrspinBroker = broker[0].getId();
+                nrSpinBroker = broker[0].getId();
             }
         });
         adapterB.notifyDataSetChanged();
 
         final List<Travel> travels =  Database.mTravelDao.fetchArrayTravel();
-        ArrayAdapter adapterT = new ArrayAdapter(this, android.R.layout.simple_spinner_item, travels);
+        ArrayAdapter<Travel> adapterT = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, travels);
         adapterT.setDropDownViewResource( android.R.layout.simple_spinner_dropdown_item);
         spinTravel.setAdapter(adapterT);
         final Travel[] travel = {new Travel()};
@@ -176,13 +176,13 @@ public  class InsuranceActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 travel[0] = (Travel) parent.getItemAtPosition(position);
-                nrspinTravel = travel[0].getId();
+                nrSpinTravel = travel[0].getId();
             }
         });
         adapterT.notifyDataSetChanged();
 
         final List<Vehicle> vehicles =  Database.mVehicleDao.fetchArrayVehicles();
-        ArrayAdapter adapterV = new ArrayAdapter(this, android.R.layout.simple_spinner_item, vehicles);
+        ArrayAdapter<Vehicle> adapterV = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, vehicles);
         adapterV.setDropDownViewResource( android.R.layout.simple_spinner_dropdown_item);
         spinVehicle.setAdapter(adapterV);
         final Vehicle[] vehicle = {new Vehicle()};
@@ -190,7 +190,7 @@ public  class InsuranceActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 vehicle[0] = (Vehicle) parent.getItemAtPosition(position);
-                nrspinVehicle = vehicle[0].getId();
+                nrSpinVehicle = vehicle[0].getId();
             }
         });
         adapterV.notifyDataSetChanged();
@@ -201,8 +201,8 @@ public  class InsuranceActivity extends AppCompatActivity {
 
         if (insurance != null) {
             rgInsuranceType.check(insurance.getInsurance_type());
-            nrspinInsurance_Company=insurance.getInsurance_company_id();
-            InsuranceCompany ic1 = Database.mInsuranceCompanyDao.fetchInsuranceCompanyById(nrspinInsurance_Company);
+            nrSpinInsurance_Company=insurance.getInsurance_company_id();
+            InsuranceCompany ic1 = Database.mInsuranceCompanyDao.fetchInsuranceCompanyById(nrSpinInsurance_Company);
             if (ic1.getCompany_name()!=null ) {
                 for (int x = 0; x <= spinInsurance_Company.getAdapter().getCount(); x++) {
                     if (spinInsurance_Company.getAdapter().getItem(x).toString().equals(ic1.getCompany_name())) {
@@ -214,8 +214,8 @@ public  class InsuranceActivity extends AppCompatActivity {
             etDescription.setText(insurance.getDescription());
             etInsurance_Policy.setText(insurance.getInsurance_policy());
             etIssuance_Date.setText(Utils.dateToString(insurance.getIssuance_date()));
-            nrspinBroker=insurance.getBroker_id();
-            Broker b1 = Database.mBrokerDao.fetchBrokerById(nrspinBroker);
+            nrSpinBroker=insurance.getBroker_id();
+            Broker b1 = Database.mBrokerDao.fetchBrokerById(nrSpinBroker);
             if (b1.getName() != null) {
                 for (int x = 0; x <= spinBroker.getAdapter().getCount(); x++) {
                     if (spinBroker.getAdapter().getItem(x).toString().equals(b1.getName())) {
@@ -234,8 +234,8 @@ public  class InsuranceActivity extends AppCompatActivity {
             etNote.setText(insurance.getNote());
             nrStatus=insurance.getStatus();
             tvStatus.setText(getResources().getStringArray(R.array.insurance_status_array)[nrStatus]);
-            nrspinTravel=insurance.getTravel_id();
-            Travel t1 = Database.mTravelDao.fetchTravelById(nrspinTravel);
+            nrSpinTravel=insurance.getTravel_id();
+            Travel t1 = Database.mTravelDao.fetchTravelById(nrSpinTravel);
             if (t1.getDescription()!=null) {
                 for (int x = 0; x <= spinTravel.getAdapter().getCount(); x++) {
                     if (spinTravel.getAdapter().getItem(x).toString().equals(t1.getDescription())) {
@@ -244,8 +244,8 @@ public  class InsuranceActivity extends AppCompatActivity {
                     }
                 }
             }
-            nrspinVehicle=insurance.getVehicle_id();
-            Vehicle v1 = Database.mVehicleDao.fetchVehicleById(nrspinVehicle);
+            nrSpinVehicle=insurance.getVehicle_id();
+            Vehicle v1 = Database.mVehicleDao.fetchVehicleById(nrSpinVehicle);
             if ( v1.getName()!=null ) {
                 for (int x = 0; x <= spinVehicle.getAdapter().getCount(); x++) {
                     if (spinVehicle.getAdapter().getItem(x).toString().equals(v1.getName())) {
@@ -271,11 +271,11 @@ public  class InsuranceActivity extends AppCompatActivity {
                     final Insurance i1 = new Insurance();
 
                     i1.setInsurance_type(rbInsuranceType);
-                    i1.setInsurance_company_id(nrspinInsurance_Company);
+                    i1.setInsurance_company_id(nrSpinInsurance_Company);
                     i1.setDescription(etDescription.getText().toString());
                     i1.setInsurance_policy(etInsurance_Policy.getText().toString());
                     i1.setIssuance_date(Utils.stringToDate(etIssuance_Date.getText().toString()));
-                    i1.setBroker_id(nrspinBroker);
+                    i1.setBroker_id(nrSpinBroker);
                     i1.setInitial_effective_date(Utils.stringToDate(etInitial_Effective_Date.getText().toString()));
                     i1.setFinal_effective_date(Utils.stringToDate(etFinal_Effective_Date.getText().toString()));
                     i1.setNet_premium_value(Double.parseDouble(etNet_Premium_Value.getText().toString()));
@@ -285,8 +285,8 @@ public  class InsuranceActivity extends AppCompatActivity {
                     i1.setBonus_class(Integer.parseInt(etBonus_Class.getText().toString()));
                     i1.setNote(etNote.getText().toString());
                     i1.setStatus(nrStatus);
-                    i1.setTravel_id(nrspinTravel==0 ? null : nrspinTravel);
-                    i1.setVehicle_id(nrspinVehicle == 0 ? null : nrspinVehicle);
+                    i1.setTravel_id(nrSpinTravel==0 ? null : nrSpinTravel);
+                    i1.setVehicle_id(nrSpinVehicle == 0 ? null : nrSpinVehicle);
 
                     try {
                         if (!opInsert) {
@@ -318,11 +318,11 @@ public  class InsuranceActivity extends AppCompatActivity {
 
         try {
             if (rbInsuranceType!=0
-                && nrspinInsurance_Company!=0
+                && nrSpinInsurance_Company!=0
                 && !etDescription.getText().toString().trim().isEmpty()
                 && !etInsurance_Policy.getText().toString().trim().isEmpty()
                 && !etIssuance_Date.getText().toString().trim().isEmpty()
-                && nrspinBroker!=0
+                && nrSpinBroker!=0
                 && !etInitial_Effective_Date.getText().toString().trim().isEmpty()
                 //&& !etFinal_Effective_Date.getText().toString().trim().isEmpty()
                 && !etNet_Premium_Value.getText().toString().trim().isEmpty()
@@ -331,8 +331,8 @@ public  class InsuranceActivity extends AppCompatActivity {
                 && !etInsurance_Deductible.getText().toString().trim().isEmpty()
                 && !etBonus_Class.getText().toString().trim().isEmpty()
                 //&& !etNote.getText().toString().trim().isEmpty()
-                //&& nrspinTravel!=0
-                //&& nrspinVehicle!=0
+                //&& nrSpinTravel!=0
+                //&& nrSpinVehicle!=0
                )
             {
                 isValid = true;

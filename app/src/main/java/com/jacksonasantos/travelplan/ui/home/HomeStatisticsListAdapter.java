@@ -1,7 +1,7 @@
 package com.jacksonasantos.travelplan.ui.home;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.res.Resources;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -73,6 +73,7 @@ public class HomeStatisticsListAdapter extends RecyclerView.Adapter<HomeStatisti
     }
 
     // Replace the contents of a view (invoked by the layout manager)
+    @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull final MyViewHolder holder, final int position) {
         final VehicleStatistics vehicleStatistics = mVehicleStatistics.get(position);

@@ -11,12 +11,12 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.jacksonasantos.travelplan.R;
 import com.jacksonasantos.travelplan.dao.Database;
-import com.jacksonasantos.travelplan.ui.utility.Globals;
 
 public class MaintenancePlanFragment extends Fragment  {
 
@@ -32,16 +32,17 @@ public class MaintenancePlanFragment extends Fragment  {
         Database mDb = new Database(getContext());
         mDb.open();
 
-        RecyclerView listMaintenancePlan = this.getView().findViewById(R.id.list);
+        RecyclerView listMaintenancePlan = this.requireView().findViewById(R.id.list);
         MaintenancePlanListAdapter adapter = new MaintenancePlanListAdapter(Database.mMaintenancePlanDao.fetchAllMaintenancePlan(), getContext());
         listMaintenancePlan.setAdapter(adapter);
         listMaintenancePlan.setLayoutManager(new LinearLayoutManager(getContext()));
+        listMaintenancePlan.addItemDecoration(new DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL));
 
         adapter.notifyDataSetChanged();
         mDb.close();
     }
 
-    private Menu mMenu;
+    Menu mMenu;
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
@@ -65,13 +66,11 @@ public class MaintenancePlanFragment extends Fragment  {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         Intent intent;
-        switch(item.getItemId()) {
-            case R.id.addmenu:
-                intent = new Intent( getContext(), MaintenancePlanActivity.class );
-                startActivity( intent );
-                break;
-            default:
-                return super.onOptionsItemSelected(item);
+        if (item.getItemId() == R.id.addmenu) {
+            intent = new Intent(getContext(), MaintenancePlanActivity.class);
+            startActivity(intent);
+        } else {
+            return super.onOptionsItemSelected(item);
         }
         return true;
     }

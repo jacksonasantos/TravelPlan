@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -31,10 +32,11 @@ public class TravelFragment extends Fragment {
         Database mDb = new Database(getContext());
         mDb.open();
 
-        RecyclerView listTravel = this.getView().findViewById(R.id.list);
+        RecyclerView listTravel = this.requireView().findViewById(R.id.list);
         TravelListAdapter adapter = new TravelListAdapter(Database.mTravelDao.fetchAllTravel(), getContext());
         listTravel.setAdapter(adapter);
         listTravel.setLayoutManager(new LinearLayoutManager(getContext()));
+        listTravel.addItemDecoration(new DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL));
 
         adapter.notifyDataSetChanged();
         mDb.close();
@@ -61,14 +63,11 @@ public class TravelFragment extends Fragment {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         Intent intent;
-        switch(item.getItemId()) {
-            case R.id.addmenu:
-                intent = new Intent( getContext(), TravelActivity.class );
-                startActivity( intent );
-                break;
-
-            default:
-                return super.onOptionsItemSelected(item);
+        if (item.getItemId() == R.id.addmenu) {
+            intent = new Intent(getContext(), TravelActivity.class);
+            startActivity(intent);
+        } else {
+            return super.onOptionsItemSelected(item);
         }
         return true;
     }

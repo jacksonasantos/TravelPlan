@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -32,10 +33,11 @@ public class VehicleFragment extends Fragment  {
         Database mDb = new Database(getContext());
         mDb.open();
 
-        RecyclerView listVehicles = this.getView().findViewById(R.id.list);
+        RecyclerView listVehicles = this.requireView().findViewById(R.id.list);
         VehicleListAdapter adapter = new VehicleListAdapter(Database.mVehicleDao.fetchAllVehicles(), getContext());
         listVehicles.setAdapter(adapter);
         listVehicles.setLayoutManager(new LinearLayoutManager(getContext()));
+        listVehicles.addItemDecoration(new DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL));
 
         mDb.close();
         adapter.notifyDataSetChanged();
@@ -61,7 +63,7 @@ public class VehicleFragment extends Fragment  {
         m3.setVisible(true);
     }
 
-    @SuppressLint("UseCompatLoadingForDrawables")
+    @SuppressLint({"UseCompatLoadingForDrawables", "NonConstantResourceId"})
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         Intent intent;
@@ -79,7 +81,7 @@ public class VehicleFragment extends Fragment  {
                     this.mMenu.getItem(0).setIcon(getResources().getDrawable(R.drawable.ic_menu_filter_no));
                 }
 
-                RecyclerView listMaintenance = this.getView().findViewById(R.id.list);
+                RecyclerView listMaintenance = this.requireView().findViewById(R.id.list);
                 VehicleListAdapter adapter = new VehicleListAdapter(Database.mVehicleDao.fetchAllVehicles(), getContext());
                 listMaintenance.setAdapter(adapter);
                 return true;

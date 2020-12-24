@@ -1,4 +1,5 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -17,12 +18,13 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:baselineAligned="false"
                 android:orientation="horizontal"
-                android:weightSum="1"
-                android:baselineAligned="false">
+                android:weightSum="1">
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/input_layout_spinService_type"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/labels_margin"
@@ -30,8 +32,7 @@
                     android:layout_marginTop="@dimen/labels_space_top"
                     android:layout_marginEnd="@dimen/labels_margin"
                     android:layout_marginRight="@dimen/labels_margin"
-                    android:layout_weight="1"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu">
+                    android:layout_weight="1">
 
                     <AutoCompleteTextView
                         android:id="@+id/spinService_type"
@@ -49,9 +50,9 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:baselineAligned="false"
                 android:orientation="horizontal"
-                android:weightSum="1"
-                android:baselineAligned="false">
+                android:weightSum="1">
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/input_layout_etDescription"
@@ -63,27 +64,28 @@
                     android:layout_marginEnd="@dimen/labels_margin"
                     android:layout_marginRight="@dimen/labels_margin"
                     android:layout_weight="1">
+
                     <EditText
                         android:id="@+id/etDescription"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:autofillHints="no"
                         android:hint="@string/Maintenance_Plan_Description"
-                        android:nextFocusDown="@+id/etExpiration"
-                        android:textSize="12sp"
-                        android:inputType="text" />
+                        android:inputType="text"
+                        android:nextFocusDown="@+id/etExpiration_default"
+                        android:textSize="12sp" />
                 </com.google.android.material.textfield.TextInputLayout>
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:baselineAligned="false"
                 android:orientation="horizontal"
-                android:weightSum="1"
-                android:baselineAligned="false">
+                android:weightSum="1">
 
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/input_layout_etExpiration"
+                    android:id="@+id/input_layout_etExpiration_default"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/labels_margin"
@@ -94,18 +96,19 @@
                     android:layout_weight="0.50">
 
                     <EditText
-                        android:id="@+id/etExpiration"
+                        android:id="@+id/etExpiration_default"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:hint="@string/Maintenance_Plan_Expiration"
+                        android:importantForAutofill="no"
                         android:inputType="number"
                         android:nextFocusDown="@+id/spinMeasure"
-                        android:textSize="12sp"
-                        android:importantForAutofill="no" />
+                        android:textSize="12sp" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/input_layout_spinMeasure"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/labels_margin"
@@ -113,15 +116,15 @@
                     android:layout_marginTop="@dimen/labels_space_top"
                     android:layout_marginEnd="@dimen/labels_margin"
                     android:layout_marginRight="@dimen/labels_margin"
-                    android:layout_weight="0.50"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu">
+                    android:layout_weight="0.50">
+
                     <AutoCompleteTextView
                         android:id="@+id/spinMeasure"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:entries="@array/measure_plan"
-                        android:inputType="none"
                         android:hint="@string/Maintenance_Plan_Measure"
+                        android:inputType="none"
                         android:nextFocusDown="@+id/etRecommendation"
                         android:textSize="12sp" />
                 </com.google.android.material.textfield.TextInputLayout>
@@ -133,9 +136,9 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:baselineAligned="false"
                 android:orientation="horizontal"
-                android:weightSum="1"
-                android:baselineAligned="false">
+                android:weightSum="1">
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/input_layout_etRecommendation"

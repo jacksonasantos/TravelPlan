@@ -1,5 +1,7 @@
 package com.jacksonasantos.travelplan.dao;
 
+import androidx.annotation.NonNull;
+
 public class VehicleHasPlan {
     public Integer vehicle_id;
     public Integer maintenance_plan_id;

@@ -8,7 +8,7 @@ public interface MaintenancePlanISchema {
     String MAINTENANCE_PLAN_SERVICE_TYPE = "service_type";
     String MAINTENANCE_PLAN_DESCRIPTION = "description";
     String MAINTENANCE_PLAN_MEASURE = "measure";
-    String MAINTENANCE_PLAN_EXPIRATION = "expiration";
+    String MAINTENANCE_PLAN_EXPIRATION_DEFAULT = "expiration_default";
     String MAINTENANCE_PLAN_RECOMMENDATION = "recommendation";
 
     // Version 22
@@ -18,7 +18,7 @@ public interface MaintenancePlanISchema {
             + MAINTENANCE_PLAN_SERVICE_TYPE + " INT, "
             + MAINTENANCE_PLAN_DESCRIPTION + " TEXT, "
             + MAINTENANCE_PLAN_MEASURE + " INT, "
-            + MAINTENANCE_PLAN_EXPIRATION + " INT, "
+            + MAINTENANCE_PLAN_EXPIRATION_DEFAULT + " INT, "
             + MAINTENANCE_PLAN_RECOMMENDATION + " STRING "
             + ")";
 
@@ -27,7 +27,7 @@ public interface MaintenancePlanISchema {
              MAINTENANCE_PLAN_SERVICE_TYPE,
              MAINTENANCE_PLAN_DESCRIPTION,
              MAINTENANCE_PLAN_MEASURE,
-             MAINTENANCE_PLAN_EXPIRATION,
+             MAINTENANCE_PLAN_EXPIRATION_DEFAULT,
              MAINTENANCE_PLAN_RECOMMENDATION
     };
 }

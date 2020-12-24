@@ -8,8 +8,8 @@
     <string name="personal_age">Sua Idade</string>
     <string name="personal_gender">Seu Gênero Sexual</string>
     <string name="personal_header">Dados Pessoais</string>
-    <string name="Vehicle_Full_Capacity">Capacidade Combustível (L)</string>
-    <string name="Vehicle_Avg_Consumption">Consumo Médio (KM/L)</string>
+    <string name="Vehicle_Full_Capacity">Capacidade Combustível</string>
+    <string name="Vehicle_Avg_Consumption">Consumo Médio</string>
     <string name="menu_travel">Viagens</string>
     <string name="Vehicle_Licence_Plate">Placa de Identificação</string>
     <string name="menu_vehicle">Veículos</string>
@@ -97,7 +97,7 @@
     <string name="oil_change">Troca de Óleo</string>
     <string name="spark_plug">Velas de Ignição</string>
     <string name="menu_maintenance">Serviço de Manutenção</string>
-    <string name="Maintenance_Deleting">Excluir a Manutenção do Veículo</string>
+    <string name="Maintenance_Deleting">Excluindo Manutenção do Veículo</string>
     <string name="Maintenance_Vehicle">Manutenção do Veículo</string>
     <string name="Maintenance_Type">Tipo de Manutenção</string>
     <string name="Maintenance_Expiration_KM">Quilometragem de Validade</string>
@@ -139,13 +139,13 @@
     <string name="InsuranceCompany_ZipCode">CEP</string>
     <string name="InsuranceCompany_Telephone">Telefone</string>
     <string name="InsuranceCompany_Authorization_Date">Data de Autorização</string>
-    <string name="Insurance_Company_Deleting">Deletar Seguradora</string>
+    <string name="Insurance_Company_Deleting">Excluindo Seguradora</string>
     <string name="InsuranceCompany_Fip_Code">Código FIP</string>
     <string name="Insurance_Company">Companhia de Seguros</string>
     <string name="Vehicle_Fuel_Type">Tipo de Combustível</string>
     <string name="VehicleStatistics">Estatísticas do Veículo</string>
     <string name="VehicleConsumption">Consumo</string>
-    <string name="Currency_Quote_Deleting">Deletar Cotação da Moeda</string>
+    <string name="Currency_Quote_Deleting">Excluindo Cotação da Moeda</string>
     <string name="Currency_Quote">Cotação de Moeda</string>
     <string name="CurrencyQuote_Value">Valor da Cotação</string>
     <string name="CurrencyQuote_Date">Data da Cotação</string>
@@ -154,7 +154,7 @@
     <string name="planning">Em Planejamento</string>
     <string name="executed">Executada</string>
     <string name="Travel">Viagens</string>
-    <string name="Travel_Deleting">Deletar Viagem</string>
+    <string name="Travel_Deleting">Excluindo Viagem</string>
     <string name="Travel_Status">Status da Viagem</string>
     <string name="Travel_Description">Descrição</string>
     <string name="Travel_Departure_Date">Data Partida</string>
@@ -167,7 +167,7 @@
     <string name="Broker_Phone">Telefone</string>
     <string name="Broker_Email">E-mail</string>
     <string name="Broker">Corretor</string>
-    <string name="Broker_Deleting">Deletar Corretor</string>
+    <string name="Broker_Deleting">Excluindo Corretor</string>
     <string name="menu_broker">Corretores</string>
     <string name="Insurance_Type">Tipo de Seguro</string>
     <string name="Insurance_Insurance_Policy">Apólice</string>
@@ -182,17 +182,17 @@
     <string name="Insurance_Bonus_Class">Classe de Bonus</string>
     <string name="Insurance_Note">Observação</string>
     <string name="Insurance">Seguros</string>
-    <string name="Insurance_Deleting">Deletar Seguro</string>
-    <string name="Insurance_Status">Status</string>
-    <string name="insurance_type_vehicle">Veículo</string>
+    <string name="Insurance_Deleting">Excluindo Seguro</string>
+    <string name="Insurance_Status">Status do Seguro</string>
+    <string name="insurance_type_vehicle">Tipo Veículo</string>
     <string name="insurance_type_life">Vida</string>
     <string name="insurance_type_property">Propriedade</string>
     <string name="insurance_type_travel">Viagem</string>
     <string name="menu_insurance">Seguros</string>
     <string name="Insurance_Description">Descrição</string>
-    <string name="Maintenance_Status">Status</string>
+    <string name="Maintenance_Status">Status da Manutenção</string>
     <string name="InsuranceExpiration">Vencimento de Seguros</string>
-    <string name="overdue">Em atrasi</string>
+    <string name="overdue">Em atraso</string>
     <string name="Error_Deleting_Data">Erro ao excluir dados</string>
     <string name="menu_general">Gerais</string>
     <string name="FuelSupply_AssociatedTravel">Viagem Associada</string>
@@ -209,4 +209,7 @@
     <string name="Maintenance_Plan_Recommendation">Recomendação</string>
     <string name="Maintenance_Plan">Plano de Manutenção</string>
     <string name="menu_maintenance_plan">Plano de Manutenção</string>
+    <string name="bt_maintenance_plan">Plano de Manutenção</string>
+    <string name="Vehicle_Plan">Plano de Manutenção do Veículo</string>
+    <string name="Vehicle_Plan_Deleting">Excluindo Item do Plano de Manutenção</string>
 </resources>

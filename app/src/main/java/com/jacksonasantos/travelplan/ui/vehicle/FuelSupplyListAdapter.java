@@ -121,7 +121,7 @@ public class FuelSupplyListAdapter extends RecyclerView.Adapter<FuelSupplyListAd
                                     v1 = Database.mVehicleDao.fetchVehicleById(fuelSupply.getVehicle_id());
                                     v1.setDt_odometer( f1.getSupply_date());
                                     v1.setOdometer(f1.getVehicle_odometer());
-                                    boolean isSave = Database.mVehicleDao.updateVehicle(v1);
+                                    Database.mVehicleDao.updateVehicle(v1);
                                     notifyItemRemoved(position);
                                 } catch (Exception e) {
                                     Toast.makeText(context, context.getString(R.string.Error_Deleting_Data) + "\n" + e.getLocalizedMessage(), Toast.LENGTH_LONG).show();

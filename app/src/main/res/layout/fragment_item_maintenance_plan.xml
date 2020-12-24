@@ -15,7 +15,7 @@
         android:layout_marginStart="@dimen/labels_marginLeft"
         android:layout_marginLeft="@dimen/labels_marginLeft"
         android:contentDescription="@string/Maintenance_Type"
-        app:layout_constraintBottom_toTopOf="@+id/button"
+        app:layout_constraintBottom_toBottomOf="@+id/txtExpiration_default"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -33,13 +33,12 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/txtExpiration"
+        android:id="@+id/txtExpiration_default"
         android:layout_width="130dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/labels_marginLeft"
         android:layout_marginLeft="@dimen/labels_marginLeft"
         android:gravity="end|center_vertical"
-        app:layout_constraintBottom_toTopOf="@+id/button"
         app:layout_constraintStart_toEndOf="@+id/imServiceType"
         app:layout_constraintTop_toBottomOf="@+id/txtDescription" />
 
@@ -50,7 +49,6 @@
         android:layout_marginEnd="@dimen/labels_marginLeft"
         android:layout_marginRight="@dimen/labels_marginLeft"
         android:gravity="start|center_vertical"
-        app:layout_constraintBottom_toTopOf="@+id/button"
         app:layout_constraintEnd_toStartOf="@+id/btnEdit"
         app:layout_constraintTop_toBottomOf="@+id/txtDescription" />
 
@@ -59,7 +57,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:contentDescription="@string/bt_Edit"
-        app:layout_constraintBottom_toTopOf="@+id/button"
         app:layout_constraintEnd_toStartOf="@+id/btnDelete"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_menu_edit" />
@@ -73,14 +70,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/btnEdit"
         app:srcCompat="@drawable/ic_menu_delete" />
-
-    <Button
-        android:id="@+id/button"
-        android:layout_width="match_parent"
-        android:layout_height="13dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -24,8 +24,8 @@ public class MaintenancePlanActivity extends AppCompatActivity {
 
     private int nrSpinService_type;
     private EditText etDescription;
-    private int nrspinMeasure;
-    private EditText etExpiration;
+    private int nrSpinMeasure;
+    private EditText etExpiration_default;
     private EditText etRecommendation;
 
     private boolean opInsert = true;
@@ -64,7 +64,7 @@ public class MaintenancePlanActivity extends AppCompatActivity {
         AutoCompleteTextView spinService_type = findViewById(R.id.spinService_type);
         etDescription = findViewById(R.id.etDescription);
         AutoCompleteTextView spinMeasure = findViewById(R.id.spinMeasure);
-        etExpiration = findViewById(R.id.etExpiration);
+        etExpiration_default = findViewById(R.id.etExpiration_default);
         etRecommendation = findViewById(R.id.etRecommendation);
 
         Utils.createSpinnerResources(R.array.vehicle_services, spinService_type, this);
@@ -75,10 +75,10 @@ public class MaintenancePlanActivity extends AppCompatActivity {
             }
         });
         Utils.createSpinnerResources(R.array.measure_plan, spinMeasure, this);
-        nrspinMeasure = 0;
+        nrSpinMeasure = 0;
         spinMeasure.setOnItemClickListener(new Spinner.OnItemClickListener() {
             @Override public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                nrspinMeasure = (int) adapterView.getItemIdAtPosition(i);
+                nrSpinMeasure = (int) adapterView.getItemIdAtPosition(i);
             }
         });
 
@@ -86,9 +86,9 @@ public class MaintenancePlanActivity extends AppCompatActivity {
             nrSpinService_type=maintenancePlan.getService_type();
             spinService_type.setText(getResources().getStringArray(R.array.vehicle_services)[nrSpinService_type],false);
             etDescription.setText(maintenancePlan.getDescription());
-            nrspinMeasure=maintenancePlan.getMeasure();
-            spinMeasure.setText(getResources().getStringArray(R.array.measure_plan)[nrspinMeasure],false);
-            etExpiration.setText(String.valueOf(maintenancePlan.getExpiration()));
+            nrSpinMeasure=maintenancePlan.getMeasure();
+            spinMeasure.setText(getResources().getStringArray(R.array.measure_plan)[nrSpinMeasure],false);
+            etExpiration_default.setText(String.valueOf(maintenancePlan.getExpiration_default()));
             etRecommendation.setText(maintenancePlan.getRecommendation());
         }
     }
@@ -108,8 +108,8 @@ public class MaintenancePlanActivity extends AppCompatActivity {
 
                     mp1.setService_type(nrSpinService_type);
                     mp1.setDescription(etDescription.getText().toString());
-                    mp1.setMeasure(nrspinMeasure);
-                    mp1.setExpiration((Integer.parseInt(etExpiration.getText().toString().isEmpty() ? "0": etExpiration.getText().toString())));
+                    mp1.setMeasure(nrSpinMeasure);
+                    mp1.setExpiration_default((Integer.parseInt(etExpiration_default.getText().toString().isEmpty() ? "0": etExpiration_default.getText().toString())));
                     mp1.setRecommendation(etRecommendation.getText().toString());
 
                     if (!opInsert) {
@@ -143,8 +143,8 @@ public class MaintenancePlanActivity extends AppCompatActivity {
         try {
             if (!String.valueOf(nrSpinService_type).trim().isEmpty()
                 && !etDescription.getText().toString().trim().isEmpty()
-                && !String.valueOf(nrspinMeasure).trim().isEmpty()
-                && !etExpiration.getText().toString().trim().isEmpty()
+                && !String.valueOf(nrSpinMeasure).trim().isEmpty()
+                && !etExpiration_default.getText().toString().trim().isEmpty()
                 && !etRecommendation.getText().toString().trim().isEmpty()
                )
             {

@@ -1,11 +1,13 @@
 package com.jacksonasantos.travelplan.dao;
 
+import androidx.annotation.NonNull;
+
 public class MaintenancePlan {
     public Integer id;
     public int service_type;
     public String description;
     public int measure;
-    public int expiration;
+    public int expiration_default;
     public String recommendation;
 
     public MaintenancePlan() {
@@ -13,9 +15,13 @@ public class MaintenancePlan {
         this.service_type = service_type;
         this.description = description;
         this.measure = measure;
-        this.expiration = expiration;
+        this.expiration_default = expiration_default;
         this.recommendation = recommendation;
     }
+
+    @NonNull
+    @Override
+    public String toString() { return description; }
 
     public Integer getId() { return id; }
     public void setId(Integer id) { this.id = id; }
@@ -29,8 +35,8 @@ public class MaintenancePlan {
     public int getMeasure() { return measure; }
     public void setMeasure(int measure) { this.measure = measure; }
 
-    public int getExpiration() { return expiration; }
-    public void setExpiration(int expiration) { this.expiration = expiration; }
+    public int getExpiration_default() { return expiration_default; }
+    public void setExpiration_default(int expiration_default) { this.expiration_default = expiration_default; }
 
     public String getRecommendation() { return recommendation; }
     public void setRecommendation(String recommendation) { this.recommendation = recommendation; }

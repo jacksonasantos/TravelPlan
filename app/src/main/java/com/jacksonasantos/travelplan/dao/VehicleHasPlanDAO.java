@@ -36,9 +36,23 @@ public class VehicleHasPlanDAO extends DbContentProvider implements VehicleHasPl
         return vehicleHasPlan;
     }
 
-   public List<VehicleHasPlan> fetchAllVehicleHasPlan() {
+    public List<VehicleHasPlan> fetchAllVehicleHasPlan() {
         List<VehicleHasPlan> vehicleHasPlanList = new ArrayList<>();
         cursor = super.query(VEHICLE_HAS_PLAN_TABLE, VEHICLE_HAS_PLAN_COLUMNS, null, null, VEHICLE_HAS_PLAN_VEHICLE_ID);
+        if (cursor.moveToFirst()) {
+            do {
+                VehicleHasPlan vehicleHasPlan = cursorToEntity(cursor);
+                vehicleHasPlanList.add(vehicleHasPlan);
+            } while (cursor.moveToNext());
+            cursor.close();
+        }
+        return vehicleHasPlanList;
+    }
+    public List<VehicleHasPlan> fetchAllVehicleHasPlanByVehicle(Integer vehicle_id) {
+        final String[] selectionArgs = { String.valueOf(vehicle_id) };
+        final String selection = VEHICLE_HAS_PLAN_VEHICLE_ID + " = ?";
+        List<VehicleHasPlan> vehicleHasPlanList = new ArrayList<>();
+        cursor = super.query(VEHICLE_HAS_PLAN_TABLE, VEHICLE_HAS_PLAN_COLUMNS, selection, selectionArgs, VEHICLE_HAS_PLAN_MAINTENANCE_PLAN_ID);
         if (cursor.moveToFirst()) {
             do {
                 VehicleHasPlan vehicleHasPlan = cursorToEntity(cursor);

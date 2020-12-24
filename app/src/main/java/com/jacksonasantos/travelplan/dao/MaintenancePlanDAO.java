@@ -19,6 +19,18 @@ public class MaintenancePlanDAO extends DbContentProvider implements Maintenance
         super(db);
     }
 
+    public ArrayList<MaintenancePlan> fetchArrayMaintenancePlan(){
+        ArrayList<MaintenancePlan> maintenancePlan = new ArrayList<>();
+        Cursor cursor = super.query(MAINTENANCE_PLAN_TABLE, MAINTENANCE_PLAN_COLUMNS, null,null, MAINTENANCE_PLAN_DESCRIPTION);
+        if(cursor != null && cursor.moveToFirst()){
+            do{
+                MaintenancePlan m = cursorToEntity(cursor);
+                maintenancePlan.add(m);
+            }while(cursor.moveToNext());
+        }
+        return maintenancePlan;
+    }
+
     public MaintenancePlan fetchMaintenancePlanById(Integer id) {
         final String[] selectionArgs = { String.valueOf(id) };
         final String selection = MAINTENANCE_PLAN_ID + " = ?";
@@ -90,7 +102,7 @@ public class MaintenancePlanDAO extends DbContentProvider implements Maintenance
         int service_typeIndex;
         int descriptionIndex;
         int measureIndex;
-        int expirationIndex;
+        int expiration_defaultIndex;
         int recommendationIndex;
 
         if (cursor != null) {
@@ -110,9 +122,9 @@ public class MaintenancePlanDAO extends DbContentProvider implements Maintenance
                 measureIndex = cursor.getColumnIndexOrThrow(MAINTENANCE_PLAN_MEASURE);
                 maintenancePlan.setMeasure(cursor.getInt(measureIndex));
             }
-            if (cursor.getColumnIndex(MAINTENANCE_PLAN_EXPIRATION) != -1) {
-                expirationIndex = cursor.getColumnIndexOrThrow(MAINTENANCE_PLAN_EXPIRATION);
-                maintenancePlan.setExpiration(cursor.getInt(expirationIndex));
+            if (cursor.getColumnIndex(MAINTENANCE_PLAN_EXPIRATION_DEFAULT) != -1) {
+                expiration_defaultIndex = cursor.getColumnIndexOrThrow(MAINTENANCE_PLAN_EXPIRATION_DEFAULT);
+                maintenancePlan.setExpiration_default(cursor.getInt(expiration_defaultIndex));
             }
             if (cursor.getColumnIndex(MAINTENANCE_PLAN_RECOMMENDATION) != -1) {
                 recommendationIndex = cursor.getColumnIndexOrThrow(MAINTENANCE_PLAN_RECOMMENDATION);
@@ -128,7 +140,7 @@ public class MaintenancePlanDAO extends DbContentProvider implements Maintenance
         initialValues.put(MAINTENANCE_PLAN_SERVICE_TYPE, maintenancePlan.service_type);
         initialValues.put(MAINTENANCE_PLAN_DESCRIPTION, maintenancePlan.description);
         initialValues.put(MAINTENANCE_PLAN_MEASURE, maintenancePlan.measure);
-        initialValues.put(MAINTENANCE_PLAN_EXPIRATION, maintenancePlan.expiration);
+        initialValues.put(MAINTENANCE_PLAN_EXPIRATION_DEFAULT, maintenancePlan.expiration_default);
         initialValues.put(MAINTENANCE_PLAN_RECOMMENDATION, maintenancePlan.recommendation);
     }
 

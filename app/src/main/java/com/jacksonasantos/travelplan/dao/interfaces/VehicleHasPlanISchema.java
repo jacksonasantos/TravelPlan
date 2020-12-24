@@ -12,7 +12,7 @@ public interface VehicleHasPlanISchema {
     String CREATE_TABLE_VEHICLE_HAS_PLAN_V23 = "CREATE TABLE IF NOT EXISTS "
             + VEHICLE_HAS_PLAN_TABLE + " ("
             + VEHICLE_HAS_PLAN_VEHICLE_ID + " INTEGER REFERENCES " + VehicleISchema.VEHICLE_TABLE + " ("+VehicleISchema.VEHICLE_ID+"), "
-            + VEHICLE_HAS_PLAN_MAINTENANCE_PLAN_ID + " INTEGER REFERENCES " + MaintenanceISchema.MAINTENANCE_TABLE + " ("+MaintenanceISchema.MAINTENANCE_ID+"), "
+            + VEHICLE_HAS_PLAN_MAINTENANCE_PLAN_ID + " INTEGER REFERENCES " + MaintenancePlanISchema.MAINTENANCE_PLAN_TABLE + " ("+MaintenancePlanISchema.MAINTENANCE_PLAN_ID+"), "
             + VEHICLE_HAS_PLAN_EXPIRATION + " INT, "
             + " PRIMARY KEY ("+VEHICLE_HAS_PLAN_VEHICLE_ID+", "+ VEHICLE_HAS_PLAN_MAINTENANCE_PLAN_ID+") "
             + ")";

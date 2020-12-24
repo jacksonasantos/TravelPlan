@@ -15,17 +15,19 @@
         android:layout_width="30dp"
         android:layout_height="match_parent"
         android:layout_weight="0"
+        android:layout_marginRight="3dp"
+        android:layout_marginEnd="3dp"
         android:contentDescription="@string/Vehicle_Type" />
 
     <TextView
         android:id="@+id/txtPlate"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginLeft="12dp"
+        android:layout_marginLeft="3dp"
         android:layout_marginRight="3dp"
-        android:layout_weight="2"
+        android:layout_weight="2.5"
         android:gravity="center_vertical"
-        android:layout_marginStart="12dp"
+        android:layout_marginStart="3dp"
         android:layout_marginEnd="3dp" />
 
     <TextView
@@ -34,8 +36,16 @@
         android:layout_height="match_parent"
         android:layout_marginLeft="3dp"
         android:layout_marginRight="3dp"
-        android:layout_weight="1.8"
+        android:layout_weight="2.2"
         android:gravity="center_vertical" />
+
+    <ImageButton
+        android:id="@+id/btnPlan"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="0"
+        android:contentDescription="@string/bt_maintenance_plan"
+        app:srcCompat="@drawable/ic_menu_maintenance_plan" />
 
     <ImageButton
         android:id="@+id/btnRefuel"

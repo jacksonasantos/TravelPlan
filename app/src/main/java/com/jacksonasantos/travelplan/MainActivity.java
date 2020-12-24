@@ -144,7 +144,7 @@ public class MainActivity extends AppCompatActivity {
                 }
                 maintenancePlan.setMeasure(x);
                 if (dataLine[3] != null && !dataLine[3].isEmpty()){
-                    maintenancePlan.setExpiration(Integer.parseInt(dataLine[3].replace(".","")));
+                    maintenancePlan.setExpiration_default(Integer.parseInt(dataLine[3].replace(".","")));
                 }
                 maintenancePlan.setRecommendation(dataLine[4]);
                 if (maintenancePlan.getId() != null) {
@@ -172,7 +172,8 @@ public class MainActivity extends AppCompatActivity {
     public void settingGlobals(Resources res, SharedPreferences settings ) {
         Configuration config = res.getConfiguration();
 
-        String vehicle_pref = settings.getString("vehicle_default", "");
+        String vehicle_pref = settings.getString("vehicle_default", String.valueOf(0));
+        assert vehicle_pref != null;
         g.setIdVehicle(Integer.valueOf(vehicle_pref));
 
         String lang = settings.getString("language", "");

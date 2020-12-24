@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -31,10 +32,11 @@ public class CurrencyQuoteFragment extends Fragment  {
         Database mDb = new Database(getContext());
         mDb.open();
 
-        RecyclerView listCurrencyQuote = this.getView().findViewById(R.id.list);
+        RecyclerView listCurrencyQuote = this.requireView().findViewById(R.id.list);
         CurrencyQuoteListAdapter adapter = new CurrencyQuoteListAdapter(Database.mCurrencyQuoteDao.fetchAllCurrencyQuotes(), getContext());
         listCurrencyQuote.setAdapter(adapter);
         listCurrencyQuote.setLayoutManager(new LinearLayoutManager(getContext()));
+        listCurrencyQuote.addItemDecoration(new DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL));
 
         adapter.notifyDataSetChanged();
         mDb.close();
@@ -61,14 +63,11 @@ public class CurrencyQuoteFragment extends Fragment  {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         Intent intent;
-        switch(item.getItemId()) {
-            case R.id.addmenu:
-                intent = new Intent( getContext(), CurrencyQuoteActivity.class );
-                startActivity( intent );
-                break;
-
-            default:
-                return super.onOptionsItemSelected(item);
+        if (item.getItemId() == R.id.addmenu) {
+            intent = new Intent(getContext(), CurrencyQuoteActivity.class);
+            startActivity(intent);
+        } else {
+            return super.onOptionsItemSelected(item);
         }
         return true;
     }

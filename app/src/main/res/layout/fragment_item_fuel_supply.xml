@@ -12,10 +12,7 @@
         android:id="@+id/txtSupplyDate"
         android:layout_width="90dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/labels_marginLeft"
-        android:layout_marginLeft="@dimen/labels_marginLeft"
         android:gravity="center_vertical"
-        app:layout_constraintBottom_toTopOf="@+id/button"
         app:layout_constraintEnd_toStartOf="@+id/txtVehicleName"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -47,7 +44,6 @@
         android:layout_marginStart="@dimen/labels_marginLeft"
         android:layout_marginLeft="@dimen/labels_marginLeft"
         android:gravity="end|center_vertical"
-        app:layout_constraintBottom_toTopOf="@+id/button"
         app:layout_constraintEnd_toEndOf="@+id/txtVehicleName"
         app:layout_constraintStart_toEndOf="@+id/txtNumberLiters"
         app:layout_constraintTop_toBottomOf="@+id/txtVehicleName" />
@@ -59,11 +55,10 @@
         android:layout_marginStart="@dimen/labels_marginLeft"
         android:layout_marginLeft="@dimen/labels_marginLeft"
         android:contentDescription="@string/bt_Edit"
-        app:srcCompat="@drawable/ic_menu_edit"
-        app:layout_constraintBottom_toTopOf="@+id/button"
         app:layout_constraintEnd_toStartOf="@+id/btnDelete"
         app:layout_constraintStart_toEndOf="@+id/txtVehicleName"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_menu_edit" />
 
     <ImageButton
         android:id="@+id/btnDelete"
@@ -71,22 +66,11 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/labels_marginLeft"
         android:layout_marginLeft="@dimen/labels_marginLeft"
-        android:layout_marginEnd="@dimen/labels_margin"
-        android:layout_marginRight="@dimen/labels_margin"
         android:contentDescription="@string/bt_Delete"
-        app:srcCompat="@drawable/ic_menu_delete"
-        app:layout_constraintBottom_toTopOf="@+id/button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/btnEdit"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/button"
-        android:layout_width="match_parent"
-        android:layout_height="13dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_menu_delete" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 
