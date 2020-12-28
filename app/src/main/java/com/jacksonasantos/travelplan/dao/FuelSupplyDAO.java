@@ -42,8 +42,9 @@ public class FuelSupplyDAO extends DbContentProvider implements FuelSupplyISchem
         cursor = super.rawQuery("SELECT " + FUEL_SUPPLY_ID + ", * " +
                         " FROM " + FUEL_SUPPLY_TABLE +
                         " WHERE " + FUEL_SUPPLY_VEHICLE_ID + "=? " +
-                        " AND " + FUEL_SUPPLY_SUPPLY_DATE +
+                        " AND " + FUEL_SUPPLY_SUPPLY_DATE +"||" + FUEL_SUPPLY_ID +
                             "=(SELECT MAX( "+ FUEL_SUPPLY_SUPPLY_DATE +
+                            "||"+FUEL_SUPPLY_ID +
                             ") FROM " + FUEL_SUPPLY_TABLE +
                             " WHERE " + FUEL_SUPPLY_VEHICLE_ID + " =?) " +
                         " ORDER BY "+FUEL_SUPPLY_SUPPLY_DATE,

@@ -59,9 +59,9 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                              final ViewGroup container, Bundle savedInstanceState) {
 
         View v=inflater.inflate(R.layout.fragment_home, container, false);
+        imVehicleType = v.findViewById(R.id.imVehicleType);
         spVehicle =v.findViewById(R.id.spVehicle);
         tvLicencePlate = v.findViewById(R.id.tvLicencePlate);
-        imVehicleType = v.findViewById(R.id.imVehicleType);
         ImageButton btnRefuel = v.findViewById(R.id.btnRefuel);
         tvFuelSupplyDate = v.findViewById(R.id.tvFuelSupplyDate);
         tvFuelSupplyLastOdometer = v.findViewById(R.id.tvFuelSupplyLastOdometer);
