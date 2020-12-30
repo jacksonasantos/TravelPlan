@@ -153,6 +153,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                 LineGraphSeries<DataPoint> series1 = new LineGraphSeries<>(dataSeries);
                 series1.setColor(Color.BLUE);
                 series1.setDrawDataPoints(true);
+                series1.setDataPointsRadius(7);
                 series1.setTitle(getString(R.string.road));
                 graphStatistics.addSeries((series1));
                 x_px_min = series1.getLowestValueX();
@@ -165,6 +166,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                 LineGraphSeries<DataPoint> series2 = new LineGraphSeries<>(dataSeries);
                 series2.setColor(Color.RED);
                 series2.setDrawDataPoints(true);
+                series2.setDataPointsRadius(7);
                 series2.setTitle(getString(R.string.city));
                 graphStatistics.addSeries((series2));
                 x_px_min = Math.min(series2.getLowestValueX(), x_px_min);
