@@ -12,7 +12,6 @@
         android:orientation="vertical">
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/input_layout_rgInsuranceType"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <RadioGroup
@@ -81,7 +80,6 @@
         </LinearLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/input_layout_spinInsurance_Company"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/labels_margin"
@@ -102,7 +100,6 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/input_layout_etDescription"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <EditText
@@ -122,7 +119,6 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/input_layout_etInsurance_Policy"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <EditText
@@ -142,7 +138,6 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/input_layout_etIssuance_Date"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <EditText
@@ -162,7 +157,6 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/input_layout_spinBroker"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/labels_margin"
@@ -189,7 +183,6 @@
             android:weightSum="1"
             android:baselineAligned="false">
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/input_layout_etInitial_Effective_Date"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.50"
@@ -210,7 +203,6 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/input_layout_etFinal_Effective_Date"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.50"
@@ -239,7 +231,6 @@
             android:weightSum="1"
             android:baselineAligned="false">
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/input_layout_etNet_Premium_Value"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.50"
@@ -261,7 +252,6 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/input_layout_etTax_Amount"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.50"
@@ -283,7 +273,6 @@
         </LinearLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/input_layout_etTotal_Premium_Value"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <EditText
@@ -309,7 +298,6 @@
             android:weightSum="1"
             android:baselineAligned="false">
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/input_layout_etInsurance_Deductible"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.50"
@@ -330,7 +318,6 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/input_layout_etBonus_Class"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.50"
@@ -353,7 +340,6 @@
 
         </LinearLayout>
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/input_layout_etNote"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <EditText
@@ -373,7 +359,6 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/input_layout_tvStatus"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <EditText

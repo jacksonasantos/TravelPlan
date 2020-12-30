@@ -22,7 +22,6 @@ import com.jacksonasantos.travelplan.ui.utility.Globals;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
-import java.util.Objects;
 
 public class SettingsActivity extends AppCompatActivity {
 
@@ -61,8 +60,8 @@ public class SettingsActivity extends AppCompatActivity {
 
             ListPreference vehicleList = findPreference("vehicle_default");
             Cursor v = Database.mVehicleDao.selectVehicles();
-            List<String> entries = new ArrayList<String>();
-            List<String> entryValues = new ArrayList<String>();
+            List<String> entries = new ArrayList<>();
+            List<String> entryValues = new ArrayList<>();
             if(v != null && v.moveToFirst()){
                 do {entries.add(v.getString(1));
                     entryValues.add(Integer.toString(v.getInt(0)));
@@ -71,9 +70,9 @@ public class SettingsActivity extends AppCompatActivity {
             assert v != null;
             v.close();
             final CharSequence[] entryCharSeq = entries.toArray(new CharSequence[entries.size()]);
-            final CharSequence[] entryValsChar = entryValues.toArray(new CharSequence[entryValues.size()]);
+            final CharSequence[] entryValChar = entryValues.toArray(new CharSequence[entryValues.size()]);
             vehicleList.setEntries(entryCharSeq);
-            vehicleList.setEntryValues(entryValsChar);
+            vehicleList.setEntryValues(entryValChar);
         }
 
         Preference.OnPreferenceChangeListener languageChangeListener = new Preference.OnPreferenceChangeListener() {

@@ -4,9 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="navigation_view">
 
-    <group
-        android:id="@+id/grp1"
-        android:checkableBehavior="single">
+    <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_home"
             android:icon="@drawable/ic_menu_home"
@@ -28,23 +26,20 @@
             android:icon="@drawable/ic_menu_maintenance"
             android:title="@string/menu_maintenance" />
     </group>
-    <group android:id="@+id/grp2"
-        android:checkableBehavior="single">
+    <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_travel"
             android:icon="@drawable/ic_menu_travel"
             android:title="@string/menu_travel" />
     </group>
-    <group android:id="@+id/grp3"
-        android:checkableBehavior="single">
+    <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_settings"
             android:icon="@drawable/ic_menu_setting"
             android:title="@string/action_settings"
             app:showAsAction="ifRoom" />
     </group>
-    <item android:id="@+id/grp4"
-        android:title="@string/menu_general">
+    <item android:title="@string/menu_general">
         <menu>
             <item
                 android:id="@+id/nav_insurance"

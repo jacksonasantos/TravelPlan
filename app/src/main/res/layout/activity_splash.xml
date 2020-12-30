@@ -8,7 +8,6 @@
     android:background="@drawable/gradient_background" >
 
     <ImageView
-        android:id="@+id/imgLogo"
         android:layout_width="250dp"
         android:layout_height="250dp"
         android:layout_centerInParent="true"

@@ -13,7 +13,6 @@
         android:orientation="vertical">
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/input_layout_rgVehicleType"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <RadioGroup
@@ -32,7 +31,6 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/input_layout_etNameVehicle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <EditText
@@ -51,7 +49,6 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/input_layout_etShortNameVehicle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <EditText
@@ -70,7 +67,6 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/input_layout_etBrand"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <EditText
@@ -90,7 +86,6 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/input_layout_etModel"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <EditText
@@ -110,7 +105,6 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/input_layout_spinFuelType"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/labels_margin"
@@ -137,7 +131,6 @@
             android:weightSum="1"
             android:baselineAligned="false">
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/input_layout_etYearModel"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.50"
@@ -161,7 +154,6 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/input_layout_etYearManufacture"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.50"
@@ -193,7 +185,6 @@
             android:weightSum="1"
             android:baselineAligned="false">
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/input_layout_etLicencePlateVehicle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.50"
@@ -219,7 +210,6 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/input_layout_etColor"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.50"
@@ -249,7 +239,6 @@
             android:weightSum="1"
             android:baselineAligned="false">
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/input_layout_etVin"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.50"
@@ -272,7 +261,6 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/input_layout_etLicenceNumber"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.50"
@@ -297,7 +285,6 @@
         </LinearLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/input_layout_etStateVehicle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <EditText
@@ -318,7 +305,6 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/input_layout_etCityVehicle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <EditText
@@ -396,7 +382,6 @@
             android:weightSum="1"
             android:baselineAligned="false">
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/input_layout_etDoors"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.50"
@@ -419,7 +404,6 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/input_layout_etCapacity"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.50"
@@ -449,7 +433,6 @@
             android:weightSum="1"
             android:baselineAligned="false">
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/input_layout_etPower"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.50"
@@ -472,7 +455,6 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/input_layout_etEstimatedValue"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.50"
@@ -556,7 +538,6 @@
             android:weightSum="1"
             android:baselineAligned="false">
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/input_layout_etDtOdometer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.50"
@@ -579,7 +560,6 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/input_layout_etOdometer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.50"
