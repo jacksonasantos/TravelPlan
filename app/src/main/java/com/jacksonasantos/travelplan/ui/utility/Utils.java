@@ -28,6 +28,18 @@ public class Utils extends AppCompatActivity  {
         return d;
     }
 
+    public static Date dateParse(Integer data ){
+        Globals g = Globals.getInstance();
+        Date d = null;
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat dateFormat = new SimpleDateFormat(g.getDateFormat());
+        try {
+            d = (data == null ? null : dateFormat.parse(data.toString()));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return d;
+    }
+
     public static String dateFormat(Date data ){
         Globals g = Globals.getInstance();
         String d;

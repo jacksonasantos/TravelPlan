@@ -39,6 +39,7 @@ public class Database {
     public static InsuranceDAO mInsuranceDao;
     public static MaintenancePlanDAO mMaintenancePlanDao;
     public static VehicleHasPlanDAO mVehicleHasPlanDao;
+    public static VehicleGraphStatisticsDAO mVehicleGraphStatisticsDao;
 
     public Database(Context context) {
         this.mContext = context;
@@ -60,6 +61,7 @@ public class Database {
         mInsuranceDao = new InsuranceDAO(mDb);
         mMaintenancePlanDao = new MaintenancePlanDAO(mDb);
         mVehicleHasPlanDao = new VehicleHasPlanDAO(mDb);
+        mVehicleGraphStatisticsDao = new VehicleGraphStatisticsDAO(mDb);
     }
 
     public void close() {
