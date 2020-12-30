@@ -106,7 +106,7 @@ public class MaintenancePlanListAdapter extends RecyclerView.Adapter<Maintenance
             @Override
             public void onClick(View v) {
                 new AlertDialog.Builder(v.getContext())
-                        .setTitle(R.string.MaintenancePlan_Deleting)
+                        .setTitle(R.string.Maintenance_Plan_Deleting)
                         .setMessage(R.string.Msg_Confirm)
                         .setPositiveButton(R.string.Yes, new DialogInterface.OnClickListener() {
                             @Override

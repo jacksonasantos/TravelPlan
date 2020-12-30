@@ -11,11 +11,11 @@
     <string name="menu_maintenance_plan">Maintenance Plan</string>
     <string name="menu_maintenance">Maintenance Service</string>
     <string name="action_settings">Settings</string>
+    <string name="menu_general">General</string>
+    <string name="menu_insurance">Insurance</string>
     <string name="menu_insurance_company">Insurance Company</string>
     <string name="menu_broker">Broker</string>
     <string name="menu_currency_quote">Currency Quote</string>
-    <string name="menu_insurance">Insurance</string>
-    <string name="menu_general">General</string>
 
     <!-- Preference Titles -->
     <string name="personal_header">Personal Data</string>
@@ -45,6 +45,8 @@
 
     <!-- Vehicle Fragment -->
     <string name="Vehicle">Vehicle</string>
+    <string name="Vehicle_Deleting">Deleting Vehicle</string>
+
     <string name="Vehicle_Id">Identification Vehicle</string>
     <string name="Vehicle_Type">Vehicle Type</string>
     <string name="Vehicle_TypeCar">Car</string>
@@ -76,14 +78,14 @@
     <string name="Vehicle_DtOdometer">Date Odometer</string>
     <string name="Vehicle_Estimated_Value">Estimated Value</string>
 
-    <string name="Vehicle_Deleting">Deleting Vehicle</string>
-
+    <!-- Vehicle Plan Fragment -->
     <string name="Vehicle_Plan">Vehicle Maintenance Plan</string>
     <string name="Vehicle_Plan_Deleting">Deleting Vehicle Plan</string>
 
     <!-- Maintenance Fragment -->
-    <string name="Maintenance_Deleting">Deleting Maintenance Vehicle</string>
     <string name="Maintenance_Vehicle">Maintenance Vehicle</string>
+    <string name="Maintenance_Deleting">Deleting Maintenance Vehicle</string>
+
     <string name="Maintenance_Type">Maintenance Type</string>
     <string name="Maintenance_Detail">Maintenance Detail</string>
     <string name="Maintenance_Date">Maintenance Date</string>
@@ -96,22 +98,22 @@
     <string name="Maintenance_Status">Maintenance Status</string>
 
     <!-- Maintenance Plan Fragment -->
-    <string name="MaintenancePlan_Deleting">Deleting Maintenance Plan</string>
     <string name="Maintenance_Plan">Maintenance Plan</string>
+    <string name="Maintenance_Plan_Deleting">Deleting Maintenance Plan</string>
+
     <string name="Maintenance_Plan_Description">Description</string>
     <string name="Maintenance_Plan_Measure">Measure</string>
     <string name="Maintenance_Plan_Expiration">Expiration</string>
     <string name="Maintenance_Plan_Recommendation">Recommendation</string>
+
     <string name="indeterminate">Indeterminate</string>
     <string name="km">Km</string>
     <string name="days">Days</string>
 
     <!-- FuelSupply Fragment -->
-    <string name="gasoline_common">Gasoline Common</string>
-    <string name="gasoline_additives">Gasoline Additives</string>
-    <string name="gasoline_premium">Gasoline Premium</string>
-    <string name="FuelSupply_Deleting">Supply Deleting</string>
     <string name="FuelSupply_Vehicle">Supply Vehicle</string>
+    <string name="FuelSupply_Deleting">Supply Deleting</string>
+
     <string name="FuelSupply_Gas_Station">Fuel Supply Gas Station</string>
     <string name="FuelSupply_Gas_Station_Location">Fuel Supply Gas Station Location</string>
     <string name="FuelSupply_Combustible">Fuel Supply Combustible</string>
@@ -128,6 +130,10 @@
     <string name="FuelSupply_AssociatedTravel">Associated Travel</string>
     <string name="FuelSupply_Currency_Value">Currency Value</string>
 
+    <string name="gasoline_common">Gasoline Common</string>
+    <string name="gasoline_additives">Gasoline Additives</string>
+    <string name="gasoline_premium">Gasoline Premium</string>
+
     <!-- Home Fragment -->
     <string name="Odometer">Odometer</string>
     <string name="FuelSupply_Last">Last Fuel Supply</string>
@@ -135,9 +141,11 @@
     <string name="VehicleStatistics">Vehicle Statistics</string>
     <string name="VehicleConsumption">Consumption</string>
     <string name="InsuranceExpiration">Insurance Expiration</string>
-    <string name="bt_Done">Done</string>
 
     <!-- Insurance Activity -->
+    <string name="Insurance">Insurance</string>
+    <string name="Insurance_Deleting">Deleting Insurance</string>
+
     <string name="Insurance_Type">Insurance Type</string>
     <string name="Insurance_Description">Description</string>
     <string name="Insurance_Insurance_Policy">Policy</string>
@@ -153,15 +161,15 @@
     <string name="Insurance_Note">Insurance Note</string>
     <string name="Insurance_Status">Insurance Status</string>
 
-    <string name="insurance_type_vehicle">Type Vehicle</string>
+    <string name="insurance_type_vehicle">Vehicle</string>
     <string name="insurance_type_life">Life</string>
     <string name="insurance_type_property">Property</string>
     <string name="insurance_type_travel">Travel</string>
 
-    <string name="Insurance">Insurance</string>
-    <string name="Insurance_Deleting">Deleting Insurance</string>
-
     <!-- Insurance Company Fragment -->
+    <string name="Insurance_Company">Insurance Company</string>
+    <string name="Insurance_Company_Deleting">Deleting Insurance Company</string>
+
     <string name="InsuranceCompany_Name">Company Name</string>
     <string name="InsuranceCompany_Cnpj">CNPJ</string>
     <string name="InsuranceCompany_Fip_Code">Fip Code</string>
@@ -172,25 +180,22 @@
     <string name="InsuranceCompany_Telephone">Telephone</string>
     <string name="InsuranceCompany_Authorization_Date">Authorization Date</string>
 
-    <string name="Insurance_Company">Insurance Company</string>
-    <string name="Insurance_Company_Deleting">Deleting Insurance Company</string>
-
     <!-- Broker Fragment -->
+    <string name="Broker">Broker</string>
+    <string name="Broker_Deleting">Deleting Broker</string>
+
     <string name="Broker_Name">Name</string>
     <string name="Broker_Phone">Phone</string>
     <string name="Broker_Email">Email</string>
     <string name="Broker_Contact_Name">Contact Name</string>
 
-    <string name="Broker">Broker</string>
-    <string name="Broker_Deleting">Deleting Broker</string>
-
     <!-- Insurance Company Fragment -->
+    <string name="Currency_Quote">Currency Quote</string>
+    <string name="Currency_Quote_Deleting">Deleting Currency Quote</string>
+
     <string name="CurrencyQuote_Type">Currency Type</string>
     <string name="CurrencyQuote_Date">Date</string>
     <string name="CurrencyQuote_Value">Quote Value</string>
-
-    <string name="Currency_Quote">Currency Quote</string>
-    <string name="Currency_Quote_Deleting">Deleting Currency Quote</string>
 
     <!-- Generic -->
     <string name="Yes">Yes</string>
@@ -199,12 +204,13 @@
     <string name="bt_Delete">Delete</string>
     <string name="bt_Edit">Edit</string>
     <string name="bt_Refuel">Refuel</string>
+    <string name="bt_Done">Done</string>
     <string name="bt_maintenance_plan">Maintenance Plan</string>
     <string name="menu_add">Add</string>
     <string name="menu_filter">Vehicle Filter</string>
     <string name="menu_save">Save</string>
-    <string name="Msg_Confirm">Are you sure you want to perform the operation?</string>
 
+    <string name="Msg_Confirm">Are you sure you want to perform the operation?</string>
     <string name="Data_Validator_Error">Data Validator Error</string>
     <string name="Error_Saving_Data">Error Saving Data</string>
     <string name="Error_Including_Data">Error Including Data</string>
@@ -212,7 +218,7 @@
     <string name="Error_Deleting_Data">Error Deleting Data</string>
     <string name="Error_Data_Validation">Error in data validation</string>
 
-    <!-- Currency -->
+    <!-- Arrays Currency -->
     <string name="real">R$ - Real</string>
     <string name="dollar">US$ - Dollar</string>
     <string name="argentinian_peso">$ - Argentinian Peso</string>
@@ -220,7 +226,7 @@
     <string name="chilean_peso">$ - Chilean Peso</string>
     <string name="euro">€ - Euro</string>
 
-    <!-- Arrays -->
+    <!-- Arrays Fuel -->
     <string name="ethanol">Ethanol</string>
     <string name="gasoline">Gasoline</string>
     <string name="diesel" translatable="false">Diesel</string>
@@ -253,7 +259,7 @@
     <string name="oil_change">Oil Change</string>
     <string name="spark_plug">Spark Plug</string>
 
-    <!-- Arrays Travel -->
+    <!-- Travel Fragment -->
     <string name="Travel">Travel</string>
     <string name="Travel_Deleting">Deleting Travel</string>
 
@@ -263,6 +269,7 @@
     <string name="Travel_Note">Travel Note</string>
     <string name="Travel_Status">Travel Status</string>
 
+    <!-- Array Status Travel -->
     <string name="registered">Registered</string>
     <string name="planning">Planning</string>
     <string name="running">Running</string>

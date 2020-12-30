@@ -184,7 +184,7 @@
     <string name="Insurance">Seguros</string>
     <string name="Insurance_Deleting">Excluindo Seguro</string>
     <string name="Insurance_Status">Status do Seguro</string>
-    <string name="insurance_type_vehicle">Tipo Veículo</string>
+    <string name="insurance_type_vehicle">Veículo</string>
     <string name="insurance_type_life">Vida</string>
     <string name="insurance_type_property">Propriedade</string>
     <string name="insurance_type_travel">Viagem</string>
@@ -199,7 +199,6 @@
     <string name="preferences_header">Preferências</string>
     <string name="vehicle_default">Veículo Padrão</string>
     <string name="general">Geral</string>
-    <string name="MaintenancePlan_Deleting">Excluindo Plano de Manutenção</string>
     <string name="indeterminate">Indeterminado</string>
     <string name="km">KMs</string>
     <string name="days">Dias</string>
@@ -213,4 +212,5 @@
     <string name="Vehicle_Plan">Plano de Manutenção do Veículo</string>
     <string name="Vehicle_Plan_Deleting">Excluindo Item do Plano de Manutenção</string>
     <string name="Broker_Contact_Name">Nome do Contato</string>
+    <string name="Maintenance_Plan_Deleting">Excluindo Plano de Manutenção</string>
 </resources>
