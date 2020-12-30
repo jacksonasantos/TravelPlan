@@ -19,6 +19,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.jacksonasantos.travelplan.R;
+import com.jacksonasantos.travelplan.dao.Broker;
 import com.jacksonasantos.travelplan.dao.Database;
 import com.jacksonasantos.travelplan.dao.Insurance;
 import com.jacksonasantos.travelplan.ui.utility.Utils;
@@ -41,7 +42,8 @@ public class HomeInsuranceListAdapter extends RecyclerView.Adapter<HomeInsurance
         private final ImageView imInsuranceStatus;
         private final TextView txtInsuranceFinalEffectiveDate;
         private final TextView txtInsurancePolicy;
-        private final TextView txtDescription;
+        private final TextView txtInsuranceCompany;
+        private final TextView txtInsuranceBroker;
         private final ImageButton btnDoneInsurance;
 
         public MyViewHolder(View v) {
@@ -51,7 +53,8 @@ public class HomeInsuranceListAdapter extends RecyclerView.Adapter<HomeInsurance
             imInsuranceStatus = v.findViewById(R.id.imInsuranceStatus);
             txtInsuranceFinalEffectiveDate = v.findViewById(R.id.txtInsuranceFinalEffectiveDate);
             txtInsurancePolicy = v.findViewById(R.id.txtInsurancePolicy);
-            txtDescription = v.findViewById(R.id.txtDescription);
+            txtInsuranceBroker = v.findViewById(R.id.txtInsuranceBroker);
+            txtInsuranceCompany = v.findViewById(R.id.txtInsuranceCompany);
             btnDoneInsurance = v.findViewById(R.id.btnDoneInsurance);
         }
 
@@ -107,7 +110,8 @@ public class HomeInsuranceListAdapter extends RecyclerView.Adapter<HomeInsurance
         }
         holder.txtInsuranceFinalEffectiveDate.setText(Utils.dateToString(insurance.getFinal_effective_date()));
         holder.txtInsurancePolicy.setText(String.valueOf(insurance.getInsurance_policy()));
-        holder.txtDescription.setText(insurance.getDescription());
+        holder.txtInsuranceCompany.setText(Database.mInsuranceCompanyDao.fetchInsuranceCompanyById(insurance.getInsurance_company_id()).getCompany_name());
+        holder.txtInsuranceBroker.setText(Database.mBrokerDao.fetchBrokerById(insurance.getBroker_id()).getName());
 
         // btnDone - change Status for Service for completed and remove of list
         holder.btnDoneInsurance.setOnClickListener (new View.OnClickListener() {

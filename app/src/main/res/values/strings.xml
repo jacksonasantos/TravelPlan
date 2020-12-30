@@ -179,6 +179,7 @@
     <string name="Broker_Name">Name</string>
     <string name="Broker_Phone">Phone</string>
     <string name="Broker_Email">Email</string>
+    <string name="Broker_Contact_Name">Contact Name</string>
 
     <string name="Broker">Broker</string>
     <string name="Broker_Deleting">Deleting Broker</string>

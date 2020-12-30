@@ -163,10 +163,10 @@
     <string name="running">Em Execução</string>
     <string name="registered">Cadastrada</string>
     <string name="Vehicle" >Veículo</string>
-    <string name="Broker_Name">Nome Corretor</string>
+    <string name="Broker_Name">Nome Corretora</string>
     <string name="Broker_Phone">Telefone</string>
     <string name="Broker_Email">E-mail</string>
-    <string name="Broker">Corretor</string>
+    <string name="Broker">Corretora</string>
     <string name="Broker_Deleting">Excluindo Corretor</string>
     <string name="menu_broker">Corretores</string>
     <string name="Insurance_Type">Tipo de Seguro</string>
@@ -212,4 +212,5 @@
     <string name="bt_maintenance_plan">Plano de Manutenção</string>
     <string name="Vehicle_Plan">Plano de Manutenção do Veículo</string>
     <string name="Vehicle_Plan_Deleting">Excluindo Item do Plano de Manutenção</string>
+    <string name="Broker_Contact_Name">Nome do Contato</string>
 </resources>

@@ -20,6 +20,7 @@ public class BrokerActivity extends AppCompatActivity {
     private EditText etName;
     private EditText etPhone;
     private EditText etEmail;
+    private EditText etContact_name;
 
     private boolean opInsert = true;
     private Broker broker;
@@ -57,11 +58,13 @@ public class BrokerActivity extends AppCompatActivity {
         etName = findViewById(R.id.etName);
         etPhone = findViewById(R.id.etPhone);
         etEmail = findViewById(R.id.etEmail);
+        etContact_name = findViewById(R.id.etContact_name);
 
         if (broker != null) {
             etName.setText(broker.getName());
             etPhone.setText(broker.getPhone());
             etEmail.setText(broker.getEmail());
+            etContact_name.setText(broker.getContact_name());
         }
     }
 
@@ -81,6 +84,7 @@ public class BrokerActivity extends AppCompatActivity {
                     b1.setName(etName.getText().toString());
                     b1.setPhone(etPhone.getText().toString());
                     b1.setEmail(etEmail.getText().toString());
+                    b1.setContact_name(etContact_name.getText().toString());
 
                     if (!opInsert) {
                         try {
@@ -113,7 +117,8 @@ public class BrokerActivity extends AppCompatActivity {
         try {
             if (etName.getText().toString().trim().isEmpty() ||
                 etPhone.getText().toString().trim().isEmpty() ||
-                etEmail.getText().toString().trim().isEmpty()
+                etEmail.getText().toString().trim().isEmpty() ||
+                etContact_name.getText().toString().trim().isEmpty()
             ){
                 isValid = false;
             }

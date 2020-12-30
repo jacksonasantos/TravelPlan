@@ -101,6 +101,7 @@ public class BrokerDAO extends DbContentProvider implements BrokerISchema, Broke
         int nameIndex;
         int phoneIndex;
         int emailIndex;
+        int contact_nameIndex;
 
         if (cursor != null) {
             if (cursor.getColumnIndex(BROKER_ID) != -1) {
@@ -119,6 +120,10 @@ public class BrokerDAO extends DbContentProvider implements BrokerISchema, Broke
                 emailIndex = cursor.getColumnIndexOrThrow(BROKER_EMAIL);
                 broker.email = cursor.getString(emailIndex);
             }
+            if (cursor.getColumnIndex(BROKER_CONTACT_NAME) != -1) {
+                contact_nameIndex = cursor.getColumnIndexOrThrow(BROKER_CONTACT_NAME);
+                broker.contact_name = cursor.getString(contact_nameIndex);
+            }
         }
         return broker;
     }
@@ -129,6 +134,7 @@ public class BrokerDAO extends DbContentProvider implements BrokerISchema, Broke
         initialValues.put(BROKER_NAME, broker.name);
         initialValues.put(BROKER_PHONE, broker.phone);
         initialValues.put(BROKER_EMAIL, broker.email);
+        initialValues.put(BROKER_CONTACT_NAME, broker.contact_name);
     }
 
     private ContentValues getContentValue() {

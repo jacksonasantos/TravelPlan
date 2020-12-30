@@ -7,12 +7,14 @@ public class Broker {
     public String name;
     public String phone;
     public String email;
+    public String contact_name;
 
     public Broker() {
         this.id = id;
         this.name = name;
         this.phone = phone;
         this.email = email;
+        this.contact_name = contact_name;
     }
 
     @NonNull
@@ -30,4 +32,7 @@ public class Broker {
 
     public String getEmail() { return email; }
     public void setEmail(String email) { this.email = email; }
+
+    public String getContact_name() { return contact_name; }
+    public void setContact_name(String contact_name) { this.contact_name = contact_name; }
 }

@@ -72,10 +72,32 @@
                     android:layout_height="wrap_content"
                     android:hint="@string/Broker_Email"
                     android:inputType="textEmailAddress"
-                    android:nextFocusDown="@+id/etAddress"
+                    android:nextFocusDown="@+id/etContact_name"
                     android:textSize="12sp"
                     android:autofillHints="no" />
             </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/input_layout_etContact_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/labels_margin"
+                android:layout_marginLeft="@dimen/labels_margin"
+                android:layout_marginTop="@dimen/labels_space_top"
+                android:layout_marginEnd="@dimen/labels_margin"
+                android:layout_marginRight="@dimen/labels_margin">
+
+                <EditText
+                    android:id="@+id/etContact_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:autofillHints=""
+                    android:hint="@string/Broker_Contact_Name"
+                    android:inputType="text"
+                    android:nextFocusDown="@+id/btSaveBroker"
+                    android:textSize="12sp" />
+            </com.google.android.material.textfield.TextInputLayout>
+
 
 
         </LinearLayout>
