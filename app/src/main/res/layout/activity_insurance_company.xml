@@ -1,6 +1,3 @@
-
-
-
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -29,7 +26,7 @@
                     android:id="@+id/etCompanyName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/InsuranceCompany_Name"
+                    android:hint="@string/Insurance_Company_Name"
                     android:nextFocusDown="@+id/etCnpj"
                     android:textSize="12sp"
                     android:inputType="text"
@@ -49,7 +46,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:autofillHints="no"
-                    android:hint="@string/InsuranceCompany_Cnpj"
+                    android:hint="@string/Insurance_Company_Cnpj"
                     android:nextFocusDown="@+id/etFip_code"
                     android:textSize="12sp"
                     android:inputType="text" />
@@ -68,7 +65,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:autofillHints="no"
-                    android:hint="@string/InsuranceCompany_Fip_Code"
+                    android:hint="@string/Insurance_Company_Fip_Code"
                     android:inputType="number"
                     android:nextFocusDown="@+id/etAddress"
                     android:textSize="12sp" />
@@ -87,7 +84,7 @@
                     android:id="@+id/etAddress"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:hint="@string/InsuranceCompany_Address"
+                    android:hint="@string/Insurance_Company_Address"
                     android:inputType="text"
                     android:nextFocusDown="@+id/etCity"
                     android:textSize="12sp"
@@ -106,7 +103,7 @@
                     android:id="@+id/etCity"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:hint="@string/InsuranceCompany_City"
+                    android:hint="@string/Insurance_Company_City"
                     android:nextFocusDown="@+id/etState"
                     android:textSize="12sp"
                     android:autofillHints="no"
@@ -128,7 +125,7 @@
                     android:autofillHints="no"
                     android:fadingEdge="none"
                     android:focusable="auto"
-                    android:hint="@string/InsuranceCompany_State"
+                    android:hint="@string/Insurance_Company_State"
                     android:inputType="text"
                     android:nextFocusDown="@+id/etZipCode"
                     android:textSize="12sp" />
@@ -148,7 +145,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:autofillHints="no"
-                    android:hint="@string/InsuranceCompany_ZipCode"
+                    android:hint="@string/Insurance_Company_ZipCode"
                     android:inputType="number"
                     android:nextFocusDown="@+id/etTelephone"
                     android:textSize="12sp" />
@@ -168,7 +165,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:autofillHints="no"
-                    android:hint="@string/InsuranceCompany_Telephone"
+                    android:hint="@string/Insurance_Company_Telephone"
                     android:inputType="phone"
                     android:nextFocusDown="@+id/etAuthorization_Date"
                     android:textSize="12sp" />
@@ -188,7 +185,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:autofillHints="no"
-                    android:hint="@string/InsuranceCompany_Authorization_Date"
+                    android:hint="@string/Insurance_Company_Authorization_Date"
                     android:inputType="date"
                     android:nextFocusDown="@+id/btSaveMaintenance"
                     android:textSize="12sp" />

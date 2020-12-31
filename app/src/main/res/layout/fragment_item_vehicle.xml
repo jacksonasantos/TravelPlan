@@ -43,7 +43,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="0"
-        android:contentDescription="@string/bt_maintenance_plan"
+        android:contentDescription="@string/bt_Maintenance_Plan"
         app:srcCompat="@drawable/ic_menu_maintenance_plan" />
 
     <ImageButton

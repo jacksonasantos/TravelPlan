@@ -26,22 +26,19 @@
     <string name="personal_name">Your name</string>
     <string name="personal_age">Your age</string>
     <string name="personal_gender">Your gender</string>
-    <string name="personal_gender_male">Male</string>
     <string name="personal_gender_female">Female</string>
-    <string name="signature_title">Your signature</string>
+    <string name="personal_gender_male">Male</string>
 
-    <!-- Definitions Preferences -->
+    <string name="signature_title">Your signature</string>
     <string name="color_scheme_dark_title">Color Scheme Dark</string>
     <string name="color_scheme_off">Color Scheme Normal actived</string>
     <string name="color_scheme_on">Color Scheme Dark actived</string>
+
     <string name="language">Language</string>
     <string name="language_Portuguese">Portuguese</string>
     <string name="language_English">English</string>
 
-    <!-- Preferences -->
     <string name="vehicle_default">Vehicle Default</string>
-
-    <string name="general">General</string>
 
     <!-- Vehicle Fragment -->
     <string name="Vehicle">Vehicle</string>
@@ -106,15 +103,16 @@
     <string name="Maintenance_Plan_Expiration">Expiration</string>
     <string name="Maintenance_Plan_Recommendation">Recommendation</string>
 
+    <!-- Array Type Measure -->
     <string name="indeterminate">Indeterminate</string>
     <string name="km">Km</string>
     <string name="days">Days</string>
 
     <!-- FuelSupply Fragment -->
     <string name="FuelSupply_Vehicle">Supply Vehicle</string>
-    <string name="FuelSupply_Deleting">Supply Deleting</string>
+    <string name="FuelSupply_Deleting">Deleting Supply</string>
 
-    <string name="FuelSupply_Gas_Station">Fuel Supply Gas Station</string>
+    <string name="FuelSupply_Gas_Station">Gas Station</string>
     <string name="FuelSupply_Gas_Station_Location">Fuel Supply Gas Station Location</string>
     <string name="FuelSupply_Combustible">Fuel Supply Combustible</string>
     <string name="FuelSupply_Supply_Date">Supply Date</string>
@@ -161,6 +159,7 @@
     <string name="Insurance_Note">Insurance Note</string>
     <string name="Insurance_Status">Insurance Status</string>
 
+    <!-- Arrays Insurance Type -->
     <string name="insurance_type_vehicle">Vehicle</string>
     <string name="insurance_type_life">Life</string>
     <string name="insurance_type_property">Property</string>
@@ -170,15 +169,15 @@
     <string name="Insurance_Company">Insurance Company</string>
     <string name="Insurance_Company_Deleting">Deleting Insurance Company</string>
 
-    <string name="InsuranceCompany_Name">Company Name</string>
-    <string name="InsuranceCompany_Cnpj">CNPJ</string>
-    <string name="InsuranceCompany_Fip_Code">Fip Code</string>
-    <string name="InsuranceCompany_Address">Address</string>
-    <string name="InsuranceCompany_City">City</string>
-    <string name="InsuranceCompany_State">State</string>
-    <string name="InsuranceCompany_ZipCode">Zip Code</string>
-    <string name="InsuranceCompany_Telephone">Telephone</string>
-    <string name="InsuranceCompany_Authorization_Date">Authorization Date</string>
+    <string name="Insurance_Company_Name">Company Name</string>
+    <string name="Insurance_Company_Cnpj">CNPJ</string>
+    <string name="Insurance_Company_Fip_Code">Fip Code</string>
+    <string name="Insurance_Company_Address">Address</string>
+    <string name="Insurance_Company_City">City</string>
+    <string name="Insurance_Company_State">State</string>
+    <string name="Insurance_Company_ZipCode">Zip Code</string>
+    <string name="Insurance_Company_Telephone">Telephone</string>
+    <string name="Insurance_Company_Authorization_Date">Authorization Date</string>
 
     <!-- Broker Fragment -->
     <string name="Broker">Broker</string>
@@ -193,9 +192,9 @@
     <string name="Currency_Quote">Currency Quote</string>
     <string name="Currency_Quote_Deleting">Deleting Currency Quote</string>
 
-    <string name="CurrencyQuote_Type">Currency Type</string>
-    <string name="CurrencyQuote_Date">Date</string>
-    <string name="CurrencyQuote_Value">Quote Value</string>
+    <string name="Currency_Quote_Type">Currency Type</string>
+    <string name="Currency_Quote_Date">Date</string>
+    <string name="Currency_Quote_Value">Quote Value</string>
 
     <!-- Generic -->
     <string name="Yes">Yes</string>
@@ -205,11 +204,11 @@
     <string name="bt_Edit">Edit</string>
     <string name="bt_Refuel">Refuel</string>
     <string name="bt_Done">Done</string>
-    <string name="bt_maintenance_plan">Maintenance Plan</string>
-    <string name="menu_add">Add</string>
-    <string name="menu_filter">Vehicle Filter</string>
-    <string name="menu_save">Save</string>
+    <string name="bt_Maintenance_Plan">Maintenance Plan</string>
+    <string name="bt_Add">Add</string>
+    <string name="bt_Filter">Vehicle Filter</string>
 
+    <!-- Messages -->
     <string name="Msg_Confirm">Are you sure you want to perform the operation?</string>
     <string name="Data_Validator_Error">Data Validator Error</string>
     <string name="Error_Saving_Data">Error Saving Data</string>
@@ -233,8 +232,11 @@
     <string name="flex" translatable="false">Flex</string>
     <string name="gnv" translatable="false">GNV</string>
     <string name="electric">Electric</string>
+
+    <!-- Arrays Supply Reason Type -->
     <string name="city">City</string>
     <string name="road">Road</string>
+    <string name="general">General</string>
 
     <!-- Arrays Services -->
     <string name="alignment">Alignment</string>

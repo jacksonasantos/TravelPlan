@@ -29,7 +29,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:entries="@array/currency_array"
-                    android:hint="@string/CurrencyQuote_Type"
+                    android:hint="@string/Currency_Quote_Type"
                     android:inputType="none"
                     android:nextFocusDown="@+id/etQuoteDate"
                     android:textSize="12sp" />
@@ -48,7 +48,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:autofillHints="no"
-                    android:hint="@string/CurrencyQuote_Date"
+                    android:hint="@string/Currency_Quote_Date"
                     android:nextFocusDown="@+id/etCurrencyValue"
                     android:textSize="12sp"
                     android:inputType="date" />
@@ -68,7 +68,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:autofillHints="no"
-                    android:hint="@string/CurrencyQuote_Value"
+                    android:hint="@string/Currency_Quote_Value"
                     android:inputType="numberDecimal"
                     android:nextFocusDown="@+id/btSaveCurrencyQuote"
                     android:textSize="12sp" />
