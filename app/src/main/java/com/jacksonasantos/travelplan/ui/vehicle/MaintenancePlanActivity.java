@@ -38,16 +38,19 @@ public class MaintenancePlanActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        Database mDb = new Database(getApplicationContext());
-        mDb.open();
-
         setTitle(R.string.Maintenance_Plan);
         setContentView(R.layout.activity_maintenance_plan);
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
+    protected void onResume() {
+
+        super.onResume();
 
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             maintenancePlan = new MaintenancePlan();
-            if (extras.getInt( "maintenance_plan_id") > 0) {
+            if (extras.getInt("maintenance_plan_id") > 0) {
                 maintenancePlan.setId(extras.getInt("maintenance_plan_id"));
                 maintenancePlan = Database.mMaintenancePlanDao.fetchMaintenancePlanById(maintenancePlan.getId());
                 opInsert = false;
@@ -70,24 +73,26 @@ public class MaintenancePlanActivity extends AppCompatActivity {
         Utils.createSpinnerResources(R.array.vehicle_services, spinService_type, this);
         nrSpinService_type = 0;
         spinService_type.setOnItemClickListener(new Spinner.OnItemClickListener() {
-            @Override public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 nrSpinService_type = (int) adapterView.getItemIdAtPosition(i);
             }
         });
         Utils.createSpinnerResources(R.array.measure_plan, spinMeasure, this);
         nrSpinMeasure = 0;
         spinMeasure.setOnItemClickListener(new Spinner.OnItemClickListener() {
-            @Override public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 nrSpinMeasure = (int) adapterView.getItemIdAtPosition(i);
             }
         });
 
         if (maintenancePlan != null) {
-            nrSpinService_type=maintenancePlan.getService_type();
-            spinService_type.setText(getResources().getStringArray(R.array.vehicle_services)[nrSpinService_type],false);
+            nrSpinService_type = maintenancePlan.getService_type();
+            spinService_type.setText(getResources().getStringArray(R.array.vehicle_services)[nrSpinService_type], false);
             etDescription.setText(maintenancePlan.getDescription());
-            nrSpinMeasure=maintenancePlan.getMeasure();
-            spinMeasure.setText(getResources().getStringArray(R.array.measure_plan)[nrSpinMeasure],false);
+            nrSpinMeasure = maintenancePlan.getMeasure();
+            spinMeasure.setText(getResources().getStringArray(R.array.measure_plan)[nrSpinMeasure], false);
             etExpiration_default.setText(String.valueOf(maintenancePlan.getExpiration_default()));
             etRecommendation.setText(maintenancePlan.getRecommendation());
         }

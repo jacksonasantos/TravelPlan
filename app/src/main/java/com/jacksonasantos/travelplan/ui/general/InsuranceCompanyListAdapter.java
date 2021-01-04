@@ -95,6 +95,7 @@ public class InsuranceCompanyListAdapter extends RecyclerView.Adapter<InsuranceC
                                     Database.mInsuranceCompanyDao.deleteInsuranceCompany(insuranceCompany.getId());
                                     mInsuranceCompany.remove(position);
                                     notifyItemRemoved(position);
+                                    notifyItemRangeChanged(position,mInsuranceCompany.size());
                                 } catch (Exception e) {
                                     Toast.makeText(context, context.getString(R.string.Error_Deleting_Data) + "\n" + e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
                                 }

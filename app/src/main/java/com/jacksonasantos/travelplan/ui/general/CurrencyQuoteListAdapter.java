@@ -107,6 +107,7 @@ public class CurrencyQuoteListAdapter extends RecyclerView.Adapter<CurrencyQuote
                                     Database.mCurrencyQuoteDao.deleteCurrencyQuote(currencyQuote.getId());
                                     mCurrencyQuote.remove(position);
                                     notifyItemRemoved(position);
+                                    notifyItemRangeChanged(position,mCurrencyQuote.size());
                                 } catch (Exception e) {
                                     Toast.makeText(context, context.getString(R.string.Error_Deleting_Data) + "\n" + e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
                                 }

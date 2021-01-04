@@ -132,6 +132,7 @@ public class VehicleListAdapter extends RecyclerView.Adapter<VehicleListAdapter.
                                     Database.mVehicleDao.deleteVehicle(vehicle.getId());
                                     mVehicle.remove(position);
                                     notifyItemRemoved(position);
+                                    notifyItemRangeChanged(position,mVehicle.size());
                                 } catch (Exception e) {
                                     Toast.makeText(context, context.getString(R.string.Error_Deleting_Data) + "\n" + e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
                                 }

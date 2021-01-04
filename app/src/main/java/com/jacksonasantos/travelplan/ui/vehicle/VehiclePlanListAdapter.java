@@ -109,6 +109,7 @@ public class VehiclePlanListAdapter extends RecyclerView.Adapter<VehiclePlanList
                                     Database.mVehicleHasPlanDao.deleteVehicleHasPlan(vehicleHasPlan.getVehicle_id(),vehicleHasPlan.getMaintenance_plan_id());
                                     mVehicleHasPlan.remove(position);
                                     notifyItemRemoved(position);
+                                    notifyItemRangeChanged(position,mVehicleHasPlan.size());
                                 } catch (Exception e) {
                                     Toast.makeText(context, context.getString(R.string.Error_Deleting_Data) + "\n" + e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
                                 }

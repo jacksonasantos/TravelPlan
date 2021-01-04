@@ -112,6 +112,7 @@ public class TravelListAdapter extends RecyclerView.Adapter<TravelListAdapter.My
                                     Database.mTravelDao.deleteTravel(travel.getId());
                                     mTravel.remove(position);
                                     notifyItemRemoved(position);
+                                    notifyItemRangeChanged(position,mTravel.size());
                                 } catch (Exception e) {
                                     Toast.makeText(context, context.getString(R.string.Error_Deleting_Data) + "\n" + e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
                                 }

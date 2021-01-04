@@ -148,6 +148,7 @@ public class MaintenanceListAdapter extends RecyclerView.Adapter<MaintenanceList
                                     Database.mMaintenanceDao.deleteMaintenance(maintenance.getId());
                                     mMaintenance.remove(position);
                                     notifyItemRemoved(position);
+                                    notifyItemRangeChanged(position,mMaintenance.size());
                                 } catch (Exception e) {
                                     Toast.makeText(context, context.getString(R.string.Error_Deleting_Data) + "\n" + e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
                                 }

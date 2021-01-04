@@ -95,6 +95,7 @@ public class BrokerListAdapter extends RecyclerView.Adapter<BrokerListAdapter.My
                                     Database.mBrokerDao.deleteBroker(broker.getId());
                                     mBroker.remove(position);
                                     notifyItemRemoved(position);
+                                    notifyItemRangeChanged(position,mBroker.size());
                                 } catch (Exception e) {
                                     Toast.makeText(context, context.getString(R.string.Error_Deleting_Data) + "\n" + e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
                                 }
