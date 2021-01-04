@@ -68,7 +68,8 @@ public class VehicleDAO extends DbContentProvider implements VehicleISchema, Veh
 
     public ArrayList<Vehicle> fetchArrayVehicles(){
         ArrayList<Vehicle> vehicleList = new ArrayList<>();
-        Cursor cursor = super.query(VEHICLE_TABLE, VEHICLE_COLUMNS, null,null, VEHICLE_ID);
+        final String selection = VEHICLE_DT_SALE + " IS NULL";
+        Cursor cursor = super.query(VEHICLE_TABLE, VEHICLE_COLUMNS, selection,null, VEHICLE_ID);
         if(cursor != null && cursor.moveToFirst()){
             do{
                 Vehicle vehicle = cursorToEntity(cursor);
