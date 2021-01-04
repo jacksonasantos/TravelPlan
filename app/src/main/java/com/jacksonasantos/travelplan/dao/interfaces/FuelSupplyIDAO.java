@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface FuelSupplyIDAO {
     FuelSupply fetchFuelSupplyById(Integer id);
-    List<FuelSupply> fetchAllFuelSupplies();
+    List<FuelSupply> fetchAllFuelSupplies(boolean descOrder);
     boolean addFuelSupply(FuelSupply fuelSupply);
     void deleteFuelSupply(Integer id);
     boolean updateFuelSupply(FuelSupply fuelSupply);

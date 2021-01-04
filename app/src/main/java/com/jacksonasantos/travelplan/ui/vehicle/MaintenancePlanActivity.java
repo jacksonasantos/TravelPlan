@@ -22,8 +22,10 @@ import com.jacksonasantos.travelplan.ui.utility.Utils;
 
 public class MaintenancePlanActivity extends AppCompatActivity {
 
+    private AutoCompleteTextView spinService_type;
     private int nrSpinService_type;
     private EditText etDescription;
+    private AutoCompleteTextView spinMeasure;
     private int nrSpinMeasure;
     private EditText etExpiration_default;
     private EditText etRecommendation;
@@ -40,6 +42,12 @@ public class MaintenancePlanActivity extends AppCompatActivity {
 
         setTitle(R.string.Maintenance_Plan);
         setContentView(R.layout.activity_maintenance_plan);
+
+        spinService_type = findViewById(R.id.spinService_type);
+        etDescription = findViewById(R.id.etDescription);
+        spinMeasure = findViewById(R.id.spinMeasure);
+        etExpiration_default = findViewById(R.id.etExpiration_default);
+        etRecommendation = findViewById(R.id.etRecommendation);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
@@ -63,12 +71,6 @@ public class MaintenancePlanActivity extends AppCompatActivity {
         }
 
         addListenerOnButtonSave();
-
-        AutoCompleteTextView spinService_type = findViewById(R.id.spinService_type);
-        etDescription = findViewById(R.id.etDescription);
-        AutoCompleteTextView spinMeasure = findViewById(R.id.spinMeasure);
-        etExpiration_default = findViewById(R.id.etExpiration_default);
-        etRecommendation = findViewById(R.id.etRecommendation);
 
         Utils.createSpinnerResources(R.array.vehicle_services, spinService_type, this);
         nrSpinService_type = 0;

@@ -63,7 +63,7 @@ public class MaintenanceFragment extends Fragment  {
         m3.setVisible(true);
     }
 
-    @SuppressLint("UseCompatLoadingForDrawables")
+    @SuppressLint({"UseCompatLoadingForDrawables", "NonConstantResourceId"})
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         Intent intent;

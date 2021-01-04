@@ -123,7 +123,7 @@ public class VehiclePlanActivity extends AppCompatActivity {
                 etRecommendation.setText(mp1[0].getRecommendation());
                 nrMeasure = mp1[0].getMeasure();
                 etMeasure.setText(getResources().getStringArray(R.array.measure_plan)[nrMeasure]);
-                //etExpirationNumber.setText(mp1[0].getExpiration_default());
+                //etExpirationNumber.setText(String.valueOf(mp1[0].getExpiration_default()));
             }
         });
         adapterT.notifyDataSetChanged();
@@ -182,6 +182,7 @@ public class VehiclePlanActivity extends AppCompatActivity {
                         etRecommendation.setText("");
                         nrMeasure = 0;
                         etMeasure.setText("");
+                        etExpirationNumber.setText("");
                     }
                 }
             }

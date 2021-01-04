@@ -34,7 +34,7 @@ public class FuelSupplyFragment extends Fragment  {
         mDb.open();
 
         RecyclerView listFuelSupply = this.getView().findViewById(R.id.list);
-        FuelSupplyListAdapter adapter = new FuelSupplyListAdapter(Database.mFuelSupplyDao.fetchAllFuelSupplies(), getContext());
+        FuelSupplyListAdapter adapter = new FuelSupplyListAdapter(Database.mFuelSupplyDao.fetchAllFuelSupplies(true), getContext());
         listFuelSupply.setAdapter(adapter);
         listFuelSupply.setLayoutManager(new LinearLayoutManager(getContext()));
         listFuelSupply.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
@@ -62,7 +62,7 @@ public class FuelSupplyFragment extends Fragment  {
         m3.setVisible(true);
     }
 
-    @SuppressLint("UseCompatLoadingForDrawables")
+    @SuppressLint({"UseCompatLoadingForDrawables", "NonConstantResourceId"})
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         Intent intent;
@@ -81,7 +81,7 @@ public class FuelSupplyFragment extends Fragment  {
                 }
 
                 RecyclerView listFuelSupply = this.getView().findViewById(R.id.list);
-                FuelSupplyListAdapter adapter = new FuelSupplyListAdapter(Database.mFuelSupplyDao.fetchAllFuelSupplies(), getContext());
+                FuelSupplyListAdapter adapter = new FuelSupplyListAdapter(Database.mFuelSupplyDao.fetchAllFuelSupplies(true), getContext());
                 listFuelSupply.setAdapter(adapter);
                 break;
 
