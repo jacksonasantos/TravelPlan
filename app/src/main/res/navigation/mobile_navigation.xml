@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/nav_home_vehicle"
         android:name="com.jacksonasantos.travelplan.ui.home.HomeVehicleFragment"
-        android:label="@string/menu_home"
+        android:label="@string/menu_home_vehicle"
         tools:layout="@layout/fragment_home_vehicle"/>
 
     <fragment

@@ -4,7 +4,7 @@
     <string name="nav_header_desc" translatable="false">Navigation header</string>
 
     <!-- Menu Options -->
-    <string name="menu_home">Home</string>
+    <string name="menu_home_vehicle">Home Vehicle</string>
     <string name="menu_vehicle">Vehicles</string>
     <string name="menu_travel">Travels</string>
     <string name="menu_fuel_supply">Fuel Supply</string>
