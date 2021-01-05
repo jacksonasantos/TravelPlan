@@ -76,14 +76,15 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
 
-        mDb = new Database( this);
-        mDb.open();
         InitialLoadCSV(getApplicationContext());
-        mDb.close();
     }
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     public void InitialLoadCSV(Context ctx) {
+
+        mDb = new Database( ctx );
+        mDb.open();
+
         // Carga de Seguradoras
         try {
             AssetManager assetManager = ctx.getAssets();
@@ -117,7 +118,7 @@ public class MainActivity extends AppCompatActivity {
             }
             is.close();
         } catch (IOException ex) {
-            Log.i("debug", "Error: " + ex.getMessage());
+            Log.i("debug", "Error load 'Seguradoras': " + ex.getMessage());
         }
         // Carga de Plano de Manutenção
         try {
@@ -159,8 +160,9 @@ public class MainActivity extends AppCompatActivity {
             }
             is.close();
         } catch (IOException ex) {
-            Log.i("debug", "Error: " + ex.getMessage());
+            Log.i("debug", "Error load 'Plano de Manutenção': " + ex.getMessage());
         }
+        mDb.close();
     }
 
     @Override
