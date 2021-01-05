@@ -28,7 +28,7 @@ import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Objects;
 
-public class HomeVehicleInsuranceListAdapter extends RecyclerView.Adapter<HomeVehicleInsuranceListAdapter.MyViewHolder> {
+public class HomeInsuranceListAdapter extends RecyclerView.Adapter<HomeInsuranceListAdapter.MyViewHolder> {
 
     private final List<Insurance> mInsurance;
     Context context;
@@ -62,7 +62,7 @@ public class HomeVehicleInsuranceListAdapter extends RecyclerView.Adapter<HomeVe
         }
     }
 
-    public HomeVehicleInsuranceListAdapter(List<Insurance> insurance, Context context) {
+    public HomeInsuranceListAdapter(List<Insurance> insurance, Context context) {
         this.mInsurance = insurance;
         this.context = context;
 
@@ -72,9 +72,9 @@ public class HomeVehicleInsuranceListAdapter extends RecyclerView.Adapter<HomeVe
 
     @NonNull
     @Override
-    public HomeVehicleInsuranceListAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public HomeInsuranceListAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View insuranceView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.fragment_home_vehicle_item_insurance, parent, false);
+                .inflate(R.layout.fragment_home_item_insurance, parent, false);
         insurance_typeArray = parent.getResources().getStringArray(R.array.insurance_type_array);
 
         return new MyViewHolder(insuranceView);

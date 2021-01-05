@@ -3,7 +3,6 @@ package com.jacksonasantos.travelplan.ui.travel;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.os.Build;
 import android.view.LayoutInflater;
@@ -76,15 +75,8 @@ public class TravelListAdapter extends RecyclerView.Adapter<TravelListAdapter.My
     @Override
     public void onBindViewHolder(@NonNull final MyViewHolder holder, final int position) {
         final Travel travel = mTravel.get(position);
-
         holder.imStatus.setImageResource(R.drawable.ic_ball );
-        switch (travel.getStatus()) {
-            case 0:holder.imStatus.setColorFilter(Color.BLUE, PorterDuff.Mode.MULTIPLY);
-            case 1:holder.imStatus.setColorFilter(Color.YELLOW, PorterDuff.Mode.MULTIPLY);
-            case 2:holder.imStatus.setColorFilter(Color.GREEN, PorterDuff.Mode.MULTIPLY);
-            case 3:holder.imStatus.setColorFilter(Color.MAGENTA, PorterDuff.Mode.MULTIPLY);
-            default:holder.imStatus.setColorFilter(Color.GRAY, PorterDuff.Mode.MULTIPLY);
-        }
+        holder.imStatus.setColorFilter(travel.getColorStatus(), PorterDuff.Mode.MULTIPLY);
         holder.txtDescription.setText(travel.getDescription());
         holder.txtDeparture.setText(Utils.dateToString(travel.getDeparture_date()));
         // btnEdit

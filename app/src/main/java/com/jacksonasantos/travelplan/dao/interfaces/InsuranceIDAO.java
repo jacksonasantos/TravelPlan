@@ -7,7 +7,7 @@ import java.util.List;
 public interface InsuranceIDAO {
     Insurance fetchInsuranceById(Integer id);
     List<Insurance> fetchAllInsurance();
-    List<Insurance> findReminderInsurance( Integer id);
+    List<Insurance> findReminderInsurance(  String type,  Integer id);
     boolean addInsurance(Insurance insurance);
     void deleteInsurance(Integer id);
     boolean updateInsurance(Insurance insurance);

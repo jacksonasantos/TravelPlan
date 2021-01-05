@@ -1,5 +1,7 @@
 package com.jacksonasantos.travelplan.dao;
 
+import android.graphics.Color;
+
 import androidx.annotation.NonNull;
 
 import java.util.Date;
@@ -41,4 +43,12 @@ public class Travel {
 
     public int getStatus() { return status; }
     public void setStatus(int status) { this.status = status; }
+
+    public int getColorStatus() {
+        int vColor = Color.GRAY;
+        if (status == 1 ) {vColor = Color.YELLOW; }
+        else if (status == 2 ) {vColor = Color.GREEN; }
+        else if (status == 3 ) {vColor = Color.BLUE; }
+        return vColor;
+    }
 }

@@ -1,7 +1,6 @@
 package com.jacksonasantos.travelplan.ui.home;
 
 import android.annotation.SuppressLint;
-import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.os.Build;
 import android.os.Bundle;
@@ -18,6 +17,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.jacksonasantos.travelplan.R;
 import com.jacksonasantos.travelplan.dao.Database;
@@ -36,6 +37,9 @@ public class HomeTravelFragment extends Fragment implements View.OnClickListener
     private TextView tvReturn;
     private TextView tvDays;
 
+    private ConstraintLayout layerInsurance;
+    private RecyclerView insuranceList;
+
     @Override
     public View onCreateView(@NonNull final LayoutInflater inflater,
                              final ViewGroup container, Bundle savedInstanceState) {
@@ -48,6 +52,9 @@ public class HomeTravelFragment extends Fragment implements View.OnClickListener
         tvDeparture = v.findViewById(R.id.tvDeparture);
         tvReturn = v.findViewById(R.id.tvReturn);
         tvDays = v.findViewById(R.id.tvDays);
+
+        layerInsurance = v.findViewById(R.id.layerInsurance);
+        insuranceList = v.findViewById(R.id.listInsuranceExpiration);
 
         return v;
     }
@@ -71,22 +78,26 @@ public class HomeTravelFragment extends Fragment implements View.OnClickListener
                 // Recupera dados da viagem selecionada no Spinner - layerTravel
                 travel[0] = (Travel) parent.getItemAtPosition(position);
                 imTravelStatus.setImageResource(R.drawable.ic_ball );
-                int vColor;
-                switch (travel[0].getStatus()) {
-                    case 0: vColor = Color.BLUE;
-                    case 1: vColor = Color.YELLOW;
-                    case 2: vColor = Color.GREEN;
-                    case 3: vColor = Color.MAGENTA;
-                    default: vColor = Color.GRAY;
-                }
-                imTravelStatus.setColorFilter(vColor, PorterDuff.Mode.MULTIPLY);
+                imTravelStatus.setColorFilter(travel[0].getColorStatus(), PorterDuff.Mode.MULTIPLY);
                 tvNote.setText(travel[0].getNote());
                 tvDeparture.setText(Utils.dateToString(travel[0].getDeparture_date()));
                 tvReturn.setText(Utils.dateToString(travel[0].getReturn_date()));
-                long m1 = travel[0].getDeparture_date().getTime();
-                long m2 = travel[0].getReturn_date().getTime();
-                int dias = (int) ((m2 - m1) / (24*60*60*1000));
+                long d1 = travel[0].getDeparture_date().getTime();
+                long d2 = travel[0].getReturn_date().getTime();
+                int dias = (int) ((d2 - d1) / (24*60*60*1000)); // calcula em dias
                 tvDays.setText((dias + 1) + " "+getString(R.string.days));
+
+                // Insurance - layerInsurance
+                HomeInsuranceListAdapter adapterInsurance = new HomeInsuranceListAdapter(Database.mInsuranceDao.findReminderInsurance("T", travel[0].getId() ), getContext());
+                if ( adapterInsurance.getItemCount() > 0){
+                    layerInsurance.setVisibility(View.VISIBLE);
+                    insuranceList.setAdapter(adapterInsurance);
+                    insuranceList.setLayoutManager(new LinearLayoutManager(getContext()));
+                } else {
+                    layerInsurance.setVisibility(View.GONE);
+                }
+
+                adapterInsurance.notifyDataSetChanged();
             }
 
             @Override

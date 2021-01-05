@@ -66,10 +66,10 @@
     </string-array>
     <!-- Travel Status -->
     <string-array name="travel_status_array">
-        <item>@string/registered</item>
-        <item>@string/planning</item>
-        <item>@string/running</item>
-        <item>@string/executed</item>
+        <item>@string/registered</item>         <!-- GRAY -->
+        <item>@string/planning</item>           <!-- YELLOW -->
+        <item>@string/running</item>            <!-- GREEN -->
+        <item>@string/executed</item>           <!-- BLUE -->
     </string-array>
     <!-- Services -->
     <string-array name="vehicle_services">

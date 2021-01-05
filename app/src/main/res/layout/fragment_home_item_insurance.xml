@@ -5,8 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/llInsuranceItem"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    tools:context=".ui.home.HomeVehicleFragment">
+    android:layout_height="wrap_content">
 
     <ImageView
         android:id="@+id/imInsuranceType"

@@ -36,17 +36,21 @@ public class InsuranceDAO extends DbContentProvider implements InsuranceISchema,
         return insurance;
     }
 
-    public List<Insurance> findReminderInsurance( Integer id) {
+    public List<Insurance> findReminderInsurance( String type,  Integer id) {
         List<Insurance> insuranceList = new ArrayList<>();
 
         final String[] selectionArgs = { String.valueOf(id) };
-        final String selection = INSURANCE_VEHICLE_ID + " = ? AND " +
-                INSURANCE_STATUS + " = 0 "; //AND ( " +
+        final String selection;
+        if (type.equals("V")) {
+            selection = INSURANCE_VEHICLE_ID + " = ? AND ";
+        } else {
+            selection = INSURANCE_TRAVEL_ID + " = ? AND ";
+        }
+        final String selectionField = selection + INSURANCE_STATUS + " = 0 "; //AND ( " +
         //            MAINTENANCE_EXPIRATION_DATE + " NOT NULL AND " +
         //            MAINTENANCE_EXPIRATION_DATE + " > DATE ('now') )" ;
 
-        cursor = super.query(INSURANCE_TABLE, INSURANCE_COLUMNS, selection, selectionArgs, INSURANCE_FINAL_EFFECTIVE_DATE);
-
+        cursor = super.query(INSURANCE_TABLE, INSURANCE_COLUMNS, selectionField, selectionArgs, INSURANCE_FINAL_EFFECTIVE_DATE);
         if (cursor.moveToFirst()) {
             do {
                 Insurance insurance = cursorToEntity(cursor);
