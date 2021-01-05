@@ -65,9 +65,7 @@ public class HomeVehicleFragment extends Fragment implements View.OnClickListene
     private RecyclerView insuranceList;
 
     DataPoint[] dataSeries;
-    int tamHorizontalLabels = 4;
-    double x_px_min;
-    double x_px_max;
+    int tamHorizontalLabels = 3;
 
     Globals g = Globals.getInstance();
 
@@ -170,9 +168,7 @@ public class HomeVehicleFragment extends Fragment implements View.OnClickListene
                     series1.setDrawDataPoints(true);
                     series1.setDataPointsRadius(7);
                     series1.setTitle(getString(R.string.road));
-                    graphStatistics.addSeries((series1));
-                    x_px_min = series1.getLowestValueX();
-                    x_px_max = series1.getHighestValueX();
+                    graphStatistics.addSeries(series1);
 
                     // Series "City"
                     dataSeries = getData(1);
@@ -184,9 +180,7 @@ public class HomeVehicleFragment extends Fragment implements View.OnClickListene
                     series2.setDrawDataPoints(true);
                     series2.setDataPointsRadius(7);
                     series2.setTitle(getString(R.string.city));
-                    graphStatistics.addSeries((series2));
-                    x_px_min = Math.min(series2.getLowestValueX(), x_px_min);
-                    x_px_max = Math.max(series2.getHighestValueX(), x_px_max);
+                    graphStatistics.addSeries(series2);
 
                     // Prepare e Show Legend
                     //graphStatistics.getLegendRenderer().setVisible(true);
@@ -204,14 +198,16 @@ public class HomeVehicleFragment extends Fragment implements View.OnClickListene
                     graphStatistics.getGridLabelRenderer().setVerticalAxisTitleColor(R.color.design_default_color_secondary);
                     graphStatistics.getGridLabelRenderer().setVerticalAxisTitle(g.getMeasureConsumption());
 
-                    graphStatistics.onDataChanged(true, true);
                     graphStatistics.getViewport().setScalable(true);            //         activate horizontal zooming and scrolling
                     graphStatistics.getViewport().setScrollable(true);          //         activate horizontal scrolling
                     graphStatistics.getViewport().setScalableY(true);           //         activate horizontal and vertical zooming and scrolling
                     graphStatistics.getViewport().setScrollableY(true);         //         activate vertical scrolling
                     graphStatistics.getViewport().setXAxisBoundsManual(true);
-                    graphStatistics.getViewport().setMinX(x_px_min);
-                    graphStatistics.getViewport().setMaxX(x_px_max);
+                    graphStatistics.getViewport().setMinX(Math.min(series2.getLowestValueX(), series1.getLowestValueX()));
+                    graphStatistics.getViewport().setMaxX(Math.max(series2.getHighestValueX(), series1.getHighestValueX()));
+                    graphStatistics.getViewport().setYAxisBoundsManual(true);
+                    graphStatistics.getViewport().setMinY(Math.min(series2.getLowestValueY(), series1.getLowestValueY()));
+                    graphStatistics.getViewport().setMaxY(Math.max(series2.getHighestValueY(), series1.getHighestValueY()));
 
                     graphStatistics.refreshDrawableState();
                 } else {
