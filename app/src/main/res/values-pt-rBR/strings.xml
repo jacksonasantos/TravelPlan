@@ -185,7 +185,7 @@
     <string name="general">Geral</string>
     <string name="indeterminate">Indeterminado</string>
     <string name="km">KMs</string>
-    <string name="days">Dias</string>
+    <string name="days">Dia(s)</string>
     <string name="Maintenance_Plan_Description">Descrição</string>
     <string name="Maintenance_Plan_Measure">Medida</string>
     <string name="Maintenance_Plan_Expiration">Expiração</string>
@@ -211,5 +211,6 @@
     <string name="Insurance_Company_ZipCode">CEP</string>
     <string name="Insurance_Company_Telephone">Telefone</string>
     <string name="Insurance_Company_Authorization_Date">Data de Autorização</string>
-    <string name="menu_home_vehicle">Principal Veículo</string>
+    <string name="menu_home_vehicle">Principal - Veículo</string>
+    <string name="menu_home_travel">Principal - Viagens</string>
 </resources>

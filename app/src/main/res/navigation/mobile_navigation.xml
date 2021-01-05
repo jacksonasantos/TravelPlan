@@ -12,6 +12,12 @@
         tools:layout="@layout/fragment_home_vehicle"/>
 
     <fragment
+        android:id="@+id/nav_home_travel"
+        android:name="com.jacksonasantos.travelplan.ui.home.HomeTravelFragment"
+        android:label="@string/menu_home_travel"
+        tools:layout="@layout/fragment_home_travel"/>
+
+    <fragment
         android:id="@+id/nav_vehicle"
         android:name="com.jacksonasantos.travelplan.ui.vehicle.VehicleFragment"
         android:label="@string/menu_vehicle"

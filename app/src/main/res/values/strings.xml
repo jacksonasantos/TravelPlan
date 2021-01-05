@@ -5,6 +5,7 @@
 
     <!-- Menu Options -->
     <string name="menu_home_vehicle">Home Vehicle</string>
+    <string name="menu_home_travel">Home Travel</string>
     <string name="menu_vehicle">Vehicles</string>
     <string name="menu_travel">Travels</string>
     <string name="menu_fuel_supply">Fuel Supply</string>
@@ -106,7 +107,7 @@
     <!-- Array Type Measure -->
     <string name="indeterminate">Indeterminate</string>
     <string name="km">Km</string>
-    <string name="days">Days</string>
+    <string name="days">Day(s)</string>
 
     <!-- FuelSupply Fragment -->
     <string name="FuelSupply_Vehicle">Supply Vehicle</string>
