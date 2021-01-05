@@ -2,15 +2,14 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    app:startDestination="@+id/nav_home"
+    app:startDestination="@+id/nav_home_vehicle"
     tools:ignore="UnusedNavigation">
 
     <fragment
-        android:id="@+id/nav_home"
-        android:name="com.jacksonasantos.travelplan.ui.home.HomeFragment"
+        android:id="@+id/nav_home_vehicle"
+        android:name="com.jacksonasantos.travelplan.ui.home.HomeVehicleFragment"
         android:label="@string/menu_home"
-        tools:layout="@layout/fragment_home" >
-    </fragment>
+        tools:layout="@layout/fragment_home_vehicle"/>
 
     <fragment
         android:id="@+id/nav_vehicle"

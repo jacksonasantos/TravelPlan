@@ -28,7 +28,7 @@ import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Objects;
 
-public class HomeMaintenanceListAdapter extends RecyclerView.Adapter<HomeMaintenanceListAdapter.MyViewHolder> {
+public class HomeVehicleMaintenanceListAdapter extends RecyclerView.Adapter<HomeVehicleMaintenanceListAdapter.MyViewHolder> {
 
     private final List<Maintenance> mMaintenance;
     Context context;
@@ -60,7 +60,7 @@ public class HomeMaintenanceListAdapter extends RecyclerView.Adapter<HomeMainten
         }
     }
 
-    public HomeMaintenanceListAdapter(List<Maintenance> maintenance, Context context) {
+    public HomeVehicleMaintenanceListAdapter(List<Maintenance> maintenance, Context context) {
         this.mMaintenance = maintenance;
         this.context = context;
 
@@ -70,9 +70,9 @@ public class HomeMaintenanceListAdapter extends RecyclerView.Adapter<HomeMainten
 
     @NonNull
     @Override
-    public HomeMaintenanceListAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public HomeVehicleMaintenanceListAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View maintenanceView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.fragment_home_item_maintenance, parent, false);
+                .inflate(R.layout.fragment_home_vehicle_item_maintenance, parent, false);
         typeArray = parent.getResources().getStringArray(R.array.vehicle_services);
 
         return new MyViewHolder(maintenanceView);

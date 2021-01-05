@@ -42,7 +42,7 @@ import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Locale;
 
-public class HomeFragment extends Fragment implements View.OnClickListener {
+public class HomeVehicleFragment extends Fragment implements View.OnClickListener {
 
     private Spinner spVehicle;
     private TextView tvLicencePlate;
@@ -73,7 +73,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     public View onCreateView(@NonNull final LayoutInflater inflater,
                              final ViewGroup container, Bundle savedInstanceState) {
 
-        View v=inflater.inflate(R.layout.fragment_home, container, false);
+        View v=inflater.inflate(R.layout.fragment_home_vehicle, container, false);
         imVehicleType = v.findViewById(R.id.imVehicleType);
         spVehicle =v.findViewById(R.id.spVehicle);
         tvLicencePlate = v.findViewById(R.id.tvLicencePlate);
@@ -135,11 +135,11 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                 tvFuelSupplyValue.setText(currencyFormatter.format(fuelSupply.getSupply_value()==null?BigDecimal.ZERO:fuelSupply.getSupply_value()));
 
                 // Statistics of Vehicle in Global selection
-                HomeStatisticsListAdapter adapterVehicle = new HomeStatisticsListAdapter(Database.mVehicleStatisticsDao.findLastVehicleStatistics(g.getIdVehicle()), getContext());
+                HomeVehicleStatisticsListAdapter adapterVehicle = new HomeVehicleStatisticsListAdapter(Database.mVehicleStatisticsDao.findLastVehicleStatistics(g.getIdVehicle()), getContext());
                 vehicleStatisticsList.setAdapter(adapterVehicle);
                 vehicleStatisticsList.setLayoutManager(new LinearLayoutManager(getContext()));
 
-                HomeStatisticsListAdapter adapterTotalVehicle = new HomeStatisticsListAdapter(Database.mVehicleStatisticsDao.findTotalVehicleStatistics(g.getIdVehicle()), getContext());
+                HomeVehicleStatisticsListAdapter adapterTotalVehicle = new HomeVehicleStatisticsListAdapter(Database.mVehicleStatisticsDao.findTotalVehicleStatistics(g.getIdVehicle()), getContext());
                 vehicleStatisticsTotalList.setAdapter(adapterTotalVehicle);
                 vehicleStatisticsTotalList.setLayoutManager(new LinearLayoutManager(getContext()));
 
@@ -147,7 +147,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                 graphStatistics.removeAllSeries();                   // Clear the Graph
                 graphStatistics.refreshDrawableState();
 
-                // Series "Estrada"
+                // Series "Road"
                 dataSeries = getData(2);
                 if ( dataSeries.length > tamHorizontalLabels ) tamHorizontalLabels = dataSeries.length;
                 LineGraphSeries<DataPoint> series1 = new LineGraphSeries<>(dataSeries);
@@ -159,7 +159,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                 x_px_min = series1.getLowestValueX();
                 x_px_max = series1.getHighestValueX();
 
-                // Series "Cidade"
+                // Series "City"
                 dataSeries = getData(1);
                 if ( dataSeries.length > tamHorizontalLabels ) tamHorizontalLabels = dataSeries.length;
                 if ( tamHorizontalLabels > 10 ) tamHorizontalLabels = 10;
@@ -198,12 +198,12 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                 graphStatistics.getViewport().setMaxX(x_px_max);
 
                 // In-Vehicle Services
-                HomeMaintenanceListAdapter adapterMaintenance = new HomeMaintenanceListAdapter(Database.mMaintenanceDao.findReminderMaintenance( g.getIdVehicle() ), getContext());
+                HomeVehicleMaintenanceListAdapter adapterMaintenance = new HomeVehicleMaintenanceListAdapter(Database.mMaintenanceDao.findReminderMaintenance( g.getIdVehicle() ), getContext());
                 maintenanceList.setAdapter(adapterMaintenance);
                 maintenanceList.setLayoutManager(new LinearLayoutManager(getContext()));
 
                 // Insurance
-                HomeInsuranceListAdapter adapterInsurance = new HomeInsuranceListAdapter(Database.mInsuranceDao.findReminderInsurance( g.getIdVehicle() ), getContext());
+                HomeVehicleInsuranceListAdapter adapterInsurance = new HomeVehicleInsuranceListAdapter(Database.mInsuranceDao.findReminderInsurance( g.getIdVehicle() ), getContext());
                 insuranceList.setAdapter(adapterInsurance);
                 insuranceList.setLayoutManager(new LinearLayoutManager(getContext()));
 

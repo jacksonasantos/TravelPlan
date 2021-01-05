@@ -20,7 +20,7 @@ import java.text.NumberFormat;
 import java.util.List;
 import java.util.Locale;
 
-public class HomeStatisticsListAdapter extends RecyclerView.Adapter<HomeStatisticsListAdapter.MyViewHolder> {
+public class HomeVehicleStatisticsListAdapter extends RecyclerView.Adapter<HomeVehicleStatisticsListAdapter.MyViewHolder> {
 
     Globals g = Globals.getInstance();
 
@@ -54,7 +54,7 @@ public class HomeStatisticsListAdapter extends RecyclerView.Adapter<HomeStatisti
         }
     }
 
-    public HomeStatisticsListAdapter(List<VehicleStatistics> vehicleStatistics, Context context) {
+    public HomeVehicleStatisticsListAdapter(List<VehicleStatistics> vehicleStatistics, Context context) {
         this.mVehicleStatistics = vehicleStatistics;
         this.context = context;
 
@@ -64,9 +64,9 @@ public class HomeStatisticsListAdapter extends RecyclerView.Adapter<HomeStatisti
 
     @NonNull
     @Override
-    public HomeStatisticsListAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public HomeVehicleStatisticsListAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View vehicleStatisticsView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.fragment_home_item_statistics, parent, false);
+                .inflate(R.layout.fragment_home_vehicle_item_statistics, parent, false);
 
         reasonTypeArray = parent.getResources().getStringArray(R.array.supply_reason_type_array);
 

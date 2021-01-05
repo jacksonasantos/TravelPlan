@@ -6,7 +6,7 @@
     android:id="@+id/llInsuranceItem"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:context=".ui.home.HomeFragment">
+    tools:context=".ui.home.HomeVehicleFragment">
 
     <ImageView
         android:id="@+id/imInsuranceType"
