@@ -26,16 +26,16 @@ public class TravelExpenseDAO extends DbContentProvider implements TravelExpense
 
         cursor = super.rawQuery(
                 "SELECT '" + MainActivity.getAppResources().getString(R.string.Combustible) + "' " + TravelExpenseISchema.TRAVEL_EXPENSE_EXPENSE + ", " +       // Combustivel
-                          " 0 " + TravelExpenseISchema.TRAVEL_EXPENSE_EXPECTED_VALUE + ", " +
+                          " 0 " + TravelExpenseISchema.TRAVEL_EXPENSE_EXPECTED_VALUE + ", " +                      //  TODO - Ajustar Previsto de todas Despesas
                           " SUM (" + FuelSupplyISchema.FUEL_SUPPLY_SUPPLY_VALUE +") " + TravelExpenseISchema.TRAVEL_EXPENSE_REALIZED_VALUE +
                      " FROM " + FuelSupplyISchema.FUEL_SUPPLY_TABLE +
                     " WHERE " + FuelSupplyISchema.FUEL_SUPPLY_ASSOCIATED_TRAVEL_ID + " = ? " +
                     " UNION " +
-                    "SELECT '" + MainActivity.getAppResources().getString(R.string.Food) + "' " + TravelExpenseISchema.TRAVEL_EXPENSE_EXPENSE + ", " +              //  TODO - Calcular quando implementado Pedágio
+                    "SELECT '" + MainActivity.getAppResources().getString(R.string.Food) + "' " + TravelExpenseISchema.TRAVEL_EXPENSE_EXPENSE + ", " +              //  TODO - Calcular quando implementado Alimentação
                            " 0 " + TravelExpenseISchema.TRAVEL_EXPENSE_EXPECTED_VALUE + ", " +
                            " 0 " + TravelExpenseISchema.TRAVEL_EXPENSE_REALIZED_VALUE +
                     " UNION " +
-                    "SELECT '" + MainActivity.getAppResources().getString(R.string.Toll) + "' " + TravelExpenseISchema.TRAVEL_EXPENSE_EXPENSE + ", " +              //  TODO - Calcular quando implementado Alimentação
+                    "SELECT '" + MainActivity.getAppResources().getString(R.string.Toll) + "' " + TravelExpenseISchema.TRAVEL_EXPENSE_EXPENSE + ", " +              //  TODO - Calcular quando implementado Pedágio
                           " 0 " + TravelExpenseISchema.TRAVEL_EXPENSE_EXPECTED_VALUE + ", " +
                           " 0 " + TravelExpenseISchema.TRAVEL_EXPENSE_REALIZED_VALUE +
                     " UNION " +
