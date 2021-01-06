@@ -38,6 +38,8 @@ import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
 
+    private static Resources res;
+
     private AppBarConfiguration mAppBarConfiguration;
 
     public Database mDb;
@@ -50,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.menu.activity_main);
 
-        Resources res = getResources();
+        res = getResources();
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(this);
 
         settingGlobals( res, settings );
@@ -77,6 +79,10 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupWithNavController(navigationView, navController);
 
         InitialLoadCSV(getApplicationContext());
+    }
+
+    public static Resources getAppResources() {
+        return res;
     }
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)

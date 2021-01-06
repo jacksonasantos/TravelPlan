@@ -213,4 +213,12 @@
     <string name="Insurance_Company_Authorization_Date">Data de Autorização</string>
     <string name="menu_home_vehicle">Principal - Veículo</string>
     <string name="menu_home_travel">Principal - Viagens</string>
+    <string name="Travel_Expenses">Despesas de Viagem</string>
+    <string name="Combustible">Combustível</string>
+    <string name="Expected">Previsto</string>
+    <string name="Realized">Realizado</string>
+    <string name="Toll">Pedágio</string>
+    <string name="Food">Alimentação</string>
+    <string name="Tours">Passeios</string>
+    <string name="Accommodation">Hospedagem</string>
 </resources>

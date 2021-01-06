@@ -133,7 +133,18 @@
     <string name="gasoline_additives">Gasoline Additives</string>
     <string name="gasoline_premium">Gasoline Premium</string>
 
-    <!-- Home Fragment -->
+    <!-- Home Travel Fragment -->
+    <string name="Travel_Expenses">Travel Expenses</string>
+    <string name="Combustible">Combustible</string>
+    <string name="Toll">Toll</string>
+    <string name="Food">Food</string>
+    <string name="Tours">Tours</string>
+    <string name="Accommodation">Accommodation</string>
+    <string name="Extras" translatable="false">Extras</string>
+    <string name="Expected">Expected</string>
+    <string name="Realized">Realized</string>
+
+    <!-- Home Vehicle Fragment -->
     <string name="Odometer">Odometer</string>
     <string name="FuelSupply_Last">Last Fuel Supply</string>
     <string name="InVehicleServices">In-Vehicle Services</string>
