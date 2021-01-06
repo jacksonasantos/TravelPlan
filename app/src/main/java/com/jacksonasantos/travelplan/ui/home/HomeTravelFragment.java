@@ -94,6 +94,7 @@ public class HomeTravelFragment extends Fragment implements View.OnClickListener
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
                 // Recupera dados da viagem selecionada no Spinner - layerTravel
+                layerTravel.setVisibility(View.VISIBLE);
                 travel[0] = (Travel) parent.getItemAtPosition(position);
                 imTravelStatus.setImageResource(R.drawable.ic_ball );
                 imTravelStatus.setColorFilter(travel[0].getColorStatus(), PorterDuff.Mode.MULTIPLY);
@@ -129,15 +130,15 @@ public class HomeTravelFragment extends Fragment implements View.OnClickListener
                         vExpected = vExpected + adapterTravelExpense.mTravelExpense.get(x).getExpected_value();
                         vRealized = vRealized + adapterTravelExpense.mTravelExpense.get(x).getRealized_value();
                     }
-                    v = LayoutInflater.from(getContext()).inflate(R.layout.fragment_home_travel_item_expense, parent, false);
+                    View vT = LayoutInflater.from(getContext()).inflate(R.layout.fragment_home_travel_item_expense, parent, false);
                     totalTravelExpenses.removeAllViews();
-                    TextView totExpense = v.findViewById(R.id.txtExpense);
-                    TextView totExpectedValue = v.findViewById(R.id.txtExpectedValue);
-                    TextView totRealizedValue = v.findViewById(R.id.txtRealizedValue);
+                    TextView totExpense = vT.findViewById(R.id.txtExpense);
+                    TextView totExpectedValue = vT.findViewById(R.id.txtExpectedValue);
+                    TextView totRealizedValue = vT.findViewById(R.id.txtRealizedValue);
                     totExpense.setText("      TOTAL");
                     totExpectedValue.setText(currencyFormatter.format(vExpected));
                     totRealizedValue.setText(currencyFormatter.format(vRealized));
-                    totalTravelExpenses.addView(v);
+                    totalTravelExpenses.addView(vT);
                     totalTravelExpenses.setBackgroundColor(Color.rgb(209,193,233));
                 } else {
                     layerExpense.setVisibility(View.GONE);
