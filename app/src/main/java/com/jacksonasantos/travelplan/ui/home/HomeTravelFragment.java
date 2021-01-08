@@ -24,6 +24,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.jacksonasantos.travelplan.R;
 import com.jacksonasantos.travelplan.dao.Database;
 import com.jacksonasantos.travelplan.dao.Travel;
+import com.jacksonasantos.travelplan.ui.travel.VehicleTravelListAdapter;
 import com.jacksonasantos.travelplan.ui.utility.Globals;
 import com.jacksonasantos.travelplan.ui.utility.Utils;
 
@@ -40,6 +41,9 @@ public class HomeTravelFragment extends Fragment implements View.OnClickListener
     private TextView tvDeparture;
     private TextView tvReturn;
     private TextView tvDays;
+
+    private ConstraintLayout layerVehicle;
+    private RecyclerView listVehicle;
 
     private ConstraintLayout layerExpense;
     private ConstraintLayout labelTravelExpenses;
@@ -66,6 +70,9 @@ public class HomeTravelFragment extends Fragment implements View.OnClickListener
         tvReturn = v.findViewById(R.id.tvReturn);
         tvDays = v.findViewById(R.id.tvDays);
 
+        layerVehicle = v.findViewById(R.id.layerVehicle);
+        listVehicle = v.findViewById(R.id.listVehicle);
+
         layerExpense = v.findViewById(R.id.layerExpense);
         labelTravelExpenses = v.findViewById(R.id.labelTravelExpenses);
         listTravelExpenses = v.findViewById(R.id.listTravelExpenses);
@@ -81,6 +88,8 @@ public class HomeTravelFragment extends Fragment implements View.OnClickListener
     @Override
     public void onResume() {
         super.onResume();
+        final Database mDb = new Database(getActivity());
+        mDb.open();
 
         final List<Travel> travels =  Database.mTravelDao.fetchArrayTravel();
         ArrayAdapter<Travel> adapter = new ArrayAdapter<>(requireActivity(), android.R.layout.simple_spinner_item, travels);
@@ -105,6 +114,16 @@ public class HomeTravelFragment extends Fragment implements View.OnClickListener
                 long d2 = travel[0].getReturn_date().getTime();
                 int dias = (int) ((d2 - d1) / (24*60*60*1000)); // calcula em dias
                 tvDays.setText((dias + 1) + " "+getString(R.string.days));
+
+                // Vehicles has Travel
+                VehicleTravelListAdapter adapterVehicle = new VehicleTravelListAdapter(Database.mVehicleHasTravelDao.fetchAllVehicleHasTravelByTravel(travel[0].getId() ), getContext(),"Home");
+                if ( adapterVehicle.getItemCount() > 0){
+                    layerVehicle.setVisibility(View.VISIBLE);
+                    listVehicle.setAdapter(adapterVehicle);
+                    listVehicle.setLayoutManager(new LinearLayoutManager(getContext()));
+                } else {
+                    layerVehicle.setVisibility(View.GONE);
+                }
 
                 // Expenses - LayerExpense
                 HomeTravelExpenseListAdapter adapterTravelExpense = new HomeTravelExpenseListAdapter( Database.mTravelExpenseDao.findTravelExpense(travel[0].getId() ), getContext());
@@ -154,6 +173,7 @@ public class HomeTravelFragment extends Fragment implements View.OnClickListener
                     layerInsurance.setVisibility(View.GONE);
                 }
 
+                adapterTravelExpense.notifyDataSetChanged();
                 adapterInsurance.notifyDataSetChanged();
             }
 

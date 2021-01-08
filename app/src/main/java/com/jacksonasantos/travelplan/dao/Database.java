@@ -8,16 +8,17 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.jacksonasantos.travelplan.dao.interfaces.VehicleISchema;
-import com.jacksonasantos.travelplan.dao.interfaces.FuelSupplyISchema;
-import com.jacksonasantos.travelplan.dao.interfaces.CurrencyQuoteISchema;
-import com.jacksonasantos.travelplan.dao.interfaces.MaintenanceISchema;
-import com.jacksonasantos.travelplan.dao.interfaces.InsuranceCompanyISchema;
-import com.jacksonasantos.travelplan.dao.interfaces.TravelISchema;
 import com.jacksonasantos.travelplan.dao.interfaces.BrokerISchema;
+import com.jacksonasantos.travelplan.dao.interfaces.CurrencyQuoteISchema;
+import com.jacksonasantos.travelplan.dao.interfaces.FuelSupplyISchema;
+import com.jacksonasantos.travelplan.dao.interfaces.InsuranceCompanyISchema;
 import com.jacksonasantos.travelplan.dao.interfaces.InsuranceISchema;
+import com.jacksonasantos.travelplan.dao.interfaces.MaintenanceISchema;
 import com.jacksonasantos.travelplan.dao.interfaces.MaintenancePlanISchema;
+import com.jacksonasantos.travelplan.dao.interfaces.TravelISchema;
 import com.jacksonasantos.travelplan.dao.interfaces.VehicleHasPlanISchema;
+import com.jacksonasantos.travelplan.dao.interfaces.VehicleHasTravelISchema;
+import com.jacksonasantos.travelplan.dao.interfaces.VehicleISchema;
 
 public class Database {
 
@@ -25,7 +26,7 @@ public class Database {
     private final Context mContext;
 
     private static final String DATABASE_NAME = "TravelPlan.db";
-    private static final int DATABASE_VERSION = 24;
+    private static final int DATABASE_VERSION = 25;
 
     public static VehicleDAO mVehicleDao;
     public static FuelSupplyDAO mFuelSupplyDao;
@@ -40,6 +41,7 @@ public class Database {
     public static VehicleHasPlanDAO mVehicleHasPlanDao;
     public static VehicleGraphStatisticsDAO mVehicleGraphStatisticsDao;
     public static TravelExpenseDAO mTravelExpenseDao;
+    public static VehicleHasTravelDAO mVehicleHasTravelDao;
 
     public Database(Context context) {
         this.mContext = context;
@@ -63,6 +65,7 @@ public class Database {
         mVehicleHasPlanDao = new VehicleHasPlanDAO(mDb);
         mVehicleGraphStatisticsDao = new VehicleGraphStatisticsDAO(mDb);
         mTravelExpenseDao = new TravelExpenseDAO(mDb);
+        mVehicleHasTravelDao = new VehicleHasTravelDAO(mDb);
     }
 
     public void close() {
@@ -119,6 +122,7 @@ public class Database {
             db.execSQL(MaintenancePlanISchema.CREATE_TABLE_MAINTENANCE_PLAN_V22); Log.w("Table  "+MaintenancePlanISchema.MAINTENANCE_PLAN_TABLE,"V22 - Create Table...");
             db.execSQL(VehicleHasPlanISchema.CREATE_TABLE_VEHICLE_HAS_PLAN_V23); Log.w("Table "+ VehicleHasPlanISchema.VEHICLE_HAS_PLAN_TABLE,"V23 - Create Table...");
             db.execSQL(BrokerISchema.ALTER_TABLE_BROKER_V24); Log.w("Table "+ BrokerISchema.BROKER_TABLE,"V24 - Alter Table...");
+            db.execSQL(VehicleHasTravelISchema.CREATE_TABLE_VEHICLE_HAS_TRAVEL_V25); Log.w("Tab "+ VehicleHasTravelISchema.VEHICLE_HAS_TRAVEL_TABLE,"V25 - Create Table...");
         }
 
         @SuppressLint("SQLiteString")
@@ -205,6 +209,9 @@ public class Database {
                         break;
                     case 24:
                         db.execSQL(BrokerISchema.ALTER_TABLE_BROKER_V24);
+                        break;
+                    case 25:
+                        db.execSQL(VehicleHasTravelISchema.CREATE_TABLE_VEHICLE_HAS_TRAVEL_V25);
                         break;
                     default:
                         break;

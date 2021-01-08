@@ -221,4 +221,5 @@
     <string name="Food">Alimentação</string>
     <string name="Tours">Passeios</string>
     <string name="Accommodation">Hospedagem</string>
+    <string name="Vehicle_Travel_Deleting">Excluindo Veículo da Viagem</string>
 </resources>

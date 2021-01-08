@@ -1,4 +1,5 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -122,21 +123,77 @@
                     android:inputType="none" />
             </com.google.android.material.textfield.TextInputLayout>
 
+             <Button
+                android:id="@+id/btSaveTravel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="8dp"
+                android:text="@string/bt_Save" />
+
+            <Button
+                android:id="@+id/buttonSeparator3"
+                android:layout_width="match_parent"
+                android:layout_height="15dp"
+                android:clickable="false" />
+
         </LinearLayout>
-
-        <Button
-            android:id="@+id/buttonSeparator3"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="15dp"
-            android:clickable="false" />
-
-        <Button
-            android:id="@+id/btSaveTravel"
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="8dp"
-            android:text="@string/bt_Save" />
+            android:baselineAligned="false"
+            android:orientation="vertical">
 
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:baselineAligned="false"
+                android:orientation="horizontal">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/btnAdd"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <AutoCompleteTextView
+                        android:id="@+id/spinVehicle"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="@dimen/labels_margin"
+                        android:layout_marginLeft="@dimen/labels_margin"
+                        android:layout_marginEnd="@dimen/labels_margin"
+                        android:layout_marginRight="@dimen/labels_margin"
+                        android:hint="@string/Vehicle"
+                        android:inputType="none"
+                        android:textSize="12sp" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <ImageButton
+                    android:id="@+id/btnAdd"
+                    android:layout_width="42dp"
+                    android:layout_height="42dp"
+                    android:layout_marginEnd="@dimen/labels_margin"
+                    android:layout_marginRight="@dimen/labels_margin"
+                    android:contentDescription="@string/bt_Add"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/ic_button_add" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvVehicleTravel"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="@dimen/labels_margin"
+                android:layout_marginLeft="@dimen/labels_margin"
+                android:layout_marginEnd="@dimen/labels_margin"
+                android:layout_marginRight="@dimen/labels_margin" />
+
+        </LinearLayout>
     </LinearLayout>
 </ScrollView>

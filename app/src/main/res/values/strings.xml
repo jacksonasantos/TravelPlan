@@ -78,7 +78,7 @@
 
     <!-- Vehicle Plan Fragment -->
     <string name="Vehicle_Plan">Vehicle Maintenance Plan</string>
-    <string name="Vehicle_Plan_Deleting">Deleting Vehicle Plan</string>
+    <string name="Vehicle_Plan_Deleting">Deleting Vehicle has Plan</string>
 
     <!-- Maintenance Fragment -->
     <string name="Maintenance_Vehicle">Maintenance Vehicle</string>
@@ -282,6 +282,8 @@
     <string name="Travel_Return_Date">Return Date</string>
     <string name="Travel_Note">Travel Note</string>
     <string name="Travel_Status">Travel Status</string>
+
+    <string name="Vehicle_Travel_Deleting">Deleting Vehicle has Travel</string>
 
     <!-- Array Status Travel -->
     <string name="registered">Registered</string>

@@ -1,217 +1,254 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.home.HomeTravelFragment">
-
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/layerTravel"
-        android:layout_width="match_parent"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:layout_editor_absoluteX="-3dp">
-
-        <Spinner
-            android:id="@+id/spTravel"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/labels_margin"
-            android:layout_marginLeft="@dimen/labels_margin"
-            android:layout_marginTop="@dimen/labels_space_top"
-            android:layout_marginEnd="@dimen/labels_margin"
-            android:layout_marginRight="@dimen/labels_margin"
-            android:gravity="center_horizontal"
-            android:textAlignment="center"
-            android:textSize="14sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/imTravelStatus"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <ImageView
-            android:id="@+id/imTravelStatus"
-            android:layout_width="45dp"
-            android:layout_height="45dp"
-            android:layout_marginStart="@dimen/labels_margin"
-            android:layout_marginLeft="@dimen/labels_margin"
-            android:contentDescription="@string/Vehicle_Type"
-            app:layout_constraintBottom_toTopOf="@+id/buttonSeparator1"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/tvDeparture"
-            android:layout_width="120dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/labels_space_top"
-            android:gravity="center_horizontal"
-            android:textAlignment="center"
-            android:textSize="14sp"
-            app:layout_constraintStart_toStartOf="@+id/spTravel"
-            app:layout_constraintTop_toBottomOf="@+id/spTravel" />
-
-        <TextView
-            android:id="@+id/tvReturn"
-            android:layout_width="120dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/labels_margin"
-            android:layout_marginLeft="@dimen/labels_margin"
-            android:layout_marginTop="@dimen/labels_space_top"
-            android:gravity="center_horizontal"
-            android:textAlignment="center"
-            android:textSize="14sp"
-            app:layout_constraintStart_toEndOf="@+id/tvDeparture"
-            app:layout_constraintTop_toBottomOf="@+id/spTravel" />
-
-        <TextView
-            android:id="@+id/tvDays"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/labels_margin"
-            android:layout_marginLeft="@dimen/labels_margin"
-            android:layout_marginTop="@dimen/labels_space_top"
-            android:layout_marginEnd="@dimen/labels_margin"
-            android:layout_marginRight="@dimen/labels_margin"
-            android:gravity="center_horizontal"
-            android:textAlignment="center"
-            android:textSize="14sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/tvReturn"
-            app:layout_constraintTop_toBottomOf="@+id/spTravel" />
-
-        <TextView
-            android:id="@+id/tvNote"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/labels_margin"
-            android:layout_marginLeft="@dimen/labels_margin"
-            android:layout_marginTop="@dimen/labels_space_top"
-            android:layout_marginEnd="@dimen/labels_margin"
-            android:layout_marginRight="@dimen/labels_margin"
-            android:gravity="center_horizontal"
-            android:textAlignment="center"
-            android:textSize="14sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/imTravelStatus"
-            app:layout_constraintTop_toBottomOf="@+id/tvDeparture" />
-
-        <Button
-            android:id="@+id/buttonSeparator1"
+        android:orientation="vertical">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layerTravel"
             android:layout_width="match_parent"
-            android:layout_height="16dp"
-            android:clickable="false"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvNote" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/layerExpense"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginStart="@dimen/labels_margin"
-        android:layout_marginLeft="@dimen/labels_margin"
-        android:layout_marginEnd="@dimen/labels_margin"
-        android:layout_marginRight="@dimen/labels_margin"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/layerTravel">
-
-        <TextView
-            android:id="@+id/tvExpenses"
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/Travel_Expenses"
-            android:textColor="@color/design_default_color_secondary"
-            android:textSize="14sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:layout_editor_absoluteX="-3dp">
 
-        <include
-            android:id="@+id/labelTravelExpenses"
-            layout="@layout/fragment_home_travel_item_expense"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvExpenses" />
+            <Spinner
+                android:id="@+id/spTravel"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/labels_margin"
+                android:layout_marginLeft="@dimen/labels_margin"
+                android:layout_marginTop="@dimen/labels_space_top"
+                android:layout_marginEnd="@dimen/labels_margin"
+                android:layout_marginRight="@dimen/labels_margin"
+                android:gravity="center_horizontal"
+                android:textAlignment="center"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/imTravelStatus"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/listTravelExpenses"
+            <ImageView
+                android:id="@+id/imTravelStatus"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:layout_marginStart="@dimen/labels_margin"
+                android:layout_marginLeft="@dimen/labels_margin"
+                android:contentDescription="@string/Vehicle_Type"
+                app:layout_constraintBottom_toTopOf="@+id/buttonSeparator2"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tvDeparture"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/labels_space_top"
+                android:gravity="center_horizontal"
+                android:textAlignment="center"
+                android:textSize="14sp"
+                app:layout_constraintStart_toStartOf="@+id/spTravel"
+                app:layout_constraintTop_toBottomOf="@+id/spTravel" />
+
+            <TextView
+                android:id="@+id/tvReturn"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/labels_margin"
+                android:layout_marginLeft="@dimen/labels_margin"
+                android:layout_marginTop="@dimen/labels_space_top"
+                android:gravity="center_horizontal"
+                android:textAlignment="center"
+                android:textSize="14sp"
+                app:layout_constraintStart_toEndOf="@+id/tvDeparture"
+                app:layout_constraintTop_toBottomOf="@+id/spTravel" />
+
+            <TextView
+                android:id="@+id/tvDays"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/labels_margin"
+                android:layout_marginLeft="@dimen/labels_margin"
+                android:layout_marginTop="@dimen/labels_space_top"
+                android:layout_marginEnd="@dimen/labels_margin"
+                android:layout_marginRight="@dimen/labels_margin"
+                android:gravity="center_horizontal"
+                android:textAlignment="center"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/tvReturn"
+                app:layout_constraintTop_toBottomOf="@+id/spTravel" />
+
+            <TextView
+                android:id="@+id/tvNote"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/labels_margin"
+                android:layout_marginLeft="@dimen/labels_margin"
+                android:layout_marginTop="@dimen/labels_space_top"
+                android:layout_marginEnd="@dimen/labels_margin"
+                android:layout_marginRight="@dimen/labels_margin"
+                android:gravity="center_horizontal"
+                android:textAlignment="center"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/imTravelStatus"
+                app:layout_constraintTop_toBottomOf="@+id/tvDeparture" />
+
+            <Button
+                android:id="@+id/buttonSeparator2"
+                android:layout_width="match_parent"
+                android:layout_height="16dp"
+                android:clickable="false"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvNote" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layerVehicle"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:scrollbars="vertical"
+            android:layout_marginStart="@dimen/labels_margin"
+            android:layout_marginLeft="@dimen/labels_margin"
+            android:layout_marginEnd="@dimen/labels_margin"
+            android:layout_marginRight="@dimen/labels_margin"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/labelTravelExpenses"
-            tools:itemCount="7" />
+            app:layout_constraintTop_toBottomOf="@+id/layerTravel">
 
-        <include
-            android:id="@+id/totalTravelExpenses"
-            layout="@layout/fragment_home_travel_item_expense"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:textSize="18sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/listTravelExpenses" />
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/listVehicle"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scrollbars="vertical"
+                app:layout_constraintBottom_toTopOf="@+id/buttonSeparator3"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
 
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="16dp"
-            android:clickable="false"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/totalTravelExpenses" />
+            <Button
+                android:id="@+id/buttonSeparator3"
+                android:layout_width="match_parent"
+                android:layout_height="16dp"
+                android:clickable="false"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/layerInsurance"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginStart="@dimen/labels_margin"
-        android:layout_marginLeft="@dimen/labels_margin"
-        android:layout_marginEnd="@dimen/labels_margin"
-        android:layout_marginRight="@dimen/labels_margin"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/layerExpense">
-
-        <TextView
-            android:id="@+id/tvInsuranceExpiration"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/InsuranceExpiration"
-            android:textColor="@color/design_default_color_secondary"
-            android:textSize="14sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/listInsuranceExpiration"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layerExpense"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:scrollbars="vertical"
+            android:layout_marginStart="@dimen/labels_margin"
+            android:layout_marginLeft="@dimen/labels_margin"
+            android:layout_marginEnd="@dimen/labels_margin"
+            android:layout_marginRight="@dimen/labels_margin"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvInsuranceExpiration"
-            tools:itemCount="5" />
+            app:layout_constraintTop_toBottomOf="@+id/layerVehicle">
 
-        <Button
+            <TextView
+                android:id="@+id/tvExpenses"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/Travel_Expenses"
+                android:textColor="@color/design_default_color_secondary"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <include
+                android:id="@+id/labelTravelExpenses"
+                layout="@layout/fragment_home_travel_item_expense"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvExpenses" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/listTravelExpenses"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:scrollbars="vertical"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/labelTravelExpenses"
+                tools:itemCount="7" />
+
+            <include
+                android:id="@+id/totalTravelExpenses"
+                layout="@layout/fragment_home_travel_item_expense"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/listTravelExpenses" />
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="16dp"
+                android:clickable="false"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/totalTravelExpenses" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layerInsurance"
             android:layout_width="match_parent"
-            android:layout_height="16dp"
-            android:clickable="false"
+            android:layout_height="0dp"
+            android:layout_marginStart="@dimen/labels_margin"
+            android:layout_marginLeft="@dimen/labels_margin"
+            android:layout_marginEnd="@dimen/labels_margin"
+            android:layout_marginRight="@dimen/labels_margin"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/listInsuranceExpiration" />
+            app:layout_constraintTop_toBottomOf="@+id/layerExpense">
 
+            <TextView
+                android:id="@+id/tvInsuranceExpiration"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/InsuranceExpiration"
+                android:textColor="@color/design_default_color_secondary"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toTopOf="@+id/listInsuranceExpiration"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/listInsuranceExpiration"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:scrollbars="vertical"
+                app:layout_constraintBottom_toTopOf="@+id/buttonSeparator4"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                tools:itemCount="5" />
+
+            <Button
+                android:id="@+id/buttonSeparator4"
+                android:layout_width="match_parent"
+                android:layout_height="16dp"
+                android:clickable="false"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
