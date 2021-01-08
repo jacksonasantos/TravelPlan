@@ -13,6 +13,7 @@ import com.jacksonasantos.travelplan.dao.interfaces.CurrencyQuoteISchema;
 import com.jacksonasantos.travelplan.dao.interfaces.FuelSupplyISchema;
 import com.jacksonasantos.travelplan.dao.interfaces.InsuranceCompanyISchema;
 import com.jacksonasantos.travelplan.dao.interfaces.InsuranceISchema;
+import com.jacksonasantos.travelplan.dao.interfaces.ItineraryISchema;
 import com.jacksonasantos.travelplan.dao.interfaces.MaintenanceISchema;
 import com.jacksonasantos.travelplan.dao.interfaces.MaintenancePlanISchema;
 import com.jacksonasantos.travelplan.dao.interfaces.TravelISchema;
@@ -26,7 +27,7 @@ public class Database {
     private final Context mContext;
 
     private static final String DATABASE_NAME = "TravelPlan.db";
-    private static final int DATABASE_VERSION = 25;
+    private static final int DATABASE_VERSION = 26;
 
     public static VehicleDAO mVehicleDao;
     public static FuelSupplyDAO mFuelSupplyDao;
@@ -42,6 +43,7 @@ public class Database {
     public static VehicleGraphStatisticsDAO mVehicleGraphStatisticsDao;
     public static TravelExpenseDAO mTravelExpenseDao;
     public static VehicleHasTravelDAO mVehicleHasTravelDao;
+    public static ItineraryDAO mItineraryDao;
 
     public Database(Context context) {
         this.mContext = context;
@@ -66,6 +68,7 @@ public class Database {
         mVehicleGraphStatisticsDao = new VehicleGraphStatisticsDAO(mDb);
         mTravelExpenseDao = new TravelExpenseDAO(mDb);
         mVehicleHasTravelDao = new VehicleHasTravelDAO(mDb);
+        mItineraryDao = new ItineraryDAO(mDb);
     }
 
     public void close() {
@@ -123,6 +126,7 @@ public class Database {
             db.execSQL(VehicleHasPlanISchema.CREATE_TABLE_VEHICLE_HAS_PLAN_V23); Log.w("Table "+ VehicleHasPlanISchema.VEHICLE_HAS_PLAN_TABLE,"V23 - Create Table...");
             db.execSQL(BrokerISchema.ALTER_TABLE_BROKER_V24); Log.w("Table "+ BrokerISchema.BROKER_TABLE,"V24 - Alter Table...");
             db.execSQL(VehicleHasTravelISchema.CREATE_TABLE_VEHICLE_HAS_TRAVEL_V25); Log.w("Tab "+ VehicleHasTravelISchema.VEHICLE_HAS_TRAVEL_TABLE,"V25 - Create Table...");
+            db.execSQL(ItineraryISchema.CREATE_TABLE_ITINERARY_V26); Log.w("Table "+ ItineraryISchema.ITINERARY_TABLE,"V26 - Create Table...");
         }
 
         @SuppressLint("SQLiteString")
@@ -212,6 +216,9 @@ public class Database {
                         break;
                     case 25:
                         db.execSQL(VehicleHasTravelISchema.CREATE_TABLE_VEHICLE_HAS_TRAVEL_V25);
+                        break;
+                    case 26:
+                        db.execSQL(ItineraryISchema.CREATE_TABLE_ITINERARY_V26);
                         break;
                     default:
                         break;
