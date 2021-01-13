@@ -22,6 +22,7 @@ import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
+import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
@@ -29,6 +30,7 @@ import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.jacksonasantos.travelplan.R;
 import com.jacksonasantos.travelplan.dao.Database;
@@ -160,18 +162,23 @@ public class TravelMapsFragment extends Fragment {
         Cursor cursor = Database.mMarkerDao.fetchMarkerByTravelId(id);
         googleMap.clear();
         if (cursor.moveToFirst()) {
-            LatLng l;
-            Marker i;
-            float zoom;
+            LatLngBounds.Builder builder = new LatLngBounds.Builder();
             do {
-                i = Database.mMarkerDao.cursorToEntity(cursor);
-                l = new LatLng( Double.parseDouble(i.getLatitude()),Double.parseDouble(i.getLongitude()));
-                zoom = Float.parseFloat(i.getZoom_level());
-                drawMarker(l, i.getName());
+                Marker marker = Database.mMarkerDao.cursorToEntity(cursor);
+                LatLng latlng = new LatLng(Double.parseDouble(marker.getLatitude()), Double.parseDouble(marker.getLongitude()));
+                builder.include(latlng);
+                drawMarker(latlng, marker.getName());
             } while (cursor.moveToNext());
             cursor.close();
-            googleMap.moveCamera(CameraUpdateFactory.newLatLng(l));       // Moving CameraPosition to last clicked position
-            googleMap.animateCamera(CameraUpdateFactory.zoomTo(zoom));    // Setting the zoom level in the map on last position  is clicked
+
+            LatLngBounds bounds = builder.build();
+            int width = getResources().getDisplayMetrics().widthPixels;
+            int height = getResources().getDisplayMetrics().heightPixels;
+            int padding = (int) (width * 0.10); // offset from edges of the map 10% of screen
+            CameraUpdate camFactory = CameraUpdateFactory.newLatLngBounds(bounds, width, height, padding);
+
+            googleMap.moveCamera(camFactory);
+            googleMap.animateCamera(camFactory);
         }
     }
 
