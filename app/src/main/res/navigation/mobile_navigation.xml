@@ -48,6 +48,12 @@
         tools:layout="@layout/fragment_generic_list" />
 
     <fragment
+        android:id="@+id/nav_itinerary"
+        android:name="com.jacksonasantos.travelplan.ui.travel.TravelMapsFragment"
+        android:label="@string/menu_itinerary"
+        tools:layout="@layout/fragment_travel_maps" />
+
+    <fragment
         android:id="@+id/nav_settings"
         android:name="com.jacksonasantos.travelplan.ui.general.SettingsActivity$SettingsFragment"
         android:label="@string/action_settings"

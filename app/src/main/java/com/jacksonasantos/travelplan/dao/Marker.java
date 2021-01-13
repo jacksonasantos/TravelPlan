@@ -1,6 +1,6 @@
 package com.jacksonasantos.travelplan.dao;
 
-public class Itinerary {
+public class Marker {
     public Integer id;
     public Integer travel_id;
     public String name;
@@ -11,7 +11,7 @@ public class Itinerary {
     public String longitude;
     public String zoom_level;
 
-    public Itinerary() {
+    public Marker() {
         this.id = id;
         this.travel_id = travel_id;
         this.name = name;

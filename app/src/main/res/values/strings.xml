@@ -8,6 +8,7 @@
     <string name="menu_home_travel">Home Travel</string>
     <string name="menu_vehicle">Vehicles</string>
     <string name="menu_travel">Travels</string>
+    <string name="menu_itinerary">Itinerary</string>
     <string name="menu_fuel_supply">Fuel Supply</string>
     <string name="menu_maintenance_plan">Maintenance Plan</string>
     <string name="menu_maintenance">Maintenance Service</string>
@@ -291,5 +292,11 @@
     <string name="running">Running</string>
     <string name="executed">Executed</string>
     <string name="overdue">Overdue</string>
+
+    <!-- Marker Fragment -->
+    <string name="normal_map">Normal</string>
+    <string name="hybrid_map">Normal</string>
+    <string name="satellite_map">Normal</string>
+    <string name="terrain_map">Normal</string>
 
 </resources>

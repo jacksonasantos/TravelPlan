@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <Spinner
+        android:id="@+id/spTravel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/labels_margin"
+        android:layout_marginLeft="@dimen/labels_margin"
+        android:layout_marginEnd="@dimen/labels_margin"
+        android:layout_marginRight="@dimen/labels_margin"
+        android:gravity="center_horizontal"
+        android:textAlignment="center" />
+
+    <Button
+        android:id="@+id/buttonSeparator"
+        android:layout_width="match_parent"
+        android:layout_height="16dp"
+        android:clickable="false"
+        android:layout_below="@+id/spTravel" />
+
+    <com.google.android.gms.maps.MapView
+        android:id="@+id/mapView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/buttonSeparator" />
+</RelativeLayout>

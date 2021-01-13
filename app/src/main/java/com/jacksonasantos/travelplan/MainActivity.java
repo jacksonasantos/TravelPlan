@@ -200,5 +200,8 @@ public class MainActivity extends AppCompatActivity {
         g.setMeasureCapacity("l");
         g.setMeasureConsumption(g.getMeasureCost()+"/"+g.getMeasureCapacity());
         g.setDateFormat("yyyy-MM-dd HH:mm:ss");
+
+        g.setLatitudeHome(String.valueOf(-30.0119488783566));
+        g.setLongitudeHome(String.valueOf(-51.18268178210297));
     }
 }

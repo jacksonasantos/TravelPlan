@@ -35,6 +35,10 @@
             android:id="@+id/nav_travel"
             android:icon="@drawable/ic_menu_travel"
             android:title="@string/menu_travel" />
+        <item
+            android:id="@+id/nav_itinerary"
+            android:icon="@drawable/ic_itinerario"
+            android:title="@string/menu_itinerary" />
     </group>
     <group android:checkableBehavior="single">
         <item

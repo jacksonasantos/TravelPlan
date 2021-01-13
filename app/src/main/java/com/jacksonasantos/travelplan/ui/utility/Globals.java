@@ -13,6 +13,8 @@ public class Globals {
     private String txMeasureCapacity;
     private String txMeasureConsumption;
     private String txDateFormat;
+    private String txLatitudeHome;
+    private String txLongitudeHome;
 
     private Globals() { }
 
@@ -42,6 +44,12 @@ public class Globals {
 
     public String getDateFormat() { return this.txDateFormat; }
     public void setDateFormat(String df) { this.txDateFormat = df; }
+
+    public String getLatitudeHome() { return txLatitudeHome; }
+    public void setLatitudeHome(String txLatitudeHome) { this.txLatitudeHome = txLatitudeHome; }
+
+    public String getLongitudeHome() { return txLongitudeHome;}
+    public void setLongitudeHome(String txLongitudeHome) { this.txLongitudeHome = txLongitudeHome;}
 
     public static synchronized Globals getInstance() { if(instance==null){ instance=new Globals(); } return instance;
     }
