@@ -3,7 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="navigation_view">
-
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_home_vehicle"
@@ -13,42 +12,48 @@
             android:id="@+id/nav_home_travel"
             android:icon="@drawable/ic_menu_home"
             android:title="@string/menu_home_travel" />
-        <item
-            android:id="@+id/nav_vehicle"
-            android:icon="@drawable/ic_menu_vehicle"
-            android:title="@string/menu_vehicle" />
-        <item
-            android:id="@+id/nav_fuel_supply"
-            android:icon="@drawable/ic_supply"
-            android:title="@string/menu_fuel_supply" />
-        <item
-            android:id="@+id/nav_maintenance_plan"
-            android:icon="@drawable/ic_menu_maintenance_plan"
-            android:title="@string/menu_maintenance_plan" />
-        <item
-            android:id="@+id/nav_maintenance"
-            android:icon="@drawable/ic_menu_maintenance"
-            android:title="@string/menu_maintenance" />
     </group>
-    <group android:checkableBehavior="single">
-        <item
-            android:id="@+id/nav_travel"
-            android:icon="@drawable/ic_menu_travel"
-            android:title="@string/menu_travel" />
-        <item
-            android:id="@+id/nav_itinerary"
-            android:icon="@drawable/ic_itinerario"
-            android:title="@string/menu_itinerary" />
-    </group>
-    <group android:checkableBehavior="single">
-        <item
-            android:id="@+id/nav_settings"
-            android:icon="@drawable/ic_menu_setting"
-            android:title="@string/action_settings"
-            app:showAsAction="ifRoom" />
-    </group>
+    <item android:title="@string/menu_vehicle">
+        <menu>
+           <item
+                android:id="@+id/nav_vehicle"
+                android:icon="@drawable/ic_menu_vehicle"
+                android:title="@string/menu_vehicle" />
+            <item
+                android:id="@+id/nav_fuel_supply"
+                android:icon="@drawable/ic_supply"
+                android:title="@string/menu_fuel_supply" />
+            <item
+                android:id="@+id/nav_maintenance_plan"
+                android:icon="@drawable/ic_menu_maintenance_plan"
+                android:title="@string/menu_maintenance_plan" />
+            <item
+                android:id="@+id/nav_maintenance"
+                android:icon="@drawable/ic_menu_maintenance"
+                android:title="@string/menu_maintenance" />
+        </menu>
+    </item>
+    <item android:title="@string/menu_travel">
+        <menu>
+            <item
+                android:id="@+id/nav_travel"
+                android:icon="@drawable/ic_menu_travel"
+                android:title="@string/menu_travel" />
+            <item
+                android:id="@+id/nav_itinerary"
+                android:icon="@drawable/ic_itinerario"
+                android:title="@string/menu_itinerary" />
+        </menu>
+    </item>
     <item android:title="@string/menu_general">
         <menu>
+            <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/nav_settings"
+                    android:icon="@drawable/ic_menu_setting"
+                    android:title="@string/action_settings"
+                    app:showAsAction="ifRoom" />
+            </group>
             <item
                 android:id="@+id/nav_insurance"
                 android:icon="@drawable/ic_menu_insurance"
