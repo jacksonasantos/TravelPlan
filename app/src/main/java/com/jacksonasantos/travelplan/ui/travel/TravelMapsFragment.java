@@ -163,6 +163,7 @@ public class TravelMapsFragment extends Fragment {
         googleMap.clear();
         if (cursor.moveToFirst()) {
             LatLngBounds.Builder builder = new LatLngBounds.Builder();
+            LatLngBounds bounds = builder.build();
             do {
                 Marker marker = Database.mMarkerDao.cursorToEntity(cursor);
                 LatLng latlng = new LatLng(Double.parseDouble(marker.getLatitude()), Double.parseDouble(marker.getLongitude()));
@@ -171,10 +172,9 @@ public class TravelMapsFragment extends Fragment {
             } while (cursor.moveToNext());
             cursor.close();
 
-            LatLngBounds bounds = builder.build();
             int width = getResources().getDisplayMetrics().widthPixels;
             int height = getResources().getDisplayMetrics().heightPixels;
-            int padding = (int) (width * 0.10); // offset from edges of the map 10% of screen
+            int padding = (int) (width * 0.10);
             CameraUpdate camFactory = CameraUpdateFactory.newLatLngBounds(bounds, width, height, padding);
 
             googleMap.moveCamera(camFactory);
