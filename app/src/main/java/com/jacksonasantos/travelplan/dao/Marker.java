@@ -5,6 +5,10 @@ public class Marker {
     public Integer travel_id;
     public String name;
     public String address;
+    public String city;
+    public String state;
+    public String country;
+    public String abbr_country;
     public int category_type;
     public String description;
     public String latitude;
@@ -16,6 +20,10 @@ public class Marker {
         this.travel_id = travel_id;
         this.name = name;
         this.address = address;
+        this.city = city;
+        this.state = state;
+        this.country = country;
+        this.abbr_country = abbr_country;
         this.category_type = category_type;
         this.description = description;
         this.latitude = latitude;
@@ -34,6 +42,18 @@ public class Marker {
 
     public String getAddress() { return address; }
     public void setAddress(String address) { this.address = address; }
+
+    public String getCity() { return city; }
+    public void setCity(String city) { this.city = city; }
+
+    public String getState() { return state; }
+    public void setState(String state) { this.state = state; }
+
+    public String getCountry() { return country; }
+    public void setCountry(String country) { this.country = country; }
+
+    public String getAbbr_country() { return abbr_country; }
+    public void setAbbr_country(String abbr_country) { this.abbr_country = abbr_country; }
 
     public int getCategory_type() { return category_type; }
     public void setCategory_type(int category_type) { this.category_type = category_type; }

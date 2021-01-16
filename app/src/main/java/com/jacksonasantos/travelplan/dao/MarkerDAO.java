@@ -67,15 +67,15 @@ public class MarkerDAO extends DbContentProvider implements MarkerISchema, Marke
         return markerList;
     }
 
-    public void deleteMarker(Integer id) {
+    public boolean deleteMarker(Integer id) {
         final String[] selectionArgs = { String.valueOf(id) };
         final String selection = MARKER_ID + " = ?";
-        super.delete(MARKER_TABLE, selection, selectionArgs);
+        return (super.delete(MARKER_TABLE, selection, selectionArgs) > 0);
     }
-    public void deleteMarker(Integer travel_id, String latitude, String longitude) {
+    public boolean deleteMarker(Integer travel_id, String latitude, String longitude) {
         final String[] selectionArgs = { String.valueOf(travel_id), latitude, longitude };
         final String selection = MARKER_TRAVEL_ID + " = ? AND " + MARKER_LATITUDE + " = ? AND " + MARKER_LONGITUDE + " = ?";
-        super.delete(MARKER_TABLE, selection, selectionArgs);
+        return (super.delete(MARKER_TABLE, selection, selectionArgs) > 0);
     }
 
     public boolean updateMarker(Marker marker) {
@@ -98,6 +98,10 @@ public class MarkerDAO extends DbContentProvider implements MarkerISchema, Marke
         int travel_idIndex;
         int nameIndex;
         int addressIndex;
+        int cityIndex;
+        int stateIndex;
+        int countryIndex;
+        int abbr_countryIndex;
         int category_typeIndex;
         int descriptionIndex;
         int latitudeIndex;
@@ -120,6 +124,22 @@ public class MarkerDAO extends DbContentProvider implements MarkerISchema, Marke
             if (cursor.getColumnIndex(MARKER_ADDRESS) != -1) {
                 addressIndex = cursor.getColumnIndexOrThrow(MARKER_ADDRESS);
                 marker.setAddress(cursor.getString(addressIndex));
+            }
+            if (cursor.getColumnIndex(MARKER_CITY) != -1) {
+                cityIndex = cursor.getColumnIndexOrThrow(MARKER_CITY);
+                marker.setCity(cursor.getString(cityIndex));
+            }
+            if (cursor.getColumnIndex(MARKER_STATE) != -1) {
+                stateIndex = cursor.getColumnIndexOrThrow(MARKER_STATE);
+                marker.setState(cursor.getString(stateIndex));
+            }
+            if (cursor.getColumnIndex(MARKER_COUNTRY) != -1) {
+                countryIndex = cursor.getColumnIndexOrThrow(MARKER_COUNTRY);
+                marker.setCountry(cursor.getString(countryIndex));
+            }
+            if (cursor.getColumnIndex(MARKER_ABBR_COUNTRY) != -1) {
+                abbr_countryIndex = cursor.getColumnIndexOrThrow(MARKER_ABBR_COUNTRY);
+                marker.setAbbr_country(cursor.getString(abbr_countryIndex));
             }
             if (cursor.getColumnIndex(MARKER_CATEGORY_TYPE) != -1) {
                 category_typeIndex = cursor.getColumnIndexOrThrow(MARKER_CATEGORY_TYPE);
@@ -151,6 +171,9 @@ public class MarkerDAO extends DbContentProvider implements MarkerISchema, Marke
         initialValues.put(MARKER_TRAVEL_ID, marker.travel_id);
         initialValues.put(MARKER_NAME, marker.name);
         initialValues.put(MARKER_ADDRESS, marker.address);
+        initialValues.put(MARKER_CITY, marker.city);
+        initialValues.put(MARKER_STATE, marker.state);
+        initialValues.put(MARKER_COUNTRY, marker.country);
         initialValues.put(MARKER_CATEGORY_TYPE, marker.category_type);
         initialValues.put(MARKER_DESCRIPTION, marker.description);
         initialValues.put(MARKER_LATITUDE, marker.latitude);

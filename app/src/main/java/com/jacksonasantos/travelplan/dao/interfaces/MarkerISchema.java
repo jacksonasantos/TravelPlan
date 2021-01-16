@@ -8,6 +8,10 @@ public interface MarkerISchema {
     String MARKER_TRAVEL_ID = "travel_id";
     String MARKER_NAME = "name";
     String MARKER_ADDRESS = "address";
+    String MARKER_CITY = "city";
+    String MARKER_STATE = "state";
+    String MARKER_COUNTRY = "country";
+    String MARKER_ABBR_COUNTRY = "abbr_country";
     String MARKER_CATEGORY_TYPE = "category_type";
     String MARKER_DESCRIPTION = "description";
     String MARKER_LATITUDE = "latitude";
@@ -21,6 +25,10 @@ public interface MarkerISchema {
             + MARKER_TRAVEL_ID + " INTEGER REFERENCES " + TravelISchema.TRAVEL_TABLE + " ("+TravelISchema.TRAVEL_ID+"), "
             + MARKER_NAME + " TEXT, "
             + MARKER_ADDRESS + " TEXT, "
+            + MARKER_CITY + " TEXT, "
+            + MARKER_STATE + " TEXT, "
+            + MARKER_COUNTRY + " TEXT, "
+            + MARKER_ABBR_COUNTRY + "TEXT, "
             + MARKER_CATEGORY_TYPE + " INT, "
             + MARKER_DESCRIPTION + " TEXT, "
             + MARKER_LATITUDE + " TEXT, "
@@ -33,6 +41,10 @@ public interface MarkerISchema {
             MARKER_TRAVEL_ID,
             MARKER_NAME,
             MARKER_ADDRESS,
+            MARKER_CITY,
+            MARKER_STATE,
+            MARKER_COUNTRY,
+            MARKER_ABBR_COUNTRY,
             MARKER_CATEGORY_TYPE,
             MARKER_DESCRIPTION,
             MARKER_LATITUDE,

@@ -9,8 +9,8 @@ public interface MarkerIDAO {
     Cursor fetchMarkerByTravelId(Integer travel_id);
     //List<Marker> fetchAllMarker();
     boolean addMarker(Marker insurance);
-    void deleteMarker(Integer id);
-    void deleteMarker(Integer travel_id, String latitude, String longitude);
+    boolean deleteMarker(Integer id);
+    boolean deleteMarker(Integer travel_id, String latitude, String longitude);
     boolean updateMarker(Marker insurance);
 
 }

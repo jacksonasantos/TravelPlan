@@ -15,11 +15,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
+import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.gms.maps.CameraUpdate;
@@ -47,6 +49,12 @@ public class TravelMapsFragment extends Fragment {
     private Integer nrTravel_Id;
     private MapView mMapView;
     private GoogleMap googleMap;
+    private EditText etSearch;
+    private Button btnSearch;
+
+    private final MarkerOptions markerOptions = new MarkerOptions();       // Creating an instance of MarkerOptions
+    private LatLngBounds.Builder builder = new LatLngBounds.Builder();
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -54,10 +62,11 @@ public class TravelMapsFragment extends Fragment {
 
         spTravel = rootView.findViewById(R.id.spTravel);
         mMapView = rootView.findViewById(R.id.mapView);
+        etSearch = rootView.findViewById(R.id.etSearch);
+        btnSearch = rootView.findViewById(R.id.btnSearch);
+
+        setHasOptionsMenu(true);                                           // activate menu map options
         mMapView.onCreate(savedInstanceState);
-
-        setHasOptionsMenu(true);            // activate menu map options
-
         mMapView.onResume();
 
         try {
@@ -70,18 +79,17 @@ public class TravelMapsFragment extends Fragment {
             @Override
             public void onMapReady(GoogleMap mMap) {
                 googleMap = mMap;
-
-                if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED &&
-                    ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+                if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED &&
+                    ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
                     if (googleMap != null) {
                         googleMap.setMyLocationEnabled(true);
                         googleMap.getUiSettings().setMyLocationButtonEnabled(true);     // Show Detect location button
                     }
                 }
-                //googleMap.setTrafficEnabled(true);                              // Turns traffic layer on
-                googleMap.setIndoorEnabled(true);                               // Enables indoor maps
-                googleMap.setBuildingsEnabled(true);                            // Turns on 3D buildings
-                googleMap.getUiSettings().setZoomControlsEnabled(true);         // Show Zoom buttons
+                //googleMap.setTrafficEnabled(true);                                     // Turns traffic layer on
+                googleMap.setIndoorEnabled(true);                                      // Enables indoor maps
+                googleMap.setBuildingsEnabled(true);                                   // Turns on 3D buildings
+                googleMap.getUiSettings().setZoomControlsEnabled(true);                // Show Zoom buttons
 
                 googleMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
                     @Override
@@ -94,7 +102,7 @@ public class TravelMapsFragment extends Fragment {
                 googleMap.setOnMapLongClickListener(new GoogleMap.OnMapLongClickListener() {
                     @Override
                     public void onMapLongClick(LatLng point) {
-                        drawMarker( point, "" );
+                        drawMarker( point, "", BitmapDescriptorFactory.HUE_RED);
                         registryMarker( point );
                     }
                 });
@@ -102,22 +110,54 @@ public class TravelMapsFragment extends Fragment {
                 googleMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
                     @Override
                     public boolean onMarkerClick(com.google.android.gms.maps.model.Marker marker) {
-                        marker.remove();
-                        deleteMarker( marker.getPosition() );
+                        if (deleteMarker( marker.getPosition() )) {
+                            marker.remove();
+                        } else {
+                            drawMarker( marker.getPosition(), marker.getTitle(), BitmapDescriptorFactory.HUE_RED);
+                            registryMarker(  marker.getPosition() );
+                        };
                         return true;
+                    }
+                });
+
+                btnSearch.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        String g = etSearch.getText().toString();
+                        Geocoder geocoder = new Geocoder(getContext());
+                        try {
+                            List<Address> addresses = geocoder.getFromLocationName(g, 3);
+                            if (addresses != null) {
+                                search(addresses);
+                                etSearch.setText("");
+                            }
+                        } catch (Exception e) {
+                            Toast.makeText(getActivity(), getResources().getString(R.string.location_not_found)+" \n"+e.getMessage(), Toast.LENGTH_LONG).show();
+                        }
                     }
                 });
             }
         });
-
         return rootView;
     }
 
-    private void deleteMarker( LatLng point ) {
+    @SuppressLint("SetTextI18n")
+    protected void search(List<Address> addresses) {
+        Address address = (Address) addresses.get(0);
+        LatLng latLng = new LatLng(address.getLatitude(), address.getLongitude());
+        String addressText = String.format("%s, %s", address.getSubAdminArea(), address.getCountryCode());
+        markerOptions.position(latLng);
+        markerOptions.title(addressText);
+        drawMarker(latLng, addressText,BitmapDescriptorFactory.HUE_ORANGE);
+        zoomMarkers();
+    }
+
+    private boolean deleteMarker( LatLng point ) {
         try {
-            Database.mMarkerDao.deleteMarker(nrTravel_Id, String.valueOf(point.latitude), String.valueOf(point.longitude));
+            return Database.mMarkerDao.deleteMarker(nrTravel_Id, String.valueOf(point.latitude), String.valueOf(point.longitude));
         } catch (Exception e) {
             Toast.makeText(getActivity(), R.string.Error_Deleting_Data + e.getMessage(), Toast.LENGTH_LONG).show();
+            return false;
         }
     }
 
@@ -127,65 +167,73 @@ public class TravelMapsFragment extends Fragment {
             List<Address> addresses;
 
             geocoder = new Geocoder(getContext(), Locale.getDefault());
-            addresses = geocoder.getFromLocation(point.latitude, point.longitude, 1); // Here 1 represent max location result to returned, by documents it recommended 1 to 5
+            addresses = geocoder.getFromLocation(point.latitude, point.longitude, 1);
 
-            String address = addresses.get(0).getAddressLine(0); // If any additional address line present than only, check with max available address lines by getMaxAddressLineIndex()
-            //String city = addresses.get(0).getSubAdminArea();
-            //String state = addresses.get(0).getAdminArea();
-            //String country = addresses.get(0).getCountryName();
+            String address = addresses.get(0).getAddressLine(0);
+            String city = addresses.get(0).getSubAdminArea();
+            String state = addresses.get(0).getAdminArea();
+            String country = addresses.get(0).getCountryName();
+            String abbr_country = addresses.get(0).getCountryCode();
             String knownName = addresses.get(0).getFeatureName();
 
-            Marker i = new Marker();
-            i.setTravel_id(nrTravel_Id);
-            i.setName(knownName);
-            i.setAddress(address);
-            //i.setCategory_type();
-            i.setLatitude(String.valueOf(point.latitude));
-            i.setLongitude(String.valueOf(point.longitude));
-            i.setZoom_level(String.valueOf(googleMap.getCameraPosition().zoom));
+            Marker m = new Marker();
+            m.setTravel_id(nrTravel_Id);
+            m.setName(knownName);
+            m.setAddress(address);
+            m.setCity(city);
+            m.setState(state);
+            m.setCountry(country);
+            m.setAbbr_country(abbr_country);
+            //m.setCategory_type();
+            m.setLatitude(String.valueOf(point.latitude));
+            m.setLongitude(String.valueOf(point.longitude));
+            m.setZoom_level(String.valueOf(googleMap.getCameraPosition().zoom));
 
-            Database.mMarkerDao.addMarker(i);
+            Database.mMarkerDao.addMarker(m);
         } catch (IOException e) {
             Toast.makeText(getActivity(), R.string.Error_Including_Data + e.getMessage(), Toast.LENGTH_LONG).show();
         }
     }
 
-    private void drawMarker(LatLng point, String title) {
-        MarkerOptions markerOptions = new MarkerOptions();       // Creating an instance of MarkerOptions
+    private void drawMarker(LatLng point, String title, float color) {
         markerOptions.position(point);
         markerOptions.title(title);
-        markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
+        color = (color != 0) ? color : BitmapDescriptorFactory.HUE_RED;
+        markerOptions.icon(BitmapDescriptorFactory.defaultMarker(color));
         googleMap.addMarker(markerOptions);                      // add the marker to Map
+        builder.include(point);
+    }
+
+    private void zoomMarkers() {
+        int width = getResources().getDisplayMetrics().widthPixels;
+        int height = getResources().getDisplayMetrics().heightPixels;
+        int padding = (int) (width * 0.25);
+        LatLngBounds bounds = builder.build();
+        CameraUpdate camFactory = CameraUpdateFactory.newLatLngBounds(bounds, width, height, padding);
+        googleMap.moveCamera(camFactory);
+        googleMap.animateCamera(camFactory);
     }
 
     private void drawItinerary(Integer id ){
         Cursor cursor = Database.mMarkerDao.fetchMarkerByTravelId(id);
         googleMap.clear();
+        builder = new LatLngBounds.Builder();
         if (cursor.moveToFirst()) {
-            LatLngBounds.Builder builder = new LatLngBounds.Builder();
-            LatLngBounds bounds = builder.build();
             do {
-                Marker marker = Database.mMarkerDao.cursorToEntity(cursor);
-                LatLng latlng = new LatLng(Double.parseDouble(marker.getLatitude()), Double.parseDouble(marker.getLongitude()));
-                builder.include(latlng);
-                drawMarker(latlng, marker.getName());
+                Marker m = Database.mMarkerDao.cursorToEntity(cursor);
+                LatLng latlng = new LatLng(Double.parseDouble(m.getLatitude()), Double.parseDouble(m.getLongitude()));
+                drawMarker(latlng, m.getName(), BitmapDescriptorFactory.HUE_RED);
             } while (cursor.moveToNext());
             cursor.close();
-
-            int width = getResources().getDisplayMetrics().widthPixels;
-            int height = getResources().getDisplayMetrics().heightPixels;
-            int padding = (int) (width * 0.10);
-            CameraUpdate camFactory = CameraUpdateFactory.newLatLngBounds(bounds, width, height, padding);
-
-            googleMap.moveCamera(camFactory);
-            googleMap.animateCamera(camFactory);
+            zoomMarkers();
         }
     }
 
     @Override
     public void onResume() {
         super.onResume();
-
+        Database mDb = new Database(getContext());
+        mDb.open();
         final List<Travel> travels =  Database.mTravelDao.fetchArrayTravel();
         ArrayAdapter<Travel> adapter = new ArrayAdapter<>(requireActivity(), android.R.layout.simple_spinner_item, travels);
         adapter.setDropDownViewResource( android.R.layout.simple_spinner_dropdown_item);
@@ -199,7 +247,6 @@ public class TravelMapsFragment extends Fragment {
                 // Retrieves data from the selected trip in Spinner
                 travel[0] = (Travel) parent.getItemAtPosition(position);
                 nrTravel_Id = travel[0].getId();
-
                 drawItinerary(nrTravel_Id);
             }
 
@@ -209,7 +256,6 @@ public class TravelMapsFragment extends Fragment {
                 nrTravel_Id = 0;
             }
         });
-
         mMapView.onResume();
     }
 

@@ -227,4 +227,6 @@
     <string name="hybrid_map">Híbrido</string>
     <string name="satellite_map">Satélite</string>
     <string name="terrain_map">Terreno</string>
+    <string name="search_location">Pesquisar Localização</string>
+    <string name="location_not_found">Local não encontrado</string>
 </resources>
