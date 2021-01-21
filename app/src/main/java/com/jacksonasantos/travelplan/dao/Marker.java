@@ -3,6 +3,7 @@ package com.jacksonasantos.travelplan.dao;
 public class Marker {
     public Integer id;
     public Integer travel_id;
+    public Integer sequence;
     public String name;
     public String address;
     public String city;
@@ -18,6 +19,7 @@ public class Marker {
     public Marker() {
         this.id = id;
         this.travel_id = travel_id;
+        this.sequence = sequence;
         this.name = name;
         this.address = address;
         this.city = city;
@@ -36,6 +38,9 @@ public class Marker {
 
     public Integer getTravel_id() { return travel_id; }
     public void setTravel_id(Integer travel_id) { this.travel_id = travel_id; }
+
+    public Integer getSequence() { return sequence; }
+    public void setSequence(Integer sequence) { this.sequence = sequence; }
 
     public String getName() {return name; }
     public void setName(String name) { this.name = name; }

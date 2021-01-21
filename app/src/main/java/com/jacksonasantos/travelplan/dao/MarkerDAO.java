@@ -39,18 +39,7 @@ public class MarkerDAO extends DbContentProvider implements MarkerISchema, Marke
         //public List<Marker> fetchMarkerByTravelId(Integer travel_id) {
         final String[] selectionArgs = { String.valueOf(travel_id) };
         final String selection = MARKER_TRAVEL_ID + " = ?";
-        //List<Marker> markerList = new ArrayList<>();
-        return super.query(MARKER_TABLE, MARKER_COLUMNS, selection, selectionArgs, MARKER_ID);
-       /* cursor = super.query(MARKER_TABLE, MARKER_COLUMNS, selection, selectionArgs, MARKER_ID);
-        if (cursor.moveToFirst()) {
-            do {
-                Marker marker = cursorToEntity(cursor);
-                markerList.add(marker);
-            } while (cursor.moveToNext());
-
-            cursor.close();
-        }
-        return markerList;*/
+        return super.query(MARKER_TABLE, MARKER_COLUMNS, selection, selectionArgs, MARKER_SEQUENCE);
     }
 
     public List<Marker> fetchAllMarker() {
@@ -96,6 +85,7 @@ public class MarkerDAO extends DbContentProvider implements MarkerISchema, Marke
 
         int idIndex;
         int travel_idIndex;
+        int sequenceIndex;
         int nameIndex;
         int addressIndex;
         int cityIndex;
@@ -116,6 +106,10 @@ public class MarkerDAO extends DbContentProvider implements MarkerISchema, Marke
             if (cursor.getColumnIndex(MARKER_TRAVEL_ID) != -1) {
                 travel_idIndex = cursor.getColumnIndexOrThrow(MARKER_TRAVEL_ID);
                 marker.setTravel_id(cursor.getInt(travel_idIndex));
+            }
+            if (cursor.getColumnIndex(MARKER_SEQUENCE) != -1) {
+                sequenceIndex = cursor.getColumnIndexOrThrow(MARKER_SEQUENCE);
+                marker.setSequence(cursor.getInt(sequenceIndex));
             }
             if (cursor.getColumnIndex(MARKER_NAME) != -1) {
                 nameIndex = cursor.getColumnIndexOrThrow(MARKER_NAME);
@@ -169,6 +163,7 @@ public class MarkerDAO extends DbContentProvider implements MarkerISchema, Marke
         initialValues = new ContentValues();
         initialValues.put(MARKER_ID, marker.id);
         initialValues.put(MARKER_TRAVEL_ID, marker.travel_id);
+        initialValues.put(MARKER_SEQUENCE, marker.sequence);
         initialValues.put(MARKER_NAME, marker.name);
         initialValues.put(MARKER_ADDRESS, marker.address);
         initialValues.put(MARKER_CITY, marker.city);

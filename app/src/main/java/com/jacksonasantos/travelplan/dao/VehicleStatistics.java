@@ -33,7 +33,7 @@ public class VehicleStatistics {
     public int getSupply_reason_type() { return supply_reason_type; }
     public void setSupply_reason_type(int supply_reason_type) { this.supply_reason_type = supply_reason_type; }
 
-    public static int getSupply_ranson_type_color(int type) {
+    public static int getSupply_reason_type_color(int type) {
         switch (type) {
             case 1:
                 return Color.RED;

@@ -6,6 +6,8 @@ import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.location.Address;
 import android.location.Geocoder;
+import android.location.Location;
+import android.location.LocationListener;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -40,10 +42,11 @@ import com.jacksonasantos.travelplan.dao.Marker;
 import com.jacksonasantos.travelplan.dao.Travel;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-public class TravelMapsFragment extends Fragment {
+public class TravelMapsFragment extends Fragment implements LocationListener {
 
     private Spinner spTravel;
     private Integer nrTravel_Id;
@@ -55,10 +58,15 @@ public class TravelMapsFragment extends Fragment {
     private final MarkerOptions markerOptions = new MarkerOptions();       // Creating an instance of MarkerOptions
     private LatLngBounds.Builder builder = new LatLngBounds.Builder();
 
+    String lang = "portuguese";
+
+    Route route = new Route();
+    ArrayList<LatLng> pointsRoute = new ArrayList<>(1);
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_travel_maps, container, false);
+
 
         spTravel = rootView.findViewById(R.id.spTravel);
         mMapView = rootView.findViewById(R.id.mapView);
@@ -79,13 +87,16 @@ public class TravelMapsFragment extends Fragment {
             @Override
             public void onMapReady(GoogleMap mMap) {
                 googleMap = mMap;
-                if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED &&
-                    ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+
+                if (ActivityCompat.checkSelfPermission(requireActivity(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED &&
+                    ActivityCompat.checkSelfPermission(requireActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
                     if (googleMap != null) {
                         googleMap.setMyLocationEnabled(true);
                         googleMap.getUiSettings().setMyLocationButtonEnabled(true);     // Show Detect location button
                     }
                 }
+
+                assert googleMap != null;
                 //googleMap.setTrafficEnabled(true);                                     // Turns traffic layer on
                 googleMap.setIndoorEnabled(true);                                      // Enables indoor maps
                 googleMap.setBuildingsEnabled(true);                                   // Turns on 3D buildings
@@ -112,10 +123,10 @@ public class TravelMapsFragment extends Fragment {
                     public boolean onMarkerClick(com.google.android.gms.maps.model.Marker marker) {
                         if (deleteMarker( marker.getPosition() )) {
                             marker.remove();
-                        } else {
+                        } else {  // Change the color of the Markers in Orange added by Search to Markers in Red and record them in the database
                             drawMarker( marker.getPosition(), marker.getTitle(), BitmapDescriptorFactory.HUE_RED);
                             registryMarker(  marker.getPosition() );
-                        };
+                        }
                         return true;
                     }
                 });
@@ -148,7 +159,7 @@ public class TravelMapsFragment extends Fragment {
         String addressText = String.format("%s, %s", address.getSubAdminArea(), address.getCountryCode());
         markerOptions.position(latLng);
         markerOptions.title(addressText);
-        drawMarker(latLng, addressText,BitmapDescriptorFactory.HUE_ORANGE);
+        drawMarker(latLng, addressText, BitmapDescriptorFactory.HUE_ORANGE);
         zoomMarkers();
     }
 
@@ -175,9 +186,11 @@ public class TravelMapsFragment extends Fragment {
             String country = addresses.get(0).getCountryName();
             String abbr_country = addresses.get(0).getCountryCode();
             String knownName = addresses.get(0).getFeatureName();
+            int vSeq = 1;
 
             Marker m = new Marker();
             m.setTravel_id(nrTravel_Id);
+            m.setSequence(vSeq);
             m.setName(knownName);
             m.setAddress(address);
             m.setCity(city);
@@ -202,6 +215,13 @@ public class TravelMapsFragment extends Fragment {
         markerOptions.icon(BitmapDescriptorFactory.defaultMarker(color));
         googleMap.addMarker(markerOptions);                      // add the marker to Map
         builder.include(point);
+
+        pointsRoute.add(point);
+        /*if (points.size() > 1){
+            route.drawRoute(googleMap, getActivity(), points,true, lang,true);
+            points.set(0, points.get(1));
+            points.remove(1);
+        }*/
     }
 
     private void zoomMarkers() {
@@ -214,9 +234,11 @@ public class TravelMapsFragment extends Fragment {
         googleMap.animateCamera(camFactory);
     }
 
-    private void drawItinerary(Integer id ){
+    private void drawItinerary(Integer id){
         Cursor cursor = Database.mMarkerDao.fetchMarkerByTravelId(id);
         googleMap.clear();
+        pointsRoute.clear();
+
         builder = new LatLngBounds.Builder();
         if (cursor.moveToFirst()) {
             do {
@@ -225,6 +247,7 @@ public class TravelMapsFragment extends Fragment {
                 drawMarker(latlng, m.getName(), BitmapDescriptorFactory.HUE_RED);
             } while (cursor.moveToNext());
             cursor.close();
+            route.drawRoute(googleMap, getActivity(), pointsRoute,false, lang,true);
             zoomMarkers();
         }
     }
@@ -303,5 +326,25 @@ public class TravelMapsFragment extends Fragment {
                 googleMap.setMapType(GoogleMap.MAP_TYPE_NONE);
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    @Override
+    public void onProviderEnabled(@NonNull String provider) {
+        (Toast.makeText(getActivity(), "Reconnecting", Toast.LENGTH_LONG)).show();
+    }
+
+    @Override
+    public void onProviderDisabled(@NonNull String provider) {
+        Toast.makeText(getActivity(),"Connection Failed! Check Network!",Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void onStatusChanged(String provider, int status, Bundle extras) {
+        Toast.makeText(getActivity(), "Latitude " + status, Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void onLocationChanged(Location location) {
+        Toast.makeText(getActivity(), "Latitude " + location.getLatitude()+"/"+location.getLongitude(), Toast.LENGTH_LONG).show();
     }
 }

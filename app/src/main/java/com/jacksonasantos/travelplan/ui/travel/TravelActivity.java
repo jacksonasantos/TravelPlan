@@ -116,11 +116,12 @@ public class TravelActivity extends AppCompatActivity {
         });
         adapterV.notifyDataSetChanged();
 
-        adapter = new VehicleTravelListAdapter(Database.mVehicleHasTravelDao.fetchAllVehicleHasTravelByTravel(travel.getId()), getApplicationContext(),"Travel");
-        rvVehicleTravel.setAdapter(adapter);
-        rvVehicleTravel.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-        adapter.notifyDataSetChanged();
-
+        if (travel != null) {
+            adapter = new VehicleTravelListAdapter(Database.mVehicleHasTravelDao.fetchAllVehicleHasTravelByTravel(travel.getId()), getApplicationContext(),"Travel");
+            rvVehicleTravel.setAdapter(adapter);
+            rvVehicleTravel.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+            adapter.notifyDataSetChanged();
+        }
     }
 
     public void addListenerOnButtonAdd() {

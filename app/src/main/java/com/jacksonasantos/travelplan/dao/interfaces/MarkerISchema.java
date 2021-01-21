@@ -6,6 +6,7 @@ public interface MarkerISchema {
 
     String MARKER_ID = "id";
     String MARKER_TRAVEL_ID = "travel_id";
+    String MARKER_SEQUENCE = "sequence";
     String MARKER_NAME = "name";
     String MARKER_ADDRESS = "address";
     String MARKER_CITY = "city";
@@ -23,6 +24,7 @@ public interface MarkerISchema {
             + MARKER_TABLE + " ("
             + MARKER_ID + " INTEGER PRIMARY KEY, "
             + MARKER_TRAVEL_ID + " INTEGER REFERENCES " + TravelISchema.TRAVEL_TABLE + " ("+TravelISchema.TRAVEL_ID+"), "
+            + MARKER_SEQUENCE + " INTEGER, "
             + MARKER_NAME + " TEXT, "
             + MARKER_ADDRESS + " TEXT, "
             + MARKER_CITY + " TEXT, "
@@ -39,6 +41,7 @@ public interface MarkerISchema {
     String[] MARKER_COLUMNS = new String[] {
             MARKER_ID,
             MARKER_TRAVEL_ID,
+            MARKER_SEQUENCE,
             MARKER_NAME,
             MARKER_ADDRESS,
             MARKER_CITY,
