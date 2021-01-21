@@ -65,7 +65,6 @@ public class HomeVehicleFragment extends Fragment implements View.OnClickListene
     private ConstraintLayout layerInsuranceVehicle;
     private RecyclerView insuranceList;
 
-    DataPoint[] dataSeries;
     int tamHorizontalLabels = 3;
     double vMinX = 0;
     double vMaxX = 0;
@@ -141,6 +140,8 @@ public class HomeVehicleFragment extends Fragment implements View.OnClickListene
                 imVehicleType.setImageResource(vehicle[0].getVehicleTypeImage(vehicle[0].getVehicle_type()));
 
                 g.setIdVehicle(vehicle[0].getId());
+
+                vMinX = 0; vMaxX = 0; vMinY = 0; vMaxY = 0;
 
                 // Last Fuel Supply of Vehicle in Global selection - layerFuelSupply
                 FuelSupply fuelSupply = Database.mFuelSupplyDao.findLastFuelSupply( g.getIdVehicle() );
@@ -237,7 +238,12 @@ public class HomeVehicleFragment extends Fragment implements View.OnClickListene
         reasonTypeArray = getResources().getStringArray(R.array.supply_reason_type_array);
 
         for(int i=1; i<reasonTypeArray.length; i++){
-            dataSeries = getData(i);
+
+            List<VehicleGraphStatistics> graphHelper = Database.mVehicleGraphStatisticsDao.findLastVehicleGraphStatistics(g.getIdVehicle(), i);
+            DataPoint[] dataSeries = new DataPoint[graphHelper.size()];
+            for(int x = 0;x<graphHelper.size(); x++){
+                dataSeries[x] = new DataPoint(graphHelper.get(x).getXaxis_date(), graphHelper.get(x).getYaxis_avg_consumption());
+            }
             if (dataSeries.length > tamHorizontalLabels)
                 tamHorizontalLabels = dataSeries.length;
             if (tamHorizontalLabels > 10) tamHorizontalLabels = 10;
@@ -245,8 +251,7 @@ public class HomeVehicleFragment extends Fragment implements View.OnClickListene
             series.setColor(VehicleStatistics.getSupply_reason_type_color(i));
             series.setDrawDataPoints(true);
             series.setDataPointsRadius(7);
-            //series.setTitle(getString(R.string.road));
-            //series.setTitle(getString(R.string.road));
+
             graphStatistics.addSeries(series);
 
             vMinX = vMinX==0?series.getLowestValueX():Math.min(series.getLowestValueX(), vMinX);
@@ -254,52 +259,6 @@ public class HomeVehicleFragment extends Fragment implements View.OnClickListene
             vMinY = vMinY==0?series.getLowestValueY():Math.min(series.getLowestValueY(), vMinY);
             vMaxY = vMaxY==0?series.getHighestValueY():Math.max(series.getHighestValueY(), vMaxY);
         }
-/*
-        // Series "Road"
-        dataSeries = getData(2);
-        if (dataSeries.length > tamHorizontalLabels)
-            tamHorizontalLabels = dataSeries.length;
-        if (tamHorizontalLabels > 10) tamHorizontalLabels = 10;
-        LineGraphSeries<DataPoint> series1 = new LineGraphSeries<>(dataSeries);
-        series1.setColor(Color.BLUE);
-        series1.setDrawDataPoints(true);
-        series1.setDataPointsRadius(7);
-        series1.setTitle(getString(R.string.road));
-        graphStatistics.addSeries(series1);
-
-        // Series "City"
-        dataSeries = getData(1);
-        if (dataSeries.length > tamHorizontalLabels)
-            tamHorizontalLabels = dataSeries.length;
-        if (tamHorizontalLabels > 10) tamHorizontalLabels = 10;
-        LineGraphSeries<DataPoint> series2 = new LineGraphSeries<>(dataSeries);
-        series2.setColor(Color.RED);
-        series2.setDrawDataPoints(true);
-        series2.setDataPointsRadius(7);
-        series2.setTitle(getString(R.string.city));
-        graphStatistics.addSeries(series2);
-
-        // Series "Mixed"
-        dataSeries = getData(3);
-        if (dataSeries.length > tamHorizontalLabels)
-            tamHorizontalLabels = dataSeries.length;
-        if (tamHorizontalLabels > 10) tamHorizontalLabels = 10;
-        LineGraphSeries<DataPoint> series3 = new LineGraphSeries<>(dataSeries);
-        series3.setColor(Color.MAGENTA);
-        series3.setDrawDataPoints(true);
-        series3.setDataPointsRadius(7);
-        series3.setTitle(getString(R.string.mixed));
-        graphStatistics.addSeries(series3);
-*/
-    }
-
-    private DataPoint[] getData(int type) {
-        List<VehicleGraphStatistics> graphHelper = Database.mVehicleGraphStatisticsDao.findLastVehicleGraphStatistics(g.getIdVehicle(), type);
-        DataPoint[] dp = new DataPoint[graphHelper.size()];
-        for(int i = 0;i<graphHelper.size(); i++){
-            dp[i] = new DataPoint(graphHelper.get(i).getXaxis_date(), graphHelper.get(i).getYaxis_avg_consumption());
-        }
-        return dp;
     }
 
     @Override
