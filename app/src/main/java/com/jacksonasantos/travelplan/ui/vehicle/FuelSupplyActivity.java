@@ -103,6 +103,9 @@ public class FuelSupplyActivity extends AppCompatActivity {
                 }
                 opInsert = false;
             }
+            if (extras.getInt("travel_id")> 0) {
+                nrSpinAssociatedTravelId = extras.getInt("travel_id");
+            }
         }
         if (opInsert) {
             if (nrVehicleId == 0){
@@ -166,10 +169,10 @@ public class FuelSupplyActivity extends AppCompatActivity {
                 if (g.getIdCurrency() != nrSpinCurrencyType ) {
                     CurrencyQuote c1 = Database.mCurrencyQuoteDao.findQuoteDay(nrSpinCurrencyType, Utils.stringToDate(etSupplyDate.getText().toString()));
                     etCurrencyValue.setText(String.valueOf(c1.getCurrency_value()));
-                    nrSpinAssociatedTravelId = c1.getId();
+                    nrSpinCurrencyType = c1.getId();
                 } else {
                     etCurrencyValue.setText(null);
-                    nrSpinAssociatedTravelId = null;
+                    nrSpinCurrencyType = Integer.parseInt(null);
                 }
             }
         });
@@ -228,6 +231,15 @@ public class FuelSupplyActivity extends AppCompatActivity {
         ArrayAdapter<Travel> adapterT = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, travels);
         adapterT.setDropDownViewResource( android.R.layout.simple_spinner_dropdown_item);
         spinAssociatedTravelId.setAdapter(adapterT);
+        if (nrSpinAssociatedTravelId != null && nrSpinAssociatedTravelId > 0) {
+            Travel trip1 = Database.mTravelDao.fetchTravelById(nrSpinAssociatedTravelId);
+            for (int x = 0; x <= spinAssociatedTravelId.getAdapter().getCount(); x++) {
+                if (spinAssociatedTravelId.getAdapter().getItem(x).toString().equals(trip1.getDescription())) {
+                    spinAssociatedTravelId.setText(spinAssociatedTravelId.getAdapter().getItem(x).toString(),false);
+                    break;
+                }
+            }
+        }
 
         final Travel[] t1 = {new Travel()};
         spinAssociatedTravelId.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -253,7 +265,7 @@ public class FuelSupplyActivity extends AppCompatActivity {
 
             if (g.getIdCurrency() != nrSpinCurrencyType ) {
                 nrCurrencyQuoteId = fuelSupply.getCurrency_quote_id();
-                CurrencyQuote c1 = Database.mCurrencyQuoteDao.fetchCurrencyQuoteById(nrSpinAssociatedTravelId);
+                CurrencyQuote c1 = Database.mCurrencyQuoteDao.fetchCurrencyQuoteById(nrSpinCurrencyType);
                 etCurrencyValue.setText(String.valueOf(c1.getCurrency_value()));
             } else {
                 nrCurrencyQuoteId = null;

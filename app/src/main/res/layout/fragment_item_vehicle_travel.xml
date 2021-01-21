@@ -24,5 +24,13 @@
         android:scaleType="centerCrop"
         app:srcCompat="@drawable/ic_menu_delete" />
 
+    <ImageButton
+        android:id="@+id/btnRefuel"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:contentDescription="@string/bt_Refuel"
+        android:scaleType="centerCrop"
+        app:srcCompat="@drawable/ic_supply" />
+
 </LinearLayout>
 

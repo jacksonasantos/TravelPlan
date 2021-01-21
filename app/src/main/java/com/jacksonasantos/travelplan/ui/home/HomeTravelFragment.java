@@ -126,7 +126,7 @@ public class HomeTravelFragment extends Fragment implements View.OnClickListener
                 }
 
                 // Expenses - LayerExpense
-                HomeTravelExpenseListAdapter adapterTravelExpense = new HomeTravelExpenseListAdapter( Database.mTravelExpenseDao.findTravelExpense(travel[0].getId() ), getContext());
+                HomeSummaryTravelExpenseListAdapter adapterTravelExpense = new HomeSummaryTravelExpenseListAdapter( Database.mSummaryTravelExpenseDao.findTravelExpense(travel[0].getId() ), getContext());
                 if ( adapterTravelExpense.getItemCount() > 0){
                     layerExpense.setVisibility(View.VISIBLE);
 
@@ -146,8 +146,8 @@ public class HomeTravelFragment extends Fragment implements View.OnClickListener
                     double vExpected = 0;
                     double vRealized = 0;
                     for (int x=1; x < adapterTravelExpense.getItemCount(); x++) {
-                        vExpected = vExpected + adapterTravelExpense.mTravelExpense.get(x).getExpected_value();
-                        vRealized = vRealized + adapterTravelExpense.mTravelExpense.get(x).getRealized_value();
+                        vExpected = vExpected + adapterTravelExpense.mSummaryTravelExpense.get(x).getExpected_value();
+                        vRealized = vRealized + adapterTravelExpense.mSummaryTravelExpense.get(x).getRealized_value();
                     }
                     View vT = LayoutInflater.from(getContext()).inflate(R.layout.fragment_home_travel_item_expense, parent, false);
                     totalTravelExpenses.removeAllViews();

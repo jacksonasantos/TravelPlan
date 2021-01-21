@@ -12,4 +12,5 @@ public interface InsuranceIDAO {
     void deleteInsurance(Integer id);
     boolean updateInsurance(Insurance insurance);
 
+
 }

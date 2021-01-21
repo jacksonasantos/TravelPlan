@@ -2,6 +2,7 @@ package com.jacksonasantos.travelplan.ui.travel;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,6 +20,7 @@ import com.jacksonasantos.travelplan.R;
 import com.jacksonasantos.travelplan.dao.Database;
 import com.jacksonasantos.travelplan.dao.Vehicle;
 import com.jacksonasantos.travelplan.dao.VehicleHasTravel;
+import com.jacksonasantos.travelplan.ui.vehicle.FuelSupplyActivity;
 
 import java.util.List;
 
@@ -32,11 +34,14 @@ public class VehicleTravelListAdapter extends RecyclerView.Adapter<VehicleTravel
 
         public TextView txtVehicle;
         public ImageButton btnDelete;
+        public ImageButton btnRefuel;
 
         public MyViewHolder(View v) {
             super(v);
             txtVehicle = v.findViewById(R.id.txtVehicle);
             btnDelete = v.findViewById(R.id.btnDelete);
+            btnRefuel = v.findViewById(R.id.btnRefuel);
+
             if (form.equals("Home")) {
                 btnDelete.setVisibility(View.INVISIBLE);
             }
@@ -71,7 +76,6 @@ public class VehicleTravelListAdapter extends RecyclerView.Adapter<VehicleTravel
 
         holder.txtVehicle.setText(vehicle.getName());
 
-        // btnDelete
         holder.btnDelete.setOnClickListener (new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -92,6 +96,16 @@ public class VehicleTravelListAdapter extends RecyclerView.Adapter<VehicleTravel
                             }
                         }).setNegativeButton(R.string.No, null)
                         .show();
+            }
+        });
+
+        holder.btnRefuel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent (v.getContext(), FuelSupplyActivity.class);
+                intent.putExtra("vehicle_id", vehicleHasTravel.getVehicle_id());
+                intent.putExtra("travel_id", vehicleHasTravel.getTravel_id());
+                v.getContext().startActivity(intent);
             }
         });
     }

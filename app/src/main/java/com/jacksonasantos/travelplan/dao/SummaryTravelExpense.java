@@ -1,11 +1,11 @@
 package com.jacksonasantos.travelplan.dao;
 
-public class TravelExpense {
+public class SummaryTravelExpense {
     public String expense;
     public Double expected_value;
     public Double realized_value;
 
-    public TravelExpense() {
+    public SummaryTravelExpense() {
         this.expense = expense;
         this.expected_value = expected_value;
         this.realized_value = realized_value;

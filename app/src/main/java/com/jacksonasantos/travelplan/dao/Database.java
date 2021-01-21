@@ -13,9 +13,9 @@ import com.jacksonasantos.travelplan.dao.interfaces.CurrencyQuoteISchema;
 import com.jacksonasantos.travelplan.dao.interfaces.FuelSupplyISchema;
 import com.jacksonasantos.travelplan.dao.interfaces.InsuranceCompanyISchema;
 import com.jacksonasantos.travelplan.dao.interfaces.InsuranceISchema;
-import com.jacksonasantos.travelplan.dao.interfaces.MarkerISchema;
 import com.jacksonasantos.travelplan.dao.interfaces.MaintenanceISchema;
 import com.jacksonasantos.travelplan.dao.interfaces.MaintenancePlanISchema;
+import com.jacksonasantos.travelplan.dao.interfaces.MarkerISchema;
 import com.jacksonasantos.travelplan.dao.interfaces.TravelISchema;
 import com.jacksonasantos.travelplan.dao.interfaces.VehicleHasPlanISchema;
 import com.jacksonasantos.travelplan.dao.interfaces.VehicleHasTravelISchema;
@@ -29,21 +29,22 @@ public class Database {
     private static final String DATABASE_NAME = "TravelPlan.db";
     private static final int DATABASE_VERSION = 26;
 
-    public static VehicleDAO mVehicleDao;
-    public static FuelSupplyDAO mFuelSupplyDao;
-    public static CurrencyQuoteDAO mCurrencyQuoteDao;
-    public static MaintenanceDAO mMaintenanceDao;
-    public static InsuranceCompanyDAO mInsuranceCompanyDao;
-    public static VehicleStatisticsDAO mVehicleStatisticsDao;
-    public static TravelDAO mTravelDao;
     public static BrokerDAO mBrokerDao;
+    public static CurrencyQuoteDAO mCurrencyQuoteDao;
+    public static FuelSupplyDAO mFuelSupplyDao;
+    public static InsuranceCompanyDAO mInsuranceCompanyDao;
     public static InsuranceDAO mInsuranceDao;
+    public static MaintenanceDAO mMaintenanceDao;
     public static MaintenancePlanDAO mMaintenancePlanDao;
-    public static VehicleHasPlanDAO mVehicleHasPlanDao;
-    public static VehicleGraphStatisticsDAO mVehicleGraphStatisticsDao;
-    public static TravelExpenseDAO mTravelExpenseDao;
-    public static VehicleHasTravelDAO mVehicleHasTravelDao;
     public static MarkerDAO mMarkerDao;
+    public static TravelDAO mTravelDao;
+    public static VehicleHasPlanDAO mVehicleHasPlanDao;
+    public static VehicleHasTravelDAO mVehicleHasTravelDao;
+    public static VehicleDAO mVehicleDao;
+
+    public static SummaryTravelExpenseDAO mSummaryTravelExpenseDao;
+    public static VehicleGraphStatisticsDAO mVehicleGraphStatisticsDao;
+    public static VehicleStatisticsDAO mVehicleStatisticsDao;
 
     public Database(Context context) {
         this.mContext = context;
@@ -66,7 +67,7 @@ public class Database {
         mMaintenancePlanDao = new MaintenancePlanDAO(mDb);
         mVehicleHasPlanDao = new VehicleHasPlanDAO(mDb);
         mVehicleGraphStatisticsDao = new VehicleGraphStatisticsDAO(mDb);
-        mTravelExpenseDao = new TravelExpenseDAO(mDb);
+        mSummaryTravelExpenseDao = new SummaryTravelExpenseDAO(mDb);
         mVehicleHasTravelDao = new VehicleHasTravelDAO(mDb);
         mMarkerDao = new MarkerDAO(mDb);
     }

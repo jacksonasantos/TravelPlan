@@ -1,6 +1,6 @@
 package com.jacksonasantos.travelplan.dao.interfaces;
 
-public interface TravelExpenseISchema {
+public interface SummaryTravelExpenseISchema {
 
     String TRAVEL_EXPENSE_EXPENSE = "expense";
     String TRAVEL_EXPENSE_EXPECTED_VALUE = "expected_value";

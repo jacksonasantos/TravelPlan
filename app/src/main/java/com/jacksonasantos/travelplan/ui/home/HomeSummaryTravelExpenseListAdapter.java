@@ -13,7 +13,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.jacksonasantos.travelplan.R;
-import com.jacksonasantos.travelplan.dao.TravelExpense;
+import com.jacksonasantos.travelplan.dao.SummaryTravelExpense;
 import com.jacksonasantos.travelplan.ui.utility.Globals;
 
 import java.math.BigDecimal;
@@ -21,17 +21,17 @@ import java.text.NumberFormat;
 import java.util.List;
 import java.util.Locale;
 
-public class HomeTravelExpenseListAdapter extends RecyclerView.Adapter<HomeTravelExpenseListAdapter.MyViewHolder> {
+public class HomeSummaryTravelExpenseListAdapter extends RecyclerView.Adapter<HomeSummaryTravelExpenseListAdapter.MyViewHolder> {
 
-    public final List<TravelExpense> mTravelExpense;
+    public final List<SummaryTravelExpense> mSummaryTravelExpense;
     Context context;
 
     Globals g = Globals.getInstance();
     Locale locale = new Locale(g.getLanguage(), g.getCountry());
     NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(locale);
 
-    public HomeTravelExpenseListAdapter(List<TravelExpense> travelExpense, Context context) {
-        this.mTravelExpense = travelExpense;
+    public HomeSummaryTravelExpenseListAdapter(List<SummaryTravelExpense> summaryTravelExpense, Context context) {
+        this.mSummaryTravelExpense = summaryTravelExpense;
         this.context = context;
     }
 
@@ -57,7 +57,7 @@ public class HomeTravelExpenseListAdapter extends RecyclerView.Adapter<HomeTrave
 
     @NonNull
     @Override
-    public HomeTravelExpenseListAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public HomeSummaryTravelExpenseListAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View expenseView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.fragment_home_travel_item_expense, parent, false);
         return new MyViewHolder(expenseView);
@@ -67,14 +67,14 @@ public class HomeTravelExpenseListAdapter extends RecyclerView.Adapter<HomeTrave
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public void onBindViewHolder(@NonNull final MyViewHolder holder, final int position) {
-        final TravelExpense travelExpense = mTravelExpense.get(position);
-        holder.txtExpense.setText(travelExpense.getExpense());
-        holder.txtExpectedValue.setText(currencyFormatter.format(travelExpense.getExpected_value()==null? BigDecimal.ZERO:travelExpense.getExpected_value()));
-        holder.txtRealizedValue.setText(currencyFormatter.format(travelExpense.getRealized_value()==null? BigDecimal.ZERO:travelExpense.getRealized_value()));
+        final SummaryTravelExpense summaryTravelExpense = mSummaryTravelExpense.get(position);
+        holder.txtExpense.setText(summaryTravelExpense.getExpense());
+        holder.txtExpectedValue.setText(currencyFormatter.format(summaryTravelExpense.getExpected_value()==null? BigDecimal.ZERO: summaryTravelExpense.getExpected_value()));
+        holder.txtRealizedValue.setText(currencyFormatter.format(summaryTravelExpense.getRealized_value()==null? BigDecimal.ZERO: summaryTravelExpense.getRealized_value()));
     }
 
     @Override
     public int getItemCount() {
-        return mTravelExpense.size();
+        return mSummaryTravelExpense.size();
     }
 }
