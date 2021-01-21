@@ -63,6 +63,7 @@
     <string-array name="supply_reason_type_array">
         <item>@string/city</item>
         <item>@string/road</item>
+        <item>@string/mixed</item>
     </string-array>
     <!-- Travel Status -->
     <string-array name="travel_status_array">

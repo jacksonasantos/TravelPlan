@@ -2,7 +2,6 @@ package com.jacksonasantos.travelplan.ui.home;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -82,13 +81,9 @@ public class HomeVehicleStatisticsListAdapter extends RecyclerView.Adapter<HomeV
         if ( vehicleStatistics.getSupply_reason_type() == 9) {
             holder.txtReason.setText(context.getString(R.string.general));
         } else {
-            if (vehicleStatistics.getSupply_reason_type() == 2) {
-                holder.txtReason.setTextColor(Color.BLUE);
-            } else {
-                holder.txtReason.setTextColor(Color.RED);
-            }
             holder.txtReason.setText(reasonTypeArray[vehicleStatistics.getSupply_reason_type() - 1]);
         }
+        holder.txtReason.setTextColor(vehicleStatistics.getSupply_ranson_type_color(vehicleStatistics.getSupply_reason_type()));
         holder.txtAVGCostLitre.setText(currencyFormatter.format(vehicleStatistics.getAvg_cost_litre()));
         holder.txtMeasureCost.setText("/"+g.getMeasureCost());
         holder.txtAVGConsumption.setText(numberFormat.format(vehicleStatistics.getAvg_consumption()));

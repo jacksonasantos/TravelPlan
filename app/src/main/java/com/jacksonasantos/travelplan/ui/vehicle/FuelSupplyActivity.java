@@ -269,8 +269,8 @@ public class FuelSupplyActivity extends AppCompatActivity {
             txStatCostPerLitre.setText(currencyFormatter.format(fuelSupply.getStat_cost_per_litre()));
             rgSupplyReasonType.check(fuelSupply.getSupply_reason_type());
             etSupplyReason.setText(fuelSupply.getSupply_reason());
-            nrSpinAssociatedTravelId=fuelSupply.getAssociated_travel_id();
-            if (nrSpinAssociatedTravelId > 0) {
+            nrSpinAssociatedTravelId=fuelSupply.getAssociated_travel_id()==0?null:fuelSupply.getAssociated_travel_id();
+            if (nrSpinAssociatedTravelId != null && nrSpinAssociatedTravelId > 0) {
                 Travel trip1 = Database.mTravelDao.fetchTravelById(nrSpinAssociatedTravelId);
                 for (int x = 0; x <= spinAssociatedTravelId.getAdapter().getCount(); x++) {
                     if (spinAssociatedTravelId.getAdapter().getItem(x).toString().equals(trip1.getDescription())) {

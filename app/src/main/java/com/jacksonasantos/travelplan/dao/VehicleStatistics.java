@@ -1,5 +1,7 @@
 package com.jacksonasantos.travelplan.dao;
 
+import android.graphics.Color;
+
 import java.util.Date;
 
 public class VehicleStatistics {
@@ -30,6 +32,19 @@ public class VehicleStatistics {
 
     public int getSupply_reason_type() { return supply_reason_type; }
     public void setSupply_reason_type(int supply_reason_type) { this.supply_reason_type = supply_reason_type; }
+
+    public static int getSupply_ranson_type_color(int type) {
+        switch (type) {
+            case 1:
+                return Color.RED;
+            case 2:
+                return Color.BLUE;
+            case 3:
+                return Color.MAGENTA;
+            default:
+                return Color.GRAY;
+        }
+    }
 
     public float getAvg_consumption() { return avg_consumption; }
     public void setAvg_consumption(float avg_consumption) { this.avg_consumption = avg_consumption; }

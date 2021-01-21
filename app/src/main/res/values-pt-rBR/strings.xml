@@ -229,4 +229,9 @@
     <string name="terrain_map">Terreno</string>
     <string name="search_location">Pesquisar Localização</string>
     <string name="location_not_found">Local não encontrado</string>
+    <string name="transport_driving">Dirigindo</string>
+    <string name="transport_walking">Caminhando</string>
+    <string name="transport_bike">Ciclismo</string>
+    <string name="transport_transit">Transito</string>
+    <string name="mixed">Misto</string>
 </resources>

@@ -27,6 +27,7 @@ import com.jacksonasantos.travelplan.dao.Database;
 import com.jacksonasantos.travelplan.dao.FuelSupply;
 import com.jacksonasantos.travelplan.dao.Vehicle;
 import com.jacksonasantos.travelplan.dao.VehicleGraphStatistics;
+import com.jacksonasantos.travelplan.dao.VehicleStatistics;
 import com.jacksonasantos.travelplan.ui.utility.Globals;
 import com.jacksonasantos.travelplan.ui.utility.Utils;
 import com.jacksonasantos.travelplan.ui.vehicle.FuelSupplyActivity;
@@ -66,6 +67,10 @@ public class HomeVehicleFragment extends Fragment implements View.OnClickListene
 
     DataPoint[] dataSeries;
     int tamHorizontalLabels = 3;
+    double vMinX = 0;
+    double vMaxX = 0;
+    double vMinY = 0;
+    double vMaxY = 0;
 
     Globals g = Globals.getInstance();
 
@@ -159,28 +164,7 @@ public class HomeVehicleFragment extends Fragment implements View.OnClickListene
                     graphStatistics.removeAllSeries();                   // Clear the Graph
                     graphStatistics.onDataChanged(true, true);
 
-                    // Series "Road"
-                    dataSeries = getData(2);
-                    if (dataSeries.length > tamHorizontalLabels)
-                        tamHorizontalLabels = dataSeries.length;
-                    LineGraphSeries<DataPoint> series1 = new LineGraphSeries<>(dataSeries);
-                    series1.setColor(Color.BLUE);
-                    series1.setDrawDataPoints(true);
-                    series1.setDataPointsRadius(7);
-                    series1.setTitle(getString(R.string.road));
-                    graphStatistics.addSeries(series1);
-
-                    // Series "City"
-                    dataSeries = getData(1);
-                    if (dataSeries.length > tamHorizontalLabels)
-                        tamHorizontalLabels = dataSeries.length;
-                    if (tamHorizontalLabels > 10) tamHorizontalLabels = 10;
-                    LineGraphSeries<DataPoint> series2 = new LineGraphSeries<>(dataSeries);
-                    series2.setColor(Color.RED);
-                    series2.setDrawDataPoints(true);
-                    series2.setDataPointsRadius(7);
-                    series2.setTitle(getString(R.string.city));
-                    graphStatistics.addSeries(series2);
+                    addDataSeries();
 
                     // Prepare e Show Legend
                     //graphStatistics.getLegendRenderer().setVisible(true);
@@ -203,11 +187,11 @@ public class HomeVehicleFragment extends Fragment implements View.OnClickListene
                     graphStatistics.getViewport().setScalableY(true);           //         activate horizontal and vertical zooming and scrolling
                     graphStatistics.getViewport().setScrollableY(true);         //         activate vertical scrolling
                     graphStatistics.getViewport().setXAxisBoundsManual(true);
-                    graphStatistics.getViewport().setMinX(Math.min(series2.getLowestValueX(), series1.getLowestValueX()));
-                    graphStatistics.getViewport().setMaxX(Math.max(series2.getHighestValueX(), series1.getHighestValueX()));
+                    graphStatistics.getViewport().setMinX(vMinX);
+                    graphStatistics.getViewport().setMaxX(vMaxX);
                     graphStatistics.getViewport().setYAxisBoundsManual(true);
-                    graphStatistics.getViewport().setMinY(Math.min(series2.getLowestValueY(), series1.getLowestValueY()));
-                    graphStatistics.getViewport().setMaxY(Math.max(series2.getHighestValueY(), series1.getHighestValueY()));
+                    graphStatistics.getViewport().setMinY(vMinY);
+                    graphStatistics.getViewport().setMaxY(vMaxY);
 
                     graphStatistics.refreshDrawableState();
                 } else {
@@ -245,6 +229,68 @@ public class HomeVehicleFragment extends Fragment implements View.OnClickListene
             }
         });
         adapter.notifyDataSetChanged();
+    }
+
+    private void addDataSeries() {
+
+        String[] reasonTypeArray;
+        reasonTypeArray = getResources().getStringArray(R.array.supply_reason_type_array);
+
+        for(int i=1; i<reasonTypeArray.length; i++){
+            dataSeries = getData(i);
+            if (dataSeries.length > tamHorizontalLabels)
+                tamHorizontalLabels = dataSeries.length;
+            if (tamHorizontalLabels > 10) tamHorizontalLabels = 10;
+            LineGraphSeries<DataPoint> series = new LineGraphSeries<>(dataSeries);
+            series.setColor(VehicleStatistics.getSupply_ranson_type_color(i));
+            series.setDrawDataPoints(true);
+            series.setDataPointsRadius(7);
+            //series.setTitle(getString(R.string.road));
+            //series.setTitle(getString(R.string.road));
+            graphStatistics.addSeries(series);
+
+            vMinX = vMinX==0?series.getLowestValueX():Math.min(series.getLowestValueX(), vMinX);
+            vMaxX = vMaxX==0?series.getHighestValueX():Math.max(series.getHighestValueX(), vMaxX);
+            vMinY = vMinY==0?series.getLowestValueY():Math.min(series.getLowestValueY(), vMinY);
+            vMaxY = vMaxY==0?series.getHighestValueY():Math.max(series.getHighestValueY(), vMaxY);
+        }
+/*
+        // Series "Road"
+        dataSeries = getData(2);
+        if (dataSeries.length > tamHorizontalLabels)
+            tamHorizontalLabels = dataSeries.length;
+        if (tamHorizontalLabels > 10) tamHorizontalLabels = 10;
+        LineGraphSeries<DataPoint> series1 = new LineGraphSeries<>(dataSeries);
+        series1.setColor(Color.BLUE);
+        series1.setDrawDataPoints(true);
+        series1.setDataPointsRadius(7);
+        series1.setTitle(getString(R.string.road));
+        graphStatistics.addSeries(series1);
+
+        // Series "City"
+        dataSeries = getData(1);
+        if (dataSeries.length > tamHorizontalLabels)
+            tamHorizontalLabels = dataSeries.length;
+        if (tamHorizontalLabels > 10) tamHorizontalLabels = 10;
+        LineGraphSeries<DataPoint> series2 = new LineGraphSeries<>(dataSeries);
+        series2.setColor(Color.RED);
+        series2.setDrawDataPoints(true);
+        series2.setDataPointsRadius(7);
+        series2.setTitle(getString(R.string.city));
+        graphStatistics.addSeries(series2);
+
+        // Series "Mixed"
+        dataSeries = getData(3);
+        if (dataSeries.length > tamHorizontalLabels)
+            tamHorizontalLabels = dataSeries.length;
+        if (tamHorizontalLabels > 10) tamHorizontalLabels = 10;
+        LineGraphSeries<DataPoint> series3 = new LineGraphSeries<>(dataSeries);
+        series3.setColor(Color.MAGENTA);
+        series3.setDrawDataPoints(true);
+        series3.setDataPointsRadius(7);
+        series3.setTitle(getString(R.string.mixed));
+        graphStatistics.addSeries(series3);
+*/
     }
 
     private DataPoint[] getData(int type) {

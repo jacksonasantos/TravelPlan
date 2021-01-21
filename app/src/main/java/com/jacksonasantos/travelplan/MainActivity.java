@@ -24,10 +24,10 @@ import androidx.preference.PreferenceManager;
 
 import com.google.android.material.navigation.NavigationView;
 import com.jacksonasantos.travelplan.dao.Database;
-import com.jacksonasantos.travelplan.ui.utility.Globals;
-import com.jacksonasantos.travelplan.ui.utility.Utils;
 import com.jacksonasantos.travelplan.dao.InsuranceCompany;
 import com.jacksonasantos.travelplan.dao.MaintenancePlan;
+import com.jacksonasantos.travelplan.ui.utility.Globals;
+import com.jacksonasantos.travelplan.ui.utility.Utils;
 
 import java.io.BufferedReader;
 import java.io.IOException;
