@@ -83,7 +83,7 @@ public class HomeVehicleStatisticsListAdapter extends RecyclerView.Adapter<HomeV
         } else {
             holder.txtReason.setText(reasonTypeArray[vehicleStatistics.getSupply_reason_type() - 1]);
         }
-        holder.txtReason.setTextColor(vehicleStatistics.getSupply_ranson_type_color(vehicleStatistics.getSupply_reason_type()));
+        holder.txtReason.setTextColor(VehicleStatistics.getSupply_reason_type_color(vehicleStatistics.getSupply_reason_type()));
         holder.txtAVGCostLitre.setText(currencyFormatter.format(vehicleStatistics.getAvg_cost_litre()));
         holder.txtMeasureCost.setText("/"+g.getMeasureCost());
         holder.txtAVGConsumption.setText(numberFormat.format(vehicleStatistics.getAvg_consumption()));

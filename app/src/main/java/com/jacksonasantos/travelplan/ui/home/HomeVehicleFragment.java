@@ -242,7 +242,7 @@ public class HomeVehicleFragment extends Fragment implements View.OnClickListene
                 tamHorizontalLabels = dataSeries.length;
             if (tamHorizontalLabels > 10) tamHorizontalLabels = 10;
             LineGraphSeries<DataPoint> series = new LineGraphSeries<>(dataSeries);
-            series.setColor(VehicleStatistics.getSupply_ranson_type_color(i));
+            series.setColor(VehicleStatistics.getSupply_reason_type_color(i));
             series.setDrawDataPoints(true);
             series.setDataPointsRadius(7);
             //series.setTitle(getString(R.string.road));
