@@ -220,7 +220,7 @@
     <string name="Toll">Pedágio</string>
     <string name="Food">Alimentação</string>
     <string name="Tours">Passeios</string>
-    <string name="Accommodation">Hospedagem</string>
+    <string name="Accommodation">Acomodação</string>
     <string name="Vehicle_Travel_Deleting">Excluindo Veículo da Viagem</string>
     <string name="normal_map">Normal</string>
     <string name="hybrid_map">Híbrido</string>
@@ -234,7 +234,7 @@
     <string name="transport_transit">Transito</string>
     <string name="mixed">Misto</string>
     <string name="menu_route">Rota</string>
-    <string name="Accommodation_Deleting">Excluindo Hospedagem</string>
+    <string name="Accommodation_Deleting">Excluindo Acomodação</string>
     <string name="Accommodation_Name">Nome</string>
     <string name="Accommodation_Address">Endereço</string>
     <string name="Accommodation_City">Cidade</string>
@@ -245,7 +245,7 @@
     <string name="Accommodation_Email">E-mail</string>
     <string name="Accommodation_Site">Site</string>
     <string name="Accommodation_Latlng_Accommodation">Lat/Lng</string>
-    <string name="Accommodation_Accommodation_Type">Tipo de Hospedagem</string>
+    <string name="Accommodation_Accommodation_Type">Tipo de Acomodação</string>
     <string name="menu_accommodation">Hospedagem</string>
     <string name="hotel">Hotel</string>
     <string name="roost">Pousada</string>

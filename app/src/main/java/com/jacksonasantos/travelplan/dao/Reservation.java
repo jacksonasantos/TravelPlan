@@ -13,6 +13,8 @@ public class Reservation {
     public String apto_type;
     public Double daily_rate;
     public Double other_rate;
+    public Double reservation_amount;
+    public Double amount_paid;
     public String note;
     public int status_reservation;
 
@@ -26,6 +28,8 @@ public class Reservation {
         this.apto_type = apto_type;
         this.daily_rate = daily_rate;
         this.other_rate = other_rate;
+        this.reservation_amount = reservation_amount;
+        this.amount_paid = amount_paid;
         this.note = note;
         this.status_reservation = status_reservation;
     }
@@ -56,6 +60,12 @@ public class Reservation {
 
     public Double getOther_rate() {return other_rate; }
     public void setOther_rate(Double other_rate) { this.other_rate = other_rate;}
+
+    public Double getReservation_amount() {return reservation_amount; }
+    public void setReservation_amount(Double reservation_amount) { this.reservation_amount = reservation_amount;}
+
+    public Double getAmount_paid() {return amount_paid; }
+    public void setAmount_paid(Double amount_paid) { this.amount_paid = amount_paid;}
 
     public String getNote() {return note;}
     public void setNote(String note) {this.note = note;}
