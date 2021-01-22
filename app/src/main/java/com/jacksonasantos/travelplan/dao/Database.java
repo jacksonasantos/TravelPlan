@@ -8,14 +8,17 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.jacksonasantos.travelplan.dao.interfaces.AccommodationISchema;
 import com.jacksonasantos.travelplan.dao.interfaces.BrokerISchema;
 import com.jacksonasantos.travelplan.dao.interfaces.CurrencyQuoteISchema;
 import com.jacksonasantos.travelplan.dao.interfaces.FuelSupplyISchema;
 import com.jacksonasantos.travelplan.dao.interfaces.InsuranceCompanyISchema;
 import com.jacksonasantos.travelplan.dao.interfaces.InsuranceISchema;
+import com.jacksonasantos.travelplan.dao.interfaces.ItineraryISchema;
 import com.jacksonasantos.travelplan.dao.interfaces.MaintenanceISchema;
 import com.jacksonasantos.travelplan.dao.interfaces.MaintenancePlanISchema;
 import com.jacksonasantos.travelplan.dao.interfaces.MarkerISchema;
+import com.jacksonasantos.travelplan.dao.interfaces.ReservationISchema;
 import com.jacksonasantos.travelplan.dao.interfaces.TravelISchema;
 import com.jacksonasantos.travelplan.dao.interfaces.VehicleHasPlanISchema;
 import com.jacksonasantos.travelplan.dao.interfaces.VehicleHasTravelISchema;
@@ -27,16 +30,19 @@ public class Database {
     private final Context mContext;
 
     private static final String DATABASE_NAME = "TravelPlan.db";
-    private static final int DATABASE_VERSION = 26;
+    private static final int DATABASE_VERSION = 27;
 
+    public static AccommodationDAO mAccommodationDao;
     public static BrokerDAO mBrokerDao;
     public static CurrencyQuoteDAO mCurrencyQuoteDao;
     public static FuelSupplyDAO mFuelSupplyDao;
     public static InsuranceCompanyDAO mInsuranceCompanyDao;
     public static InsuranceDAO mInsuranceDao;
+    public static ItineraryDAO mItineraryDao;
     public static MaintenanceDAO mMaintenanceDao;
     public static MaintenancePlanDAO mMaintenancePlanDao;
     public static MarkerDAO mMarkerDao;
+    public static ReservationDAO mReservationDao;
     public static TravelDAO mTravelDao;
     public static VehicleHasPlanDAO mVehicleHasPlanDao;
     public static VehicleHasTravelDAO mVehicleHasTravelDao;
@@ -70,6 +76,9 @@ public class Database {
         mSummaryTravelExpenseDao = new SummaryTravelExpenseDAO(mDb);
         mVehicleHasTravelDao = new VehicleHasTravelDAO(mDb);
         mMarkerDao = new MarkerDAO(mDb);
+        mAccommodationDao = new AccommodationDAO(mDb);
+        mReservationDao = new ReservationDAO(mDb);
+        mItineraryDao = new ItineraryDAO(mDb);
     }
 
     public void close() {
@@ -128,6 +137,9 @@ public class Database {
             db.execSQL(BrokerISchema.ALTER_TABLE_BROKER_V24); Log.w("Table "+ BrokerISchema.BROKER_TABLE,"V24 - Alter Table...");
             db.execSQL(VehicleHasTravelISchema.CREATE_TABLE_VEHICLE_HAS_TRAVEL_V25); Log.w("Tab "+ VehicleHasTravelISchema.VEHICLE_HAS_TRAVEL_TABLE,"V25 - Create Table...");
             db.execSQL(MarkerISchema.CREATE_TABLE_MARKER_V26); Log.w("Table "+ MarkerISchema.MARKER_TABLE,"V26 - Create Table...");
+            db.execSQL(AccommodationISchema.CREATE_TABLE_ACCOMMODATION_V27); Log.w("Table "+ AccommodationISchema.ACCOMMODATION_TABLE,"V27 - Create Table...");
+            db.execSQL(ReservationISchema.CREATE_TABLE_RESERVATION_V27); Log.w("Table "+ ReservationISchema.RESERVATION_TABLE,"V27 - Create Table...");
+            db.execSQL(ItineraryISchema.CREATE_TABLE_ITINERARY_V27); Log.w("Table "+ ItineraryISchema.ITINERARY_TABLE,"V27 - Create Table...");
         }
 
         @SuppressLint("SQLiteString")
@@ -220,6 +232,11 @@ public class Database {
                         break;
                     case 26:
                         db.execSQL(MarkerISchema.CREATE_TABLE_MARKER_V26);
+                        break;
+                    case 27:
+                        db.execSQL(AccommodationISchema.CREATE_TABLE_ACCOMMODATION_V27);
+                        db.execSQL(ReservationISchema.CREATE_TABLE_RESERVATION_V27);
+                        db.execSQL(ItineraryISchema.CREATE_TABLE_ITINERARY_V27);
                         break;
                     default:
                         break;

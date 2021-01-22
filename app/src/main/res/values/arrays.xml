@@ -120,4 +120,11 @@
         <item>@string/executed</item>
         <item>@string/overdue</item>
     </string-array>
+    <!-- Accommodation Type -->
+    <string-array name="accommodation_type_array">
+        <item>@string/hotel</item>
+        <item>@string/roost</item>
+    </string-array>
+
+    accommodation_type
 </resources>

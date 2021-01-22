@@ -64,6 +64,9 @@
             android:name=".ui.travel.TravelActivity"
             android:label="@string/Travel" />
         <activity
+            android:name=".ui.travel.AccommodationActivity"
+            android:label="@string/Accommodation" />
+        <activity
             android:name=".ui.general.SettingsActivity"
             android:label="@string/action_settings" />
     </application>

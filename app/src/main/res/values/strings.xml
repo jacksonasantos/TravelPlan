@@ -8,7 +8,8 @@
     <string name="menu_home_travel">Home Travel</string>
     <string name="menu_vehicle">Vehicles</string>
     <string name="menu_travel">Travels</string>
-    <string name="menu_itinerary">Itinerary</string>
+    <string name="menu_accommodation">Accommodation</string>
+    <string name="menu_route">Route</string>
     <string name="menu_fuel_supply">Fuel Supply</string>
     <string name="menu_maintenance_plan">Maintenance Plan</string>
     <string name="menu_maintenance">Maintenance Service</string>
@@ -308,4 +309,21 @@
     <string name="search_location">Search Location</string>
     <string name="location_not_found">Location not Found</string>
 
+    <!-- Accommodation Fragment -->
+    <string name="Accommodation_Deleting">Deleting Accommodation</string>
+
+    <string name="Accommodation_Name">Name</string>
+    <string name="Accommodation_Address">Address</string>
+    <string name="Accommodation_City">City</string>
+    <string name="Accommodation_State">State</string>
+    <string name="Accommodation_Country">Country</string>
+    <string name="Accommodation_Contact_Name">Contact Name</string>
+    <string name="Accommodation_Phone">Phone</string>
+    <string name="Accommodation_Email">E-mail</string>
+    <string name="Accommodation_Site">Site</string>
+    <string name="Accommodation_Latlng_Accommodation">Lat/Lng</string>
+    <string name="Accommodation_Accommodation_Type">Accommodation Type</string>
+
+    <string name="hotel">Hotel</string>
+    <string name="roost">Roost</string>
 </resources>

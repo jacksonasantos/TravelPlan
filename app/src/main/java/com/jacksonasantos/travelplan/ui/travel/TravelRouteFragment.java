@@ -46,7 +46,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-public class TravelMapsFragment extends Fragment implements LocationListener {
+public class TravelRouteFragment extends Fragment implements LocationListener {
 
     private Spinner spTravel;
     private Integer nrTravel_Id;
@@ -65,7 +65,7 @@ public class TravelMapsFragment extends Fragment implements LocationListener {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_travel_maps, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_travel_route, container, false);
 
 
         spTravel = rootView.findViewById(R.id.spTravel);

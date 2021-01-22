@@ -222,7 +222,6 @@
     <string name="Tours">Passeios</string>
     <string name="Accommodation">Hospedagem</string>
     <string name="Vehicle_Travel_Deleting">Excluindo Veículo da Viagem</string>
-    <string name="menu_itinerary">Itinerário</string>
     <string name="normal_map">Normal</string>
     <string name="hybrid_map">Híbrido</string>
     <string name="satellite_map">Satélite</string>
@@ -234,4 +233,20 @@
     <string name="transport_bike">Ciclismo</string>
     <string name="transport_transit">Transito</string>
     <string name="mixed">Misto</string>
+    <string name="menu_route">Rota</string>
+    <string name="Accommodation_Deleting">Excluindo Hospedagem</string>
+    <string name="Accommodation_Name">Nome</string>
+    <string name="Accommodation_Address">Endereço</string>
+    <string name="Accommodation_City">Cidade</string>
+    <string name="Accommodation_State">Estado</string>
+    <string name="Accommodation_Country">País</string>
+    <string name="Accommodation_Contact_Name">Nome do Contato</string>
+    <string name="Accommodation_Phone">Telefone</string>
+    <string name="Accommodation_Email">E-mail</string>
+    <string name="Accommodation_Site">Site</string>
+    <string name="Accommodation_Latlng_Accommodation">Lat/Lng</string>
+    <string name="Accommodation_Accommodation_Type">Tipo de Hospedagem</string>
+    <string name="menu_accommodation">Hospedagem</string>
+    <string name="hotel">Hotel</string>
+    <string name="roost">Pousada</string>
 </resources>

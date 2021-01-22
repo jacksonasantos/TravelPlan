@@ -48,10 +48,16 @@
         tools:layout="@layout/fragment_generic_list" />
 
     <fragment
-        android:id="@+id/nav_itinerary"
-        android:name="com.jacksonasantos.travelplan.ui.travel.TravelMapsFragment"
-        android:label="@string/menu_itinerary"
-        tools:layout="@layout/fragment_travel_maps" />
+        android:id="@+id/nav_accommodation"
+        android:name="com.jacksonasantos.travelplan.ui.travel.AccommodationFragment"
+        android:label="@string/menu_accommodation"
+        tools:layout="@layout/fragment_generic_list" />
+
+    <fragment
+        android:id="@+id/nav_route"
+        android:name="com.jacksonasantos.travelplan.ui.travel.TravelRouteFragment"
+        android:label="@string/menu_route"
+        tools:layout="@layout/fragment_travel_route" />
 
     <fragment
         android:id="@+id/nav_settings"
