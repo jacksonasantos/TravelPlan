@@ -1,5 +1,7 @@
 package com.jacksonasantos.travelplan.dao;
 
+import androidx.annotation.NonNull;
+
 public class Accommodation {
     
     public Integer id;
@@ -29,6 +31,10 @@ public class Accommodation {
         this.latlng_accommodation = latlng_accommodation;
         this.accommodation_type = accommodation_type;
     }
+
+    @NonNull
+    @Override
+    public String toString() { return name; }
 
     public Integer getId() {return id;}
     public void setId(Integer id) {this.id = id;}

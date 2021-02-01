@@ -116,6 +116,7 @@ public class VehicleDAO extends DbContentProvider implements VehicleISchema, Veh
         int license_plateIndex;
         int full_capacityIndex;
         int avg_consumptionIndex;
+        int avg_cost_litreIndex;
         int brandIndex;
         int fuel_typeIndex;
         int dt_acquisitionIndex;
@@ -163,6 +164,10 @@ public class VehicleDAO extends DbContentProvider implements VehicleISchema, Veh
             if (cursor.getColumnIndex(VEHICLE_AVG_CONSUMPTION) != -1) {
                 avg_consumptionIndex = cursor.getColumnIndexOrThrow(VEHICLE_AVG_CONSUMPTION);
                 vehicle.avg_consumption = cursor.getFloat(avg_consumptionIndex);
+            }
+            if (cursor.getColumnIndex(VEHICLE_AVG_COST_LITRE) != -1) {
+                avg_cost_litreIndex = cursor.getColumnIndexOrThrow(VEHICLE_AVG_COST_LITRE);
+                vehicle.avg_cost_litre = cursor.getFloat(avg_cost_litreIndex);
             }
             if (cursor.getColumnIndex(VEHICLE_BRAND) != -1) {
                 brandIndex = cursor.getColumnIndexOrThrow(VEHICLE_BRAND);

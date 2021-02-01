@@ -48,6 +48,7 @@ public class VehicleHasTravelDAO extends DbContentProvider implements VehicleHas
         }
         return vehicleHasTravelList;
     }
+
     public List<VehicleHasTravel> fetchAllVehicleHasTravelByTravel(Integer travel_id) {
         final String[] selectionArgs = { String.valueOf(travel_id) };
         final String selection = VEHICLE_HAS_TRAVEL_TRAVEL_ID + " = ?";

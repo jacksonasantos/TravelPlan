@@ -236,10 +236,8 @@ public class HomeVehicleFragment extends Fragment implements View.OnClickListene
 
         String[] reasonTypeArray;
         reasonTypeArray = getResources().getStringArray(R.array.supply_reason_type_array);
-
-        for(int i=1; i<reasonTypeArray.length; i++){
-
-            List<VehicleGraphStatistics> graphHelper = Database.mVehicleGraphStatisticsDao.findLastVehicleGraphStatistics(g.getIdVehicle(), i);
+        for(int type=1; type<=reasonTypeArray.length; type++){
+            List<VehicleGraphStatistics> graphHelper = Database.mVehicleGraphStatisticsDao.findLastVehicleGraphStatistics(g.getIdVehicle(), type);
             DataPoint[] dataSeries = new DataPoint[graphHelper.size()];
             for(int x = 0;x<graphHelper.size(); x++){
                 dataSeries[x] = new DataPoint(graphHelper.get(x).getXaxis_date(), graphHelper.get(x).getYaxis_avg_consumption());
@@ -248,12 +246,10 @@ public class HomeVehicleFragment extends Fragment implements View.OnClickListene
                 tamHorizontalLabels = dataSeries.length;
             if (tamHorizontalLabels > 10) tamHorizontalLabels = 10;
             LineGraphSeries<DataPoint> series = new LineGraphSeries<>(dataSeries);
-            series.setColor(VehicleStatistics.getSupply_reason_type_color(i));
+            series.setColor(VehicleStatistics.getSupply_reason_type_color(type));
             series.setDrawDataPoints(true);
             series.setDataPointsRadius(7);
-
             graphStatistics.addSeries(series);
-
             vMinX = vMinX==0?series.getLowestValueX():Math.min(series.getLowestValueX(), vMinX);
             vMaxX = vMaxX==0?series.getHighestValueX():Math.max(series.getHighestValueX(), vMaxX);
             vMinY = vMinY==0?series.getLowestValueY():Math.min(series.getLowestValueY(), vMinY);

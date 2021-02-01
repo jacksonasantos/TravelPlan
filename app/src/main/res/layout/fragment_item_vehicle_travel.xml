@@ -14,7 +14,15 @@
         android:layout_height="30dp"
         android:layout_weight="1"
         android:gravity="start|center_vertical"
-        android:textSize="14sp" />
+        android:textSize="12sp" />
+
+    <TextView
+        android:id="@+id/txtAvgConsumption"
+        android:layout_width="0dp"
+        android:layout_height="30dp"
+        android:layout_weight="0.25"
+        android:gravity="start|center_vertical"
+        android:textSize="12sp" />
 
     <ImageButton
         android:id="@+id/btnDelete"

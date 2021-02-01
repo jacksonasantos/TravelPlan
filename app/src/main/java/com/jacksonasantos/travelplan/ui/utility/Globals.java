@@ -13,6 +13,7 @@ public class Globals {
     private String txMeasureCapacity;
     private String txMeasureConsumption;
     private String txDateFormat;
+    private String txTimeFormat;
     private String txLatitudeHome;
     private String txLongitudeHome;
 
@@ -44,6 +45,9 @@ public class Globals {
 
     public String getDateFormat() { return this.txDateFormat; }
     public void setDateFormat(String df) { this.txDateFormat = df; }
+
+    public String getTimeFormat() { return this.txTimeFormat; }
+    public void setTimeFormat(String tf) { this.txTimeFormat = tf; }
 
     public String getLatitudeHome() { return txLatitudeHome; }
     public void setLatitudeHome(String txLatitudeHome) { this.txLatitudeHome = txLatitudeHome; }

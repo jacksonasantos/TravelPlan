@@ -249,4 +249,20 @@
     <string name="menu_accommodation">Hospedagem</string>
     <string name="hotel">Hotel</string>
     <string name="roost">Pousada</string>
+    <string name="Reservation_Deleting">Excluindo Reserva</string>
+    <string name="Reservation_Voucher_Number">Voucher</string>
+    <string name="Reservation_Checkin_Date">Check In</string>
+    <string name="Reservation_Checkout_Date">Check Out</string>
+    <string name="Reservation_Apto_Type">Tipo Apto</string>
+    <string name="Reservation_Daily_Rate">Valor Diária</string>
+    <string name="Reservation_Other_Rate">Valor Outros</string>
+    <string name="Reservation_Reservation_Amount">Valor Reserva</string>
+    <string name="Reservation_Amount_Paid">Valor Pago</string>
+    <string name="Reservation_Note">Observação</string>
+    <string name="Reservation_Status_Reservation">Status Reserva</string>
+    <string name="Reservation">Reserva</string>
+    <string name="confirmed">Confirmada</string>
+    <string name="pay">Paga</string>
+    <string name="Itinerary">Itinerário</string>
+    <string name="Itinerary_Deleting">Excluindo Itinerário</string>
 </resources>

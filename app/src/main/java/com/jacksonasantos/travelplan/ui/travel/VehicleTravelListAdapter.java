@@ -1,5 +1,6 @@
 package com.jacksonasantos.travelplan.ui.travel;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -20,9 +21,12 @@ import com.jacksonasantos.travelplan.R;
 import com.jacksonasantos.travelplan.dao.Database;
 import com.jacksonasantos.travelplan.dao.Vehicle;
 import com.jacksonasantos.travelplan.dao.VehicleHasTravel;
+import com.jacksonasantos.travelplan.ui.utility.Globals;
 import com.jacksonasantos.travelplan.ui.vehicle.FuelSupplyActivity;
 
+import java.text.NumberFormat;
 import java.util.List;
+import java.util.Locale;
 
 public class VehicleTravelListAdapter extends RecyclerView.Adapter<VehicleTravelListAdapter.MyViewHolder> {
 
@@ -30,15 +34,21 @@ public class VehicleTravelListAdapter extends RecyclerView.Adapter<VehicleTravel
     Context context;
     public String form;
 
+    Globals g = Globals.getInstance();
+    Locale locale = new Locale(g.getLanguage(), g.getCountry());
+    NumberFormat numberFormatter = NumberFormat.getNumberInstance(locale);
+
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         public TextView txtVehicle;
+        public TextView txtAvgConsumption;
         public ImageButton btnDelete;
         public ImageButton btnRefuel;
 
         public MyViewHolder(View v) {
             super(v);
             txtVehicle = v.findViewById(R.id.txtVehicle);
+            txtAvgConsumption = v.findViewById(R.id.txtAvgConsumption);
             btnDelete = v.findViewById(R.id.btnDelete);
             btnRefuel = v.findViewById(R.id.btnRefuel);
 
@@ -68,6 +78,7 @@ public class VehicleTravelListAdapter extends RecyclerView.Adapter<VehicleTravel
     }
 
     // Replace the contents of a view (invoked by the layout manager)
+    @SuppressLint("SetTextI18n")
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public void onBindViewHolder(@NonNull final MyViewHolder holder, final int position) {
@@ -75,6 +86,7 @@ public class VehicleTravelListAdapter extends RecyclerView.Adapter<VehicleTravel
         final Vehicle vehicle = Database.mVehicleDao.fetchVehicleById(vehicleHasTravel.getVehicle_id());
 
         holder.txtVehicle.setText(vehicle.getName());
+        holder.txtAvgConsumption.setText(numberFormatter.format(vehicle.getAvg_consumption())+ " " +g.getMeasureConsumption());
 
         holder.btnDelete.setOnClickListener (new View.OnClickListener() {
             @Override

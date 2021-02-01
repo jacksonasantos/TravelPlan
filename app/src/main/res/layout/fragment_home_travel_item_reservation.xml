@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/llReservationItem"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:context=".ui.home.HomeTravelFragment">
+
+    <TextView
+        android:id="@+id/txtAccommodation"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/labels_marginLeft"
+        android:layout_weight="10"
+        android:gravity="start|center_vertical"
+        android:textSize="12sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/txtVoucher"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/labels_marginLeft"
+        android:layout_weight="6"
+        android:gravity="center|center_vertical"
+        android:textSize="12sp" />
+
+    <TextView
+        android:id="@+id/txtCheckin"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/labels_marginLeft"
+        android:layout_weight="6"
+        android:gravity="center_vertical|start"
+        android:textSize="12sp" />
+
+    <TextView
+        android:id="@+id/txtDaily"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/labels_marginLeft"
+        android:layout_weight="2"
+        android:gravity="center_vertical|start"
+        android:textSize="12sp" />
+
+    <ImageButton
+        android:id="@+id/btnEdit"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:contentDescription="@string/bt_Edit"
+        android:scaleType="centerCrop"
+        app:srcCompat="@drawable/ic_menu_edit" />
+
+    <ImageButton
+        android:id="@+id/btnDelete"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:contentDescription="@string/bt_Delete"
+        android:scaleType="centerCrop"
+        app:srcCompat="@drawable/ic_menu_delete" />
+
+</LinearLayout>
+

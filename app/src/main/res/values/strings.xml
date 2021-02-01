@@ -326,4 +326,35 @@
 
     <string name="hotel">Hotel</string>
     <string name="roost">Roost</string>
+
+    <!-- Itinerary Fragment -->
+    <string name="Itinerary">Itinerary</string>
+    <string name="Itinerary_Deleting">Deleting Itinerary</string>
+
+    <!-- Reservation Fragment -->
+    <string name="Reservation">Reservation</string>
+    <string name="Reservation_Deleting">Deleting Reservation</string>
+
+    <string name="Reservation_Voucher_Number">Voucher</string>
+    <string name="Reservation_Checkin_Date">CheckIn</string>
+    <string name="Reservation_Checkout_Date">CheckOut</string>
+    <string name="Reservation_Apto_Type">Apto Type</string>
+    <string name="Reservation_Daily_Rate">Daily Rate</string>
+    <string name="Reservation_Other_Rate">Other Rate</string>
+    <string name="Reservation_Reservation_Amount">Reservation Amount</string>
+    <string name="Reservation_Amount_Paid">Amount Paid</string>
+    <string name="Reservation_Note">Note</string>
+    <string name="Reservation_Status_Reservation">Status Reservation</string>
+
+    <string name="add_new_accommodation">Add New Accommodation</string>
+
+    <!-- Array Status reservation -->
+    <string name="confirmed">Confirmed</string>
+    <string name="pay">Pay</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_home">HomeActivity</string>
+    <string name="tab_text_1">Tab 1</string>
+    <string name="tab_text_2">Tab 2</string>
+
 </resources>

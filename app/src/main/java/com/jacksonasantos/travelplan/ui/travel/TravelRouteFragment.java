@@ -67,7 +67,6 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_travel_route, container, false);
 
-
         spTravel = rootView.findViewById(R.id.spTravel);
         mMapView = rootView.findViewById(R.id.mapView);
         etSearch = rootView.findViewById(R.id.etSearch);

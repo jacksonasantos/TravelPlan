@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ui.travel.ReservationActivity">
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/labels_margin"
+            android:layout_marginLeft="@dimen/labels_margin"
+            android:layout_marginTop="@dimen/labels_space_top"
+            android:layout_marginEnd="@dimen/labels_margin"
+            android:layout_marginRight="@dimen/labels_margin">
+            <AutoCompleteTextView
+                android:id="@+id/spinTravel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:autofillHints="no"
+                android:hint="@string/Travel"
+                android:nextFocusDown="@+id/spinAccommodation"
+                android:textSize="14sp"
+                android:inputType="none" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="1"
+            android:baselineAligned="false">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="350dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/labels_margin"
+                android:layout_marginLeft="@dimen/labels_margin"
+                android:layout_marginTop="@dimen/labels_space_top"
+                style = "@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu">
+                <AutoCompleteTextView
+                    android:id="@+id/spinAccommodation"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:autofillHints="no"
+                    android:hint="@string/Accommodation"
+                    android:nextFocusDown="@+id/etVoucher_Number"
+                    android:textSize="14sp"
+                    android:inputType="none" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <ImageButton
+                android:id="@+id/btAddAccommodation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/add_new_accommodation"
+                app:srcCompat="@drawable/ic_button_add"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="@dimen/labels_margin"
+                android:layout_marginRight="@dimen/labels_margin" />
+        </LinearLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/labels_margin"
+            android:layout_marginLeft="@dimen/labels_margin"
+            android:layout_marginTop="@dimen/labels_space_top"
+            android:layout_marginEnd="@dimen/labels_margin"
+            android:layout_marginRight="@dimen/labels_margin">
+            <EditText
+                android:id="@+id/etVoucher_Number"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:autofillHints="no"
+                android:hint="@string/Reservation_Voucher_Number"
+                android:nextFocusDown="@+id/etCheckin_Date"
+                android:textSize="14sp"
+                android:inputType="text"
+                tools:ignore="TextFields" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="1"
+            android:baselineAligned="false">
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/labels_margin"
+                android:layout_marginLeft="@dimen/labels_margin"
+                android:layout_marginTop="@dimen/labels_space_top"
+                android:layout_marginEnd="@dimen/labels_margin"
+                android:layout_marginRight="@dimen/labels_margin"
+                android:layout_weight="0.50">
+                <EditText
+                    android:id="@+id/etCheckin_Date"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:autofillHints="no"
+                    android:hint="@string/Reservation_Checkin_Date"
+                    android:nextFocusDown="@+id/etCheckout_Date"
+                    android:inputType="date"
+                    android:textSize="14sp" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/labels_margin"
+                android:layout_marginLeft="@dimen/labels_margin"
+                android:layout_marginTop="@dimen/labels_space_top"
+                android:layout_marginEnd="@dimen/labels_margin"
+                android:layout_marginRight="@dimen/labels_margin"
+                android:layout_weight="0.50">
+                <EditText
+                    android:id="@+id/etCheckout_Date"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:autofillHints="no"
+                    android:hint="@string/Reservation_Checkout_Date"
+                    android:inputType="date"
+                    android:nextFocusDown="@+id/etApto_Type"
+                    android:textSize="14sp" />
+            </com.google.android.material.textfield.TextInputLayout>
+        </LinearLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/labels_margin"
+            android:layout_marginLeft="@dimen/labels_margin"
+            android:layout_marginTop="@dimen/labels_space_top"
+            android:layout_marginEnd="@dimen/labels_margin"
+            android:layout_marginRight="@dimen/labels_margin">
+            <EditText
+                android:id="@+id/etApto_Type"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:autofillHints="no"
+                android:hint="@string/Reservation_Apto_Type"
+                android:nextFocusDown="@+id/etDaily_Rate"
+                android:textSize="14sp"
+                android:inputType="text" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="1"
+            android:baselineAligned="false">
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.50"
+                android:layout_marginStart="@dimen/labels_margin"
+                android:layout_marginLeft="@dimen/labels_margin"
+                android:layout_marginTop="@dimen/labels_space_top"
+                android:layout_marginEnd="@dimen/labels_margin"
+                android:layout_marginRight="@dimen/labels_margin">
+                <EditText
+                    android:id="@+id/etDaily_Rate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:autofillHints="no"
+                    android:hint="@string/Reservation_Daily_Rate"
+                    android:inputType="numberDecimal"
+                    android:nextFocusDown="@+id/etOther_Rate"
+                    android:textSize="14sp" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.50"
+                android:layout_marginStart="@dimen/labels_margin"
+                android:layout_marginLeft="@dimen/labels_margin"
+                android:layout_marginTop="@dimen/labels_space_top"
+                android:layout_marginEnd="@dimen/labels_margin"
+                android:layout_marginRight="@dimen/labels_margin">
+                <EditText
+                    android:id="@+id/etOther_Rate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:autofillHints="no"
+                    android:cursorVisible="true"
+                    android:hint="@string/Reservation_Other_Rate"
+                    android:inputType="numberDecimal"
+                    android:nextFocusDown="@+id/etReservation_Amount"
+                    android:textSize="14sp" />
+            </com.google.android.material.textfield.TextInputLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="1"
+            android:baselineAligned="false">
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.50"
+                android:layout_marginStart="@dimen/labels_margin"
+                android:layout_marginLeft="@dimen/labels_margin"
+                android:layout_marginTop="@dimen/labels_space_top"
+                android:layout_marginEnd="@dimen/labels_margin"
+                android:layout_marginRight="@dimen/labels_margin">
+                <EditText
+                    android:id="@+id/etReservation_Amount"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:autofillHints="no"
+                    android:hint="@string/Reservation_Reservation_Amount"
+                    android:inputType="numberDecimal"
+                    android:textAllCaps="true"
+                    android:nextFocusDown="@+id/etAmount_Paid"
+                    android:textSize="14sp" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.50"
+                android:layout_marginStart="@dimen/labels_margin"
+                android:layout_marginLeft="@dimen/labels_margin"
+                android:layout_marginTop="@dimen/labels_space_top"
+                android:layout_marginEnd="@dimen/labels_margin"
+                android:layout_marginRight="@dimen/labels_margin">
+                <EditText
+                    android:id="@+id/etAmount_Paid"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:autofillHints="no"
+                    android:hint="@string/Reservation_Amount_Paid"
+                    android:inputType="numberDecimal"
+                    android:nextFocusDown="@+id/etNote"
+                    android:textSize="14sp" />
+            </com.google.android.material.textfield.TextInputLayout>
+        </LinearLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/labels_margin"
+            android:layout_marginLeft="@dimen/labels_margin"
+            android:layout_marginTop="@dimen/labels_space_top"
+            android:layout_marginEnd="@dimen/labels_margin"
+            android:layout_marginRight="@dimen/labels_margin">
+            <EditText
+                android:id="@+id/etNote"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:autofillHints="no"
+                android:hint="@string/Reservation_Note"
+                android:inputType="text"
+                android:nextFocusDown="@+id/etStatus_Reservation"
+                android:textSize="14sp" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/tvStatus_Reservation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/labels_margin"
+            android:layout_marginLeft="@dimen/labels_margin"
+            android:layout_marginTop="@dimen/labels_space_top"
+            android:layout_marginEnd="@dimen/labels_margin"
+            android:layout_marginRight="@dimen/labels_margin"
+            android:autofillHints="no"
+            android:gravity="center_vertical"
+            android:hint="@string/Reservation_Status_Reservation"
+            android:nextFocusDown="@+id/btSaveReservation"
+            android:textSize="14sp" />
+
+        <Button
+            android:id="@+id/btSaveReservation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="8dp"
+            android:text="@string/bt_Save" />
+
+    </LinearLayout>
+</ScrollView>

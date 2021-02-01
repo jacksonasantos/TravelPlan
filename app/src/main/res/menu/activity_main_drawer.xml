@@ -15,7 +15,7 @@
     </group>
     <item android:title="@string/menu_vehicle">
         <menu>
-           <item
+            <item
                 android:id="@+id/nav_vehicle"
                 android:icon="@drawable/ic_menu_vehicle"
                 android:title="@string/menu_vehicle" />
@@ -23,10 +23,6 @@
                 android:id="@+id/nav_fuel_supply"
                 android:icon="@drawable/ic_supply"
                 android:title="@string/menu_fuel_supply" />
-            <item
-                android:id="@+id/nav_maintenance_plan"
-                android:icon="@drawable/ic_menu_maintenance_plan"
-                android:title="@string/menu_maintenance_plan" />
             <item
                 android:id="@+id/nav_maintenance"
                 android:icon="@drawable/ic_menu_maintenance"
@@ -40,10 +36,6 @@
                 android:icon="@drawable/ic_menu_travel"
                 android:title="@string/menu_travel" />
             <item
-                android:id="@+id/nav_accommodation"
-                android:icon="@drawable/ic_menu_accommodation"
-                android:title="@string/menu_accommodation" />
-            <item
                 android:id="@+id/nav_route"
                 android:icon="@drawable/ic_route"
                 android:title="@string/menu_route" />
@@ -51,13 +43,19 @@
     </item>
     <item android:title="@string/menu_general">
         <menu>
-            <group android:checkableBehavior="single">
-                <item
-                    android:id="@+id/nav_settings"
-                    android:icon="@drawable/ic_menu_setting"
-                    android:title="@string/action_settings"
-                    app:showAsAction="ifRoom" />
-            </group>
+            <item
+                android:id="@+id/nav_settings"
+                android:icon="@drawable/ic_menu_setting"
+                android:title="@string/action_settings"
+                app:showAsAction="ifRoom" />
+            <item
+                android:id="@+id/nav_maintenance_plan"
+                android:icon="@drawable/ic_menu_maintenance_plan"
+                android:title="@string/menu_maintenance_plan" />
+            <item
+                android:id="@+id/nav_accommodation"
+                android:icon="@drawable/ic_menu_accommodation"
+                android:title="@string/menu_accommodation" />
             <item
                 android:id="@+id/nav_insurance"
                 android:icon="@drawable/ic_menu_insurance"

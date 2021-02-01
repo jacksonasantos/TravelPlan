@@ -4,7 +4,7 @@
     package="com.jacksonasantos.travelplan">
 
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
     <application
         android:allowBackup="true"
@@ -63,6 +63,9 @@
         <activity
             android:name=".ui.travel.TravelActivity"
             android:label="@string/Travel" />
+        <activity
+            android:name=".ui.travel.ReservationActivity"
+            android:label="@string/Reservation" />
         <activity
             android:name=".ui.travel.AccommodationActivity"
             android:label="@string/Accommodation" />

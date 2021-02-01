@@ -125,6 +125,11 @@
         <item>@string/hotel</item>
         <item>@string/roost</item>
     </string-array>
-
-    accommodation_type
+    <!-- Maintenance Status -->
+    <string-array name="reservation_status_array">
+        <item>@string/registered</item>
+        <item>@string/confirmed</item>
+        <item>@string/pay</item>
+        <item>@string/executed</item>
+    </string-array>
 </resources>

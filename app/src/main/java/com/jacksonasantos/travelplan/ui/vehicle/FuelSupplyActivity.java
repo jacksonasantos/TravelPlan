@@ -28,6 +28,7 @@ import com.jacksonasantos.travelplan.dao.Database;
 import com.jacksonasantos.travelplan.dao.FuelSupply;
 import com.jacksonasantos.travelplan.dao.Travel;
 import com.jacksonasantos.travelplan.dao.Vehicle;
+import com.jacksonasantos.travelplan.dao.VehicleStatistics;
 import com.jacksonasantos.travelplan.ui.utility.DateInputMask;
 import com.jacksonasantos.travelplan.ui.utility.Globals;
 import com.jacksonasantos.travelplan.ui.utility.Utils;
@@ -340,9 +341,6 @@ public class FuelSupplyActivity extends AppCompatActivity {
                         f1.setVehicle_travelled_distance(Integer.parseInt(etVehicleTravelledDistance.getText().toString()));
                         f1.setStat_avg_fuel_consumption(vStatAvgFuelConsumption);
                         f1.setStat_cost_per_litre(vStatCostPerLitre);
-
-                        v1.setDt_odometer(Utils.stringToDate(etSupplyDate.getText().toString()));
-                        v1.setOdometer(Integer.parseInt(etVehicleOdometer.getText().toString()));
                     }
                     try {
                         if (!opInsert) {
@@ -356,6 +354,13 @@ public class FuelSupplyActivity extends AppCompatActivity {
                             //try {
                                 isSave = Database.mFuelSupplyDao.addFuelSupply(f1);
                                 if (!etVehicleOdometer.getText().toString().isEmpty()) {
+                                    v1.setDt_odometer(Utils.stringToDate(etSupplyDate.getText().toString()));
+                                    v1.setOdometer(Integer.parseInt(etVehicleOdometer.getText().toString()));
+                                    if (vStatAvgFuelConsumption>0){
+                                        List<VehicleStatistics> vStat = Database.mVehicleStatisticsDao.findTotalVehicleStatistics(nrVehicleId);
+                                        v1.setAvg_consumption(vStat.get(0).getAvg_consumption());
+                                        v1.setAvg_cost_litre(vStat.get(0).getAvg_cost_litre());
+                                    }
                                     isSave = Database.mVehicleDao.updateVehicle(v1);
                                 }
                             //} catch (Exception e) {

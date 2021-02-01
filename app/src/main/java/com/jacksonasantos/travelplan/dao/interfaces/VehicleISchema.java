@@ -12,6 +12,7 @@ public interface VehicleISchema {
     String VEHICLE_FUEL_TYPE = "fuel_type";
     String VEHICLE_FULL_CAPACITY = "full_capacity";
     String VEHICLE_AVG_CONSUMPTION = "avg_consumption";
+    String VEHICLE_AVG_COST_LITRE = "avg_cost_litre";
     String VEHICLE_SHORT_NAME = "short_name";
     String VEHICLE_DT_ACQUISITION = "dt_acquisition";
     String VEHICLE_DT_SALE = "dt_sale";
@@ -38,6 +39,7 @@ public interface VehicleISchema {
             + VEHICLE_LICENCE_PLATE + " TEXT, "
             + VEHICLE_FULL_CAPACITY + " INT, "
             + VEHICLE_AVG_CONSUMPTION + " FLOAT "
+            + VEHICLE_AVG_COST_LITRE + " FLOAT "
             + ")";
 
     // Version 2
@@ -82,6 +84,7 @@ public interface VehicleISchema {
             VEHICLE_LICENCE_PLATE,
             VEHICLE_FULL_CAPACITY,
             VEHICLE_AVG_CONSUMPTION,
+            VEHICLE_AVG_COST_LITRE,
             VEHICLE_BRAND,
             VEHICLE_FUEL_TYPE,
             VEHICLE_SHORT_NAME,

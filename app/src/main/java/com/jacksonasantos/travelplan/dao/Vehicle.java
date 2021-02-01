@@ -32,6 +32,7 @@ public class Vehicle {
     public double estimated_value;
     public int full_capacity;
     public float avg_consumption;
+    public float avg_cost_litre;
     public Date dt_odometer;
     public int odometer;
 
@@ -60,6 +61,7 @@ public class Vehicle {
         this.power = power;
         this.full_capacity = full_capacity;
         this.avg_consumption = avg_consumption;
+        this.avg_cost_litre = avg_cost_litre;
         this.dt_odometer = dt_odometer;
         this.odometer = odometer;
         this.estimated_value = estimated_value;
@@ -129,10 +131,11 @@ public class Vehicle {
         this.full_capacity = full_capacity;
     }
 
-    public float getAvg_consumption() {
-        return avg_consumption;
-    }
+    public float getAvg_consumption() {return avg_consumption; }
     public void setAvg_consumption(float avg_consumption) { this.avg_consumption = avg_consumption; }
+
+    public float getAvg_cost_litre() {return avg_cost_litre; }
+    public void setAvg_cost_litre(float avg_cost_litre) { this.avg_cost_litre = avg_cost_litre; }
 
     public String getShort_name() {return short_name;}
     public void setShort_name(String short_name) {this.short_name = short_name; }

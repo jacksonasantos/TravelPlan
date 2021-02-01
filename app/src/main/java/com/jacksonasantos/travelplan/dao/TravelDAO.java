@@ -53,7 +53,8 @@ public class TravelDAO extends DbContentProvider implements TravelISchema, Trave
     }
     public List<Travel> fetchAllTravel() {
         List<Travel> travelList = new ArrayList<>();
-        cursor = super.query(TRAVEL_TABLE, TRAVEL_COLUMNS, null, null, TRAVEL_DEPARTURE_DATE);
+
+        cursor = super.query(TRAVEL_TABLE, TRAVEL_COLUMNS, null, null, TRAVEL_DEPARTURE_DATE + " DESC");
         if (cursor.moveToFirst()) {
             do {
                 Travel travel = cursorToEntity(cursor);

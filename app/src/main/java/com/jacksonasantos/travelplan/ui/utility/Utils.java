@@ -11,8 +11,9 @@ import android.widget.RadioGroup;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.text.ParseException;
-import java.util.Date;
 import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 public class Utils extends AppCompatActivity  {
 
@@ -62,6 +63,11 @@ public class Utils extends AppCompatActivity  {
         @SuppressLint("SimpleDateFormat") SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         return (d==null?null:dateFormat.format(d));
     }
+
+    public static int diffBetweenDate( Date firstDate, Date secondDate ) {
+            long diffInMillies = Math.abs(secondDate.getTime() - firstDate.getTime());
+        return (int) TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS);
+        }
 
     public static void createSpinnerResources(int resource_array, AutoCompleteTextView spin, Context context) {
         ArrayAdapter<String> adapter = new ArrayAdapter<>(

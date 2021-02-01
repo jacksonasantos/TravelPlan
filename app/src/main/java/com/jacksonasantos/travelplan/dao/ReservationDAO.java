@@ -51,6 +51,21 @@ public class ReservationDAO extends DbContentProvider implements ReservationISch
         return reservationList;
     }
 
+    public List<Reservation> fetchAllReservationByTravel(Integer travel_id) {
+        final String[] selectionArgs = { String.valueOf(travel_id) };
+        final String selection = RESERVATION_TRAVEL_ID + " = ?";
+        List<Reservation> reservationList = new ArrayList<>();
+        cursor = super.query(RESERVATION_TABLE, RESERVATION_COLUMNS, selection, selectionArgs, RESERVATION_TRAVEL_ID);
+        if (cursor.moveToFirst()) {
+            do {
+                Reservation reservation = cursorToEntity(cursor);
+                reservationList.add(reservation);
+            } while (cursor.moveToNext());
+            cursor.close();
+        }
+        return reservationList;
+    }
+
     public void deleteReservation(Integer id) {
         final String[] selectionArgs = { String.valueOf(id) };
         final String selection = RESERVATION_ID + " = ?";

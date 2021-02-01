@@ -8,14 +8,24 @@
     android:layout_height="wrap_content"
     tools:context=".ui.home.HomeTravelFragment">
 
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imgExpense"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
         android:id="@+id/txtExpense"
         android:layout_width="120dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/labels_marginLeft"
+        android:layout_marginLeft="@dimen/labels_marginLeft"
         android:gravity="start|center_vertical"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/imgExpense"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
@@ -24,6 +34,7 @@
         android:layout_height="wrap_content"
         android:gravity="end|center_vertical"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/txtRealizedValue"
         app:layout_constraintStart_toEndOf="@+id/txtExpense"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -34,7 +45,6 @@
         android:gravity="center_vertical|end"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/txtExpectedValue"
         app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
