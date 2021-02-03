@@ -265,4 +265,5 @@
     <string name="pay">Paga</string>
     <string name="Itinerary">Itinerário</string>
     <string name="Itinerary_Deleting">Excluindo Itinerário</string>
+    <string name="menu_home">Principal</string>
 </resources>

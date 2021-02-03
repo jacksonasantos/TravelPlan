@@ -5,13 +5,9 @@
     tools:showIn="navigation_view">
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_home_vehicle"
+            android:id="@+id/nav_home"
             android:icon="@drawable/ic_menu_home"
-            android:title="@string/menu_home_vehicle" />
-        <item
-            android:id="@+id/nav_home_travel"
-            android:icon="@drawable/ic_menu_home"
-            android:title="@string/menu_home_travel" />
+            android:title="@string/menu_home" />
     </group>
     <item android:title="@string/menu_vehicle">
         <menu>

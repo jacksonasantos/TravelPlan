@@ -60,16 +60,16 @@ public class MainActivity extends AppCompatActivity {
         PreferenceManager.setDefaultValues(this, R.xml.root_preferences, false);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
+        toolbar.setTitle(R.string.menu_home);
         setSupportActionBar(toolbar);
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
 
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home_vehicle, R.id.nav_vehicle, R.id.nav_fuel_supply, R.id.nav_maintenance_plan, R.id.nav_maintenance,
-                R.id.nav_home_travel, R.id.nav_travel, R.id.nav_accommodation,
+                R.id.nav_home,
+                R.id.nav_vehicle, R.id.nav_fuel_supply, R.id.nav_maintenance_plan, R.id.nav_maintenance,
+                R.id.nav_travel, R.id.nav_accommodation,
                 R.id.nav_settings,
                 R.id.nav_insurance, R.id.nav_insurance_company, R.id.nav_broker, R.id.nav_currency_quote)
                 .setOpenableLayout(drawer)
