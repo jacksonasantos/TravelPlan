@@ -15,10 +15,10 @@ public class HomeFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_home, container, false);
+        View v = inflater.inflate(R.layout.fragment_home, container, false);
 
-        ViewPager viewPager = root.findViewById(R.id.view_pager);
-        viewPager.setAdapter(new HomeViewPagerAdapter(getChildFragmentManager()));
-        return root;
+        ViewPager viewPager = v.findViewById(R.id.view_pager);
+        viewPager.setAdapter(new HomePagerAdapter(getChildFragmentManager()));
+        return v;
     }
 }

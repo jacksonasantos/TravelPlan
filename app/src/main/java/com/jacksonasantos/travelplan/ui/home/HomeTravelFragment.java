@@ -270,7 +270,7 @@ public class HomeTravelFragment extends Fragment implements View.OnClickListener
                 }
 
                 // Expenses - LayerExpense
-                HomeSummaryTravelExpenseListAdapter adapterTravelExpense = new HomeSummaryTravelExpenseListAdapter( Database.mSummaryTravelExpenseDao.findTravelExpense(travel[0].getId() ), getContext(), travel[0].getId());
+                HomeTravelSummaryExpenseListAdapter adapterTravelExpense = new HomeTravelSummaryExpenseListAdapter( Database.mSummaryTravelExpenseDao.findTravelExpense(travel[0].getId() ), getContext(), travel[0].getId());
                 if ( adapterTravelExpense.getItemCount() > 0){
                     layerExpense.setVisibility(View.VISIBLE);
 

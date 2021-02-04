@@ -142,8 +142,6 @@ public class HomeVehicleFragment extends Fragment implements View.OnClickListene
 
                 g.setIdVehicle(vehicle[0].getId());
 
-                vMinX = 0; vMaxX = 0; vMinY = 0; vMaxY = 0;
-
                 // Last Fuel Supply of Vehicle in Global selection - layerFuelSupply
                 FuelSupply fuelSupply = Database.mFuelSupplyDao.findLastFuelSupply( g.getIdVehicle() );
                 tvFuelSupplyDate.setText(Utils.dateToString(fuelSupply.getSupply_date()));
@@ -163,15 +161,12 @@ public class HomeVehicleFragment extends Fragment implements View.OnClickListene
                     vehicleStatisticsTotalList.setLayoutManager(new LinearLayoutManager(getContext()));
 
                     // Graph Statistics Vehicle - https://github.com/jjoe64/GraphView
+                    vMinX = 0; vMaxX = 0; vMinY = 0; vMaxY = 0;
+                    tamHorizontalLabels = 3;
                     graphStatistics.removeAllSeries();                   // Clear the Graph
                     graphStatistics.onDataChanged(true, true);
 
                     addDataSeries();
-
-                    // Prepare e Show Legend
-                    //graphStatistics.getLegendRenderer().setVisible(true);
-                    //graphStatistics.getLegendRenderer().setTextSize(20);
-                    //graphStatistics.getLegendRenderer().setAlign(LegendRenderer.LegendAlign.TOP);
 
                     graphStatistics.getGridLabelRenderer().setVerticalLabelsColor(Color.BLUE);
                     graphStatistics.getGridLabelRenderer().setHorizontalLabelsColor(Color.BLUE);
@@ -199,6 +194,7 @@ public class HomeVehicleFragment extends Fragment implements View.OnClickListene
                 } else {
                     layerStatisticsVehicle.setVisibility(View.GONE);
                 }
+                adapterVehicle.notifyDataSetChanged();
 
                 // In-Vehicle Services - layerServiceVehicle
                 HomeVehicleMaintenanceListAdapter adapterMaintenance = new HomeVehicleMaintenanceListAdapter(Database.mMaintenanceDao.findReminderMaintenance( g.getIdVehicle() ), getContext());
@@ -209,6 +205,7 @@ public class HomeVehicleFragment extends Fragment implements View.OnClickListene
                 } else {
                     layerServiceVehicle.setVisibility(View.GONE);
                 }
+                adapterMaintenance.notifyDataSetChanged();
 
                 // Insurance - layerInsuranceVehicle
                 HomeInsuranceListAdapter adapterInsurance = new HomeInsuranceListAdapter(Database.mInsuranceDao.findReminderInsurance("V", g.getIdVehicle() ), getContext());
@@ -219,9 +216,6 @@ public class HomeVehicleFragment extends Fragment implements View.OnClickListene
                 }else {
                     layerInsuranceVehicle.setVisibility(View.GONE);
                 }
-
-                adapterVehicle.notifyDataSetChanged();
-                adapterMaintenance.notifyDataSetChanged();
                 adapterInsurance.notifyDataSetChanged();
             }
 

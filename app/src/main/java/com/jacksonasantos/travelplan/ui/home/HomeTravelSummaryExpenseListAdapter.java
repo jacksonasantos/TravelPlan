@@ -23,7 +23,7 @@ import java.text.NumberFormat;
 import java.util.List;
 import java.util.Locale;
 
-public class HomeSummaryTravelExpenseListAdapter extends RecyclerView.Adapter<HomeSummaryTravelExpenseListAdapter.MyViewHolder> {
+public class HomeTravelSummaryExpenseListAdapter extends RecyclerView.Adapter<HomeTravelSummaryExpenseListAdapter.MyViewHolder> {
 
     public final List<SummaryTravelExpense> mSummaryTravelExpense;
     Context context;
@@ -33,7 +33,7 @@ public class HomeSummaryTravelExpenseListAdapter extends RecyclerView.Adapter<Ho
     Locale locale = new Locale(g.getLanguage(), g.getCountry());
     NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(locale);
 
-    public HomeSummaryTravelExpenseListAdapter(List<SummaryTravelExpense> summaryTravelExpense, Context context, Integer travel_id) {
+    public HomeTravelSummaryExpenseListAdapter(List<SummaryTravelExpense> summaryTravelExpense, Context context, Integer travel_id) {
         this.mSummaryTravelExpense = summaryTravelExpense;
         this.context = context;
         this.travel_id = travel_id;
@@ -63,7 +63,7 @@ public class HomeSummaryTravelExpenseListAdapter extends RecyclerView.Adapter<Ho
 
     @NonNull
     @Override
-    public HomeSummaryTravelExpenseListAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public HomeTravelSummaryExpenseListAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View expenseView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.fragment_home_travel_item_expense, parent, false);
         return new MyViewHolder(expenseView);

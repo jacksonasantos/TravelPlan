@@ -15,7 +15,6 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
 import com.jacksonasantos.travelplan.MainActivity;
 import com.jacksonasantos.travelplan.R;
@@ -30,7 +29,7 @@ import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Route {
+public class RouteClass {
     GoogleMap mMap;
     Context context;
     String lang;
@@ -46,7 +45,7 @@ public class Route {
             String url = makeURL(points.get(0).latitude, points.get(0).longitude, points.get(1).latitude, points.get(1).longitude, "driving");
             new connectAsyncTask(url, withIndications).execute();
         } else if (points.size() > 2) {
-            String url = makeURL(points, "driv ing", optimize);
+            String url = makeURL(points, "driving", optimize);
             new connectAsyncTask(url, withIndications).execute();
         }
     }
@@ -54,8 +53,7 @@ public class Route {
     private String makeURL(ArrayList<LatLng> points, String mode, boolean optimize) {
         StringBuilder urlString = new StringBuilder();
 
-        if (mode == null)
-            mode = "driving";
+        if (mode == null) mode = "driving";
 
         urlString.append("https://maps.googleapis.com/maps/api/directions/json");
         urlString.append("?origin=");
@@ -79,6 +77,7 @@ public class Route {
             urlString.append(points.get(i).longitude);
         }
         urlString.append("&mode=").append(mode);
+        urlString.append("&language=").append(lang);
         urlString.append("&key=").append(GOOGLE_API_KEY);
         return urlString.toString();
     }
@@ -86,8 +85,7 @@ public class Route {
     private String makeURL(double sourceLat, double sourceLog, double destLat, double destLog, String mode) {
         StringBuilder urlString = new StringBuilder();
 
-        if (mode == null)
-            mode = "driving";
+        if (mode == null) mode = "driving";
 
         urlString.append("https://maps.googleapis.com/maps/api/directions/json");
         urlString.append("?origin=");
@@ -150,7 +148,6 @@ public class Route {
 
         @Override
         protected void onPreExecute() {
-            // TODO Auto-generated method stub
             super.onPreExecute();
             progressDialog = new ProgressDialog(context);
             progressDialog.setMessage("Fetching route, Please wait...");
@@ -187,7 +184,8 @@ public class Route {
                 for (int z = 0; z < list.size() - 1; z++) {
                     LatLng src = list.get(z);
                     LatLng dest = list.get(z + 1);
-                    Polyline line = mMap.addPolyline(new PolylineOptions()
+                    mMap.addPolyline(new PolylineOptions()
+                            .clickable(true)
                             .add(new LatLng(src.latitude, src.longitude), new LatLng(dest.latitude, dest.longitude))
                             .width(4)
                             .color(Color.BLUE)
@@ -205,6 +203,7 @@ public class Route {
                                 .position(step.location)
                                 .title(step.distance)
                                 .snippet(step.instructions)
+                                .draggable(true)
                                 .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
                     }
                 }
@@ -213,9 +212,7 @@ public class Route {
             }
         }
 
-        /**
-         * Class that represent every step of the directions. It store distance, location and instructions
-         */
+        // Class that represent every step of the directions. It store distance, location and instructions
         private class Step {
             public String distance;
             public LatLng location;
@@ -224,18 +221,15 @@ public class Route {
             Step(JSONObject stepJSON) {
                 JSONObject startLocation;
                 try {
-
                     distance = stepJSON.getJSONObject("distance").getString("text");
                     startLocation = stepJSON.getJSONObject("start_location");
                     location = new LatLng(startLocation.getDouble("lat"), startLocation.getDouble("lng"));
                     try {
                         instructions = URLDecoder.decode(Html.fromHtml(stepJSON.getString("html_instructions")).toString(), "UTF-8");
                     } catch (UnsupportedEncodingException e) {
-                        // TODO Auto-generated catch block
                         e.printStackTrace();
                     }
                 } catch (JSONException e) {
-                    // TODO Auto-generated catch block
                     e.printStackTrace();
                 }
             }

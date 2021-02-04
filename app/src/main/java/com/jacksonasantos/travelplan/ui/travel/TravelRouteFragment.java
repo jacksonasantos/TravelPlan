@@ -58,9 +58,9 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
     private final MarkerOptions markerOptions = new MarkerOptions();       // Creating an instance of MarkerOptions
     private LatLngBounds.Builder builder = new LatLngBounds.Builder();
 
-    String lang = "portuguese";
+    String lang = "portuguese"; // TODO - ver language
 
-    Route route = new Route();
+    RouteClass routeClass = new RouteClass();
     ArrayList<LatLng> pointsRoute = new ArrayList<>(1);
 
     @Override
@@ -210,6 +210,7 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
     private void drawMarker(LatLng point, String title, float color) {
         markerOptions.position(point);
         markerOptions.title(title);
+        markerOptions.draggable(true);
         color = (color != 0) ? color : BitmapDescriptorFactory.HUE_RED;
         markerOptions.icon(BitmapDescriptorFactory.defaultMarker(color));
         googleMap.addMarker(markerOptions);                      // add the marker to Map
@@ -246,7 +247,7 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
                 drawMarker(latlng, m.getName(), BitmapDescriptorFactory.HUE_RED);
             } while (cursor.moveToNext());
             cursor.close();
-            route.drawRoute(googleMap, getActivity(), pointsRoute,false, lang,true);
+            routeClass.drawRoute(googleMap, getActivity(), pointsRoute,false, lang,true);
             zoomMarkers();
         }
     }
