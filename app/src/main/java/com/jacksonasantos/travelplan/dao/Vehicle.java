@@ -31,6 +31,7 @@ public class Vehicle {
     public int power;
     public double estimated_value;
     public int full_capacity;
+
     public float avg_consumption;
     public float avg_cost_litre;
     public Date dt_odometer;
