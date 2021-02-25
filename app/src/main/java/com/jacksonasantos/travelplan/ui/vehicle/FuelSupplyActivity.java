@@ -10,8 +10,6 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -192,12 +190,12 @@ public class FuelSupplyActivity extends AppCompatActivity {
         View.OnFocusChangeListener listenerOdometer = new View.OnFocusChangeListener() {
             public void onFocusChange(View v, boolean hasFocus) {
                 if (!hasFocus) {
-                    String txVlrOdometerFuelSupply = etVehicleOdometer.getText().toString();
-                    if (!txVlrOdometerFuelSupply.isEmpty()) {
-                        int valor = Integer.parseInt(txVlrOdometerFuelSupply);
+                    String vTxtOdometerFuelSupply = etVehicleOdometer.getText().toString();
+                    if (!vTxtOdometerFuelSupply.isEmpty()) {
+                        int vValOdometerFuelSupply = Integer.parseInt(vTxtOdometerFuelSupply);
                         vLastOdometerNew = 0;
-                        if ((valor >= vLastOdometer) && (vlFullTank==1)) {
-                            vLastOdometerNew = valor - vLastOdometer;
+                        if ((vValOdometerFuelSupply >= vLastOdometer) && (vlFullTank==1)) {
+                            vLastOdometerNew = vValOdometerFuelSupply - vLastOdometer;
                             etVehicleTravelledDistance.setText(String.valueOf(vLastOdometerNew));
                         }
                         if (vLastOdometerNew > 0) {
@@ -215,12 +213,7 @@ public class FuelSupplyActivity extends AppCompatActivity {
         etVehicleOdometer.setOnFocusChangeListener(listenerOdometer);
         etVehicleTravelledDistance.setOnFocusChangeListener(listenerOdometer);
 
-        int i = 0;
-        String[] S = getResources().getStringArray(R.array.supply_reason_type_array);
-        for (String item : S) {
-            RadioButton newRadio = createRadioButton(item, ++i);
-            rgSupplyReasonType.addView(newRadio);
-        }
+        Utils.addRadioButtonResources(R.array.supply_reason_type_array, rgSupplyReasonType, this);
         rgSupplyReasonType.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
@@ -407,16 +400,5 @@ public class FuelSupplyActivity extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), R.string.Data_Validator_Error +" - " + e.getMessage(), Toast.LENGTH_LONG).show();
         }
         return isValid;
-    }
-
-    private RadioButton createRadioButton(String txt, int i) {
-        RadioButton nRadio = new RadioButton(this );
-        LinearLayout.LayoutParams params = new RadioGroup.LayoutParams(
-                RadioGroup.LayoutParams.WRAP_CONTENT,
-                RadioGroup.LayoutParams.WRAP_CONTENT);
-        nRadio.setLayoutParams(params);
-        nRadio.setText(txt); // define o texto
-        nRadio.setId(i);     // define o codigo - sequencia do for
-        return nRadio;
     }
 }

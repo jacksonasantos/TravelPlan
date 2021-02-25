@@ -53,6 +53,7 @@ public class VehicleActivity extends AppCompatActivity {
     private EditText etDtOdometer;
     private EditText etOdometer;
 
+    // Attributes that serve to record the supply information without the Odometer Value information, used to calculate the consumption average
     private EditText etDtLastFueling;
     private RadioGroup rgLastSupplyReasonType;
     private int rbLastSupplyReasonType;
