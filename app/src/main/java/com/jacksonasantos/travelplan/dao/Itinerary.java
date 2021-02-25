@@ -8,6 +8,7 @@ public class Itinerary {
     public String dest_location;
     public String latlng_trip_orig;
     public String latlng_trip_dest;
+    public int daily;
     public int distance;
     public String time;
 
@@ -19,6 +20,7 @@ public class Itinerary {
         this.dest_location = dest_location;
         this.latlng_trip_orig = latlng_trip_orig;
         this.latlng_trip_dest = latlng_trip_dest;
+        this.daily = daily;
         this.distance = distance;
         this.time = time;
     }
@@ -43,6 +45,9 @@ public class Itinerary {
 
     public String getLatlng_trip_dest() {return latlng_trip_dest;}
     public void setLatlng_trip_dest(String latlng_trip_dest) { this.latlng_trip_dest = latlng_trip_dest; }
+
+    public int getDaily() { return daily; }
+    public void setDaily(int daily) { this.daily = daily; }
 
     public int getDistance() { return distance; }
     public void setDistance(int distance) { this.distance = distance; }

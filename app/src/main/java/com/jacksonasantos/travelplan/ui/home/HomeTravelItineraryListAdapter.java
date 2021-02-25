@@ -29,6 +29,7 @@ public class HomeTravelItineraryListAdapter extends RecyclerView.Adapter<HomeTra
         private final TextView txtSequence;
         private final TextView txtSource;
         private final TextView txtTarget;
+        private final TextView txtDaily;
         private final TextView txtDistance;
         private final TextView txtTime;
 
@@ -38,6 +39,7 @@ public class HomeTravelItineraryListAdapter extends RecyclerView.Adapter<HomeTra
             txtSequence = v.findViewById(R.id.txtSequence);
             txtSource = v.findViewById(R.id.txtSource);
             txtTarget = v.findViewById(R.id.txtTarget);
+            txtDaily = v.findViewById(R.id.txtDaily);
             txtDistance = v.findViewById(R.id.txtDistance);
             txtTime = v.findViewById(R.id.txtTime);
         }
@@ -70,9 +72,9 @@ public class HomeTravelItineraryListAdapter extends RecyclerView.Adapter<HomeTra
         holder.txtSequence.setText(Integer.toString(itinerary.getSequence()));
         holder.txtSource.setText(itinerary.getOrig_location());
         holder.txtTarget.setText(itinerary.getDest_location());
+        holder.txtDaily.setText(Integer.toString(itinerary.getDaily()));
         holder.txtDistance.setText(Integer.toString(itinerary.getDistance()));
         holder.txtTime.setText(itinerary.getTime());
-
     }
 
     @Override

@@ -48,6 +48,7 @@ import java.util.Locale;
 
 public class TravelRouteFragment extends Fragment implements LocationListener {
 
+    private final boolean clearMap;
     private Spinner spTravel;
     private Integer nrTravel_Id;
     private MapView mMapView;
@@ -63,6 +64,16 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
     RouteClass routeClass = new RouteClass();
     ArrayList<LatLng> pointsRoute = new ArrayList<>(1);
 
+    public TravelRouteFragment(boolean clearMap) {
+        this.clearMap = clearMap;
+
+        try {
+            MapsInitializer.initialize(requireActivity().getApplicationContext());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_travel_route, container, false);
@@ -75,12 +86,6 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
         setHasOptionsMenu(true);                                           // activate menu map options
         mMapView.onCreate(savedInstanceState);
         mMapView.onResume();
-
-        try {
-            MapsInitializer.initialize(requireActivity().getApplicationContext());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
 
         mMapView.getMapAsync(new OnMapReadyCallback() {
             @Override
@@ -234,21 +239,29 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
         googleMap.animateCamera(camFactory);
     }
 
-    private void drawItinerary(Integer id){
-        Cursor cursor = Database.mMarkerDao.fetchMarkerByTravelId(id);
+    private void clearItinerary() {
         googleMap.clear();
         pointsRoute.clear();
+    }
 
-        builder = new LatLngBounds.Builder();
-        if (cursor.moveToFirst()) {
-            do {
-                Marker m = Database.mMarkerDao.cursorToEntity(cursor);
-                LatLng latlng = new LatLng(Double.parseDouble(m.getLatitude()), Double.parseDouble(m.getLongitude()));
-                drawMarker(latlng, m.getName(), BitmapDescriptorFactory.HUE_RED);
-            } while (cursor.moveToNext());
-            cursor.close();
-            routeClass.drawRoute(googleMap, getActivity(), pointsRoute,false, lang,true);
-            zoomMarkers();
+    private void drawItinerary(Integer id){
+        Cursor cursor = Database.mMarkerDao.fetchMarkerByTravelId(id);
+        if (!clearMap) {
+            clearItinerary();
+
+            builder = new LatLngBounds.Builder();
+            if (cursor.moveToFirst()) {
+                do {
+                    Marker m = Database.mMarkerDao.cursorToEntity(cursor);
+                    LatLng latlng = new LatLng(Double.parseDouble(m.getLatitude()), Double.parseDouble(m.getLongitude()));
+                    drawMarker(latlng, m.getName(), BitmapDescriptorFactory.HUE_RED);
+                } while (cursor.moveToNext());
+                cursor.close();
+                routeClass.drawRoute(googleMap, getActivity(), pointsRoute, false, lang, true);
+                zoomMarkers();
+            }
+        } else {
+            clearItinerary();
         }
     }
 

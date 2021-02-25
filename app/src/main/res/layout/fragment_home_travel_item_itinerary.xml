@@ -13,6 +13,8 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
+        android:layout_marginEnd="1dp"
+        android:layout_marginRight="1dp"
         android:gravity="start|center_vertical"
         android:textSize="12sp"
         android:textStyle="bold"
@@ -25,6 +27,8 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="10"
+        android:layout_marginEnd="1dp"
+        android:layout_marginRight="1dp"
         android:gravity="start|center_vertical"
         android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -36,6 +40,8 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="10"
+        android:layout_marginEnd="1dp"
+        android:layout_marginRight="1dp"
         android:gravity="center_vertical|start"
         android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -43,14 +49,29 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/txtDistance"
+        android:id="@+id/txtDaily"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="5"
+        android:layout_weight="2"
+        android:layout_marginEnd="1dp"
+        android:layout_marginRight="1dp"
         android:gravity="center_vertical|end"
         android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/txtTarget"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/txtDistance"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="5"
+        android:layout_marginEnd="1dp"
+        android:layout_marginRight="1dp"
+        android:gravity="center_vertical|end"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/txtDaily"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView

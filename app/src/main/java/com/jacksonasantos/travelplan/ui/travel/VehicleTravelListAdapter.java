@@ -37,11 +37,13 @@ public class VehicleTravelListAdapter extends RecyclerView.Adapter<VehicleTravel
     Globals g = Globals.getInstance();
     Locale locale = new Locale(g.getLanguage(), g.getCountry());
     NumberFormat numberFormatter = NumberFormat.getNumberInstance(locale);
+    NumberFormat integerFormatter = NumberFormat.getNumberInstance(locale);
 
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         public TextView txtVehicle;
         public TextView txtAvgConsumption;
+        public TextView txtAutonomy;
         public ImageButton btnDelete;
         public ImageButton btnRefuel;
 
@@ -49,6 +51,7 @@ public class VehicleTravelListAdapter extends RecyclerView.Adapter<VehicleTravel
             super(v);
             txtVehicle = v.findViewById(R.id.txtVehicle);
             txtAvgConsumption = v.findViewById(R.id.txtAvgConsumption);
+            txtAutonomy = v.findViewById(R.id.txtAutonomy);
             btnDelete = v.findViewById(R.id.btnDelete);
             btnRefuel = v.findViewById(R.id.btnRefuel);
 
@@ -67,6 +70,8 @@ public class VehicleTravelListAdapter extends RecyclerView.Adapter<VehicleTravel
         this.mVehicleHasTravel = vehicleHasTravels;
         this.context = context;
         this.form = form;
+
+        integerFormatter.setMaximumFractionDigits(0);
     }
 
     @NonNull
@@ -85,8 +90,9 @@ public class VehicleTravelListAdapter extends RecyclerView.Adapter<VehicleTravel
         final VehicleHasTravel vehicleHasTravel = mVehicleHasTravel.get(position);
         final Vehicle vehicle = Database.mVehicleDao.fetchVehicleById(vehicleHasTravel.getVehicle_id());
 
-        holder.txtVehicle.setText(vehicle.getName());
+        holder.txtVehicle.setText(vehicle.getShort_name());
         holder.txtAvgConsumption.setText(numberFormatter.format(vehicle.getAvg_consumption())+ " " +g.getMeasureConsumption());
+        holder.txtAutonomy.setText(integerFormatter.format (vehicle.getAvg_consumption() * vehicle.getFull_capacity())+ " " +g.getMeasureCost());
 
         holder.btnDelete.setOnClickListener (new View.OnClickListener() {
             @Override

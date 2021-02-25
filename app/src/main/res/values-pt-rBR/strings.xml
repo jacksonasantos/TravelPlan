@@ -266,4 +266,7 @@
     <string name="Itinerary">Itinerário</string>
     <string name="Itinerary_Deleting">Excluindo Itinerário</string>
     <string name="menu_home">Principal</string>
+    <string name="Itinerary_Origin">Origem</string>
+    <string name="Itinerary_Destination">Destino</string>
+    <string name="Itinerary_Daily">Diárias</string>
 </resources>

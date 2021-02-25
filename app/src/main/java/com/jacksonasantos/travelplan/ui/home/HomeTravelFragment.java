@@ -21,8 +21,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -30,8 +28,8 @@ import com.jacksonasantos.travelplan.R;
 import com.jacksonasantos.travelplan.dao.Database;
 import com.jacksonasantos.travelplan.dao.Travel;
 import com.jacksonasantos.travelplan.ui.general.InsuranceActivity;
+import com.jacksonasantos.travelplan.ui.travel.ItineraryActivity;
 import com.jacksonasantos.travelplan.ui.travel.ReservationActivity;
-import com.jacksonasantos.travelplan.ui.travel.TravelRouteFragment;
 import com.jacksonasantos.travelplan.ui.travel.VehicleTravelListAdapter;
 import com.jacksonasantos.travelplan.ui.utility.Globals;
 import com.jacksonasantos.travelplan.ui.utility.Utils;
@@ -172,18 +170,13 @@ public class HomeTravelFragment extends Fragment implements View.OnClickListener
                 btnItinerary.setOnClickListener (new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        layerTravel.setVisibility(View.GONE);
-                        layerBtnMenu.setVisibility(View.GONE);
-                        layerVehicle.setVisibility(View.GONE);
-                        layerItinerary.setVisibility(View.GONE);
-                        layerReservation.setVisibility(View.GONE);
-                        layerExpense.setVisibility(View.GONE);
-                        layerInsurance.setVisibility(View.GONE);
-                        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                        fragmentTransaction.replace(R.id.container, new TravelRouteFragment());
-                        fragmentTransaction.addToBackStack(null);
-                        fragmentTransaction.commit();
+                       /* FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction()
+                                .replace(R.id.container, new TravelRouteFragment(),"Travel");
+                        fragmentTransaction.addToBackStack("Travel").commit();*/
+                        Intent intent = new Intent(v.getContext(), ItineraryActivity.class);
+                        intent.putExtra("travel_id", travel[0].id);
+                        startActivity(intent);
                     }
                 });
                 btnAccommodation.setOnClickListener (new View.OnClickListener() {
@@ -228,12 +221,13 @@ public class HomeTravelFragment extends Fragment implements View.OnClickListener
                     listItinerary.setAdapter(adapterItinerary);
                     listItinerary.setLayoutManager(new LinearLayoutManager(getContext()));
 
+                    long vDaily = 0;
                     long vDistance = 0;
                     long nrTime = 0;
                     String vTime;
                     for (int x=0; x < adapterItinerary.getItemCount(); x++) {
                         vDistance = vDistance + adapterItinerary.mItinerary.get(x).getDistance();
-
+                        vDaily = vDaily + adapterItinerary.mItinerary.get(x).getDaily();
                         String[] time = adapterItinerary.mItinerary.get(x).getTime().split(":");
                         long hr = Long.parseLong(time[0]);
                         long min = Long.parseLong(time[1]);
@@ -248,9 +242,11 @@ public class HomeTravelFragment extends Fragment implements View.OnClickListener
                     View vT = LayoutInflater.from(getContext()).inflate(R.layout.fragment_home_travel_item_itinerary, parent, false);
                     totalTravelItinerary.removeAllViews();
                     TextView totSource = vT.findViewById(R.id.txtSource);
+                    TextView totDaily = vT.findViewById(R.id.txtDaily);
                     TextView totDistance = vT.findViewById(R.id.txtDistance);
                     TextView totTime = vT.findViewById(R.id.txtTime);
                     totSource.setText("      TOTAL");
+                    totDaily.setText(Long.toString(vDaily));
                     totDistance.setText(Long.toString(vDistance));
                     totTime.setText(vTime);
                     totalTravelItinerary.addView(vT);

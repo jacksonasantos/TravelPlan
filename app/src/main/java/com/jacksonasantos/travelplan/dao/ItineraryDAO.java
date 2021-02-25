@@ -95,6 +95,7 @@ public class ItineraryDAO extends DbContentProvider implements ItineraryISchema,
         int dest_locationIndex;
         int latlng_trip_origIndex;
         int latlng_trip_destIndex;
+        int dailyIndex;
         int distanceIndex;
         int timeIndex;
 
@@ -131,6 +132,10 @@ public class ItineraryDAO extends DbContentProvider implements ItineraryISchema,
                 distanceIndex = cursor.getColumnIndexOrThrow(ITINERARY_DISTANCE);
                 itinerary.setDistance(cursor.getInt(distanceIndex));
             }
+            if (cursor.getColumnIndex(ITINERARY_DAILY) != -1) {
+                dailyIndex = cursor.getColumnIndexOrThrow(ITINERARY_DAILY);
+                itinerary.setDaily(cursor.getInt(dailyIndex));
+            }
             if (cursor.getColumnIndex(ITINERARY_TIME) != -1) {
                 timeIndex = cursor.getColumnIndexOrThrow(ITINERARY_TIME);
                 itinerary.setTime(cursor.getString(timeIndex));
@@ -149,6 +154,7 @@ public class ItineraryDAO extends DbContentProvider implements ItineraryISchema,
         initialValues.put(ITINERARY_DEST_LOCATION, itinerary.dest_location);
         initialValues.put(ITINERARY_LATLNG_TRIP_ORIG, itinerary.latlng_trip_orig);
         initialValues.put(ITINERARY_LATLNG_TRIP_DEST, itinerary.latlng_trip_dest);
+        initialValues.put(ITINERARY_DAILY, itinerary.daily);
         initialValues.put(ITINERARY_DISTANCE, itinerary.distance);
         initialValues.put(ITINERARY_TIME, itinerary.time);
     }

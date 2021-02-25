@@ -331,6 +331,9 @@
     <!-- Itinerary Fragment -->
     <string name="Itinerary">Itinerary</string>
     <string name="Itinerary_Deleting">Deleting Itinerary</string>
+    <string name="Itinerary_Origin">Itinerary Origin</string>
+    <string name="Itinerary_Destination">Itinerary Destination</string>
+    <string name="Itinerary_Daily">Daily</string>
 
     <!-- Reservation Fragment -->
     <string name="Reservation">Reservation</string>
@@ -352,6 +355,5 @@
     <!-- Array Status reservation -->
     <string name="confirmed">Confirmed</string>
     <string name="pay">Pay</string>
-    <!-- TODO: Remove or change this placeholder text -->
 
 </resources>
