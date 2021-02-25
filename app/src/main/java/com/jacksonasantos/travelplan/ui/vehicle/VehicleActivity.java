@@ -49,8 +49,14 @@ public class VehicleActivity extends AppCompatActivity {
     private EditText etEstimatedValue;
     private EditText etFullCapacity;
     private EditText etAVGConsumption;
+    private EditText etAVGCostLitre;
     private EditText etDtOdometer;
     private EditText etOdometer;
+
+    private EditText etDtLastFueling;
+    private RadioGroup rgLastSupplyReasonType;
+    private int rbLastSupplyReasonType;
+    private EditText etAccumulatedNumberLiters;
 
     private Vehicle vehicle;
     private boolean opInsert = true;
@@ -99,8 +105,12 @@ public class VehicleActivity extends AppCompatActivity {
         etEstimatedValue = findViewById(R.id.etEstimatedValue);
         etFullCapacity = findViewById(R.id.etFullCapacity);
         etAVGConsumption = findViewById(R.id.etAVGConsumption);
+        etAVGCostLitre = findViewById(R.id.etAVGCostLitre);
         etDtOdometer = findViewById(R.id.etDtOdometer);
         etOdometer = findViewById(R.id.etOdometer);
+        etDtLastFueling = findViewById(R.id.etDtLastFueling);
+        rgLastSupplyReasonType = findViewById(R.id.rgLastSupplyReasonType);
+        etAccumulatedNumberLiters = findViewById(R.id.etAccumulatedNumberLiters);
 
         Utils.addRadioButtonResources(R.array.vehicle_type_array, rgVehicleType, this);
         rgVehicleType.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -119,6 +129,15 @@ public class VehicleActivity extends AppCompatActivity {
         etAcquisition.addTextChangedListener(new DateInputMask(etAcquisition));
         etSale.addTextChangedListener(new DateInputMask(etSale));
         etDtOdometer.addTextChangedListener(new DateInputMask(etDtOdometer));
+
+        etDtLastFueling.addTextChangedListener(new DateInputMask(etDtLastFueling));
+        Utils.addRadioButtonResources(R.array.supply_reason_type_array, rgLastSupplyReasonType, this);
+        rgLastSupplyReasonType.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                rbLastSupplyReasonType = checkedId;
+            }
+        });
 
         if (vehicle != null) {
             rgVehicleType.check(vehicle.getVehicle_type());
@@ -144,8 +163,12 @@ public class VehicleActivity extends AppCompatActivity {
             etEstimatedValue.setText(String.valueOf(vehicle.getEstimated_value()));
             etFullCapacity.setText(String.valueOf(vehicle.getFull_capacity()));
             etAVGConsumption.setText(String.valueOf(vehicle.getAvg_consumption()));
+            etAVGCostLitre.setText(String.valueOf(vehicle.getAvg_cost_litre()));
             etDtOdometer.setText(Utils.dateToString(vehicle.getDt_odometer()));
             etOdometer.setText(vehicle.getOdometer()==0?null:String.valueOf(vehicle.getOdometer()));
+            etDtLastFueling.setText(Utils.dateToString(vehicle.getDt_last_fueling()));
+            rgLastSupplyReasonType.check(vehicle.getLast_supply_reason_type());
+            etAccumulatedNumberLiters.setText(String.valueOf(vehicle.getAccumulated_number_liters()));
         }
     }
 
@@ -194,10 +217,20 @@ public class VehicleActivity extends AppCompatActivity {
                     if (!etAVGConsumption.getText().toString().isEmpty()) {
                         v1.setAvg_consumption(Float.parseFloat(etAVGConsumption.getText().toString()));
                     } else { v1.setAvg_consumption(0); }
+                    if (!etAVGCostLitre.getText().toString().isEmpty()) {
+                        v1.setAvg_cost_litre(Float.parseFloat(etAVGCostLitre.getText().toString()));
+                    } else { v1.setAvg_cost_litre(0); }
                     v1.setDt_odometer(Utils.stringToDate(etDtOdometer.getText().toString()));
                     if (!etOdometer.getText().toString().isEmpty()) {
                         v1.setOdometer(Integer.parseInt(etOdometer.getText().toString()));
                     } else { v1.setOdometer(0); }
+                    v1.setDt_last_fueling(Utils.stringToDate(etDtLastFueling.getText().toString()));
+                    if (rgLastSupplyReasonType.getCheckedRadioButtonId()!= 0){
+                        v1.setLast_supply_reason_type(findViewById(rbLastSupplyReasonType).getId());
+                    } else {v1.setLast_supply_reason_type(0);}
+                    if (!etAccumulatedNumberLiters.getText().toString().isEmpty()) {
+                        v1.setAccumulated_number_liters(Double.parseDouble(etAccumulatedNumberLiters.getText().toString()));
+                    } else { v1.setAccumulated_number_liters(0); }
 
                     if (!opInsert) {
                         try {
@@ -250,8 +283,12 @@ public class VehicleActivity extends AppCompatActivity {
                 //etEstimatedValue.getText().toString().isEmpty() ||
                 etFullCapacity.getText().toString().isEmpty() //||
                 //etAVGConsumption.getText().toString().isEmpty() ||
+                //etAVGCostLitre.getText().toString().isEmpty() ||
                 //etDtOdometer.getText().toString().isEmpty() ||
-                //etOdometer.getText().toString().isEmpty()
+                //etOdometer.getText().toString().isEmpty() ||
+                //etDtLastFueling.getText().toString().isEmpty() ||
+                //etAccumulatedNumberLiters.getText().toString().isEmpty() ||
+                //String.valueOf(findViewById(rbLastSupplyReasonType).getId()).trim().isEmpty()
             ){
                 isValid = false;
             }

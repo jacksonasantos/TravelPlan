@@ -269,4 +269,8 @@
     <string name="Itinerary_Origin">Origem</string>
     <string name="Itinerary_Destination">Destino</string>
     <string name="Itinerary_Daily">Diárias</string>
+    <string name="Vehicle_DtLastFueling">Data Ultimo Abastecimento</string>
+    <string name="Vehicle_LastSupplyReasonType">Tipo da Razão do Ultimo Abastecimento</string>
+    <string name="Vehicle_AccumulatedNumberLiters">Número de Litros Acumulado</string>
+    <string name="Vehicle_Avg_Cost_Litre">Custo por Litro Médio</string>
 </resources>

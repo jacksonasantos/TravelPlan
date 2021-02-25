@@ -138,9 +138,7 @@
                 android:layout_marginLeft="@dimen/labels_margin"
                 android:layout_marginTop="@dimen/labels_space_top"
                 android:layout_marginEnd="@dimen/labels_margin"
-                android:layout_marginRight="@dimen/labels_margin"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                android:layout_marginRight="@dimen/labels_margin">
                 <EditText
                     android:id="@+id/etYearModel"
                     android:layout_width="match_parent"
@@ -161,9 +159,7 @@
                 android:layout_marginLeft="@dimen/labels_margin"
                 android:layout_marginTop="@dimen/labels_space_top"
                 android:layout_marginEnd="@dimen/labels_margin"
-                android:layout_marginRight="@dimen/labels_margin"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                android:layout_marginRight="@dimen/labels_margin">
                 <EditText
                     android:id="@+id/etYearManufacture"
                     android:layout_width="match_parent"
@@ -193,8 +189,6 @@
                 android:layout_marginTop="@dimen/labels_space_top"
                 android:layout_marginEnd="@dimen/labels_margin"
                 android:layout_marginRight="@dimen/labels_margin"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/input_layout_etFullCapacity"
                 app:counterEnabled="true"
                 app:counterMaxLength="8">
                 <EditText
@@ -217,9 +211,7 @@
                 android:layout_marginLeft="@dimen/labels_margin"
                 android:layout_marginTop="@dimen/labels_space_top"
                 android:layout_marginEnd="@dimen/labels_margin"
-                android:layout_marginRight="@dimen/labels_margin"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/input_layout_etAVGConsumption">
+                android:layout_marginRight="@dimen/labels_margin">
                 <EditText
                     android:id="@+id/etColor"
                     android:layout_width="match_parent"
@@ -246,9 +238,7 @@
                 android:layout_marginLeft="@dimen/labels_margin"
                 android:layout_marginTop="@dimen/labels_space_top"
                 android:layout_marginEnd="@dimen/labels_margin"
-                android:layout_marginRight="@dimen/labels_margin"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/input_layout_etAcquisition">
+                android:layout_marginRight="@dimen/labels_margin">
                 <EditText
                     android:id="@+id/etVin"
                     android:layout_width="match_parent"
@@ -268,9 +258,7 @@
                 android:layout_marginLeft="@dimen/labels_margin"
                 android:layout_marginTop="@dimen/labels_space_top"
                 android:layout_marginEnd="@dimen/labels_margin"
-                android:layout_marginRight="@dimen/labels_margin"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/input_layout_etSale">
+                android:layout_marginRight="@dimen/labels_margin">
                 <EditText
                     android:id="@+id/etLicenceNumber"
                     android:layout_width="match_parent"
@@ -338,9 +326,7 @@
                 android:layout_marginLeft="@dimen/labels_margin"
                 android:layout_marginTop="@dimen/labels_space_top"
                 android:layout_marginEnd="@dimen/labels_margin"
-                android:layout_marginRight="@dimen/labels_margin"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/input_layout_etFullCapacity">
+                android:layout_marginRight="@dimen/labels_margin">
                 <EditText
                     android:id="@+id/etAcquisition"
                     android:layout_width="match_parent"
@@ -361,9 +347,7 @@
                 android:layout_marginLeft="@dimen/labels_margin"
                 android:layout_marginTop="@dimen/labels_space_top"
                 android:layout_marginEnd="@dimen/labels_margin"
-                android:layout_marginRight="@dimen/labels_margin"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/input_layout_etAVGConsumption">
+                android:layout_marginRight="@dimen/labels_margin">
                 <EditText
                     android:id="@+id/etSale"
                     android:layout_width="match_parent"
@@ -389,9 +373,7 @@
                 android:layout_marginLeft="@dimen/labels_margin"
                 android:layout_marginTop="@dimen/labels_space_top"
                 android:layout_marginEnd="@dimen/labels_margin"
-                android:layout_marginRight="@dimen/labels_margin"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/input_layout_etFullCapacity">
+                android:layout_marginRight="@dimen/labels_margin">
                 <EditText
                     android:id="@+id/etDoors"
                     android:layout_width="match_parent"
@@ -411,9 +393,7 @@
                 android:layout_marginLeft="@dimen/labels_margin"
                 android:layout_marginTop="@dimen/labels_space_top"
                 android:layout_marginEnd="@dimen/labels_margin"
-                android:layout_marginRight="@dimen/labels_margin"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/input_layout_etAVGConsumption">
+                android:layout_marginRight="@dimen/labels_margin">
                 <EditText
                     android:id="@+id/etCapacity"
                     android:layout_width="match_parent"
@@ -440,9 +420,7 @@
                 android:layout_marginLeft="@dimen/labels_margin"
                 android:layout_marginTop="@dimen/labels_space_top"
                 android:layout_marginEnd="@dimen/labels_margin"
-                android:layout_marginRight="@dimen/labels_margin"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/input_layout_etFullCapacity">
+                android:layout_marginRight="@dimen/labels_margin">
                 <EditText
                     android:id="@+id/etPower"
                     android:layout_width="match_parent"
@@ -462,9 +440,7 @@
                 android:layout_marginLeft="@dimen/labels_margin"
                 android:layout_marginTop="@dimen/labels_space_top"
                 android:layout_marginEnd="@dimen/labels_margin"
-                android:layout_marginRight="@dimen/labels_margin"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/input_layout_etAVGConsumption">
+                android:layout_marginRight="@dimen/labels_margin">
                 <EditText
                     android:id="@+id/etEstimatedValue"
                     android:layout_width="match_parent"
@@ -485,16 +461,14 @@
             android:baselineAligned="false">
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/input_layout_etFullCapacity"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.50"
                 android:layout_marginStart="@dimen/labels_margin"
                 android:layout_marginLeft="@dimen/labels_margin"
                 android:layout_marginTop="@dimen/labels_space_top"
-                android:layout_marginEnd="@dimen/labels_margin"
-                android:layout_marginRight="@dimen/labels_margin"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                android:layout_marginEnd="20dp"
+                android:layout_marginRight="20dp">
                 <EditText
                     android:id="@+id/etFullCapacity"
                     android:layout_width="match_parent"
@@ -506,6 +480,15 @@
                     android:textSize="14sp" />
             </com.google.android.material.textfield.TextInputLayout>
 
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="1"
+            android:baselineAligned="false">
+
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/input_layout_etAVGConsumption"
                 android:layout_width="match_parent"
@@ -515,9 +498,7 @@
                 android:layout_marginLeft="@dimen/labels_margin"
                 android:layout_marginTop="@dimen/labels_space_top"
                 android:layout_marginEnd="@dimen/labels_margin"
-                android:layout_marginRight="@dimen/labels_margin"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                android:layout_marginRight="@dimen/labels_margin">
                 <EditText
                     android:id="@+id/etAVGConsumption"
                     android:layout_width="match_parent"
@@ -525,8 +506,29 @@
                     android:autofillHints="no"
                     android:hint="@string/Vehicle_Avg_Consumption"
                     android:inputType="numberDecimal"
-                    android:nextFocusDown="@+id/etDtOdometer"
+                    android:nextFocusDown="@+id/etAVGCostLitre"
                     android:shadowRadius="1"
+                    android:textSize="14sp" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/input_layout_etAVGCostLitre"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.50"
+                android:layout_marginStart="@dimen/labels_margin"
+                android:layout_marginLeft="@dimen/labels_margin"
+                android:layout_marginTop="@dimen/labels_space_top"
+                android:layout_marginEnd="@dimen/labels_margin"
+                android:layout_marginRight="@dimen/labels_margin">
+                <EditText
+                    android:id="@+id/etAVGCostLitre"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:autofillHints="no"
+                    android:hint="@string/Vehicle_Avg_Cost_Litre"
+                    android:inputType="number"
+                    android:nextFocusDown="@+id/etDtOdometer"
                     android:textSize="14sp" />
             </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>
@@ -545,9 +547,7 @@
                 android:layout_marginLeft="@dimen/labels_margin"
                 android:layout_marginTop="@dimen/labels_space_top"
                 android:layout_marginEnd="@dimen/labels_margin"
-                android:layout_marginRight="@dimen/labels_margin"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/input_layout_etAcquisition">
+                android:layout_marginRight="@dimen/labels_margin">
                 <EditText
                     android:id="@+id/etDtOdometer"
                     android:layout_width="match_parent"
@@ -567,9 +567,7 @@
                 android:layout_marginLeft="@dimen/labels_margin"
                 android:layout_marginTop="@dimen/labels_space_top"
                 android:layout_marginEnd="@dimen/labels_margin"
-                android:layout_marginRight="@dimen/labels_margin"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/input_layout_etSale">
+                android:layout_marginRight="@dimen/labels_margin">
                 <EditText
                     android:id="@+id/etOdometer"
                     android:layout_width="match_parent"
@@ -577,6 +575,83 @@
                     android:autofillHints="no"
                     android:hint="@string/Vehicle_Odometer"
                     android:inputType="number"
+                    android:nextFocusDown="@+id/etDtLastFueling"
+                    android:textSize="14sp" />
+            </com.google.android.material.textfield.TextInputLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="1"
+            android:baselineAligned="false">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/input_layout_rgLastSupplyReasonType"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/labels_margin"
+                android:layout_marginLeft="@dimen/labels_margin"
+                android:layout_marginTop="@dimen/labels_space_top"
+                android:layout_marginEnd="@dimen/labels_margin"
+                android:layout_marginRight="@dimen/labels_margin">
+                <RadioGroup
+                    android:id="@+id/rgLastSupplyReasonType"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:orientation="horizontal"
+                    android:gravity="center_horizontal"
+                    android:hint="@string/Vehicle_LastSupplyReasonType"
+                    android:nextFocusDown="@+id/etDtLastFueling">
+                </RadioGroup>
+            </com.google.android.material.textfield.TextInputLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="1"
+            android:baselineAligned="false">
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.50"
+                android:layout_marginStart="@dimen/labels_margin"
+                android:layout_marginLeft="@dimen/labels_margin"
+                android:layout_marginTop="@dimen/labels_space_top"
+                android:layout_marginEnd="@dimen/labels_margin"
+                android:layout_marginRight="@dimen/labels_margin">
+                <EditText
+                    android:id="@+id/etDtLastFueling"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:autofillHints="no"
+                    android:hint="@string/Vehicle_DtLastFueling"
+                    android:inputType="date"
+                    android:nextFocusDown="@+id/etLastSupplyReasonType"
+                    android:textSize="14sp" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.50"
+                android:layout_marginStart="@dimen/labels_margin"
+                android:layout_marginLeft="@dimen/labels_margin"
+                android:layout_marginTop="@dimen/labels_space_top"
+                android:layout_marginEnd="@dimen/labels_margin"
+                android:layout_marginRight="@dimen/labels_margin">
+                <EditText
+                    android:id="@+id/etAccumulatedNumberLiters"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:autofillHints="no"
+                    android:hint="@string/Vehicle_AccumulatedNumberLiters"
+                    android:inputType="numberDecimal"
                     android:nextFocusDown="@+id/btSaveVehicle"
                     android:textSize="14sp" />
             </com.google.android.material.textfield.TextInputLayout>
@@ -589,6 +664,5 @@
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="8dp"
             android:text="@string/bt_Save" />
-
     </LinearLayout>
 </ScrollView>

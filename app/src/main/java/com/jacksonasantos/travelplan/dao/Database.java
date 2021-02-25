@@ -30,7 +30,7 @@ public class Database {
     private final Context mContext;
 
     private static final String DATABASE_NAME = "TravelPlan.db";
-    private static final int DATABASE_VERSION = 27;
+    private static final int DATABASE_VERSION = 28;
 
     public static AccommodationDAO mAccommodationDao;
     public static BrokerDAO mBrokerDao;
@@ -140,6 +140,9 @@ public class Database {
             db.execSQL(AccommodationISchema.CREATE_TABLE_ACCOMMODATION_V27); Log.w("Table "+ AccommodationISchema.ACCOMMODATION_TABLE,"V27 - Create Table...");
             db.execSQL(ReservationISchema.CREATE_TABLE_RESERVATION_V27); Log.w("Table "+ ReservationISchema.RESERVATION_TABLE,"V27 - Create Table...");
             db.execSQL(ItineraryISchema.CREATE_TABLE_ITINERARY_V27); Log.w("Table "+ ItineraryISchema.ITINERARY_TABLE,"V27 - Create Table...");
+            db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V28_1); Log.w("Table "+ VehicleISchema.VEHICLE_TABLE,"V28.1 - Alter Table...");
+            db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V28_2); Log.w("Table "+ VehicleISchema.VEHICLE_TABLE,"V28.2 - Alter Table...");
+            db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V28_3); Log.w("Table "+ VehicleISchema.VEHICLE_TABLE,"V28.3 - Alter Table...");
         }
 
         @SuppressLint("SQLiteString")
@@ -237,6 +240,11 @@ public class Database {
                         db.execSQL(AccommodationISchema.CREATE_TABLE_ACCOMMODATION_V27);
                         db.execSQL(ReservationISchema.CREATE_TABLE_RESERVATION_V27);
                         db.execSQL(ItineraryISchema.CREATE_TABLE_ITINERARY_V27);
+                        break;
+                    case 28:
+                        db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V28_1);
+                        db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V28_2);
+                        db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V28_3);
                         break;
                     default:
                         break;

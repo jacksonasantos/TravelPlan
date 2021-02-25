@@ -17,7 +17,7 @@ public class Vehicle {
 
     public String year_model;
     public String year_manufacture;
-    public String license_plate;        // TODO - Verificar tamanho do numero da placa
+    public String license_plate;
     public String color;
     public String vin;
     public String licence_number;
@@ -35,6 +35,10 @@ public class Vehicle {
     public float avg_cost_litre;
     public Date dt_odometer;
     public int odometer;
+
+    public Date dt_last_fueling;
+    public int last_supply_reason_type;
+    public double accumulated_number_liters;
 
     public Vehicle() {
         this.id = id;
@@ -59,12 +63,16 @@ public class Vehicle {
         this.doors = doors;
         this.capacity = capacity;
         this.power = power;
+        this.estimated_value = estimated_value;
         this.full_capacity = full_capacity;
         this.avg_consumption = avg_consumption;
         this.avg_cost_litre = avg_cost_litre;
         this.dt_odometer = dt_odometer;
         this.odometer = odometer;
-        this.estimated_value = estimated_value;
+
+        this.dt_last_fueling = dt_last_fueling;
+        this.last_supply_reason_type =last_supply_reason_type;
+        this.accumulated_number_liters = accumulated_number_liters;
     }
     @NonNull
     @Override
@@ -187,4 +195,13 @@ public class Vehicle {
 
     public double getEstimated_value() {return estimated_value;}
     public void setEstimated_value(double estimated_value) {this.estimated_value = estimated_value;}
+
+    public Date getDt_last_fueling() { return dt_last_fueling; }
+    public void setDt_last_fueling(Date dt_last_fueling) { this.dt_last_fueling = dt_last_fueling; }
+
+    public int getLast_supply_reason_type() { return last_supply_reason_type; }
+    public void setLast_supply_reason_type(int last_supply_reason_type) {this.last_supply_reason_type = last_supply_reason_type;}
+
+    public double getAccumulated_number_liters() { return accumulated_number_liters; }
+    public void setAccumulated_number_liters(double accumulated_number_liters) {this.accumulated_number_liters = accumulated_number_liters;}
 }
