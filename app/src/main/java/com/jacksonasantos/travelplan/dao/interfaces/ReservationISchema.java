@@ -12,7 +12,7 @@ public interface ReservationISchema {
     String RESERVATION_CHECKOUT_DATE = "checkout_date";
     String RESERVATION_APTO_TYPE = "apto_type";
     String RESERVATION_DAILY_RATE = "daily_rate";
-    String RESERVATION_OTHER_RATE = "other_rate";;
+    String RESERVATION_OTHER_RATE = "other_rate";
     String RESERVATION_RESERVATION_AMOUNT = "reservation_amount";
     String RESERVATION_AMOUNT_PAID = "amount_paid";
     String RESERVATION_NOTE = "note";

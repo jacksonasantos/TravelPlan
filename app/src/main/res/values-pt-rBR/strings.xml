@@ -131,7 +131,6 @@
     <string name="Insurance_Company">Companhia de Seguros</string>
     <string name="Vehicle_Fuel_Type">Tipo de Combustível</string>
     <string name="VehicleStatistics">Estatísticas do Veículo</string>
-    <string name="VehicleConsumption">Consumo</string>
     <string name="Currency_Quote_Deleting">Excluindo Cotação da Moeda</string>
     <string name="Currency_Quote">Cotação de Moeda</string>
     <string name="menu_currency_quote">Cotação Moedas</string>
@@ -211,8 +210,6 @@
     <string name="Insurance_Company_ZipCode">CEP</string>
     <string name="Insurance_Company_Telephone">Telefone</string>
     <string name="Insurance_Company_Authorization_Date">Data de Autorização</string>
-    <string name="menu_home_vehicle">Principal - Veículo</string>
-    <string name="menu_home_travel">Principal - Viagens</string>
     <string name="Travel_Expenses">Despesas de Viagem</string>
     <string name="Combustible">Combustível</string>
     <string name="Expected">Previsto</string>
@@ -228,10 +225,6 @@
     <string name="terrain_map">Terreno</string>
     <string name="search_location">Pesquisar Localização</string>
     <string name="location_not_found">Local não encontrado</string>
-    <string name="transport_driving">Dirigindo</string>
-    <string name="transport_walking">Caminhando</string>
-    <string name="transport_bike">Ciclismo</string>
-    <string name="transport_transit">Transito</string>
     <string name="mixed">Misto</string>
     <string name="menu_route">Rota</string>
     <string name="Accommodation_Deleting">Excluindo Acomodação</string>
@@ -264,13 +257,9 @@
     <string name="confirmed">Confirmada</string>
     <string name="pay">Paga</string>
     <string name="Itinerary">Itinerário</string>
-    <string name="Itinerary_Deleting">Excluindo Itinerário</string>
     <string name="menu_home">Principal</string>
-    <string name="Itinerary_Origin">Origem</string>
-    <string name="Itinerary_Destination">Destino</string>
-    <string name="Itinerary_Daily">Diárias</string>
-    <string name="Vehicle_DtLastFueling">Data Ultimo Abastecimento</string>
-    <string name="Vehicle_LastSupplyReasonType">Tipo da Razão do Ultimo Abastecimento</string>
+    <string name="Vehicle_DtLastFueling">Data Último Abastecimento</string>
+    <string name="Vehicle_LastSupplyReasonType">Tipo da Razão do Último Abastecimento</string>
     <string name="Vehicle_AccumulatedNumberLiters">Número de Litros Acumulado</string>
     <string name="Vehicle_Avg_Cost_Litre">Custo por Litro Médio</string>
 </resources>

@@ -99,6 +99,7 @@ public class FuelSupplyDAO extends DbContentProvider implements FuelSupplyISchem
         return (super.update(FUEL_SUPPLY_TABLE, getContentValue(), selection, selectionArgs) > 0);
     }
 
+    @Override
     public boolean addFuelSupply(FuelSupply fuelSupply) {
         setContentValue(fuelSupply);
         return (super.insert(FUEL_SUPPLY_TABLE, getContentValue()) > 0);

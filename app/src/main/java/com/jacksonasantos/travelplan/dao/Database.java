@@ -60,7 +60,7 @@ public class Database {
         mDbHelper = new DatabaseHelper(mContext);
         SQLiteDatabase mDb = mDbHelper.getWritableDatabase();
 
-        // Lista de Tabelas DAO
+        // List de Table DAO
         mVehicleDao = new VehicleDAO(mDb);
         mFuelSupplyDao = new FuelSupplyDAO(mDb);
         mCurrencyQuoteDao = new CurrencyQuoteDAO(mDb);

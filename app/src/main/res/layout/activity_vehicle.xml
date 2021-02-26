@@ -318,7 +318,6 @@
             android:weightSum="1"
             android:baselineAligned="false">
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/input_layout_etAcquisition"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.50"
@@ -339,7 +338,6 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/input_layout_etSale"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.50"
@@ -460,7 +458,6 @@
             android:weightSum="1"
             android:baselineAligned="false">
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/input_layout_etFullCapacity"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.50"
@@ -490,7 +487,6 @@
             android:baselineAligned="false">
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/input_layout_etAVGConsumption"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.50"
@@ -512,7 +508,6 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/input_layout_etAVGCostLitre"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.50"
@@ -588,7 +583,6 @@
             android:baselineAligned="false">
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/input_layout_rgLastSupplyReasonType"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/labels_margin"

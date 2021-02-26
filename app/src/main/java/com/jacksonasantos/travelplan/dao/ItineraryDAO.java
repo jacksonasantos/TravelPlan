@@ -148,7 +148,7 @@ public class ItineraryDAO extends DbContentProvider implements ItineraryISchema,
 
         initialValues = new ContentValues();
         initialValues.put(ITINERARY_ID, itinerary.id);
-        initialValues.put(ITINERARY_TRAVEL_ID, itinerary.travel_id);;
+        initialValues.put(ITINERARY_TRAVEL_ID, itinerary.travel_id);
         initialValues.put(ITINERARY_SEQUENCE, itinerary.sequence);
         initialValues.put(ITINERARY_ORIG_LOCATION, itinerary.orig_location);
         initialValues.put(ITINERARY_DEST_LOCATION, itinerary.dest_location);

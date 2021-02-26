@@ -6,7 +6,6 @@ import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -25,7 +24,6 @@ public class HomeTravelItineraryListAdapter extends RecyclerView.Adapter<HomeTra
 
     public static class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        private final LinearLayout llItinerary;
         private final TextView txtSequence;
         private final TextView txtSource;
         private final TextView txtTarget;
@@ -35,7 +33,6 @@ public class HomeTravelItineraryListAdapter extends RecyclerView.Adapter<HomeTra
 
         public MyViewHolder(View v) {
             super(v);
-            llItinerary = v.findViewById(R.id.llItinerary);
             txtSequence = v.findViewById(R.id.txtSequence);
             txtSource = v.findViewById(R.id.txtSource);
             txtTarget = v.findViewById(R.id.txtTarget);

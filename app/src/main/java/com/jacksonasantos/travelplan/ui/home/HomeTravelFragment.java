@@ -145,7 +145,6 @@ public class HomeTravelFragment extends Fragment implements View.OnClickListener
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
-                // Recupera dados da viagem selecionada no Spinner - layerTravel
                 layerTravel.setVisibility(View.VISIBLE);
                 travel[0] = (Travel) parent.getItemAtPosition(position);
                 imTravelStatus.setImageResource(R.drawable.ic_ball );

@@ -163,7 +163,7 @@ public class ReservationDAO extends DbContentProvider implements ReservationISch
 
         initialValues = new ContentValues();
         initialValues.put(RESERVATION_ID, reservation.id);
-        initialValues.put(RESERVATION_TRAVEL_ID, reservation.travel_id);;
+        initialValues.put(RESERVATION_TRAVEL_ID, reservation.travel_id);
         initialValues.put(RESERVATION_ACCOMMODATION_ID, reservation.accommodation_id);
         initialValues.put(RESERVATION_VOUCHER_NUMBER, reservation.voucher_number);
         initialValues.put(RESERVATION_CHECKIN_DATE, Utils.dateFormat(reservation.checkin_date));
