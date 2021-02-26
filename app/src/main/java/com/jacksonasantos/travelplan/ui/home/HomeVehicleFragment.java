@@ -146,8 +146,8 @@ public class HomeVehicleFragment extends Fragment implements View.OnClickListene
                 FuelSupply fuelSupply = Database.mFuelSupplyDao.findLastFuelSupply( g.getIdVehicle() );
                 tvFuelSupplyDate.setText(Utils.dateToString(fuelSupply.getSupply_date()));
                 tvFuelSupplyLastOdometer.setText(getString(R.string.Odometer)+ ": "+fuelSupply.getVehicle_odometer());
-                tvFuelSupplyNumberLiters.setText(fuelSupply.getNumber_liters()==null? "0 "+g.getMeasureCapacity() :fuelSupply.getNumber_liters() +" "+g.getMeasureCapacity());
-                tvFuelSupplyValue.setText(currencyFormatter.format(fuelSupply.getSupply_value()==null?BigDecimal.ZERO:fuelSupply.getSupply_value()));
+                tvFuelSupplyNumberLiters.setText(fuelSupply.getNumber_liters()==0? "0 "+g.getMeasureCapacity() :fuelSupply.getNumber_liters() +" "+g.getMeasureCapacity());
+                tvFuelSupplyValue.setText(currencyFormatter.format(fuelSupply.getSupply_value()==0?BigDecimal.ZERO:fuelSupply.getSupply_value()));
 
                 // Statistics of Vehicle in Global selection - layerStatisticsVehicle
                 HomeVehicleStatisticsListAdapter adapterVehicle = new HomeVehicleStatisticsListAdapter(Database.mVehicleStatisticsDao.findLastVehicleStatistics(g.getIdVehicle()), getContext());

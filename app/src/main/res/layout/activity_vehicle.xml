@@ -611,6 +611,33 @@
             android:weightSum="1"
             android:baselineAligned="false">
             <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.50"
+                android:layout_marginStart="@dimen/labels_margin"
+                android:layout_marginLeft="@dimen/labels_margin"
+                android:layout_marginTop="@dimen/labels_space_top"
+                android:layout_marginEnd="20dp"
+                android:layout_marginRight="20dp">
+                <EditText
+                    android:id="@+id/etDtLastFueling"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:autofillHints="no"
+                    android:hint="@string/Vehicle_DtLastFueling"
+                    android:inputType="date"
+                    android:nextFocusDown="@+id/etAccumulatedSupplyValue"
+                    android:textSize="14sp" />
+            </com.google.android.material.textfield.TextInputLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="1"
+            android:baselineAligned="false">
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.50"
@@ -620,13 +647,13 @@
                 android:layout_marginEnd="@dimen/labels_margin"
                 android:layout_marginRight="@dimen/labels_margin">
                 <EditText
-                    android:id="@+id/etDtLastFueling"
+                    android:id="@+id/etAccumulatedSupplyValue"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:autofillHints="no"
-                    android:hint="@string/Vehicle_DtLastFueling"
-                    android:inputType="date"
-                    android:nextFocusDown="@+id/etLastSupplyReasonType"
+                    android:hint="@string/Vehicle_AccumulatedSupplyValue"
+                    android:inputType="numberDecimal"
+                    android:nextFocusDown="@+id/etAccumulatedNumberLiters"
                     android:textSize="14sp" />
             </com.google.android.material.textfield.TextInputLayout>
 

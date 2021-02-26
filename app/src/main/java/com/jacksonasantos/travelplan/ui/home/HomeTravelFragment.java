@@ -186,6 +186,8 @@ public class HomeTravelFragment extends Fragment implements View.OnClickListener
                         startActivity(intent);
                     }
                 });
+                //TODO - Passar o Veículo para o FuelSupplyActivity quando for somente um veiculo
+                //TODO - Habilitar a escolha do Veiculo no abastecimento
                 btnFuel.setOnClickListener (new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -213,6 +215,8 @@ public class HomeTravelFragment extends Fragment implements View.OnClickListener
                     layerVehicle.setVisibility(View.GONE);
                 }
 
+                //TODO- Mostrar todos os Abastecimentos com médias quilometragem, km percorridos
+                
                 // Itinerary
                 HomeTravelItineraryListAdapter adapterItinerary = new HomeTravelItineraryListAdapter(Database.mItineraryDao.fetchAllItineraryByTravel(travel[0].getId() ), getContext());
                 if ( adapterItinerary.getItemCount() > 0){

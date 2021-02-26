@@ -262,4 +262,5 @@
     <string name="Vehicle_LastSupplyReasonType">Tipo da Razão do Último Abastecimento</string>
     <string name="Vehicle_AccumulatedNumberLiters">Número de Litros Acumulado</string>
     <string name="Vehicle_Avg_Cost_Litre">Custo por Litro Médio</string>
+    <string name="Vehicle_AccumulatedSupplyValue">Valor de Abastecimento Acumulado</string>
 </resources>

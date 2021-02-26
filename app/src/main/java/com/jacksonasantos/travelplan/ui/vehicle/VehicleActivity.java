@@ -56,8 +56,9 @@ public class VehicleActivity extends AppCompatActivity {
     // Attributes that serve to record the supply information without the Odometer Value information, used to calculate the consumption average
     private EditText etDtLastFueling;
     private RadioGroup rgLastSupplyReasonType;
-    private int rbLastSupplyReasonType;
+    private int rbLastSupplyReasonType =0;
     private EditText etAccumulatedNumberLiters;
+    private EditText etAccumulatedSupplyValue;
 
     private Vehicle vehicle;
     private boolean opInsert = true;
@@ -112,6 +113,7 @@ public class VehicleActivity extends AppCompatActivity {
         etDtLastFueling = findViewById(R.id.etDtLastFueling);
         rgLastSupplyReasonType = findViewById(R.id.rgLastSupplyReasonType);
         etAccumulatedNumberLiters = findViewById(R.id.etAccumulatedNumberLiters);
+        etAccumulatedSupplyValue= findViewById(R.id.etAccumulatedSupplyValue);
 
         Utils.addRadioButtonResources(R.array.vehicle_type_array, rgVehicleType, this);
         rgVehicleType.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -170,6 +172,7 @@ public class VehicleActivity extends AppCompatActivity {
             etDtLastFueling.setText(Utils.dateToString(vehicle.getDt_last_fueling()));
             rgLastSupplyReasonType.check(vehicle.getLast_supply_reason_type());
             etAccumulatedNumberLiters.setText(String.valueOf(vehicle.getAccumulated_number_liters()));
+            etAccumulatedSupplyValue.setText(String.valueOf(vehicle.getAccumulated_supply_value()));
         }
     }
 
@@ -226,12 +229,15 @@ public class VehicleActivity extends AppCompatActivity {
                         v1.setOdometer(Integer.parseInt(etOdometer.getText().toString()));
                     } else { v1.setOdometer(0); }
                     v1.setDt_last_fueling(Utils.stringToDate(etDtLastFueling.getText().toString()));
-                    if (rgLastSupplyReasonType.getCheckedRadioButtonId()!= 0){
+                    if (rbLastSupplyReasonType>0||rgLastSupplyReasonType.getCheckedRadioButtonId()!= 0){
                         v1.setLast_supply_reason_type(findViewById(rbLastSupplyReasonType).getId());
                     } else {v1.setLast_supply_reason_type(0);}
                     if (!etAccumulatedNumberLiters.getText().toString().isEmpty()) {
                         v1.setAccumulated_number_liters(Double.parseDouble(etAccumulatedNumberLiters.getText().toString()));
                     } else { v1.setAccumulated_number_liters(0); }
+                    if (!etAccumulatedSupplyValue.getText().toString().isEmpty()) {
+                        v1.setAccumulated_supply_value(Double.parseDouble(etAccumulatedSupplyValue.getText().toString()));
+                    } else { v1.setAccumulated_supply_value(0); }
 
                     if (!opInsert) {
                         try {
@@ -289,6 +295,7 @@ public class VehicleActivity extends AppCompatActivity {
                 //etOdometer.getText().toString().isEmpty() ||
                 //etDtLastFueling.getText().toString().isEmpty() ||
                 //etAccumulatedNumberLiters.getText().toString().isEmpty() ||
+                //etAccumulatedSupplyValue.getText().toString().isEmpty() ||
                 //String.valueOf(findViewById(rbLastSupplyReasonType).getId()).trim().isEmpty()
             ){
                 isValid = false;

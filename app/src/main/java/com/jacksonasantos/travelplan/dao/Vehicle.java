@@ -40,6 +40,7 @@ public class Vehicle {
     public Date dt_last_fueling;
     public int last_supply_reason_type;
     public double accumulated_number_liters;
+    public double accumulated_supply_value;
 
     public Vehicle() {
         this.id = id;
@@ -74,6 +75,7 @@ public class Vehicle {
         this.dt_last_fueling = dt_last_fueling;
         this.last_supply_reason_type =last_supply_reason_type;
         this.accumulated_number_liters = accumulated_number_liters;
+        this.accumulated_supply_value = accumulated_supply_value;
     }
     @NonNull
     @Override
@@ -205,4 +207,7 @@ public class Vehicle {
 
     public double getAccumulated_number_liters() { return accumulated_number_liters; }
     public void setAccumulated_number_liters(double accumulated_number_liters) {this.accumulated_number_liters = accumulated_number_liters;}
+
+    public double getAccumulated_supply_value() { return accumulated_supply_value; }
+    public void setAccumulated_supply_value(double accumulated_supply_value) {this.accumulated_supply_value = accumulated_supply_value;}
 }

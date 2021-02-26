@@ -8,13 +8,13 @@ public class FuelSupply {
     public String gas_station;
     public String gas_station_location;
     public Date supply_date;
-    public Double number_liters;
+    public double number_liters;
     public int combustible;
     public int full_tank;
     public int currency_type;
     public Integer currency_quote_id;
-    public Double supply_value;
-    public Double fuel_value;
+    public double supply_value;
+    public double fuel_value;
     public int vehicle_odometer;
     public int vehicle_travelled_distance;
     public float stat_avg_fuel_consumption;
@@ -65,9 +65,9 @@ public class FuelSupply {
 
     public void setSupply_date(Date supply_date) { this.supply_date = supply_date;}
 
-    public Double getNumber_liters() {return number_liters;}
+    public double getNumber_liters() {return number_liters;}
 
-    public void setNumber_liters(Double number_liters) {this.number_liters = number_liters;}
+    public void setNumber_liters(double number_liters) {this.number_liters = number_liters;}
 
     public int getCombustible() { return combustible; }
 
@@ -85,13 +85,13 @@ public class FuelSupply {
 
     public void setCurrency_quote_id(Integer currency_quote_id) {this.currency_quote_id = currency_quote_id;}
 
-    public Double getSupply_value() {return supply_value;}
+    public double getSupply_value() {return supply_value;}
 
-    public void setSupply_value(Double supply_value) {this.supply_value = supply_value;}
+    public void setSupply_value(double supply_value) {this.supply_value = supply_value;}
 
-    public Double getFuel_value() {return fuel_value;}
+    public double getFuel_value() {return fuel_value;}
 
-    public void setFuel_value(Double fuel_value) {this.fuel_value = fuel_value; }
+    public void setFuel_value(double fuel_value) {this.fuel_value = fuel_value; }
 
     public int getVehicle_odometer() {return vehicle_odometer;}
 

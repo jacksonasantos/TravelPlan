@@ -33,6 +33,7 @@ public interface VehicleISchema {
     String VEHICLE_DT_LAST_FUELING = "dt_last_fueling";
     String VEHICLE_LAST_SUPPLY_REASON_TYPE = "last_supply_reason_type";
     String VEHICLE_ACCUMULATED_NUMBER_LITERS = "accumulated_number_liters";
+    String VEHICLE_ACCUMULATED_SUPPLY_VALUE = "accumulated_supply_value";
 
     // Version 1
     String CREATE_TABLE_VEHICLE_V1 = "CREATE TABLE IF NOT EXISTS "
@@ -80,6 +81,7 @@ public interface VehicleISchema {
     String ALTER_TABLE_VEHICLE_V28_1 = "ALTER TABLE " + VEHICLE_TABLE + " ADD COLUMN " + VEHICLE_DT_LAST_FUELING + " DATE";
     String ALTER_TABLE_VEHICLE_V28_2 = "ALTER TABLE " + VEHICLE_TABLE + " ADD COLUMN " + VEHICLE_LAST_SUPPLY_REASON_TYPE + " INT";
     String ALTER_TABLE_VEHICLE_V28_3 = "ALTER TABLE " + VEHICLE_TABLE + " ADD COLUMN " + VEHICLE_ACCUMULATED_NUMBER_LITERS + " DOUBLE";
+    String ALTER_TABLE_VEHICLE_V28_4 = "ALTER TABLE " + VEHICLE_TABLE + " ADD COLUMN " + VEHICLE_ACCUMULATED_SUPPLY_VALUE + " DOUBLE";
 
     String[] VEHICLE_COLUMNS = new String[] {
             VEHICLE_ID,
@@ -110,7 +112,8 @@ public interface VehicleISchema {
             VEHICLE_ESTIMATED_VALUE,
             VEHICLE_DT_LAST_FUELING,
             VEHICLE_LAST_SUPPLY_REASON_TYPE,
-            VEHICLE_ACCUMULATED_NUMBER_LITERS
+            VEHICLE_ACCUMULATED_NUMBER_LITERS,
+            VEHICLE_ACCUMULATED_SUPPLY_VALUE
     };
 }
 

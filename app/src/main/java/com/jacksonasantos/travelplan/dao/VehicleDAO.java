@@ -138,6 +138,7 @@ public class VehicleDAO extends DbContentProvider implements VehicleISchema, Veh
         int dt_last_fuelingIndex;
         int last_supply_reason_typeIndex;
         int accumulated_number_litersIndex;
+        int accumulated_supply_valueIndex;
 
         if (cursor != null) {
             if (cursor.getColumnIndex(VEHICLE_ID) != -1) {
@@ -257,6 +258,10 @@ public class VehicleDAO extends DbContentProvider implements VehicleISchema, Veh
                 accumulated_number_litersIndex = cursor.getColumnIndexOrThrow(VEHICLE_ACCUMULATED_NUMBER_LITERS);
                 vehicle.accumulated_number_liters = cursor.getDouble(accumulated_number_litersIndex);
             }
+            if (cursor.getColumnIndex(VEHICLE_ACCUMULATED_SUPPLY_VALUE) != -1) {
+                accumulated_supply_valueIndex = cursor.getColumnIndexOrThrow(VEHICLE_ACCUMULATED_SUPPLY_VALUE);
+                vehicle.accumulated_supply_value = cursor.getDouble(accumulated_supply_valueIndex);
+            }
         }
         return vehicle;
     }
@@ -291,6 +296,7 @@ public class VehicleDAO extends DbContentProvider implements VehicleISchema, Veh
         initialValues.put(VEHICLE_DT_LAST_FUELING, Utils.dateFormat(vehicle.dt_last_fueling)) ;
         initialValues.put(VEHICLE_LAST_SUPPLY_REASON_TYPE, vehicle.last_supply_reason_type);
         initialValues.put(VEHICLE_ACCUMULATED_NUMBER_LITERS, vehicle.accumulated_number_liters);
+        initialValues.put(VEHICLE_ACCUMULATED_SUPPLY_VALUE, vehicle.accumulated_supply_value);
     }
 
     private ContentValues getContentValue() {

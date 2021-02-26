@@ -143,6 +143,7 @@ public class Database {
             db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V28_1); Log.w("Table "+ VehicleISchema.VEHICLE_TABLE,"V28.1 - Alter Table...");
             db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V28_2); Log.w("Table "+ VehicleISchema.VEHICLE_TABLE,"V28.2 - Alter Table...");
             db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V28_3); Log.w("Table "+ VehicleISchema.VEHICLE_TABLE,"V28.3 - Alter Table...");
+            db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V28_4); Log.w("Table "+ VehicleISchema.VEHICLE_TABLE,"V28.4 - Alter Table...");
         }
 
         @SuppressLint("SQLiteString")
@@ -245,6 +246,7 @@ public class Database {
                         db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V28_1);
                         db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V28_2);
                         db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V28_3);
+                        db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V28_4);
                         break;
                     default:
                         break;

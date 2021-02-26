@@ -81,6 +81,7 @@
     <string name="Vehicle_DtLastFueling">Date Last Fueling</string>
     <string name="Vehicle_LastSupplyReasonType">Last Supply Reason Type</string>
     <string name="Vehicle_AccumulatedNumberLiters">Accumulated Number Liters</string>
+    <string name="Vehicle_AccumulatedSupplyValue">Accumulated Supply Value</string>
 
     <!-- Vehicle Plan Fragment -->
     <string name="Vehicle_Plan">Vehicle Maintenance Plan</string>
