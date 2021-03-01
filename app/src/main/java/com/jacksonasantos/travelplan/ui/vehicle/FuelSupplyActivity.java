@@ -200,27 +200,12 @@ public class FuelSupplyActivity extends AppCompatActivity {
                             vLastTravelledDistance = vValOdometerFuelSupply - vLastOdometer;
                             etVehicleTravelledDistance.setText(String.valueOf(vLastTravelledDistance));
                         }
-                        if (vLastTravelledDistance > 0) {
-                            // TODO - Verifiar ajustes nas estatisicas quando for alterados o Odometro e a Distancia viajada
-                            vStatAvgFuelConsumption = vLastTravelledDistance / Float.parseFloat(Double.toString(Double.parseDouble(etNumberLiters.getText().toString()) + vehicle.getAccumulated_number_liters()));
-                            vStatCostPerLitre = vLastTravelledDistance / Float.parseFloat(Double.toString(Double.parseDouble(etSupplyValue.getText().toString()) + vehicle.getAccumulated_supply_value()));
-                            vAccumNumberLitre = 0;
-                            vAccumSupplyValue = 0;
-                            if (rbSupplyReasonType!=3 && vehicle.getLast_supply_reason_type()!=rbSupplyReasonType) {
-                               rbSupplyReasonType = 3;
-                            }
-                            txStatAvgFuelConsumption.setText(numberFormat.format(vStatAvgFuelConsumption));
-                            txStatCostPerLitre.setText(currencyFormatter.format(vStatCostPerLitre));
-                        }
-                    } else {
-                        vAccumNumberLitre = Float.parseFloat(etNumberLiters.getText().toString() + vehicle.getAccumulated_number_liters());
-                        vAccumSupplyValue = Float.parseFloat(etSupplyValue.getText().toString() + vehicle.getAccumulated_supply_value());
                     }
                 }
             }
         };
         etVehicleOdometer.setOnFocusChangeListener(listenerOdometer);
-        etVehicleTravelledDistance.setOnFocusChangeListener(listenerOdometer);
+        //etVehicleTravelledDistance.setOnFocusChangeListener(listenerOdometer);
 
         Utils.addRadioButtonResources(R.array.supply_reason_type_array, rgSupplyReasonType, this);
         rgSupplyReasonType.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -310,6 +295,32 @@ public class FuelSupplyActivity extends AppCompatActivity {
                 } else {
                     final FuelSupply f1 = new FuelSupply();
                     Vehicle v1 = Database.mVehicleDao.fetchVehicleById(nrVehicleId);
+
+                    vLastOdometer = v1.getOdometer();
+                    String vTxtOdometerFuelSupply = etVehicleOdometer.getText().toString();
+                    if (!vTxtOdometerFuelSupply.isEmpty() && vlFullTank==1) {
+                        int vValOdometerFuelSupply = Integer.parseInt(vTxtOdometerFuelSupply);
+                        vLastTravelledDistance = 0;
+                        if ((vValOdometerFuelSupply >= vLastOdometer) && (vlFullTank==1)) {
+                            vLastTravelledDistance = vValOdometerFuelSupply - vLastOdometer;
+                            etVehicleTravelledDistance.setText(String.valueOf(vLastTravelledDistance));
+                        }
+                        if (vLastTravelledDistance > 0) {
+                            // TODO - Verifiar ajustes nas estatisicas quando for alterados o Odometro e a Distancia viajada
+                            vStatAvgFuelConsumption = vLastTravelledDistance / Float.parseFloat(Double.toString(Double.parseDouble(etNumberLiters.getText().toString()) + v1.getAccumulated_number_liters()));
+                            vStatCostPerLitre = vLastTravelledDistance / Float.parseFloat(Double.toString(Double.parseDouble(etSupplyValue.getText().toString()) + v1.getAccumulated_supply_value()));
+                            vAccumNumberLitre = 0;
+                            vAccumSupplyValue = 0;
+                            if (rbSupplyReasonType!=3 && v1.getLast_supply_reason_type()!=rbSupplyReasonType) {
+                                rbSupplyReasonType = 3;
+                            }
+                            txStatAvgFuelConsumption.setText(numberFormat.format(vStatAvgFuelConsumption));
+                            txStatCostPerLitre.setText(currencyFormatter.format(vStatCostPerLitre));
+                        }
+                    } else {
+                        vAccumNumberLitre = Double.parseDouble(etNumberLiters.getText().toString()) + v1.getAccumulated_number_liters();
+                        vAccumSupplyValue = Double.parseDouble(etSupplyValue.getText().toString()) + v1.getAccumulated_supply_value();
+                    };
 
                     if (g.getIdCurrency() != nrSpinCurrencyType ) {
                         final CurrencyQuote c1 = new CurrencyQuote();

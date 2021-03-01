@@ -119,8 +119,14 @@ public class FuelSupplyListAdapter extends RecyclerView.Adapter<FuelSupplyListAd
                                     FuelSupply f1 = Database.mFuelSupplyDao.findLastFuelSupply(fuelSupply.getVehicle_id());
                                     Vehicle v1;
                                     v1 = Database.mVehicleDao.fetchVehicleById(fuelSupply.getVehicle_id());
-                                    v1.setDt_odometer( f1.getSupply_date());
+                                    v1.setDt_odometer(f1.getSupply_date());
                                     v1.setOdometer(f1.getVehicle_odometer());
+                                    if (f1.getVehicle_odometer()==0 && f1.getFull_tank()==1) {
+                                        v1.setDt_last_fueling(f1.getSupply_date());
+                                        v1.setLast_supply_reason_type(f1.getSupply_reason_type());
+                                        v1.setAccumulated_supply_value(f1.getSupply_value());
+                                        v1.setAccumulated_number_liters(f1.getNumber_liters());
+                                    }
                                     Database.mVehicleDao.updateVehicle(v1);
                                     notifyItemRemoved(position);
                                     notifyItemRangeChanged(position,mFuelSupply.size());
