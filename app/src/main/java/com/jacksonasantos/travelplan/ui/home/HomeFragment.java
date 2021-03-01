@@ -14,9 +14,9 @@ import com.jacksonasantos.travelplan.R;
 public class HomeFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
+                             ViewGroup container,
+                             Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_home, container, false);
-
         ViewPager viewPager = v.findViewById(R.id.view_pager);
         viewPager.setAdapter(new HomePagerAdapter(getChildFragmentManager()));
         return v;

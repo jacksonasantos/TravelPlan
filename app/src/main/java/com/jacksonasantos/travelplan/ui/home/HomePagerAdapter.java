@@ -21,8 +21,8 @@ public class HomePagerAdapter extends FragmentStatePagerAdapter {
             case 1:
                 return new HomeTravelFragment();
             default:
+                return null;
         }
-        return null;
     }
 
     @Override
