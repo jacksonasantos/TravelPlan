@@ -79,101 +79,42 @@ public class MarkerDAO extends DbContentProvider implements MarkerISchema, Marke
         return (super.insert(MARKER_TABLE, getContentValue()) > 0);
     }
 
-    public Marker cursorToEntity(Cursor cursor) {
-
-        Marker marker = new Marker();
-
-        int idIndex;
-        int travel_idIndex;
-        int sequenceIndex;
-        int nameIndex;
-        int addressIndex;
-        int cityIndex;
-        int stateIndex;
-        int countryIndex;
-        int abbr_countryIndex;
-        int category_typeIndex;
-        int descriptionIndex;
-        int latitudeIndex;
-        int longitudeIndex;
-        int zoom_levelIndex;
-
-        if (cursor != null) {
-            if (cursor.getColumnIndex(MARKER_ID) != -1) {
-                idIndex = cursor.getColumnIndexOrThrow(MARKER_ID);
-                marker.setId(cursor.getInt(idIndex));
-            }
-            if (cursor.getColumnIndex(MARKER_TRAVEL_ID) != -1) {
-                travel_idIndex = cursor.getColumnIndexOrThrow(MARKER_TRAVEL_ID);
-                marker.setTravel_id(cursor.getInt(travel_idIndex));
-            }
-            if (cursor.getColumnIndex(MARKER_SEQUENCE) != -1) {
-                sequenceIndex = cursor.getColumnIndexOrThrow(MARKER_SEQUENCE);
-                marker.setSequence(cursor.getInt(sequenceIndex));
-            }
-            if (cursor.getColumnIndex(MARKER_NAME) != -1) {
-                nameIndex = cursor.getColumnIndexOrThrow(MARKER_NAME);
-                marker.setName(cursor.getString(nameIndex));
-            }
-            if (cursor.getColumnIndex(MARKER_ADDRESS) != -1) {
-                addressIndex = cursor.getColumnIndexOrThrow(MARKER_ADDRESS);
-                marker.setAddress(cursor.getString(addressIndex));
-            }
-            if (cursor.getColumnIndex(MARKER_CITY) != -1) {
-                cityIndex = cursor.getColumnIndexOrThrow(MARKER_CITY);
-                marker.setCity(cursor.getString(cityIndex));
-            }
-            if (cursor.getColumnIndex(MARKER_STATE) != -1) {
-                stateIndex = cursor.getColumnIndexOrThrow(MARKER_STATE);
-                marker.setState(cursor.getString(stateIndex));
-            }
-            if (cursor.getColumnIndex(MARKER_COUNTRY) != -1) {
-                countryIndex = cursor.getColumnIndexOrThrow(MARKER_COUNTRY);
-                marker.setCountry(cursor.getString(countryIndex));
-            }
-            if (cursor.getColumnIndex(MARKER_ABBR_COUNTRY) != -1) {
-                abbr_countryIndex = cursor.getColumnIndexOrThrow(MARKER_ABBR_COUNTRY);
-                marker.setAbbr_country(cursor.getString(abbr_countryIndex));
-            }
-            if (cursor.getColumnIndex(MARKER_CATEGORY_TYPE) != -1) {
-                category_typeIndex = cursor.getColumnIndexOrThrow(MARKER_CATEGORY_TYPE);
-                marker.setCategory_type(cursor.getInt(category_typeIndex));
-            }
-            if (cursor.getColumnIndex(MARKER_DESCRIPTION) != -1) {
-                descriptionIndex = cursor.getColumnIndexOrThrow(MARKER_DESCRIPTION);
-                marker.setDescription(cursor.getString(descriptionIndex));
-            }
-            if (cursor.getColumnIndex(MARKER_LATITUDE) != -1) {
-                latitudeIndex = cursor.getColumnIndexOrThrow(MARKER_LATITUDE);
-                marker.setLatitude(cursor.getString(latitudeIndex));
-            }
-            if (cursor.getColumnIndex(MARKER_LONGITUDE) != -1) {
-                longitudeIndex = cursor.getColumnIndexOrThrow(MARKER_LONGITUDE);
-                marker.setLongitude(cursor.getString(longitudeIndex));
-            }
-            if (cursor.getColumnIndex(MARKER_ZOOM_LEVEL) != -1) {
-                zoom_levelIndex = cursor.getColumnIndexOrThrow(MARKER_ZOOM_LEVEL);
-                marker.setZoom_level(cursor.getString(zoom_levelIndex));
-            }
+    public Marker cursorToEntity(Cursor c) {
+        Marker m = new Marker();
+        if (c != null) {
+            if (c.getColumnIndex(MARKER_ID) != -1)            {m.setId(c.getInt(c.getColumnIndexOrThrow(MARKER_ID))); }
+            if (c.getColumnIndex(MARKER_TRAVEL_ID) != -1)     {m.setTravel_id(c.getInt(c.getColumnIndexOrThrow(MARKER_TRAVEL_ID))); }
+            if (c.getColumnIndex(MARKER_SEQUENCE) != -1)      {m.setSequence(c.getInt(c.getColumnIndexOrThrow(MARKER_SEQUENCE))); }
+            if (c.getColumnIndex(MARKER_NAME) != -1)          {m.setName(c.getString(c.getColumnIndexOrThrow(MARKER_NAME))); }
+            if (c.getColumnIndex(MARKER_ADDRESS) != -1)       {m.setAddress(c.getString(c.getColumnIndexOrThrow(MARKER_ADDRESS))); }
+            if (c.getColumnIndex(MARKER_CITY) != -1)          {m.setCity(c.getString(c.getColumnIndexOrThrow(MARKER_CITY))); }
+            if (c.getColumnIndex(MARKER_STATE) != -1)         {m.setState(c.getString(c.getColumnIndexOrThrow(MARKER_STATE))); }
+            if (c.getColumnIndex(MARKER_COUNTRY) != -1)       {m.setCountry(c.getString(c.getColumnIndexOrThrow(MARKER_COUNTRY))); }
+            if (c.getColumnIndex(MARKER_ABBR_COUNTRY) != -1)  {m.setAbbr_country(c.getString(c.getColumnIndexOrThrow(MARKER_ABBR_COUNTRY))); }
+            if (c.getColumnIndex(MARKER_CATEGORY_TYPE) != -1) {m.setCategory_type(c.getInt(c.getColumnIndexOrThrow(MARKER_CATEGORY_TYPE))); }
+            if (c.getColumnIndex(MARKER_DESCRIPTION) != -1)   {m.setDescription(c.getString(c.getColumnIndexOrThrow(MARKER_DESCRIPTION))); }
+            if (c.getColumnIndex(MARKER_LATITUDE) != -1)      {m.setLatitude(c.getString(c.getColumnIndexOrThrow(MARKER_LATITUDE))); }
+            if (c.getColumnIndex(MARKER_LONGITUDE) != -1)     {m.setLongitude(c.getString(c.getColumnIndexOrThrow(MARKER_LONGITUDE))); }
+            if (c.getColumnIndex(MARKER_ZOOM_LEVEL) != -1)    {m.setZoom_level(c.getString(c.getColumnIndexOrThrow(MARKER_ZOOM_LEVEL))); }
         }
-        return marker;
+        return m;
     }
 
-    private void setContentValue(Marker marker) {
+    private void setContentValue(Marker m) {
         initialValues = new ContentValues();
-        initialValues.put(MARKER_ID, marker.id);
-        initialValues.put(MARKER_TRAVEL_ID, marker.travel_id);
-        initialValues.put(MARKER_SEQUENCE, marker.sequence);
-        initialValues.put(MARKER_NAME, marker.name);
-        initialValues.put(MARKER_ADDRESS, marker.address);
-        initialValues.put(MARKER_CITY, marker.city);
-        initialValues.put(MARKER_STATE, marker.state);
-        initialValues.put(MARKER_COUNTRY, marker.country);
-        initialValues.put(MARKER_CATEGORY_TYPE, marker.category_type);
-        initialValues.put(MARKER_DESCRIPTION, marker.description);
-        initialValues.put(MARKER_LATITUDE, marker.latitude);
-        initialValues.put(MARKER_LONGITUDE, marker.longitude);
-        initialValues.put(MARKER_ZOOM_LEVEL, marker.zoom_level);
+        initialValues.put(MARKER_ID, m.id);
+        initialValues.put(MARKER_TRAVEL_ID, m.travel_id);
+        initialValues.put(MARKER_SEQUENCE, m.sequence);
+        initialValues.put(MARKER_NAME, m.name);
+        initialValues.put(MARKER_ADDRESS, m.address);
+        initialValues.put(MARKER_CITY, m.city);
+        initialValues.put(MARKER_STATE, m.state);
+        initialValues.put(MARKER_COUNTRY, m.country);
+        initialValues.put(MARKER_CATEGORY_TYPE, m.category_type);
+        initialValues.put(MARKER_DESCRIPTION, m.description);
+        initialValues.put(MARKER_LATITUDE, m.latitude);
+        initialValues.put(MARKER_LONGITUDE, m.longitude);
+        initialValues.put(MARKER_ZOOM_LEVEL, m.zoom_level);
     }
 
     private ContentValues getContentValue() {

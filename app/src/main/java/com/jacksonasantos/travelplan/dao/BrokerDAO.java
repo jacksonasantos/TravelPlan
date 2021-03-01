@@ -93,48 +93,26 @@ public class BrokerDAO extends DbContentProvider implements BrokerISchema, Broke
         }
     }
 
-    protected Broker cursorToEntity(Cursor cursor) {
-
-        Broker broker = new Broker();
-
-        int idIndex;
-        int nameIndex;
-        int phoneIndex;
-        int emailIndex;
-        int contact_nameIndex;
-
-        if (cursor != null) {
-            if (cursor.getColumnIndex(BROKER_ID) != -1) {
-                idIndex = cursor.getColumnIndexOrThrow(BROKER_ID);
-                broker.id = cursor.getInt(idIndex);
-            }
-            if (cursor.getColumnIndex(BROKER_NAME) != -1) {
-                nameIndex = cursor.getColumnIndexOrThrow(BROKER_NAME);
-                broker.name = cursor.getString(nameIndex);
-            }
-            if (cursor.getColumnIndex(BROKER_PHONE) != -1) {
-                phoneIndex = cursor.getColumnIndexOrThrow(BROKER_PHONE);
-                broker.phone = cursor.getString(phoneIndex);
-            }
-            if (cursor.getColumnIndex(BROKER_EMAIL) != -1) {
-                emailIndex = cursor.getColumnIndexOrThrow(BROKER_EMAIL);
-                broker.email = cursor.getString(emailIndex);
-            }
-            if (cursor.getColumnIndex(BROKER_CONTACT_NAME) != -1) {
-                contact_nameIndex = cursor.getColumnIndexOrThrow(BROKER_CONTACT_NAME);
-                broker.contact_name = cursor.getString(contact_nameIndex);
+    protected Broker cursorToEntity(Cursor c) {
+        Broker b = new Broker();
+        if (c != null) {
+            if (c.getColumnIndex(BROKER_ID) != -1)           {b.id = c.getInt(c.getColumnIndexOrThrow(BROKER_ID)); }
+            if (c.getColumnIndex(BROKER_NAME) != -1)         {b.name = c.getString(c.getColumnIndexOrThrow(BROKER_NAME)); }
+            if (c.getColumnIndex(BROKER_PHONE) != -1)        {b.phone = c.getString(c.getColumnIndexOrThrow(BROKER_PHONE)); }
+            if (c.getColumnIndex(BROKER_EMAIL) != -1)        {b.email = c.getString(c.getColumnIndexOrThrow(BROKER_EMAIL)); }
+            if (c.getColumnIndex(BROKER_CONTACT_NAME) != -1) {b.contact_name = c.getString(c.getColumnIndexOrThrow(BROKER_CONTACT_NAME));
             }
         }
-        return broker;
+        return b;
     }
 
-    private void setContentValue(Broker broker) {
+    private void setContentValue(Broker b) {
         initialValues = new ContentValues();
-        initialValues.put(BROKER_ID, broker.id);
-        initialValues.put(BROKER_NAME, broker.name);
-        initialValues.put(BROKER_PHONE, broker.phone);
-        initialValues.put(BROKER_EMAIL, broker.email);
-        initialValues.put(BROKER_CONTACT_NAME, broker.contact_name);
+        initialValues.put(BROKER_ID, b.id);
+        initialValues.put(BROKER_NAME, b.name);
+        initialValues.put(BROKER_PHONE, b.phone);
+        initialValues.put(BROKER_EMAIL, b.email);
+        initialValues.put(BROKER_CONTACT_NAME, b.contact_name);
     }
 
     private ContentValues getContentValue() {

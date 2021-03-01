@@ -83,36 +83,21 @@ public class VehicleHasPlanDAO extends DbContentProvider implements VehicleHasPl
         return (super.insert(VEHICLE_HAS_PLAN_TABLE, getContentValue()) > 0);
     }
 
-    protected VehicleHasPlan cursorToEntity(Cursor cursor) {
-
-        VehicleHasPlan vehicleHasPlan = new VehicleHasPlan();
-
-        int vehicle_idIndex;
-        int maintenance_idIndex;
-        int expirationIndex;
-
-        if (cursor != null) {
-            if (cursor.getColumnIndex(VEHICLE_HAS_PLAN_VEHICLE_ID) != -1) {
-                vehicle_idIndex = cursor.getColumnIndexOrThrow(VEHICLE_HAS_PLAN_VEHICLE_ID);
-                vehicleHasPlan.setVehicle_id(cursor.getInt(vehicle_idIndex));
-            }
-            if (cursor.getColumnIndex(VEHICLE_HAS_PLAN_MAINTENANCE_PLAN_ID) != -1) {
-                maintenance_idIndex = cursor.getColumnIndexOrThrow(VEHICLE_HAS_PLAN_MAINTENANCE_PLAN_ID);
-                vehicleHasPlan.setMaintenance_plan_id(cursor.getInt(maintenance_idIndex));
-            }
-            if (cursor.getColumnIndex(VEHICLE_HAS_PLAN_EXPIRATION) != -1) {
-                expirationIndex = cursor.getColumnIndexOrThrow(VEHICLE_HAS_PLAN_EXPIRATION);
-                vehicleHasPlan.setExpiration(cursor.getInt(expirationIndex));
-            }
+    protected VehicleHasPlan cursorToEntity(Cursor c) {
+        VehicleHasPlan vHP = new VehicleHasPlan();
+        if (c != null) {
+            if (c.getColumnIndex(VEHICLE_HAS_PLAN_VEHICLE_ID) != -1)                {vHP.setVehicle_id(c.getInt(c.getColumnIndexOrThrow(VEHICLE_HAS_PLAN_VEHICLE_ID))); }
+            if (cursor.getColumnIndex(VEHICLE_HAS_PLAN_MAINTENANCE_PLAN_ID) != -1)  {vHP.setMaintenance_plan_id(c.getInt(c.getColumnIndexOrThrow(VEHICLE_HAS_PLAN_MAINTENANCE_PLAN_ID))); }
+            if (cursor.getColumnIndex(VEHICLE_HAS_PLAN_EXPIRATION) != -1)           {vHP.setExpiration(c.getInt(c.getColumnIndexOrThrow(VEHICLE_HAS_PLAN_EXPIRATION))); }
         }
-        return vehicleHasPlan;
+        return vHP;
     }
 
-    private void setContentValue(VehicleHasPlan vehicleHasPlan) {
+    private void setContentValue(VehicleHasPlan vHP) {
         initialValues = new ContentValues();
-        initialValues.put(VEHICLE_HAS_PLAN_VEHICLE_ID, vehicleHasPlan.vehicle_id);
-        initialValues.put(VEHICLE_HAS_PLAN_MAINTENANCE_PLAN_ID, vehicleHasPlan.maintenance_plan_id);
-        initialValues.put(VEHICLE_HAS_PLAN_EXPIRATION, vehicleHasPlan.expiration);
+        initialValues.put(VEHICLE_HAS_PLAN_VEHICLE_ID, vHP.vehicle_id);
+        initialValues.put(VEHICLE_HAS_PLAN_MAINTENANCE_PLAN_ID, vHP.maintenance_plan_id);
+        initialValues.put(VEHICLE_HAS_PLAN_EXPIRATION, vHP.expiration);
     }
 
     private ContentValues getContentValue() {

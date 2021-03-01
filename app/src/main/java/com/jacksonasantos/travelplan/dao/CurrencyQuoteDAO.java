@@ -92,42 +92,23 @@ public class CurrencyQuoteDAO extends DbContentProvider implements CurrencyQuote
         return (super.insert(CURRENCY_QUOTE_TABLE, getContentValue()) > 0);
     }
 
-    protected CurrencyQuote cursorToEntity(Cursor cursor) {
-
-        CurrencyQuote currencyQuote = new CurrencyQuote();
-
-        int idIndex;
-        int currency_typeIndex;
-        int quote_dateIndex;
-        int currency_valueIndex;
-
-        if (cursor != null) {
-            if (cursor.getColumnIndex(CURRENCY_QUOTE_ID) != -1) {
-                idIndex = cursor.getColumnIndexOrThrow(CURRENCY_QUOTE_ID);
-                currencyQuote.id = cursor.getInt(idIndex);
-            }
-            if (cursor.getColumnIndex(CURRENCY_QUOTE_CURRENCY_TYPE) != -1) {
-                currency_typeIndex = cursor.getColumnIndexOrThrow(CURRENCY_QUOTE_CURRENCY_TYPE);
-                currencyQuote.currency_type = cursor.getInt(currency_typeIndex);
-            }
-            if (cursor.getColumnIndex(CURRENCY_QUOTE_QUOTE_DATE) != -1) {
-                quote_dateIndex = cursor.getColumnIndexOrThrow(CURRENCY_QUOTE_QUOTE_DATE);
-                currencyQuote.quote_date = Utils.dateParse(cursor.getString(quote_dateIndex));
-            }
-            if (cursor.getColumnIndex(CURRENCY_QUOTE_CURRENCY_VALUE) != -1) {
-                currency_valueIndex = cursor.getColumnIndexOrThrow(CURRENCY_QUOTE_CURRENCY_VALUE);
-                currencyQuote.currency_value = cursor.getDouble(currency_valueIndex);
-            }
+    protected CurrencyQuote cursorToEntity(Cursor c) {
+        CurrencyQuote cQ = new CurrencyQuote();
+        if (c != null) {
+            if (c.getColumnIndex(CURRENCY_QUOTE_ID) != -1)              {cQ.id = c.getInt(c.getColumnIndexOrThrow(CURRENCY_QUOTE_ID)); }
+            if (c.getColumnIndex(CURRENCY_QUOTE_CURRENCY_TYPE) != -1)   {cQ.currency_type = c.getInt(c.getColumnIndexOrThrow(CURRENCY_QUOTE_CURRENCY_TYPE)); }
+            if (c.getColumnIndex(CURRENCY_QUOTE_QUOTE_DATE) != -1)      {cQ.quote_date = Utils.dateParse(c.getString(c.getColumnIndexOrThrow(CURRENCY_QUOTE_QUOTE_DATE))); }
+            if (c.getColumnIndex(CURRENCY_QUOTE_CURRENCY_VALUE) != -1)  {cQ.currency_value = c.getDouble(c.getColumnIndexOrThrow(CURRENCY_QUOTE_CURRENCY_VALUE)); }
         }
-        return currencyQuote;
+        return cQ;
     }
 
-    private void setContentValue(CurrencyQuote currencyQuote) {
+    private void setContentValue(CurrencyQuote cQ) {
         initialValues = new ContentValues();
-        initialValues.put(CURRENCY_QUOTE_ID, currencyQuote.id);
-        initialValues.put(CURRENCY_QUOTE_CURRENCY_TYPE, currencyQuote.currency_type);
-        initialValues.put(CURRENCY_QUOTE_QUOTE_DATE, Utils.dateFormat(currencyQuote.quote_date));
-        initialValues.put(CURRENCY_QUOTE_CURRENCY_VALUE, currencyQuote.currency_value);
+        initialValues.put(CURRENCY_QUOTE_ID, cQ.id);
+        initialValues.put(CURRENCY_QUOTE_CURRENCY_TYPE, cQ.currency_type);
+        initialValues.put(CURRENCY_QUOTE_QUOTE_DATE, Utils.dateFormat(cQ.quote_date));
+        initialValues.put(CURRENCY_QUOTE_CURRENCY_VALUE, cQ.currency_value);
     }
 
     private ContentValues getContentValue() {

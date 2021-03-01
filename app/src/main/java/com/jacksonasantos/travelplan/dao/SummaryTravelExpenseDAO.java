@@ -81,28 +81,13 @@ public class SummaryTravelExpenseDAO extends DbContentProvider implements Summar
         return summaryTravelExpenseList;
     }
 
-    protected SummaryTravelExpense cursorToEntity(Cursor cursor) {
-
-        SummaryTravelExpense summaryTravelExpense = new SummaryTravelExpense();
-
-        int expenseIndex;
-        int expected_valueIndex;
-        int realized_valueIndex;
-
-        if (cursor != null) {
-            if (cursor.getColumnIndex(TRAVEL_EXPENSE_EXPENSE) != -1) {
-                expenseIndex = cursor.getColumnIndexOrThrow(TRAVEL_EXPENSE_EXPENSE);
-                summaryTravelExpense.setExpense(cursor.getString(expenseIndex));
-            }
-            if (cursor.getColumnIndex(TRAVEL_EXPENSE_EXPECTED_VALUE) != -1) {
-                expected_valueIndex = cursor.getColumnIndexOrThrow(TRAVEL_EXPENSE_EXPECTED_VALUE);
-                summaryTravelExpense.setExpected_value(cursor.getDouble(expected_valueIndex));
-            }
-            if (cursor.getColumnIndex(TRAVEL_EXPENSE_REALIZED_VALUE) != -1) {
-                realized_valueIndex = cursor.getColumnIndexOrThrow(TRAVEL_EXPENSE_REALIZED_VALUE);
-                summaryTravelExpense.setRealized_value(cursor.getDouble(realized_valueIndex));
-            }
+    protected SummaryTravelExpense cursorToEntity(Cursor c) {
+        SummaryTravelExpense sTE = new SummaryTravelExpense();
+        if (c != null) {
+            if (c.getColumnIndex(TRAVEL_EXPENSE_EXPENSE) != -1)        {sTE.setExpense(cursor.getString(c.getColumnIndexOrThrow(TRAVEL_EXPENSE_EXPENSE))); }
+            if (c.getColumnIndex(TRAVEL_EXPENSE_EXPECTED_VALUE) != -1) {sTE.setExpected_value(cursor.getDouble(c.getColumnIndexOrThrow(TRAVEL_EXPENSE_EXPECTED_VALUE))); }
+            if (c.getColumnIndex(TRAVEL_EXPENSE_REALIZED_VALUE) != -1) {sTE.setRealized_value(cursor.getDouble(c.getColumnIndexOrThrow(TRAVEL_EXPENSE_REALIZED_VALUE))); }
         }
-        return summaryTravelExpense;
+        return sTE;
     }
 }

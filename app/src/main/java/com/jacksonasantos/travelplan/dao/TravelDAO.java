@@ -95,54 +95,27 @@ public class TravelDAO extends DbContentProvider implements TravelISchema, Trave
         return (super.insert(TRAVEL_TABLE, getContentValue()) > 0);
     }
 
-    protected Travel cursorToEntity(Cursor cursor) {
-
-        Travel travel = new Travel();
-
-        int idIndex;
-        int descriptionIndex;
-        int departure_dateIndex;
-        int return_dateIndex;
-        int noteIndex;
-        int statusIndex;
-
-        if (cursor != null) {
-            if (cursor.getColumnIndex(TRAVEL_ID) != -1) {
-                idIndex = cursor.getColumnIndexOrThrow(TRAVEL_ID);
-                travel.setId(cursor.getInt(idIndex));
-            }
-            if (cursor.getColumnIndex(TRAVEL_DESCRIPTION) != -1) {
-                descriptionIndex = cursor.getColumnIndexOrThrow(TRAVEL_DESCRIPTION);
-                travel.setDescription(cursor.getString(descriptionIndex));
-            }
-            if (cursor.getColumnIndex(TRAVEL_DEPARTURE_DATE) != -1) {
-                departure_dateIndex = cursor.getColumnIndexOrThrow(TRAVEL_DEPARTURE_DATE);
-                travel.setDeparture_date(Utils.dateParse(cursor.getString(departure_dateIndex)));
-            }
-            if (cursor.getColumnIndex(TRAVEL_RETURN_DATE) != -1) {
-                return_dateIndex = cursor.getColumnIndexOrThrow(TRAVEL_RETURN_DATE);
-                travel.setReturn_date(Utils.dateParse(cursor.getString(return_dateIndex)));
-            }
-            if (cursor.getColumnIndex(TRAVEL_NOTE) != -1) {
-                noteIndex = cursor.getColumnIndexOrThrow(TRAVEL_NOTE);
-                travel.setNote(cursor.getString(noteIndex));
-            }
-            if (cursor.getColumnIndex(TRAVEL_STATUS) != -1 ){
-                statusIndex = cursor.getColumnIndexOrThrow(TRAVEL_STATUS);
-                travel.setStatus(cursor.getInt(statusIndex));
-            }
+    protected Travel cursorToEntity(Cursor c) {
+        Travel t = new Travel();
+        if (c != null) {
+            if (c.getColumnIndex(TRAVEL_ID) != -1)              {t.setId(c.getInt(c.getColumnIndexOrThrow(TRAVEL_ID))); }
+            if (c.getColumnIndex(TRAVEL_DESCRIPTION) != -1)     {t.setDescription(c.getString(c.getColumnIndexOrThrow(TRAVEL_DESCRIPTION))); }
+            if (c.getColumnIndex(TRAVEL_DEPARTURE_DATE) != -1)  {t.setDeparture_date(Utils.dateParse(c.getString(c.getColumnIndexOrThrow(TRAVEL_DEPARTURE_DATE)))); }
+            if (c.getColumnIndex(TRAVEL_RETURN_DATE) != -1)     {t.setReturn_date(Utils.dateParse(c.getString(c.getColumnIndexOrThrow(TRAVEL_RETURN_DATE)))); }
+            if (c.getColumnIndex(TRAVEL_NOTE) != -1)            {t.setNote(c.getString(c.getColumnIndexOrThrow(TRAVEL_NOTE))); }
+            if (c.getColumnIndex(TRAVEL_STATUS) != -1 )         {t.setStatus(c.getInt(c.getColumnIndexOrThrow(TRAVEL_STATUS))); }
         }
-        return travel;
+        return t;
     }
 
-    private void setContentValue(Travel travel) {
+    private void setContentValue(Travel t) {
         initialValues = new ContentValues();
-        initialValues.put(TRAVEL_ID, travel.id);
-        initialValues.put(TRAVEL_DESCRIPTION, travel.description);
-        initialValues.put(TRAVEL_DEPARTURE_DATE, Utils.dateFormat(travel.departure_date));
-        initialValues.put(TRAVEL_RETURN_DATE, Utils.dateFormat(travel.return_date));
-        initialValues.put(TRAVEL_NOTE, travel.note);
-        initialValues.put(TRAVEL_STATUS, travel.status);
+        initialValues.put(TRAVEL_ID, t.id);
+        initialValues.put(TRAVEL_DESCRIPTION, t.description);
+        initialValues.put(TRAVEL_DEPARTURE_DATE, Utils.dateFormat(t.departure_date));
+        initialValues.put(TRAVEL_RETURN_DATE, Utils.dateFormat(t.return_date));
+        initialValues.put(TRAVEL_NOTE, t.note);
+        initialValues.put(TRAVEL_STATUS, t.status);
     }
 
     private ContentValues getContentValue() {

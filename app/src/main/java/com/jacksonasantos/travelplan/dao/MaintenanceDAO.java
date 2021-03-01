@@ -100,90 +100,39 @@ public class MaintenanceDAO extends DbContentProvider implements MaintenanceISch
         return (super.insert(MAINTENANCE_TABLE, getContentValue()) > 0);
     }
 
-    protected Maintenance cursorToEntity(Cursor cursor) {
-
-        Maintenance maintenance = new Maintenance();
-
-        int idIndex;
-        int vehicle_idIndex;
-        int service_typeIndex;
-        int detailIndex;
-        int dateIndex;
-        int expiration_dateIndex;
-        int expiration_kmIndex;
-        int odometerIndex;
-        int valueIndex;
-        int locationIndex;
-        int noteIndex;
-        int statusIndex;
-
-        if (cursor != null) {
-            if (cursor.getColumnIndex(MAINTENANCE_ID) != -1) {
-                idIndex = cursor.getColumnIndexOrThrow(MAINTENANCE_ID);
-                maintenance.setId(cursor.getInt(idIndex));
-            }
-            if (cursor.getColumnIndex(MAINTENANCE_VEHICLE_ID) != -1) {
-                vehicle_idIndex = cursor.getColumnIndexOrThrow(MAINTENANCE_VEHICLE_ID);
-                maintenance.setVehicle_id(cursor.getInt(vehicle_idIndex));
-            }
-            if (cursor.getColumnIndex(MAINTENANCE_SERVICE_TYPE) != -1) {
-                service_typeIndex = cursor.getColumnIndexOrThrow(MAINTENANCE_SERVICE_TYPE);
-                maintenance.setService_type(cursor.getInt(service_typeIndex));
-            }
-            if (cursor.getColumnIndex(MAINTENANCE_DETAIL) != -1) {
-                detailIndex = cursor.getColumnIndexOrThrow(MAINTENANCE_DETAIL);
-                maintenance.setDetail(cursor.getString(detailIndex));
-            }
-            if (cursor.getColumnIndex(MAINTENANCE_DATE) != -1) {
-                dateIndex = cursor.getColumnIndexOrThrow(MAINTENANCE_DATE);
-                maintenance.setDate(Utils.dateParse(cursor.getString(dateIndex)));
-            }
-            if (cursor.getColumnIndex(MAINTENANCE_EXPIRATION_DATE) != -1) {
-                expiration_dateIndex = cursor.getColumnIndexOrThrow(MAINTENANCE_EXPIRATION_DATE);
-                maintenance.setExpiration_date(Utils.dateParse(cursor.getString(expiration_dateIndex)));
-            }
-            if (cursor.getColumnIndex(MAINTENANCE_EXPIRATION_KM) != -1) {
-                expiration_kmIndex = cursor.getColumnIndexOrThrow(MAINTENANCE_EXPIRATION_KM);
-                maintenance.setExpiration_km(cursor.getInt(expiration_kmIndex));
-            }
-            if (cursor.getColumnIndex(MAINTENANCE_ODOMETER) != -1) {
-                odometerIndex = cursor.getColumnIndexOrThrow(MAINTENANCE_ODOMETER);
-                maintenance.setOdometer(cursor.getInt(odometerIndex));
-            }
-            if (cursor.getColumnIndex(MAINTENANCE_VALUE) != -1) {
-                valueIndex = cursor.getColumnIndexOrThrow(MAINTENANCE_VALUE);
-                maintenance.setValue(cursor.getDouble(valueIndex));
-            }
-            if (cursor.getColumnIndex(MAINTENANCE_LOCATION) != -1) {
-                locationIndex = cursor.getColumnIndexOrThrow(MAINTENANCE_LOCATION);
-                maintenance.setLocation(cursor.getString(locationIndex));
-            }
-            if (cursor.getColumnIndex(MAINTENANCE_NOTE) != -1) {
-               noteIndex = cursor.getColumnIndexOrThrow(MAINTENANCE_NOTE);
-               maintenance.setNote(cursor.getString(noteIndex));
-            }
-            if (cursor.getColumnIndex(MAINTENANCE_STATUS) != -1) {
-                statusIndex = cursor.getColumnIndexOrThrow(MAINTENANCE_STATUS);
-                maintenance.setStatus(cursor.getInt(statusIndex));
-            }
+    protected Maintenance cursorToEntity(Cursor c) {
+        Maintenance m = new Maintenance();
+        if (c != null) {
+            if (c.getColumnIndex(MAINTENANCE_ID) != -1)              {m.setId(c.getInt(c.getColumnIndexOrThrow(MAINTENANCE_ID))); }
+            if (c.getColumnIndex(MAINTENANCE_VEHICLE_ID) != -1)      {m.setVehicle_id(c.getInt(c.getColumnIndexOrThrow(MAINTENANCE_VEHICLE_ID))); }
+            if (c.getColumnIndex(MAINTENANCE_SERVICE_TYPE) != -1)    {m.setService_type(c.getInt(c.getColumnIndexOrThrow(MAINTENANCE_SERVICE_TYPE))); }
+            if (c.getColumnIndex(MAINTENANCE_DETAIL) != -1)          {m.setDetail(c.getString(c.getColumnIndexOrThrow(MAINTENANCE_DETAIL))); }
+            if (c.getColumnIndex(MAINTENANCE_DATE) != -1)            {m.setDate(Utils.dateParse(c.getString(c.getColumnIndexOrThrow(MAINTENANCE_DATE)))); }
+            if (c.getColumnIndex(MAINTENANCE_EXPIRATION_DATE) != -1) {m.setExpiration_date(Utils.dateParse(c.getString(c.getColumnIndexOrThrow(MAINTENANCE_EXPIRATION_DATE)))); }
+            if (c.getColumnIndex(MAINTENANCE_EXPIRATION_KM) != -1)   {m.setExpiration_km(c.getInt(c.getColumnIndexOrThrow(MAINTENANCE_EXPIRATION_KM))); }
+            if (c.getColumnIndex(MAINTENANCE_ODOMETER) != -1)        {m.setOdometer(c.getInt(c.getColumnIndexOrThrow(MAINTENANCE_ODOMETER))); }
+            if (c.getColumnIndex(MAINTENANCE_VALUE) != -1)           {m.setValue(c.getDouble(c.getColumnIndexOrThrow(MAINTENANCE_VALUE))); }
+            if (c.getColumnIndex(MAINTENANCE_LOCATION) != -1)        {m.setLocation(c.getString(c.getColumnIndexOrThrow(MAINTENANCE_LOCATION))); }
+            if (c.getColumnIndex(MAINTENANCE_NOTE) != -1)            {m.setNote(c.getString(c.getColumnIndexOrThrow(MAINTENANCE_NOTE))); }
+            if (c.getColumnIndex(MAINTENANCE_STATUS) != -1)          {m.setStatus(c.getInt(c.getColumnIndexOrThrow(MAINTENANCE_STATUS))); }
         }
-        return maintenance;
+        return m;
     }
 
-    private void setContentValue(Maintenance maintenance) {
+    private void setContentValue(Maintenance m) {
         initialValues = new ContentValues();
-        initialValues.put(MAINTENANCE_ID, maintenance.id);
-        initialValues.put(MAINTENANCE_VEHICLE_ID, maintenance.vehicle_id);
-        initialValues.put(MAINTENANCE_SERVICE_TYPE, maintenance.service_type);
-        initialValues.put(MAINTENANCE_DETAIL, maintenance.detail);
-        initialValues.put(MAINTENANCE_DATE, Utils.dateFormat(maintenance.date));
-        initialValues.put(MAINTENANCE_EXPIRATION_DATE, Utils.dateFormat(maintenance.expiration_date));
-        initialValues.put(MAINTENANCE_EXPIRATION_KM, maintenance.expiration_km);
-        initialValues.put(MAINTENANCE_ODOMETER, maintenance.odometer);
-        initialValues.put(MAINTENANCE_VALUE, maintenance.value);
-        initialValues.put(MAINTENANCE_LOCATION, maintenance.location);
-        initialValues.put(MAINTENANCE_NOTE, maintenance.note);
-        initialValues.put(MAINTENANCE_STATUS, maintenance.status);
+        initialValues.put(MAINTENANCE_ID, m.id);
+        initialValues.put(MAINTENANCE_VEHICLE_ID, m.vehicle_id);
+        initialValues.put(MAINTENANCE_SERVICE_TYPE, m.service_type);
+        initialValues.put(MAINTENANCE_DETAIL, m.detail);
+        initialValues.put(MAINTENANCE_DATE, Utils.dateFormat(m.date));
+        initialValues.put(MAINTENANCE_EXPIRATION_DATE, Utils.dateFormat(m.expiration_date));
+        initialValues.put(MAINTENANCE_EXPIRATION_KM, m.expiration_km);
+        initialValues.put(MAINTENANCE_ODOMETER, m.odometer);
+        initialValues.put(MAINTENANCE_VALUE, m.value);
+        initialValues.put(MAINTENANCE_LOCATION, m.location);
+        initialValues.put(MAINTENANCE_NOTE, m.note);
+        initialValues.put(MAINTENANCE_STATUS, m.status);
     }
 
     private ContentValues getContentValue() {

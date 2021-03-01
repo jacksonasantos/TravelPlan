@@ -64,33 +64,14 @@ public class VehicleStatisticsDAO extends DbContentProvider implements VehicleSt
         return vehicleStatisticsList;
     }
 
-    protected VehicleStatistics cursorToEntity(Cursor cursor) {
-
-        VehicleStatistics vehicleStatistics = new VehicleStatistics();
-
-        int vehicle_idIndex;
-        int supply_reason_typeIndex;
-        int avg_consumptionIndex;
-        int avg_cost_litreIndex;
-
-        if (cursor != null) {
-            if (cursor.getColumnIndex(VEHICLE_STATISTICS_VEHICLE_ID) != -1) {
-                vehicle_idIndex = cursor.getColumnIndexOrThrow(VEHICLE_STATISTICS_VEHICLE_ID);
-                vehicleStatistics.setVehicle_id(cursor.getInt(vehicle_idIndex));
-            }
-            if (cursor.getColumnIndex(VEHICLE_STATISTICS_SUPPLY_REASON_TYPE) != -1) {
-                supply_reason_typeIndex = cursor.getColumnIndexOrThrow(VEHICLE_STATISTICS_SUPPLY_REASON_TYPE);
-                vehicleStatistics.setSupply_reason_type(cursor.getInt(supply_reason_typeIndex));
-            }
-            if (cursor.getColumnIndex(VEHICLE_STATISTICS_AVG_COST_LITRE) != -1) {
-                avg_cost_litreIndex = cursor.getColumnIndexOrThrow(VEHICLE_STATISTICS_AVG_COST_LITRE);
-                vehicleStatistics.setAvg_cost_litre(cursor.getFloat(avg_cost_litreIndex));
-            }
-            if (cursor.getColumnIndex(VEHICLE_STATISTICS_AVG_CONSUMPTION) != -1) {
-                avg_consumptionIndex = cursor.getColumnIndexOrThrow(VEHICLE_STATISTICS_AVG_CONSUMPTION);
-                vehicleStatistics.setAvg_consumption(cursor.getFloat(avg_consumptionIndex));
-            }
+    protected VehicleStatistics cursorToEntity(Cursor c) {
+        VehicleStatistics vS = new VehicleStatistics();
+        if (c != null) {
+            if (c.getColumnIndex(VEHICLE_STATISTICS_VEHICLE_ID) != -1)          {vS.setVehicle_id(c.getInt(c.getColumnIndexOrThrow(VEHICLE_STATISTICS_VEHICLE_ID))); }
+            if (c.getColumnIndex(VEHICLE_STATISTICS_SUPPLY_REASON_TYPE) != -1)  {vS.setSupply_reason_type(c.getInt(c.getColumnIndexOrThrow(VEHICLE_STATISTICS_SUPPLY_REASON_TYPE))); }
+            if (c.getColumnIndex(VEHICLE_STATISTICS_AVG_COST_LITRE) != -1)      {vS.setAvg_cost_litre(c.getFloat(c.getColumnIndexOrThrow(VEHICLE_STATISTICS_AVG_COST_LITRE))); }
+            if (c.getColumnIndex(VEHICLE_STATISTICS_AVG_CONSUMPTION) != -1)     {vS.setAvg_consumption(c.getFloat( c.getColumnIndexOrThrow(VEHICLE_STATISTICS_AVG_CONSUMPTION))); }
         }
-        return vehicleStatistics;
+        return vS;
     }
 }

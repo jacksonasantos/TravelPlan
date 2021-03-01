@@ -94,54 +94,27 @@ public class MaintenancePlanDAO extends DbContentProvider implements Maintenance
         return (super.insert(MAINTENANCE_PLAN_TABLE, getContentValue()) > 0);
     }
 
-    protected MaintenancePlan cursorToEntity(Cursor cursor) {
-
-        MaintenancePlan maintenancePlan = new MaintenancePlan();
-
-        int idIndex;
-        int service_typeIndex;
-        int descriptionIndex;
-        int measureIndex;
-        int expiration_defaultIndex;
-        int recommendationIndex;
-
-        if (cursor != null) {
-            if (cursor.getColumnIndex(MAINTENANCE_PLAN_ID) != -1) {
-                idIndex = cursor.getColumnIndexOrThrow(MAINTENANCE_PLAN_ID);
-                maintenancePlan.setId(cursor.getInt(idIndex));
-            }
-            if (cursor.getColumnIndex(MAINTENANCE_PLAN_SERVICE_TYPE) != -1) {
-                service_typeIndex = cursor.getColumnIndexOrThrow(MAINTENANCE_PLAN_SERVICE_TYPE);
-                maintenancePlan.setService_type(cursor.getInt(service_typeIndex));
-            }
-            if (cursor.getColumnIndex(MAINTENANCE_PLAN_DESCRIPTION) != -1) {
-                descriptionIndex = cursor.getColumnIndexOrThrow(MAINTENANCE_PLAN_DESCRIPTION);
-                maintenancePlan.setDescription(cursor.getString(descriptionIndex));
-            }
-            if (cursor.getColumnIndex(MAINTENANCE_PLAN_MEASURE) != -1) {
-                measureIndex = cursor.getColumnIndexOrThrow(MAINTENANCE_PLAN_MEASURE);
-                maintenancePlan.setMeasure(cursor.getInt(measureIndex));
-            }
-            if (cursor.getColumnIndex(MAINTENANCE_PLAN_EXPIRATION_DEFAULT) != -1) {
-                expiration_defaultIndex = cursor.getColumnIndexOrThrow(MAINTENANCE_PLAN_EXPIRATION_DEFAULT);
-                maintenancePlan.setExpiration_default(cursor.getInt(expiration_defaultIndex));
-            }
-            if (cursor.getColumnIndex(MAINTENANCE_PLAN_RECOMMENDATION) != -1) {
-                recommendationIndex = cursor.getColumnIndexOrThrow(MAINTENANCE_PLAN_RECOMMENDATION);
-                maintenancePlan.setRecommendation(cursor.getString(recommendationIndex));
-            }
+    protected MaintenancePlan cursorToEntity(Cursor c) {
+        MaintenancePlan mP = new MaintenancePlan();
+        if (c != null) {
+            if (c.getColumnIndex(MAINTENANCE_PLAN_ID) != -1)                 {mP.setId(c.getInt(c.getColumnIndexOrThrow(MAINTENANCE_PLAN_ID))); }
+            if (c.getColumnIndex(MAINTENANCE_PLAN_SERVICE_TYPE) != -1)       {mP.setService_type(c.getInt(c.getColumnIndexOrThrow(MAINTENANCE_PLAN_SERVICE_TYPE))); }
+            if (c.getColumnIndex(MAINTENANCE_PLAN_DESCRIPTION) != -1)        {mP.setDescription(c.getString(c.getColumnIndexOrThrow(MAINTENANCE_PLAN_DESCRIPTION))); }
+            if (c.getColumnIndex(MAINTENANCE_PLAN_MEASURE) != -1)            {mP.setMeasure(c.getInt(c.getColumnIndexOrThrow(MAINTENANCE_PLAN_MEASURE))); }
+            if (c.getColumnIndex(MAINTENANCE_PLAN_EXPIRATION_DEFAULT) != -1) {mP.setExpiration_default(c.getInt(c.getColumnIndexOrThrow(MAINTENANCE_PLAN_EXPIRATION_DEFAULT))); }
+            if (c.getColumnIndex(MAINTENANCE_PLAN_RECOMMENDATION) != -1)     {mP.setRecommendation(c.getString(c.getColumnIndexOrThrow(MAINTENANCE_PLAN_RECOMMENDATION))); }
         }
-        return maintenancePlan;
+        return mP;
     }
 
-    private void setContentValue(MaintenancePlan maintenancePlan) {
+    private void setContentValue(MaintenancePlan mP) {
         initialValues = new ContentValues();
-        initialValues.put(MAINTENANCE_PLAN_ID, maintenancePlan.id);
-        initialValues.put(MAINTENANCE_PLAN_SERVICE_TYPE, maintenancePlan.service_type);
-        initialValues.put(MAINTENANCE_PLAN_DESCRIPTION, maintenancePlan.description);
-        initialValues.put(MAINTENANCE_PLAN_MEASURE, maintenancePlan.measure);
-        initialValues.put(MAINTENANCE_PLAN_EXPIRATION_DEFAULT, maintenancePlan.expiration_default);
-        initialValues.put(MAINTENANCE_PLAN_RECOMMENDATION, maintenancePlan.recommendation);
+        initialValues.put(MAINTENANCE_PLAN_ID, mP.id);
+        initialValues.put(MAINTENANCE_PLAN_SERVICE_TYPE, mP.service_type);
+        initialValues.put(MAINTENANCE_PLAN_DESCRIPTION, mP.description);
+        initialValues.put(MAINTENANCE_PLAN_MEASURE, mP.measure);
+        initialValues.put(MAINTENANCE_PLAN_EXPIRATION_DEFAULT, mP.expiration_default);
+        initialValues.put(MAINTENANCE_PLAN_RECOMMENDATION, mP.recommendation);
     }
 
     private ContentValues getContentValue() {

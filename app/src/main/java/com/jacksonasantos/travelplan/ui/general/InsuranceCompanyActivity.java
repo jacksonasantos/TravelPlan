@@ -48,7 +48,7 @@ public class InsuranceCompanyActivity extends AppCompatActivity {
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             insuranceCompany = new InsuranceCompany();
-            if (extras.getLong( "insuranceCompany_id") > 0) {
+            if (extras.getInt( "insuranceCompany_id") > 0) {
                 insuranceCompany.setId(extras.getInt("insuranceCompany_id"));
                 insuranceCompany = Database.mInsuranceCompanyDao.fetchInsuranceCompanyById(insuranceCompany.getId());
                 opInsert = false;

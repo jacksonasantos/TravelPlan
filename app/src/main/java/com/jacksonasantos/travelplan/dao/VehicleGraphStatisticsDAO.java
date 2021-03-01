@@ -49,37 +49,14 @@ public class VehicleGraphStatisticsDAO extends DbContentProvider implements Vehi
         return vehicleGraphStatisticsList;
     }
 
-    protected VehicleGraphStatistics cursorToEntity(Cursor cursor) {
-
+    protected VehicleGraphStatistics cursorToEntity(Cursor c) {
         VehicleGraphStatistics vehicleGraphStatistics = new VehicleGraphStatistics();
-
-        int vehicle_idIndex;
-        int supply_reason_typeIndex;
-        int xaxis_dateIndex;
-        int yaxis_avg_consumptionIndex;
-        int yaxis_avg_cost_litreIndex;
-
-        if (cursor != null) {
-            if (cursor.getColumnIndex(VEHICLE_GRAPH_STATISTICS_VEHICLE_ID) != -1) {
-                vehicle_idIndex = cursor.getColumnIndexOrThrow(VEHICLE_GRAPH_STATISTICS_VEHICLE_ID);
-                vehicleGraphStatistics.setVehicle_id(cursor.getInt(vehicle_idIndex));
-            }
-            if (cursor.getColumnIndex(VEHICLE_GRAPH_STATISTICS_SUPPLY_REASON_TYPE) != -1) {
-                supply_reason_typeIndex = cursor.getColumnIndexOrThrow(VEHICLE_GRAPH_STATISTICS_SUPPLY_REASON_TYPE);
-                vehicleGraphStatistics.setSupply_reason_type(cursor.getInt(supply_reason_typeIndex));
-            }
-            if (cursor.getColumnIndex(VEHICLE_GRAPH_STATISTICS_XAXIS_DATE) != -1) {
-                xaxis_dateIndex = cursor.getColumnIndexOrThrow(VEHICLE_GRAPH_STATISTICS_XAXIS_DATE);
-                vehicleGraphStatistics.setXaxis_date(Utils.dateParse(cursor.getString(xaxis_dateIndex)));
-            }
-            if (cursor.getColumnIndex(VEHICLE_GRAPH_STATISTICS_YAXIS_AVG_CONSUMPTION) != -1) {
-                yaxis_avg_consumptionIndex = cursor.getColumnIndexOrThrow(VEHICLE_GRAPH_STATISTICS_YAXIS_AVG_CONSUMPTION);
-                vehicleGraphStatistics.setYaxis_avg_consumption(cursor.getInt(yaxis_avg_consumptionIndex));
-            }
-            if (cursor.getColumnIndex(VEHICLE_GRAPH_STATISTICS_YAXIS_AVG_COST_LITRE) != -1) {
-                yaxis_avg_cost_litreIndex = cursor.getColumnIndexOrThrow(VEHICLE_GRAPH_STATISTICS_YAXIS_AVG_COST_LITRE);
-                vehicleGraphStatistics.setYaxis_avg_cost_litre(cursor.getInt(yaxis_avg_cost_litreIndex));
-            }
+        if (c != null) {
+            if (c.getColumnIndex(VEHICLE_GRAPH_STATISTICS_VEHICLE_ID) != -1)            {vehicleGraphStatistics.setVehicle_id(c.getInt(c.getColumnIndexOrThrow(VEHICLE_GRAPH_STATISTICS_VEHICLE_ID))); }
+            if (c.getColumnIndex(VEHICLE_GRAPH_STATISTICS_SUPPLY_REASON_TYPE) != -1)    {vehicleGraphStatistics.setSupply_reason_type(c.getInt(c.getColumnIndexOrThrow(VEHICLE_GRAPH_STATISTICS_SUPPLY_REASON_TYPE))); }
+            if (c.getColumnIndex(VEHICLE_GRAPH_STATISTICS_XAXIS_DATE) != -1)            {vehicleGraphStatistics.setXaxis_date(Utils.dateParse(c.getString(c.getColumnIndexOrThrow(VEHICLE_GRAPH_STATISTICS_XAXIS_DATE)))); }
+            if (c.getColumnIndex(VEHICLE_GRAPH_STATISTICS_YAXIS_AVG_CONSUMPTION) != -1) {vehicleGraphStatistics.setYaxis_avg_consumption(c.getInt(c.getColumnIndexOrThrow(VEHICLE_GRAPH_STATISTICS_YAXIS_AVG_CONSUMPTION))); }
+            if (c.getColumnIndex(VEHICLE_GRAPH_STATISTICS_YAXIS_AVG_COST_LITRE) != -1)  {vehicleGraphStatistics.setYaxis_avg_cost_litre(c.getInt(c.getColumnIndexOrThrow(VEHICLE_GRAPH_STATISTICS_YAXIS_AVG_COST_LITRE))); }
         }
         return vehicleGraphStatistics;
     }

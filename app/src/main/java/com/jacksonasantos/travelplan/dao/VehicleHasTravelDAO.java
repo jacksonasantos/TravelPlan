@@ -84,30 +84,19 @@ public class VehicleHasTravelDAO extends DbContentProvider implements VehicleHas
         return (super.insert(VEHICLE_HAS_TRAVEL_TABLE, getContentValue()) > 0);
     }
 
-    protected VehicleHasTravel cursorToEntity(Cursor cursor) {
-
-        VehicleHasTravel vehicleHasTravel = new VehicleHasTravel();
-
-        int vehicle_idIndex;
-        int travel_idIndex;
-
-        if (cursor != null) {
-            if (cursor.getColumnIndex(VEHICLE_HAS_TRAVEL_VEHICLE_ID) != -1) {
-                vehicle_idIndex = cursor.getColumnIndexOrThrow(VEHICLE_HAS_TRAVEL_VEHICLE_ID);
-                vehicleHasTravel.setVehicle_id(cursor.getInt(vehicle_idIndex));
-            }
-            if (cursor.getColumnIndex(VEHICLE_HAS_TRAVEL_TRAVEL_ID) != -1) {
-                travel_idIndex = cursor.getColumnIndexOrThrow(VEHICLE_HAS_TRAVEL_TRAVEL_ID);
-                vehicleHasTravel.setTravel_id(cursor.getInt(travel_idIndex));
-            }
+    protected VehicleHasTravel cursorToEntity(Cursor c) {
+        VehicleHasTravel vHT = new VehicleHasTravel();
+        if (c != null) {
+            if (c.getColumnIndex(VEHICLE_HAS_TRAVEL_VEHICLE_ID) != -1) {vHT.setVehicle_id(c.getInt(c.getColumnIndexOrThrow(VEHICLE_HAS_TRAVEL_VEHICLE_ID))); }
+            if (c.getColumnIndex(VEHICLE_HAS_TRAVEL_TRAVEL_ID) != -1)  {vHT.setTravel_id(c.getInt(c.getColumnIndexOrThrow(VEHICLE_HAS_TRAVEL_TRAVEL_ID))); }
         }
-        return vehicleHasTravel;
+        return vHT;
     }
 
-    private void setContentValue(VehicleHasTravel vehicleHasTravel) {
+    private void setContentValue(VehicleHasTravel vHT) {
         initialValues = new ContentValues();
-        initialValues.put(VEHICLE_HAS_TRAVEL_VEHICLE_ID, vehicleHasTravel.vehicle_id);
-        initialValues.put(VEHICLE_HAS_TRAVEL_TRAVEL_ID, vehicleHasTravel.travel_id);
+        initialValues.put(VEHICLE_HAS_TRAVEL_VEHICLE_ID, vHT.vehicle_id);
+        initialValues.put(VEHICLE_HAS_TRAVEL_TRAVEL_ID, vHT.travel_id);
     }
 
     private ContentValues getContentValue() {

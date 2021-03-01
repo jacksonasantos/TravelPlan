@@ -99,90 +99,39 @@ public class AccommodationDAO extends DbContentProvider implements Accommodation
         }
     }
 
-    protected Accommodation cursorToEntity(Cursor cursor) {
-
-        Accommodation accommodation = new Accommodation();
-
-        int idIndex;
-        int nameIndex;
-        int addressIndex;
-        int cityIndex;
-        int stateIndex;
-        int countryIndex;
-        int contact_nameIndex;
-        int phoneIndex;
-        int emailIndex;
-        int siteIndex;
-        int latlng_accommodationIndex;
-        int accommodation_typeIndex;
-
-        if (cursor != null) {
-            if (cursor.getColumnIndex(ACCOMMODATION_ID) != -1) {
-                idIndex = cursor.getColumnIndexOrThrow(ACCOMMODATION_ID);
-                accommodation.setId(cursor.getInt(idIndex));
-            }
-            if (cursor.getColumnIndex(ACCOMMODATION_NAME) != -1) {
-                nameIndex = cursor.getColumnIndexOrThrow(ACCOMMODATION_NAME);
-                accommodation.setName(cursor.getString(nameIndex));
-            }
-            if (cursor.getColumnIndex(ACCOMMODATION_ADDRESS) != -1) {
-                addressIndex = cursor.getColumnIndexOrThrow(ACCOMMODATION_ADDRESS);
-                accommodation.setAddress(cursor.getString(addressIndex));
-            }
-            if (cursor.getColumnIndex(ACCOMMODATION_CITY) != -1) {
-                cityIndex = cursor.getColumnIndexOrThrow(ACCOMMODATION_CITY);
-                accommodation.setCity(cursor.getString(cityIndex));
-            }
-            if (cursor.getColumnIndex(ACCOMMODATION_STATE) != -1) {
-                stateIndex = cursor.getColumnIndexOrThrow(ACCOMMODATION_STATE);
-                accommodation.setState(cursor.getString(stateIndex));
-            }
-            if (cursor.getColumnIndex(ACCOMMODATION_COUNTRY) != -1) {
-                countryIndex = cursor.getColumnIndexOrThrow(ACCOMMODATION_COUNTRY);
-                accommodation.setCountry(cursor.getString(countryIndex));
-            }
-            if (cursor.getColumnIndex(ACCOMMODATION_CONTACT_NAME) != -1) {
-                contact_nameIndex = cursor.getColumnIndexOrThrow(ACCOMMODATION_CONTACT_NAME);
-                accommodation.contact_name = cursor.getString(contact_nameIndex);
-            }
-            if (cursor.getColumnIndex(ACCOMMODATION_PHONE) != -1) {
-                phoneIndex = cursor.getColumnIndexOrThrow(ACCOMMODATION_PHONE);
-                accommodation.phone = cursor.getString(phoneIndex);
-            }
-            if (cursor.getColumnIndex(ACCOMMODATION_EMAIL) != -1) {
-                emailIndex = cursor.getColumnIndexOrThrow(ACCOMMODATION_EMAIL);
-                accommodation.email = cursor.getString(emailIndex);
-            }
-            if (cursor.getColumnIndex(ACCOMMODATION_SITE) != -1) {
-                siteIndex = cursor.getColumnIndexOrThrow(ACCOMMODATION_SITE);
-                accommodation.setSite(cursor.getString(siteIndex));
-            }
-            if (cursor.getColumnIndex(ACCOMMODATION_LATLNG_ACCOMMODATION) != -1) {
-                latlng_accommodationIndex = cursor.getColumnIndexOrThrow(ACCOMMODATION_LATLNG_ACCOMMODATION);
-                accommodation.setLatlng_accommodation(cursor.getString(latlng_accommodationIndex));
-            }
-            if (cursor.getColumnIndex(ACCOMMODATION_ACCOMMODATION_TYPE) != -1) {
-                accommodation_typeIndex = cursor.getColumnIndexOrThrow(ACCOMMODATION_ACCOMMODATION_TYPE);
-                accommodation.setAccommodation_type(cursor.getInt(accommodation_typeIndex));
-            }
+    protected Accommodation cursorToEntity(Cursor c) {
+        Accommodation a = new Accommodation();
+        if (c != null) {
+            if (c.getColumnIndex(ACCOMMODATION_ID) != -1)                   {a.setId(c.getInt(c.getColumnIndexOrThrow(ACCOMMODATION_ID))); }
+            if (c.getColumnIndex(ACCOMMODATION_NAME) != -1)                 {a.setName(c.getString(c.getColumnIndexOrThrow(ACCOMMODATION_NAME))); }
+            if (c.getColumnIndex(ACCOMMODATION_ADDRESS) != -1)              {a.setAddress(c.getString(c.getColumnIndexOrThrow(ACCOMMODATION_ADDRESS))); }
+            if (c.getColumnIndex(ACCOMMODATION_CITY) != -1)                 {a.setCity(c.getString(c.getColumnIndexOrThrow(ACCOMMODATION_CITY))); }
+            if (c.getColumnIndex(ACCOMMODATION_STATE) != -1)                {a.setState(c.getString(c.getColumnIndexOrThrow(ACCOMMODATION_STATE))); }
+            if (c.getColumnIndex(ACCOMMODATION_COUNTRY) != -1)              {a.setCountry(c.getString(c.getColumnIndexOrThrow(ACCOMMODATION_COUNTRY))); }
+            if (c.getColumnIndex(ACCOMMODATION_CONTACT_NAME) != -1)         {a.contact_name = c.getString(c.getColumnIndexOrThrow(ACCOMMODATION_CONTACT_NAME)); }
+            if (c.getColumnIndex(ACCOMMODATION_PHONE) != -1)                {a.phone = c.getString(c.getColumnIndexOrThrow(ACCOMMODATION_PHONE)); }
+            if (c.getColumnIndex(ACCOMMODATION_EMAIL) != -1)                {a.email = c.getString(c.getColumnIndexOrThrow(ACCOMMODATION_EMAIL)); }
+            if (c.getColumnIndex(ACCOMMODATION_SITE) != -1)                 {a.setSite(c.getString(c.getColumnIndexOrThrow(ACCOMMODATION_SITE))); }
+            if (c.getColumnIndex(ACCOMMODATION_LATLNG_ACCOMMODATION) != -1) {a.setLatlng_accommodation(c.getString(c.getColumnIndexOrThrow(ACCOMMODATION_LATLNG_ACCOMMODATION))); }
+            if (c.getColumnIndex(ACCOMMODATION_ACCOMMODATION_TYPE) != -1)   {a.setAccommodation_type(c.getInt(c.getColumnIndexOrThrow(ACCOMMODATION_ACCOMMODATION_TYPE)));   }
         }
-        return accommodation;
+        return a;
     }
 
-    private void setContentValue(Accommodation accommodation) {
+    private void setContentValue(Accommodation a) {
         initialValues = new ContentValues();
-        initialValues.put(ACCOMMODATION_ID, accommodation.id);
-        initialValues.put(ACCOMMODATION_NAME, accommodation.name);
-        initialValues.put(ACCOMMODATION_ADDRESS, accommodation.address);
-        initialValues.put(ACCOMMODATION_CITY, accommodation.city);
-        initialValues.put(ACCOMMODATION_STATE, accommodation.state);
-        initialValues.put(ACCOMMODATION_COUNTRY, accommodation.country);
-        initialValues.put(ACCOMMODATION_CONTACT_NAME, accommodation.contact_name);
-        initialValues.put(ACCOMMODATION_PHONE, accommodation.phone);
-        initialValues.put(ACCOMMODATION_EMAIL, accommodation.email);
-        initialValues.put(ACCOMMODATION_SITE, accommodation.site);
-        initialValues.put(ACCOMMODATION_LATLNG_ACCOMMODATION, accommodation.latlng_accommodation);
-        initialValues.put(ACCOMMODATION_ACCOMMODATION_TYPE, accommodation.accommodation_type);
+        initialValues.put(ACCOMMODATION_ID, a.id);
+        initialValues.put(ACCOMMODATION_NAME, a.name);
+        initialValues.put(ACCOMMODATION_ADDRESS, a.address);
+        initialValues.put(ACCOMMODATION_CITY, a.city);
+        initialValues.put(ACCOMMODATION_STATE, a.state);
+        initialValues.put(ACCOMMODATION_COUNTRY, a.country);
+        initialValues.put(ACCOMMODATION_CONTACT_NAME, a.contact_name);
+        initialValues.put(ACCOMMODATION_PHONE, a.phone);
+        initialValues.put(ACCOMMODATION_EMAIL, a.email);
+        initialValues.put(ACCOMMODATION_SITE, a.site);
+        initialValues.put(ACCOMMODATION_LATLNG_ACCOMMODATION, a.latlng_accommodation);
+        initialValues.put(ACCOMMODATION_ACCOMMODATION_TYPE, a.accommodation_type);
     }
 
     private ContentValues getContentValue() {

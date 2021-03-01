@@ -84,97 +84,41 @@ public class ReservationDAO extends DbContentProvider implements ReservationISch
         return (super.insert(RESERVATION_TABLE, getContentValue()) > 0);
     }
 
-    protected Reservation cursorToEntity(Cursor cursor) {
-
-        Reservation reservation = new Reservation();
-
-        int idIndex;
-        int travel_idIndex;
-        int accommodation_idIndex;
-        int voucher_numberIndex;
-        int checkin_dateIndex;
-        int checkout_dateIndex;
-        int apto_typeIndex;
-        int daily_rateIndex;
-        int other_rateIndex;
-        int reservation_amountIndex;
-        int amount_paidIndex;
-        int noteIndex;
-        int status_reservationIndex;
-
-        if (cursor != null) {
-            if (cursor.getColumnIndex(RESERVATION_ID) != -1) {
-                idIndex = cursor.getColumnIndexOrThrow(RESERVATION_ID);
-                reservation.setId(cursor.getInt(idIndex));
-            }
-            if (cursor.getColumnIndex(RESERVATION_TRAVEL_ID) != -1) {
-                travel_idIndex = cursor.getColumnIndexOrThrow(RESERVATION_TRAVEL_ID);
-                reservation.setTravel_id(cursor.getInt(travel_idIndex));
-            }
-            if (cursor.getColumnIndex(RESERVATION_ACCOMMODATION_ID) != -1) {
-                accommodation_idIndex = cursor.getColumnIndexOrThrow(RESERVATION_ACCOMMODATION_ID);
-                reservation.setAccommodation_id(cursor.getInt(accommodation_idIndex));
-            }
-            if (cursor.getColumnIndex(RESERVATION_VOUCHER_NUMBER) != -1) {
-                voucher_numberIndex = cursor.getColumnIndexOrThrow(RESERVATION_VOUCHER_NUMBER);
-                reservation.setVoucher_number(cursor.getString(voucher_numberIndex));
-            }
-            if (cursor.getColumnIndex(RESERVATION_CHECKIN_DATE) != -1) {
-                checkin_dateIndex = cursor.getColumnIndexOrThrow(RESERVATION_CHECKIN_DATE);
-                reservation.setCheckin_date(Utils.dateParse(cursor.getString(checkin_dateIndex)));
-            }
-            if (cursor.getColumnIndex(RESERVATION_CHECKOUT_DATE) != -1) {
-                checkout_dateIndex = cursor.getColumnIndexOrThrow(RESERVATION_CHECKOUT_DATE);
-                reservation.setCheckout_date(Utils.dateParse(cursor.getString(checkout_dateIndex)));
-            }
-            if (cursor.getColumnIndex(RESERVATION_APTO_TYPE) != -1) {
-                apto_typeIndex = cursor.getColumnIndexOrThrow(RESERVATION_APTO_TYPE);
-                reservation.setApto_type(cursor.getString(apto_typeIndex));
-            }
-            if (cursor.getColumnIndex(RESERVATION_DAILY_RATE) != -1) {
-                daily_rateIndex = cursor.getColumnIndexOrThrow(RESERVATION_DAILY_RATE);
-                reservation.setDaily_rate(cursor.getDouble(daily_rateIndex));
-            }
-            if (cursor.getColumnIndex(RESERVATION_OTHER_RATE) != -1) {
-                other_rateIndex = cursor.getColumnIndexOrThrow(RESERVATION_OTHER_RATE);
-                reservation.setOther_rate(cursor.getDouble(other_rateIndex));
-            }
-            if (cursor.getColumnIndex(RESERVATION_RESERVATION_AMOUNT) != -1) {
-                reservation_amountIndex = cursor.getColumnIndexOrThrow(RESERVATION_RESERVATION_AMOUNT);
-                reservation.setReservation_amount(cursor.getDouble(reservation_amountIndex));
-            }
-            if (cursor.getColumnIndex(RESERVATION_AMOUNT_PAID) != -1) {
-                amount_paidIndex = cursor.getColumnIndexOrThrow(RESERVATION_AMOUNT_PAID);
-                reservation.setAmount_paid(cursor.getDouble(amount_paidIndex));
-            }
-            if (cursor.getColumnIndex(RESERVATION_NOTE) != -1) {
-                noteIndex = cursor.getColumnIndexOrThrow(RESERVATION_NOTE);
-                reservation.setNote(cursor.getString(noteIndex));
-            }
-            if (cursor.getColumnIndex(RESERVATION_STATUS_RESERVATION) != -1) {
-                status_reservationIndex = cursor.getColumnIndexOrThrow(RESERVATION_STATUS_RESERVATION);
-                reservation.setStatus_reservation(cursor.getInt(status_reservationIndex));
-            }
+    protected Reservation cursorToEntity(Cursor c) {
+        Reservation r = new Reservation();
+        if (c != null) {
+            if (c.getColumnIndex(RESERVATION_ID) != -1)                 {r.setId(c.getInt(c.getColumnIndexOrThrow(RESERVATION_ID))); }
+            if (c.getColumnIndex(RESERVATION_TRAVEL_ID) != -1)          {r.setTravel_id(c.getInt(c.getColumnIndexOrThrow(RESERVATION_TRAVEL_ID))); }
+            if (c.getColumnIndex(RESERVATION_ACCOMMODATION_ID) != -1)   {r.setAccommodation_id(c.getInt(c.getColumnIndexOrThrow(RESERVATION_ACCOMMODATION_ID))); }
+            if (c.getColumnIndex(RESERVATION_VOUCHER_NUMBER) != -1)     {r.setVoucher_number(c.getString(c.getColumnIndexOrThrow(RESERVATION_VOUCHER_NUMBER))); }
+            if (c.getColumnIndex(RESERVATION_CHECKIN_DATE) != -1)       {r.setCheckin_date(Utils.dateParse(c.getString(c.getColumnIndexOrThrow(RESERVATION_CHECKIN_DATE)))); }
+            if (c.getColumnIndex(RESERVATION_CHECKOUT_DATE) != -1)      {r.setCheckout_date(Utils.dateParse(c.getString(c.getColumnIndexOrThrow(RESERVATION_CHECKOUT_DATE)))); }
+            if (c.getColumnIndex(RESERVATION_APTO_TYPE) != -1)          {r.setApto_type(c.getString(c.getColumnIndexOrThrow(RESERVATION_APTO_TYPE))); }
+            if (c.getColumnIndex(RESERVATION_DAILY_RATE) != -1)         {r.setDaily_rate(c.getDouble(c.getColumnIndexOrThrow(RESERVATION_DAILY_RATE))); }
+            if (c.getColumnIndex(RESERVATION_OTHER_RATE) != -1)         {r.setOther_rate(c.getDouble(c.getColumnIndexOrThrow(RESERVATION_OTHER_RATE))); }
+            if (c.getColumnIndex(RESERVATION_RESERVATION_AMOUNT) != -1) {r.setReservation_amount(c.getDouble(c.getColumnIndexOrThrow(RESERVATION_RESERVATION_AMOUNT))); }
+            if (c.getColumnIndex(RESERVATION_AMOUNT_PAID) != -1)        {r.setAmount_paid(c.getDouble(c.getColumnIndexOrThrow(RESERVATION_AMOUNT_PAID))); }
+            if (c.getColumnIndex(RESERVATION_NOTE) != -1)               {r.setNote(c.getString(c.getColumnIndexOrThrow(RESERVATION_NOTE))); }
+            if (c.getColumnIndex(RESERVATION_STATUS_RESERVATION) != -1) {r.setStatus_reservation(c.getInt(c.getColumnIndexOrThrow(RESERVATION_STATUS_RESERVATION))); }
         }
-        return reservation;
+        return r;
     }
 
-    private void setContentValue(Reservation reservation) {
-
+    private void setContentValue(Reservation r) {
         initialValues = new ContentValues();
-        initialValues.put(RESERVATION_ID, reservation.id);
-        initialValues.put(RESERVATION_TRAVEL_ID, reservation.travel_id);
-        initialValues.put(RESERVATION_ACCOMMODATION_ID, reservation.accommodation_id);
-        initialValues.put(RESERVATION_VOUCHER_NUMBER, reservation.voucher_number);
-        initialValues.put(RESERVATION_CHECKIN_DATE, Utils.dateFormat(reservation.checkin_date));
-        initialValues.put(RESERVATION_CHECKOUT_DATE, Utils.dateFormat(reservation.checkout_date));
-        initialValues.put(RESERVATION_APTO_TYPE, reservation.apto_type);
-        initialValues.put(RESERVATION_DAILY_RATE, reservation.daily_rate);
-        initialValues.put(RESERVATION_OTHER_RATE, reservation.other_rate);
-        initialValues.put(RESERVATION_RESERVATION_AMOUNT, reservation.reservation_amount);
-        initialValues.put(RESERVATION_AMOUNT_PAID, reservation.amount_paid);
-        initialValues.put(RESERVATION_NOTE, reservation.note);
-        initialValues.put(RESERVATION_STATUS_RESERVATION, reservation.status_reservation);
+        initialValues.put(RESERVATION_ID, r.id);
+        initialValues.put(RESERVATION_TRAVEL_ID, r.travel_id);
+        initialValues.put(RESERVATION_ACCOMMODATION_ID, r.accommodation_id);
+        initialValues.put(RESERVATION_VOUCHER_NUMBER, r.voucher_number);
+        initialValues.put(RESERVATION_CHECKIN_DATE, Utils.dateFormat(r.checkin_date));
+        initialValues.put(RESERVATION_CHECKOUT_DATE, Utils.dateFormat(r.checkout_date));
+        initialValues.put(RESERVATION_APTO_TYPE, r.apto_type);
+        initialValues.put(RESERVATION_DAILY_RATE, r.daily_rate);
+        initialValues.put(RESERVATION_OTHER_RATE, r.other_rate);
+        initialValues.put(RESERVATION_RESERVATION_AMOUNT, r.reservation_amount);
+        initialValues.put(RESERVATION_AMOUNT_PAID, r.amount_paid);
+        initialValues.put(RESERVATION_NOTE, r.note);
+        initialValues.put(RESERVATION_STATUS_RESERVATION, r.status_reservation);
     }
 
     private ContentValues getContentValue() {

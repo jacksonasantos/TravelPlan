@@ -94,126 +94,51 @@ public class InsuranceDAO extends DbContentProvider implements InsuranceISchema,
         return (super.insert(INSURANCE_TABLE, getContentValue()) > 0);
     }
 
-    protected Insurance cursorToEntity(Cursor cursor) {
-
-        Insurance insurance = new Insurance();
-
-        int idIndex;
-        int insurance_company_idIndex;
-        int broker_idIndex;
-        int insurance_typeIndex;
-        int descriptionIndex;
-        int insurance_policyIndex;
-        int issuance_dateIndex;
-        int initial_effective_dateIndex;
-        int final_effective_dateIndex;
-        int net_premium_valueIndex;
-        int tax_amountIndex;
-        int total_premium_valueIndex;
-        int insurance_deductibleIndex;
-        int bonus_classIndex;
-        int noteIndex;
-        int statusIndex;
-        int travel_idIndex;
-        int vehicle_idIndex;
-
-        if (cursor != null) {
-            if (cursor.getColumnIndex(INSURANCE_ID) != -1) {
-                idIndex = cursor.getColumnIndexOrThrow(INSURANCE_ID);
-                insurance.setId(cursor.getInt(idIndex));
-            }
-            if (cursor.getColumnIndex(INSURANCE_INSURANCE_COMPANY_ID) != -1) {
-                insurance_company_idIndex = cursor.getColumnIndexOrThrow(INSURANCE_INSURANCE_COMPANY_ID);
-                insurance.setInsurance_company_id(cursor.getInt(insurance_company_idIndex));
-            }
-            if (cursor.getColumnIndex(INSURANCE_BROKER_ID) != -1) {
-                broker_idIndex = cursor.getColumnIndexOrThrow(INSURANCE_BROKER_ID);
-                insurance.setBroker_id(cursor.getInt(broker_idIndex));
-            }
-            if (cursor.getColumnIndex(INSURANCE_INSURANCE_TYPE) != -1) {
-                insurance_typeIndex = cursor.getColumnIndexOrThrow(INSURANCE_INSURANCE_TYPE);
-                insurance.setInsurance_type(cursor.getInt(insurance_typeIndex));
-            }
-            if (cursor.getColumnIndex(INSURANCE_DESCRIPTION) != -1) {
-                descriptionIndex = cursor.getColumnIndexOrThrow(INSURANCE_DESCRIPTION);
-                insurance.setDescription(cursor.getString(descriptionIndex));
-            }
-            if (cursor.getColumnIndex(INSURANCE_INSURANCE_POLICY) != -1) {
-                insurance_policyIndex = cursor.getColumnIndexOrThrow(INSURANCE_INSURANCE_POLICY);
-                insurance.setInsurance_policy(cursor.getString(insurance_policyIndex));
-            }
-            if (cursor.getColumnIndex(INSURANCE_ISSUANCE_DATE) != -1) {
-                issuance_dateIndex = cursor.getColumnIndexOrThrow(INSURANCE_ISSUANCE_DATE);
-                insurance.setIssuance_date(Utils.dateParse(cursor.getString(issuance_dateIndex)));
-            }
-            if (cursor.getColumnIndex(INSURANCE_INITIAL_EFFECTIVE_DATE) != -1) {
-                initial_effective_dateIndex = cursor.getColumnIndexOrThrow(INSURANCE_INITIAL_EFFECTIVE_DATE);
-                insurance.setInitial_effective_date(Utils.dateParse(cursor.getString(initial_effective_dateIndex)));
-            }
-            if (cursor.getColumnIndex(INSURANCE_FINAL_EFFECTIVE_DATE) != -1) {
-                final_effective_dateIndex = cursor.getColumnIndexOrThrow(INSURANCE_FINAL_EFFECTIVE_DATE);
-                insurance.setFinal_effective_date(Utils.dateParse(cursor.getString(final_effective_dateIndex)));
-            }
-            if (cursor.getColumnIndex(INSURANCE_NET_PREMIUM_VALUE) != -1) {
-                net_premium_valueIndex = cursor.getColumnIndexOrThrow(INSURANCE_NET_PREMIUM_VALUE);
-                insurance.setNet_premium_value(cursor.getDouble(net_premium_valueIndex));
-            }
-            if (cursor.getColumnIndex(INSURANCE_TAX_AMOUNT) != -1) {
-                tax_amountIndex = cursor.getColumnIndexOrThrow(INSURANCE_TAX_AMOUNT);
-                insurance.setTax_amount(cursor.getDouble(tax_amountIndex));
-            }
-            if (cursor.getColumnIndex(INSURANCE_TOTAL_PREMIUM_VALUE) != -1) {
-                total_premium_valueIndex = cursor.getColumnIndexOrThrow(INSURANCE_TOTAL_PREMIUM_VALUE);
-                insurance.setTotal_premium_value(cursor.getDouble(total_premium_valueIndex));
-            }
-            if (cursor.getColumnIndex(INSURANCE_INSURANCE_DEDUCTIBLE) != -1) {
-                insurance_deductibleIndex = cursor.getColumnIndexOrThrow(INSURANCE_INSURANCE_DEDUCTIBLE);
-                insurance.setInsurance_deductible(cursor.getDouble(insurance_deductibleIndex));
-            }
-            if (cursor.getColumnIndex(INSURANCE_BONUS_CLASS) != -1) {
-                bonus_classIndex = cursor.getColumnIndexOrThrow(INSURANCE_BONUS_CLASS);
-                insurance.setBonus_class(cursor.getInt(bonus_classIndex));
-            }
-            if (cursor.getColumnIndex(INSURANCE_NOTE) != -1) {
-                noteIndex = cursor.getColumnIndexOrThrow(INSURANCE_NOTE);
-                insurance.setNote(cursor.getString(noteIndex));
-            }
-            if (cursor.getColumnIndex(INSURANCE_STATUS) != -1) {
-                statusIndex = cursor.getColumnIndexOrThrow(INSURANCE_STATUS);
-                insurance.setStatus(cursor.getInt(statusIndex));
-            }
-            if (cursor.getColumnIndex(INSURANCE_TRAVEL_ID) != -1) {
-                travel_idIndex = cursor.getColumnIndexOrThrow(INSURANCE_TRAVEL_ID);
-                insurance.setTravel_id(cursor.getInt(travel_idIndex));
-            }
-            if (cursor.getColumnIndex(INSURANCE_VEHICLE_ID) != -1) {
-                vehicle_idIndex = cursor.getColumnIndexOrThrow(INSURANCE_VEHICLE_ID);
-                insurance.setVehicle_id(cursor.getInt(vehicle_idIndex));
-            }
+    protected Insurance cursorToEntity(Cursor c) {
+        Insurance i = new Insurance();
+        if (c != null) {
+            if (c.getColumnIndex(INSURANCE_ID) != -1)                      {i.setId(c.getInt(c.getColumnIndexOrThrow(INSURANCE_ID))); }
+            if (c.getColumnIndex(INSURANCE_INSURANCE_COMPANY_ID) != -1)    {i.setInsurance_company_id(c.getInt(c.getColumnIndexOrThrow(INSURANCE_INSURANCE_COMPANY_ID))); }
+            if (c.getColumnIndex(INSURANCE_BROKER_ID) != -1)               {i.setBroker_id(c.getInt(c.getColumnIndexOrThrow(INSURANCE_BROKER_ID))); }
+            if (c.getColumnIndex(INSURANCE_INSURANCE_TYPE) != -1)          {i.setInsurance_type(c.getInt(c.getColumnIndexOrThrow(INSURANCE_INSURANCE_TYPE))); }
+            if (c.getColumnIndex(INSURANCE_DESCRIPTION) != -1)             {i.setDescription(c.getString(c.getColumnIndexOrThrow(INSURANCE_DESCRIPTION))); }
+            if (c.getColumnIndex(INSURANCE_INSURANCE_POLICY) != -1)        {i.setInsurance_policy(c.getString(c.getColumnIndexOrThrow(INSURANCE_INSURANCE_POLICY))); }
+            if (c.getColumnIndex(INSURANCE_ISSUANCE_DATE) != -1)           {i.setIssuance_date(Utils.dateParse(c.getString( c.getColumnIndexOrThrow(INSURANCE_ISSUANCE_DATE)))); }
+            if (c.getColumnIndex(INSURANCE_INITIAL_EFFECTIVE_DATE) != -1)  {i.setInitial_effective_date(Utils.dateParse(c.getString(c.getColumnIndexOrThrow(INSURANCE_INITIAL_EFFECTIVE_DATE)))); }
+            if (c.getColumnIndex(INSURANCE_FINAL_EFFECTIVE_DATE) != -1)    {i.setFinal_effective_date(Utils.dateParse(c.getString(c.getColumnIndexOrThrow(INSURANCE_FINAL_EFFECTIVE_DATE)))); }
+            if (c.getColumnIndex(INSURANCE_NET_PREMIUM_VALUE) != -1)       {i.setNet_premium_value(c.getDouble(c.getColumnIndexOrThrow(INSURANCE_NET_PREMIUM_VALUE))); }
+            if (c.getColumnIndex(INSURANCE_TAX_AMOUNT) != -1)              {i.setTax_amount(c.getDouble(c.getColumnIndexOrThrow(INSURANCE_TAX_AMOUNT))); }
+            if (c.getColumnIndex(INSURANCE_TOTAL_PREMIUM_VALUE) != -1)     {i.setTotal_premium_value(c.getDouble(c.getColumnIndexOrThrow(INSURANCE_TOTAL_PREMIUM_VALUE))); }
+            if (c.getColumnIndex(INSURANCE_INSURANCE_DEDUCTIBLE) != -1)    {i.setInsurance_deductible(c.getDouble( c.getColumnIndexOrThrow(INSURANCE_INSURANCE_DEDUCTIBLE))); }
+            if (c.getColumnIndex(INSURANCE_BONUS_CLASS) != -1)             {i.setBonus_class(c.getInt(c.getColumnIndexOrThrow(INSURANCE_BONUS_CLASS))); }
+            if (c.getColumnIndex(INSURANCE_NOTE) != -1)                    {i.setNote(c.getString(c.getColumnIndexOrThrow(INSURANCE_NOTE))); }
+            if (c.getColumnIndex(INSURANCE_STATUS) != -1)                  {i.setStatus(c.getInt(c.getColumnIndexOrThrow(INSURANCE_STATUS))); }
+            if (c.getColumnIndex(INSURANCE_TRAVEL_ID) != -1)               {i.setTravel_id(c.getInt(c.getColumnIndexOrThrow(INSURANCE_TRAVEL_ID))); }
+            if (c.getColumnIndex(INSURANCE_VEHICLE_ID) != -1)              {i.setVehicle_id(c.getInt( c.getColumnIndexOrThrow(INSURANCE_VEHICLE_ID))); }
         }
-        return insurance;
+        return i;
     }
 
-    private void setContentValue(Insurance insurance) {
+    private void setContentValue(Insurance i) {
         initialValues = new ContentValues();
-        initialValues.put(INSURANCE_ID, insurance.id);
-        initialValues.put(INSURANCE_INSURANCE_COMPANY_ID, insurance.insurance_company_id);
-        initialValues.put(INSURANCE_BROKER_ID, insurance.broker_id);
-        initialValues.put(INSURANCE_INSURANCE_TYPE, insurance.insurance_type);
-        initialValues.put(INSURANCE_INSURANCE_POLICY, insurance.insurance_policy);
-        initialValues.put(INSURANCE_DESCRIPTION, insurance.description);
-        initialValues.put(INSURANCE_ISSUANCE_DATE, Utils.dateFormat(insurance.issuance_date));
-        initialValues.put(INSURANCE_INITIAL_EFFECTIVE_DATE, Utils.dateFormat(insurance.initial_effective_date));
-        initialValues.put(INSURANCE_FINAL_EFFECTIVE_DATE, Utils.dateFormat(insurance.final_effective_date));
-        initialValues.put(INSURANCE_NET_PREMIUM_VALUE, insurance.net_premium_value);
-        initialValues.put(INSURANCE_TAX_AMOUNT, insurance.tax_amount);
-        initialValues.put(INSURANCE_TOTAL_PREMIUM_VALUE, insurance.total_premium_value);
-        initialValues.put(INSURANCE_INSURANCE_DEDUCTIBLE, insurance.insurance_deductible);
-        initialValues.put(INSURANCE_BONUS_CLASS, insurance.bonus_class);
-        initialValues.put(INSURANCE_NOTE, insurance.note);
-        initialValues.put(INSURANCE_STATUS, insurance.status);
-        initialValues.put(INSURANCE_TRAVEL_ID, insurance.travel_id);
-        initialValues.put(INSURANCE_VEHICLE_ID, insurance.vehicle_id);
+        initialValues.put(INSURANCE_ID, i.id);
+        initialValues.put(INSURANCE_INSURANCE_COMPANY_ID, i.insurance_company_id);
+        initialValues.put(INSURANCE_BROKER_ID, i.broker_id);
+        initialValues.put(INSURANCE_INSURANCE_TYPE, i.insurance_type);
+        initialValues.put(INSURANCE_INSURANCE_POLICY, i.insurance_policy);
+        initialValues.put(INSURANCE_DESCRIPTION, i.description);
+        initialValues.put(INSURANCE_ISSUANCE_DATE, Utils.dateFormat(i.issuance_date));
+        initialValues.put(INSURANCE_INITIAL_EFFECTIVE_DATE, Utils.dateFormat(i.initial_effective_date));
+        initialValues.put(INSURANCE_FINAL_EFFECTIVE_DATE, Utils.dateFormat(i.final_effective_date));
+        initialValues.put(INSURANCE_NET_PREMIUM_VALUE, i.net_premium_value);
+        initialValues.put(INSURANCE_TAX_AMOUNT, i.tax_amount);
+        initialValues.put(INSURANCE_TOTAL_PREMIUM_VALUE, i.total_premium_value);
+        initialValues.put(INSURANCE_INSURANCE_DEDUCTIBLE, i.insurance_deductible);
+        initialValues.put(INSURANCE_BONUS_CLASS, i.bonus_class);
+        initialValues.put(INSURANCE_NOTE, i.note);
+        initialValues.put(INSURANCE_STATUS, i.status);
+        initialValues.put(INSURANCE_TRAVEL_ID, i.travel_id);
+        initialValues.put(INSURANCE_VEHICLE_ID, i.vehicle_id);
     }
 
     private ContentValues getContentValue() {

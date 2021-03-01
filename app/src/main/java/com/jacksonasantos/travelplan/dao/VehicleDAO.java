@@ -105,198 +105,74 @@ public class VehicleDAO extends DbContentProvider implements VehicleISchema, Veh
         return (super.insert(VEHICLE_TABLE, getContentValue()) > 0);
     }
 
-    protected Vehicle cursorToEntity(Cursor cursor) {
-
-        Vehicle vehicle = new Vehicle();
-
-        int idIndex;
-        int vehicle_typeIndex;
-        int nameIndex;
-        int short_nameIndex;
-        int license_plateIndex;
-        int full_capacityIndex;
-        int avg_consumptionIndex;
-        int avg_cost_litreIndex;
-        int brandIndex;
-        int fuel_typeIndex;
-        int dt_acquisitionIndex;
-        int dt_saleIndex;
-        int dt_odometerIndex;
-        int odometerIndex;
-        int modelIndex;
-        int colorIndex;
-        int year_modelIndex;
-        int year_manufactureIndex;
-        int vinIndex;
-        int licence_numberIndex;
-        int stateIndex;
-        int cityIndex;
-        int doorsIndex;
-        int capacityIndex;
-        int powerIndex;
-        int estimated_valueIndex;
-        int dt_last_fuelingIndex;
-        int last_supply_reason_typeIndex;
-        int accumulated_number_litersIndex;
-        int accumulated_supply_valueIndex;
-
-        if (cursor != null) {
-            if (cursor.getColumnIndex(VEHICLE_ID) != -1) {
-                idIndex = cursor.getColumnIndexOrThrow(VEHICLE_ID);
-                vehicle.id = cursor.getInt(idIndex);
-            }
-            if (cursor.getColumnIndex(VEHICLE_VEHICLE_TYPE) != -1) {
-                vehicle_typeIndex = cursor.getColumnIndexOrThrow(VEHICLE_VEHICLE_TYPE);
-                vehicle.vehicle_type = cursor.getInt(vehicle_typeIndex);
-            }
-            if (cursor.getColumnIndex(VEHICLE_NAME) != -1) {
-                nameIndex = cursor.getColumnIndexOrThrow(VEHICLE_NAME);
-                vehicle.name = cursor.getString(nameIndex);
-            }
-            if (cursor.getColumnIndex(VEHICLE_SHORT_NAME) != -1) {
-                short_nameIndex = cursor.getColumnIndexOrThrow(VEHICLE_SHORT_NAME);
-                vehicle.short_name = cursor.getString(short_nameIndex);
-            }
-            if (cursor.getColumnIndex(VEHICLE_LICENCE_PLATE) != -1) {
-                license_plateIndex = cursor.getColumnIndexOrThrow(VEHICLE_LICENCE_PLATE);
-                vehicle.license_plate = cursor.getString(license_plateIndex);
-            }
-            if (cursor.getColumnIndex(VEHICLE_FULL_CAPACITY) != -1) {
-                full_capacityIndex = cursor.getColumnIndexOrThrow(VEHICLE_FULL_CAPACITY);
-                vehicle.full_capacity = cursor.getInt(full_capacityIndex);
-            }
-            if (cursor.getColumnIndex(VEHICLE_AVG_CONSUMPTION) != -1) {
-                avg_consumptionIndex = cursor.getColumnIndexOrThrow(VEHICLE_AVG_CONSUMPTION);
-                vehicle.avg_consumption = cursor.getFloat(avg_consumptionIndex);
-            }
-            if (cursor.getColumnIndex(VEHICLE_AVG_COST_LITRE) != -1) {
-                avg_cost_litreIndex = cursor.getColumnIndexOrThrow(VEHICLE_AVG_COST_LITRE);
-                vehicle.avg_cost_litre = cursor.getFloat(avg_cost_litreIndex);
-            }
-            if (cursor.getColumnIndex(VEHICLE_BRAND) != -1) {
-                brandIndex = cursor.getColumnIndexOrThrow(VEHICLE_BRAND);
-                vehicle.brand = cursor.getString(brandIndex);
-            }
-            if (cursor.getColumnIndex(VEHICLE_FUEL_TYPE) != -1) {
-                fuel_typeIndex = cursor.getColumnIndexOrThrow(VEHICLE_FUEL_TYPE);
-                vehicle.fuel_type = cursor.getInt(fuel_typeIndex);
-            }
-            if (cursor.getColumnIndex(VEHICLE_DT_ACQUISITION) != -1) {
-                dt_acquisitionIndex = cursor.getColumnIndexOrThrow(VEHICLE_DT_ACQUISITION);
-                    vehicle.dt_acquisition = Utils.dateParse(cursor.getString(dt_acquisitionIndex));
-            }
-            if (cursor.getColumnIndex(VEHICLE_DT_SALE) != -1) {
-                dt_saleIndex = cursor.getColumnIndexOrThrow(VEHICLE_DT_SALE);
-//                    vehicle.dt_sale = (cursor.getString(dt_saleIndex)==null?null:dateFormat.parse(cursor.getString(dt_saleIndex)));
-                    vehicle.dt_sale = Utils.dateParse(cursor.getString(dt_saleIndex));
-            }
-            if (cursor.getColumnIndex(VEHICLE_DT_ODOMETER) != -1) {
-                dt_odometerIndex = cursor.getColumnIndexOrThrow(VEHICLE_DT_ODOMETER);
-                    vehicle.dt_odometer = Utils.dateParse(cursor.getString(dt_odometerIndex));
-            }
-            if (cursor.getColumnIndex(VEHICLE_ODOMETER) != -1) {
-                odometerIndex = cursor.getColumnIndexOrThrow(VEHICLE_ODOMETER);
-                vehicle.odometer = cursor.getInt(odometerIndex);
-            }
-            if (cursor.getColumnIndex(VEHICLE_MODEL) != -1) {
-                modelIndex = cursor.getColumnIndexOrThrow(VEHICLE_MODEL);
-                vehicle.model = cursor.getString(modelIndex);
-            }
-            if (cursor.getColumnIndex(VEHICLE_COLOR) != -1) {
-                colorIndex = cursor.getColumnIndexOrThrow(VEHICLE_COLOR);
-                vehicle.color = cursor.getString(colorIndex);
-            }
-            if (cursor.getColumnIndex(VEHICLE_YEAR_MODEL) != -1) {
-                year_modelIndex = cursor.getColumnIndexOrThrow(VEHICLE_YEAR_MODEL);
-                vehicle.year_model = cursor.getString(year_modelIndex);
-            }
-            if (cursor.getColumnIndex(VEHICLE_YEAR_MANUFACTURE) != -1) {
-                year_manufactureIndex = cursor.getColumnIndexOrThrow(VEHICLE_YEAR_MANUFACTURE);
-                vehicle.year_manufacture = cursor.getString(year_manufactureIndex);
-            }
-            if (cursor.getColumnIndex(VEHICLE_VIN) != -1) {
-                vinIndex = cursor.getColumnIndexOrThrow(VEHICLE_VIN);
-                vehicle.vin = cursor.getString(vinIndex);
-            }
-            if (cursor.getColumnIndex(VEHICLE_LICENCE_NUMBER) != -1) {
-                licence_numberIndex = cursor.getColumnIndexOrThrow(VEHICLE_LICENCE_NUMBER);
-                vehicle.licence_number = cursor.getString(licence_numberIndex);
-            }
-            if (cursor.getColumnIndex(VEHICLE_STATE) != -1) {
-                stateIndex = cursor.getColumnIndexOrThrow(VEHICLE_STATE);
-                vehicle.state = cursor.getString(stateIndex);
-            }
-            if (cursor.getColumnIndex(VEHICLE_CITY) != -1) {
-                cityIndex = cursor.getColumnIndexOrThrow(VEHICLE_CITY);
-                vehicle.city = cursor.getString(cityIndex);
-            }
-            if (cursor.getColumnIndex(VEHICLE_DOORS) != -1) {
-                doorsIndex = cursor.getColumnIndexOrThrow(VEHICLE_DOORS);
-                vehicle.doors = cursor.getInt(doorsIndex);
-            }
-            if (cursor.getColumnIndex(VEHICLE_CAPACITY) != -1) {
-                capacityIndex = cursor.getColumnIndexOrThrow(VEHICLE_CAPACITY);
-                vehicle.capacity = cursor.getInt(capacityIndex);
-            }
-            if (cursor.getColumnIndex(VEHICLE_POWER) != -1) {
-                powerIndex = cursor.getColumnIndexOrThrow(VEHICLE_POWER);
-                vehicle.power = cursor.getInt(powerIndex);
-            }
-            if (cursor.getColumnIndex(VEHICLE_ESTIMATED_VALUE) != -1) {
-                estimated_valueIndex = cursor.getColumnIndexOrThrow(VEHICLE_ESTIMATED_VALUE);
-                vehicle.estimated_value = cursor.getDouble(estimated_valueIndex);
-            }
-            if (cursor.getColumnIndex(VEHICLE_DT_LAST_FUELING) != -1) {
-                dt_last_fuelingIndex = cursor.getColumnIndexOrThrow(VEHICLE_DT_LAST_FUELING);
-                vehicle.dt_last_fueling = Utils.dateParse(cursor.getString(dt_last_fuelingIndex));
-            }
-            if (cursor.getColumnIndex(VEHICLE_LAST_SUPPLY_REASON_TYPE) != -1) {
-                last_supply_reason_typeIndex = cursor.getColumnIndexOrThrow(VEHICLE_LAST_SUPPLY_REASON_TYPE);
-                vehicle.last_supply_reason_type = cursor.getInt(last_supply_reason_typeIndex);
-            }
-            if (cursor.getColumnIndex(VEHICLE_ACCUMULATED_NUMBER_LITERS) != -1) {
-                accumulated_number_litersIndex = cursor.getColumnIndexOrThrow(VEHICLE_ACCUMULATED_NUMBER_LITERS);
-                vehicle.accumulated_number_liters = cursor.getDouble(accumulated_number_litersIndex);
-            }
-            if (cursor.getColumnIndex(VEHICLE_ACCUMULATED_SUPPLY_VALUE) != -1) {
-                accumulated_supply_valueIndex = cursor.getColumnIndexOrThrow(VEHICLE_ACCUMULATED_SUPPLY_VALUE);
-                vehicle.accumulated_supply_value = cursor.getDouble(accumulated_supply_valueIndex);
-            }
+    protected Vehicle cursorToEntity(Cursor c) {
+        Vehicle v = new Vehicle();
+        if (c != null) {
+            if (c.getColumnIndex(VEHICLE_ID) != -1)                         {v.setId( c.getInt(c.getColumnIndexOrThrow(VEHICLE_ID))); }
+            if (c.getColumnIndex(VEHICLE_VEHICLE_TYPE) != -1)               {v.setVehicle_type(c.getInt(c.getColumnIndexOrThrow(VEHICLE_VEHICLE_TYPE))); }
+            if (c.getColumnIndex(VEHICLE_NAME) != -1)                       {v.setName(c.getString(c.getColumnIndexOrThrow(VEHICLE_NAME))); }
+            if (c.getColumnIndex(VEHICLE_SHORT_NAME) != -1)                 {v.setShort_name(c.getString( c.getColumnIndexOrThrow(VEHICLE_SHORT_NAME))); }
+            if (c.getColumnIndex(VEHICLE_LICENCE_PLATE) != -1)              {v.setLicense_plate(c.getString(c.getColumnIndexOrThrow(VEHICLE_LICENCE_PLATE))); }
+            if (c.getColumnIndex(VEHICLE_FULL_CAPACITY) != -1)              {v.setFull_capacity(c.getInt(c.getColumnIndexOrThrow(VEHICLE_FULL_CAPACITY))); }
+            if (c.getColumnIndex(VEHICLE_AVG_CONSUMPTION) != -1)            {v.setAvg_consumption(c.getFloat(c.getColumnIndexOrThrow(VEHICLE_AVG_CONSUMPTION))); }
+            if (c.getColumnIndex(VEHICLE_AVG_COST_LITRE) != -1)             {v.setAvg_cost_litre(c.getFloat(c.getColumnIndexOrThrow(VEHICLE_AVG_COST_LITRE))); }
+            if (c.getColumnIndex(VEHICLE_BRAND) != -1)                      {v.setBrand(c.getString(c.getColumnIndexOrThrow(VEHICLE_BRAND))); }
+            if (c.getColumnIndex(VEHICLE_FUEL_TYPE) != -1)                  {v.setFuel_type(c.getInt(c.getColumnIndexOrThrow(VEHICLE_FUEL_TYPE))); }
+            if (c.getColumnIndex(VEHICLE_DT_ACQUISITION) != -1)             {v.setDt_acquisition(Utils.dateParse(c.getString(c.getColumnIndexOrThrow(VEHICLE_DT_ACQUISITION)))); }
+            if (c.getColumnIndex(VEHICLE_DT_SALE) != -1)                    {v.setDt_sale(Utils.dateParse(c.getString(c.getColumnIndexOrThrow(VEHICLE_DT_SALE)))); }
+            if (c.getColumnIndex(VEHICLE_DT_ODOMETER) != -1)                {v.setDt_odometer(Utils.dateParse(c.getString(c.getColumnIndexOrThrow(VEHICLE_DT_ODOMETER)))); }
+            if (c.getColumnIndex(VEHICLE_ODOMETER) != -1)                   {v.setOdometer(c.getInt(c.getColumnIndexOrThrow(VEHICLE_ODOMETER))); }
+            if (c.getColumnIndex(VEHICLE_MODEL) != -1)                      {v.setModel(c.getString(c.getColumnIndexOrThrow(VEHICLE_MODEL))); }
+            if (c.getColumnIndex(VEHICLE_COLOR) != -1)                      {v.setColor(c.getString(c.getColumnIndexOrThrow(VEHICLE_COLOR))); }
+            if (c.getColumnIndex(VEHICLE_YEAR_MODEL) != -1)                 {v.setYear_model(c.getString(c.getColumnIndexOrThrow(VEHICLE_YEAR_MODEL))); }
+            if (c.getColumnIndex(VEHICLE_YEAR_MANUFACTURE) != -1)           {v.setYear_manufacture(c.getString(c.getColumnIndexOrThrow(VEHICLE_YEAR_MANUFACTURE))); }
+            if (c.getColumnIndex(VEHICLE_VIN) != -1)                        {v.setVin(c.getString(c.getColumnIndexOrThrow(VEHICLE_VIN))); }
+            if (c.getColumnIndex(VEHICLE_LICENCE_NUMBER) != -1)             {v.setLicence_number(c.getString(c.getColumnIndexOrThrow(VEHICLE_LICENCE_NUMBER))); }
+            if (c.getColumnIndex(VEHICLE_STATE) != -1)                      {v.setState(c.getString(c.getColumnIndexOrThrow(VEHICLE_STATE))); }
+            if (c.getColumnIndex(VEHICLE_CITY) != -1)                       {v.setCity(c.getString(c.getColumnIndexOrThrow(VEHICLE_CITY))); }
+            if (c.getColumnIndex(VEHICLE_DOORS) != -1)                      {v.setDoors(c.getInt(c.getColumnIndexOrThrow(VEHICLE_DOORS))); }
+            if (c.getColumnIndex(VEHICLE_CAPACITY) != -1)                   {v.setCapacity(c.getInt(c.getColumnIndexOrThrow(VEHICLE_CAPACITY))); }
+            if (c.getColumnIndex(VEHICLE_POWER) != -1)                      {v.setPower(c.getInt(c.getColumnIndexOrThrow(VEHICLE_POWER))); }
+            if (c.getColumnIndex(VEHICLE_ESTIMATED_VALUE) != -1)            {v.setEstimated_value(c.getDouble(c.getColumnIndexOrThrow(VEHICLE_ESTIMATED_VALUE))); }
+            if (c.getColumnIndex(VEHICLE_DT_LAST_FUELING) != -1)            {v.setDt_last_fueling(Utils.dateParse(c.getString(c.getColumnIndexOrThrow(VEHICLE_DT_LAST_FUELING)))); }
+            if (c.getColumnIndex(VEHICLE_LAST_SUPPLY_REASON_TYPE) != -1)    {v.setLast_supply_reason_type(c.getInt(c.getColumnIndexOrThrow(VEHICLE_LAST_SUPPLY_REASON_TYPE))); }
+            if (c.getColumnIndex(VEHICLE_ACCUMULATED_NUMBER_LITERS) != -1)  {v.setAccumulated_number_liters(c.getDouble(c.getColumnIndexOrThrow(VEHICLE_ACCUMULATED_NUMBER_LITERS))); }
+            if (c.getColumnIndex(VEHICLE_ACCUMULATED_SUPPLY_VALUE) != -1)   {v.setAccumulated_supply_value(c.getDouble(c.getColumnIndexOrThrow(VEHICLE_ACCUMULATED_SUPPLY_VALUE))); }
         }
-        return vehicle;
+        return v;
     }
 
-    private void setContentValue(Vehicle vehicle) {
+    private void setContentValue(Vehicle v) {
         initialValues = new ContentValues();
-        initialValues.put(VEHICLE_ID, vehicle.id);
-        initialValues.put(VEHICLE_VEHICLE_TYPE, vehicle.vehicle_type);
-        initialValues.put(VEHICLE_NAME, vehicle.name);
-        initialValues.put(VEHICLE_LICENCE_PLATE, vehicle.license_plate);
-        initialValues.put(VEHICLE_FULL_CAPACITY, vehicle.full_capacity);
-        initialValues.put(VEHICLE_AVG_CONSUMPTION, vehicle.avg_consumption);
-        initialValues.put(VEHICLE_BRAND, vehicle.brand);
-        initialValues.put(VEHICLE_FUEL_TYPE, vehicle.fuel_type);
-        initialValues.put(VEHICLE_SHORT_NAME, vehicle.short_name);
-        initialValues.put(VEHICLE_DT_ACQUISITION, Utils.dateFormat(vehicle.dt_acquisition));
-        initialValues.put(VEHICLE_DT_SALE, Utils.dateFormat(vehicle.dt_sale));
-        initialValues.put(VEHICLE_DT_ODOMETER, Utils.dateFormat(vehicle.dt_odometer));
-        initialValues.put(VEHICLE_ODOMETER, vehicle.odometer);
-        initialValues.put(VEHICLE_MODEL, vehicle.model);
-        initialValues.put(VEHICLE_COLOR, vehicle.color);
-        initialValues.put(VEHICLE_YEAR_MODEL, vehicle.year_model);
-        initialValues.put(VEHICLE_YEAR_MANUFACTURE, vehicle.year_manufacture);
-        initialValues.put(VEHICLE_VIN, vehicle.vin);
-        initialValues.put(VEHICLE_LICENCE_NUMBER, vehicle.licence_number);
-        initialValues.put(VEHICLE_STATE, vehicle.state);
-        initialValues.put(VEHICLE_CITY, vehicle.city);
-        initialValues.put(VEHICLE_DOORS, vehicle.doors);
-        initialValues.put(VEHICLE_CAPACITY, vehicle.capacity);
-        initialValues.put(VEHICLE_POWER, vehicle.power);
-        initialValues.put(VEHICLE_ESTIMATED_VALUE, vehicle.estimated_value);
-        initialValues.put(VEHICLE_DT_LAST_FUELING, Utils.dateFormat(vehicle.dt_last_fueling)) ;
-        initialValues.put(VEHICLE_LAST_SUPPLY_REASON_TYPE, vehicle.last_supply_reason_type);
-        initialValues.put(VEHICLE_ACCUMULATED_NUMBER_LITERS, vehicle.accumulated_number_liters);
-        initialValues.put(VEHICLE_ACCUMULATED_SUPPLY_VALUE, vehicle.accumulated_supply_value);
+        initialValues.put(VEHICLE_ID, v.id);
+        initialValues.put(VEHICLE_VEHICLE_TYPE, v.vehicle_type);
+        initialValues.put(VEHICLE_NAME, v.name);
+        initialValues.put(VEHICLE_LICENCE_PLATE, v.license_plate);
+        initialValues.put(VEHICLE_FULL_CAPACITY, v.full_capacity);
+        initialValues.put(VEHICLE_AVG_CONSUMPTION, v.avg_consumption);
+        initialValues.put(VEHICLE_BRAND, v.brand);
+        initialValues.put(VEHICLE_FUEL_TYPE, v.fuel_type);
+        initialValues.put(VEHICLE_SHORT_NAME, v.short_name);
+        initialValues.put(VEHICLE_DT_ACQUISITION, Utils.dateFormat(v.dt_acquisition));
+        initialValues.put(VEHICLE_DT_SALE, Utils.dateFormat(v.dt_sale));
+        initialValues.put(VEHICLE_DT_ODOMETER, Utils.dateFormat(v.dt_odometer));
+        initialValues.put(VEHICLE_ODOMETER, v.odometer);
+        initialValues.put(VEHICLE_MODEL, v.model);
+        initialValues.put(VEHICLE_COLOR, v.color);
+        initialValues.put(VEHICLE_YEAR_MODEL, v.year_model);
+        initialValues.put(VEHICLE_YEAR_MANUFACTURE, v.year_manufacture);
+        initialValues.put(VEHICLE_VIN, v.vin);
+        initialValues.put(VEHICLE_LICENCE_NUMBER, v.licence_number);
+        initialValues.put(VEHICLE_STATE, v.state);
+        initialValues.put(VEHICLE_CITY, v.city);
+        initialValues.put(VEHICLE_DOORS, v.doors);
+        initialValues.put(VEHICLE_CAPACITY, v.capacity);
+        initialValues.put(VEHICLE_POWER, v.power);
+        initialValues.put(VEHICLE_ESTIMATED_VALUE, v.estimated_value);
+        initialValues.put(VEHICLE_DT_LAST_FUELING, Utils.dateFormat(v.dt_last_fueling)) ;
+        initialValues.put(VEHICLE_LAST_SUPPLY_REASON_TYPE, v.last_supply_reason_type);
+        initialValues.put(VEHICLE_ACCUMULATED_NUMBER_LITERS, v.accumulated_number_liters);
+        initialValues.put(VEHICLE_ACCUMULATED_SUPPLY_VALUE, v.accumulated_supply_value);
     }
 
     private ContentValues getContentValue() {

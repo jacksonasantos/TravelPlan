@@ -84,79 +84,35 @@ public class ItineraryDAO extends DbContentProvider implements ItineraryISchema,
         return (super.insert(ITINERARY_TABLE, getContentValue()) > 0);
     }
 
-    protected Itinerary cursorToEntity(Cursor cursor) {
-
-        Itinerary itinerary = new Itinerary();
-
-        int idIndex;
-        int travel_idIndex;
-        int sequenceIndex;
-        int orig_locationIndex;
-        int dest_locationIndex;
-        int latlng_trip_origIndex;
-        int latlng_trip_destIndex;
-        int dailyIndex;
-        int distanceIndex;
-        int timeIndex;
-
-        if (cursor != null) {
-            if (cursor.getColumnIndex(ITINERARY_ID) != -1) {
-                idIndex = cursor.getColumnIndexOrThrow(ITINERARY_ID);
-                itinerary.setId(cursor.getInt(idIndex));
-            }
-            if (cursor.getColumnIndex(ITINERARY_TRAVEL_ID) != -1) {
-                travel_idIndex = cursor.getColumnIndexOrThrow(ITINERARY_TRAVEL_ID);
-                itinerary.setTravel_id(cursor.getInt(travel_idIndex));
-            }
-            if (cursor.getColumnIndex(ITINERARY_SEQUENCE) != -1) {
-                sequenceIndex = cursor.getColumnIndexOrThrow(ITINERARY_SEQUENCE);
-                itinerary.setSequence(cursor.getInt(sequenceIndex));
-            }
-            if (cursor.getColumnIndex(ITINERARY_ORIG_LOCATION) != -1) {
-                orig_locationIndex = cursor.getColumnIndexOrThrow(ITINERARY_ORIG_LOCATION);
-                itinerary.setOrig_location(cursor.getString(orig_locationIndex));
-            }
-            if (cursor.getColumnIndex(ITINERARY_DEST_LOCATION) != -1) {
-                dest_locationIndex = cursor.getColumnIndexOrThrow(ITINERARY_DEST_LOCATION);
-                itinerary.setDest_location(cursor.getString(dest_locationIndex));
-            }
-            if (cursor.getColumnIndex(ITINERARY_LATLNG_TRIP_ORIG) != -1) {
-                latlng_trip_origIndex = cursor.getColumnIndexOrThrow(ITINERARY_LATLNG_TRIP_ORIG);
-                itinerary.setLatlng_trip_orig(cursor.getString(latlng_trip_origIndex));
-            }
-            if (cursor.getColumnIndex(ITINERARY_LATLNG_TRIP_DEST) != -1) {
-                latlng_trip_destIndex = cursor.getColumnIndexOrThrow(ITINERARY_LATLNG_TRIP_DEST);
-                itinerary.setLatlng_trip_dest(cursor.getString(latlng_trip_destIndex));
-            }
-            if (cursor.getColumnIndex(ITINERARY_DISTANCE) != -1) {
-                distanceIndex = cursor.getColumnIndexOrThrow(ITINERARY_DISTANCE);
-                itinerary.setDistance(cursor.getInt(distanceIndex));
-            }
-            if (cursor.getColumnIndex(ITINERARY_DAILY) != -1) {
-                dailyIndex = cursor.getColumnIndexOrThrow(ITINERARY_DAILY);
-                itinerary.setDaily(cursor.getInt(dailyIndex));
-            }
-            if (cursor.getColumnIndex(ITINERARY_TIME) != -1) {
-                timeIndex = cursor.getColumnIndexOrThrow(ITINERARY_TIME);
-                itinerary.setTime(cursor.getString(timeIndex));
-            }
+    protected Itinerary cursorToEntity(Cursor c) {
+        Itinerary i = new Itinerary();
+        if (c != null) {
+            if (c.getColumnIndex(ITINERARY_ID) != -1)               {i.setId(c.getInt(c.getColumnIndexOrThrow(ITINERARY_ID))); }
+            if (c.getColumnIndex(ITINERARY_TRAVEL_ID) != -1)        {i.setTravel_id(c.getInt(c.getColumnIndexOrThrow(ITINERARY_TRAVEL_ID))); }
+            if (c.getColumnIndex(ITINERARY_SEQUENCE) != -1)         {i.setSequence(c.getInt(c.getColumnIndexOrThrow(ITINERARY_SEQUENCE))); }
+            if (c.getColumnIndex(ITINERARY_ORIG_LOCATION) != -1)    {i.setOrig_location(c.getString(c.getColumnIndexOrThrow(ITINERARY_ORIG_LOCATION))); }
+            if (c.getColumnIndex(ITINERARY_DEST_LOCATION) != -1)    {i.setDest_location(c.getString(c.getColumnIndexOrThrow(ITINERARY_DEST_LOCATION))); }
+            if (c.getColumnIndex(ITINERARY_LATLNG_TRIP_ORIG) != -1) {i.setLatlng_trip_orig(c.getString(c.getColumnIndexOrThrow(ITINERARY_LATLNG_TRIP_ORIG))); }
+            if (c.getColumnIndex(ITINERARY_LATLNG_TRIP_DEST) != -1) {i.setLatlng_trip_dest(c.getString(c.getColumnIndexOrThrow(ITINERARY_LATLNG_TRIP_DEST))); }
+            if (c.getColumnIndex(ITINERARY_DISTANCE) != -1)         {i.setDistance(c.getInt(c.getColumnIndexOrThrow(ITINERARY_DISTANCE))); }
+            if (c.getColumnIndex(ITINERARY_DAILY) != -1)            {i.setDaily(c.getInt(c.getColumnIndexOrThrow(ITINERARY_DAILY))); }
+            if (c.getColumnIndex(ITINERARY_TIME) != -1)             {i.setTime(c.getString(c.getColumnIndexOrThrow(ITINERARY_TIME))); }
         }
-        return itinerary;
+        return i;
     }
 
-    private void setContentValue(Itinerary itinerary) {
-
+    private void setContentValue(Itinerary i) {
         initialValues = new ContentValues();
-        initialValues.put(ITINERARY_ID, itinerary.id);
-        initialValues.put(ITINERARY_TRAVEL_ID, itinerary.travel_id);
-        initialValues.put(ITINERARY_SEQUENCE, itinerary.sequence);
-        initialValues.put(ITINERARY_ORIG_LOCATION, itinerary.orig_location);
-        initialValues.put(ITINERARY_DEST_LOCATION, itinerary.dest_location);
-        initialValues.put(ITINERARY_LATLNG_TRIP_ORIG, itinerary.latlng_trip_orig);
-        initialValues.put(ITINERARY_LATLNG_TRIP_DEST, itinerary.latlng_trip_dest);
-        initialValues.put(ITINERARY_DAILY, itinerary.daily);
-        initialValues.put(ITINERARY_DISTANCE, itinerary.distance);
-        initialValues.put(ITINERARY_TIME, itinerary.time);
+        initialValues.put(ITINERARY_ID, i.id);
+        initialValues.put(ITINERARY_TRAVEL_ID, i.travel_id);
+        initialValues.put(ITINERARY_SEQUENCE, i.sequence);
+        initialValues.put(ITINERARY_ORIG_LOCATION, i.orig_location);
+        initialValues.put(ITINERARY_DEST_LOCATION, i.dest_location);
+        initialValues.put(ITINERARY_LATLNG_TRIP_ORIG, i.latlng_trip_orig);
+        initialValues.put(ITINERARY_LATLNG_TRIP_DEST, i.latlng_trip_dest);
+        initialValues.put(ITINERARY_DAILY, i.daily);
+        initialValues.put(ITINERARY_DISTANCE, i.distance);
+        initialValues.put(ITINERARY_TIME, i.time);
     }
 
     private ContentValues getContentValue() {

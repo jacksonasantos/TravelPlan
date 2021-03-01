@@ -112,78 +112,35 @@ public class InsuranceCompanyDAO extends DbContentProvider implements InsuranceC
         return (super.insert(INSURANCE_COMPANY_TABLE, getContentValue()) > 0);
     }
 
-    protected InsuranceCompany cursorToEntity(Cursor cursor) {
-
-        InsuranceCompany insuranceCompany = new InsuranceCompany();
-
-        int idIndex;
-        int company_nameIndex;
-        int cnpjIndex;
-        int fip_codeIndex;
-        int addressIndex;
-        int cityIndex;
-        int stateIndex;
-        int zip_codeIndex;
-        int telephoneIndex;
-        int authorization_dateIndex;
-
-        if (cursor != null) {
-            if (cursor.getColumnIndex(INSURANCE_COMPANY_ID) != -1) {
-                idIndex = cursor.getColumnIndexOrThrow(INSURANCE_COMPANY_ID);
-                insuranceCompany.setId(cursor.getInt(idIndex));
-            }
-            if (cursor.getColumnIndex(INSURANCE_COMPANY_COMPANY_NAME) != -1) {
-                company_nameIndex = cursor.getColumnIndexOrThrow(INSURANCE_COMPANY_COMPANY_NAME);
-                insuranceCompany.setCompany_name(cursor.getString(company_nameIndex));
-            }
-            if (cursor.getColumnIndex(INSURANCE_COMPANY_CNPJ) != -1) {
-                cnpjIndex = cursor.getColumnIndexOrThrow(INSURANCE_COMPANY_CNPJ);
-                insuranceCompany.setCnpj(cursor.getString(cnpjIndex));
-            }
-            if (cursor.getColumnIndex(INSURANCE_COMPANY_FIP_CODE) != -1) {
-                fip_codeIndex = cursor.getColumnIndexOrThrow(INSURANCE_COMPANY_FIP_CODE);
-                insuranceCompany.setFip_code(cursor.getString(fip_codeIndex));
-            }
-            if (cursor.getColumnIndex(INSURANCE_COMPANY_ADDRESS) != -1) {
-                addressIndex = cursor.getColumnIndexOrThrow(INSURANCE_COMPANY_ADDRESS);
-                insuranceCompany.setAddress(cursor.getString(addressIndex));
-            }
-            if (cursor.getColumnIndex(INSURANCE_COMPANY_CITY) != -1) {
-                cityIndex = cursor.getColumnIndexOrThrow(INSURANCE_COMPANY_CITY);
-                insuranceCompany.setCity(cursor.getString(cityIndex));
-            }
-            if (cursor.getColumnIndex(INSURANCE_COMPANY_STATE) != -1) {
-                stateIndex = cursor.getColumnIndexOrThrow(INSURANCE_COMPANY_STATE);
-                insuranceCompany.setState(cursor.getString(stateIndex));
-            }
-            if (cursor.getColumnIndex(INSURANCE_COMPANY_ZIP_CODE) != -1) {
-                zip_codeIndex = cursor.getColumnIndexOrThrow(INSURANCE_COMPANY_ZIP_CODE);
-                insuranceCompany.setZip_code(cursor.getString(zip_codeIndex));
-            }
-            if (cursor.getColumnIndex(INSURANCE_COMPANY_TELEPHONE) != -1) {
-                telephoneIndex = cursor.getColumnIndexOrThrow(INSURANCE_COMPANY_TELEPHONE);
-                insuranceCompany.setTelephone(cursor.getString(telephoneIndex));
-            }
-            if (cursor.getColumnIndex(INSURANCE_COMPANY_AUTHORIZATION_DATE) != -1) {
-                authorization_dateIndex = cursor.getColumnIndexOrThrow(INSURANCE_COMPANY_AUTHORIZATION_DATE);
-                insuranceCompany.setAuthorization_date(Utils.dateParse(cursor.getString(authorization_dateIndex)));
-            }
+    protected InsuranceCompany cursorToEntity(Cursor c) {
+        InsuranceCompany iC = new InsuranceCompany();
+        if (c != null) {
+            if (c.getColumnIndex(INSURANCE_COMPANY_ID) != -1)                  {iC.setId(c.getInt(c.getColumnIndexOrThrow(INSURANCE_COMPANY_ID)));}
+            if (c.getColumnIndex(INSURANCE_COMPANY_COMPANY_NAME) != -1)        {iC.setCompany_name(c.getString(c.getColumnIndexOrThrow(INSURANCE_COMPANY_COMPANY_NAME))); }
+            if (c.getColumnIndex(INSURANCE_COMPANY_CNPJ) != -1)                {iC.setCnpj(c.getString(c.getColumnIndexOrThrow(INSURANCE_COMPANY_CNPJ))); }
+            if (c.getColumnIndex(INSURANCE_COMPANY_FIP_CODE) != -1)            {iC.setFip_code(c.getString(c.getColumnIndexOrThrow(INSURANCE_COMPANY_FIP_CODE)));}
+            if (c.getColumnIndex(INSURANCE_COMPANY_ADDRESS) != -1)             {iC.setAddress(c.getString(c.getColumnIndexOrThrow(INSURANCE_COMPANY_ADDRESS))); }
+            if (c.getColumnIndex(INSURANCE_COMPANY_CITY) != -1)                {iC.setCity(c.getString(c.getColumnIndexOrThrow(INSURANCE_COMPANY_CITY))); }
+            if (c.getColumnIndex(INSURANCE_COMPANY_STATE) != -1)               {iC.setState(c.getString(c.getColumnIndexOrThrow(INSURANCE_COMPANY_STATE)));}
+            if (c.getColumnIndex(INSURANCE_COMPANY_ZIP_CODE) != -1)            {iC.setZip_code(c.getString(c.getColumnIndexOrThrow(INSURANCE_COMPANY_ZIP_CODE))); }
+            if (c.getColumnIndex(INSURANCE_COMPANY_TELEPHONE) != -1)           {iC.setTelephone(c.getString( c.getColumnIndexOrThrow(INSURANCE_COMPANY_TELEPHONE))); }
+            if (c.getColumnIndex(INSURANCE_COMPANY_AUTHORIZATION_DATE) != -1)  {iC.setAuthorization_date(Utils.dateParse(c.getString(c.getColumnIndexOrThrow(INSURANCE_COMPANY_AUTHORIZATION_DATE)))); }
         }
-        return insuranceCompany;
+        return iC;
     }
 
-    private void setContentValue(InsuranceCompany insuranceCompany) {
+    private void setContentValue(InsuranceCompany iC) {
         initialValues = new ContentValues();
-        initialValues.put(INSURANCE_COMPANY_ID, insuranceCompany.id);
-        initialValues.put(INSURANCE_COMPANY_COMPANY_NAME, insuranceCompany.company_name);
-        initialValues.put(INSURANCE_COMPANY_CNPJ, insuranceCompany.cnpj);
-        initialValues.put(INSURANCE_COMPANY_FIP_CODE, insuranceCompany.fip_code);
-        initialValues.put(INSURANCE_COMPANY_ADDRESS, insuranceCompany.address);
-        initialValues.put(INSURANCE_COMPANY_CITY, insuranceCompany.city);
-        initialValues.put(INSURANCE_COMPANY_STATE, insuranceCompany.state);
-        initialValues.put(INSURANCE_COMPANY_ZIP_CODE, insuranceCompany.zip_code);
-        initialValues.put(INSURANCE_COMPANY_TELEPHONE, insuranceCompany.telephone);
-        initialValues.put(INSURANCE_COMPANY_AUTHORIZATION_DATE, Utils.dateFormat(insuranceCompany.authorization_date));
+        initialValues.put(INSURANCE_COMPANY_ID, iC.id);
+        initialValues.put(INSURANCE_COMPANY_COMPANY_NAME, iC.company_name);
+        initialValues.put(INSURANCE_COMPANY_CNPJ, iC.cnpj);
+        initialValues.put(INSURANCE_COMPANY_FIP_CODE, iC.fip_code);
+        initialValues.put(INSURANCE_COMPANY_ADDRESS, iC.address);
+        initialValues.put(INSURANCE_COMPANY_CITY, iC.city);
+        initialValues.put(INSURANCE_COMPANY_STATE, iC.state);
+        initialValues.put(INSURANCE_COMPANY_ZIP_CODE, iC.zip_code);
+        initialValues.put(INSURANCE_COMPANY_TELEPHONE, iC.telephone);
+        initialValues.put(INSURANCE_COMPANY_AUTHORIZATION_DATE, Utils.dateFormat(iC.authorization_date));
     }
 
     private ContentValues getContentValue() {
