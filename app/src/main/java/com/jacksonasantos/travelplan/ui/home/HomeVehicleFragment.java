@@ -135,7 +135,7 @@ public class HomeVehicleFragment extends Fragment implements View.OnClickListene
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
-                // Recupera dados do veículo selecionado no Spinner - layerVehicle
+                // Retrieves data from the vehicle selected in Spinner - layerVehicle
                 vehicle[0] = (Vehicle) parent.getItemAtPosition(position);
                 tvLicencePlate.setText(vehicle[0].getLicense_plate());
                 imVehicleType.setImageResource(vehicle[0].getVehicleTypeImage(vehicle[0].getVehicle_type()));
@@ -234,21 +234,23 @@ public class HomeVehicleFragment extends Fragment implements View.OnClickListene
         for(int type=1; type<=reasonTypeArray.length; type++){
             List<VehicleGraphStatistics> graphHelper = Database.mVehicleGraphStatisticsDao.findLastVehicleGraphStatistics(g.getIdVehicle(), type);
             DataPoint[] dataSeries = new DataPoint[graphHelper.size()];
-            for(int x = 0;x<graphHelper.size(); x++){
-                dataSeries[x] = new DataPoint(graphHelper.get(x).getXaxis_date(), graphHelper.get(x).getYaxis_avg_consumption());
+            if (graphHelper.size()>0){
+                for(int x = 0;x<graphHelper.size(); x++){
+                    dataSeries[x] = new DataPoint(graphHelper.get(x).getXaxis_date(), graphHelper.get(x).getYaxis_avg_consumption());
+                }
+                if (dataSeries.length > tamHorizontalLabels)
+                    tamHorizontalLabels = dataSeries.length;
+                if (tamHorizontalLabels > 10) tamHorizontalLabels = 10;
+                LineGraphSeries<DataPoint> series = new LineGraphSeries<>(dataSeries);
+                series.setColor(VehicleStatistics.getSupply_reason_type_color(type));
+                series.setDrawDataPoints(true);
+                series.setDataPointsRadius(7);
+                graphStatistics.addSeries(series);
+                vMinX = vMinX==0?series.getLowestValueX():Math.min(series.getLowestValueX(), vMinX);
+                vMaxX = vMaxX==0?series.getHighestValueX():Math.max(series.getHighestValueX(), vMaxX);
+                vMinY = vMinY==0?series.getLowestValueY():Math.min(series.getLowestValueY(), vMinY);
+                vMaxY = vMaxY==0?series.getHighestValueY():Math.max(series.getHighestValueY(), vMaxY);
             }
-            if (dataSeries.length > tamHorizontalLabels)
-                tamHorizontalLabels = dataSeries.length;
-            if (tamHorizontalLabels > 10) tamHorizontalLabels = 10;
-            LineGraphSeries<DataPoint> series = new LineGraphSeries<>(dataSeries);
-            series.setColor(VehicleStatistics.getSupply_reason_type_color(type));
-            series.setDrawDataPoints(true);
-            series.setDataPointsRadius(7);
-            graphStatistics.addSeries(series);
-            vMinX = vMinX==0?series.getLowestValueX():Math.min(series.getLowestValueX(), vMinX);
-            vMaxX = vMaxX==0?series.getHighestValueX():Math.max(series.getHighestValueX(), vMaxX);
-            vMinY = vMinY==0?series.getLowestValueY():Math.min(series.getLowestValueY(), vMinY);
-            vMaxY = vMaxY==0?series.getHighestValueY():Math.max(series.getHighestValueY(), vMaxY);
         }
     }
 
