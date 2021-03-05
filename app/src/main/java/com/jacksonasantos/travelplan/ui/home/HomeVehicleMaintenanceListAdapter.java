@@ -3,13 +3,11 @@ package com.jacksonasantos.travelplan.ui.home;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Color;
-import android.graphics.PorterDuff;
 import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -43,7 +41,6 @@ public class HomeVehicleMaintenanceListAdapter extends RecyclerView.Adapter<Home
     public static class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         private final ConstraintLayout llMaintenance;
-        private final ImageView imServiceStatus;
         private final TextView txtDate;
         private final TextView txtValue;
         private final TextView txtOdometer;
@@ -53,7 +50,6 @@ public class HomeVehicleMaintenanceListAdapter extends RecyclerView.Adapter<Home
         public MyViewHolder(View v) {
             super(v);
             llMaintenance = v.findViewById(R.id.llMaintenance);
-            imServiceStatus = v.findViewById(R.id.imServiceStatus);
             txtDate = v.findViewById(R.id.txtDate);
             txtValue = v.findViewById(R.id.txtValue);
             txtOdometer = v.findViewById(R.id.txtOdometer);
@@ -94,8 +90,6 @@ public class HomeVehicleMaintenanceListAdapter extends RecyclerView.Adapter<Home
             holder.llMaintenance.setBackgroundColor(Color.WHITE);
         }
 
-        holder.imServiceStatus.setImageResource(R.drawable.ic_ball );
-        holder.imServiceStatus.setColorFilter(maintenance.getColorStatus(maintenance.getStatus()), PorterDuff.Mode.MULTIPLY);
         holder.txtDate.setText(Utils.dateToString(maintenance.getDate()));
         holder.txtValue.setText(currencyFormatter.format(maintenance.getValue()==0? BigDecimal.ZERO:maintenance.getValue()));
         holder.txtOdometer.setText(String.valueOf(maintenance.getOdometer()));
@@ -107,7 +101,7 @@ public class HomeVehicleMaintenanceListAdapter extends RecyclerView.Adapter<Home
             public void onClick(View v) {
                 try {
                     Maintenance m1 = Database.mMaintenanceDao.fetchMaintenanceById(maintenance.getId());
-                    m1.setStatus(2);  // executed
+                    //m1.setStatus(2);  // executed
                     if (Database.mMaintenanceDao.updateMaintenance(m1)) {
                         mMaintenance.remove(position);
                         notifyDataSetChanged();

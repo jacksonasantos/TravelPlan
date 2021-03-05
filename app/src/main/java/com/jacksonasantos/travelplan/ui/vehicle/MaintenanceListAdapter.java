@@ -3,7 +3,6 @@ package com.jacksonasantos.travelplan.ui.vehicle;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.PorterDuff;
 import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -53,7 +52,6 @@ public class MaintenanceListAdapter extends RecyclerView.Adapter<MaintenanceList
             super(v);
             txtMaintenanceDate = v.findViewById(R.id.txtMaintenanceDate);
             txtVehicleName = v.findViewById(R.id.txtVehicleName);
-            imServiceExpired = v.findViewById(R.id.imServiceExpired);
             txtMaintenanceValue = v.findViewById(R.id.txtMaintenanceValue);
             txtMaintenanceDetail = v.findViewById(R.id.txtMaintenanceDetail);
             btnEdit = v.findViewById(R.id.btnEdit);
@@ -92,8 +90,6 @@ public class MaintenanceListAdapter extends RecyclerView.Adapter<MaintenanceList
         Vehicle v = Database.mVehicleDao.fetchVehicleById(maintenance.getVehicle_id());
         holder.txtMaintenanceDate.setText(Utils.dateToString(maintenance.getDate()));
         holder.txtVehicleName.setText(v.getName());
-        holder.imServiceExpired.setImageResource(R.drawable.ic_ball );
-        holder.imServiceExpired.setColorFilter(maintenance.getColorStatus(maintenance.getStatus()), PorterDuff.Mode.MULTIPLY);
         holder.txtMaintenanceValue.setText(currencyFormatter.format(maintenance.getValue()));
         holder.txtMaintenanceDetail.setText(maintenance.getDetail());
 

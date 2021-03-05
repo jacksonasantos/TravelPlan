@@ -64,8 +64,7 @@ public class MaintenanceDAO extends DbContentProvider implements MaintenanceISch
         List<Maintenance> maintenanceList = new ArrayList<>();
 
         final String[] selectionArgs = { String.valueOf(vehicle_id) };
-        final String selection = MAINTENANCE_VEHICLE_ID + " = ? AND " +
-                                 MAINTENANCE_STATUS + " != 2";
+        final String selection = MAINTENANCE_VEHICLE_ID + " = ? ";
 
         cursor = super.query(MAINTENANCE_TABLE, MAINTENANCE_COLUMNS, selection, selectionArgs, MAINTENANCE_DATE + " DESC");
 
@@ -109,7 +108,6 @@ public class MaintenanceDAO extends DbContentProvider implements MaintenanceISch
             if (c.getColumnIndex(MAINTENANCE_VALUE) != -1)           {m.setValue(c.getDouble(c.getColumnIndexOrThrow(MAINTENANCE_VALUE))); }
             if (c.getColumnIndex(MAINTENANCE_LOCATION) != -1)        {m.setLocation(c.getString(c.getColumnIndexOrThrow(MAINTENANCE_LOCATION))); }
             if (c.getColumnIndex(MAINTENANCE_NOTE) != -1)            {m.setNote(c.getString(c.getColumnIndexOrThrow(MAINTENANCE_NOTE))); }
-            if (c.getColumnIndex(MAINTENANCE_STATUS) != -1)          {m.setStatus(c.getInt(c.getColumnIndexOrThrow(MAINTENANCE_STATUS))); }
         }
         return m;
     }
@@ -124,7 +122,6 @@ public class MaintenanceDAO extends DbContentProvider implements MaintenanceISch
         initialValues.put(MAINTENANCE_VALUE, m.value);
         initialValues.put(MAINTENANCE_LOCATION, m.location);
         initialValues.put(MAINTENANCE_NOTE, m.note);
-        initialValues.put(MAINTENANCE_STATUS, m.status);
     }
 
     private ContentValues getContentValue() {

@@ -8,25 +8,15 @@
     android:layout_height="wrap_content"
     tools:context=".ui.home.HomeVehicleFragment">
 
-    <ImageView
-        android:id="@+id/imServiceStatus"
-        android:layout_width="22dp"
-        android:layout_height="0dp"
-        android:contentDescription="@string/Maintenance_Type"
-        app:layout_constraintBottom_toBottomOf="@+id/btnDone"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/btnDone" />
 
     <TextView
         android:id="@+id/txtDate"
         android:layout_width="110dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/labels_marginLeft"
-        android:layout_marginLeft="@dimen/labels_marginLeft"
         android:gravity="start|center_vertical"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/txtDetail"
-        app:layout_constraintStart_toEndOf="@+id/imServiceStatus"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/btnDone" />
 
     <TextView
@@ -54,12 +44,10 @@
         android:id="@+id/txtDetail"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/labels_marginLeft"
-        android:layout_marginLeft="@dimen/labels_marginLeft"
         android:gravity="start|center_vertical"
         app:layout_constraintBottom_toBottomOf="@+id/btnDone"
         app:layout_constraintEnd_toStartOf="@+id/btnDone"
-        app:layout_constraintStart_toEndOf="@+id/imServiceStatus" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <ImageButton
         android:id="@+id/btnDone"

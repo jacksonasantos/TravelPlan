@@ -1,7 +1,5 @@
 package com.jacksonasantos.travelplan.dao;
 
-import android.graphics.Color;
-
 import java.util.Date;
 
 public class Maintenance {
@@ -13,7 +11,6 @@ public class Maintenance {
     public Double value;
     public String location;
     public String note;
-    public int status;
 
     public Maintenance() {
         this.id = id;
@@ -24,7 +21,6 @@ public class Maintenance {
         this.value=value;
         this.location=location;
         this.note=note;
-        this.status=status;
     }
 
     public Integer getId() { return id; }
@@ -51,13 +47,4 @@ public class Maintenance {
     public String getNote() { return note; }
     public void setNote(String note) { this.note = note; }
 
-    public int getStatus() { return status; }
-    public void setStatus(int status) { this.status = status; }
-
-    public int getColorStatus(int status) {
-        int vColor = Color.GRAY;                            // registered
-        if (status == 1 ) {vColor = Color.RED; }            // overdue
-        else if (status == 2 ) {vColor = Color.BLUE; }      // executed
-        return vColor;
-    }
 }

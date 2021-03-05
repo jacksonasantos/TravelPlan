@@ -115,12 +115,6 @@
         <item>@string/registered</item>
         <item>@string/overdue</item>
     </string-array>
-    <!-- Maintenance Status -->
-    <string-array name="maintenance_status_array">
-        <item>@string/registered</item>         <!-- GRAY -->
-        <item>@string/overdue</item>            <!-- RED -->
-        <item>@string/executed</item>           <!-- BLUE -->
-    </string-array>
     <!-- Accommodation Type -->
     <string-array name="accommodation_type_array">
         <item>@string/hotel</item>
