@@ -16,6 +16,7 @@ import com.jacksonasantos.travelplan.dao.interfaces.InsuranceCompanyISchema;
 import com.jacksonasantos.travelplan.dao.interfaces.InsuranceISchema;
 import com.jacksonasantos.travelplan.dao.interfaces.ItineraryISchema;
 import com.jacksonasantos.travelplan.dao.interfaces.MaintenanceISchema;
+import com.jacksonasantos.travelplan.dao.interfaces.MaintenanceItemISchema;
 import com.jacksonasantos.travelplan.dao.interfaces.MaintenancePlanISchema;
 import com.jacksonasantos.travelplan.dao.interfaces.MarkerISchema;
 import com.jacksonasantos.travelplan.dao.interfaces.ReservationISchema;
@@ -30,7 +31,7 @@ public class Database {
     private final Context mContext;
 
     private static final String DATABASE_NAME = "TravelPlan.db";
-    private static final int DATABASE_VERSION = 28;
+    private static final int DATABASE_VERSION = 29;
 
     public static AccommodationDAO mAccommodationDao;
     public static BrokerDAO mBrokerDao;
@@ -40,6 +41,7 @@ public class Database {
     public static InsuranceDAO mInsuranceDao;
     public static ItineraryDAO mItineraryDao;
     public static MaintenanceDAO mMaintenanceDao;
+    public static MaintenanceItemDAO mMaintenanceItemDao;
     public static MaintenancePlanDAO mMaintenancePlanDao;
     public static MarkerDAO mMarkerDao;
     public static ReservationDAO mReservationDao;
@@ -79,6 +81,7 @@ public class Database {
         mAccommodationDao = new AccommodationDAO(mDb);
         mReservationDao = new ReservationDAO(mDb);
         mItineraryDao = new ItineraryDAO(mDb);
+        mMaintenanceItemDao = new MaintenanceItemDAO(mDb);
     }
 
     public void close() {
@@ -144,6 +147,7 @@ public class Database {
             db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V28_2); Log.w("Table "+ VehicleISchema.VEHICLE_TABLE,"V28.2 - Alter Table...");
             db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V28_3); Log.w("Table "+ VehicleISchema.VEHICLE_TABLE,"V28.3 - Alter Table...");
             db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V28_4); Log.w("Table "+ VehicleISchema.VEHICLE_TABLE,"V28.4 - Alter Table...");
+            db.execSQL(MaintenanceItemISchema.CREATE_TABLE_MAINTENANCE_ITEM_V29); Log.w("Table "+MaintenanceItemISchema.MAINTENANCE_ITEM_TABLE,"V29 - Create Table...");
         }
 
         @SuppressLint("SQLiteString")
@@ -247,6 +251,9 @@ public class Database {
                         db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V28_2);
                         db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V28_3);
                         db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V28_4);
+                        break;
+                    case 29:
+                        db.execSQL(MaintenanceItemISchema.CREATE_TABLE_MAINTENANCE_ITEM_V29);
                         break;
                     default:
                         break;

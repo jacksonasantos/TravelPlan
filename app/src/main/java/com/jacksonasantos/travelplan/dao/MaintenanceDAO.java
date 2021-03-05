@@ -37,16 +37,17 @@ public class MaintenanceDAO extends DbContentProvider implements MaintenanceISch
         return maintenance;
     }
 
-    public List<Maintenance> findReminderMaintenance( Integer id) {
+    public List<Maintenance> fetchAllMaintenance() {
         List<Maintenance> maintenanceList = new ArrayList<>();
 
-        final String[] selectionArgs = { String.valueOf(id) };
-        final String selection = MAINTENANCE_VEHICLE_ID + " = ? AND " +
-                MAINTENANCE_STATUS + " = 0 "; //AND ( " +
-    //            MAINTENANCE_EXPIRATION_DATE + " NOT NULL AND " +
-    //            MAINTENANCE_EXPIRATION_DATE + " > DATE ('now') )" ;
+        if (Globals.getInstance().getFilterVehicle()) {
+            final String[] selectionArgs = { String.valueOf(Globals.getInstance().getIdVehicle()) };
+            final String selection = MAINTENANCE_VEHICLE_ID + " = ?";
 
-        cursor = super.query(MAINTENANCE_TABLE, MAINTENANCE_COLUMNS, selection, selectionArgs, MAINTENANCE_EXPIRATION_DATE);
+            cursor = super.query(MAINTENANCE_TABLE, MAINTENANCE_COLUMNS, selection, selectionArgs, MAINTENANCE_DATE);
+        } else {
+            cursor = super.query(MAINTENANCE_TABLE, MAINTENANCE_COLUMNS, null, null, MAINTENANCE_DATE);
+        }
 
         if (cursor.moveToFirst()) {
             do {
@@ -59,17 +60,14 @@ public class MaintenanceDAO extends DbContentProvider implements MaintenanceISch
         return maintenanceList;
     }
 
-    public List<Maintenance> fetchAllMaintenance() {
+    public List<Maintenance> findReminderMaintenance( Integer vehicle_id) {
         List<Maintenance> maintenanceList = new ArrayList<>();
 
-        if (Globals.getInstance().getFilterVehicle()) {
-            final String[] selectionArgs = { String.valueOf(Globals.getInstance().getIdVehicle()) };
-            final String selection = MAINTENANCE_VEHICLE_ID + " = ?";
+        final String[] selectionArgs = { String.valueOf(vehicle_id) };
+        final String selection = MAINTENANCE_VEHICLE_ID + " = ? AND " +
+                                 MAINTENANCE_STATUS + " != 2";
 
-            cursor = super.query(MAINTENANCE_TABLE, MAINTENANCE_COLUMNS, selection, selectionArgs, MAINTENANCE_DATE);
-        } else {
-            cursor = super.query(MAINTENANCE_TABLE, MAINTENANCE_COLUMNS, null, null, MAINTENANCE_DATE);
-        }
+        cursor = super.query(MAINTENANCE_TABLE, MAINTENANCE_COLUMNS, selection, selectionArgs, MAINTENANCE_DATE + " DESC");
 
         if (cursor.moveToFirst()) {
             do {
@@ -105,11 +103,8 @@ public class MaintenanceDAO extends DbContentProvider implements MaintenanceISch
         if (c != null) {
             if (c.getColumnIndex(MAINTENANCE_ID) != -1)              {m.setId(c.getInt(c.getColumnIndexOrThrow(MAINTENANCE_ID))); }
             if (c.getColumnIndex(MAINTENANCE_VEHICLE_ID) != -1)      {m.setVehicle_id(c.getInt(c.getColumnIndexOrThrow(MAINTENANCE_VEHICLE_ID))); }
-            if (c.getColumnIndex(MAINTENANCE_SERVICE_TYPE) != -1)    {m.setService_type(c.getInt(c.getColumnIndexOrThrow(MAINTENANCE_SERVICE_TYPE))); }
             if (c.getColumnIndex(MAINTENANCE_DETAIL) != -1)          {m.setDetail(c.getString(c.getColumnIndexOrThrow(MAINTENANCE_DETAIL))); }
             if (c.getColumnIndex(MAINTENANCE_DATE) != -1)            {m.setDate(Utils.dateParse(c.getString(c.getColumnIndexOrThrow(MAINTENANCE_DATE)))); }
-            if (c.getColumnIndex(MAINTENANCE_EXPIRATION_DATE) != -1) {m.setExpiration_date(Utils.dateParse(c.getString(c.getColumnIndexOrThrow(MAINTENANCE_EXPIRATION_DATE)))); }
-            if (c.getColumnIndex(MAINTENANCE_EXPIRATION_KM) != -1)   {m.setExpiration_km(c.getInt(c.getColumnIndexOrThrow(MAINTENANCE_EXPIRATION_KM))); }
             if (c.getColumnIndex(MAINTENANCE_ODOMETER) != -1)        {m.setOdometer(c.getInt(c.getColumnIndexOrThrow(MAINTENANCE_ODOMETER))); }
             if (c.getColumnIndex(MAINTENANCE_VALUE) != -1)           {m.setValue(c.getDouble(c.getColumnIndexOrThrow(MAINTENANCE_VALUE))); }
             if (c.getColumnIndex(MAINTENANCE_LOCATION) != -1)        {m.setLocation(c.getString(c.getColumnIndexOrThrow(MAINTENANCE_LOCATION))); }
@@ -123,11 +118,8 @@ public class MaintenanceDAO extends DbContentProvider implements MaintenanceISch
         initialValues = new ContentValues();
         initialValues.put(MAINTENANCE_ID, m.id);
         initialValues.put(MAINTENANCE_VEHICLE_ID, m.vehicle_id);
-        initialValues.put(MAINTENANCE_SERVICE_TYPE, m.service_type);
         initialValues.put(MAINTENANCE_DETAIL, m.detail);
         initialValues.put(MAINTENANCE_DATE, Utils.dateFormat(m.date));
-        initialValues.put(MAINTENANCE_EXPIRATION_DATE, Utils.dateFormat(m.expiration_date));
-        initialValues.put(MAINTENANCE_EXPIRATION_KM, m.expiration_km);
         initialValues.put(MAINTENANCE_ODOMETER, m.odometer);
         initialValues.put(MAINTENANCE_VALUE, m.value);
         initialValues.put(MAINTENANCE_LOCATION, m.location);

@@ -19,7 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.jacksonasantos.travelplan.R;
 import com.jacksonasantos.travelplan.dao.Database;
-import com.jacksonasantos.travelplan.dao.Maintenance;
+import com.jacksonasantos.travelplan.dao.MaintenanceItem;
 import com.jacksonasantos.travelplan.dao.MaintenancePlan;
 
 import java.util.List;
@@ -79,9 +79,9 @@ public class MaintenancePlanListAdapter extends RecyclerView.Adapter<Maintenance
     @Override
     public void onBindViewHolder(@NonNull final MyViewHolder holder, final int position) {
         final MaintenancePlan maintenancePlan = mMaintenancePlan.get(position);
-        final Maintenance maintenance = new Maintenance();
+        final MaintenanceItem maintenanceItem = new MaintenanceItem();
 
-        holder.imServiceType.setImageResource(maintenance.getServiceTypeImage(maintenancePlan.getService_type()));
+        holder.imServiceType.setImageResource(maintenanceItem.getServiceTypeImage(maintenancePlan.getService_type()));
         holder.txtDescription.setText(maintenancePlan.getDescription());
         if (maintenancePlan.getExpiration_default()>0) {
             holder.txtExpiration_default.setText(String.valueOf(maintenancePlan.getExpiration_default()));

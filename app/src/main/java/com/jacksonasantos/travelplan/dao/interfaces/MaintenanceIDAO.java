@@ -7,7 +7,7 @@ import java.util.List;
 public interface MaintenanceIDAO {
     Maintenance fetchMaintenanceById(Integer id);
     List<Maintenance> fetchAllMaintenance();
-    List<Maintenance> findReminderMaintenance( Integer id);
+    List<Maintenance> findReminderMaintenance(Integer vehicle_id);
     boolean addMaintenance(Maintenance maintenance);
     void deleteMaintenance(Integer id);
     boolean updateMaintenance(Maintenance maintenance);

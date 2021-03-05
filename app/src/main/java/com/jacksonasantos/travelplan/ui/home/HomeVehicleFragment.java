@@ -228,7 +228,6 @@ public class HomeVehicleFragment extends Fragment implements View.OnClickListene
     }
 
     private void addDataSeries() {
-
         String[] reasonTypeArray;
         reasonTypeArray = getResources().getStringArray(R.array.supply_reason_type_array);
         for(int type=1; type<=reasonTypeArray.length; type++){

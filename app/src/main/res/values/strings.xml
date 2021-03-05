@@ -94,13 +94,22 @@
     <string name="Maintenance_Type">Maintenance Type</string>
     <string name="Maintenance_Detail">Maintenance Detail</string>
     <string name="Maintenance_Date">Maintenance Date</string>
-    <string name="Maintenance_Expiration_Date">Maintenance Expiration Date</string>
-    <string name="Maintenance_Expiration_KM">Maintenance Expiration KM</string>
     <string name="Maintenance_Odometer">Maintenance Odometer</string>
     <string name="Maintenance_Value">Maintenance Value</string>
     <string name="Maintenance_Location">Maintenance Location</string>
     <string name="Maintenance_Note">Maintenance Note</string>
     <string name="Maintenance_Status">Maintenance Status</string>
+
+    <!-- Maintenance Item Fragment -->
+    <string name="MaintenanceItem_Vehicle">Vehicle Maintenance Item </string>
+    <string name="MaintenanceItem_Deleting">Deleting Vehicle Maintenance Item </string>
+
+    <string name="MaintenanceItem_Type">Maintenance Item Type</string>
+    <string name="MaintenanceItem_Expiration">Expiration</string>
+    <string name="MaintenanceItem_Expiration_Date">Expiration Date</string>
+    <string name="MaintenanceItem_Expiration_KM">Expiration KM</string>
+    <string name="MaintenanceItem_Value">Value</string>
+    <string name="MaintenanceItem_Note">Note</string>
 
     <!-- Maintenance Plan Fragment -->
     <string name="Maintenance_Plan">Maintenance Plan</string>
@@ -217,6 +226,8 @@
     <!-- Generic -->
     <string name="Yes">Yes</string>
     <string name="No">No</string>
+    <string name="OK" translatable="false">OK</string>
+    <string name="Cancel">Cancel</string>
     <string name="bt_Save">Save</string>
     <string name="bt_Delete">Delete</string>
     <string name="bt_Edit">Edit</string>
@@ -272,6 +283,7 @@
     <string name="brakes">Brakes</string>
     <string name="injection_carburetor">Injection/Carburetor</string>
     <string name="other_services">Other Services</string>
+    <string name="overhaul">Overhaul</string>
     <string name="tire">Tire</string>
     <string name="radiator">Radiator</string>
     <string name="suspension">Suspension</string>

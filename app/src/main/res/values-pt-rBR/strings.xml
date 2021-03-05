@@ -97,9 +97,6 @@
     <string name="menu_maintenance">Serviço de Manutenção</string>
     <string name="Maintenance_Deleting">Excluindo Manutenção do Veículo</string>
     <string name="Maintenance_Vehicle">Manutenção do Veículo</string>
-    <string name="Maintenance_Type">Tipo de Manutenção</string>
-    <string name="Maintenance_Expiration_KM">Quilometragem de Validade</string>
-    <string name="Maintenance_Expiration_Date">Data de Validade</string>
     <string name="Maintenance_Date">Data da Manutenção</string>
     <string name="Maintenance_Detail">Detalhes da Manutenção</string>
     <string name="Maintenance_Odometer">Odometro na Manutenção</string>
@@ -263,4 +260,15 @@
     <string name="Vehicle_AccumulatedNumberLiters">Número de Litros Acumulado</string>
     <string name="Vehicle_Avg_Cost_Litre">Custo por Litro Médio</string>
     <string name="Vehicle_AccumulatedSupplyValue">Valor de Abastecimento Acumulado</string>
+    <string name="overhaul">Revisão</string>
+    <string name="MaintenanceItem_Vehicle">Item de Manutenção de Veículo</string>
+    <string name="MaintenanceItem_Deleting">Excluindo Item de Manutenção de Veículo</string>
+    <string name="MaintenanceItem_Type">Tipo Serviço</string>
+    <string name="MaintenanceItem_Expiration">Validade</string>
+    <string name="MaintenanceItem_Expiration_Date">Data</string>
+    <string name="MaintenanceItem_Expiration_KM">KM</string>
+    <string name="MaintenanceItem_Value">Valor</string>
+    <string name="MaintenanceItem_Note">Observação</string>
+    <string name="Maintenance_Type">Tipo de Manutenção</string>
+    <string name="Cancel">Cancelar</string>
 </resources>

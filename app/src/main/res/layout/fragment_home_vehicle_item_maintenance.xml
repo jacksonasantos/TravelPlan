@@ -3,67 +3,70 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/llMaintenanceItem"
+    android:id="@+id/llMaintenance"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     tools:context=".ui.home.HomeVehicleFragment">
 
     <ImageView
-        android:id="@+id/imServiceType"
+        android:id="@+id/imServiceStatus"
         android:layout_width="22dp"
         android:layout_height="0dp"
-        android:layout_marginStart="@dimen/labels_marginLeft"
-        android:layout_marginLeft="@dimen/labels_marginLeft"
         android:contentDescription="@string/Maintenance_Type"
         app:layout_constraintBottom_toBottomOf="@+id/btnDone"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/btnDone" />
 
-    <ImageView
-        android:id="@+id/imServiceExpired"
-        android:layout_width="22dp"
-        android:layout_height="0dp"
+    <TextView
+        android:id="@+id/txtDate"
+        android:layout_width="110dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/labels_marginLeft"
         android:layout_marginLeft="@dimen/labels_marginLeft"
-        android:contentDescription="@string/Maintenance_Type"
-        app:layout_constraintBottom_toBottomOf="@+id/btnDone"
-        app:layout_constraintStart_toEndOf="@+id/imServiceType"
-        app:layout_constraintTop_toTopOf="@+id/btnDone" />
-
-    <TextView
-        android:id="@+id/txtMaintenanceExpirationDate"
-        android:layout_width="172dp"
-        android:layout_height="wrap_content"
         android:gravity="start|center_vertical"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/txtServiceType"
-        app:layout_constraintStart_toEndOf="@+id/imServiceExpired"
+        app:layout_constraintBottom_toTopOf="@+id/txtDetail"
+        app:layout_constraintStart_toEndOf="@+id/imServiceStatus"
         app:layout_constraintTop_toTopOf="@+id/btnDone" />
 
+    <TextView
+        android:id="@+id/txtValue"
+        android:layout_width="110dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/labels_marginLeft"
+        android:layout_marginLeft="@dimen/labels_marginLeft"
+        android:gravity="end|center_vertical"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/txtDetail"
+        app:layout_constraintStart_toEndOf="@+id/txtDate"
+        app:layout_constraintTop_toTopOf="@+id/btnDone" />
 
     <TextView
-        android:id="@+id/txtMaintenanceOdometer"
-        android:layout_width="120dp"
+        android:id="@+id/txtOdometer"
+        android:layout_width="80dp"
         android:layout_height="wrap_content"
         android:gravity="start|center_vertical"
-        app:layout_constraintBottom_toTopOf="@+id/txtServiceType"
+        app:layout_constraintBottom_toTopOf="@+id/txtDetail"
         app:layout_constraintEnd_toStartOf="@+id/btnDone"
         app:layout_constraintTop_toTopOf="@+id/btnDone" />
 
     <TextView
-        android:id="@+id/txtServiceType"
+        android:id="@+id/txtDetail"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/labels_marginLeft"
+        android:layout_marginLeft="@dimen/labels_marginLeft"
         android:gravity="start|center_vertical"
         app:layout_constraintBottom_toBottomOf="@+id/btnDone"
         app:layout_constraintEnd_toStartOf="@+id/btnDone"
-        app:layout_constraintStart_toEndOf="@+id/imServiceExpired" />
+        app:layout_constraintStart_toEndOf="@+id/imServiceStatus" />
 
     <ImageButton
         android:id="@+id/btnDone"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:contentDescription="@string/bt_Done"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_button_done" />

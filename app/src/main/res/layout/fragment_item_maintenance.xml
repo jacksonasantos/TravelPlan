@@ -17,32 +17,21 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/imServiceType"
-        android:layout_width="22dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="@dimen/labels_marginLeft"
-        android:layout_marginLeft="@dimen/labels_marginLeft"
-        android:contentDescription="@string/Maintenance_Type"
-        app:layout_constraintBottom_toBottomOf="@+id/btnEdit"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtVehicleName" />
-
-    <ImageView
         android:id="@+id/imServiceExpired"
         android:layout_width="18dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="@dimen/labels_marginLeft"
-        android:layout_marginLeft="@dimen/labels_marginLeft"
-        android:gravity="start|center_vertical"
+        android:layout_height="18dp"
         android:contentDescription="@string/Maintenance_Type"
-        app:layout_constraintBottom_toBottomOf="@+id/txtMaintenanceDate"
-        app:layout_constraintStart_toEndOf="@+id/imServiceType"
+        android:gravity="start|center_vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/txtMaintenanceDate" />
 
     <TextView
         android:id="@+id/txtMaintenanceDate"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/labels_marginLeft"
+        android:layout_marginLeft="@dimen/labels_marginLeft"
         android:gravity="start|center_vertical"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/txtMaintenanceValue"
@@ -58,37 +47,27 @@
         android:layout_marginEnd="@dimen/labels_marginLeft"
         android:layout_marginRight="@dimen/labels_marginLeft"
         android:gravity="start|center_vertical"
-        app:layout_constraintBottom_toTopOf="@+id/txtMaintenanceDetail"
         app:layout_constraintEnd_toStartOf="@+id/btnEdit"
         app:layout_constraintTop_toTopOf="@+id/btnEdit" />
 
     <TextView
-        android:id="@+id/txtServiceType"
+        android:id="@+id/txtMaintenanceDetail"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/labels_marginLeft"
         android:layout_marginLeft="@dimen/labels_marginLeft"
         android:gravity="start|center_vertical"
         app:layout_constraintBottom_toBottomOf="@+id/btnEdit"
-        app:layout_constraintEnd_toStartOf="@+id/txtMaintenanceValue"
-        app:layout_constraintStart_toEndOf="@+id/imServiceType" />
-
-    <TextView
-        android:id="@+id/txtMaintenanceDetail"
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/labels_marginLeft"
-        android:layout_marginRight="@dimen/labels_marginLeft"
-        android:gravity="start|center_vertical"
-        app:layout_constraintBottom_toBottomOf="@+id/btnEdit"
-        app:layout_constraintEnd_toStartOf="@+id/btnEdit"
-        app:layout_constraintTop_toTopOf="@+id/txtServiceType" />
+        app:layout_constraintEnd_toEndOf="@+id/txtMaintenanceValue"
+        app:layout_constraintStart_toEndOf="@+id/imServiceExpired"
+        app:layout_constraintTop_toBottomOf="@+id/txtMaintenanceValue" />
 
     <ImageButton
         android:id="@+id/btnEdit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:contentDescription="@string/bt_Edit"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/btnDelete"
         app:layout_constraintTop_toBottomOf="@+id/txtVehicleName"
         app:srcCompat="@drawable/ic_menu_edit" />

@@ -88,6 +88,7 @@
         <item>@string/brakes</item>
         <item>@string/injection_carburetor</item>
         <item>@string/other_services</item>
+        <item>@string/overhaul</item>
         <item>@string/tire</item>
         <item>@string/radiator</item>
         <item>@string/suspension</item>
@@ -116,9 +117,9 @@
     </string-array>
     <!-- Maintenance Status -->
     <string-array name="maintenance_status_array">
-        <item>@string/registered</item>
-        <item>@string/executed</item>
-        <item>@string/overdue</item>
+        <item>@string/registered</item>         <!-- GRAY -->
+        <item>@string/overdue</item>            <!-- RED -->
+        <item>@string/executed</item>           <!-- BLUE -->
     </string-array>
     <!-- Accommodation Type -->
     <string-array name="accommodation_type_array">

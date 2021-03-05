@@ -1,13 +1,15 @@
 package com.jacksonasantos.travelplan.ui.vehicle;
 
 import android.annotation.SuppressLint;
+import android.content.DialogInterface;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -15,11 +17,16 @@ import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.jacksonasantos.travelplan.R;
 import com.jacksonasantos.travelplan.dao.Database;
 import com.jacksonasantos.travelplan.dao.Maintenance;
+import com.jacksonasantos.travelplan.dao.MaintenanceItem;
 import com.jacksonasantos.travelplan.dao.Vehicle;
 import com.jacksonasantos.travelplan.ui.utility.DateInputMask;
 import com.jacksonasantos.travelplan.ui.utility.Globals;
@@ -28,11 +35,8 @@ import com.jacksonasantos.travelplan.ui.utility.Utils;
 public class MaintenanceActivity extends AppCompatActivity {
 
     private Integer nrVehicle_id =0;
-    private int nrSpinService_type;
     private EditText etDetail;
     private EditText etDate;
-    private EditText etExpiration_date;
-    private EditText etExpiration_km;
     private EditText etOdometer;
     private EditText etValue;
     private EditText etLocation;
@@ -40,8 +44,13 @@ public class MaintenanceActivity extends AppCompatActivity {
     private TextView tvStatus;
     private int nrStatus;
 
+    private ConstraintLayout labelMaintenanceItem;
+    private RecyclerView listMaintenanceItem;
+
     private boolean opInsert = true;
     private Maintenance maintenance;
+
+    private MaintenanceItemListAdapter adapterMaintenanceItem;
 
     @SuppressLint("WrongViewCast")
     @RequiresApi(api = Build.VERSION_CODES.N)
@@ -74,20 +83,21 @@ public class MaintenanceActivity extends AppCompatActivity {
         }
 
         addListenerOnButtonSave();
+        addListenerOnButtonAdd();
 
         TextView txVehicleName = findViewById(R.id.txVehicleName);
         ImageView imVehicleType = findViewById(R.id.imVehicleType);
         TextView txVehicleLicencePlate = findViewById(R.id.txVehicleLicencePlate);
-        AutoCompleteTextView spinService_type = findViewById(R.id.spinService_type);
         etDetail = findViewById(R.id.etDetail);
         etDate = findViewById(R.id.etDate);
-        etExpiration_date = findViewById(R.id.etExpiration_date);
-        etExpiration_km = findViewById(R.id.etExpiration_km);
         etOdometer = findViewById(R.id.etOdometer);
         etValue = findViewById(R.id.etValue);
         etLocation = findViewById(R.id.etLocation);
         etNote = findViewById(R.id.etNote);
         tvStatus = findViewById(R.id.tvStatus);
+
+        labelMaintenanceItem = findViewById(R.id.labelMaintenanceItem);
+        listMaintenanceItem = findViewById(R.id.listMaintenanceItem);
 
         Vehicle vehicle;
         if (opInsert) {
@@ -104,29 +114,106 @@ public class MaintenanceActivity extends AppCompatActivity {
         imVehicleType.setImageResource(vehicle.getVehicleTypeImage(vehicle.getVehicle_type()));
 
         etDate.addTextChangedListener(new DateInputMask(etDate));
-        etExpiration_date.addTextChangedListener(new DateInputMask(etExpiration_date));
-        Utils.createSpinnerResources(R.array.vehicle_services, spinService_type, this);
-        nrSpinService_type = 0;
-        spinService_type.setOnItemClickListener(new Spinner.OnItemClickListener() {
-            @Override public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                nrSpinService_type = (int) adapterView.getItemIdAtPosition(i);
-            }
-        });
-        nrStatus = 0;  // TODO- Marcar status sem pendencia
+        nrStatus = 0;       // registered
+
+        @SuppressLint("InflateParams") View vL = getLayoutInflater().inflate(R.layout.activity_list_maintenance_item, null);
+        labelMaintenanceItem.removeAllViews();
+        ImageView lblServiceType = vL.findViewById(R.id.imgServiceType);
+        TextView lblExpiration = vL.findViewById(R.id.txtExpiration);
+        TextView lblValue = vL.findViewById(R.id.txtValue);
+        TextView lblNote = vL.findViewById(R.id.txtNote);
+        ImageButton btnDelete = vL.findViewById(R.id.btnDelete);
+
+        lblServiceType.setImageResource(0);
+        lblNote.setText(getString(R.string.MaintenanceItem_Note));
+        lblValue.setText(getString(R.string.MaintenanceItem_Value));
+        lblExpiration.setText(getString(R.string.MaintenanceItem_Expiration));
+        btnDelete.setVisibility(View.INVISIBLE);
+        labelMaintenanceItem.addView(vL);
+        labelMaintenanceItem.setBackgroundColor(Color.rgb(209,193,233));
+
+        if (!opInsert) {
+            adapterMaintenanceItem = new MaintenanceItemListAdapter(Database.mMaintenanceItemDao.fetchMaintenanceItemByMaintenance(maintenance.getId()), getApplicationContext());
+            listMaintenanceItem.setAdapter(adapterMaintenanceItem);
+            listMaintenanceItem.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+        }
 
         if (maintenance != null) {
-            nrSpinService_type=maintenance.getService_type();
-            spinService_type.setText(getResources().getStringArray(R.array.vehicle_services)[nrSpinService_type],false);
-            etDetail.setText(maintenance.getDetail());
+            etDetail.setText((maintenance.getDetail()));
             etDate.setText(Utils.dateToString(maintenance.getDate()));
-            etExpiration_date.setText(Utils.dateToString(maintenance.getExpiration_date()));
-            etExpiration_km.setText(String.valueOf(maintenance.getExpiration_km()));
             etOdometer.setText(String.valueOf(maintenance.getOdometer()));
             etValue.setText(String.valueOf(maintenance.getValue()));
             etLocation.setText(maintenance.getLocation());
             etNote.setText(maintenance.getNote());
             tvStatus.setText(getResources().getStringArray(R.array.maintenance_status_array)[nrStatus]);
         }
+    }
+
+    public void addListenerOnButtonAdd() {
+        ImageButton btAddMaintenanceItem = findViewById(R.id.btAddMaintenanceItem);
+
+        btAddMaintenanceItem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                LayoutInflater li = LayoutInflater.from(v.getContext());
+                View promptsView = li.inflate(R.layout.activity_maintenance_item, null);
+
+                final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(v.getContext());
+
+                alertDialogBuilder.setView(promptsView);
+                final Spinner spinServiceType = (Spinner) promptsView.findViewById(R.id.spinServiceType);
+                final EditText etExpiration_km = (EditText) promptsView.findViewById(R.id.etExpiration_km);
+                final EditText etExpiration_date = (EditText) promptsView.findViewById(R.id.etExpiration_date);
+                final EditText etValue = (EditText) promptsView.findViewById(R.id.etValue);
+                final EditText etNote = (EditText) promptsView.findViewById(R.id.etNote);
+
+                etExpiration_date.addTextChangedListener(new DateInputMask(etExpiration_date));
+
+                alertDialogBuilder
+                        .setCancelable(false)
+                        .setPositiveButton(R.string.OK, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog,int id) {
+                                boolean isSave = false;
+                                if ( ( etExpiration_km.getText().toString().trim().isEmpty() &&
+                                       etExpiration_date.getText().toString().trim().isEmpty() )
+                                    || etValue.getText().toString().trim().isEmpty() )
+                                {
+                                    Toast.makeText(getApplicationContext(), R.string.Error_Data_Validation, Toast.LENGTH_LONG).show();
+                                } else {
+                                    MaintenanceItem mI = new MaintenanceItem();
+
+                                    mI.setMaintenance_id(maintenance.getId());
+                                    mI.setService_type(spinServiceType.getSelectedItemPosition());
+                                    if (!etExpiration_km.getText().toString().isEmpty())   { mI.setExpiration_km(Integer.parseInt(etExpiration_km.getText().toString())); }
+                                    if (!etExpiration_date.getText().toString().isEmpty()) { mI.setExpiration_date(Utils.stringToDate(etExpiration_date.getText().toString()));}
+                                    if (!etValue.getText().toString().isEmpty())           { mI.setValue(Double.parseDouble(etValue.getText().toString()));}
+                                    mI.setNote(etNote.getText().toString());
+
+                                    try {
+                                         isSave = Database.mMaintenanceItemDao.addMaintenanceItem(mI);
+                                    } catch (Exception e) {
+                                        Toast.makeText(getApplicationContext(), R.string.Error_Including_Data + e.getMessage(), Toast.LENGTH_LONG).show();
+                                    }
+                                    setResult(isSave ? 1 : 0);
+                                    if (!isSave) {
+                                        Toast.makeText(getApplicationContext(), R.string.Error_Saving_Data, Toast.LENGTH_LONG).show();
+                                    } else {
+                                        adapterMaintenanceItem = new MaintenanceItemListAdapter(Database.mMaintenanceItemDao.fetchMaintenanceItemByMaintenance(maintenance.getId()), getApplicationContext());
+                                        listMaintenanceItem.setAdapter(adapterMaintenanceItem);
+                                        adapterMaintenanceItem.notifyDataSetChanged();
+                                    }
+                                }
+                            }
+                        })
+                        .setNegativeButton(R.string.Cancel, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog,int id) {
+                                dialog.cancel();
+                            }
+                        });
+                AlertDialog alertDialog = alertDialogBuilder.create();
+                alertDialog.show();
+            }
+        });
     }
 
     public void addListenerOnButtonSave() {
@@ -143,11 +230,8 @@ public class MaintenanceActivity extends AppCompatActivity {
                     final Maintenance m1 = new Maintenance();
 
                     m1.setVehicle_id(nrVehicle_id);
-                    m1.setService_type(nrSpinService_type);
                     m1.setDetail(etDetail.getText().toString());
                     m1.setDate(Utils.stringToDate(etDate.getText().toString()));
-                    m1.setExpiration_date(Utils.stringToDate(etExpiration_date.getText().toString()));
-                    m1.setExpiration_km((Integer.parseInt(etExpiration_km.getText().toString().isEmpty() ? "0": etExpiration_km.getText().toString())));
                     m1.setOdometer(Integer.parseInt(etOdometer.getText().toString()));
                     m1.setValue(Double.valueOf(etValue.getText().toString()));
                     m1.setLocation(etLocation.getText().toString());
@@ -183,17 +267,14 @@ public class MaintenanceActivity extends AppCompatActivity {
         boolean isValid = false;
 
         try {
-            if (!String.valueOf(nrSpinService_type).trim().isEmpty()
+            if (!etDate.getText().toString().trim().isEmpty()
 //                && !etDetail.getText().toString().trim().isEmpty()
-                && !etDate.getText().toString().trim().isEmpty()
-//                && !etExpiration_date.getText().toString().trim().isEmpty()
-//                && !etExpiration_km.getText().toString().trim().isEmpty()
-                && !etOdometer.getText().toString().trim().isEmpty()
-                && !etValue.getText().toString().trim().isEmpty()
-//                && !etLocation.getText().toString().trim().isEmpty()
+                    && !etOdometer.getText().toString().trim().isEmpty()
+                    && !etValue.getText().toString().trim().isEmpty()
+                    && !etLocation.getText().toString().trim().isEmpty()
 //                && !etNote.getText().toString().trim().isEmpty()
 //                && !tvStats.getText().toString().trim().isEmpty()
-               )
+            )
             {
                 isValid = true;
             }
