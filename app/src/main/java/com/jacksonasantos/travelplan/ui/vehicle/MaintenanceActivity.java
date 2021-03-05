@@ -174,10 +174,7 @@ public class MaintenanceActivity extends AppCompatActivity {
                         .setPositiveButton(R.string.OK, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog,int id) {
                                 boolean isSave = false;
-                                if ( ( etExpiration_km.getText().toString().trim().isEmpty() &&
-                                       etExpiration_date.getText().toString().trim().isEmpty() )
-                                    || etValue.getText().toString().trim().isEmpty() )
-                                {
+                                if ( etValue.getText().toString().trim().isEmpty() ) {
                                     Toast.makeText(getApplicationContext(), R.string.Error_Data_Validation, Toast.LENGTH_LONG).show();
                                 } else {
                                     MaintenanceItem mI = new MaintenanceItem();
