@@ -157,43 +157,38 @@ public class MaintenanceActivity extends AppCompatActivity {
 
                 alertDialogBuilder.setView(promptsView);
                 final Spinner spinServiceType = (Spinner) promptsView.findViewById(R.id.spinServiceType);
-                final EditText etExpiration_km = (EditText) promptsView.findViewById(R.id.etExpiration_km);
-                final EditText etExpiration_date = (EditText) promptsView.findViewById(R.id.etExpiration_date);
+                final Spinner spinMeasureType = (Spinner) promptsView.findViewById(R.id.spinMeasureType);
+                final EditText etExpiration_value = (EditText) promptsView.findViewById(R.id.etExpiration_value);
                 final EditText etValue = (EditText) promptsView.findViewById(R.id.etValue);
                 final EditText etNote = (EditText) promptsView.findViewById(R.id.etNote);
-
-                etExpiration_date.addTextChangedListener(new DateInputMask(etExpiration_date));
 
                 alertDialogBuilder
                         .setCancelable(false)
                         .setPositiveButton(R.string.OK, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog,int id) {
                                 boolean isSave = false;
-                                if ( etValue.getText().toString().trim().isEmpty() ) {
-                                    Toast.makeText(getApplicationContext(), R.string.Error_Data_Validation, Toast.LENGTH_LONG).show();
+
+                                MaintenanceItem mI = new MaintenanceItem();
+
+                                mI.setMaintenance_id(maintenance.getId());
+                                mI.setService_type(spinServiceType.getSelectedItemPosition());
+                                mI.setMeasure_type(spinMeasureType.getSelectedItemPosition());
+                                if (!etExpiration_value.getText().toString().isEmpty()) { mI.setExpiration_value(Integer.parseInt(etExpiration_value.getText().toString()));}
+                                if (!etValue.getText().toString().isEmpty())            { mI.setValue(Double.parseDouble(etValue.getText().toString()));}
+                                mI.setNote(etNote.getText().toString());
+
+                                try {
+                                     isSave = Database.mMaintenanceItemDao.addMaintenanceItem(mI);
+                                } catch (Exception e) {
+                                    Toast.makeText(getApplicationContext(), R.string.Error_Including_Data + e.getMessage(), Toast.LENGTH_LONG).show();
+                                }
+                                setResult(isSave ? 1 : 0);
+                                if (!isSave) {
+                                    Toast.makeText(getApplicationContext(), R.string.Error_Saving_Data, Toast.LENGTH_LONG).show();
                                 } else {
-                                    MaintenanceItem mI = new MaintenanceItem();
-
-                                    mI.setMaintenance_id(maintenance.getId());
-                                    mI.setService_type(spinServiceType.getSelectedItemPosition());
-                                    if (!etExpiration_km.getText().toString().isEmpty())   { mI.setExpiration_km(Integer.parseInt(etExpiration_km.getText().toString())); }
-                                    if (!etExpiration_date.getText().toString().isEmpty()) { mI.setExpiration_date(Utils.stringToDate(etExpiration_date.getText().toString()));}
-                                    if (!etValue.getText().toString().isEmpty())           { mI.setValue(Double.parseDouble(etValue.getText().toString()));}
-                                    mI.setNote(etNote.getText().toString());
-
-                                    try {
-                                         isSave = Database.mMaintenanceItemDao.addMaintenanceItem(mI);
-                                    } catch (Exception e) {
-                                        Toast.makeText(getApplicationContext(), R.string.Error_Including_Data + e.getMessage(), Toast.LENGTH_LONG).show();
-                                    }
-                                    setResult(isSave ? 1 : 0);
-                                    if (!isSave) {
-                                        Toast.makeText(getApplicationContext(), R.string.Error_Saving_Data, Toast.LENGTH_LONG).show();
-                                    } else {
-                                        adapterMaintenanceItem = new MaintenanceItemListAdapter(Database.mMaintenanceItemDao.fetchMaintenanceItemByMaintenance(maintenance.getId()), getApplicationContext());
-                                        listMaintenanceItem.setAdapter(adapterMaintenanceItem);
-                                        adapterMaintenanceItem.notifyDataSetChanged();
-                                    }
+                                    adapterMaintenanceItem = new MaintenanceItemListAdapter(Database.mMaintenanceItemDao.fetchMaintenanceItemByMaintenance(maintenance.getId()), getApplicationContext());
+                                    listMaintenanceItem.setAdapter(adapterMaintenanceItem);
+                                    adapterMaintenanceItem.notifyDataSetChanged();
                                 }
                             }
                         })

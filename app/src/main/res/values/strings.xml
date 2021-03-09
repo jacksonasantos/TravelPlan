@@ -106,8 +106,8 @@
 
     <string name="MaintenanceItem_Type">Maintenance Item Type</string>
     <string name="MaintenanceItem_Expiration">Expiration</string>
-    <string name="MaintenanceItem_Expiration_Date">Expiration Date</string>
-    <string name="MaintenanceItem_Expiration_KM">Expiration KM</string>
+    <string name="MaintenanceItem_Measure_Type">Measure Type</string>
+    <string name="MaintenanceItem_Expiration_Value">Expiration Value</string>
     <string name="MaintenanceItem_Value">Value</string>
     <string name="MaintenanceItem_Note">Note</string>
 
@@ -163,7 +163,7 @@
     <!-- Home Vehicle Fragment -->
     <string name="Odometer">Odometer</string>
     <string name="FuelSupply_Last">Last Fuel Supply</string>
-    <string name="InVehicleServices">In-Vehicle Services</string>
+    <string name="LastVehicleServices">Last Vehicle Services</string>
     <string name="VehicleStatistics">Vehicle Statistics</string>
     <string name="InsuranceExpiration">Insurance Expiration</string>
 

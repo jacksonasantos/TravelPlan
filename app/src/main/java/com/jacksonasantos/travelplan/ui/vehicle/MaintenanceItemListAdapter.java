@@ -19,7 +19,6 @@ import com.jacksonasantos.travelplan.R;
 import com.jacksonasantos.travelplan.dao.Database;
 import com.jacksonasantos.travelplan.dao.MaintenanceItem;
 import com.jacksonasantos.travelplan.ui.utility.Globals;
-import com.jacksonasantos.travelplan.ui.utility.Utils;
 
 import java.math.BigDecimal;
 import java.text.NumberFormat;
@@ -30,6 +29,7 @@ public class MaintenanceItemListAdapter extends RecyclerView.Adapter<Maintenance
 
     public final List<MaintenanceItem> mMaintenanceItem;
     Context context;
+    String[] measureArray;
 
     Globals g = Globals.getInstance();
     Locale locale = new Locale(g.getLanguage(), g.getCountry());
@@ -69,6 +69,7 @@ public class MaintenanceItemListAdapter extends RecyclerView.Adapter<Maintenance
     public MaintenanceItemListAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View maintenanceItemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.activity_list_maintenance_item, parent, false);
+        measureArray = parent.getResources().getStringArray(R.array.measure_plan);
         return new MyViewHolder(maintenanceItemView);
     }
 
@@ -77,14 +78,18 @@ public class MaintenanceItemListAdapter extends RecyclerView.Adapter<Maintenance
     @Override
     public void onBindViewHolder(@NonNull final MyViewHolder holder, final int position) {
         final MaintenanceItem maintenanceItem = mMaintenanceItem.get(position);
+
         holder.imgServiceType.setImageResource(maintenanceItem.getServiceTypeImage(maintenanceItem.getService_type()));
-        if (maintenanceItem.getExpiration_date()==null) {
-            holder.txtExpiration.setText(Integer.toString(maintenanceItem.getExpiration_km()));
-        } else {
-            holder.txtExpiration.setText(Utils.dateToString(maintenanceItem.getExpiration_date()));
-        }
+        holder.txtNote.setText( maintenanceItem.getNote().equals("")
+                              ? context.getResources().getStringArray(R.array.vehicle_services)[maintenanceItem.getService_type()]
+                              : context.getResources().getStringArray(R.array.vehicle_services)[maintenanceItem.getService_type()]+" ("+maintenanceItem.getNote()+")");
         holder.txtValue.setText(currencyFormatter.format(maintenanceItem.getValue()==null? BigDecimal.ZERO: maintenanceItem.getValue()));
-        holder.txtNote.setText(maintenanceItem.getNote());
+        int nrSpinMeasure = maintenanceItem.getMeasure_type();
+        if (nrSpinMeasure == 0) {
+            holder.txtExpiration.setText(context.getResources().getStringArray(R.array.measure_plan)[nrSpinMeasure]);
+        } else {
+            holder.txtExpiration.setText(maintenanceItem.getExpiration_value() + " " + context.getResources().getStringArray(R.array.measure_plan)[nrSpinMeasure]);
+        }
 
         // btnDelete
         holder.btnDelete.setOnClickListener (new View.OnClickListener() {

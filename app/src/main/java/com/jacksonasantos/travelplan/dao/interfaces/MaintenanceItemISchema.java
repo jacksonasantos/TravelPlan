@@ -7,8 +7,8 @@ public interface MaintenanceItemISchema {
     String MAINTENANCE_ITEM_ID = "id";
     String MAINTENANCE_ITEM_MAINTENANCE_ID = "maintenance_id";
     String MAINTENANCE_ITEM_SERVICE_TYPE = "service_type";
-    String MAINTENANCE_ITEM_EXPIRATION_DATE = "expiration_date";
-    String MAINTENANCE_ITEM_EXPIRATION_KM = "expiration_km";
+    String MAINTENANCE_ITEM_MEASURE_TYPE = "measure_type";
+    String MAINTENANCE_ITEM_EXPIRATION_VALUE = "expiration_value";
     String MAINTENANCE_ITEM_VALUE = "value";
     String MAINTENANCE_ITEM_NOTE = "note";
 
@@ -18,8 +18,8 @@ public interface MaintenanceItemISchema {
             + MAINTENANCE_ITEM_ID + " INTEGER PRIMARY KEY, "
             + MAINTENANCE_ITEM_MAINTENANCE_ID + " INTEGER REFERENCES " + MaintenanceISchema.MAINTENANCE_TABLE + " ("+MaintenanceISchema.MAINTENANCE_ID+"), "
             + MAINTENANCE_ITEM_SERVICE_TYPE + " INT, "
-            + MAINTENANCE_ITEM_EXPIRATION_DATE + " DATE, "
-            + MAINTENANCE_ITEM_EXPIRATION_KM + " INT, "
+            + MAINTENANCE_ITEM_MEASURE_TYPE + " INT, "
+            + MAINTENANCE_ITEM_EXPIRATION_VALUE + " INT, "
             + MAINTENANCE_ITEM_VALUE + " DOUBLE, "
             + MAINTENANCE_ITEM_NOTE + " STRING "
             //+ "PRIMARY KEY (" +MAINTENANCE_ITEM_MAINTENANCE_ID + ", "+ MAINTENANCE_ITEM_ID + ") "
@@ -29,8 +29,8 @@ public interface MaintenanceItemISchema {
             MAINTENANCE_ITEM_ID,
             MAINTENANCE_ITEM_MAINTENANCE_ID,
             MAINTENANCE_ITEM_SERVICE_TYPE,
-            MAINTENANCE_ITEM_EXPIRATION_DATE,
-            MAINTENANCE_ITEM_EXPIRATION_KM,
+            MAINTENANCE_ITEM_MEASURE_TYPE,
+            MAINTENANCE_ITEM_EXPIRATION_VALUE,
             MAINTENANCE_ITEM_VALUE,
             MAINTENANCE_ITEM_NOTE
     };

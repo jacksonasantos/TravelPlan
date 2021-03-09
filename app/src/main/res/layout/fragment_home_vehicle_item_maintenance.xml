@@ -17,7 +17,7 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/txtDetail"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/btnDone" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/txtValue"
@@ -28,36 +28,27 @@
         android:gravity="end|center_vertical"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/txtDetail"
+        app:layout_constraintEnd_toStartOf="@+id/txtOdometer"
         app:layout_constraintStart_toEndOf="@+id/txtDate"
-        app:layout_constraintTop_toTopOf="@+id/btnDone" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/txtOdometer"
-        android:layout_width="80dp"
+        android:layout_width="140dp"
         android:layout_height="wrap_content"
         android:gravity="start|center_vertical"
         app:layout_constraintBottom_toTopOf="@+id/txtDetail"
-        app:layout_constraintEnd_toStartOf="@+id/btnDone"
-        app:layout_constraintTop_toTopOf="@+id/btnDone" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/txtDetail"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:gravity="start|center_vertical"
-        app:layout_constraintBottom_toBottomOf="@+id/btnDone"
-        app:layout_constraintEnd_toStartOf="@+id/btnDone"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <ImageButton
-        android:id="@+id/btnDone"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:contentDescription="@string/bt_Done"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_button_done" />
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

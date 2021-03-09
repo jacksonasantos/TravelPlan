@@ -97,7 +97,7 @@ public class HomeVehicleFragment extends Fragment implements View.OnClickListene
         graphStatistics = v.findViewById(R.id.graphStatistics);
 
         layerServiceVehicle = v.findViewById(R.id.layerServiceVehicle);
-        maintenanceList = v.findViewById(R.id.listInVehicleService);
+        maintenanceList = v.findViewById(R.id.listLastVehicleService);
 
         layerInsuranceVehicle = v.findViewById(R.id.layerInsuranceVehicle);
         insuranceList = v.findViewById(R.id.listInsuranceExpiration);
@@ -196,7 +196,7 @@ public class HomeVehicleFragment extends Fragment implements View.OnClickListene
                 }
                 adapterVehicle.notifyDataSetChanged();
 
-                // In-Vehicle Services - layerServiceVehicle
+                // Last Vehicle Services - layerServiceVehicle
                 HomeVehicleMaintenanceListAdapter adapterMaintenance = new HomeVehicleMaintenanceListAdapter(Database.mMaintenanceDao.findReminderMaintenance( g.getIdVehicle() ), getContext());
                 if (adapterMaintenance.getItemCount() > 0){
                     layerServiceVehicle.setVisibility(View.VISIBLE);
@@ -206,6 +206,8 @@ public class HomeVehicleFragment extends Fragment implements View.OnClickListene
                     layerServiceVehicle.setVisibility(View.GONE);
                 }
                 adapterMaintenance.notifyDataSetChanged();
+
+// TODO - Implantar Itens de Manutenção a Realizar
 
                 // Insurance - layerInsuranceVehicle
                 HomeInsuranceListAdapter adapterInsurance = new HomeInsuranceListAdapter(Database.mInsuranceDao.findReminderInsurance("V", g.getIdVehicle() ), getContext());

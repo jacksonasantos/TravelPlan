@@ -8,7 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -42,7 +41,6 @@ public class MaintenanceListAdapter extends RecyclerView.Adapter<MaintenanceList
 
         public TextView txtMaintenanceDate;
         public TextView txtVehicleName;
-        public ImageView imServiceExpired;
         public TextView txtMaintenanceValue;
         public TextView txtMaintenanceDetail;
         public ImageButton btnEdit;

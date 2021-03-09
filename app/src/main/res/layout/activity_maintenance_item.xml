@@ -43,18 +43,16 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <TextView
-                android:id="@+id/txtExpirationKM"
+                android:id="@+id/txtMeasureType"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/MaintenanceItem_Expiration_KM"
+                android:text="@string/MaintenanceItem_Measure_Type"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
-            <EditText
-                android:id="@+id/etExpiration_km"
+            <Spinner
+                android:id="@+id/spinMeasureType"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:autofillHints="no"
-                android:inputType="number"
-                tools:ignore="LabelFor" />
+                android:entries="@array/measure_plan" />
         </LinearLayout>
 
         <LinearLayout
@@ -68,19 +66,19 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <TextView
-                android:id="@+id/txtExpirationDate"
+                android:id="@+id/txtExpirationValue"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/MaintenanceItem_Expiration_Date"
+                android:text="@string/MaintenanceItem_Expiration_Value"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <EditText
-                android:id="@+id/etExpiration_date"
+                android:id="@+id/etExpiration_value"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:autofillHints="no"
-                android:inputType="datetime"
-                tools:ignore="LabelFor" />
+                android:inputType="number"
+                tools:ignore="LabelFor"
+                android:autofillHints="" />
         </LinearLayout>
     </LinearLayout>
 

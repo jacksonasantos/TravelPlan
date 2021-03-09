@@ -44,9 +44,9 @@ public class MaintenanceDAO extends DbContentProvider implements MaintenanceISch
             final String[] selectionArgs = { String.valueOf(Globals.getInstance().getIdVehicle()) };
             final String selection = MAINTENANCE_VEHICLE_ID + " = ?";
 
-            cursor = super.query(MAINTENANCE_TABLE, MAINTENANCE_COLUMNS, selection, selectionArgs, MAINTENANCE_DATE);
+            cursor = super.query(MAINTENANCE_TABLE, MAINTENANCE_COLUMNS, selection, selectionArgs, MAINTENANCE_DATE + " DESC");
         } else {
-            cursor = super.query(MAINTENANCE_TABLE, MAINTENANCE_COLUMNS, null, null, MAINTENANCE_DATE);
+            cursor = super.query(MAINTENANCE_TABLE, MAINTENANCE_COLUMNS, null, null, MAINTENANCE_DATE + " DESC");
         }
 
         if (cursor.moveToFirst()) {

@@ -67,7 +67,6 @@
     <string name="language_Portuguese">Português</string>
     <string name="language_English">Inglês</string>
     <string name="FuelSupply_Last">Último Abastecimento de Combustível</string>
-    <string name="InVehicleServices">Próximos Serviços no Veículo</string>
     <string name="Error_Data_Validation">Erro na validação dos dados</string>
     <string name="Error_Changing_Data">"Erro ao alterar dados "</string>
     <string name="Error_Including_Data">"Erro ao incluir dados "</string>
@@ -265,10 +264,11 @@
     <string name="MaintenanceItem_Deleting">Excluindo Item de Manutenção de Veículo</string>
     <string name="MaintenanceItem_Type">Tipo Serviço</string>
     <string name="MaintenanceItem_Expiration">Validade</string>
-    <string name="MaintenanceItem_Expiration_Date">Data</string>
-    <string name="MaintenanceItem_Expiration_KM">KM</string>
     <string name="MaintenanceItem_Value">Valor</string>
     <string name="MaintenanceItem_Note">Observação</string>
     <string name="Maintenance_Type">Tipo de Manutenção</string>
     <string name="Cancel">Cancelar</string>
+    <string name="MaintenanceItem_Expiration_Value">Valor</string>
+    <string name="MaintenanceItem_Measure_Type">Tipo</string>
+    <string name="LastVehicleServices">Últimos Servicos no Veículo</string>
 </resources>

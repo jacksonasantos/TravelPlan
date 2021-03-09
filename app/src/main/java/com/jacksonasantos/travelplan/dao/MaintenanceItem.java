@@ -2,14 +2,12 @@ package com.jacksonasantos.travelplan.dao;
 
 import com.jacksonasantos.travelplan.R;
 
-import java.util.Date;
-
 public class MaintenanceItem {
     public Integer id;
     public Integer maintenance_id;
     public int service_type;
-    public Date expiration_date;
-    public int expiration_km;
+    public int measure_type;
+    public int expiration_value;
     public Double value;
     public String note;
 
@@ -17,8 +15,8 @@ public class MaintenanceItem {
         this.id = id;
         this.maintenance_id=maintenance_id;
         this.service_type=service_type;
-        this.expiration_date=expiration_date;
-        this.expiration_km=expiration_km;
+        this.measure_type=measure_type;
+        this.expiration_value=expiration_value;
         this.value=value;
         this.note=note;
     }
@@ -62,11 +60,11 @@ public class MaintenanceItem {
     public int getService_type() { return service_type; }
     public void setService_type(int service_type) { this.service_type = service_type; }
 
-    public Date getExpiration_date() { return expiration_date; }
-    public void setExpiration_date(Date expiration_date) { this.expiration_date = expiration_date; }
+    public int getMeasure_type() { return measure_type; }
+    public void setMeasure_type(int measure_type) { this.measure_type = measure_type; }
 
-    public int getExpiration_km() { return expiration_km; }
-    public void setExpiration_km(int expiration_km) { this.expiration_km = expiration_km; }
+    public int getExpiration_value() { return expiration_value; }
+    public void setExpiration_value(int expiration_value) { this.expiration_value = expiration_value; }
 
     public Double getValue() { return value; }
     public void setValue(Double value) { this.value = value; }

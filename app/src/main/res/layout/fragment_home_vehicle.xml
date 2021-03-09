@@ -233,10 +233,10 @@
             app:layout_constraintTop_toBottomOf="@+id/layerStatisticsVehicle">
 
             <TextView
-                android:id="@+id/tvVehicleServiceNext"
+                android:id="@+id/tvVehicleServiceLast"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/InVehicleServices"
+                android:text="@string/LastVehicleServices"
                 android:textColor="@color/design_default_color_secondary"
                 android:textSize="14sp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -244,13 +244,14 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/listInVehicleService"
+                android:id="@+id/listLastVehicleService"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:scrollbars="vertical"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvVehicleServiceNext" />
+                app:layout_constraintTop_toBottomOf="@+id/tvVehicleServiceLast"
+                tools:itemCount="4" />
 
             <Button
                 android:layout_width="match_parent"
@@ -258,7 +259,7 @@
                 android:clickable="false"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/listInVehicleService" />
+                app:layout_constraintTop_toBottomOf="@+id/listLastVehicleService" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -292,7 +293,8 @@
                 android:scrollbars="vertical"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvInsuranceExpiration" />
+                app:layout_constraintTop_toBottomOf="@+id/tvInsuranceExpiration"
+                tools:itemCount="3" />
 
             <Button
                 android:layout_width="match_parent"

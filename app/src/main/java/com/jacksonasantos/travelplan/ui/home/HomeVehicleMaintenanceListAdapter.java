@@ -7,9 +7,7 @@ import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
@@ -45,7 +43,6 @@ public class HomeVehicleMaintenanceListAdapter extends RecyclerView.Adapter<Home
         private final TextView txtValue;
         private final TextView txtOdometer;
         private final TextView txtDetail;
-        private final ImageButton btnDone;
 
         public MyViewHolder(View v) {
             super(v);
@@ -54,7 +51,6 @@ public class HomeVehicleMaintenanceListAdapter extends RecyclerView.Adapter<Home
             txtValue = v.findViewById(R.id.txtValue);
             txtOdometer = v.findViewById(R.id.txtOdometer);
             txtDetail = v.findViewById(R.id.txtDetail);
-            btnDone = v.findViewById(R.id.btnDone);
         }
 
         @Override
@@ -79,6 +75,7 @@ public class HomeVehicleMaintenanceListAdapter extends RecyclerView.Adapter<Home
         return new MyViewHolder(maintenanceView);
     }
 
+    @SuppressLint("SetTextI18n")
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public void onBindViewHolder(@NonNull final MyViewHolder holder, final int position) {
@@ -92,25 +89,8 @@ public class HomeVehicleMaintenanceListAdapter extends RecyclerView.Adapter<Home
 
         holder.txtDate.setText(Utils.dateToString(maintenance.getDate()));
         holder.txtValue.setText(currencyFormatter.format(maintenance.getValue()==0? BigDecimal.ZERO:maintenance.getValue()));
-        holder.txtOdometer.setText(String.valueOf(maintenance.getOdometer()));
+        holder.txtOdometer.setText(context.getString(R.string.Odometer)+ ": "+maintenance.getOdometer());
         holder.txtDetail.setText(maintenance.getDetail());
-
-        // btnDone - change Status for Service for completed and remove of list
-        holder.btnDone.setOnClickListener (new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                try {
-                    Maintenance m1 = Database.mMaintenanceDao.fetchMaintenanceById(maintenance.getId());
-                    //m1.setStatus(2);  // executed
-                    if (Database.mMaintenanceDao.updateMaintenance(m1)) {
-                        mMaintenance.remove(position);
-                        notifyDataSetChanged();
-                    }
-                }  catch (Exception e) {
-                    Toast.makeText(context, R.string.Error_Changing_Data + e.getMessage(), Toast.LENGTH_LONG).show();
-                }
-            }
-        });
     }
 
     @Override
