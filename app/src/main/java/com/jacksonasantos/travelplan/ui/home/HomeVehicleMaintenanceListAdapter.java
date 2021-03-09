@@ -22,7 +22,6 @@ import com.jacksonasantos.travelplan.ui.utility.Utils;
 
 import java.math.BigDecimal;
 import java.text.NumberFormat;
-import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Locale;
 
@@ -75,14 +74,13 @@ public class HomeVehicleMaintenanceListAdapter extends RecyclerView.Adapter<Home
         return new MyViewHolder(maintenanceView);
     }
 
-    @SuppressLint("SetTextI18n")
+    @SuppressLint({"SetTextI18n", "ResourceAsColor"})
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public void onBindViewHolder(@NonNull final MyViewHolder holder, final int position) {
         final Maintenance maintenance = mMaintenance.get(position);
-        @SuppressLint("SimpleDateFormat") SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         if (position%2==0) {
-            holder.llMaintenance.setBackgroundColor(Color.rgb(209,193,233));
+            holder.llMaintenance.setBackgroundColor(Color.LTGRAY);
         } else {
             holder.llMaintenance.setBackgroundColor(Color.WHITE);
         }

@@ -86,7 +86,7 @@ public class HomeInsuranceListAdapter extends RecyclerView.Adapter<HomeInsurance
         final Insurance insurance = mInsurance.get(position);
         @SuppressLint("SimpleDateFormat") SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         if (position%2==0) {
-            holder.llInsuranceItem.setBackgroundColor(Color.rgb(209,193,233));
+            holder.llInsuranceItem.setBackgroundColor(Color.LTGRAY);
         } else {
             holder.llInsuranceItem.setBackgroundColor(Color.WHITE);
         }

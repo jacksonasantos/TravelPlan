@@ -169,10 +169,6 @@ public class HomeTravelFragment extends Fragment implements View.OnClickListener
                 btnItinerary.setOnClickListener (new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                       /* FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction()
-                                .replace(R.id.container, new TravelRouteFragment(),"Travel");
-                        fragmentTransaction.addToBackStack("Travel").commit();*/
                         Intent intent = new Intent(v.getContext(), ItineraryActivity.class);
                         intent.putExtra("travel_id", travel[0].id);
                         startActivity(intent);
@@ -282,7 +278,7 @@ public class HomeTravelFragment extends Fragment implements View.OnClickListener
                     lblExpectedValue.setText(getString(R.string.Expected));
                     lblRealizedValue.setText(getString(R.string.Realized));
                     labelTravelExpenses.addView(vL);
-                    labelTravelExpenses.setBackgroundColor(Color.rgb(209,193,233));
+                    labelTravelExpenses.setBackgroundColor(Color.LTGRAY);
 
                     listTravelExpenses.setAdapter(adapterTravelExpense);
                     listTravelExpenses.setLayoutManager(new LinearLayoutManager(getContext()));
