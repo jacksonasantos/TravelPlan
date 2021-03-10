@@ -104,6 +104,7 @@
     <string name="MaintenanceItem_Vehicle">Vehicle Maintenance Item </string>
     <string name="MaintenanceItem_Deleting">Deleting Vehicle Maintenance Item </string>
 
+    <string name="MaintenanceItem">Maintenance Item </string>
     <string name="MaintenanceItem_Type">Maintenance Item Type</string>
     <string name="MaintenanceItem_Expiration">Expiration</string>
     <string name="MaintenanceItem_Measure_Type">Measure Type</string>

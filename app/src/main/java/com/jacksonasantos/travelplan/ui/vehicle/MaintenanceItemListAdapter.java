@@ -43,6 +43,7 @@ public class MaintenanceItemListAdapter extends RecyclerView.Adapter<Maintenance
     public static class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         private final ImageView imgServiceType;
+        private final TextView txtMaintenancePlanItem;
         private final TextView txtExpiration;
         private final TextView txtValue;
         private final TextView txtNote;
@@ -51,9 +52,10 @@ public class MaintenanceItemListAdapter extends RecyclerView.Adapter<Maintenance
         public MyViewHolder(View v) {
             super(v);
             imgServiceType = v.findViewById(R.id.imgServiceType);
+            txtMaintenancePlanItem = v.findViewById(R.id.txtMaintenancePlanItem);
             txtExpiration = v.findViewById(R.id.txtExpiration);
-            txtValue = v.findViewById(R.id.txtValue);
             txtNote = v.findViewById(R.id.txtNote);
+            txtValue = v.findViewById(R.id.txtValue);
             btnDelete = v.findViewById(R.id.btnDelete);
 
             btnDelete.setOnClickListener(this);
@@ -79,10 +81,13 @@ public class MaintenanceItemListAdapter extends RecyclerView.Adapter<Maintenance
     public void onBindViewHolder(@NonNull final MyViewHolder holder, final int position) {
         final MaintenanceItem maintenanceItem = mMaintenanceItem.get(position);
 
+        String x = Database.mMaintenancePlanDao.fetchMaintenancePlanById(maintenanceItem.getMaintenance_plan_id()).getDescription();
+
         holder.imgServiceType.setImageResource(maintenanceItem.getServiceTypeImage(maintenanceItem.getService_type()));
-        holder.txtNote.setText( maintenanceItem.getNote().equals("")
-                              ? context.getResources().getStringArray(R.array.vehicle_services)[maintenanceItem.getService_type()]
-                              : context.getResources().getStringArray(R.array.vehicle_services)[maintenanceItem.getService_type()]+" ("+maintenanceItem.getNote()+")");
+        holder.txtMaintenancePlanItem.setText(x);
+        if (!maintenanceItem.getNote().isEmpty()) {
+            holder.txtNote.setText("(" + maintenanceItem.getNote() + ")");
+        }
         holder.txtValue.setText(currencyFormatter.format(maintenanceItem.getValue()==null? BigDecimal.ZERO: maintenanceItem.getValue()));
         int nrSpinMeasure = maintenanceItem.getMeasure_type();
         if (nrSpinMeasure == 0) {

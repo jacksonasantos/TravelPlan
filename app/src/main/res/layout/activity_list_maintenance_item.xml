@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/llMaintenanceItem"
+    android:id="@+id/clMaintenanceItem"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     tools:context=".ui.vehicle.MaintenanceActivity">
@@ -11,59 +11,72 @@
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/imgServiceType"
         android:layout_width="30dp"
-        android:layout_height="30dp"
+        android:layout_height="35dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/txtNote"
-        android:layout_width="155dp"
-        android:layout_height="0dp"
+        android:id="@+id/txtMaintenancePlanItem"
+        android:layout_width="230dp"
+        android:layout_height="18dp"
         android:layout_marginStart="@dimen/labels_marginLeft"
         android:layout_marginLeft="@dimen/labels_marginLeft"
         android:gravity="start|center_vertical"
-        android:textSize="12sp"
+        app:autoSizeMaxTextSize="12sp"
+        app:autoSizeMinTextSize="6sp"
+        app:autoSizeStepGranularity="1sp"
+        app:autoSizeTextType="uniform"
+        app:layout_constraintBottom_toTopOf="@+id/txtValue"
+        app:layout_constraintStart_toEndOf="@+id/imgServiceType"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/txtNote"
+        android:layout_width="230dp"
+        android:layout_height="17dp"
+        android:layout_marginStart="@dimen/labels_marginLeft"
+        android:layout_marginLeft="@dimen/labels_marginLeft"
+        android:gravity="start|center_vertical"
         app:autoSizeMaxTextSize="12sp"
         app:autoSizeMinTextSize="6sp"
         app:autoSizeStepGranularity="1sp"
         app:autoSizeTextType="uniform"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/imgServiceType"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/txtMaintenancePlanItem" />
 
     <TextView
         android:id="@+id/txtValue"
-        android:layout_width="80dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="@dimen/labels_marginLeft"
-        android:layout_marginLeft="@dimen/labels_marginLeft"
-        android:gravity="end|center_vertical"
+        android:layout_width="100dp"
+        android:layout_height="17dp"
+        android:gravity="center_vertical|end"
         android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/txtNote"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toStartOf="@+id/btnDelete"
+        app:layout_constraintStart_toEndOf="@+id/txtNote" />
 
     <TextView
         android:id="@+id/txtExpiration"
-        android:layout_width="80dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="@dimen/labels_marginLeft"
-        android:layout_marginLeft="@dimen/labels_marginLeft"
-        android:gravity="start|center_vertical"
-        android:textSize="12sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/txtValue"
+        android:layout_width="100dp"
+        android:layout_height="18dp"
+        android:gravity="center_vertical|end"
+        app:autoSizeMaxTextSize="12sp"
+        app:autoSizeMinTextSize="6sp"
+        app:autoSizeStepGranularity="1sp"
+        app:autoSizeTextType="uniform"
+        app:layout_constraintBottom_toTopOf="@+id/txtNote"
+        app:layout_constraintEnd_toStartOf="@+id/btnDelete"
+        app:layout_constraintStart_toEndOf="@+id/txtMaintenancePlanItem"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
         android:id="@+id/btnDelete"
         android:layout_width="35dp"
-        android:layout_height="30dp"
+        android:layout_height="35dp"
         android:contentDescription="@string/bt_Delete"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/txtExpiration"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_menu_delete" />
 

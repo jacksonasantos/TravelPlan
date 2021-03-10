@@ -4,6 +4,7 @@ import com.jacksonasantos.travelplan.R;
 
 public class MaintenanceItem {
     public Integer id;
+    public Integer maintenance_plan_id;
     public Integer maintenance_id;
     public int service_type;
     public int measure_type;
@@ -13,6 +14,7 @@ public class MaintenanceItem {
 
     public MaintenanceItem() {
         this.id = id;
+        this.maintenance_plan_id=maintenance_plan_id;
         this.maintenance_id=maintenance_id;
         this.service_type=service_type;
         this.measure_type=measure_type;
@@ -23,6 +25,9 @@ public class MaintenanceItem {
 
     public Integer getId() { return id; }
     public void setId(Integer id) { this.id = id; }
+
+    public Integer getMaintenance_plan_id() { return maintenance_plan_id; }
+    public void setMaintenance_plan_id(Integer maintenance_plan_id) { this.maintenance_plan_id = maintenance_plan_id; }
 
     public Integer getMaintenance_id() { return maintenance_id; }
     public void setMaintenance_id(Integer maintenance_id) { this.maintenance_id = maintenance_id; }

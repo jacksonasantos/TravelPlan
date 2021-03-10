@@ -7,17 +7,16 @@
     android:padding="10dp">
 
     <TextView
-        android:id="@+id/txtServiceType"
+        android:id="@+id/txtMaintenancePlan"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/MaintenanceItem_Type"
+        android:text="@string/MaintenanceItem"
         android:textAppearance="?android:attr/textAppearanceMedium" />
     <Spinner
-        android:id="@+id/spinServiceType"
+        android:id="@+id/spinMaintenancePlan"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:entries="@array/vehicle_services"
-        android:text="@string/MaintenanceItem_Type">
+        android:text="@string/Maintenance_Plan">
     </Spinner>
 
     <TextView
@@ -27,59 +26,28 @@
         android:layout_marginTop="@dimen/labels_marginLeft"
         android:text="@string/MaintenanceItem_Expiration"
         android:textAppearance="?android:attr/textAppearanceMedium" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:baselineAligned="false">
+        <Spinner
+            android:id="@+id/spinMeasureType"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="0.5"
+            android:entries="@array/measure_plan"
+            android:gravity="bottom" />
 
-        <LinearLayout
-            android:layout_width="wrap_content"
+        <EditText
+            android:id="@+id/etExpiration_value"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="0.5"
-            android:orientation="vertical"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <TextView
-                android:id="@+id/txtMeasureType"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/MaintenanceItem_Measure_Type"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
-            <Spinner
-                android:id="@+id/spinMeasureType"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:entries="@array/measure_plan" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/linearLayout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.5"
-            android:orientation="vertical"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <TextView
-                android:id="@+id/txtExpirationValue"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/MaintenanceItem_Expiration_Value"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
-
-            <EditText
-                android:id="@+id/etExpiration_value"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="number"
-                tools:ignore="LabelFor"
-                android:autofillHints="" />
-        </LinearLayout>
+            android:inputType="number"
+            tools:ignore="LabelFor"
+            android:autofillHints="" />
     </LinearLayout>
 
     <TextView

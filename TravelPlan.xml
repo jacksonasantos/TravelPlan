@@ -1128,7 +1128,7 @@
 </INDEX>
 </INDICES>
 </TABLE>
-<TABLE ID="1505" Tablename="maintenance_plan" PrevTableName="Table_14" XPos="783" YPos="316" TableType="0" TablePrefix="0" nmTable="0" Temporary="0" UseStandardInserts="0" StandardInserts="\n" TableOptions="DelayKeyTblUpdates=0\nPackKeys=0\nRowChecksum=0\nRowFormat=0\nUseRaid=0\nRaidType=0\n" Comments="" Collapsed="0" IsLinkedObject="0" IDLinkedModel="-1" Obj_id_Linked="-1" OrderPos="31" >
+<TABLE ID="1505" Tablename="maintenance_plan" PrevTableName="Table_14" XPos="810" YPos="257" TableType="0" TablePrefix="0" nmTable="0" Temporary="0" UseStandardInserts="0" StandardInserts="\n" TableOptions="DelayKeyTblUpdates=0\nPackKeys=0\nRowChecksum=0\nRowFormat=0\nUseRaid=0\nRaidType=0\n" Comments="" Collapsed="0" IsLinkedObject="0" IDLinkedModel="-1" Obj_id_Linked="-1" OrderPos="31" >
 <COLUMNS>
 <COLUMN ID="1515" ColName="id" PrevColName="" Pos="0" idDatatype="5" DatatypeParams="" Width="-1" Prec="-1" PrimaryKey="1" NotNull="1" AutoInc="1" IsForeignKey="0" DefaultValue="" Comments="">
 <OPTIONSELECTED>
@@ -1165,6 +1165,7 @@
 </COLUMNS>
 <RELATIONS_START>
 <RELATION_START ID="1533" />
+<RELATION_START ID="1682" />
 </RELATIONS_START>
 <INDICES>
 <INDEX ID="1516" IndexName="PRIMARY" IndexKind="0" FKRefDef_Obj_id="-1">
@@ -1174,7 +1175,7 @@
 </INDEX>
 </INDICES>
 </TABLE>
-<TABLE ID="1531" Tablename="vehicle_has_plan" PrevTableName="vehicle_has_maintenance_plan" XPos="412" YPos="240" TableType="0" TablePrefix="0" nmTable="1" Temporary="0" UseStandardInserts="0" StandardInserts="\n" TableOptions="DelayKeyTblUpdates=0\nPackKeys=0\nRowChecksum=0\nRowFormat=0\nUseRaid=0\nRaidType=0\n" Comments="" Collapsed="0" IsLinkedObject="0" IDLinkedModel="-1" Obj_id_Linked="-1" OrderPos="32" >
+<TABLE ID="1531" Tablename="vehicle_has_plan" PrevTableName="vehicle_has_maintenance_plan" XPos="419" YPos="270" TableType="0" TablePrefix="0" nmTable="1" Temporary="0" UseStandardInserts="0" StandardInserts="\n" TableOptions="DelayKeyTblUpdates=0\nPackKeys=0\nRowChecksum=0\nRowFormat=0\nUseRaid=0\nRaidType=0\n" Comments="" Collapsed="0" IsLinkedObject="0" IDLinkedModel="-1" Obj_id_Linked="-1" OrderPos="32" >
 <COLUMNS>
 <COLUMN ID="1534" ColName="vehicle_id" PrevColName="" Pos="1" idDatatype="5" DatatypeParams="" Width="-1" Prec="-1" PrimaryKey="1" NotNull="1" AutoInc="0" IsForeignKey="1" DefaultValue="" Comments="">
 <OPTIONSELECTED>
@@ -1477,7 +1478,7 @@
 </INDEX>
 </INDICES>
 </TABLE>
-<TABLE ID="1664" Tablename="maintenance_item" PrevTableName="Table_19" XPos="495" YPos="12" TableType="0" TablePrefix="0" nmTable="0" Temporary="0" UseStandardInserts="0" StandardInserts="\n" TableOptions="DelayKeyTblUpdates=0\nPackKeys=0\nRowChecksum=0\nRowFormat=0\nUseRaid=0\nRaidType=0\n" Comments="" Collapsed="0" IsLinkedObject="0" IDLinkedModel="-1" Obj_id_Linked="-1" OrderPos="41" >
+<TABLE ID="1664" Tablename="maintenance_item" PrevTableName="Table_19" XPos="440" YPos="1" TableType="0" TablePrefix="0" nmTable="0" Temporary="0" UseStandardInserts="0" StandardInserts="\n" TableOptions="DelayKeyTblUpdates=0\nPackKeys=0\nRowChecksum=0\nRowFormat=0\nUseRaid=0\nRaidType=0\n" Comments="" Collapsed="0" IsLinkedObject="0" IDLinkedModel="-1" Obj_id_Linked="-1" OrderPos="41" >
 <COLUMNS>
 <COLUMN ID="1666" ColName="id" PrevColName="" Pos="0" idDatatype="5" DatatypeParams="" Width="-1" Prec="-1" PrimaryKey="1" NotNull="1" AutoInc="1" IsForeignKey="0" DefaultValue="" Comments="">
 <OPTIONSELECTED>
@@ -1485,23 +1486,25 @@
 <OPTIONSELECT Value="0" />
 </OPTIONSELECTED>
 </COLUMN>
-<COLUMN ID="1674" ColName="maintenance_id" PrevColName="" Pos="1" idDatatype="5" DatatypeParams="" Width="-1" Prec="-1" PrimaryKey="1" NotNull="1" AutoInc="0" IsForeignKey="1" DefaultValue="" Comments="">
+<COLUMN ID="1683" ColName="maintenance_plan_id" PrevColName="" Pos="1" idDatatype="5" DatatypeParams="" Width="-1" Prec="-1" PrimaryKey="0" NotNull="1" AutoInc="0" IsForeignKey="1" DefaultValue="" Comments="">
 <OPTIONSELECTED>
 <OPTIONSELECT Value="1" />
 <OPTIONSELECT Value="0" />
 </OPTIONSELECTED>
 </COLUMN>
-<COLUMN ID="1668" ColName="service_type" PrevColName="" Pos="1" idDatatype="4" DatatypeParams="" Width="-1" Prec="-1" PrimaryKey="0" NotNull="0" AutoInc="0" IsForeignKey="0" DefaultValue="" Comments="">
+<COLUMN ID="1674" ColName="maintenance_id" PrevColName="" Pos="1" idDatatype="5" DatatypeParams="" Width="-1" Prec="-1" PrimaryKey="0" NotNull="1" AutoInc="0" IsForeignKey="1" DefaultValue="" Comments="">
 <OPTIONSELECTED>
-<OPTIONSELECT Value="0" />
+<OPTIONSELECT Value="1" />
 <OPTIONSELECT Value="0" />
 </OPTIONSELECTED>
 </COLUMN>
-<COLUMN ID="1669" ColName="expiration_date" PrevColName="" Pos="2" idDatatype="14" DatatypeParams="" Width="-1" Prec="-1" PrimaryKey="0" NotNull="0" AutoInc="0" IsForeignKey="0" DefaultValue="" Comments="">
+<COLUMN ID="1678" ColName="measure_type" PrevColName="" Pos="7" idDatatype="4" DatatypeParams="" Width="-1" Prec="-1" PrimaryKey="0" NotNull="0" AutoInc="0" IsForeignKey="0" DefaultValue="" Comments="">
 <OPTIONSELECTED>
+<OPTIONSELECT Value="1" />
+<OPTIONSELECT Value="0" />
 </OPTIONSELECTED>
 </COLUMN>
-<COLUMN ID="1670" ColName="expiration_km" PrevColName="" Pos="3" idDatatype="4" DatatypeParams="" Width="-1" Prec="-1" PrimaryKey="0" NotNull="0" AutoInc="0" IsForeignKey="0" DefaultValue="" Comments="">
+<COLUMN ID="1679" ColName="expiration_value" PrevColName="" Pos="8" idDatatype="4" DatatypeParams="" Width="-1" Prec="-1" PrimaryKey="0" NotNull="0" AutoInc="0" IsForeignKey="0" DefaultValue="" Comments="">
 <OPTIONSELECTED>
 <OPTIONSELECT Value="0" />
 <OPTIONSELECT Value="0" />
@@ -1519,12 +1522,12 @@
 </COLUMNS>
 <RELATIONS_END>
 <RELATION_END ID="1673" />
+<RELATION_END ID="1682" />
 </RELATIONS_END>
 <INDICES>
 <INDEX ID="1667" IndexName="PRIMARY" IndexKind="0" FKRefDef_Obj_id="-1">
 <INDEXCOLUMNS>
 <INDEXCOLUMN idColumn="1666" LengthParam="0" />
-<INDEXCOLUMN idColumn="1674" LengthParam="0" />
 </INDEXCOLUMNS>
 </INDEX>
 <INDEX ID="1675" IndexName="maintenance_item_FKIndex1" IndexKind="1" FKRefDef_Obj_id="1673">
@@ -1532,12 +1535,17 @@
 <INDEXCOLUMN idColumn="1674" LengthParam="0" />
 </INDEXCOLUMNS>
 </INDEX>
+<INDEX ID="1684" IndexName="maintenance_item_FKIndex2" IndexKind="1" FKRefDef_Obj_id="1682">
+<INDEXCOLUMNS>
+<INDEXCOLUMN idColumn="1683" LengthParam="0" />
+</INDEXCOLUMNS>
+</INDEX>
 </INDICES>
 </TABLE>
 </TABLES>
 <RELATIONS>
-<RELATION ID="1090" RelationName="Rel_Vehicle_Maintenance" Kind="2" SrcTable="1047" DestTable="1075" FKFields="id=vehicle_id\n" FKFieldsComments="\n" relDirection="1" MidOffset="-6" OptionalStart="0" OptionalEnd="0" CaptionOffsetX="-79" CaptionOffsetY="27" StartIntervalOffsetX="0" StartIntervalOffsetY="0" EndIntervalOffsetX="0" EndIntervalOffsetY="0" CreateRefDef="1" Invisible="0" RefDef="Matching=0\nOnDelete=3\nOnUpdate=3\n" Comments="" FKRefDefIndex_Obj_id="1091" Splitted="0" IsLinkedObject="0" IDLinkedModel="-1" Obj_id_Linked="-1" OrderPos="8" />
-<RELATION ID="1092" RelationName="Rel_Vehicle_FuelSupply" Kind="2" SrcTable="1047" DestTable="1022" FKFields="id=vehicle_id\n" FKFieldsComments="\n" relDirection="2" MidOffset="-88" OptionalStart="0" OptionalEnd="0" CaptionOffsetX="-350" CaptionOffsetY="-19" StartIntervalOffsetX="0" StartIntervalOffsetY="0" EndIntervalOffsetX="0" EndIntervalOffsetY="0" CreateRefDef="1" Invisible="0" RefDef="Matching=0\nOnDelete=3\nOnUpdate=3\n" Comments="" FKRefDefIndex_Obj_id="1093" Splitted="0" IsLinkedObject="0" IDLinkedModel="-1" Obj_id_Linked="-1" OrderPos="9" />
+<RELATION ID="1090" RelationName="Rel_Vehicle_Maintenance" Kind="2" SrcTable="1047" DestTable="1075" FKFields="id=vehicle_id\n" FKFieldsComments="\n" relDirection="1" MidOffset="-6" OptionalStart="0" OptionalEnd="0" CaptionOffsetX="-59" CaptionOffsetY="-3" StartIntervalOffsetX="0" StartIntervalOffsetY="0" EndIntervalOffsetX="0" EndIntervalOffsetY="0" CreateRefDef="1" Invisible="0" RefDef="Matching=0\nOnDelete=3\nOnUpdate=3\n" Comments="" FKRefDefIndex_Obj_id="1091" Splitted="0" IsLinkedObject="0" IDLinkedModel="-1" Obj_id_Linked="-1" OrderPos="8" />
+<RELATION ID="1092" RelationName="Rel_Vehicle_FuelSupply" Kind="2" SrcTable="1047" DestTable="1022" FKFields="id=vehicle_id\n" FKFieldsComments="\n" relDirection="2" MidOffset="-88" OptionalStart="0" OptionalEnd="0" CaptionOffsetX="-316" CaptionOffsetY="19" StartIntervalOffsetX="0" StartIntervalOffsetY="0" EndIntervalOffsetX="0" EndIntervalOffsetY="0" CreateRefDef="1" Invisible="0" RefDef="Matching=0\nOnDelete=3\nOnUpdate=3\n" Comments="" FKRefDefIndex_Obj_id="1093" Splitted="0" IsLinkedObject="0" IDLinkedModel="-1" Obj_id_Linked="-1" OrderPos="9" />
 <RELATION ID="1380" RelationName="Rel_Vehicle_VehicleStatistics" Kind="2" SrcTable="1047" DestTable="1373" FKFields="id=vehicle_id\n" FKFieldsComments="\n" relDirection="2" MidOffset="97" OptionalStart="0" OptionalEnd="0" CaptionOffsetX="108" CaptionOffsetY="18" StartIntervalOffsetX="0" StartIntervalOffsetY="0" EndIntervalOffsetX="0" EndIntervalOffsetY="0" CreateRefDef="0" Invisible="0" RefDef="Matching=0\nOnDelete=3\nOnUpdate=3\n" Comments="" FKRefDefIndex_Obj_id="-1" Splitted="0" IsLinkedObject="0" IDLinkedModel="-1" Obj_id_Linked="-1" OrderPos="10" />
 <RELATION ID="1394" RelationName="Rel_Vehicle_Travel" Kind="1" SrcTable="1047" DestTable="1393" FKFields="id=vehicle_id\n" FKFieldsComments="\n" relDirection="2" MidOffset="-96" OptionalStart="0" OptionalEnd="0" CaptionOffsetX="-113" CaptionOffsetY="-139" StartIntervalOffsetX="0" StartIntervalOffsetY="0" EndIntervalOffsetX="0" EndIntervalOffsetY="0" CreateRefDef="1" Invisible="0" RefDef="Matching=0\nOnDelete=3\nOnUpdate=3\n" Comments="" FKRefDefIndex_Obj_id="1397" Splitted="0" IsLinkedObject="0" IDLinkedModel="-1" Obj_id_Linked="-1" OrderPos="13" />
 <RELATION ID="1395" RelationName="Rel_Travel_Vehicle" Kind="1" SrcTable="1382" DestTable="1393" FKFields="id=travel_id\n" FKFieldsComments="\n" relDirection="4" MidOffset="-121" OptionalStart="0" OptionalEnd="0" CaptionOffsetX="67" CaptionOffsetY="-141" StartIntervalOffsetX="0" StartIntervalOffsetY="0" EndIntervalOffsetX="0" EndIntervalOffsetY="0" CreateRefDef="1" Invisible="0" RefDef="Matching=0\nOnDelete=3\nOnUpdate=3\n" Comments="" FKRefDefIndex_Obj_id="1399" Splitted="0" IsLinkedObject="0" IDLinkedModel="-1" Obj_id_Linked="-1" OrderPos="14" />
@@ -1549,13 +1557,14 @@
 <RELATION ID="1493" RelationName="Rel_Travel_Insurance" Kind="2" SrcTable="1382" DestTable="1408" FKFields="id=travel_id\n" FKFieldsComments="\n" relDirection="1" MidOffset="0" OptionalStart="0" OptionalEnd="0" CaptionOffsetX="-89" CaptionOffsetY="83" StartIntervalOffsetX="0" StartIntervalOffsetY="0" EndIntervalOffsetX="0" EndIntervalOffsetY="0" CreateRefDef="1" Invisible="0" RefDef="Matching=0\nOnDelete=3\nOnUpdate=3\n" Comments="" FKRefDefIndex_Obj_id="1495" Splitted="0" IsLinkedObject="0" IDLinkedModel="-1" Obj_id_Linked="-1" OrderPos="28" />
 <RELATION ID="1496" RelationName="Rel_Vehicle_Insurance" Kind="2" SrcTable="1047" DestTable="1408" FKFields="id=vehicle_id\n" FKFieldsComments="\n" relDirection="2" MidOffset="142" OptionalStart="0" OptionalEnd="0" CaptionOffsetX="-77" CaptionOffsetY="65" StartIntervalOffsetX="0" StartIntervalOffsetY="0" EndIntervalOffsetX="0" EndIntervalOffsetY="0" CreateRefDef="0" Invisible="0" RefDef="Matching=0\nOnDelete=3\nOnUpdate=3\n" Comments="" FKRefDefIndex_Obj_id="-1" Splitted="0" IsLinkedObject="0" IDLinkedModel="-1" Obj_id_Linked="-1" OrderPos="29" />
 <RELATION ID="1502" RelationName="Rel_CurrencyQuote_FuelSupply" Kind="2" SrcTable="1001" DestTable="1022" FKFields="id=currency_quote_id\n" FKFieldsComments="\n" relDirection="2" MidOffset="-62" OptionalStart="0" OptionalEnd="0" CaptionOffsetX="-77" CaptionOffsetY="-81" StartIntervalOffsetX="0" StartIntervalOffsetY="0" EndIntervalOffsetX="0" EndIntervalOffsetY="0" CreateRefDef="1" Invisible="0" RefDef="Matching=0\nOnDelete=3\nOnUpdate=3\n" Comments="" FKRefDefIndex_Obj_id="1504" Splitted="0" IsLinkedObject="0" IDLinkedModel="-1" Obj_id_Linked="-1" OrderPos="30" />
-<RELATION ID="1532" RelationName="Rel_Vehicle_Plan" Kind="1" SrcTable="1047" DestTable="1531" FKFields="id=vehicle_id\n" FKFieldsComments="\n" relDirection="1" MidOffset="15" OptionalStart="0" OptionalEnd="0" CaptionOffsetX="-78" CaptionOffsetY="-37" StartIntervalOffsetX="0" StartIntervalOffsetY="0" EndIntervalOffsetX="0" EndIntervalOffsetY="0" CreateRefDef="1" Invisible="0" RefDef="Matching=0\nOnDelete=3\nOnUpdate=3\n" Comments="" FKRefDefIndex_Obj_id="1535" Splitted="0" IsLinkedObject="0" IDLinkedModel="-1" Obj_id_Linked="-1" OrderPos="33" />
-<RELATION ID="1533" RelationName="Rel_Plan_Vehicle" Kind="1" SrcTable="1505" DestTable="1531" FKFields="id=maintenance_plan_id\n" FKFieldsComments="\n" relDirection="4" MidOffset="-37" OptionalStart="0" OptionalEnd="0" CaptionOffsetX="-50" CaptionOffsetY="-77" StartIntervalOffsetX="0" StartIntervalOffsetY="0" EndIntervalOffsetX="0" EndIntervalOffsetY="0" CreateRefDef="1" Invisible="0" RefDef="Matching=0\nOnDelete=3\nOnUpdate=3\n" Comments="" FKRefDefIndex_Obj_id="1537" Splitted="0" IsLinkedObject="0" IDLinkedModel="-1" Obj_id_Linked="-1" OrderPos="34" />
+<RELATION ID="1532" RelationName="Rel_Vehicle_Plan" Kind="1" SrcTable="1047" DestTable="1531" FKFields="id=vehicle_id\n" FKFieldsComments="\n" relDirection="2" MidOffset="15" OptionalStart="0" OptionalEnd="0" CaptionOffsetX="-64" CaptionOffsetY="-19" StartIntervalOffsetX="0" StartIntervalOffsetY="0" EndIntervalOffsetX="0" EndIntervalOffsetY="0" CreateRefDef="1" Invisible="0" RefDef="Matching=0\nOnDelete=3\nOnUpdate=3\n" Comments="" FKRefDefIndex_Obj_id="1535" Splitted="0" IsLinkedObject="0" IDLinkedModel="-1" Obj_id_Linked="-1" OrderPos="33" />
+<RELATION ID="1533" RelationName="Rel_Plan_Vehicle" Kind="1" SrcTable="1505" DestTable="1531" FKFields="id=maintenance_plan_id\n" FKFieldsComments="\n" relDirection="4" MidOffset="-33" OptionalStart="0" OptionalEnd="0" CaptionOffsetX="-35" CaptionOffsetY="-46" StartIntervalOffsetX="0" StartIntervalOffsetY="0" EndIntervalOffsetX="0" EndIntervalOffsetY="0" CreateRefDef="1" Invisible="0" RefDef="Matching=0\nOnDelete=3\nOnUpdate=3\n" Comments="" FKRefDefIndex_Obj_id="1537" Splitted="0" IsLinkedObject="0" IDLinkedModel="-1" Obj_id_Linked="-1" OrderPos="34" />
 <RELATION ID="1568" RelationName="Rel_Vehicle_VehicleGraphStatistics" Kind="2" SrcTable="1047" DestTable="1557" FKFields="id=vehicle_id\n" FKFieldsComments="\n" relDirection="2" MidOffset="-51" OptionalStart="0" OptionalEnd="0" CaptionOffsetX="-113" CaptionOffsetY="-105" StartIntervalOffsetX="0" StartIntervalOffsetY="0" EndIntervalOffsetX="0" EndIntervalOffsetY="0" CreateRefDef="0" Invisible="0" RefDef="Matching=0\nOnDelete=3\nOnUpdate=3\n" Comments="" FKRefDefIndex_Obj_id="-1" Splitted="0" IsLinkedObject="0" IDLinkedModel="-1" Obj_id_Linked="-1" OrderPos="37" />
 <RELATION ID="1597" RelationName="Rel_Travel_Itinerary" Kind="2" SrcTable="1382" DestTable="1588" FKFields="id=travel_id\n" FKFieldsComments="\n" relDirection="4" MidOffset="18" OptionalStart="0" OptionalEnd="0" CaptionOffsetX="18" CaptionOffsetY="-6" StartIntervalOffsetX="0" StartIntervalOffsetY="0" EndIntervalOffsetX="0" EndIntervalOffsetY="0" CreateRefDef="1" Invisible="0" RefDef="Matching=0\nOnDelete=3\nOnUpdate=3\n" Comments="" FKRefDefIndex_Obj_id="1599" Splitted="0" IsLinkedObject="0" IDLinkedModel="-1" Obj_id_Linked="-1" OrderPos="38" />
 <RELATION ID="1611" RelationName="Rel_Travel_Reservation" Kind="2" SrcTable="1382" DestTable="1600" FKFields="id=travel_id\n" FKFieldsComments="\n" relDirection="2" MidOffset="-15" OptionalStart="0" OptionalEnd="0" CaptionOffsetX="-18" CaptionOffsetY="82" StartIntervalOffsetX="0" StartIntervalOffsetY="0" EndIntervalOffsetX="0" EndIntervalOffsetY="0" CreateRefDef="1" Invisible="0" RefDef="Matching=0\nOnDelete=3\nOnUpdate=3\n" Comments="" FKRefDefIndex_Obj_id="1613" Splitted="0" IsLinkedObject="0" IDLinkedModel="-1" Obj_id_Linked="-1" OrderPos="38" />
 <RELATION ID="1635" RelationName="Rel_Accommodation_Reservation" Kind="2" SrcTable="1617" DestTable="1600" FKFields="id=accommodation_id\n" FKFieldsComments="\n" relDirection="1" MidOffset="0" OptionalStart="0" OptionalEnd="0" CaptionOffsetX="-38" CaptionOffsetY="-10" StartIntervalOffsetX="0" StartIntervalOffsetY="0" EndIntervalOffsetX="0" EndIntervalOffsetY="0" CreateRefDef="1" Invisible="0" RefDef="Matching=0\nOnDelete=3\nOnUpdate=3\n" Comments="" FKRefDefIndex_Obj_id="1637" Splitted="0" IsLinkedObject="0" IDLinkedModel="-1" Obj_id_Linked="-1" OrderPos="40" />
-<RELATION ID="1673" RelationName="Rel_Maintenance_Item" Kind="1" SrcTable="1075" DestTable="1664" FKFields="id=maintenance_id\n" FKFieldsComments="\n" relDirection="2" MidOffset="0" OptionalStart="0" OptionalEnd="0" CaptionOffsetX="1" CaptionOffsetY="9" StartIntervalOffsetX="0" StartIntervalOffsetY="0" EndIntervalOffsetX="0" EndIntervalOffsetY="0" CreateRefDef="1" Invisible="0" RefDef="Matching=0\nOnDelete=3\nOnUpdate=3\n" Comments="" FKRefDefIndex_Obj_id="1675" Splitted="0" IsLinkedObject="0" IDLinkedModel="-1" Obj_id_Linked="-1" OrderPos="42" />
+<RELATION ID="1673" RelationName="Rel_Maintenance_Item" Kind="2" SrcTable="1075" DestTable="1664" FKFields="id=maintenance_id\n" FKFieldsComments="\n" relDirection="2" MidOffset="0" OptionalStart="0" OptionalEnd="0" CaptionOffsetX="2" CaptionOffsetY="-3" StartIntervalOffsetX="0" StartIntervalOffsetY="0" EndIntervalOffsetX="0" EndIntervalOffsetY="0" CreateRefDef="1" Invisible="0" RefDef="Matching=0\nOnDelete=3\nOnUpdate=3\n" Comments="" FKRefDefIndex_Obj_id="1675" Splitted="0" IsLinkedObject="0" IDLinkedModel="-1" Obj_id_Linked="-1" OrderPos="42" />
+<RELATION ID="1682" RelationName="Rel_MaintenancePlan_Item" Kind="2" SrcTable="1505" DestTable="1664" FKFields="id=maintenance_plan_id\n" FKFieldsComments="\n" relDirection="4" MidOffset="0" OptionalStart="0" OptionalEnd="0" CaptionOffsetX="-84" CaptionOffsetY="-14" StartIntervalOffsetX="0" StartIntervalOffsetY="0" EndIntervalOffsetX="0" EndIntervalOffsetY="0" CreateRefDef="1" Invisible="0" RefDef="Matching=0\nOnDelete=3\nOnUpdate=3\n" Comments="" FKRefDefIndex_Obj_id="1684" Splitted="0" IsLinkedObject="0" IDLinkedModel="-1" Obj_id_Linked="-1" OrderPos="43" />
 </RELATIONS>
 <NOTES>
 </NOTES>

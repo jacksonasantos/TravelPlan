@@ -1,15 +1,15 @@
-19;Troca de fluído óleo do motor;km;5.000;em média, vide o manual do veículo
+20;Troca de fluído óleo do motor;km;5.000;em média, vide o manual do veículo
 11;Troca de fluído freio;dias;356;substituir uma vez por ano.
-19;Troca de fluído direção hidráulica;km;20.000;em média, vide o manual do veículo
-19;Troca de fluído lubrificante do diferencial;dias;356;verificar condições anualmente
-19;Troca de fluído câmbio;km;40.000;em média, ou 2 anos de uso. Vide o manual.
-15;Troca de fluído arrefecimento;km;40.000;em média, vide o manual do veículo
+20;Troca de fluído direção hidráulica;km;20.000;em média, vide o manual do veículo
+20;Troca de fluído lubrificante do diferencial;dias;356;verificar condições anualmente
+20;Troca de fluído câmbio;km;40.000;em média, ou 2 anos de uso. Vide o manual.
+16;Troca de fluído arrefecimento;km;40.000;em média, vide o manual do veículo
 8;Troca de filtro ar;km;10.000;realizar inspeção de acumulo de sujeira
 8;Troca de filtro ar condicionado;dias;356;verificar condições anualmente
 9;Troca de filtro combustível;km;10.000;se não for subistituído pode comprometer a bomba de combustível e sistema de injeção
 10;Troca de filtro óleo do motor;km;10.000;em média, vide o manual do veículo
-20;Substituição velas;km;20.000;em média, vide o manual do veículo
-20;Substituição cabo de vela;km;20.000;em média, vide o manual do veículo
+21;Substituição velas;km;20.000;em média, vide o manual do veículo
+21;Substituição cabo de vela;km;20.000;em média, vide o manual do veículo
 11;Substituição pastilhas de freio;km;15.000;devemos seguir o manual do veículo e sempre verificar o desgaste para não comprometer o disco
 11;Substituição lonas de freio;km;40.000;devemos seguir o manual do veículo e sempre verificar o desgaste
 11;Substituição discos de freio;km;90.000;devemos seguir o manual do veículo e sempre verificar o desgaste
@@ -22,21 +22,27 @@
 7;Substituição lâmpadas de farol de milha;indeterminado;;trocar sempre aos pares para não divergir a luminosidade
 7;Substituição lâmpadas de seta;indeterminado;;trocar sempre aos pares para não divergir a luminosidade
 5;Substituição silencioso escapamento;indeterminado;;sempre verificar se existem ruídos, vazamentos e danos físicos no sistema de exaustão
-16;Substituição amortecedores e molas;dias;356;em condições normais de uso devemos avaliar no mínimo uma vez por ano
-16;Substituição bandejas;dias;356;em condições normais de uso devemos avaliar no mínimo uma vez por ano
-16;Substituição pivôs e buchas;dias;356;em condições normais de uso devemos avaliar no mínimo uma vez por ano
+17;Substituição amortecedores e molas;dias;356;em condições normais de uso devemos avaliar no mínimo uma vez por ano
+17;Substituição bandejas;dias;356;em condições normais de uso devemos avaliar no mínimo uma vez por ano
+17;Substituição pivôs e buchas;dias;356;em condições normais de uso devemos avaliar no mínimo uma vez por ano
 2;Substituição bateria;dias;712;em média deve ser substituída em 2 anos, verificar com o fabricante da bateria, inspecionar de 6 em 6 meses
 13;Substituição alternador;indeterminado;;sempre realizar revisões no auto elétrico
 13;Substituição mangueiras e sistema de condução;dias;1780;sempre verificar visualmente caso tenha ressecamento ou se está soltando fiapos nas extremdidades
 13;Substituição selos, retentores e juntas;km;100.000;em média, vide o manual do veículo
 4;Substituição embreagem;dias;356;em média, vide o manual do veículo
-18;Substituição palhetas parabrisa;dias;180;em média, inspecione a necessidade da troca
-14;Calibragem pneus e estepe;dias;15;calibrar sempre com os pneus frios
+19;Substituição palhetas parabrisa;dias;180;em média, inspecione a necessidade da troca
+15;Calibragem pneus e estepe;dias;15;calibrar sempre com os pneus frios
 0;Serviços alinhamento;km;10.000;necessário para um desgaste uniforme do pneu, aumentando a durabilidade
 1;Serviços balanceamento;km;10.000;necessário para um desgaste uniforme do pneu, aumentando a durabilidade
-16;Serviços rodízio dos pneus;km;10.000;sempre que realizar o rodízio deve alinhar e balancear
+15;Serviços rodízio dos pneus;km;10.000;sempre que realizar o rodízio deve alinhar e balancear
 13;Serviços polimento;dias;178;ao menos duas vezes ao ano para preservar a pintura
-18;Substituição da bomba de combustível;km;90000;sempre trocar o filtro de bomsutível na data correta para não danificar a bomba.
+19;Substituição da bomba de combustível;km;90000;sempre trocar o filtro de bomsutível na data correta para não danificar a bomba
 6;Substituição do extintor de incêndio;dias;356;verificar o vencimento e as condições do equipamento
 12;Limpeza da Injeção/Carburador;indeterminado;;sempre verificar
-17;Transmissão;indeterminado;;sempre verificar
+18;Transmissão;indeterminado;;sempre verificar
+14;Revisão;km;10.000;efetuar a revisão geral do veículo
+15;Substituição Pneu;km;20.000;sempre verificar a necessidade de substituição dos pneus
+7;Concerto Lanternas;indeterminado;;sempre verificar avarias nas Lanternas
+7;Concerto Farol;indeterminado;;sempre verificar avarias no farol
+13;Concerto/Reforma Motor;indeterminado;;sempre que necessário efetuar a verificação e manutenção do motor do veículo
+19;Outros Serviços;indeterminado;;Verificar e especificar Outros Serviços necessários

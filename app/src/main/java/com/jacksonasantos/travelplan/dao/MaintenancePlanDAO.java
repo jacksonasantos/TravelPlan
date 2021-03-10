@@ -21,7 +21,7 @@ public class MaintenancePlanDAO extends DbContentProvider implements Maintenance
 
     public ArrayList<MaintenancePlan> fetchArrayMaintenancePlan(){
         ArrayList<MaintenancePlan> maintenancePlan = new ArrayList<>();
-        Cursor cursor = super.query(MAINTENANCE_PLAN_TABLE, MAINTENANCE_PLAN_COLUMNS, null,null, MAINTENANCE_PLAN_DESCRIPTION);
+        Cursor cursor = super.query(MAINTENANCE_PLAN_TABLE, MAINTENANCE_PLAN_COLUMNS, null,null, MAINTENANCE_PLAN_SERVICE_TYPE);
         if(cursor != null && cursor.moveToFirst()){
             do{
                 MaintenancePlan m = cursorToEntity(cursor);

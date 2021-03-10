@@ -7,6 +7,8 @@ import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -20,6 +22,7 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -27,10 +30,14 @@ import com.jacksonasantos.travelplan.R;
 import com.jacksonasantos.travelplan.dao.Database;
 import com.jacksonasantos.travelplan.dao.Maintenance;
 import com.jacksonasantos.travelplan.dao.MaintenanceItem;
+import com.jacksonasantos.travelplan.dao.MaintenancePlan;
 import com.jacksonasantos.travelplan.dao.Vehicle;
+import com.jacksonasantos.travelplan.dao.VehicleHasPlan;
 import com.jacksonasantos.travelplan.ui.utility.DateInputMask;
 import com.jacksonasantos.travelplan.ui.utility.Globals;
 import com.jacksonasantos.travelplan.ui.utility.Utils;
+
+import java.util.List;
 
 public class MaintenanceActivity extends AppCompatActivity {
 
@@ -50,7 +57,6 @@ public class MaintenanceActivity extends AppCompatActivity {
 
     private MaintenanceItemListAdapter adapterMaintenanceItem;
 
-    @SuppressLint("WrongViewCast")
     @RequiresApi(api = Build.VERSION_CODES.N)
 
     @Override
@@ -115,23 +121,26 @@ public class MaintenanceActivity extends AppCompatActivity {
         @SuppressLint("InflateParams") View vL = getLayoutInflater().inflate(R.layout.activity_list_maintenance_item, null);
         labelMaintenanceItem.removeAllViews();
         ImageView lblServiceType = vL.findViewById(R.id.imgServiceType);
+        TextView lblDescription = vL.findViewById(R.id.txtMaintenancePlanItem);
         TextView lblExpiration = vL.findViewById(R.id.txtExpiration);
-        TextView lblValue = vL.findViewById(R.id.txtValue);
         TextView lblNote = vL.findViewById(R.id.txtNote);
+        TextView lblValue = vL.findViewById(R.id.txtValue);
         ImageButton btnDelete = vL.findViewById(R.id.btnDelete);
 
-        lblServiceType.setImageResource(0);
+        lblServiceType.setVisibility(View.INVISIBLE);
+        lblDescription.setText(getString(R.string.Maintenance_Plan_Description));
+        lblExpiration.setText(getString(R.string.MaintenanceItem_Expiration));
         lblNote.setText(getString(R.string.MaintenanceItem_Note));
         lblValue.setText(getString(R.string.MaintenanceItem_Value));
-        lblExpiration.setText(getString(R.string.MaintenanceItem_Expiration));
         btnDelete.setVisibility(View.INVISIBLE);
-        labelMaintenanceItem.addView(vL);
         labelMaintenanceItem.setBackgroundColor(Color.rgb(209,193,233));
+        labelMaintenanceItem.addView(vL);
 
         if (!opInsert) {
             adapterMaintenanceItem = new MaintenanceItemListAdapter(Database.mMaintenanceItemDao.fetchMaintenanceItemByMaintenance(maintenance.getId()), getApplicationContext());
             listMaintenanceItem.setAdapter(adapterMaintenanceItem);
             listMaintenanceItem.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+            listMaintenanceItem.addItemDecoration(new DividerItemDecoration(getApplicationContext(), DividerItemDecoration.VERTICAL));
         }
 
         if (maintenance != null) {
@@ -147,6 +156,10 @@ public class MaintenanceActivity extends AppCompatActivity {
     public void addListenerOnButtonAdd() {
         ImageButton btAddMaintenanceItem = findViewById(R.id.btAddMaintenanceItem);
 
+        final List<MaintenancePlan> maintenancePlan =  Database.mMaintenancePlanDao.fetchArrayMaintenancePlan();
+        final ArrayAdapter<MaintenancePlan> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, maintenancePlan);
+        adapter.setDropDownViewResource( android.R.layout.simple_spinner_dropdown_item);
+
         btAddMaintenanceItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -156,47 +169,71 @@ public class MaintenanceActivity extends AppCompatActivity {
                 final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(v.getContext());
 
                 alertDialogBuilder.setView(promptsView);
-                final Spinner spinServiceType = (Spinner) promptsView.findViewById(R.id.spinServiceType);
+                final Spinner spinMaintenancePlan = (Spinner) promptsView.findViewById(R.id.spinMaintenancePlan);
                 final Spinner spinMeasureType = (Spinner) promptsView.findViewById(R.id.spinMeasureType);
                 final EditText etExpiration_value = (EditText) promptsView.findViewById(R.id.etExpiration_value);
                 final EditText etValue = (EditText) promptsView.findViewById(R.id.etValue);
                 final EditText etNote = (EditText) promptsView.findViewById(R.id.etNote);
 
+                spinMaintenancePlan.setAdapter(adapter);
+                final MaintenancePlan[] maintenancePlan1 = new MaintenancePlan[1];
+
+                spinMaintenancePlan.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    @SuppressLint("SetTextI18n")
+                    @Override
+                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                        maintenancePlan1[0] = (MaintenancePlan) parent.getItemAtPosition(position);
+
+                        spinMeasureType.setSelection(maintenancePlan1[0].getMeasure());
+                        VehicleHasPlan VxP = Database.mVehicleHasPlanDao.fetchVehicleHasPlanById(maintenance.getVehicle_id() , maintenancePlan1[0].getId());
+                        if (VxP.getMaintenance_plan_id()==null) {
+                            etExpiration_value.setText(Integer.toString(maintenancePlan1[0].getExpiration_default()));
+                        } else {
+                            etExpiration_value.setText(Integer.toString(VxP.getExpiration()));
+                        }
+                    }
+                    @Override
+                    public void onNothingSelected(AdapterView<?> parent) {
+                    }
+                });
+                adapter.notifyDataSetChanged();
+
                 alertDialogBuilder
-                        .setCancelable(false)
-                        .setPositiveButton(R.string.OK, new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog,int id) {
-                                boolean isSave = false;
+                .setCancelable(false)
+                .setPositiveButton(R.string.OK, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog,int id) {
+                        boolean isSave = false;
 
-                                MaintenanceItem mI = new MaintenanceItem();
+                        MaintenanceItem mI = new MaintenanceItem();
 
-                                mI.setMaintenance_id(maintenance.getId());
-                                mI.setService_type(spinServiceType.getSelectedItemPosition());
-                                mI.setMeasure_type(spinMeasureType.getSelectedItemPosition());
-                                if (!etExpiration_value.getText().toString().isEmpty()) { mI.setExpiration_value(Integer.parseInt(etExpiration_value.getText().toString()));}
-                                if (!etValue.getText().toString().isEmpty())            { mI.setValue(Double.parseDouble(etValue.getText().toString()));}
-                                mI.setNote(etNote.getText().toString());
+                        mI.setMaintenance_id(maintenance.getId());
+                        mI.setMaintenance_plan_id(maintenancePlan1[0].getId());
+                        mI.setService_type(maintenancePlan1[0].getService_type());
+                        mI.setMeasure_type(spinMeasureType.getSelectedItemPosition());
+                        if (!etExpiration_value.getText().toString().isEmpty()) { mI.setExpiration_value(Integer.parseInt(etExpiration_value.getText().toString()));}
+                        if (!etValue.getText().toString().isEmpty())            { mI.setValue(Double.parseDouble(etValue.getText().toString()));}
+                        mI.setNote(etNote.getText().toString());
 
-                                try {
-                                     isSave = Database.mMaintenanceItemDao.addMaintenanceItem(mI);
-                                } catch (Exception e) {
-                                    Toast.makeText(getApplicationContext(), R.string.Error_Including_Data + e.getMessage(), Toast.LENGTH_LONG).show();
-                                }
-                                setResult(isSave ? 1 : 0);
-                                if (!isSave) {
-                                    Toast.makeText(getApplicationContext(), R.string.Error_Saving_Data, Toast.LENGTH_LONG).show();
-                                } else {
-                                    adapterMaintenanceItem = new MaintenanceItemListAdapter(Database.mMaintenanceItemDao.fetchMaintenanceItemByMaintenance(maintenance.getId()), getApplicationContext());
-                                    listMaintenanceItem.setAdapter(adapterMaintenanceItem);
-                                    adapterMaintenanceItem.notifyDataSetChanged();
-                                }
-                            }
-                        })
-                        .setNegativeButton(R.string.Cancel, new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog,int id) {
-                                dialog.cancel();
-                            }
-                        });
+                        try {
+                             isSave = Database.mMaintenanceItemDao.addMaintenanceItem(mI);
+                        } catch (Exception e) {
+                            Toast.makeText(getApplicationContext(), R.string.Error_Including_Data + e.getMessage(), Toast.LENGTH_LONG).show();
+                        }
+                        setResult(isSave ? 1 : 0);
+                        if (!isSave) {
+                            Toast.makeText(getApplicationContext(), R.string.Error_Saving_Data, Toast.LENGTH_LONG).show();
+                        } else {
+                            adapterMaintenanceItem = new MaintenanceItemListAdapter(Database.mMaintenanceItemDao.fetchMaintenanceItemByMaintenance(maintenance.getId()), getApplicationContext());
+                            listMaintenanceItem.setAdapter(adapterMaintenanceItem);
+                            adapterMaintenanceItem.notifyDataSetChanged();
+                        }
+                    }
+                })
+                .setNegativeButton(R.string.Cancel, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog,int id) {
+                        dialog.cancel();
+                    }
+                });
                 AlertDialog alertDialog = alertDialogBuilder.create();
                 alertDialog.show();
             }

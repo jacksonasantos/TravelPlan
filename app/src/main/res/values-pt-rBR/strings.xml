@@ -271,4 +271,5 @@
     <string name="MaintenanceItem_Expiration_Value">Valor</string>
     <string name="MaintenanceItem_Measure_Type">Tipo</string>
     <string name="LastVehicleServices">Últimos Servicos no Veículo</string>
+    <string name="MaintenanceItem">Item de Manutenção</string>
 </resources>
