@@ -31,7 +31,7 @@ import java.util.List;
 public class VehiclePlanActivity extends AppCompatActivity {
 
     private Integer nrVehicle_id =0;
-    private int nrspinService_description;
+    private Integer nrspinService_description;
     private EditText etRecommendation;
     private EditText etMeasure;
     private int nrMeasure;
@@ -76,21 +76,17 @@ public class VehiclePlanActivity extends AppCompatActivity {
         rvVehiclePlan = findViewById(R.id.rvVehiclePlan);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
     protected void onResume() {
         super.onResume();
-
-       // MaintenancePlan maintenancePlan = new MaintenancePlan();
 
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             vehicleHasPlan = new VehicleHasPlan();
-            vehicleHasPlan.setVehicle_id(extras.getInt("vehicle_id"));
-            nrVehicle_id = extras.getInt("vehicle_id");
-            if (extras.getInt("maintenance_plan_id") > 0) {
-                vehicleHasPlan.setMaintenance_plan_id(extras.getInt("maintenance_plan_id"));
-                vehicleHasPlan = Database.mVehicleHasPlanDao.fetchVehicleHasPlanById(vehicleHasPlan.getVehicle_id(), vehicleHasPlan.getMaintenance_plan_id());
-                Integer nrMaintenancePlan_id = extras.getInt("maintenance_plan_id");
-                MaintenancePlan maintenancePlan = Database.mMaintenancePlanDao.fetchMaintenancePlanById(nrMaintenancePlan_id);
+            if (extras.getInt("id") > 0) {
+                vehicleHasPlan.setId(extras.getInt("id"));
+                vehicleHasPlan = Database.mVehicleHasPlanDao.fetchVehicleHasPlanById(vehicleHasPlan.getId());
+                nrVehicle_id = vehicleHasPlan.getVehicle_id();
                 opInsert = false;
             }
         }
@@ -128,6 +124,23 @@ public class VehiclePlanActivity extends AppCompatActivity {
         });
         adapterT.notifyDataSetChanged();
 
+        if (vehicleHasPlan != null) {
+            nrspinService_description = vehicleHasPlan.getMaintenance_plan_id();
+            if (nrspinService_description != null && nrspinService_description > 0) {
+                MaintenancePlan mp2 = Database.mMaintenancePlanDao.fetchMaintenancePlanById(nrspinService_description);
+                for (int x = 0; x <= spinService_description.getAdapter().getCount(); x++) {
+                    if (spinService_description.getAdapter().getItem(x).toString().equals(mp2.getDescription())) {
+                        spinService_description.setText(spinService_description.getAdapter().getItem(x).toString(),false);
+                        etRecommendation.setText(mp2.getRecommendation());
+                        nrMeasure = mp2.getMeasure();
+                        break;
+                    }
+                }
+            }
+            etMeasure.setText(getResources().getStringArray(R.array.measure_plan)[nrMeasure]);
+            etExpirationNumber.setText(String.valueOf(vehicleHasPlan.getExpiration()));
+        }
+
         adapter = new VehiclePlanListAdapter(Database.mVehicleHasPlanDao.fetchAllVehicleHasPlanByVehicle(nrVehicle_id), getApplicationContext());
         rvVehiclePlan.setAdapter(adapter);
         rvVehiclePlan.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
@@ -154,8 +167,7 @@ public class VehiclePlanActivity extends AppCompatActivity {
 
                     if (!opInsert) {
                         try {
-                            vp1.setVehicle_id(vehicleHasPlan.getVehicle_id());
-                            vp1.setMaintenance_plan_id(vehicleHasPlan.getMaintenance_plan_id());
+                            vp1.setId(vehicleHasPlan.getId());
                             isSave = Database.mVehicleHasPlanDao.updateVehicleHasPlan(vp1);
                         } catch (Exception e) {
                             Toast.makeText(getApplicationContext(), R.string.Error_Changing_Data + e.getMessage(), Toast.LENGTH_LONG).show();

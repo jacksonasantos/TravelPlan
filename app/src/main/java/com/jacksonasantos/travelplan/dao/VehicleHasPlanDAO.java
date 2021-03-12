@@ -19,12 +19,28 @@ public class VehicleHasPlanDAO extends DbContentProvider implements VehicleHasPl
         super(db);
     }
 
-    public VehicleHasPlan fetchVehicleHasPlanById(Integer vehicle_id, Integer maintenance_id) {
-        final String[] selectionArgs = { String.valueOf(vehicle_id),String.valueOf(maintenance_id) };
-        final String selection = VEHICLE_HAS_PLAN_VEHICLE_ID + " = ? AND " + 
-                                 VEHICLE_HAS_PLAN_MAINTENANCE_PLAN_ID + " = ? ";
+    public VehicleHasPlan fetchVehicleHasPlanById(Integer id) {
+        final String[] selectionArgs = { String.valueOf(id) };
+        final String selection = VEHICLE_HAS_PLAN_ID + " = ? ";
         VehicleHasPlan vehicleHasPlan = new VehicleHasPlan();
-        cursor = super.query(VEHICLE_HAS_PLAN_TABLE, VEHICLE_HAS_PLAN_COLUMNS, selection, selectionArgs, VEHICLE_HAS_PLAN_VEHICLE_ID);
+        cursor = super.query(VEHICLE_HAS_PLAN_TABLE, VEHICLE_HAS_PLAN_COLUMNS, selection, selectionArgs, null);
+        if (cursor != null) {
+            cursor.moveToFirst();
+            while (!cursor.isAfterLast()) {
+                vehicleHasPlan = cursorToEntity(cursor);
+                cursor.moveToNext();
+            }
+            cursor.close();
+        }
+        return vehicleHasPlan;
+    }
+
+    public VehicleHasPlan fetchVehicleHasPlanByFK(Integer vehicle_id, Integer maintenance_plan_id) {
+        final String[] selectionArgs = { String.valueOf(vehicle_id), String.valueOf(maintenance_plan_id) };
+        final String selection = VEHICLE_HAS_PLAN_VEHICLE_ID + " = ? AND "+
+                                 VEHICLE_HAS_PLAN_MAINTENANCE_PLAN_ID + " = ?";
+        VehicleHasPlan vehicleHasPlan = new VehicleHasPlan();
+        cursor = super.query(VEHICLE_HAS_PLAN_TABLE, VEHICLE_HAS_PLAN_COLUMNS, selection, selectionArgs, null);
         if (cursor != null) {
             cursor.moveToFirst();
             while (!cursor.isAfterLast()) {
@@ -63,18 +79,16 @@ public class VehicleHasPlanDAO extends DbContentProvider implements VehicleHasPl
         return vehicleHasPlanList;
     }
 
-    public void deleteVehicleHasPlan(Integer vehicle_id, Integer maintenance_id) {
-        final String[] selectionArgs = { String.valueOf(vehicle_id),String.valueOf(maintenance_id) };
-        final String selection = VEHICLE_HAS_PLAN_VEHICLE_ID + " = ? AND " +
-                VEHICLE_HAS_PLAN_MAINTENANCE_PLAN_ID + " = ? ";
+    public void deleteVehicleHasPlan(Integer id) {
+        final String[] selectionArgs = { String.valueOf(id) };
+        final String selection = VEHICLE_HAS_PLAN_ID + " = ? ";
         super.delete(VEHICLE_HAS_PLAN_TABLE, selection, selectionArgs);
     }
 
     public boolean updateVehicleHasPlan(VehicleHasPlan vehicleHasPlan) {
         setContentValue(vehicleHasPlan);
-        final String[] selectionArgs = { String.valueOf(vehicleHasPlan.getVehicle_id()),String.valueOf(vehicleHasPlan.getMaintenance_plan_id()) };
-        final String selection = VEHICLE_HAS_PLAN_VEHICLE_ID + " = ? AND " +
-                VEHICLE_HAS_PLAN_MAINTENANCE_PLAN_ID + " = ? ";
+        final String[] selectionArgs = { String.valueOf(vehicleHasPlan.getId()) };
+        final String selection = VEHICLE_HAS_PLAN_ID + " = ? ";
         return (super.update(VEHICLE_HAS_PLAN_TABLE, getContentValue(), selection, selectionArgs) > 0);
     }
 
@@ -86,15 +100,17 @@ public class VehicleHasPlanDAO extends DbContentProvider implements VehicleHasPl
     protected VehicleHasPlan cursorToEntity(Cursor c) {
         VehicleHasPlan vHP = new VehicleHasPlan();
         if (c != null) {
-            if (c.getColumnIndex(VEHICLE_HAS_PLAN_VEHICLE_ID) != -1)                {vHP.setVehicle_id(c.getInt(c.getColumnIndexOrThrow(VEHICLE_HAS_PLAN_VEHICLE_ID))); }
-            if (cursor.getColumnIndex(VEHICLE_HAS_PLAN_MAINTENANCE_PLAN_ID) != -1)  {vHP.setMaintenance_plan_id(c.getInt(c.getColumnIndexOrThrow(VEHICLE_HAS_PLAN_MAINTENANCE_PLAN_ID))); }
-            if (cursor.getColumnIndex(VEHICLE_HAS_PLAN_EXPIRATION) != -1)           {vHP.setExpiration(c.getInt(c.getColumnIndexOrThrow(VEHICLE_HAS_PLAN_EXPIRATION))); }
+            if (c.getColumnIndex(VEHICLE_HAS_PLAN_ID) != -1)                   {vHP.setId(c.getInt(c.getColumnIndexOrThrow(VEHICLE_HAS_PLAN_ID))); }
+            if (c.getColumnIndex(VEHICLE_HAS_PLAN_VEHICLE_ID) != -1)           {vHP.setVehicle_id(c.getInt(c.getColumnIndexOrThrow(VEHICLE_HAS_PLAN_VEHICLE_ID))); }
+            if (c.getColumnIndex(VEHICLE_HAS_PLAN_MAINTENANCE_PLAN_ID) != -1)  {vHP.setMaintenance_plan_id(c.getInt(c.getColumnIndexOrThrow(VEHICLE_HAS_PLAN_MAINTENANCE_PLAN_ID))); }
+            if (c.getColumnIndex(VEHICLE_HAS_PLAN_EXPIRATION) != -1)           {vHP.setExpiration(c.getInt(c.getColumnIndexOrThrow(VEHICLE_HAS_PLAN_EXPIRATION))); }
         }
         return vHP;
     }
 
     private void setContentValue(VehicleHasPlan vHP) {
         initialValues = new ContentValues();
+        initialValues.put(VEHICLE_HAS_PLAN_ID, vHP.id);
         initialValues.put(VEHICLE_HAS_PLAN_VEHICLE_ID, vHP.vehicle_id);
         initialValues.put(VEHICLE_HAS_PLAN_MAINTENANCE_PLAN_ID, vHP.maintenance_plan_id);
         initialValues.put(VEHICLE_HAS_PLAN_EXPIRATION, vHP.expiration);

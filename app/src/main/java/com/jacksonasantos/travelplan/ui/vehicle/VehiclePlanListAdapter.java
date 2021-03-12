@@ -87,10 +87,10 @@ public class VehiclePlanListAdapter extends RecyclerView.Adapter<VehiclePlanList
         // btnEdit
         holder.btnEdit.setOnClickListener (new View.OnClickListener() {
             @Override
-            public void onClick(View v) { // TODO - Arrumar o funcionamento desta manutenção
+            public void onClick(View v) {
                 Intent intent = new Intent (v.getContext(), VehiclePlanActivity.class);
-                intent.putExtra("vehicle_id", vehicleHasPlan.getVehicle_id());
-                intent.putExtra("maintenance_plan_id", vehicleHasPlan.getMaintenance_plan_id());
+                intent.putExtra("id", vehicleHasPlan.getId());
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 context.startActivity(intent);
             }
         });
@@ -106,7 +106,7 @@ public class VehiclePlanListAdapter extends RecyclerView.Adapter<VehiclePlanList
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
                                 try {
-                                    Database.mVehicleHasPlanDao.deleteVehicleHasPlan(vehicleHasPlan.getVehicle_id(),vehicleHasPlan.getMaintenance_plan_id());
+                                    Database.mVehicleHasPlanDao.deleteVehicleHasPlan(vehicleHasPlan.getId());
                                     mVehicleHasPlan.remove(position);
                                     notifyItemRemoved(position);
                                     notifyItemRangeChanged(position,mVehicleHasPlan.size());

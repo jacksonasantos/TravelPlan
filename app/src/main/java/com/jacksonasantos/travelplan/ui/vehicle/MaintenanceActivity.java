@@ -185,7 +185,7 @@ public class MaintenanceActivity extends AppCompatActivity {
                         maintenancePlan1[0] = (MaintenancePlan) parent.getItemAtPosition(position);
 
                         spinMeasureType.setSelection(maintenancePlan1[0].getMeasure());
-                        VehicleHasPlan VxP = Database.mVehicleHasPlanDao.fetchVehicleHasPlanById(maintenance.getVehicle_id() , maintenancePlan1[0].getId());
+                        VehicleHasPlan VxP = Database.mVehicleHasPlanDao.fetchVehicleHasPlanByFK(maintenance.getVehicle_id() , maintenancePlan1[0].getId());
                         if (VxP.getMaintenance_plan_id()==null) {
                             etExpiration_value.setText(Integer.toString(maintenancePlan1[0].getExpiration_default()));
                         } else {
