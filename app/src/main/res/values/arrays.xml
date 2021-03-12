@@ -73,30 +73,6 @@
         <item>@string/executed</item>           <!-- BLUE -->
     </string-array>
     <!-- Services Images -->
-    <array name="vehicle_service_image">
-        <item>@drawable/ic_service_alignment</item>
-        <item>@drawable/ic_service_balancing</item>
-        <item>@drawable/ic_service_battery</item>
-        <item>@drawable/ic_service_belt</item>
-        <item>@drawable/ic_service_clutch</item>
-        <item>@drawable/ic_service_exhaust</item>
-        <item>@drawable/ic_service_extinguisher</item>
-        <item>@drawable/ic_service_lighthouse_flashlight</item>
-        <item>@drawable/ic_service_air_filter</item>
-        <item>@drawable/ic_service_fuel_filter</item>
-        <item>@drawable/ic_service_oil_filter</item>
-        <item>@drawable/ic_service_brake</item>
-        <item>@drawable/ic_service_injection_carburetor</item>
-        <item>@drawable/ic_service_other_services</item>
-        <item>@drawable/ic_service_overhaul</item>
-        <item>@drawable/ic_service_tire</item>
-        <item>@drawable/ic_service_radiator</item>
-        <item>@drawable/ic_service_suspension</item>
-        <item>@drawable/ic_service_transmission</item>
-        <item>@drawable/ic_service_parts_exchange</item>
-        <item>@drawable/ic_service_oil_change</item>
-        <item>@drawable/ic_service_spark_plug</item>
-    </array>
     <!-- Services -->
     <string-array name="vehicle_services">
         <item>@string/alignment</item>                   <!--00-->

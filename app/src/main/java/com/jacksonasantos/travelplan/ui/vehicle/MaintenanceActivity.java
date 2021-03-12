@@ -169,11 +169,11 @@ public class MaintenanceActivity extends AppCompatActivity {
                 final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(v.getContext());
 
                 alertDialogBuilder.setView(promptsView);
-                final Spinner spinMaintenancePlan = (Spinner) promptsView.findViewById(R.id.spinMaintenancePlan);
-                final Spinner spinMeasureType = (Spinner) promptsView.findViewById(R.id.spinMeasureType);
-                final EditText etExpiration_value = (EditText) promptsView.findViewById(R.id.etExpiration_value);
-                final EditText etValue = (EditText) promptsView.findViewById(R.id.etValue);
-                final EditText etNote = (EditText) promptsView.findViewById(R.id.etNote);
+                final Spinner spinMaintenancePlan = promptsView.findViewById(R.id.spinMaintenancePlan);
+                final Spinner spinMeasureType = promptsView.findViewById(R.id.spinMeasureType);
+                final EditText etExpiration_value = promptsView.findViewById(R.id.etExpiration_value);
+                final EditText etValue = promptsView.findViewById(R.id.etValue);
+                final EditText etNote = promptsView.findViewById(R.id.etNote);
 
                 spinMaintenancePlan.setAdapter(adapter);
                 final MaintenancePlan[] maintenancePlan1 = new MaintenancePlan[1];

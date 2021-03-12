@@ -90,7 +90,6 @@ public class MaintenancePlanListAdapter extends RecyclerView.Adapter<Maintenance
         }
         holder.txtMeasure.setText(measureArray[maintenancePlan.getMeasure()]);
 
-        //TODO - nao esta funcionando
         // btnEdit
         holder.btnEdit.setOnClickListener (new View.OnClickListener() {
             @Override

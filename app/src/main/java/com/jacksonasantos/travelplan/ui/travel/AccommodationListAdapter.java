@@ -25,13 +25,13 @@ import java.util.List;
 public class AccommodationListAdapter extends RecyclerView.Adapter<AccommodationListAdapter.MyViewHolder> {
 
     private final List<Accommodation> mAccommodation;
-    Context context;
+    final Context context;
 
     public static class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        public TextView txtNameAccommodation;
-        public ImageButton btnEdit;
-        public ImageButton btnDelete;
+        public final TextView txtNameAccommodation;
+        public final ImageButton btnEdit;
+        public final ImageButton btnDelete;
 
         public MyViewHolder(View v) {
             super(v);

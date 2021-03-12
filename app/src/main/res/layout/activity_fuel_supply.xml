@@ -99,7 +99,7 @@
                     android:layout_marginRight="@dimen/labels_margin"
                     android:autofillHints="no"
                     android:hint="@string/FuelSupply_Gas_Station"
-                    android:inputType="text"
+                    android:inputType="text|textCapSentences"
                     android:layerType="software"
                     android:nextFocusDown="@+id/etGasStationLocation"
                     android:textSize="12sp" />
@@ -112,6 +112,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/btLocation"
                 app:layout_constraintTop_toBottomOf="@+id/input_layout_etGasStation">
+
                 <EditText
                     android:id="@+id/etGasStationLocation"
                     android:layout_width="match_parent"
@@ -123,7 +124,7 @@
                     android:layout_marginRight="@dimen/labels_margin"
                     android:autofillHints="no"
                     android:hint="@string/FuelSupply_Gas_Station_Location"
-                    android:inputType="text"
+                    android:inputType="text|textCapSentences"
                     android:nextFocusDown="@+id/etSupplyDate"
                     android:textSize="12sp" />
             </com.google.android.material.textfield.TextInputLayout>

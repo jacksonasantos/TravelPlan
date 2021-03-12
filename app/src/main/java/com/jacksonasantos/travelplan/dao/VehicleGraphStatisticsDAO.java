@@ -24,7 +24,7 @@ public class VehicleGraphStatisticsDAO extends DbContentProvider implements Vehi
         cursor = super.rawQuery("SELECT " + FuelSupplyISchema.FUEL_SUPPLY_VEHICLE_ID + " " + VehicleGraphStatisticsISchema.VEHICLE_GRAPH_STATISTICS_VEHICLE_ID+", " +
                                                  FuelSupplyISchema.FUEL_SUPPLY_SUPPLY_REASON_TYPE + " " + VehicleGraphStatisticsISchema.VEHICLE_GRAPH_STATISTICS_SUPPLY_REASON_TYPE+ ", " +
                                                  FuelSupplyISchema.FUEL_SUPPLY_SUPPLY_DATE + " " + VehicleGraphStatisticsISchema.VEHICLE_GRAPH_STATISTICS_XAXIS_DATE+ ", " +
-                                                 "(SUM("+ FuelSupplyISchema.FUEL_SUPPLY_VEHICLE_TRAVELLED_DISTANCE+") / SUM(" + FuelSupplyISchema.FUEL_SUPPLY_NUMBER_LITERS+") ) " + VehicleGraphStatisticsISchema.VEHICLE_GRAPH_STATISTICS_YAXIS_AVG_CONSUMPTION+", " +
+                                                 "(SUM("+ FuelSupplyISchema.FUEL_SUPPLY_VEHICLE_TRAVELLED_DISTANCE+") / SUM(" + FuelSupplyISchema.FUEL_SUPPLY_NUMBER_LITERS+"+"+FuelSupplyISchema.FUEL_SUPPLY_ACCUMULATED_NUMBER_LITERS+") ) " + VehicleGraphStatisticsISchema.VEHICLE_GRAPH_STATISTICS_YAXIS_AVG_CONSUMPTION+", " +
                                                  "(SUM(" + FuelSupplyISchema.FUEL_SUPPLY_SUPPLY_VALUE+") / SUM(" + FuelSupplyISchema.FUEL_SUPPLY_VEHICLE_TRAVELLED_DISTANCE + ") ) "+ VehicleGraphStatisticsISchema.VEHICLE_GRAPH_STATISTICS_YAXIS_AVG_COST_LITRE+" " +
                                        "FROM " + FuelSupplyISchema.FUEL_SUPPLY_TABLE + " " +
                                       "WHERE " + FuelSupplyISchema.FUEL_SUPPLY_VEHICLE_TRAVELLED_DISTANCE + " > 0 " +

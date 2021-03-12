@@ -9,6 +9,7 @@ public class FuelSupply {
     public String gas_station_location;
     public Date supply_date;
     public double number_liters;
+    public double accumulated_number_liters;
     public int combustible;
     public int full_tank;
     public int currency_type;
@@ -30,6 +31,7 @@ public class FuelSupply {
         this.gas_station_location=gas_station_location;
         this.supply_date=supply_date;
         this.number_liters=number_liters;
+        this.accumulated_number_liters=accumulated_number_liters;
         this.combustible=combustible;
         this.full_tank=full_tank;
         this.currency_type=currency_type;
@@ -68,6 +70,10 @@ public class FuelSupply {
     public double getNumber_liters() {return number_liters;}
 
     public void setNumber_liters(double number_liters) {this.number_liters = number_liters;}
+
+    public double getAccumulated_number_liters() {return accumulated_number_liters;}
+
+    public void setAccumulated_Number_liters(double accumulated_number_liters) {this.accumulated_number_liters = accumulated_number_liters;}
 
     public int getCombustible() { return combustible; }
 

@@ -98,17 +98,13 @@
     <string name="Maintenance_Value">Maintenance Value</string>
     <string name="Maintenance_Location">Maintenance Location</string>
     <string name="Maintenance_Note">Maintenance Note</string>
-    <string name="Maintenance_Status">Maintenance Status</string>
 
     <!-- Maintenance Item Fragment -->
-    <string name="MaintenanceItem_Vehicle">Vehicle Maintenance Item </string>
     <string name="MaintenanceItem_Deleting">Deleting Vehicle Maintenance Item </string>
 
     <string name="MaintenanceItem">Maintenance Item </string>
     <string name="MaintenanceItem_Type">Maintenance Item Type</string>
     <string name="MaintenanceItem_Expiration">Expiration</string>
-    <string name="MaintenanceItem_Measure_Type">Measure Type</string>
-    <string name="MaintenanceItem_Expiration_Value">Expiration Value</string>
     <string name="MaintenanceItem_Value">Value</string>
     <string name="MaintenanceItem_Note">Note</string>
     <string name="Next_VehicleMaintenance">Next Vehicle Maintenance</string>

@@ -169,7 +169,6 @@
     <string name="insurance_type_travel">Viagem</string>
     <string name="menu_insurance">Seguros</string>
     <string name="Insurance_Description">Descrição</string>
-    <string name="Maintenance_Status">Status da Manutenção</string>
     <string name="InsuranceExpiration">Vencimento de Seguros</string>
     <string name="overdue">Em atraso</string>
     <string name="Error_Deleting_Data">Erro ao excluir dados</string>
@@ -260,7 +259,6 @@
     <string name="Vehicle_Avg_Cost_Litre">Custo por Litro Médio</string>
     <string name="Vehicle_AccumulatedSupplyValue">Valor de Abastecimento Acumulado</string>
     <string name="overhaul">Revisão</string>
-    <string name="MaintenanceItem_Vehicle">Item de Manutenção de Veículo</string>
     <string name="MaintenanceItem_Deleting">Excluindo Item de Manutenção de Veículo</string>
     <string name="MaintenanceItem_Type">Tipo Serviço</string>
     <string name="MaintenanceItem_Expiration">Validade</string>
@@ -268,8 +266,6 @@
     <string name="MaintenanceItem_Note">Observação</string>
     <string name="Maintenance_Type">Tipo de Manutenção</string>
     <string name="Cancel">Cancelar</string>
-    <string name="MaintenanceItem_Expiration_Value">Valor</string>
-    <string name="MaintenanceItem_Measure_Type">Tipo</string>
     <string name="LastVehicleServices">Últimos Servicos no Veículo</string>
     <string name="MaintenanceItem">Item de Manutenção</string>
     <string name="Next_VehicleMaintenance">Próxima Manutenção do Veículo</string>

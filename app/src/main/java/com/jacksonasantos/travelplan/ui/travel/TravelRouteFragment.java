@@ -158,7 +158,7 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
 
     @SuppressLint("SetTextI18n")
     protected void search(List<Address> addresses) {
-        Address address = (Address) addresses.get(0);
+        Address address = addresses.get(0);
         LatLng latLng = new LatLng(address.getLatitude(), address.getLongitude());
         String addressText = String.format("%s, %s", address.getSubAdminArea(), address.getCountryCode());
         markerOptions.position(latLng);

@@ -59,6 +59,7 @@ public class FuelSupplyActivity extends AppCompatActivity {
     private Integer nrSpinAssociatedTravelId;
     private int vLastOdometer;
     private int vLastTravelledDistance;
+    private double vAccumulatedNumberLitre = 0;
     private double vAccumNumberLitre = 0;
     private double vAccumSupplyValue = 0;
     private float vStatAvgFuelConsumption = (float) 0;
@@ -309,18 +310,22 @@ public class FuelSupplyActivity extends AppCompatActivity {
                             // TODO - Verifiar ajustes nas estatisicas quando for alterados o Odometro e a Distancia viajada
                             vStatAvgFuelConsumption = vLastTravelledDistance / Float.parseFloat(Double.toString(Double.parseDouble(etNumberLiters.getText().toString()) + v1.getAccumulated_number_liters()));
                             vStatCostPerLitre = vLastTravelledDistance / Float.parseFloat(Double.toString(Double.parseDouble(etSupplyValue.getText().toString()) + v1.getAccumulated_supply_value()));
+                            vAccumulatedNumberLitre = v1.getAccumulated_number_liters();
                             vAccumNumberLitre = 0;
                             vAccumSupplyValue = 0;
-                            if (rbSupplyReasonType!=3 && v1.getLast_supply_reason_type()!=rbSupplyReasonType) {
+                            if (rbSupplyReasonType!=3 &&
+                                v1.getLast_supply_reason_type()!=rbSupplyReasonType &&
+                                v1.getAccumulated_number_liters()>0) {
                                 rbSupplyReasonType = 3;
                             }
                             txStatAvgFuelConsumption.setText(numberFormat.format(vStatAvgFuelConsumption));
                             txStatCostPerLitre.setText(currencyFormatter.format(vStatCostPerLitre));
                         }
                     } else {
+                        vAccumulatedNumberLitre = 0;
                         vAccumNumberLitre = Double.parseDouble(etNumberLiters.getText().toString()) + v1.getAccumulated_number_liters();
                         vAccumSupplyValue = Double.parseDouble(etSupplyValue.getText().toString()) + v1.getAccumulated_supply_value();
-                    };
+                    }
 
                     if (g.getIdCurrency() != nrSpinCurrencyType ) {
                         final CurrencyQuote c1 = new CurrencyQuote();
@@ -340,6 +345,7 @@ public class FuelSupplyActivity extends AppCompatActivity {
                     f1.setGas_station_location(etGasStationLocation.getText().toString());
                     f1.setSupply_date( Utils.stringToDate(etSupplyDate.getText().toString()));
                     f1.setNumber_liters(Double.parseDouble(etNumberLiters.getText().toString()));
+                    f1.setAccumulated_Number_liters(vAccumulatedNumberLitre);
                     f1.setCombustible(nrSpinCombustible);
                     f1.setFull_tank(vlFullTank);
                     f1.setCurrency_type(nrSpinCurrencyType);
