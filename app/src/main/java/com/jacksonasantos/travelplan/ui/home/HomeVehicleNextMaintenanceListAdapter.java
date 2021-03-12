@@ -100,17 +100,17 @@ public class HomeVehicleNextMaintenanceListAdapter extends RecyclerView.Adapter<
         } else {                                            // Date
             Date vData;
             Date vDataNow = new Date();
-            Date vDataLim = new Date();
-
-            Calendar c = Calendar.getInstance();
-            c.setTime(vDataLim);
-            c.add(Calendar.DATE, g.getDaysPreviousAlert()*-1);
-            vDataLim = c.getTime();
 
             @SuppressLint("SimpleDateFormat") SimpleDateFormat dateFormat = new SimpleDateFormat ("yyyy-MM-dd");
 
             try {
                 vData = dateFormat.parse(nextMaintenanceItem.getNext_service());
+                Date vDataLim = vData;
+
+                Calendar c = Calendar.getInstance();
+                c.setTime(vDataLim);
+                c.add(Calendar.DATE, g.getDaysPreviousAlert()*-1);
+                vDataLim = c.getTime();
                 nextMaintenanceItem.setNext_service(Utils.dateToString(vData));
                 if (vDataNow.compareTo(vData) > 0) {
                     vStatus = 2;
