@@ -272,4 +272,6 @@
     <string name="MaintenanceItem_Measure_Type">Tipo</string>
     <string name="LastVehicleServices">Últimos Servicos no Veículo</string>
     <string name="MaintenanceItem">Item de Manutenção</string>
+    <string name="Next_VehicleMaintenance">Próxima Manutenção do Veículo</string>
+    <string name="date">Data</string>
 </resources>

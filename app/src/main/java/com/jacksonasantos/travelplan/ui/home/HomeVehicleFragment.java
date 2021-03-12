@@ -62,6 +62,9 @@ public class HomeVehicleFragment extends Fragment implements View.OnClickListene
     private ConstraintLayout layerServiceVehicle;
     private RecyclerView maintenanceList;
 
+    private ConstraintLayout layerMaintenanceItemVehicle;
+    private RecyclerView nextVehicleMaintenanceList;
+
     private ConstraintLayout layerInsuranceVehicle;
     private RecyclerView insuranceList;
 
@@ -98,6 +101,9 @@ public class HomeVehicleFragment extends Fragment implements View.OnClickListene
 
         layerServiceVehicle = v.findViewById(R.id.layerServiceVehicle);
         maintenanceList = v.findViewById(R.id.listLastVehicleService);
+
+        layerMaintenanceItemVehicle = v.findViewById(R.id.layerMaintenanceItemVehicle);
+        nextVehicleMaintenanceList = v.findViewById(R.id.listNextVehicleMaintenance);
 
         layerInsuranceVehicle = v.findViewById(R.id.layerInsuranceVehicle);
         insuranceList = v.findViewById(R.id.listInsuranceExpiration);
@@ -207,7 +213,16 @@ public class HomeVehicleFragment extends Fragment implements View.OnClickListene
                 }
                 adapterMaintenance.notifyDataSetChanged();
 
-// TODO - Implantar Itens de Manutenção a Realizar
+                // Next Vehicle Maintenance - layerMaintenanceItemVehicle
+                HomeVehicleNextMaintenanceListAdapter adapterNextMaintenance = new HomeVehicleNextMaintenanceListAdapter(Database.mNextMaintenanceItemDao.findNextMaintenanceItem( g.getIdVehicle() ), getContext());
+                if (adapterNextMaintenance.getItemCount() > 0){
+                    layerMaintenanceItemVehicle.setVisibility(View.VISIBLE);
+                    nextVehicleMaintenanceList.setAdapter(adapterNextMaintenance);
+                    nextVehicleMaintenanceList.setLayoutManager(new LinearLayoutManager(getContext()));
+                } else {
+                    layerMaintenanceItemVehicle.setVisibility(View.GONE);
+                }
+                adapterNextMaintenance.notifyDataSetChanged();
 
                 // Insurance - layerInsuranceVehicle
                 HomeInsuranceListAdapter adapterInsurance = new HomeInsuranceListAdapter(Database.mInsuranceDao.findReminderInsurance("V", g.getIdVehicle() ), getContext());

@@ -53,6 +53,7 @@ public class Database {
     public static SummaryTravelExpenseDAO mSummaryTravelExpenseDao;
     public static VehicleGraphStatisticsDAO mVehicleGraphStatisticsDao;
     public static VehicleStatisticsDAO mVehicleStatisticsDao;
+    public static NextMaintenanceItemDAO mNextMaintenanceItemDao;
 
     public Database(Context context) {
         this.mContext = context;
@@ -82,6 +83,7 @@ public class Database {
         mReservationDao = new ReservationDAO(mDb);
         mItineraryDao = new ItineraryDAO(mDb);
         mMaintenanceItemDao = new MaintenanceItemDAO(mDb);
+        mNextMaintenanceItemDao = new NextMaintenanceItemDAO(mDb);
     }
 
     public void close() {

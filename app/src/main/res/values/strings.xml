@@ -111,6 +111,7 @@
     <string name="MaintenanceItem_Expiration_Value">Expiration Value</string>
     <string name="MaintenanceItem_Value">Value</string>
     <string name="MaintenanceItem_Note">Note</string>
+    <string name="Next_VehicleMaintenance">Next Vehicle Maintenance</string>
 
     <!-- Maintenance Plan Fragment -->
     <string name="Maintenance_Plan">Maintenance Plan</string>
@@ -125,6 +126,7 @@
     <string name="indeterminate">Indeterminate</string>
     <string name="km">Km</string>
     <string name="days">Day(s)</string>
+    <string name="date">Date</string>
 
     <!-- FuelSupply Fragment -->
     <string name="FuelSupply_Vehicle">Supply Vehicle</string>

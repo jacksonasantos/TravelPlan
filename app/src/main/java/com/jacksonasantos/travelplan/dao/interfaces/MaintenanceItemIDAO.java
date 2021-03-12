@@ -1,6 +1,5 @@
 package com.jacksonasantos.travelplan.dao.interfaces;
 
-import com.jacksonasantos.travelplan.dao.Maintenance;
 import com.jacksonasantos.travelplan.dao.MaintenanceItem;
 
 import java.util.List;

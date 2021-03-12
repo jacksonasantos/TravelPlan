@@ -3,68 +3,65 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/llMaintenance"
+    android:id="@+id/llNextMaintenanceItem"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     tools:context=".ui.home.HomeVehicleFragment">
 
-
-    <TextView
-        android:id="@+id/txtDate"
-        android:layout_width="110dp"
-        android:layout_height="wrap_content"
-        android:gravity="start|center_vertical"
-        app:autoSizeMaxTextSize="12sp"
-        app:autoSizeMinTextSize="6sp"
-        app:autoSizeStepGranularity="1sp"
-        app:autoSizeTextType="uniform"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/txtDetail"
+    <ImageView
+        android:id="@+id/imgServiceType"
+        android:layout_width="35dp"
+        android:layout_height="30dp"
+        android:contentDescription="@string/MaintenanceItem_Type"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/txtValue"
-        android:layout_width="110dp"
+        android:id="@+id/txtDescription"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:gravity="start|center_vertical"
         android:layout_marginStart="@dimen/labels_marginLeft"
         android:layout_marginLeft="@dimen/labels_marginLeft"
-        android:gravity="end|center_vertical"
+        android:layout_marginEnd="@dimen/labels_marginLeft"
+        android:layout_marginRight="@dimen/labels_marginLeft"
         app:autoSizeMaxTextSize="12sp"
         app:autoSizeMinTextSize="6sp"
         app:autoSizeStepGranularity="1sp"
         app:autoSizeTextType="uniform"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/txtDetail"
-        app:layout_constraintEnd_toStartOf="@+id/txtOdometer"
-        app:layout_constraintStart_toEndOf="@+id/txtDate"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/txtMeasure"
+        app:layout_constraintStart_toEndOf="@+id/imgServiceType"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/txtOdometer"
-        android:layout_width="140dp"
+        android:id="@+id/txtMeasure"
+        android:layout_width="50dp"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/labels_marginLeft"
+        android:layout_marginRight="@dimen/labels_marginLeft"
         android:gravity="start|center_vertical"
         app:autoSizeMaxTextSize="12sp"
         app:autoSizeMinTextSize="6sp"
         app:autoSizeStepGranularity="1sp"
         app:autoSizeTextType="uniform"
-        app:layout_constraintBottom_toTopOf="@+id/txtDetail"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/txtNextService"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/txtDetail"
-        android:layout_width="0dp"
+        android:id="@+id/txtNextService"
+        android:layout_width="90dp"
         android:layout_height="wrap_content"
-        android:gravity="center_horizontal|center_vertical"
+        android:gravity="end|center_vertical"
         app:autoSizeMaxTextSize="12sp"
         app:autoSizeMinTextSize="6sp"
         app:autoSizeStepGranularity="1sp"
         app:autoSizeTextType="uniform"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

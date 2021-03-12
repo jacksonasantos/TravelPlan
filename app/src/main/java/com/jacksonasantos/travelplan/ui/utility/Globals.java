@@ -16,6 +16,8 @@ public class Globals {
     private String txTimeFormat;
     private String txLatitudeHome;
     private String txLongitudeHome;
+    private int nrKMsPreviousAlert;
+    private int nrDaysPreviousAlert;
 
     private Globals() { }
 
@@ -54,6 +56,12 @@ public class Globals {
 
     public String getLongitudeHome() { return txLongitudeHome;}
     public void setLongitudeHome(String txLongitudeHome) { this.txLongitudeHome = txLongitudeHome;}
+
+    public int getKMsPreviousAlert() { return this.nrKMsPreviousAlert; }
+    public void setKMsPreviousAlert(int nrKMsPreviousAlert) { this.nrKMsPreviousAlert = nrKMsPreviousAlert; }
+
+    public int getDaysPreviousAlert() { return this.nrDaysPreviousAlert; }
+    public void setDaysPreviousAlert(int nrDaysPreviousAlert) { this.nrDaysPreviousAlert = nrDaysPreviousAlert; }
 
     public static synchronized Globals getInstance() { if(instance==null){ instance=new Globals(); } return instance;
     }
