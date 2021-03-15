@@ -37,7 +37,9 @@ public class HomeVehicleStatisticsListAdapter extends RecyclerView.Adapter<HomeV
         private final TextView txtAVGCostLitre;
         private final TextView txtMeasureCost;
         private final TextView txtAVGConsumption;
+        private final TextView txtAVGMaxConsumption;
         private final TextView txtMeasureConsumption;
+        private final TextView txtMeasureMaxConsumption;
 
         public MyViewHolder(View v) {
             super(v);
@@ -45,7 +47,9 @@ public class HomeVehicleStatisticsListAdapter extends RecyclerView.Adapter<HomeV
             txtAVGCostLitre = v.findViewById(R.id.txtAVGCostLitre);
             txtMeasureCost = v.findViewById(R.id.txtMeasureCost);
             txtAVGConsumption = v.findViewById(R.id.txtAVGConsumption);
+            txtAVGMaxConsumption = v.findViewById(R.id.txtAVGMaxConsumption);
             txtMeasureConsumption = v.findViewById(R.id.txtMeasureConsumption);
+            txtMeasureMaxConsumption = v.findViewById(R.id.txtMeasureMaxConsumption);
         }
 
         @Override
@@ -80,8 +84,12 @@ public class HomeVehicleStatisticsListAdapter extends RecyclerView.Adapter<HomeV
 
         if ( vehicleStatistics.getSupply_reason_type() == 9) {
             holder.txtReason.setText(context.getString(R.string.general));
+            holder.txtAVGMaxConsumption.setText("");
+            holder.txtMeasureMaxConsumption.setText("");
         } else {
             holder.txtReason.setText(reasonTypeArray[vehicleStatistics.getSupply_reason_type() - 1]);
+            holder.txtAVGMaxConsumption.setText(numberFormat.format(vehicleStatistics.getAvg_max_consumption()));
+            holder.txtMeasureMaxConsumption.setText(g.getMeasureConsumption()+" Max");
         }
         holder.txtReason.setTextColor(VehicleStatistics.getSupply_reason_type_color(vehicleStatistics.getSupply_reason_type()));
         holder.txtAVGCostLitre.setText(currencyFormatter.format(vehicleStatistics.getAvg_cost_litre()));

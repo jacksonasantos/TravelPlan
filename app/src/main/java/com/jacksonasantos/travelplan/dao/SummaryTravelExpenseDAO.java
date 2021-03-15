@@ -30,44 +30,44 @@ public class SummaryTravelExpenseDAO extends DbContentProvider implements Summar
 
         cursor = super.rawQuery(
                 "SELECT '" + MainActivity.getAppResources().getString(R.string.Combustible) + "' " + SummaryTravelExpenseISchema.TRAVEL_EXPENSE_EXPENSE + ", " +
-                        " ( SELECT SUM(i." + ItineraryISchema.ITINERARY_DISTANCE+"*v."+ VehicleISchema.VEHICLE_AVG_COST_LITRE+") " + SummaryTravelExpenseISchema.TRAVEL_EXPENSE_REALIZED_VALUE +
-                            " FROM " + ItineraryISchema.ITINERARY_TABLE + " i " +
-                                ", " + VehicleHasTravelISchema.VEHICLE_HAS_TRAVEL_TABLE + " vt " +
-                                ", " + VehicleISchema.VEHICLE_TABLE + " v " +
-                           " WHERE i." + ItineraryISchema.ITINERARY_TRAVEL_ID + " = vt." + VehicleHasTravelISchema.VEHICLE_HAS_TRAVEL_TRAVEL_ID +
-                             " AND vt." + VehicleHasTravelISchema.VEHICLE_HAS_TRAVEL_VEHICLE_ID + " = v." + VehicleISchema.VEHICLE_ID +
-                             " AND i." + ItineraryISchema.ITINERARY_TRAVEL_ID + " = ?) " + SummaryTravelExpenseISchema.TRAVEL_EXPENSE_EXPECTED_VALUE + ", " +
-                        " SUM(" + FuelSupplyISchema.FUEL_SUPPLY_SUPPLY_VALUE +") " + SummaryTravelExpenseISchema.TRAVEL_EXPENSE_REALIZED_VALUE +
-                        " FROM " + FuelSupplyISchema.FUEL_SUPPLY_TABLE +
-                        " WHERE " + FuelSupplyISchema.FUEL_SUPPLY_ASSOCIATED_TRAVEL_ID + " = ? " +
-                        " UNION " +
-                        " SELECT '" + MainActivity.getAppResources().getString(R.string.Food) + "' " + SummaryTravelExpenseISchema.TRAVEL_EXPENSE_EXPENSE + ", " +              //  TODO - Calcular quando implementado Alimentação
-                        " 0 " + SummaryTravelExpenseISchema.TRAVEL_EXPENSE_EXPECTED_VALUE + ", " +
-                        " 0 " + SummaryTravelExpenseISchema.TRAVEL_EXPENSE_REALIZED_VALUE +
-                        " UNION " +
-                        " SELECT '" + MainActivity.getAppResources().getString(R.string.Toll) + "' " + SummaryTravelExpenseISchema.TRAVEL_EXPENSE_EXPENSE + ", " +              //  TODO - Calcular quando implementado Pedágio
-                        " 0 " + SummaryTravelExpenseISchema.TRAVEL_EXPENSE_EXPECTED_VALUE + ", " +
-                        " 0 " + SummaryTravelExpenseISchema.TRAVEL_EXPENSE_REALIZED_VALUE +
-                        " UNION " +
-                        " SELECT '" + MainActivity.getAppResources().getString(R.string.Tours) + "' " + SummaryTravelExpenseISchema.TRAVEL_EXPENSE_EXPENSE + ", " +              //  TODO - Calcular quando implementado Passeios
-                        " 0 " + SummaryTravelExpenseISchema.TRAVEL_EXPENSE_EXPECTED_VALUE + ", " +
-                        " 0 " + SummaryTravelExpenseISchema.TRAVEL_EXPENSE_REALIZED_VALUE +
-                        " UNION " +
-                        " SELECT '" + MainActivity.getAppResources().getString(R.string.Accommodation) + "' " + SummaryTravelExpenseISchema.TRAVEL_EXPENSE_EXPENSE + ", " +
-                        " SUM(" + ReservationISchema.RESERVATION_RESERVATION_AMOUNT + ") " + SummaryTravelExpenseISchema.TRAVEL_EXPENSE_EXPECTED_VALUE + ", " +
-                        " SUM(" + ReservationISchema.RESERVATION_AMOUNT_PAID + ") " + SummaryTravelExpenseISchema.TRAVEL_EXPENSE_REALIZED_VALUE +
-                        " FROM " + ReservationISchema.RESERVATION_TABLE +
-                        " WHERE " + ReservationISchema.RESERVATION_TRAVEL_ID + " = ? " +
-                        " UNION " +
-                        " SELECT '" + MainActivity.getAppResources().getString(R.string.Extras) + "' " + SummaryTravelExpenseISchema.TRAVEL_EXPENSE_EXPENSE + ", " +             //  TODO - Calcular quando implementado Extras
-                        " 0 " + SummaryTravelExpenseISchema.TRAVEL_EXPENSE_EXPECTED_VALUE + ", " +
-                        " 0 " + SummaryTravelExpenseISchema.TRAVEL_EXPENSE_REALIZED_VALUE +
-                        " UNION " +
-                        " SELECT '" + MainActivity.getAppResources().getString(R.string.Insurance) + "' "+ SummaryTravelExpenseISchema.TRAVEL_EXPENSE_EXPENSE + ", " +
-                        " 0 " + SummaryTravelExpenseISchema.TRAVEL_EXPENSE_EXPECTED_VALUE + ", " +
-                        " SUM(" + InsuranceISchema.INSURANCE_TOTAL_PREMIUM_VALUE + ") " + SummaryTravelExpenseISchema.TRAVEL_EXPENSE_REALIZED_VALUE +
-                        " FROM " + InsuranceISchema.INSURANCE_TABLE +
-                        " WHERE " + InsuranceISchema.INSURANCE_TRAVEL_ID + " = ? " ,
+                           " ( SELECT SUM(i." + ItineraryISchema.ITINERARY_DISTANCE+"*v."+ VehicleISchema.VEHICLE_AVG_COST_LITRE+") " + SummaryTravelExpenseISchema.TRAVEL_EXPENSE_REALIZED_VALUE +
+                               " FROM " + ItineraryISchema.ITINERARY_TABLE + " i " +
+                                   ", " + VehicleHasTravelISchema.VEHICLE_HAS_TRAVEL_TABLE + " vt " +
+                                   ", " + VehicleISchema.VEHICLE_TABLE + " v " +
+                              " WHERE i." + ItineraryISchema.ITINERARY_TRAVEL_ID + " = vt." + VehicleHasTravelISchema.VEHICLE_HAS_TRAVEL_TRAVEL_ID +
+                                " AND vt." + VehicleHasTravelISchema.VEHICLE_HAS_TRAVEL_VEHICLE_ID + " = v." + VehicleISchema.VEHICLE_ID +
+                                " AND i." + ItineraryISchema.ITINERARY_TRAVEL_ID + " = ?) " + SummaryTravelExpenseISchema.TRAVEL_EXPENSE_EXPECTED_VALUE + ", " +
+                           " SUM(" + FuelSupplyISchema.FUEL_SUPPLY_SUPPLY_VALUE +") " + SummaryTravelExpenseISchema.TRAVEL_EXPENSE_REALIZED_VALUE +
+                      " FROM " + FuelSupplyISchema.FUEL_SUPPLY_TABLE +
+                     " WHERE " + FuelSupplyISchema.FUEL_SUPPLY_ASSOCIATED_TRAVEL_ID + " = ? " +
+                    " UNION " +
+                    " SELECT '" + MainActivity.getAppResources().getString(R.string.Food) + "' " + SummaryTravelExpenseISchema.TRAVEL_EXPENSE_EXPENSE + ", " +              //  TODO - Calcular quando implementado Alimentação
+                           " 0 " + SummaryTravelExpenseISchema.TRAVEL_EXPENSE_EXPECTED_VALUE + ", " +
+                           " 0 " + SummaryTravelExpenseISchema.TRAVEL_EXPENSE_REALIZED_VALUE +
+                     " UNION " +
+                    " SELECT '" + MainActivity.getAppResources().getString(R.string.Toll) + "' " + SummaryTravelExpenseISchema.TRAVEL_EXPENSE_EXPENSE + ", " +              //  TODO - Calcular quando implementado Pedágio
+                           " 0 " + SummaryTravelExpenseISchema.TRAVEL_EXPENSE_EXPECTED_VALUE + ", " +
+                           " 0 " + SummaryTravelExpenseISchema.TRAVEL_EXPENSE_REALIZED_VALUE +
+                    " UNION " +
+                    " SELECT '" + MainActivity.getAppResources().getString(R.string.Tours) + "' " + SummaryTravelExpenseISchema.TRAVEL_EXPENSE_EXPENSE + ", " +              //  TODO - Calcular quando implementado Passeios
+                           " 0 " + SummaryTravelExpenseISchema.TRAVEL_EXPENSE_EXPECTED_VALUE + ", " +
+                           " 0 " + SummaryTravelExpenseISchema.TRAVEL_EXPENSE_REALIZED_VALUE +
+                    " UNION " +
+                    " SELECT '" + MainActivity.getAppResources().getString(R.string.Accommodation) + "' " + SummaryTravelExpenseISchema.TRAVEL_EXPENSE_EXPENSE + ", " +
+                           " SUM(" + ReservationISchema.RESERVATION_RESERVATION_AMOUNT + ") " + SummaryTravelExpenseISchema.TRAVEL_EXPENSE_EXPECTED_VALUE + ", " +
+                           " SUM(" + ReservationISchema.RESERVATION_AMOUNT_PAID + ") " + SummaryTravelExpenseISchema.TRAVEL_EXPENSE_REALIZED_VALUE +
+                      " FROM " + ReservationISchema.RESERVATION_TABLE +
+                     " WHERE " + ReservationISchema.RESERVATION_TRAVEL_ID + " = ? " +
+                    " UNION " +
+                    " SELECT '" + MainActivity.getAppResources().getString(R.string.Extras) + "' " + SummaryTravelExpenseISchema.TRAVEL_EXPENSE_EXPENSE + ", " +             //  TODO - Calcular quando implementado Extras
+                           " 0 " + SummaryTravelExpenseISchema.TRAVEL_EXPENSE_EXPECTED_VALUE + ", " +
+                           " 0 " + SummaryTravelExpenseISchema.TRAVEL_EXPENSE_REALIZED_VALUE +
+                    " UNION " +
+                    " SELECT '" + MainActivity.getAppResources().getString(R.string.Insurance) + "' "+ SummaryTravelExpenseISchema.TRAVEL_EXPENSE_EXPENSE + ", " +
+                           " 0 " + SummaryTravelExpenseISchema.TRAVEL_EXPENSE_EXPECTED_VALUE + ", " +
+                           " SUM(" + InsuranceISchema.INSURANCE_TOTAL_PREMIUM_VALUE + ") " + SummaryTravelExpenseISchema.TRAVEL_EXPENSE_REALIZED_VALUE +
+                      " FROM " + InsuranceISchema.INSURANCE_TABLE +
+                     " WHERE " + InsuranceISchema.INSURANCE_TRAVEL_ID + " = ? " ,
                 new String[] { String.valueOf(travel_id), String.valueOf(travel_id), String.valueOf(travel_id), String.valueOf(travel_id)});
         if (null != cursor) {
             if (cursor.moveToFirst()) {

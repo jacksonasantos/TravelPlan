@@ -40,7 +40,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/labels_marginLeft"
         android:layout_marginLeft="@dimen/labels_marginLeft"
-        android:layout_weight="0.2"
+        android:layout_weight="0.15"
         android:gravity="center_vertical|end"
         android:textSize="12sp"
         tools:ignore="SmallSp"/>
@@ -56,5 +56,26 @@
         android:textSize="12sp"
         tools:ignore="SmallSp"/>
 
+    <TextView
+        android:id="@+id/txtAVGMaxConsumption"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/labels_marginLeft"
+        android:layout_marginLeft="@dimen/labels_marginLeft"
+        android:layout_weight="0.15"
+        android:gravity="center_vertical|end"
+        android:textSize="12sp"
+        tools:ignore="SmallSp"/>
+
+    <TextView
+        android:id="@+id/txtMeasureMaxConsumption"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/labels_marginLeft"
+        android:layout_marginLeft="@dimen/labels_marginLeft"
+        android:layout_weight="0.2"
+        android:gravity="start|center_vertical"
+        android:textSize="12sp"
+        tools:ignore="SmallSp"/>
 </LinearLayout>
 
