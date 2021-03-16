@@ -14,25 +14,23 @@
         android:layout_height="30dp"
         android:layout_weight="0.50"
         android:gravity="start|center_vertical"
-        android:textSize="12sp" />
+        app:autoSizeMaxTextSize="12sp"
+        app:autoSizeMinTextSize="6sp"
+        app:autoSizeStepGranularity="1sp"
+        app:autoSizeTextType="uniform" />
 
     <TextView
         android:id="@+id/txtAvgConsumption"
         android:layout_width="0dp"
         android:layout_height="30dp"
-        android:layout_weight="0.25"
+        android:layout_weight="0.5"
         android:gravity="start|center_vertical"
-        android:textSize="12sp" />
+        app:autoSizeMaxTextSize="12sp"
+        app:autoSizeMinTextSize="6sp"
+        app:autoSizeStepGranularity="1sp"
+        app:autoSizeTextType="uniform" />
 
-    <TextView
-        android:id="@+id/txtAutonomy"
-        android:layout_width="0dp"
-        android:layout_height="30dp"
-        android:layout_weight="0.25"
-        android:gravity="end|center_vertical"
-        android:textSize="12sp" />
-
-    <ImageButton
+        <ImageButton
         android:id="@+id/btnDelete"
         android:layout_width="30dp"
         android:layout_height="30dp"

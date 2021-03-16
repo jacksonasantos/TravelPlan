@@ -13,7 +13,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            tools:ignore="UselessParent">
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
@@ -132,17 +133,10 @@
                 android:text="@string/bt_Save" />
 
             <Button
-                android:id="@+id/buttonSeparator3"
+                android:id="@+id/buttonSeparator1"
                 android:layout_width="match_parent"
                 android:layout_height="15dp"
                 android:clickable="false" />
-
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:baselineAligned="false"
-            android:orientation="vertical">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -169,7 +163,10 @@
                         android:layout_marginRight="@dimen/labels_margin"
                         android:hint="@string/Vehicle"
                         android:inputType="none"
-                        android:textSize="12sp" />
+                        app:autoSizeMaxTextSize="12sp"
+                        app:autoSizeMinTextSize="6sp"
+                        app:autoSizeStepGranularity="1sp"
+                        app:autoSizeTextType="uniform" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <ImageButton
@@ -192,8 +189,34 @@
                 android:layout_marginStart="@dimen/labels_margin"
                 android:layout_marginLeft="@dimen/labels_margin"
                 android:layout_marginEnd="@dimen/labels_margin"
-                android:layout_marginRight="@dimen/labels_margin" />
+                android:layout_marginRight="@dimen/labels_margin"
+                tools:itemCount="4" />
 
+            <Button
+                android:id="@+id/buttonSeparator2"
+                android:layout_width="match_parent"
+                android:layout_height="15dp"
+                android:clickable="false" />
+
+            <include
+                android:id="@+id/labelTravelExpenses"
+                layout="@layout/fragment_item_travel_expenses"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/labels_margin"
+                android:layout_marginLeft="@dimen/labels_margin"
+                android:layout_marginEnd="@dimen/labels_margin"
+                android:layout_marginRight="@dimen/labels_margin"
+                android:layout_gravity="center_vertical" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvTravelExpenses"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/labels_margin"
+                android:layout_marginLeft="@dimen/labels_margin"
+                android:layout_marginEnd="@dimen/labels_margin"
+                android:layout_marginRight="@dimen/labels_margin" />
         </LinearLayout>
     </LinearLayout>
 </ScrollView>

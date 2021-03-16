@@ -270,4 +270,8 @@
     <string name="MaintenanceItem">Item de Manutenção</string>
     <string name="Next_VehicleMaintenance">Próxima Manutenção do Veículo</string>
     <string name="date">Data</string>
+    <string name="Travel_Expenses_Deleting">Excluindo Despesas de Viagem</string>
+    <string name="TravelExpenses_ExpenseType">Tipo Despesa</string>
+    <string name="TravelExpenses_ExpectedValue">Valor Previsto</string>
+    <string name="TravelExpenses_Note">Observação</string>
 </resources>

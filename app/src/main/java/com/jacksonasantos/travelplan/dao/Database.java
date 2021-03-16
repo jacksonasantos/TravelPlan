@@ -22,6 +22,7 @@ import com.jacksonasantos.travelplan.dao.interfaces.MarkerISchema;
 import com.jacksonasantos.travelplan.dao.interfaces.ReservationISchema;
 import com.jacksonasantos.travelplan.dao.interfaces.TravelExpensesISchema;
 import com.jacksonasantos.travelplan.dao.interfaces.TravelISchema;
+import com.jacksonasantos.travelplan.dao.interfaces.TravelItemExpensesISchema;
 import com.jacksonasantos.travelplan.dao.interfaces.VehicleHasPlanISchema;
 import com.jacksonasantos.travelplan.dao.interfaces.VehicleHasTravelISchema;
 import com.jacksonasantos.travelplan.dao.interfaces.VehicleISchema;
@@ -48,6 +49,7 @@ public class Database {
     public static ReservationDAO mReservationDao;
     public static TravelDAO mTravelDao;
     public static TravelExpensesDAO mTravelExpensesDao;
+    public static TravelItemExpensesDAO mTravelItemExpensesDao;
     public static VehicleHasPlanDAO mVehicleHasPlanDao;
     public static VehicleHasTravelDAO mVehicleHasTravelDao;
     public static VehicleDAO mVehicleDao;
@@ -87,6 +89,7 @@ public class Database {
         mMaintenanceItemDao = new MaintenanceItemDAO(mDb);
         mNextMaintenanceItemDao = new NextMaintenanceItemDAO(mDb);
         mTravelExpensesDao = new TravelExpensesDAO(mDb);
+        mTravelItemExpensesDao = new TravelItemExpensesDAO(mDb);
     }
 
     public void close() {
@@ -155,6 +158,7 @@ public class Database {
             db.execSQL(MaintenanceItemISchema.CREATE_TABLE_MAINTENANCE_ITEM_V29); Log.w("Table "+MaintenanceItemISchema.MAINTENANCE_ITEM_TABLE,"V29 - Create Table...");
             db.execSQL(FuelSupplyISchema.ALTER_TABLE_FUEL_SUPPLY_V30); Log.w("Table "+FuelSupplyISchema.FUEL_SUPPLY_TABLE,"V30 - Alter Table...");
             db.execSQL(TravelExpensesISchema.CREATE_TABLE_TRAVEL_EXPENSES_V31); Log.w("Table "+TravelExpensesISchema.TRAVEL_EXPENSES_TABLE,"V31 - Create Table...");
+            db.execSQL(TravelItemExpensesISchema.CREATE_TABLE_TRAVEL_ITEM_EXPENSES_V31); Log.w("Table "+TravelItemExpensesISchema.TRAVEL_ITEM_EXPENSES_TABLE,"V31 - Create Table...");
         }
 
         @SuppressLint("SQLiteString")
@@ -267,6 +271,7 @@ public class Database {
                         break;
                     case 31:
                         db.execSQL(TravelExpensesISchema.CREATE_TABLE_TRAVEL_EXPENSES_V31);
+                        db.execSQL(TravelItemExpensesISchema.CREATE_TABLE_TRAVEL_ITEM_EXPENSES_V31);
                         break;
                     default:
                         break;

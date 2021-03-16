@@ -8,7 +8,6 @@ public interface TravelExpensesISchema {
     String TRAVEL_EXPENSES_TRAVEL_ID = "travel_id";
     String TRAVEL_EXPENSES_EXPENSE_TYPE = "expense_type";
     String TRAVEL_EXPENSES_EXPECTED_VALUE = "expected_value";
-    String TRAVEL_EXPENSES_REALIZED_VALUE = "realized_value";
     String TRAVEL_EXPENSES_NOTE = "note";
 
     // Version 31
@@ -18,7 +17,6 @@ public interface TravelExpensesISchema {
             + TRAVEL_EXPENSES_TRAVEL_ID + " INTEGER REFERENCES " + TravelISchema.TRAVEL_TABLE + " ("+TravelISchema.TRAVEL_ID+"), "
             + TRAVEL_EXPENSES_EXPENSE_TYPE + " INT, "
             + TRAVEL_EXPENSES_EXPECTED_VALUE + " DOUBLE, "
-            + TRAVEL_EXPENSES_REALIZED_VALUE + " DOUBLE, "
             + TRAVEL_EXPENSES_NOTE + " TEXT "
             + ")";
 
@@ -27,7 +25,6 @@ public interface TravelExpensesISchema {
             TRAVEL_EXPENSES_TRAVEL_ID,
             TRAVEL_EXPENSES_EXPENSE_TYPE,
             TRAVEL_EXPENSES_EXPECTED_VALUE,
-            TRAVEL_EXPENSES_REALIZED_VALUE,
             TRAVEL_EXPENSES_NOTE
    };
 }

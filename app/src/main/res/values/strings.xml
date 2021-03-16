@@ -301,6 +301,13 @@
     <string name="Travel_Note">Travel Note</string>
     <string name="Travel_Status">Travel Status</string>
 
+    <!-- Travel Expenses Fragment -->
+    <string name="Travel_Expenses_Deleting">Deleting Travel Expenses</string>
+
+    <string name="TravelExpenses_ExpenseType">Expense Type</string>
+    <string name="TravelExpenses_ExpectedValue">Expected Value</string>
+    <string name="TravelExpenses_Note">Note</string>
+
     <string name="Vehicle_Travel_Deleting">Deleting Vehicle has Travel</string>
 
     <!-- Array Status Travel -->

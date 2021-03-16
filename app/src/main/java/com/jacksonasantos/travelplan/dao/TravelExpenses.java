@@ -5,7 +5,6 @@ public class TravelExpenses {
     public Integer travel_id;
     public int expense_type;
     public Double expected_value;
-    public Double realized_value;
     public String note;
 
     public TravelExpenses() {
@@ -13,7 +12,6 @@ public class TravelExpenses {
         this.travel_id = travel_id;
         this.expense_type = expense_type;
         this.expected_value = expected_value;
-        this.realized_value = realized_value;
         this.note = note;
     }
 
@@ -28,9 +26,6 @@ public class TravelExpenses {
 
     public Double getExpected_value() { return expected_value; }
     public void setExpected_value(Double expected_value) { this.expected_value = expected_value;}
-
-    public Double getRealized_value() { return realized_value; }
-    public void setRealized_value(Double realized_value) { this.realized_value = realized_value; }
 
     public String getNote() { return note; }
     public void setNote(String note) { this.note = note; }

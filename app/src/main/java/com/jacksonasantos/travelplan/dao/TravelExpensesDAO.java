@@ -35,6 +35,22 @@ public class TravelExpensesDAO extends DbContentProvider implements TravelExpens
         return travelExpenses;
     }
 
+    public List<TravelExpenses> fetchAllTravelExpensesByTravel( Integer travel_id) {
+        final String[] selectionArgs = { String.valueOf(travel_id) };
+        final String selection = TRAVEL_EXPENSES_TRAVEL_ID + " = ?";
+        List<TravelExpenses> travelExpensesList = new ArrayList<>();
+
+        cursor = super.query(TRAVEL_EXPENSES_TABLE, TRAVEL_EXPENSES_COLUMNS, selection, selectionArgs, TRAVEL_EXPENSES_EXPENSE_TYPE);
+        if (cursor.moveToFirst()) {
+            do {
+                TravelExpenses travelExpenses = cursorToEntity(cursor);
+                travelExpensesList.add(travelExpenses);
+            } while (cursor.moveToNext());
+            cursor.close();
+        }
+        return travelExpensesList;
+    }
+
     public List<TravelExpenses> fetchAllTravelExpenses() {
         List<TravelExpenses> travelExpensesList = new ArrayList<>();
 
@@ -74,7 +90,6 @@ public class TravelExpensesDAO extends DbContentProvider implements TravelExpens
             if (c.getColumnIndex(TRAVEL_EXPENSES_TRAVEL_ID) != -1)      {t.setTravel_id(c.getInt(c.getColumnIndexOrThrow(TRAVEL_EXPENSES_TRAVEL_ID))); }
             if (c.getColumnIndex(TRAVEL_EXPENSES_EXPENSE_TYPE) != -1)   {t.setExpense_type(c.getInt(c.getColumnIndexOrThrow(TRAVEL_EXPENSES_EXPENSE_TYPE))); }
             if (c.getColumnIndex(TRAVEL_EXPENSES_EXPECTED_VALUE) != -1) {t.setExpected_value(c.getDouble(c.getColumnIndexOrThrow(TRAVEL_EXPENSES_EXPECTED_VALUE))); }
-            if (c.getColumnIndex(TRAVEL_EXPENSES_REALIZED_VALUE) != -1) {t.setRealized_value(c.getDouble(c.getColumnIndexOrThrow(TRAVEL_EXPENSES_REALIZED_VALUE))); }
             if (c.getColumnIndex(TRAVEL_EXPENSES_NOTE) != -1 )          {t.setNote(c.getString(c.getColumnIndexOrThrow(TRAVEL_EXPENSES_NOTE))); }
         }
         return t;
@@ -86,7 +101,6 @@ public class TravelExpensesDAO extends DbContentProvider implements TravelExpens
         initialValues.put(TRAVEL_EXPENSES_TRAVEL_ID, t.travel_id);
         initialValues.put(TRAVEL_EXPENSES_EXPENSE_TYPE, t.expense_type);
         initialValues.put(TRAVEL_EXPENSES_EXPECTED_VALUE, t.expected_value);
-        initialValues.put(TRAVEL_EXPENSES_REALIZED_VALUE, t.realized_value);
         initialValues.put(TRAVEL_EXPENSES_NOTE, t.note);
     }
 

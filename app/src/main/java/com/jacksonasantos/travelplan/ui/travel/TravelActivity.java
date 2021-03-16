@@ -1,8 +1,11 @@
 package com.jacksonasantos.travelplan.ui.travel;
 
 import android.annotation.SuppressLint;
+import android.content.DialogInterface;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -10,18 +13,22 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.jacksonasantos.travelplan.R;
 import com.jacksonasantos.travelplan.dao.Database;
 import com.jacksonasantos.travelplan.dao.Travel;
+import com.jacksonasantos.travelplan.dao.TravelExpenses;
 import com.jacksonasantos.travelplan.dao.Vehicle;
 import com.jacksonasantos.travelplan.dao.VehicleHasTravel;
 import com.jacksonasantos.travelplan.ui.utility.DateInputMask;
@@ -39,10 +46,13 @@ public class TravelActivity extends AppCompatActivity {
 
     private AutoCompleteTextView spinVehicle;
     private int nrspinVehicle;
-    //private ImageButton btnAdd;
     private RecyclerView rvVehicleTravel;
 
-    private VehicleTravelListAdapter adapter;
+    private ConstraintLayout labelTravelExpenses;
+    private RecyclerView rvTravelExpenses;
+
+    private VehicleTravelListAdapter adapterVehicleTravel;
+    private TravelExpensesListAdapter adapterTravelExpenses;
 
     private boolean opInsert = true;
     private Travel travel;
@@ -72,10 +82,13 @@ public class TravelActivity extends AppCompatActivity {
         tvStatus = findViewById(R.id.tvStatus);
 
         spinVehicle = findViewById(R.id.spinVehicle);
-        //btnAdd = findViewById(R.id.btnAdd);
         rvVehicleTravel = findViewById(R.id.rvVehicleTravel);
+
+        labelTravelExpenses = findViewById(R.id.labelTravelExpenses);
+        rvTravelExpenses = findViewById(R.id.rvTravelExpenses);
     }
 
+    @SuppressLint("UseCompatLoadingForDrawables")
     protected void onResume() {
         super.onResume();
 
@@ -102,9 +115,9 @@ public class TravelActivity extends AppCompatActivity {
         etReturn_date.addTextChangedListener(new DateInputMask(etReturn_date));
 
         final List<Vehicle> vehicles = Database.mVehicleDao.fetchArrayVehicles();
-        ArrayAdapter<Vehicle> adapterV = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, vehicles);
-        adapterV.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinVehicle.setAdapter(adapterV);
+        ArrayAdapter<Vehicle> adapterVehicle = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, vehicles);
+        adapterVehicle.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinVehicle.setAdapter(adapterVehicle);
 
         final Vehicle[] v1 = {new Vehicle()};
         spinVehicle.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -114,13 +127,84 @@ public class TravelActivity extends AppCompatActivity {
                 nrspinVehicle = v1[0].getId();
             }
         });
-        adapterV.notifyDataSetChanged();
+        adapterVehicle.notifyDataSetChanged();
 
         if (travel != null) {
-            adapter = new VehicleTravelListAdapter(Database.mVehicleHasTravelDao.fetchAllVehicleHasTravelByTravel(travel.getId()), getApplicationContext(),"Travel");
-            rvVehicleTravel.setAdapter(adapter);
+            adapterVehicleTravel = new VehicleTravelListAdapter(Database.mVehicleHasTravelDao.fetchAllVehicleHasTravelByTravel(travel.getId()), getApplicationContext(),"Travel");
+            rvVehicleTravel.setAdapter(adapterVehicleTravel);
             rvVehicleTravel.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-            adapter.notifyDataSetChanged();
+            adapterVehicleTravel.notifyDataSetChanged();
+
+            @SuppressLint("InflateParams") View vL = getLayoutInflater().inflate(R.layout.fragment_item_travel_expenses, null);
+            labelTravelExpenses.removeAllViews();
+            TextView lblExpenseType = vL.findViewById(R.id.txtExpenseType);
+            TextView lblExpectedValue = vL.findViewById(R.id.txtExpectedValue);
+            TextView lblNote = vL.findViewById(R.id.txtNote);
+            ImageButton btnAddExpenses = vL.findViewById(R.id.btnDelete);
+
+            lblExpenseType.setText(getString(R.string.TravelExpenses_ExpenseType));
+            lblExpectedValue.setText(getString(R.string.TravelExpenses_ExpectedValue));
+            lblNote.setText(getString(R.string.TravelExpenses_Note));
+            btnAddExpenses.setImageResource(R.drawable.ic_button_add);
+            labelTravelExpenses.setBackgroundColor(Color.rgb(209,193,233));
+            labelTravelExpenses.addView(vL);
+
+            adapterTravelExpenses = new TravelExpensesListAdapter(Database.mTravelExpensesDao.fetchAllTravelExpensesByTravel(travel.getId()), getApplicationContext());
+            rvTravelExpenses.setAdapter(adapterTravelExpenses);
+            rvTravelExpenses.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+            adapterTravelExpenses.notifyDataSetChanged();
+
+            btnAddExpenses.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    LayoutInflater li = LayoutInflater.from(v.getContext());
+                    View promptsView = li.inflate(R.layout.activity_travel_expenses, null);
+
+                    final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(v.getContext());
+
+                    alertDialogBuilder.setView(promptsView);
+                    final Spinner spinExpenseType = promptsView.findViewById(R.id.spinExpenseType);
+                    final EditText etExpectedValue = promptsView.findViewById(R.id.etExpectedValue);
+                    final EditText etNote = promptsView.findViewById(R.id.etNote);
+
+                    alertDialogBuilder
+                            .setCancelable(false)
+                            .setPositiveButton(R.string.OK, new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog,int id) {
+                                    boolean isSave = false;
+
+                                    TravelExpenses TE = new TravelExpenses();
+
+                                    TE.setTravel_id(travel.getId());
+                                    TE.setExpense_type(spinExpenseType.getSelectedItemPosition());
+                                    if (!etExpectedValue.getText().toString().isEmpty())            { TE.setExpected_value(Double.parseDouble(etExpectedValue.getText().toString()));}
+                                    TE.setNote(etNote.getText().toString());
+
+                                    try {
+                                        isSave = Database.mTravelExpensesDao.addTravelExpenses(TE);
+                                    } catch (Exception e) {
+                                        Toast.makeText(getApplicationContext(), R.string.Error_Including_Data + e.getMessage(), Toast.LENGTH_LONG).show();
+                                    }
+                                    setResult(isSave ? 1 : 0);
+                                    if (!isSave) {
+                                        Toast.makeText(getApplicationContext(), R.string.Error_Saving_Data, Toast.LENGTH_LONG).show();
+                                    } else {
+                                        adapterTravelExpenses = new TravelExpensesListAdapter(Database.mTravelExpensesDao.fetchAllTravelExpensesByTravel(travel.getId()), getApplicationContext());
+                                        rvTravelExpenses.setAdapter(adapterTravelExpenses);
+                                        rvTravelExpenses.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+                                        adapterTravelExpenses.notifyDataSetChanged();
+                                    }
+                                }
+                            })
+                            .setNegativeButton(R.string.Cancel, new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog,int id) {
+                                    dialog.cancel();
+                                }
+                            });
+                    AlertDialog alertDialog = alertDialogBuilder.create();
+                    alertDialog.show();
+                }
+            });
         }
     }
 
@@ -149,10 +233,10 @@ public class TravelActivity extends AppCompatActivity {
                     if (!isSave) {
                         Toast.makeText(getApplicationContext(), R.string.Error_Saving_Data, Toast.LENGTH_LONG).show();
                     } else {
-                        adapter = new VehicleTravelListAdapter(Database.mVehicleHasTravelDao.fetchAllVehicleHasTravelByTravel(travel.getId()), getApplicationContext(),"travel");
-                        rvVehicleTravel.setAdapter(adapter);
+                        adapterVehicleTravel = new VehicleTravelListAdapter(Database.mVehicleHasTravelDao.fetchAllVehicleHasTravelByTravel(travel.getId()), getApplicationContext(),"travel");
+                        rvVehicleTravel.setAdapter(adapterVehicleTravel);
                         rvVehicleTravel.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-                        adapter.notifyDataSetChanged();
+                        adapterVehicleTravel.notifyDataSetChanged();
                     }
                 }
             }

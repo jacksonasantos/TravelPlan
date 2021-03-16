@@ -1,0 +1,51 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    android:padding="10dp">
+
+    <TextView
+        android:id="@+id/txtExpenseType"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/TravelExpenses_ExpenseType"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <Spinner
+        android:id="@+id/spinExpenseType"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:entries="@array/expenses_type_array"
+        android:text="@string/TravelExpenses_ExpenseType">
+    </Spinner>
+
+    <TextView
+        android:id="@+id/txtExpectedValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/TravelExpenses_ExpectedValue"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+    <EditText
+        android:id="@+id/etExpectedValue"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:autofillHints="no"
+        android:inputType="numberDecimal"
+        tools:ignore="LabelFor" />
+
+    <TextView
+        android:id="@+id/txtNote"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/TravelExpenses_Note"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+    <EditText
+        android:id="@+id/etNote"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:autofillHints="no"
+        android:inputType="textCapSentences"
+        tools:ignore="LabelFor" />
+
+</LinearLayout>

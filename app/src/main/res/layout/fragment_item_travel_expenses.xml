@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:gravity="center_vertical"
+    tools:context=".ui.vehicle.VehicleActivity">
+
+    <TextView
+        android:id="@+id/txtExpenseType"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/labels_margin"
+        android:layout_marginLeft="@dimen/labels_margin"
+        android:gravity="start|center_vertical"
+        app:autoSizeMaxTextSize="12sp"
+        app:autoSizeMinTextSize="6sp"
+        app:autoSizeStepGranularity="1sp"
+        app:autoSizeTextType="uniform"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/txtExpectedValue"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/labels_margin"
+        android:layout_marginLeft="@dimen/labels_margin"
+        android:gravity="end|center_vertical"
+        app:autoSizeMaxTextSize="12sp"
+        app:autoSizeMinTextSize="6sp"
+        app:autoSizeStepGranularity="1sp"
+        app:autoSizeTextType="uniform"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/txtExpenseType"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/txtNote"
+        android:layout_width="140dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/labels_margin"
+        android:layout_marginLeft="@dimen/labels_margin"
+        android:layout_marginEnd="@dimen/labels_marginLeft"
+        android:layout_marginRight="@dimen/labels_marginLeft"
+        android:gravity="start|center_vertical"
+        app:autoSizeMaxTextSize="12sp"
+        app:autoSizeMinTextSize="6sp"
+        app:autoSizeStepGranularity="1sp"
+        app:autoSizeTextType="uniform"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btnDelete"
+        app:layout_constraintStart_toEndOf="@+id/txtExpectedValue"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/btnDelete"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:contentDescription="@string/bt_Delete"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_menu_delete" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
