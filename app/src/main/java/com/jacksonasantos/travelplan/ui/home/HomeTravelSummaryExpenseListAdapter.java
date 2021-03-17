@@ -13,7 +13,6 @@ import androidx.annotation.RequiresApi;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.jacksonasantos.travelplan.MainActivity;
 import com.jacksonasantos.travelplan.R;
 import com.jacksonasantos.travelplan.dao.SummaryTravelExpense;
 import com.jacksonasantos.travelplan.ui.utility.Globals;
@@ -69,27 +68,13 @@ public class HomeTravelSummaryExpenseListAdapter extends RecyclerView.Adapter<Ho
         return new MyViewHolder(expenseView);
     }
 
-    // Replace the contents of a view (invoked by the layout manager)
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public void onBindViewHolder(@NonNull final MyViewHolder holder, final int position) {
         final SummaryTravelExpense summaryTravelExpense = mSummaryTravelExpense.get(position);
-        if (summaryTravelExpense.getExpense().equals(MainActivity.getAppResources().getString(R.string.Accommodation))) {
-            holder.imgExpense.setImageResource(R.drawable.ic_menu_accommodation);
-        } else if (summaryTravelExpense.getExpense().equals(MainActivity.getAppResources().getString(R.string.Food))) {
-            holder.imgExpense.setImageResource(R.drawable.ic_food);
-        } else if (summaryTravelExpense.getExpense().equals(MainActivity.getAppResources().getString(R.string.Combustible))) {
-            holder.imgExpense.setImageResource(R.drawable.ic_supply);
-        } else if (summaryTravelExpense.getExpense().equals(MainActivity.getAppResources().getString(R.string.Extras))) {
-            holder.imgExpense.setImageResource(R.drawable.ic_money_extra);
-        } else if (summaryTravelExpense.getExpense().equals(MainActivity.getAppResources().getString(R.string.Tours))) {
-            holder.imgExpense.setImageResource(R.drawable.ic_tour);
-        } else if (summaryTravelExpense.getExpense().equals(MainActivity.getAppResources().getString(R.string.Toll))) {
-            holder.imgExpense.setImageResource(R.drawable.ic_toll);
-        } else if (summaryTravelExpense.getExpense().equals(MainActivity.getAppResources().getString(R.string.Insurance))) {
-            holder.imgExpense.setImageResource(R.drawable.ic_menu_insurance);
-        }
-        holder.txtExpense.setText(summaryTravelExpense.getExpense());
+
+        holder.imgExpense.setImageResource(summaryTravelExpense.getExpense_type_image(summaryTravelExpense.getExpense_type()));
+        holder.txtExpense.setText(context.getResources().getStringArray(R.array.expenses_type_array)[summaryTravelExpense.getExpense_type()]);
         holder.txtExpectedValue.setText(currencyFormatter.format(summaryTravelExpense.getExpected_value()==null? BigDecimal.ZERO: summaryTravelExpense.getExpected_value()));
         holder.txtRealizedValue.setText(currencyFormatter.format(summaryTravelExpense.getRealized_value()==null? BigDecimal.ZERO: summaryTravelExpense.getRealized_value()));
     }
