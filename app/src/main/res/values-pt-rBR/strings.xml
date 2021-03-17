@@ -274,4 +274,5 @@
     <string name="TravelExpenses_ExpenseType">Tipo Despesa</string>
     <string name="TravelExpenses_ExpectedValue">Valor Previsto</string>
     <string name="TravelExpenses_Note">Observação</string>
+    <string name="change">Alterar</string>
 </resources>

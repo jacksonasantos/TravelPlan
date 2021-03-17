@@ -172,24 +172,21 @@ public class HomeTravelFragment extends Fragment implements View.OnClickListener
                 imTravelStatus.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        LayoutInflater li = LayoutInflater.from(v.getContext());
-                        View promptsView = li.inflate(R.layout.fragment_home_travel_status_dialog, null);
-
                         final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(v.getContext());
-
-                        alertDialogBuilder.setView(promptsView);
-                        final Spinner spinTravelStatus = promptsView.findViewById(R.id.spinTravelStatus);
-
-                        alertDialogBuilder
-                                .setCancelable(false)
-                                .setPositiveButton(R.string.OK, new DialogInterface.OnClickListener() {
+                        int checkedItem = travel[0].getStatus();
+                        alertDialogBuilder.setTitle(getString(R.string.change)+ " "+getString(R.string.Travel_Status))
+                              .setSingleChoiceItems(R.array.travel_status_array, checkedItem, new DialogInterface.OnClickListener() {
+                                  @Override
+                                  public void onClick(DialogInterface dialog, int id) {
+                                      travel[0].setStatus(id);
+                                  }
+                              })
+                              .setPositiveButton(R.string.OK, new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog,int id) {
                                         boolean isSave = false;
-                                        Travel t1 = Database.mTravelDao.fetchTravelById(travel[0].getId());
-                                        t1.setStatus(spinTravelStatus.getSelectedItemPosition());
-
                                         try {
-                                            isSave = Database.mTravelDao.updateTravel(t1);
+                                            isSave = Database.mTravelDao.updateTravel(travel[0]);
+                                            imTravelStatus.setColorFilter(travel[0].getColorStatus(), PorterDuff.Mode.MULTIPLY);
                                         } catch (Exception e) {
                                             Toast.makeText(getContext(), R.string.Error_Including_Data + e.getMessage(), Toast.LENGTH_LONG).show();
                                         }
@@ -197,12 +194,12 @@ public class HomeTravelFragment extends Fragment implements View.OnClickListener
                                             Toast.makeText(getContext(), R.string.Error_Saving_Data, Toast.LENGTH_LONG).show();
                                         }
                                     }
-                                })
-                                .setNegativeButton(R.string.Cancel, new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog,int id) {
-                                        dialog.cancel();
-                                    }
-                                });
+                              })
+                              .setNegativeButton(R.string.Cancel, new DialogInterface.OnClickListener() {
+                                  public void onClick(DialogInterface dialog,int id) {
+                                      dialog.cancel();
+                                  }
+                              });
                         AlertDialog alertDialog = alertDialogBuilder.create();
                         alertDialog.show();
                     }
