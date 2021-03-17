@@ -241,7 +241,7 @@
             android:orientation="vertical">
             <include
                 android:id="@+id/labelMaintenanceItem"
-                layout="@layout/activity_list_maintenance_item"
+                layout="@layout/activity_maintenance_item_list"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
 

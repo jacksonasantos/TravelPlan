@@ -118,7 +118,7 @@ public class MaintenanceActivity extends AppCompatActivity {
 
         etDate.addTextChangedListener(new DateInputMask(etDate));
 
-        @SuppressLint("InflateParams") View vL = getLayoutInflater().inflate(R.layout.activity_list_maintenance_item, null);
+        @SuppressLint("InflateParams") View vL = getLayoutInflater().inflate(R.layout.activity_maintenance_item_list, null);
         labelMaintenanceItem.removeAllViews();
         ImageView lblServiceType = vL.findViewById(R.id.imgServiceType);
         TextView lblDescription = vL.findViewById(R.id.txtMaintenancePlanItem);
@@ -164,7 +164,7 @@ public class MaintenanceActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 LayoutInflater li = LayoutInflater.from(v.getContext());
-                View promptsView = li.inflate(R.layout.activity_maintenance_item, null);
+                View promptsView = li.inflate(R.layout.activity_maintenance_item_dialog, null);
 
                 final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(v.getContext());
 

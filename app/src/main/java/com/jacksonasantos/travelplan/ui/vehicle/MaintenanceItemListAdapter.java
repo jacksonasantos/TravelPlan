@@ -70,7 +70,7 @@ public class MaintenanceItemListAdapter extends RecyclerView.Adapter<Maintenance
     @Override
     public MaintenanceItemListAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View maintenanceItemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.activity_list_maintenance_item, parent, false);
+                .inflate(R.layout.activity_maintenance_item_list, parent, false);
         measureArray = parent.getResources().getStringArray(R.array.measure_plan);
         return new MyViewHolder(maintenanceItemView);
     }

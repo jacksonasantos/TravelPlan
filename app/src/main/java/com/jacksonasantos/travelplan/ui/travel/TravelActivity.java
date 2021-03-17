@@ -158,7 +158,7 @@ public class TravelActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     LayoutInflater li = LayoutInflater.from(v.getContext());
-                    View promptsView = li.inflate(R.layout.activity_travel_expenses, null);
+                    View promptsView = li.inflate(R.layout.activity_travel_expenses_dialog, null);
 
                     final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(v.getContext());
 
