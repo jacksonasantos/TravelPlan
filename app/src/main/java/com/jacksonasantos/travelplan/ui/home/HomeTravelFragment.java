@@ -1,6 +1,7 @@
 package com.jacksonasantos.travelplan.ui.home;
 
 import android.annotation.SuppressLint;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
@@ -16,9 +17,11 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AlertDialog;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -165,6 +168,45 @@ public class HomeTravelFragment extends Fragment implements View.OnClickListener
                 btnTour.setEnabled(false);
                 btnTolls.setEnabled(false);
                 btnInsurance.setEnabled(true);
+
+                imTravelStatus.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        LayoutInflater li = LayoutInflater.from(v.getContext());
+                        View promptsView = li.inflate(R.layout.fragment_home_travel_status_dialog, null);
+
+                        final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(v.getContext());
+
+                        alertDialogBuilder.setView(promptsView);
+                        final Spinner spinTravelStatus = promptsView.findViewById(R.id.spinTravelStatus);
+
+                        alertDialogBuilder
+                                .setCancelable(false)
+                                .setPositiveButton(R.string.OK, new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog,int id) {
+                                        boolean isSave = false;
+                                        Travel t1 = Database.mTravelDao.fetchTravelById(travel[0].getId());
+                                        t1.setStatus(spinTravelStatus.getSelectedItemPosition());
+
+                                        try {
+                                            isSave = Database.mTravelDao.updateTravel(t1);
+                                        } catch (Exception e) {
+                                            Toast.makeText(getContext(), R.string.Error_Including_Data + e.getMessage(), Toast.LENGTH_LONG).show();
+                                        }
+                                        if (!isSave) {
+                                            Toast.makeText(getContext(), R.string.Error_Saving_Data, Toast.LENGTH_LONG).show();
+                                        }
+                                    }
+                                })
+                                .setNegativeButton(R.string.Cancel, new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog,int id) {
+                                        dialog.cancel();
+                                    }
+                                });
+                        AlertDialog alertDialog = alertDialogBuilder.create();
+                        alertDialog.show();
+                    }
+                });
 
                 btnItinerary.setOnClickListener (new View.OnClickListener() {
                     @Override
