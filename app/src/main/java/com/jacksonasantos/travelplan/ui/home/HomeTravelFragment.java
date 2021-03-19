@@ -323,7 +323,7 @@ public class HomeTravelFragment extends Fragment implements View.OnClickListener
                 }
 
                 // Reservation
-                HomeTravelReservationListAdapter adapterReservation = new HomeTravelReservationListAdapter(Database.mReservationDao.fetchAllReservationByTravel(travel[0].getId() ), getContext());
+                HomeTravelReservationListAdapter adapterReservation = new HomeTravelReservationListAdapter( Database.mReservationDao.fetchAllReservationByTravel(travel[0].getId()), getContext());
                 if ( adapterReservation.getItemCount() > 0){
                     layerReservation.setVisibility(View.VISIBLE);
                     listReservation.setAdapter(adapterReservation);
@@ -333,27 +333,16 @@ public class HomeTravelFragment extends Fragment implements View.OnClickListener
                 }
 
                 // Expenses - LayerExpense
-                HomeTravelSummaryExpenseListAdapter adapterTravelExpense = new HomeTravelSummaryExpenseListAdapter( Database.mSummaryTravelExpenseDao.findTravelExpense(travel[0].getId() ), getContext(), travel[0].getId());
+                final int SHOW_HEADER = 1; // 0 - NO SHOW HEADER | 1 - SHOW HEADER
+                HomeTravelSummaryExpenseListAdapter adapterTravelExpense = new HomeTravelSummaryExpenseListAdapter( Database.mSummaryTravelExpenseDao.findTravelExpense(travel[0].getId() ), getContext(), travel[0].getId(), SHOW_HEADER);
                 if ( adapterTravelExpense.getItemCount() > 0){
                     layerExpense.setVisibility(View.VISIBLE);
-
-                    View vL = LayoutInflater.from(getContext()).inflate(R.layout.fragment_home_travel_item_expense, parent, false);
-                    labelTravelExpenses.removeAllViews();
-                    TextView lblExpense = vL.findViewById(R.id.txtExpense);
-                    TextView lblExpectedValue = vL.findViewById(R.id.txtExpectedValue);
-                    TextView lblRealizedValue = vL.findViewById(R.id.txtRealizedValue);
-                    lblExpense.setText("");
-                    lblExpectedValue.setText(getString(R.string.Expected));
-                    lblRealizedValue.setText(getString(R.string.Realized));
-                    labelTravelExpenses.addView(vL);
-                    labelTravelExpenses.setBackgroundColor(Color.LTGRAY);
-
                     listTravelExpenses.setAdapter(adapterTravelExpense);
                     listTravelExpenses.setLayoutManager(new LinearLayoutManager(getContext()));
 
                     double vExpected = 0;
                     double vRealized = 0;
-                    for (int x=0; x < adapterTravelExpense.getItemCount(); x++) {
+                    for (int x=0; x < adapterTravelExpense.getItemCount()-SHOW_HEADER; x++) {
                         vExpected = vExpected + adapterTravelExpense.mSummaryTravelExpense.get(x).getExpected_value();
                         vRealized = vRealized + adapterTravelExpense.mSummaryTravelExpense.get(x).getRealized_value();
                     }

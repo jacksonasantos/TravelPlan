@@ -368,6 +368,7 @@
     <string name="Reservation_Amount_Paid">Amount Paid</string>
     <string name="Reservation_Note">Note</string>
     <string name="Reservation_Status_Reservation">Status Reservation</string>
+    <string name="Reservation_Daily">Daily</string>
 
     <string name="add_new_accommodation">Add New Accommodation</string>
 

@@ -328,15 +328,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <include
-                android:id="@+id/labelTravelExpenses"
-                layout="@layout/fragment_home_travel_item_expense"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvExpenses" />
-
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/listTravelExpenses"
                 android:layout_width="match_parent"
@@ -344,7 +335,7 @@
                 android:scrollbars="vertical"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/labelTravelExpenses"
+                app:layout_constraintTop_toBottomOf="@+id/tvExpenses"
                 tools:itemCount="7" />
 
             <include

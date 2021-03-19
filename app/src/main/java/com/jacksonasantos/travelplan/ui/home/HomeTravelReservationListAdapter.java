@@ -20,7 +20,6 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.jacksonasantos.travelplan.R;
-import com.jacksonasantos.travelplan.dao.Accommodation;
 import com.jacksonasantos.travelplan.dao.Database;
 import com.jacksonasantos.travelplan.dao.Reservation;
 import com.jacksonasantos.travelplan.ui.travel.ReservationActivity;
@@ -28,38 +27,16 @@ import com.jacksonasantos.travelplan.ui.utility.Utils;
 
 import java.util.List;
 
-public class HomeTravelReservationListAdapter extends RecyclerView.Adapter<HomeTravelReservationListAdapter.MyViewHolder> {
+public class HomeTravelReservationListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+
+    private static final int SHOW_HEADER = 0; // 0 - NO SHOW HEADER | 1 - SHOW HEADER
+    private static final int TYPE_HEADER = 0;
+    private static final int TYPE_ITEM = 1;
 
     private final List<Reservation> mReservation;
     Context context;
 
-    public static class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-
-        private final LinearLayout llReservationItem;
-        private final TextView txtAccommodation;
-        private final TextView txtVoucher;
-        private final TextView txtCheckin;
-        private final TextView txtDaily;
-        private final ImageButton btnEdit;
-        private final ImageButton btnDelete;
-
-        public MyViewHolder(View v) {
-            super(v);
-            llReservationItem = v.findViewById(R.id.llReservationItem);
-            txtAccommodation = v.findViewById(R.id.txtAccommodation);
-            txtVoucher = v.findViewById(R.id.txtVoucher);
-            txtCheckin = v.findViewById(R.id.txtCheckin);
-            txtDaily = v.findViewById(R.id.txtDaily);
-            btnEdit = v.findViewById(R.id.btnEdit);
-            btnDelete = v.findViewById(R.id.btnDelete);
-        }
-
-        @Override
-        public void onClick(View view) {
-        }
-    }
-
-    public HomeTravelReservationListAdapter(List<Reservation> reservation, Context context) {
+    public HomeTravelReservationListAdapter(List<Reservation> reservation, Context context ) {
         this.mReservation = reservation;
         this.context = context;
 
@@ -69,70 +46,140 @@ public class HomeTravelReservationListAdapter extends RecyclerView.Adapter<HomeT
 
     @NonNull
     @Override
-    public HomeTravelReservationListAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View reservationView = LayoutInflater.from(parent.getContext())
+    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+
+        View reservationView = LayoutInflater
+                .from(parent.getContext())
                 .inflate(R.layout.fragment_home_travel_item_reservation, parent, false);
 
-        return new MyViewHolder(reservationView);
+        if (viewType == TYPE_ITEM) {
+            return new ItemViewHolder(reservationView);
+        } else if (viewType == TYPE_HEADER) {
+            return new HeaderViewHolder(reservationView);
+        }
+        else return null;
     }
 
-    // Replace the contents of a view (invoked by the layout manager)
-    //@SuppressLint("ResourceAsColor")
     @SuppressLint("SetTextI18n")
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
-    public void onBindViewHolder(@NonNull final MyViewHolder holder, final int position) {
-        final Reservation reservation = mReservation.get(position);
-        if (position%2==0) {
-            holder.llReservationItem.setBackgroundColor(Color.WHITE);
-        } else {
-            holder.llReservationItem.setBackgroundColor(Color.rgb(209,193,233));
+    public void onBindViewHolder(@NonNull final RecyclerView.ViewHolder holder, final int position) {
+        if (holder instanceof HeaderViewHolder){
+            HeaderViewHolder headerViewHolder = (HeaderViewHolder) holder;
+
+            headerViewHolder.llReservationItem.setBackgroundColor(Color.LTGRAY);
+            headerViewHolder.txtAccommodation.setText(R.string.Accommodation_Name);
+            headerViewHolder.txtVoucher.setText(R.string.Reservation_Voucher_Number);
+            headerViewHolder.txtCheckin.setText(R.string.Reservation_Checkin_Date);
+            headerViewHolder.txtDaily.setText(R.string.Reservation_Daily);
+            headerViewHolder.btnEdit.setVisibility(View.INVISIBLE);
+            headerViewHolder.btnDelete.setVisibility(View.INVISIBLE);
         }
+        else if (holder instanceof ItemViewHolder) {
 
-        Accommodation a1 = Database.mAccommodationDao.fetchAccommodationById(reservation.getAccommodation_id());
-        holder.txtAccommodation.setText(a1.getName());
-        holder.txtVoucher.setText(reservation.getVoucher_number());
-        holder.txtCheckin.setText(Utils.dateToString(reservation.getCheckin_date()));
-        holder.txtDaily.setText(Integer.toString(Utils.diffBetweenDate(reservation.getCheckout_date(), reservation.getCheckin_date())));
+            final ItemViewHolder itemViewHolder = (ItemViewHolder) holder;
+            final Reservation reservation = mReservation.get(position-SHOW_HEADER);
 
-        // btnEdit
-        holder.btnEdit.setOnClickListener (new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent (v.getContext(), ReservationActivity.class);
-                intent.putExtra("reservation_id", reservation.getId());
-                context.startActivity(intent);
-                notifyDataSetChanged();
+            if (position%2==0) {
+                itemViewHolder.llReservationItem.setBackgroundColor(Color.WHITE);
+            } else {
+                itemViewHolder.llReservationItem.setBackgroundColor(Color.rgb(209,193,233));
             }
-        });
 
-        // btnDelete
-        holder.btnDelete.setOnClickListener (new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                new AlertDialog.Builder(v.getContext())
-                        .setTitle(R.string.Reservation_Deleting)
-                        .setMessage(R.string.Msg_Confirm)
-                        .setPositiveButton(R.string.Yes, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                try {
-                                    Database.mReservationDao.deleteReservation(reservation.getId());
-                                    mReservation.remove(position);
-                                    notifyItemRemoved(position);
-                                    notifyItemRangeChanged(position,mReservation.size());
-                                } catch (Exception e) {
-                                    Toast.makeText(context, context.getString(R.string.Error_Deleting_Data) + "\n" + e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+            itemViewHolder.txtAccommodation.setText(Database.mAccommodationDao.fetchAccommodationById(reservation.getAccommodation_id()).getName());
+            itemViewHolder.txtVoucher.setText(reservation.getVoucher_number());
+            itemViewHolder.txtCheckin.setText(Utils.dateToString(reservation.getCheckin_date()));
+            itemViewHolder.txtDaily.setText(Integer.toString(Utils.diffBetweenDate(reservation.getCheckout_date(), reservation.getCheckin_date())));
+
+            // btnEdit
+            itemViewHolder.btnEdit.setOnClickListener (new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent (v.getContext(), ReservationActivity.class);
+                    intent.putExtra("reservation_id", reservation.getId());
+                    context.startActivity(intent);
+                    notifyDataSetChanged();
+                }
+            });
+
+            // btnDelete
+            itemViewHolder.btnDelete.setOnClickListener (new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    new AlertDialog.Builder(v.getContext())
+                            .setTitle(R.string.Reservation_Deleting)
+                            .setMessage(R.string.Msg_Confirm)
+                            .setPositiveButton(R.string.Yes, new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    try {
+                                        Database.mReservationDao.deleteReservation(reservation.getId());
+                                        mReservation.remove(position);
+                                        notifyItemRemoved(position);
+                                        notifyItemRangeChanged(position,mReservation.size());
+                                    } catch (Exception e) {
+                                        Toast.makeText(context, context.getString(R.string.Error_Deleting_Data) + "\n" + e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+                                    }
                                 }
-                            }
-                        }).setNegativeButton(R.string.No, null)
-                        .show();
-            }
-        });
+                            })
+                            .setNegativeButton(R.string.No, null)
+                            .show();
+                }
+            });
+        }
+    }
+    @Override
+    public int getItemViewType(int position) {
+        if (position == 0 && SHOW_HEADER == 1) {
+            return TYPE_HEADER;
+        }
+        return TYPE_ITEM;
     }
 
     @Override
     public int getItemCount() {
-        return mReservation.size();
+        return mReservation.size()+SHOW_HEADER;
+    }
+
+    private static class HeaderViewHolder extends RecyclerView.ViewHolder {
+        private final LinearLayout llReservationItem;
+        private final TextView txtAccommodation;
+        private final TextView txtVoucher;
+        private final TextView txtCheckin;
+        private final TextView txtDaily;
+        private final ImageButton btnEdit;
+        private final ImageButton btnDelete;
+
+        public HeaderViewHolder(View v) {
+            super(v);
+            llReservationItem = v.findViewById(R.id.llReservationItem);
+            txtAccommodation = v.findViewById(R.id.txtAccommodation);
+            txtVoucher = v.findViewById(R.id.txtVoucher);
+            txtCheckin = v.findViewById(R.id.txtCheckin);
+            txtDaily = v.findViewById(R.id.txtDaily);
+            btnEdit = v.findViewById(R.id.btnEdit);
+            btnDelete = v.findViewById(R.id.btnDelete);
+        }
+    }
+
+    public static class ItemViewHolder extends RecyclerView.ViewHolder {
+        private final LinearLayout llReservationItem;
+        private final TextView txtAccommodation;
+        private final TextView txtVoucher;
+        private final TextView txtCheckin;
+        private final TextView txtDaily;
+        private final ImageButton btnEdit;
+        private final ImageButton btnDelete;
+
+        public ItemViewHolder(View v) {
+            super(v);
+            llReservationItem = v.findViewById(R.id.llReservationItem);
+            txtAccommodation = v.findViewById(R.id.txtAccommodation);
+            txtVoucher = v.findViewById(R.id.txtVoucher);
+            txtCheckin = v.findViewById(R.id.txtCheckin);
+            txtDaily = v.findViewById(R.id.txtDaily);
+            btnEdit = v.findViewById(R.id.btnEdit);
+            btnDelete = v.findViewById(R.id.btnDelete);
+        }
     }
 }
