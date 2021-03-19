@@ -275,4 +275,8 @@
     <string name="TravelExpenses_ExpectedValue">Valor Previsto</string>
     <string name="TravelExpenses_Note">Observação</string>
     <string name="change">Alterar</string>
+    <string name="TravelItemExpenses_Note">Observação</string>
+    <string name="TravelItemExpenses_RealizedValue">Valor Realizado</string>
+    <string name="TravelItemExpenses_ExpenseDate">Data Despesa</string>
+    <string name="TravelItemExpenses_Deleting">Excluindo Item de Despesa de Viagem</string>
 </resources>

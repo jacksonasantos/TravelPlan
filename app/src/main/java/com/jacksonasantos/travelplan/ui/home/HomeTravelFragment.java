@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -30,14 +31,18 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.jacksonasantos.travelplan.R;
 import com.jacksonasantos.travelplan.dao.Database;
 import com.jacksonasantos.travelplan.dao.Travel;
+import com.jacksonasantos.travelplan.dao.TravelExpenses;
+import com.jacksonasantos.travelplan.dao.TravelItemExpenses;
 import com.jacksonasantos.travelplan.ui.general.InsuranceActivity;
 import com.jacksonasantos.travelplan.ui.travel.ItineraryActivity;
 import com.jacksonasantos.travelplan.ui.travel.ReservationActivity;
 import com.jacksonasantos.travelplan.ui.travel.VehicleTravelListAdapter;
+import com.jacksonasantos.travelplan.ui.utility.DateInputMask;
 import com.jacksonasantos.travelplan.ui.utility.Globals;
 import com.jacksonasantos.travelplan.ui.utility.Utils;
 import com.jacksonasantos.travelplan.ui.vehicle.FuelSupplyActivity;
 
+import java.math.BigDecimal;
 import java.text.NumberFormat;
 import java.util.List;
 import java.util.Locale;
@@ -162,11 +167,11 @@ public class HomeTravelFragment extends Fragment implements View.OnClickListener
 
                 btnItinerary.setEnabled(true);
                 btnAccommodation.setEnabled(true);
-                btnFood.setEnabled(false);
+                btnFood.setEnabled(true);
                 btnFuel.setEnabled(true);
-                btnExtra.setEnabled(false);
-                btnTour.setEnabled(false);
-                btnTolls.setEnabled(false);
+                btnExtra.setEnabled(true);
+                btnTour.setEnabled(true);
+                btnTolls.setEnabled(true);
                 btnInsurance.setEnabled(true);
 
                 imTravelStatus.setOnClickListener(new View.OnClickListener() {
@@ -204,7 +209,31 @@ public class HomeTravelFragment extends Fragment implements View.OnClickListener
                         alertDialog.show();
                     }
                 });
-
+                //TODO - Atualizar valores do Adapter de Despesas da Viagem
+                btnFood.setOnClickListener (new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        TravelItemExpenses(v,1);
+                    }
+                });
+                btnTolls.setOnClickListener (new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        TravelItemExpenses(v,2);
+                    }
+                });
+                btnTour.setOnClickListener (new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        TravelItemExpenses(v,3);
+                    }
+                });
+                btnExtra.setOnClickListener (new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        TravelItemExpenses(v,5);
+                    }
+                });
                 btnItinerary.setOnClickListener (new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -356,6 +385,90 @@ public class HomeTravelFragment extends Fragment implements View.OnClickListener
                 adapterReservation.notifyDataSetChanged();
                 adapterTravelExpense.notifyDataSetChanged();
                 adapterInsurance.notifyDataSetChanged();
+            }
+
+            @SuppressLint("SetTextI18n")
+            public void TravelItemExpenses(View v, int expense_type ) {
+
+                LayoutInflater li = LayoutInflater.from(v.getContext());
+                View promptsView = li.inflate(R.layout.activity_travel_item_expenses_dialog, null);
+
+                final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(v.getContext());
+                alertDialogBuilder.setView(promptsView);
+
+                final HomeTravelItemExpensesListAdapter[] adapterTravelItemExpenses = new HomeTravelItemExpensesListAdapter[1];
+                final Spinner spinExpenseType = promptsView.findViewById(R.id.spinExpenseType);
+                final EditText etExpectedValue = promptsView.findViewById(R.id.etExpectedValue);
+                final EditText etNote = promptsView.findViewById(R.id.etNote);
+
+                final EditText etExpenseDate = promptsView.findViewById(R.id.etExpenseDate);
+                final EditText etExpenseItemRealizedValue = promptsView.findViewById(R.id.etExpenseItemRealizedValue);
+                final EditText etExpenseItemNote = promptsView.findViewById(R.id.etExpenseItemNote);
+
+                final RecyclerView rvTravelExpenseItem = promptsView.findViewById(R.id.rvTravelExpenseItem);
+                List<TravelExpenses> travelExpensesList = Database.mTravelExpensesDao.fetchAllTravelExpensesByTravelType(travel[0].getId(), expense_type); // TODO - Ver o uso de somente a primeira (0) opçao da lista de retorno
+
+                if( travelExpensesList.size() == 0 ){
+                    TravelExpenses te = new TravelExpenses();
+                    te.setTravel_id(travel[0].getId());
+                    te.setExpense_type(expense_type);
+                    Database.mTravelExpensesDao.addTravelExpenses(te);
+                    travelExpensesList = Database.mTravelExpensesDao.fetchAllTravelExpensesByTravelType(travel[0].getId(), expense_type);
+                }
+                spinExpenseType.setSelection(expense_type);
+                etExpectedValue.setText(currencyFormatter.format(travelExpensesList.get(0).getExpected_value()==null? BigDecimal.ZERO:travelExpensesList.get(0).getExpected_value()));
+                etNote.setText(travelExpensesList.get(0).getNote());
+
+                etExpenseDate.addTextChangedListener(new DateInputMask(etExpenseDate));
+
+                adapterTravelItemExpenses[0] = new HomeTravelItemExpensesListAdapter(Database.mTravelItemExpensesDao.fetchTravelItemExpensesByTravelExpenseId( travelExpensesList.get(0).getId()), requireContext(),travelExpensesList.get(0).getTravel_id());
+                rvTravelExpenseItem.setAdapter(adapterTravelItemExpenses[0]);
+                rvTravelExpenseItem.setLayoutManager(new LinearLayoutManager(requireContext()));
+                adapterTravelItemExpenses[0].notifyDataSetChanged();
+
+                final List<TravelExpenses> finalTravelExpensesList = travelExpensesList;
+                alertDialogBuilder
+                        .setCancelable(false)
+                        .setPositiveButton(R.string.OK, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog,int id) {
+                                boolean isSave = false;
+
+                                TravelItemExpenses TIE = new TravelItemExpenses();
+
+                                TIE.setTravel_expense_id(finalTravelExpensesList.get(0).getId());
+                                TIE.setExpense_date(Utils.stringToDate(etExpenseDate.getText().toString()));
+                                if (!etExpenseItemRealizedValue.getText().toString().isEmpty()) {
+                                    TIE.setRealized_value(Double.parseDouble(etExpenseItemRealizedValue.getText().toString()));
+                                }
+                                TIE.setNote(etExpenseItemNote.getText().toString());
+
+                                if (TIE.getExpense_date() != null ||
+                                    TIE.getRealized_value() != null) {
+
+                                    try {
+                                        isSave = Database.mTravelItemExpensesDao.addTravelItemExpenses(TIE);
+                                    } catch (Exception e) {
+                                        Toast.makeText(requireContext(), R.string.Error_Including_Data + e.getMessage(), Toast.LENGTH_LONG).show();
+                                    }
+
+                                    if (!isSave) {
+                                        Toast.makeText(requireContext(), R.string.Error_Saving_Data, Toast.LENGTH_LONG).show();
+                                    } else {
+                                        adapterTravelItemExpenses[0] = new HomeTravelItemExpensesListAdapter(Database.mTravelItemExpensesDao.fetchTravelItemExpensesByTravelExpenseId(finalTravelExpensesList.get(0).getId()), requireContext(), finalTravelExpensesList.get(0).getTravel_id());
+                                        rvTravelExpenseItem.setAdapter(adapterTravelItemExpenses[0]);
+                                        rvTravelExpenseItem.setLayoutManager(new LinearLayoutManager(requireContext()));
+                                        adapterTravelItemExpenses[0].notifyDataSetChanged();
+                                    }
+                                }
+                            }
+                        })
+                        .setNegativeButton(R.string.Cancel, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog,int id) {
+                                dialog.cancel();
+                            }
+                        });
+                AlertDialog alertDialog = alertDialogBuilder.create();
+                alertDialog.show();
             }
 
             @Override

@@ -310,6 +310,11 @@
     <string name="TravelExpenses_ExpectedValue">Expected Value</string>
     <string name="TravelExpenses_Note">Note</string>
 
+    <string name="TravelItemExpenses_ExpenseDate">Expense Date</string>
+    <string name="TravelItemExpenses_RealizedValue">Realized Value</string>
+    <string name="TravelItemExpenses_Note">Note</string>
+    <string name="TravelItemExpenses_Deleting">Deleting Travel Item Expenses</string>
+
     <string name="Vehicle_Travel_Deleting">Deleting Vehicle has Travel</string>
 
     <!-- Array Status Travel -->

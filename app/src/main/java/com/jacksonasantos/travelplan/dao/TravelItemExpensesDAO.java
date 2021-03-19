@@ -6,6 +6,7 @@ import android.database.sqlite.SQLiteDatabase;
 
 import com.jacksonasantos.travelplan.dao.interfaces.TravelItemExpensesIDAO;
 import com.jacksonasantos.travelplan.dao.interfaces.TravelItemExpensesISchema;
+import com.jacksonasantos.travelplan.ui.utility.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,6 +34,21 @@ public class TravelItemExpensesDAO extends DbContentProvider implements TravelIt
             cursor.close();
         }
         return travelItemExpenses;
+    }
+
+    public List<TravelItemExpenses> fetchTravelItemExpensesByTravelExpenseId(Integer travel_expense_id) {
+        final String[] selectionArgs = { String.valueOf(travel_expense_id) };
+        final String selection = TRAVEL_ITEM_EXPENSES_TRAVEL_EXPENSE_ID + " = ?";
+        List<TravelItemExpenses> travelItemExpensesList = new ArrayList<>();
+        cursor = super.query(TRAVEL_ITEM_EXPENSES_TABLE, TRAVEL_ITEM_EXPENSES_COLUMNS, selection, selectionArgs, TRAVEL_ITEM_EXPENSES_EXPENSE_DATE+", "+TRAVEL_ITEM_EXPENSES_ID);
+        if (cursor.moveToFirst()) {
+            do {
+                TravelItemExpenses travelItemExpenses = cursorToEntity(cursor);
+                travelItemExpensesList.add(travelItemExpenses);
+            } while (cursor.moveToNext());
+            cursor.close();
+        }
+        return travelItemExpensesList;
     }
 
     public List<TravelItemExpenses> fetchAllTravelItemExpenses() {
@@ -71,7 +87,8 @@ public class TravelItemExpensesDAO extends DbContentProvider implements TravelIt
         TravelItemExpenses t = new TravelItemExpenses();
         if (c != null) {
             if (c.getColumnIndex(TRAVEL_ITEM_EXPENSES_ID) != -1)                 {t.setId(c.getInt(c.getColumnIndexOrThrow(TRAVEL_ITEM_EXPENSES_ID))); }
-            if (c.getColumnIndex(TRAVEL_ITEM_EXPENSES_TRAVEL_EXPENSES_ID) != -1) {t.setTravel_expense_id(c.getInt(c.getColumnIndexOrThrow(TRAVEL_ITEM_EXPENSES_TRAVEL_EXPENSES_ID))); }
+            if (c.getColumnIndex(TRAVEL_ITEM_EXPENSES_TRAVEL_EXPENSE_ID) != -1) {t.setTravel_expense_id(c.getInt(c.getColumnIndexOrThrow(TRAVEL_ITEM_EXPENSES_TRAVEL_EXPENSE_ID))); }
+            if (c.getColumnIndex(TRAVEL_ITEM_EXPENSES_EXPENSE_DATE) != -1)       {t.setExpense_date(Utils.dateParse(c.getString(c.getColumnIndexOrThrow(TRAVEL_ITEM_EXPENSES_EXPENSE_DATE)))); }
             if (c.getColumnIndex(TRAVEL_ITEM_EXPENSES_REALIZED_VALUE) != -1)     {t.setRealized_value(c.getDouble(c.getColumnIndexOrThrow(TRAVEL_ITEM_EXPENSES_REALIZED_VALUE))); }
             if (c.getColumnIndex(TRAVEL_ITEM_EXPENSES_NOTE) != -1 )              {t.setNote(c.getString(c.getColumnIndexOrThrow(TRAVEL_ITEM_EXPENSES_NOTE))); }
         }
@@ -81,7 +98,8 @@ public class TravelItemExpensesDAO extends DbContentProvider implements TravelIt
     private void setContentValue(TravelItemExpenses t) {
         initialValues = new ContentValues();
         initialValues.put(TRAVEL_ITEM_EXPENSES_ID, t.id);
-        initialValues.put(TRAVEL_ITEM_EXPENSES_TRAVEL_EXPENSES_ID, t.travel_expense_id);
+        initialValues.put(TRAVEL_ITEM_EXPENSES_TRAVEL_EXPENSE_ID, t.travel_expense_id);
+        initialValues.put(TRAVEL_ITEM_EXPENSES_EXPENSE_DATE,  Utils.dateFormat(t.expense_date));
         initialValues.put(TRAVEL_ITEM_EXPENSES_REALIZED_VALUE, t.realized_value);
         initialValues.put(TRAVEL_ITEM_EXPENSES_NOTE, t.note);
     }

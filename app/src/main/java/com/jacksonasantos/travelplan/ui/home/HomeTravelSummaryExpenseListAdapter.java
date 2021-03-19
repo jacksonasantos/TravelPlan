@@ -63,7 +63,8 @@ public class HomeTravelSummaryExpenseListAdapter extends RecyclerView.Adapter<Ho
     @NonNull
     @Override
     public HomeTravelSummaryExpenseListAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View expenseView = LayoutInflater.from(parent.getContext())
+        View expenseView = LayoutInflater
+                .from(parent.getContext())
                 .inflate(R.layout.fragment_home_travel_item_expense, parent, false);
         return new MyViewHolder(expenseView);
     }

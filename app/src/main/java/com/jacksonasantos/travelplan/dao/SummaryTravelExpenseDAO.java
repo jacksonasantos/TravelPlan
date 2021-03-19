@@ -10,6 +10,7 @@ import com.jacksonasantos.travelplan.dao.interfaces.ReservationISchema;
 import com.jacksonasantos.travelplan.dao.interfaces.SummaryTravelExpenseIDAO;
 import com.jacksonasantos.travelplan.dao.interfaces.SummaryTravelExpenseISchema;
 import com.jacksonasantos.travelplan.dao.interfaces.TravelExpensesISchema;
+import com.jacksonasantos.travelplan.dao.interfaces.TravelItemExpensesISchema;
 import com.jacksonasantos.travelplan.dao.interfaces.VehicleHasTravelISchema;
 import com.jacksonasantos.travelplan.dao.interfaces.VehicleISchema;
 
@@ -57,7 +58,10 @@ public class SummaryTravelExpenseDAO extends DbContentProvider implements Summar
                             " UNION " +                                                                             // Travel Expenses
                             " SELECT " + TravelExpensesISchema.TRAVEL_EXPENSES_EXPENSE_TYPE + " " + SummaryTravelExpenseISchema.SUMMARY_TRAVEL_EXPENSE_EXPENSE_TYPE + ", " +
                                    " SUM(" + TravelExpensesISchema.TRAVEL_EXPENSES_EXPECTED_VALUE + ") " + SummaryTravelExpenseISchema.SUMMARY_TRAVEL_EXPENSE_EXPECTED_VALUE + ", " +
-                                   " 0 " + SummaryTravelExpenseISchema.SUMMARY_TRAVEL_EXPENSE_REALIZED_VALUE +
+                                   " [IFNULL]( (SELECT SUM(tie." + TravelItemExpensesISchema.TRAVEL_ITEM_EXPENSES_REALIZED_VALUE+") " +
+                                                " FROM " + TravelItemExpensesISchema.TRAVEL_ITEM_EXPENSES_TABLE+" tie " +
+                                               " WHERE tie." + TravelItemExpensesISchema.TRAVEL_ITEM_EXPENSES_TRAVEL_EXPENSE_ID + " = " + TravelExpensesISchema.TRAVEL_EXPENSES_TABLE +"."+TravelExpensesISchema.TRAVEL_EXPENSES_ID+")" +
+                                            ", 0) " + SummaryTravelExpenseISchema.SUMMARY_TRAVEL_EXPENSE_REALIZED_VALUE +
                               " FROM " + TravelExpensesISchema.TRAVEL_EXPENSES_TABLE +
                              " WHERE " + TravelExpensesISchema.TRAVEL_EXPENSES_TRAVEL_ID + " = ? " +
                           " GROUP BY " + TravelExpensesISchema.TRAVEL_EXPENSES_EXPENSE_TYPE + ") " +

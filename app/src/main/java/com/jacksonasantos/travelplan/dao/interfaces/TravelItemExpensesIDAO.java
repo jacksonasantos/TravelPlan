@@ -6,6 +6,7 @@ import java.util.List;
 
 public interface TravelItemExpensesIDAO {
     TravelItemExpenses fetchTravelItemExpensesById(Integer id);
+    List<TravelItemExpenses> fetchTravelItemExpensesByTravelExpenseId(Integer travel_expense_id);
     List<TravelItemExpenses> fetchAllTravelItemExpenses();
     boolean addTravelItemExpenses(TravelItemExpenses travel);
     void deleteTravelItemExpenses(Integer id);

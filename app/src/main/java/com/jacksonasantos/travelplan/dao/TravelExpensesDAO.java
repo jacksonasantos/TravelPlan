@@ -51,6 +51,22 @@ public class TravelExpensesDAO extends DbContentProvider implements TravelExpens
         return travelExpensesList;
     }
 
+    public List<TravelExpenses> fetchAllTravelExpensesByTravelType( Integer travel_id, Integer expense_type) {
+        final String[] selectionArgs = { String.valueOf(travel_id), String.valueOf(expense_type) };
+        final String selection = TRAVEL_EXPENSES_TRAVEL_ID + " = ? AND " + TRAVEL_EXPENSES_EXPENSE_TYPE + " = ? ";
+        List<TravelExpenses> travelExpensesList = new ArrayList<>();
+
+        cursor = super.query(TRAVEL_EXPENSES_TABLE, TRAVEL_EXPENSES_COLUMNS, selection, selectionArgs, null);
+        if (cursor.moveToFirst()) {
+            do {
+                TravelExpenses travelExpenses = cursorToEntity(cursor);
+                travelExpensesList.add(travelExpenses);
+            } while (cursor.moveToNext());
+            cursor.close();
+        }
+        return travelExpensesList;
+    }
+
     public List<TravelExpenses> fetchAllTravelExpenses() {
         List<TravelExpenses> travelExpensesList = new ArrayList<>();
 
