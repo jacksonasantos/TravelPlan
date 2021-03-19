@@ -29,16 +29,17 @@ import java.util.List;
 
 public class HomeTravelReservationListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    private static final int SHOW_HEADER = 0; // 0 - NO SHOW HEADER | 1 - SHOW HEADER
     private static final int TYPE_HEADER = 0;
     private static final int TYPE_ITEM = 1;
 
     private final List<Reservation> mReservation;
     Context context;
+    int show_header;
 
-    public HomeTravelReservationListAdapter(List<Reservation> reservation, Context context ) {
+    public HomeTravelReservationListAdapter(List<Reservation> reservation, Context context, int show_header) {
         this.mReservation = reservation;
         this.context = context;
+        this.show_header = show_header; // 0 - NO SHOW HEADER | 1 - SHOW HEADER
 
         Database mdb = new Database(context);
         mdb.open();
@@ -78,7 +79,7 @@ public class HomeTravelReservationListAdapter extends RecyclerView.Adapter<Recyc
         else if (holder instanceof ItemViewHolder) {
 
             final ItemViewHolder itemViewHolder = (ItemViewHolder) holder;
-            final Reservation reservation = mReservation.get(position-SHOW_HEADER);
+            final Reservation reservation = mReservation.get(position-show_header);
 
             if (position%2==0) {
                 itemViewHolder.llReservationItem.setBackgroundColor(Color.WHITE);
@@ -130,7 +131,7 @@ public class HomeTravelReservationListAdapter extends RecyclerView.Adapter<Recyc
     }
     @Override
     public int getItemViewType(int position) {
-        if (position == 0 && SHOW_HEADER == 1) {
+        if (position == 0 && show_header == 1) {
             return TYPE_HEADER;
         }
         return TYPE_ITEM;
@@ -138,7 +139,7 @@ public class HomeTravelReservationListAdapter extends RecyclerView.Adapter<Recyc
 
     @Override
     public int getItemCount() {
-        return mReservation.size()+SHOW_HEADER;
+        return mReservation.size()+show_header;
     }
 
     private static class HeaderViewHolder extends RecyclerView.ViewHolder {

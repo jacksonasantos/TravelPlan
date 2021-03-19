@@ -79,7 +79,6 @@ public class HomeTravelFragment extends Fragment implements View.OnClickListener
     private RecyclerView listReservation;
 
     private ConstraintLayout layerExpense;
-    private ConstraintLayout labelTravelExpenses;
     private RecyclerView listTravelExpenses;
     private ConstraintLayout totalTravelExpenses;
 
@@ -125,7 +124,6 @@ public class HomeTravelFragment extends Fragment implements View.OnClickListener
         listReservation = v.findViewById(R.id.listReservation);
 
         layerExpense = v.findViewById(R.id.layerExpense);
-        labelTravelExpenses = v.findViewById(R.id.labelTravelExpenses);
         listTravelExpenses = v.findViewById(R.id.listTravelExpenses);
         totalTravelExpenses = v.findViewById(R.id.totalTravelExpenses);
 
@@ -270,8 +268,9 @@ public class HomeTravelFragment extends Fragment implements View.OnClickListener
                 });
 
                 // Vehicles has Travel
-                VehicleTravelListAdapter adapterVehicle = new VehicleTravelListAdapter(Database.mVehicleHasTravelDao.fetchAllVehicleHasTravelByTravel(travel[0].getId() ), getContext(),"Home");
-                if ( adapterVehicle.getItemCount() > 0){
+                final int Show_Header_VehicleTravel = 0 ;
+                VehicleTravelListAdapter adapterVehicle = new VehicleTravelListAdapter(Database.mVehicleHasTravelDao.fetchAllVehicleHasTravelByTravel(travel[0].getId() ), getContext(),"Home", Show_Header_VehicleTravel);
+                if ( adapterVehicle.getItemCount() > Show_Header_VehicleTravel){
                     layerVehicle.setVisibility(View.VISIBLE);
                     listVehicle.setAdapter(adapterVehicle);
                     listVehicle.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -282,8 +281,9 @@ public class HomeTravelFragment extends Fragment implements View.OnClickListener
                 //TODO- Mostrar todos os Abastecimentos com médias quilometragem, km percorridos
                 
                 // Itinerary
-                HomeTravelItineraryListAdapter adapterItinerary = new HomeTravelItineraryListAdapter(Database.mItineraryDao.fetchAllItineraryByTravel(travel[0].getId() ), getContext());
-                if ( adapterItinerary.getItemCount() > 0){
+                final int Show_Header_Itinerary = 0; // 0 - NO SHOW HEADER | 1 - SHOW HEADER
+                HomeTravelItineraryListAdapter adapterItinerary = new HomeTravelItineraryListAdapter(Database.mItineraryDao.fetchAllItineraryByTravel(travel[0].getId() ), getContext(), Show_Header_Itinerary);
+                if ( adapterItinerary.getItemCount() > Show_Header_Itinerary){
                     layerItinerary.setVisibility(View.VISIBLE);
                     listItinerary.setAdapter(adapterItinerary);
                     listItinerary.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -292,7 +292,7 @@ public class HomeTravelFragment extends Fragment implements View.OnClickListener
                     long vDistance = 0;
                     long nrTime = 0;
                     String vTime;
-                    for (int x=0; x < adapterItinerary.getItemCount(); x++) {
+                    for (int x=0; x < adapterItinerary.getItemCount()-Show_Header_Itinerary; x++) {
                         vDistance = vDistance + adapterItinerary.mItinerary.get(x).getDistance();
                         vDaily = vDaily + adapterItinerary.mItinerary.get(x).getDaily();
                         String[] time = adapterItinerary.mItinerary.get(x).getTime().split(":");
@@ -323,8 +323,9 @@ public class HomeTravelFragment extends Fragment implements View.OnClickListener
                 }
 
                 // Reservation
-                HomeTravelReservationListAdapter adapterReservation = new HomeTravelReservationListAdapter( Database.mReservationDao.fetchAllReservationByTravel(travel[0].getId()), getContext());
-                if ( adapterReservation.getItemCount() > 0){
+                final int Show_Header_Reservation = 0; // 0 - NO SHOW HEADER | 1 - SHOW HEADER
+                HomeTravelReservationListAdapter adapterReservation = new HomeTravelReservationListAdapter( Database.mReservationDao.fetchAllReservationByTravel(travel[0].getId()), getContext(), Show_Header_Reservation);
+                if ( adapterReservation.getItemCount() > Show_Header_Reservation){
                     layerReservation.setVisibility(View.VISIBLE);
                     listReservation.setAdapter(adapterReservation);
                     listReservation.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -333,16 +334,16 @@ public class HomeTravelFragment extends Fragment implements View.OnClickListener
                 }
 
                 // Expenses - LayerExpense
-                final int SHOW_HEADER = 1; // 0 - NO SHOW HEADER | 1 - SHOW HEADER
-                HomeTravelSummaryExpenseListAdapter adapterTravelExpense = new HomeTravelSummaryExpenseListAdapter( Database.mSummaryTravelExpenseDao.findTravelExpense(travel[0].getId() ), getContext(), travel[0].getId(), SHOW_HEADER);
-                if ( adapterTravelExpense.getItemCount() > 0){
+                final int Show_Header_SummaryExpense = 1; // 0 - NO SHOW HEADER | 1 - SHOW HEADER
+                HomeTravelSummaryExpenseListAdapter adapterTravelExpense = new HomeTravelSummaryExpenseListAdapter( Database.mSummaryTravelExpenseDao.findTravelExpense(travel[0].getId() ), getContext(), travel[0].getId(), Show_Header_SummaryExpense);
+                if ( adapterTravelExpense.getItemCount() > Show_Header_SummaryExpense){
                     layerExpense.setVisibility(View.VISIBLE);
                     listTravelExpenses.setAdapter(adapterTravelExpense);
                     listTravelExpenses.setLayoutManager(new LinearLayoutManager(getContext()));
 
                     double vExpected = 0;
                     double vRealized = 0;
-                    for (int x=0; x < adapterTravelExpense.getItemCount()-SHOW_HEADER; x++) {
+                    for (int x=0; x < adapterTravelExpense.getItemCount()-Show_Header_SummaryExpense; x++) {
                         vExpected = vExpected + adapterTravelExpense.mSummaryTravelExpense.get(x).getExpected_value();
                         vRealized = vRealized + adapterTravelExpense.mSummaryTravelExpense.get(x).getRealized_value();
                     }
@@ -361,8 +362,9 @@ public class HomeTravelFragment extends Fragment implements View.OnClickListener
                 }
 
                 // Insurance - layerInsurance
-                HomeInsuranceListAdapter adapterInsurance = new HomeInsuranceListAdapter(Database.mInsuranceDao.findReminderInsurance("T", travel[0].getId() ), getContext());
-                if ( adapterInsurance.getItemCount() > 0){
+                final int Show_Header_Insurance = 0; // 0 - NO SHOW HEADER | 1 - SHOW HEADER
+                HomeInsuranceListAdapter adapterInsurance = new HomeInsuranceListAdapter(Database.mInsuranceDao.findReminderInsurance("T", travel[0].getId() ), getContext(), Show_Header_Insurance);
+                if ( adapterInsurance.getItemCount() > Show_Header_Insurance){
                     layerInsurance.setVisibility(View.VISIBLE);
                     listInsuranceExpiration.setAdapter(adapterInsurance);
                     listInsuranceExpiration.setLayoutManager(new LinearLayoutManager(getContext()));

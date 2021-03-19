@@ -354,6 +354,12 @@
     <!-- Itinerary Fragment -->
     <string name="Itinerary">Itinerary</string>
 
+    <string name="Itinerary_Source">Source</string>
+    <string name="Itinerary_Target">Target</string>
+    <string name="Itinerary_Daily">Daily</string>
+    <string name="Itinerary_Distance">Distance</string>
+    <string name="Itinerary_Time">Time</string>
+
     <!-- Reservation Fragment -->
     <string name="Reservation">Reservation</string>
     <string name="Reservation_Deleting">Deleting Reservation</string>

@@ -4,11 +4,13 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,10 +30,14 @@ import java.text.NumberFormat;
 import java.util.List;
 import java.util.Locale;
 
-public class VehicleTravelListAdapter extends RecyclerView.Adapter<VehicleTravelListAdapter.MyViewHolder> {
+public class VehicleTravelListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+
+    private static final int TYPE_HEADER = 0;
+    private static final int TYPE_ITEM = 1;
 
     private final List<VehicleHasTravel> mVehicleHasTravel;
     Context context;
+    int show_header;
     public String form;
 
     Globals g = Globals.getInstance();
@@ -39,94 +45,135 @@ public class VehicleTravelListAdapter extends RecyclerView.Adapter<VehicleTravel
     NumberFormat numberFormatter = NumberFormat.getNumberInstance(locale);
     NumberFormat integerFormatter = NumberFormat.getNumberInstance(locale);
 
-    public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-
-        public TextView txtVehicle;
-        public TextView txtAvgConsumption;
-        public ImageButton btnDelete;
-        public ImageButton btnRefuel;
-
-        public MyViewHolder(View v) {
-            super(v);
-            txtVehicle = v.findViewById(R.id.txtVehicle);
-            txtAvgConsumption = v.findViewById(R.id.txtAvgConsumption);
-            btnDelete = v.findViewById(R.id.btnDelete);
-            btnRefuel = v.findViewById(R.id.btnRefuel);
-
-            if (form.equals("Home")) {
-                btnDelete.setVisibility(View.INVISIBLE);
-            }
-            btnDelete.setOnClickListener(this);
-        }
-
-        @Override
-        public void onClick(View view) {
-        }
-    }
-
-    public VehicleTravelListAdapter(List<VehicleHasTravel> vehicleHasTravels, Context context, String form) {
+    public VehicleTravelListAdapter(List<VehicleHasTravel> vehicleHasTravels, Context context, String form, int show_header) {
         this.mVehicleHasTravel = vehicleHasTravels;
         this.context = context;
         this.form = form;
+        this.show_header = show_header; // 0 - NO SHOW HEADER | 1 - SHOW HEADER
 
         integerFormatter.setMaximumFractionDigits(0);
     }
 
     @NonNull
     @Override
-    public VehicleTravelListAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View vehicleView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.fragment_item_vehicle_travel, parent, false);
-        return new MyViewHolder(vehicleView);
+
+        if (viewType == TYPE_ITEM) {
+            return new ItemViewHolder(vehicleView);
+        } else if (viewType == TYPE_HEADER) {
+            return new HeaderViewHolder(vehicleView);
+        }
+        else return null;
     }
 
     // Replace the contents of a view (invoked by the layout manager)
     @SuppressLint("SetTextI18n")
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
-    public void onBindViewHolder(@NonNull final MyViewHolder holder, final int position) {
-        final VehicleHasTravel vehicleHasTravel = mVehicleHasTravel.get(position);
-        final Vehicle vehicle = Database.mVehicleDao.fetchVehicleById(vehicleHasTravel.getVehicle_id());
+    public void onBindViewHolder(@NonNull final RecyclerView.ViewHolder holder, final int position) {
+        if (holder instanceof HeaderViewHolder){
+            HeaderViewHolder headerViewHolder = (HeaderViewHolder) holder;
 
-        holder.txtVehicle.setText(vehicle.getShort_name());
-        holder.txtAvgConsumption.setText(numberFormatter.format(vehicle.getAvg_consumption())+ " " +g.getMeasureConsumption());
+            headerViewHolder.llVehicleTravelItem.setBackgroundColor(Color.LTGRAY);
+            headerViewHolder.txtVehicle.setText(R.string.Vehicle_Name);
+            headerViewHolder.txtAvgConsumption.setText(R.string.Vehicle_Avg_Consumption);
+            headerViewHolder.btnDelete.setVisibility(View.INVISIBLE);
+            headerViewHolder.btnRefuel.setVisibility(View.INVISIBLE);
+        }
+        else if (holder instanceof ItemViewHolder) {
+            final ItemViewHolder itemViewHolder = (ItemViewHolder) holder;
+            final VehicleHasTravel vehicleHasTravel = mVehicleHasTravel.get(position-show_header);
+            final Vehicle vehicle = Database.mVehicleDao.fetchVehicleById(vehicleHasTravel.getVehicle_id());
 
-        holder.btnDelete.setOnClickListener (new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                new AlertDialog.Builder(v.getContext())
-                        .setTitle(R.string.Vehicle_Travel_Deleting)
-                        .setMessage(R.string.Msg_Confirm)
-                        .setPositiveButton(R.string.Yes, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                try {
-                                    Database.mVehicleHasTravelDao.deleteVehicleHasTravel(vehicleHasTravel.getVehicle_id(),vehicleHasTravel.getTravel_id());
-                                    mVehicleHasTravel.remove(position);
-                                    notifyItemRemoved(position);
-                                    notifyItemRangeChanged(position,mVehicleHasTravel.size());
-                                } catch (Exception e) {
-                                    Toast.makeText(context, context.getString(R.string.Error_Deleting_Data) + "\n" + e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+            itemViewHolder.txtVehicle.setText(vehicle.getShort_name());
+            itemViewHolder.txtAvgConsumption.setText(numberFormatter.format(vehicle.getAvg_consumption()) + " " + g.getMeasureConsumption());
+
+            if (form.equals("Home")) {
+                itemViewHolder.btnDelete.setVisibility(View.INVISIBLE);
+            }
+
+            itemViewHolder.btnDelete.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    itemViewHolder.btnDelete.setOnClickListener(this);
+                    new AlertDialog.Builder(v.getContext())
+                            .setTitle(R.string.Vehicle_Travel_Deleting)
+                            .setMessage(R.string.Msg_Confirm)
+                            .setPositiveButton(R.string.Yes, new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    try {
+                                        Database.mVehicleHasTravelDao.deleteVehicleHasTravel(vehicleHasTravel.getVehicle_id(), vehicleHasTravel.getTravel_id());
+                                        mVehicleHasTravel.remove(position);
+                                        notifyItemRemoved(position);
+                                        notifyItemRangeChanged(position, mVehicleHasTravel.size());
+                                    } catch (Exception e) {
+                                        Toast.makeText(context, context.getString(R.string.Error_Deleting_Data) + "\n" + e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+                                    }
                                 }
-                            }
-                        }).setNegativeButton(R.string.No, null)
-                        .show();
-            }
-        });
+                            }).setNegativeButton(R.string.No, null)
+                            .show();
+                }
+            });
 
-        holder.btnRefuel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent (v.getContext(), FuelSupplyActivity.class);
-                intent.putExtra("vehicle_id", vehicleHasTravel.getVehicle_id());
-                intent.putExtra("travel_id", vehicleHasTravel.getTravel_id());
-                v.getContext().startActivity(intent);
-            }
-        });
+            itemViewHolder.btnRefuel.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(v.getContext(), FuelSupplyActivity.class);
+                    intent.putExtra("vehicle_id", vehicleHasTravel.getVehicle_id());
+                    intent.putExtra("travel_id", vehicleHasTravel.getTravel_id());
+                    v.getContext().startActivity(intent);
+                }
+            });
+        }
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        if (position == 0 && show_header == 1) {
+            return TYPE_HEADER;
+        }
+        return TYPE_ITEM;
     }
 
     @Override
     public int getItemCount() {
-        return mVehicleHasTravel.size();
+        return mVehicleHasTravel.size()+show_header;
+    }
+
+    private static class HeaderViewHolder extends RecyclerView.ViewHolder {
+        public LinearLayout llVehicleTravelItem;
+        public TextView txtVehicle;
+        public TextView txtAvgConsumption;
+        public ImageButton btnDelete;
+        public ImageButton btnRefuel;
+
+        public HeaderViewHolder(View v) {
+            super(v);
+            llVehicleTravelItem = v.findViewById(R.id.llVehicleTravelItem);
+            txtVehicle = v.findViewById(R.id.txtVehicle);
+            txtAvgConsumption = v.findViewById(R.id.txtAvgConsumption);
+            btnDelete = v.findViewById(R.id.btnDelete);
+            btnRefuel = v.findViewById(R.id.btnRefuel);
+        }
+    }
+
+    public static class ItemViewHolder extends RecyclerView.ViewHolder {
+        public LinearLayout llVehicleTravelItem;
+        public TextView txtVehicle;
+        public TextView txtAvgConsumption;
+        public ImageButton btnDelete;
+        public ImageButton btnRefuel;
+
+        public ItemViewHolder(View v) {
+            super(v);
+            llVehicleTravelItem = v.findViewById(R.id.llVehicleTravelItem);
+            txtVehicle = v.findViewById(R.id.txtVehicle);
+            txtAvgConsumption = v.findViewById(R.id.txtAvgConsumption);
+            btnDelete = v.findViewById(R.id.btnDelete);
+            btnRefuel = v.findViewById(R.id.btnRefuel);
+        }
     }
 }

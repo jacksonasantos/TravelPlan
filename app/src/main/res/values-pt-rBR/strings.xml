@@ -280,4 +280,9 @@
     <string name="TravelItemExpenses_ExpenseDate">Data Despesa</string>
     <string name="TravelItemExpenses_Deleting">Excluindo Item de Despesa de Viagem</string>
     <string name="Reservation_Daily">Dias</string>
+    <string name="Itinerary_Source">Origem</string>
+    <string name="Itinerary_Target">Destino</string>
+    <string name="Itinerary_Daily">Dias</string>
+    <string name="Itinerary_Distance">Distância</string>
+    <string name="Itinerary_Time">Tempo</string>
 </resources>

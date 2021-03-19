@@ -225,7 +225,7 @@ public class HomeVehicleFragment extends Fragment implements View.OnClickListene
                 adapterNextMaintenance.notifyDataSetChanged();
 
                 // Insurance - layerInsuranceVehicle
-                HomeInsuranceListAdapter adapterInsurance = new HomeInsuranceListAdapter(Database.mInsuranceDao.findReminderInsurance("V", g.getIdVehicle() ), getContext());
+                HomeInsuranceListAdapter adapterInsurance = new HomeInsuranceListAdapter(Database.mInsuranceDao.findReminderInsurance("V", g.getIdVehicle() ), getContext(),0);
                 if ( adapterInsurance.getItemCount() > 0){
                     layerInsuranceVehicle.setVisibility(View.VISIBLE);
                     insuranceList.setAdapter(adapterInsurance);

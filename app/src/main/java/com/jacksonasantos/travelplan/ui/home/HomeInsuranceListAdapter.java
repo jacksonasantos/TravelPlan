@@ -28,14 +28,118 @@ import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Objects;
 
-public class HomeInsuranceListAdapter extends RecyclerView.Adapter<HomeInsuranceListAdapter.MyViewHolder> {
+public class HomeInsuranceListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+
+    private static final int TYPE_HEADER = 0;
+    private static final int TYPE_ITEM = 1;
 
     private final List<Insurance> mInsurance;
     Context context;
+    int show_header;
     String[] insurance_typeArray;
 
-    public static class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public HomeInsuranceListAdapter(List<Insurance> insurance, Context context, int show_header) {
+        this.mInsurance = insurance;
+        this.context = context;
+        this.show_header = show_header;
 
+        Database mdb = new Database(context);
+        mdb.open();
+    }
+
+    @NonNull
+    @Override
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View insuranceView = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.fragment_home_item_insurance, parent, false);
+        insurance_typeArray = parent.getResources().getStringArray(R.array.insurance_type_array);
+
+        if (viewType == TYPE_ITEM) {
+            return new ItemViewHolder(insuranceView);
+        } else if (viewType == TYPE_HEADER) {
+            return new HeaderViewHolder(insuranceView);
+        }
+        else return null;
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    @Override
+    public void onBindViewHolder(@NonNull final RecyclerView.ViewHolder holder, final int position) {
+        if (holder instanceof HeaderViewHolder){
+            HeaderViewHolder headerViewHolder = (HeaderViewHolder) holder;
+
+            headerViewHolder.llInsuranceItem.setBackgroundColor(Color.LTGRAY);
+            headerViewHolder.imInsuranceType.setVisibility(View.INVISIBLE);
+            headerViewHolder.imInsuranceStatus.setVisibility(View.INVISIBLE);
+            headerViewHolder.txtInsuranceFinalEffectiveDate.setText(R.string.Insurance_Final_Effective_Date);
+            headerViewHolder.txtInsurancePolicy.setText(R.string.Insurance_Insurance_Policy);
+            headerViewHolder.txtInsuranceCompany.setText(R.string.Insurance_Company);
+            headerViewHolder.txtInsuranceBroker.setText(R.string.Insurance_Broker);
+            headerViewHolder.btnDoneInsurance.setVisibility(View.INVISIBLE);
+        }
+        else if (holder instanceof ItemViewHolder) {
+            final ItemViewHolder itemViewHolder = (ItemViewHolder) holder;
+            final Insurance insurance = mInsurance.get(position-show_header);
+            @SuppressLint("SimpleDateFormat") SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+            if (position % 2 == 0) {
+                itemViewHolder.llInsuranceItem.setBackgroundColor(Color.LTGRAY);
+            } else {
+                itemViewHolder.llInsuranceItem.setBackgroundColor(Color.WHITE);
+            }
+            itemViewHolder.imInsuranceType.setImageResource(insurance.getInsurance_typeImage(insurance.getInsurance_type()));
+            itemViewHolder.imInsuranceStatus.setImageResource(R.drawable.ic_ball);
+            try {
+                if (insurance.getStatus() == 1) {
+                    itemViewHolder.imInsuranceStatus.setColorFilter(Color.BLUE, PorterDuff.Mode.MULTIPLY);
+                } else {
+                    if (!(insurance.getFinal_effective_date() == null)) {
+                        if (System.currentTimeMillis() < Objects.requireNonNull(sdf.parse(Objects.requireNonNull(Utils.dateToString(insurance.getFinal_effective_date())))).getTime()) {
+                            itemViewHolder.imInsuranceStatus.setColorFilter(Color.GREEN, PorterDuff.Mode.MULTIPLY);
+                        } else {
+                            itemViewHolder.imInsuranceStatus.setColorFilter(Color.RED, PorterDuff.Mode.MULTIPLY);
+                        }
+                    }
+                }
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            itemViewHolder.txtInsuranceFinalEffectiveDate.setText(Utils.dateToString(insurance.getFinal_effective_date()));
+            itemViewHolder.txtInsurancePolicy.setText(String.valueOf(insurance.getInsurance_policy()));
+            itemViewHolder.txtInsuranceCompany.setText(Database.mInsuranceCompanyDao.fetchInsuranceCompanyById(insurance.getInsurance_company_id()).getCompany_name());
+            itemViewHolder.txtInsuranceBroker.setText(Database.mBrokerDao.fetchBrokerById(insurance.getBroker_id()).getName());
+
+            // btnDone - change Status for Service for completed and remove of list
+            itemViewHolder.btnDoneInsurance.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    try {
+                        Insurance i1 = Database.mInsuranceDao.fetchInsuranceById(insurance.getId());
+                        i1.setStatus(insurance.getStatus() == 0 ? 1 : 0);
+                        if (Database.mInsuranceDao.updateInsurance(i1)) {
+                            mInsurance.remove(position);
+                            notifyDataSetChanged();
+                        }
+                    } catch (Exception e) {
+                        Toast.makeText(context, context.getString(R.string.Error_Changing_Data) + "\n" + e.getMessage(), Toast.LENGTH_LONG).show();
+                    }
+                }
+            });
+        }
+    }
+    @Override
+    public int getItemViewType(int position) {
+        if (position == 0 && show_header == 1) {
+            return TYPE_HEADER;
+        }
+        return TYPE_ITEM;
+    }
+
+    @Override
+    public int getItemCount() {
+        return mInsurance.size()+show_header;
+    }
+
+    private static class HeaderViewHolder extends RecyclerView.ViewHolder {
         private final ConstraintLayout llInsuranceItem;
         private final ImageView imInsuranceType;
         private final ImageView imInsuranceStatus;
@@ -45,7 +149,7 @@ public class HomeInsuranceListAdapter extends RecyclerView.Adapter<HomeInsurance
         private final TextView txtInsuranceBroker;
         private final ImageButton btnDoneInsurance;
 
-        public MyViewHolder(View v) {
+        public HeaderViewHolder(View v) {
             super(v);
             llInsuranceItem = v.findViewById(R.id.llInsuranceItem);
             imInsuranceType = v.findViewById(R.id.imInsuranceType);
@@ -56,82 +160,28 @@ public class HomeInsuranceListAdapter extends RecyclerView.Adapter<HomeInsurance
             txtInsuranceCompany = v.findViewById(R.id.txtInsuranceCompany);
             btnDoneInsurance = v.findViewById(R.id.btnDoneInsurance);
         }
+    }
 
-        @Override
-        public void onClick(View view) {
+    public static class ItemViewHolder extends RecyclerView.ViewHolder {
+        private final ConstraintLayout llInsuranceItem;
+        private final ImageView imInsuranceType;
+        private final ImageView imInsuranceStatus;
+        private final TextView txtInsuranceFinalEffectiveDate;
+        private final TextView txtInsurancePolicy;
+        private final TextView txtInsuranceCompany;
+        private final TextView txtInsuranceBroker;
+        private final ImageButton btnDoneInsurance;
+
+        public ItemViewHolder(View v) {
+            super(v);
+            llInsuranceItem = v.findViewById(R.id.llInsuranceItem);
+            imInsuranceType = v.findViewById(R.id.imInsuranceType);
+            imInsuranceStatus = v.findViewById(R.id.imInsuranceStatus);
+            txtInsuranceFinalEffectiveDate = v.findViewById(R.id.txtInsuranceFinalEffectiveDate);
+            txtInsurancePolicy = v.findViewById(R.id.txtInsurancePolicy);
+            txtInsuranceBroker = v.findViewById(R.id.txtInsuranceBroker);
+            txtInsuranceCompany = v.findViewById(R.id.txtInsuranceCompany);
+            btnDoneInsurance = v.findViewById(R.id.btnDoneInsurance);
         }
-    }
-
-    public HomeInsuranceListAdapter(List<Insurance> insurance, Context context) {
-        this.mInsurance = insurance;
-        this.context = context;
-
-        Database mdb = new Database(context);
-        mdb.open();
-    }
-
-    @NonNull
-    @Override
-    public HomeInsuranceListAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View insuranceView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.fragment_home_item_insurance, parent, false);
-        insurance_typeArray = parent.getResources().getStringArray(R.array.insurance_type_array);
-
-        return new MyViewHolder(insuranceView);
-    }
-
-    @RequiresApi(api = Build.VERSION_CODES.N)
-    @Override
-    public void onBindViewHolder(@NonNull final MyViewHolder holder, final int position) {
-        final Insurance insurance = mInsurance.get(position);
-        @SuppressLint("SimpleDateFormat") SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-        if (position%2==0) {
-            holder.llInsuranceItem.setBackgroundColor(Color.LTGRAY);
-        } else {
-            holder.llInsuranceItem.setBackgroundColor(Color.WHITE);
-        }
-        holder.imInsuranceType.setImageResource(insurance.getInsurance_typeImage(insurance.getInsurance_type()));
-        holder.imInsuranceStatus.setImageResource(R.drawable.ic_ball );
-        try {
-            if (insurance.getStatus() == 1) {
-                holder.imInsuranceStatus.setColorFilter(Color.BLUE, PorterDuff.Mode.MULTIPLY);
-            } else {
-                if (!(insurance.getFinal_effective_date() == null)) {
-                    if (System.currentTimeMillis() < Objects.requireNonNull(sdf.parse(Objects.requireNonNull(Utils.dateToString(insurance.getFinal_effective_date())))).getTime()) {
-                        holder.imInsuranceStatus.setColorFilter(Color.GREEN, PorterDuff.Mode.MULTIPLY);
-                    } else {
-                        holder.imInsuranceStatus.setColorFilter(Color.RED, PorterDuff.Mode.MULTIPLY);
-                    }
-                }
-            }
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        holder.txtInsuranceFinalEffectiveDate.setText(Utils.dateToString(insurance.getFinal_effective_date()));
-        holder.txtInsurancePolicy.setText(String.valueOf(insurance.getInsurance_policy()));
-        holder.txtInsuranceCompany.setText(Database.mInsuranceCompanyDao.fetchInsuranceCompanyById(insurance.getInsurance_company_id()).getCompany_name());
-        holder.txtInsuranceBroker.setText(Database.mBrokerDao.fetchBrokerById(insurance.getBroker_id()).getName());
-
-        // btnDone - change Status for Service for completed and remove of list
-        holder.btnDoneInsurance.setOnClickListener (new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                try {
-                    Insurance i1 = Database.mInsuranceDao.fetchInsuranceById(insurance.getId());
-                    i1.setStatus(insurance.getStatus() == 0 ? 1 : 0);
-                    if (Database.mInsuranceDao.updateInsurance(i1)) {
-                        mInsurance.remove(position);
-                        notifyDataSetChanged();
-                    }
-                } catch (Exception e) {
-                    Toast.makeText(context, context.getString(R.string.Error_Changing_Data)+ "\n" + e.getMessage(), Toast.LENGTH_LONG).show();
-                }
-            }
-        });
-    }
-
-    @Override
-    public int getItemCount() {
-        return mInsurance.size();
     }
 }

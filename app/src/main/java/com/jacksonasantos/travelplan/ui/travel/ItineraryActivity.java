@@ -132,7 +132,8 @@ public class ItineraryActivity extends AppCompatActivity {
                         }
                     }
 
-                    HomeTravelItineraryListAdapter adapterItinerary = new HomeTravelItineraryListAdapter(Database.mItineraryDao.fetchAllItineraryByTravel(itinerary.getTravel_id() ), getApplicationContext());
+                    final int Show_Header_Itinerary = 0; // 0 - NO SHOW HEADER | 1 - SHOW HEADER
+                    HomeTravelItineraryListAdapter adapterItinerary = new HomeTravelItineraryListAdapter(Database.mItineraryDao.fetchAllItineraryByTravel(itinerary.getTravel_id() ), getApplicationContext(),Show_Header_Itinerary);
                     if ( adapterItinerary.getItemCount() > 0){
                         layerItinerary.setVisibility(View.VISIBLE);
                         listItinerary.setAdapter(adapterItinerary);
