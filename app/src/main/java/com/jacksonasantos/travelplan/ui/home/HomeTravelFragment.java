@@ -3,7 +3,6 @@ package com.jacksonasantos.travelplan.ui.home;
 import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.os.Build;
 import android.os.Bundle;
@@ -73,14 +72,12 @@ public class HomeTravelFragment extends Fragment implements View.OnClickListener
 
     private ConstraintLayout layerItinerary;
     private RecyclerView listItinerary;
-    private LinearLayout totalTravelItinerary;
 
     private ConstraintLayout layerReservation;
     private RecyclerView listReservation;
 
     private ConstraintLayout layerExpense;
     private RecyclerView listTravelExpenses;
-    private ConstraintLayout totalTravelExpenses;
 
     private ConstraintLayout layerInsurance;
     private RecyclerView listInsuranceExpiration;
@@ -118,14 +115,12 @@ public class HomeTravelFragment extends Fragment implements View.OnClickListener
 
         layerItinerary = v.findViewById(R.id.layerItinerary);
         listItinerary = v.findViewById(R.id.listItinerary);
-        totalTravelItinerary = v.findViewById(R.id.totalTravelItinerary);
 
         layerReservation = v.findViewById(R.id.layerReservation);
         listReservation = v.findViewById(R.id.listReservation);
 
         layerExpense = v.findViewById(R.id.layerExpense);
         listTravelExpenses = v.findViewById(R.id.listTravelExpenses);
-        totalTravelExpenses = v.findViewById(R.id.totalTravelExpenses);
 
         layerInsurance = v.findViewById(R.id.layerInsurance);
         listInsuranceExpiration = v.findViewById(R.id.listInsuranceExpiration);
@@ -282,42 +277,11 @@ public class HomeTravelFragment extends Fragment implements View.OnClickListener
                 
                 // Itinerary
                 final int Show_Header_Itinerary = 0; // 0 - NO SHOW HEADER | 1 - SHOW HEADER
-                HomeTravelItineraryListAdapter adapterItinerary = new HomeTravelItineraryListAdapter(Database.mItineraryDao.fetchAllItineraryByTravel(travel[0].getId() ), getContext(), Show_Header_Itinerary);
+                HomeTravelItineraryListAdapter adapterItinerary = new HomeTravelItineraryListAdapter(Database.mItineraryDao.fetchAllItineraryByTravel(travel[0].getId() ), getContext(), Show_Header_Itinerary,1);
                 if ( adapterItinerary.getItemCount() > Show_Header_Itinerary){
                     layerItinerary.setVisibility(View.VISIBLE);
                     listItinerary.setAdapter(adapterItinerary);
                     listItinerary.setLayoutManager(new LinearLayoutManager(getContext()));
-
-                    long vDaily = 0;
-                    long vDistance = 0;
-                    long nrTime = 0;
-                    String vTime;
-                    for (int x=0; x < adapterItinerary.getItemCount()-Show_Header_Itinerary; x++) {
-                        vDistance = vDistance + adapterItinerary.mItinerary.get(x).getDistance();
-                        vDaily = vDaily + adapterItinerary.mItinerary.get(x).getDaily();
-                        String[] time = adapterItinerary.mItinerary.get(x).getTime().split(":");
-                        long hr = Long.parseLong(time[0]);
-                        long min = Long.parseLong(time[1]);
-                        nrTime += (min * 60) + (hr * 3600);
-
-                    }
-                    long totalHr = nrTime / 3600;
-                    nrTime -= (totalHr * 3600);
-                    long totalMin = nrTime / 60;
-                    vTime = String.format("%3d:%02d", totalHr, totalMin);
-
-                    View vT = LayoutInflater.from(getContext()).inflate(R.layout.fragment_home_travel_item_itinerary, parent, false);
-                    totalTravelItinerary.removeAllViews();
-                    TextView totSource = vT.findViewById(R.id.txtSource);
-                    TextView totDaily = vT.findViewById(R.id.txtDaily);
-                    TextView totDistance = vT.findViewById(R.id.txtDistance);
-                    TextView totTime = vT.findViewById(R.id.txtTime);
-                    totSource.setText("      TOTAL");
-                    totDaily.setText(Long.toString(vDaily));
-                    totDistance.setText(Long.toString(vDistance));
-                    totTime.setText(vTime);
-                    totalTravelItinerary.addView(vT);
-                    totalTravelItinerary.setBackgroundColor(Color.rgb(209,193,233));
                 } else {
                     layerItinerary.setVisibility(View.GONE);
                 }
@@ -335,28 +299,11 @@ public class HomeTravelFragment extends Fragment implements View.OnClickListener
 
                 // Expenses - LayerExpense
                 final int Show_Header_SummaryExpense = 1; // 0 - NO SHOW HEADER | 1 - SHOW HEADER
-                HomeTravelSummaryExpenseListAdapter adapterTravelExpense = new HomeTravelSummaryExpenseListAdapter( Database.mSummaryTravelExpenseDao.findTravelExpense(travel[0].getId() ), getContext(), travel[0].getId(), Show_Header_SummaryExpense);
+                HomeTravelSummaryExpenseListAdapter adapterTravelExpense = new HomeTravelSummaryExpenseListAdapter( Database.mSummaryTravelExpenseDao.findTravelExpense(travel[0].getId() ), getContext(), travel[0].getId(), Show_Header_SummaryExpense, 1);
                 if ( adapterTravelExpense.getItemCount() > Show_Header_SummaryExpense){
                     layerExpense.setVisibility(View.VISIBLE);
                     listTravelExpenses.setAdapter(adapterTravelExpense);
                     listTravelExpenses.setLayoutManager(new LinearLayoutManager(getContext()));
-
-                    double vExpected = 0;
-                    double vRealized = 0;
-                    for (int x=0; x < adapterTravelExpense.getItemCount()-Show_Header_SummaryExpense; x++) {
-                        vExpected = vExpected + adapterTravelExpense.mSummaryTravelExpense.get(x).getExpected_value();
-                        vRealized = vRealized + adapterTravelExpense.mSummaryTravelExpense.get(x).getRealized_value();
-                    }
-                    View vT = LayoutInflater.from(getContext()).inflate(R.layout.fragment_home_travel_item_expense, parent, false);
-                    totalTravelExpenses.removeAllViews();
-                    TextView totExpense = vT.findViewById(R.id.txtExpense);
-                    TextView totExpectedValue = vT.findViewById(R.id.txtExpectedValue);
-                    TextView totRealizedValue = vT.findViewById(R.id.txtRealizedValue);
-                    totExpense.setText("      TOTAL");
-                    totExpectedValue.setText(currencyFormatter.format(vExpected));
-                    totRealizedValue.setText(currencyFormatter.format(vRealized));
-                    totalTravelExpenses.addView(vT);
-                    totalTravelExpenses.setBackgroundColor(Color.rgb(209,193,233));
                 } else {
                     layerExpense.setVisibility(View.GONE);
                 }

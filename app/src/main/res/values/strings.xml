@@ -158,6 +158,7 @@
     <string name="Extras" translatable="false">Extras</string>
     <string name="Expected">Expected</string>
     <string name="Realized">Realized</string>
+    <string name="HomeTravelTotal" translatable="false">Total</string>
 
     <!-- Home Vehicle Fragment -->
     <string name="Odometer">Odometer</string>

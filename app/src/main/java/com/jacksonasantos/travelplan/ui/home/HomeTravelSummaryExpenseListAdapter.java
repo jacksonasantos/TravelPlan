@@ -27,21 +27,27 @@ public class HomeTravelSummaryExpenseListAdapter extends RecyclerView.Adapter<Re
 
     private static final int TYPE_HEADER = 0;
     private static final int TYPE_ITEM = 1;
+    private static final int TYPE_FOOTER = 2;
+
+    private Double vTotExpected = (double) 0;
+    private Double vTotRealized = (double) 0;
 
     public final List<SummaryTravelExpense> mSummaryTravelExpense;
     Context context;
     Integer travel_id;
     int show_header;
+    int show_footer;
 
     Globals g = Globals.getInstance();
     Locale locale = new Locale(g.getLanguage(), g.getCountry());
     NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(locale);
 
-    public HomeTravelSummaryExpenseListAdapter(List<SummaryTravelExpense> summaryTravelExpense, Context context, Integer travel_id, int show_header) {
+    public HomeTravelSummaryExpenseListAdapter(List<SummaryTravelExpense> summaryTravelExpense, Context context, Integer travel_id, int show_header, int show_footer) {
         this.mSummaryTravelExpense = summaryTravelExpense;
         this.context = context;
         this.travel_id = travel_id;
-        this.show_header = show_header;
+        this.show_header = show_header>=1?1:0;
+        this.show_footer = show_footer>=1?1:0;
     }
 
     @NonNull
@@ -56,6 +62,8 @@ public class HomeTravelSummaryExpenseListAdapter extends RecyclerView.Adapter<Re
             return new ItemViewHolder(expenseView);
         } else if (viewType == TYPE_HEADER) {
             return new HeaderViewHolder(expenseView);
+        } else if (viewType == TYPE_FOOTER) {
+          return new FooterViewHolder(expenseView);
         }
         else return null;
     }
@@ -65,34 +73,44 @@ public class HomeTravelSummaryExpenseListAdapter extends RecyclerView.Adapter<Re
     public void onBindViewHolder(@NonNull final RecyclerView.ViewHolder holder, final int position) {
         if (holder instanceof HeaderViewHolder){
             HeaderViewHolder headerViewHolder = ( HeaderViewHolder) holder;
-
             headerViewHolder.llExpenseItem.setBackgroundColor(Color.LTGRAY);
             headerViewHolder.imgExpense.setVisibility(View.INVISIBLE);
             headerViewHolder.txtExpense.setText("");
             headerViewHolder.txtExpectedValue.setText(R.string.Expected);
             headerViewHolder.txtRealizedValue.setText(R.string.Realized);
         }
+        else if (holder instanceof FooterViewHolder) {
+            FooterViewHolder footerViewHolder = ( FooterViewHolder ) holder;
+            footerViewHolder.llExpenseItem.setBackgroundColor(Color.rgb(209,193,233));
+            footerViewHolder.imgExpense.setVisibility(View.INVISIBLE);
+            footerViewHolder.txtExpense.setText(R.string.HomeTravelTotal);
+            footerViewHolder.txtExpectedValue.setText(currencyFormatter.format(vTotExpected==null? BigDecimal.ZERO: vTotExpected));
+            footerViewHolder.txtRealizedValue.setText(currencyFormatter.format(vTotRealized==null? BigDecimal.ZERO: vTotRealized));
+        }
         else if (holder instanceof ItemViewHolder) {
             final ItemViewHolder itemViewHolder = (ItemViewHolder) holder;
             final SummaryTravelExpense summaryTravelExpense = mSummaryTravelExpense.get(position-show_header);
-
             itemViewHolder.imgExpense.setImageResource(summaryTravelExpense.getExpense_type_image(summaryTravelExpense.getExpense_type()));
             itemViewHolder.txtExpense.setText(context.getResources().getStringArray(R.array.expenses_type_array)[summaryTravelExpense.getExpense_type()]);
             itemViewHolder.txtExpectedValue.setText(currencyFormatter.format(summaryTravelExpense.getExpected_value()==null? BigDecimal.ZERO: summaryTravelExpense.getExpected_value()));
             itemViewHolder.txtRealizedValue.setText(currencyFormatter.format(summaryTravelExpense.getRealized_value()==null? BigDecimal.ZERO: summaryTravelExpense.getRealized_value()));
+            vTotExpected += summaryTravelExpense.getExpected_value();
+            vTotRealized += summaryTravelExpense.getRealized_value();
         }
     }
     @Override
     public int getItemViewType(int position) {
         if (position == 0 && show_header == 1) {
             return TYPE_HEADER;
+        } if (position == mSummaryTravelExpense.size()+show_header && show_footer == 1) {
+            return TYPE_FOOTER;
         }
         return TYPE_ITEM;
     }
 
     @Override
     public int getItemCount() {
-        return mSummaryTravelExpense.size()+show_header;
+        return mSummaryTravelExpense.size()+show_header+show_footer;
     }
 
     private static class HeaderViewHolder extends RecyclerView.ViewHolder {
@@ -120,6 +138,23 @@ public class HomeTravelSummaryExpenseListAdapter extends RecyclerView.Adapter<Re
         private final TextView txtRealizedValue;
 
         public ItemViewHolder(View v) {
+            super(v);
+            llExpenseItem = v.findViewById(R.id.llExpenseItem);
+            imgExpense = v.findViewById(R.id.imgExpense);
+            txtExpense = v.findViewById(R.id.txtExpense);
+            txtExpectedValue = v.findViewById(R.id.txtExpectedValue);
+            txtRealizedValue = v.findViewById(R.id.txtRealizedValue);
+        }
+    }
+
+    public static class FooterViewHolder extends RecyclerView.ViewHolder {
+        private final ConstraintLayout llExpenseItem;
+        private final ImageView imgExpense;
+        private final TextView txtExpense;
+        private final TextView txtExpectedValue;
+        private final TextView txtRealizedValue;
+
+        public FooterViewHolder(View v) {
             super(v);
             llExpenseItem = v.findViewById(R.id.llExpenseItem);
             imgExpense = v.findViewById(R.id.imgExpense);

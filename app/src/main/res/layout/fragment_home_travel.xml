@@ -223,10 +223,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="16dp"
                 android:clickable="false"
-                app:layout_constraintTop_toBottomOf="@+id/listVehicle"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/listVehicle" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -247,29 +246,18 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scrollbars="vertical"
-                app:layout_constraintBottom_toTopOf="@+id/totalTravelItinerary"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
-
-            <include
-                android:id="@+id/totalTravelItinerary"
-                layout="@layout/fragment_home_travel_item_itinerary"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:textSize="18sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/listItinerary" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <Button
                 android:id="@+id/buttonSeparator3"
                 android:layout_width="match_parent"
                 android:layout_height="16dp"
                 android:clickable="false"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/totalTravelItinerary" />
+                app:layout_constraintTop_toBottomOf="@+id/listItinerary" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -292,7 +280,8 @@
                 android:scrollbars="vertical"
                 app:layout_constraintBottom_toTopOf="@+id/buttonSeparator4"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <Button
                 android:id="@+id/buttonSeparator4"
@@ -338,24 +327,13 @@
                 app:layout_constraintTop_toBottomOf="@+id/tvExpenses"
                 tools:itemCount="7" />
 
-            <include
-                android:id="@+id/totalTravelExpenses"
-                layout="@layout/fragment_home_travel_item_expense"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:textSize="18sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/listTravelExpenses" />
-
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="16dp"
                 android:clickable="false"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/totalTravelExpenses" />
+                app:layout_constraintTop_toBottomOf="@+id/listTravelExpenses" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -369,7 +347,7 @@
             android:layout_marginRight="@dimen/labels_margin"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/layerExpense">
+            tools:layout_editor_absoluteY="934dp">
 
             <TextView
                 android:id="@+id/tvInsuranceExpiration"
@@ -380,7 +358,8 @@
                 android:textSize="14sp"
                 app:layout_constraintBottom_toTopOf="@+id/listInsuranceExpiration"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/listInsuranceExpiration"

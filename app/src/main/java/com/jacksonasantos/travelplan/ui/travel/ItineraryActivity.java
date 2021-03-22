@@ -1,18 +1,13 @@
 package com.jacksonasantos.travelplan.ui.travel;
 
 import android.annotation.SuppressLint;
-import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.os.Build;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -45,9 +40,6 @@ public class ItineraryActivity extends AppCompatActivity {
 
     private ConstraintLayout layerItinerary;
     private RecyclerView listItinerary;
-    private LinearLayout totalTravelItinerary;
-
-    private FrameLayout container;
 
     private Itinerary itinerary;
 
@@ -90,7 +82,6 @@ public class ItineraryActivity extends AppCompatActivity {
 
         layerItinerary = findViewById(R.id.layerItinerary);
         listItinerary = findViewById(R.id.listItinerary);
-        totalTravelItinerary = findViewById(R.id.totalTravelItinerary);
     }
 
     @Override
@@ -133,38 +124,12 @@ public class ItineraryActivity extends AppCompatActivity {
                     }
 
                     final int Show_Header_Itinerary = 0; // 0 - NO SHOW HEADER | 1 - SHOW HEADER
-                    HomeTravelItineraryListAdapter adapterItinerary = new HomeTravelItineraryListAdapter(Database.mItineraryDao.fetchAllItineraryByTravel(itinerary.getTravel_id() ), getApplicationContext(),Show_Header_Itinerary);
+                    HomeTravelItineraryListAdapter adapterItinerary = new HomeTravelItineraryListAdapter(Database.mItineraryDao.fetchAllItineraryByTravel(itinerary.getTravel_id() ), getApplicationContext(),Show_Header_Itinerary,1);
                     if ( adapterItinerary.getItemCount() > 0){
                         layerItinerary.setVisibility(View.VISIBLE);
                         listItinerary.setAdapter(adapterItinerary);
                         listItinerary.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
 
-                        long vDistance = 0;
-                        long nrTime = 0;
-                        String vTime;
-                        for (int x=0; x < adapterItinerary.getItemCount(); x++) {
-                            vDistance = vDistance + adapterItinerary.mItinerary.get(x).getDistance();
-
-                            String[] time = adapterItinerary.mItinerary.get(x).getTime().split(":");
-                            long hr = Long.parseLong(time[0]);
-                            long min = Long.parseLong(time[1]);
-                            nrTime += (min * 60) + (hr * 3600);
-                        }
-                        long totalHr = nrTime / 3600;
-                        nrTime -= (totalHr * 3600);
-                        long totalMin = nrTime / 60;
-                        vTime = String.format("%3d:%02d", totalHr, totalMin);
-
-                        View vT = LayoutInflater.from(getApplicationContext()).inflate(R.layout.fragment_home_travel_item_itinerary, (ViewGroup) getWindow().getDecorView(), false);
-                        totalTravelItinerary.removeAllViews();
-                        TextView totSource = vT.findViewById(R.id.txtSource);
-                        TextView totDistance = vT.findViewById(R.id.txtDistance);
-                        TextView totTime = vT.findViewById(R.id.txtTime);
-                        totSource.setText("      TOTAL");
-                        totDistance.setText(Long.toString(vDistance));
-                        totTime.setText(vTime);
-                        totalTravelItinerary.addView(vT);
-                        totalTravelItinerary.setBackgroundColor(Color.rgb(209,193,233));
                         clearMap = false;
                     } else {
                         layerItinerary.setVisibility(View.GONE);
