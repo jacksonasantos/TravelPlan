@@ -13,6 +13,7 @@ import com.jacksonasantos.travelplan.dao.interfaces.BrokerISchema;
 import com.jacksonasantos.travelplan.dao.interfaces.CurrencyQuoteISchema;
 import com.jacksonasantos.travelplan.dao.interfaces.FuelSupplyISchema;
 import com.jacksonasantos.travelplan.dao.interfaces.InsuranceCompanyISchema;
+import com.jacksonasantos.travelplan.dao.interfaces.InsuranceContactISchema;
 import com.jacksonasantos.travelplan.dao.interfaces.InsuranceISchema;
 import com.jacksonasantos.travelplan.dao.interfaces.ItineraryISchema;
 import com.jacksonasantos.travelplan.dao.interfaces.MaintenanceISchema;
@@ -33,13 +34,14 @@ public class Database {
     private final Context mContext;
 
     private static final String DATABASE_NAME = "TravelPlan.db";
-    private static final int DATABASE_VERSION = 31;
+    private static final int DATABASE_VERSION = 32;
 
     public static AccommodationDAO mAccommodationDao;
     public static BrokerDAO mBrokerDao;
     public static CurrencyQuoteDAO mCurrencyQuoteDao;
     public static FuelSupplyDAO mFuelSupplyDao;
     public static InsuranceCompanyDAO mInsuranceCompanyDao;
+    public static InsuranceContactDAO mInsuranceContactDao;
     public static InsuranceDAO mInsuranceDao;
     public static ItineraryDAO mItineraryDao;
     public static MaintenanceDAO mMaintenanceDao;
@@ -90,6 +92,7 @@ public class Database {
         mNextMaintenanceItemDao = new NextMaintenanceItemDAO(mDb);
         mTravelExpensesDao = new TravelExpensesDAO(mDb);
         mTravelItemExpensesDao = new TravelItemExpensesDAO(mDb);
+        mInsuranceContactDao = new InsuranceContactDAO(mDb);
     }
 
     public void close() {
@@ -158,7 +161,8 @@ public class Database {
             db.execSQL(MaintenanceItemISchema.CREATE_TABLE_MAINTENANCE_ITEM_V29); Log.w("Table "+MaintenanceItemISchema.MAINTENANCE_ITEM_TABLE,"V29 - Create Table...");
             db.execSQL(FuelSupplyISchema.ALTER_TABLE_FUEL_SUPPLY_V30); Log.w("Table "+FuelSupplyISchema.FUEL_SUPPLY_TABLE,"V30 - Alter Table...");
             db.execSQL(TravelExpensesISchema.CREATE_TABLE_TRAVEL_EXPENSES_V31); Log.w("Table "+TravelExpensesISchema.TRAVEL_EXPENSES_TABLE,"V31 - Create Table...");
-            db.execSQL(TravelItemExpensesISchema.CREATE_TABLE_TRAVEL_ITEM_EXPENSES_V31); Log.w("Table "+TravelItemExpensesISchema.TRAVEL_ITEM_EXPENSES_TABLE,"V31 - Create Table...");
+            db.execSQL(TravelItemExpensesISchema.CREATE_TABLE_TRAVEL_ITEM_EXPENSES_V31); Log.w("Tb."+TravelItemExpensesISchema.TRAVEL_ITEM_EXPENSES_TABLE,"V31 - Create Table...");
+            db.execSQL(InsuranceContactISchema.CREATE_TABLE_INSURANCE_CONTACT_V32); Log.w("Table "+InsuranceContactISchema.INSURANCE_CONTACT_TABLE,"V32 - Create Table...");
         }
 
         @SuppressLint("SQLiteString")
@@ -272,6 +276,9 @@ public class Database {
                     case 31:
                         db.execSQL(TravelExpensesISchema.CREATE_TABLE_TRAVEL_EXPENSES_V31);
                         db.execSQL(TravelItemExpensesISchema.CREATE_TABLE_TRAVEL_ITEM_EXPENSES_V31);
+                        break;
+                    case 32:
+                        db.execSQL(InsuranceContactISchema.CREATE_TABLE_INSURANCE_CONTACT_V32);
                         break;
                     default:
                         break;
