@@ -185,7 +185,11 @@
     <string name="Insurance_Bonus_Class">Bonus Class</string>
     <string name="Insurance_Note">Insurance Note</string>
     <string name="Insurance_Status">Insurance Status</string>
-
+    <string name="Insurance_Well_Insured">Well Insured</string>
+    <string name="Insurance_Validity">Validity</string>
+    <string name="Insurance_To">to</string>
+    <string name="Insurance_Nr">No.</string>
+    <string name="Insurance_Issuance">Issuance</string>
     <!-- Arrays Insurance Type -->
     <string name="insurance_type_vehicle">Vehicle</string>
     <string name="insurance_type_life">Life</string>

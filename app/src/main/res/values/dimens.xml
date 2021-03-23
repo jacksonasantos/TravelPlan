@@ -7,7 +7,9 @@
 
 
     <dimen name="labels_marginLeft">8dp</dimen>
-    <dimen name="labels_margin">8dp</dimen>
+    <dimen name="labels_margin">4dp</dimen>
     <dimen name="labels_space_top">4dp</dimen>
 
+    <dimen name="cardCornerRadius">8dp</dimen>
+    <dimen name="cardElevation">8dp</dimen>
 </resources>

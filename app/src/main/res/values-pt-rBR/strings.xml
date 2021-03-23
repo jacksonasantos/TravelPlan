@@ -285,4 +285,9 @@
     <string name="Itinerary_Daily">Dias</string>
     <string name="Itinerary_Distance">Distância</string>
     <string name="Itinerary_Time">Tempo</string>
+    <string name="Insurance_Well_Insured">Bem Segurado</string>
+    <string name="Insurance_Validity">Vigência</string>
+    <string name="Insurance_To">até</string>
+    <string name="Insurance_Nr">Nro.</string>
+    <string name="Insurance_Issuance">Emissão</string>
 </resources>
