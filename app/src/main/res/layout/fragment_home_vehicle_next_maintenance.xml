@@ -52,7 +52,7 @@
 
     <TextView
         android:id="@+id/txtNextService"
-        android:layout_width="90dp"
+        android:layout_width="80dp"
         android:layout_height="wrap_content"
         android:gravity="end|center_vertical"
         app:autoSizeMaxTextSize="12sp"

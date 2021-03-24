@@ -290,4 +290,8 @@
     <string name="Insurance_To">até</string>
     <string name="Insurance_Nr">Nro.</string>
     <string name="Insurance_Issuance">Emissão</string>
+    <string name="Insurance_Contact">Contatos</string>
+    <string name="Insurance_Contact_Type">Tipo</string>
+    <string name="Insurance_Contact_Description">Descrição</string>
+    <string name="Insurance_Contact_Detail">Detalhe</string>
 </resources>

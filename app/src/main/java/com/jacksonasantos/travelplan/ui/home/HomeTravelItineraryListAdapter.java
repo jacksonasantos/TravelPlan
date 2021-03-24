@@ -117,6 +117,7 @@ public class HomeTravelItineraryListAdapter extends RecyclerView.Adapter<Recycle
     public int getItemCount() {
         return mItinerary.size()+show_header+show_footer;
     }
+
     private static class HeaderViewHolder extends RecyclerView.ViewHolder {
         private final LinearLayout llItineraryItem;
         private final TextView txtSequence;

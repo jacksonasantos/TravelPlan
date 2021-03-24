@@ -39,7 +39,7 @@ public class InsuranceContactDAO extends DbContentProvider implements InsuranceC
         final String[] selectionArgs = { String.valueOf(insurance_id) };
         final String selection = INSURANCE_CONTACT_INSURANCE_ID + " = ?";
         InsuranceContact insuranceContact = new InsuranceContact();
-        cursor = super.query(INSURANCE_CONTACT_TABLE, INSURANCE_CONTACT_COLUMNS, selection, selectionArgs, INSURANCE_CONTACT_ID);
+        cursor = super.query(INSURANCE_CONTACT_TABLE, INSURANCE_CONTACT_COLUMNS, selection, selectionArgs, INSURANCE_CONTACT_TYPE_CONTACT);
         if (cursor != null) {
             cursor.moveToFirst();
             while (!cursor.isAfterLast()) {

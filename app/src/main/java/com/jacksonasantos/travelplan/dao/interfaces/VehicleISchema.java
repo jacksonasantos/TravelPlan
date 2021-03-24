@@ -42,7 +42,7 @@ public interface VehicleISchema {
             + VEHICLE_NAME + " TEXT NOT NULL, "
             + VEHICLE_LICENCE_PLATE + " TEXT, "
             + VEHICLE_FULL_CAPACITY + " INT, "
-            + VEHICLE_AVG_CONSUMPTION + " FLOAT "
+            + VEHICLE_AVG_CONSUMPTION + " FLOAT, "
             + VEHICLE_AVG_COST_LITRE + " FLOAT "
             + ")";
 

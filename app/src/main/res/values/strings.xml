@@ -190,6 +190,13 @@
     <string name="Insurance_To">to</string>
     <string name="Insurance_Nr">No.</string>
     <string name="Insurance_Issuance">Issuance</string>
+
+    <!-- Insurance Contact Activity -->
+    <string name="Insurance_Contact">Contact</string>
+    <string name="Insurance_Contact_Type">Type</string>
+    <string name="Insurance_Contact_Description">Description</string>
+    <string name="Insurance_Contact_Detail">Detail</string>
+
     <!-- Arrays Insurance Type -->
     <string name="insurance_type_vehicle">Vehicle</string>
     <string name="insurance_type_life">Life</string>

@@ -6,48 +6,59 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
+    android:layout_weight="1"
     tools:context=".ui.general.CurrencyQuoteFragment">
 
     <TextView
         android:id="@+id/txtCurrency"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="0.8"
+        android:layout_weight="0.35"
         android:layout_marginLeft="3dp"
         android:layout_marginStart="3dp"
-        android:gravity="start|center_vertical"/>
+        android:gravity="start|center_vertical"
+        app:autoSizeMaxTextSize="12sp"
+        app:autoSizeMinTextSize="4sp"
+        app:autoSizeStepGranularity="1sp"
+        app:autoSizeTextType="uniform"/>
 
     <TextView
         android:id="@+id/txtDate"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="0.9"
+        android:layout_weight="0.4"
         android:layout_marginLeft="3dp"
         android:layout_marginStart="3dp"
-        android:gravity="center_horizontal|center_vertical"/>
+        android:gravity="center_horizontal|center_vertical"
+        app:autoSizeMaxTextSize="12sp"
+        app:autoSizeMinTextSize="4sp"
+        app:autoSizeStepGranularity="1sp"
+        app:autoSizeTextType="uniform"/>
 
     <TextView
         android:id="@+id/txtQuote"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="1"
+        android:layout_weight="0.4"
         android:layout_marginLeft="3dp"
         android:layout_marginStart="3dp"
-        android:gravity="end|center_vertical"/>
+        android:gravity="end|center_vertical"
+        app:autoSizeMaxTextSize="12sp"
+        app:autoSizeMinTextSize="4sp"
+        app:autoSizeStepGranularity="1sp"
+        app:autoSizeTextType="uniform"/>
 
     <ImageButton
         android:id="@+id/btnEdit"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_weight="0"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
         android:contentDescription="@string/bt_Edit"
         app:srcCompat="@drawable/ic_menu_edit" />
 
     <ImageButton
         android:id="@+id/btnDelete"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_weight="0"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
         android:contentDescription="@string/bt_Delete"
         app:srcCompat="@drawable/ic_menu_delete" />
 

@@ -6,84 +6,85 @@
     android:id="@+id/llItineraryItem"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_weight="1"
     tools:context=".ui.home.HomeTravelFragment">
 
     <TextView
         android:id="@+id/txtSequence"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
+        android:layout_weight="0.03"
         android:layout_marginEnd="1dp"
         android:layout_marginRight="1dp"
         android:gravity="start|center_vertical"
-        android:textSize="12sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:autoSizeMaxTextSize="10sp"
+        app:autoSizeMinTextSize="4sp"
+        app:autoSizeStepGranularity="1sp"
+        app:autoSizeTextType="uniform"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/txtSource"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="10"
+        android:layout_weight="0.35"
         android:layout_marginEnd="1dp"
         android:layout_marginRight="1dp"
         android:gravity="start|center_vertical"
-        android:textSize="12sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/txtSequence"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:autoSizeMaxTextSize="10sp"
+        app:autoSizeMinTextSize="4sp"
+        app:autoSizeStepGranularity="1sp"
+        app:autoSizeTextType="uniform" />
 
     <TextView
         android:id="@+id/txtTarget"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="10"
+        android:layout_weight="0.34"
         android:layout_marginEnd="1dp"
         android:layout_marginRight="1dp"
         android:gravity="center_vertical|start"
-        android:textSize="12sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/txtSource"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:autoSizeMaxTextSize="10sp"
+        app:autoSizeMinTextSize="4sp"
+        app:autoSizeStepGranularity="1sp"
+        app:autoSizeTextType="uniform" />
 
     <TextView
         android:id="@+id/txtDaily"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="2"
+        android:layout_weight="0.08"
         android:layout_marginEnd="1dp"
         android:layout_marginRight="1dp"
         android:gravity="center_vertical|end"
-        android:textSize="12sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/txtTarget"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:autoSizeMaxTextSize="10sp"
+        app:autoSizeMinTextSize="6sp"
+        app:autoSizeStepGranularity="1sp"
+        app:autoSizeTextType="uniform" />
 
     <TextView
         android:id="@+id/txtDistance"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="5"
+        android:layout_weight="0.09"
         android:layout_marginEnd="1dp"
         android:layout_marginRight="1dp"
         android:gravity="center_vertical|end"
-        android:textSize="12sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/txtDaily"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:autoSizeMaxTextSize="10sp"
+        app:autoSizeMinTextSize="6sp"
+        app:autoSizeStepGranularity="1sp"
+        app:autoSizeTextType="uniform" />
 
     <TextView
         android:id="@+id/txtTime"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="5"
+        android:layout_weight="0.11"
         android:gravity="center_vertical|end"
-        android:textSize="12sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/txtDistance"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:autoSizeMaxTextSize="10sp"
+        app:autoSizeMinTextSize="6sp"
+        app:autoSizeStepGranularity="1sp"
+        app:autoSizeTextType="uniform" />
 
 </LinearLayout>
 

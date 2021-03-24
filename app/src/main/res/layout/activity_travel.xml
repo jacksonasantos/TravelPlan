@@ -198,17 +198,6 @@
                 android:layout_height="15dp"
                 android:clickable="false" />
 
-            <include
-                android:id="@+id/labelTravelExpenses"
-                layout="@layout/fragment_item_travel_expenses"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/labels_margin"
-                android:layout_marginLeft="@dimen/labels_margin"
-                android:layout_marginEnd="@dimen/labels_margin"
-                android:layout_marginRight="@dimen/labels_margin"
-                android:layout_gravity="center_vertical" />
-
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvTravelExpenses"
                 android:layout_width="match_parent"

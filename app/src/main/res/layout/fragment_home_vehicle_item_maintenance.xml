@@ -8,12 +8,11 @@
     android:layout_height="wrap_content"
     tools:context=".ui.home.HomeVehicleFragment">
 
-
     <TextView
         android:id="@+id/txtDate"
         android:layout_width="110dp"
         android:layout_height="wrap_content"
-        android:gravity="start|center_vertical"
+        android:gravity="center_horizontal|center_vertical"
         app:autoSizeMaxTextSize="12sp"
         app:autoSizeMinTextSize="6sp"
         app:autoSizeStepGranularity="1sp"
@@ -29,12 +28,13 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/labels_marginLeft"
         android:layout_marginLeft="@dimen/labels_marginLeft"
+        android:layout_marginRight="@dimen/labels_marginLeft"
+        android:layout_marginEnd="@dimen/labels_marginLeft"
         android:gravity="end|center_vertical"
         app:autoSizeMaxTextSize="12sp"
         app:autoSizeMinTextSize="6sp"
         app:autoSizeStepGranularity="1sp"
         app:autoSizeTextType="uniform"
-        android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/txtDetail"
         app:layout_constraintEnd_toStartOf="@+id/txtOdometer"
         app:layout_constraintStart_toEndOf="@+id/txtDate"
@@ -42,7 +42,7 @@
 
     <TextView
         android:id="@+id/txtOdometer"
-        android:layout_width="140dp"
+        android:layout_width="120dp"
         android:layout_height="wrap_content"
         android:gravity="start|center_vertical"
         app:autoSizeMaxTextSize="12sp"

@@ -9,9 +9,13 @@
 
     <TextView
         android:id="@+id/txtSupplyDate"
-        android:layout_width="90dp"
+        android:layout_width="85dp"
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
+        app:autoSizeMaxTextSize="12sp"
+        app:autoSizeMinTextSize="4sp"
+        app:autoSizeStepGranularity="1sp"
+        app:autoSizeTextType="uniform"
         app:layout_constraintEnd_toStartOf="@+id/txtVehicleName"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -23,6 +27,10 @@
         android:layout_marginStart="@dimen/labels_marginLeft"
         android:layout_marginLeft="@dimen/labels_marginLeft"
         android:gravity="center_vertical"
+        app:autoSizeMaxTextSize="12sp"
+        app:autoSizeMinTextSize="4sp"
+        app:autoSizeStepGranularity="1sp"
+        app:autoSizeTextType="uniform"
         app:layout_constraintEnd_toStartOf="@+id/btnEdit"
         app:layout_constraintStart_toEndOf="@+id/txtSupplyDate"
         app:layout_constraintTop_toTopOf="parent" />
@@ -32,6 +40,10 @@
         android:layout_width="85dp"
         android:layout_height="wrap_content"
         android:gravity="end|center_vertical"
+        app:autoSizeMaxTextSize="12sp"
+        app:autoSizeMinTextSize="4sp"
+        app:autoSizeStepGranularity="1sp"
+        app:autoSizeTextType="uniform"
         app:layout_constraintBaseline_toBaselineOf="@+id/txtSupplyValue"
         app:layout_constraintStart_toStartOf="@+id/txtVehicleName"
         app:layout_constraintTop_toBottomOf="@+id/txtVehicleName" />
@@ -43,16 +55,18 @@
         android:layout_marginStart="@dimen/labels_marginLeft"
         android:layout_marginLeft="@dimen/labels_marginLeft"
         android:gravity="end|center_vertical"
+        app:autoSizeMaxTextSize="12sp"
+        app:autoSizeMinTextSize="4sp"
+        app:autoSizeStepGranularity="1sp"
+        app:autoSizeTextType="uniform"
         app:layout_constraintEnd_toEndOf="@+id/txtVehicleName"
         app:layout_constraintStart_toEndOf="@+id/txtNumberLiters"
         app:layout_constraintTop_toBottomOf="@+id/txtVehicleName" />
 
     <ImageButton
         android:id="@+id/btnEdit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/labels_marginLeft"
-        android:layout_marginLeft="@dimen/labels_marginLeft"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
         android:contentDescription="@string/bt_Edit"
         app:layout_constraintEnd_toStartOf="@+id/btnDelete"
         app:layout_constraintStart_toEndOf="@+id/txtVehicleName"
@@ -61,10 +75,8 @@
 
     <ImageButton
         android:id="@+id/btnDelete"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/labels_marginLeft"
-        android:layout_marginLeft="@dimen/labels_marginLeft"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
         android:contentDescription="@string/bt_Delete"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/btnEdit"

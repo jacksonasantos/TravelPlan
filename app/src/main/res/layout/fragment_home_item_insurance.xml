@@ -9,42 +9,40 @@
 
     <ImageView
         android:id="@+id/imInsuranceType"
-        android:layout_width="22dp"
-        android:layout_height="0dp"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:gravity="center"
         android:contentDescription="@string/Maintenance_Type"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/txtInsuranceCompany"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/imInsuranceStatus"
-        android:layout_width="22dp"
-        android:layout_height="0dp"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:gravity="center"
+        android:contentDescription="@string/Maintenance_Type"
+        app:layout_constraintBottom_toBottomOf="@+id/txtInsuranceBroker"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/txtInsuranceCompany"
+        android:layout_width="210dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/labels_margin"
         android:layout_marginLeft="@dimen/labels_margin"
-        android:contentDescription="@string/Maintenance_Type"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:gravity="start|center_vertical"
+        app:autoSizeMaxTextSize="12sp"
+        app:autoSizeMinTextSize="6sp"
+        app:autoSizeStepGranularity="1sp"
+        app:autoSizeTextType="uniform"
         app:layout_constraintStart_toEndOf="@+id/imInsuranceType"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/txtInsuranceCompany"
-        android:layout_width="220dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/labels_margin"
-        android:layout_marginLeft="@dimen/labels_margin"
-        android:gravity="start|center_vertical"
-        app:autoSizeMaxTextSize="12sp"
-        app:autoSizeMinTextSize="6sp"
-        app:autoSizeStepGranularity="1sp"
-        app:autoSizeTextType="uniform"
-        app:layout_constraintStart_toEndOf="@+id/imInsuranceStatus"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="SmallSp" />
-
-    <TextView
         android:id="@+id/txtInsuranceBroker"
-        android:layout_width="220dp"
+        android:layout_width="210dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/labels_margin"
         android:layout_marginLeft="@dimen/labels_margin"
@@ -55,8 +53,7 @@
         app:autoSizeTextType="uniform"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/imInsuranceStatus"
-        app:layout_constraintTop_toBottomOf="@+id/txtInsuranceCompany"
-        tools:ignore="SmallSp" />
+        app:layout_constraintTop_toBottomOf="@+id/txtInsuranceCompany" />
 
     <TextView
         android:id="@+id/txtInsuranceFinalEffectiveDate"
