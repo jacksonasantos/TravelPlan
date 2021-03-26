@@ -18,7 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.jacksonasantos.travelplan.R;
 import com.jacksonasantos.travelplan.dao.Accommodation;
-import com.jacksonasantos.travelplan.dao.Database;
+import com.jacksonasantos.travelplan.dao.general.Database;
 
 import java.util.List;
 

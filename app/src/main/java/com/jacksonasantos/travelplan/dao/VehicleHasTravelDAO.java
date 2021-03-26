@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import com.jacksonasantos.travelplan.dao.general.DbContentProvider;
 import com.jacksonasantos.travelplan.dao.interfaces.VehicleHasTravelIDAO;
 import com.jacksonasantos.travelplan.dao.interfaces.VehicleHasTravelISchema;
 

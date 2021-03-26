@@ -1,6 +1,4 @@
-package com.jacksonasantos.travelplan.dao;
-
-import com.jacksonasantos.travelplan.dao.interfaces.ListItemDialog;
+package com.jacksonasantos.travelplan.dao.general;
 
 public class DialogHeader implements ListItemDialog {
     String txt_header;

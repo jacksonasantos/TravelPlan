@@ -1,4 +1,4 @@
-package com.jacksonasantos.travelplan.dao;
+package com.jacksonasantos.travelplan.dao.general;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -8,6 +8,29 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.jacksonasantos.travelplan.dao.AccommodationDAO;
+import com.jacksonasantos.travelplan.dao.BrokerDAO;
+import com.jacksonasantos.travelplan.dao.CurrencyQuoteDAO;
+import com.jacksonasantos.travelplan.dao.FuelSupplyDAO;
+import com.jacksonasantos.travelplan.dao.InsuranceCompanyDAO;
+import com.jacksonasantos.travelplan.dao.InsuranceContactDAO;
+import com.jacksonasantos.travelplan.dao.InsuranceDAO;
+import com.jacksonasantos.travelplan.dao.ItineraryDAO;
+import com.jacksonasantos.travelplan.dao.MaintenanceDAO;
+import com.jacksonasantos.travelplan.dao.MaintenanceItemDAO;
+import com.jacksonasantos.travelplan.dao.MaintenancePlanDAO;
+import com.jacksonasantos.travelplan.dao.MarkerDAO;
+import com.jacksonasantos.travelplan.dao.NextMaintenanceItemDAO;
+import com.jacksonasantos.travelplan.dao.ReservationDAO;
+import com.jacksonasantos.travelplan.dao.SummaryTravelExpenseDAO;
+import com.jacksonasantos.travelplan.dao.TravelDAO;
+import com.jacksonasantos.travelplan.dao.TravelExpensesDAO;
+import com.jacksonasantos.travelplan.dao.TravelItemExpensesDAO;
+import com.jacksonasantos.travelplan.dao.VehicleDAO;
+import com.jacksonasantos.travelplan.dao.VehicleGraphStatisticsDAO;
+import com.jacksonasantos.travelplan.dao.VehicleHasPlanDAO;
+import com.jacksonasantos.travelplan.dao.VehicleHasTravelDAO;
+import com.jacksonasantos.travelplan.dao.VehicleStatisticsDAO;
 import com.jacksonasantos.travelplan.dao.interfaces.AccommodationISchema;
 import com.jacksonasantos.travelplan.dao.interfaces.BrokerISchema;
 import com.jacksonasantos.travelplan.dao.interfaces.CurrencyQuoteISchema;

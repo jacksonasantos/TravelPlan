@@ -3,6 +3,7 @@ package com.jacksonasantos.travelplan.dao;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import com.jacksonasantos.travelplan.dao.general.DbContentProvider;
 import com.jacksonasantos.travelplan.dao.interfaces.MaintenanceISchema;
 import com.jacksonasantos.travelplan.dao.interfaces.MaintenanceItemISchema;
 import com.jacksonasantos.travelplan.dao.interfaces.MaintenancePlanISchema;

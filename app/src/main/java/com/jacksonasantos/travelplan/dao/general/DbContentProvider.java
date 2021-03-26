@@ -1,4 +1,4 @@
-package com.jacksonasantos.travelplan.dao;
+package com.jacksonasantos.travelplan.dao.general;
 
 import android.content.ContentValues;
 import android.database.Cursor;

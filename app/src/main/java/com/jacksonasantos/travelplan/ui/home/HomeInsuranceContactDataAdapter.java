@@ -9,9 +9,9 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.jacksonasantos.travelplan.R;
-import com.jacksonasantos.travelplan.dao.DialogHeader;
-import com.jacksonasantos.travelplan.dao.DialogItem;
-import com.jacksonasantos.travelplan.dao.interfaces.ListItemDialog;
+import com.jacksonasantos.travelplan.dao.general.DialogHeader;
+import com.jacksonasantos.travelplan.dao.general.DialogItem;
+import com.jacksonasantos.travelplan.dao.general.ListItemDialog;
 
 import java.util.ArrayList;
 

@@ -1,4 +1,4 @@
-package com.jacksonasantos.travelplan.dao.interfaces;
+package com.jacksonasantos.travelplan.dao.general;
 
 public interface ListItemDialog {
     int TYPE_ITEM = 0;

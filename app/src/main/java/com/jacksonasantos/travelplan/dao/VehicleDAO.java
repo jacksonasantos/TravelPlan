@@ -6,6 +6,7 @@ import android.database.sqlite.SQLiteConstraintException;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
+import com.jacksonasantos.travelplan.dao.general.DbContentProvider;
 import com.jacksonasantos.travelplan.dao.interfaces.VehicleIDAO;
 import com.jacksonasantos.travelplan.dao.interfaces.VehicleISchema;
 import com.jacksonasantos.travelplan.ui.utility.Globals;

@@ -9,6 +9,7 @@ import android.util.Log;
 
 import androidx.annotation.RequiresApi;
 
+import com.jacksonasantos.travelplan.dao.general.DbContentProvider;
 import com.jacksonasantos.travelplan.dao.interfaces.AccommodationIDAO;
 import com.jacksonasantos.travelplan.dao.interfaces.AccommodationISchema;
 

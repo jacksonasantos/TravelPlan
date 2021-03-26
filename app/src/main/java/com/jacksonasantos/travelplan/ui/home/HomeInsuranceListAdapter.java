@@ -22,12 +22,12 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.jacksonasantos.travelplan.dao.DialogHeader;
-import com.jacksonasantos.travelplan.dao.DialogItem;
-import com.jacksonasantos.travelplan.dao.interfaces.ListItemDialog;
+import com.jacksonasantos.travelplan.dao.general.DialogHeader;
+import com.jacksonasantos.travelplan.dao.general.DialogItem;
+import com.jacksonasantos.travelplan.dao.general.ListItemDialog;
 import com.jacksonasantos.travelplan.R;
 import com.jacksonasantos.travelplan.dao.Broker;
-import com.jacksonasantos.travelplan.dao.Database;
+import com.jacksonasantos.travelplan.dao.general.Database;
 import com.jacksonasantos.travelplan.dao.Insurance;
 import com.jacksonasantos.travelplan.dao.InsuranceContact;
 import com.jacksonasantos.travelplan.ui.utility.Utils;
