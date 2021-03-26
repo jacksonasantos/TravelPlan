@@ -1,80 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/llItineraryItem"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_weight="1"
+    android:layout_weight="100"
     tools:context=".ui.home.HomeTravelFragment">
 
     <TextView
         android:id="@+id/txtSequence"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="0.03"
+        android:layout_weight="3"
         android:gravity="start|center_vertical"
-        app:autoSizeMaxTextSize="10sp"
-        app:autoSizeMinTextSize="4sp"
-        app:autoSizeStepGranularity="1sp"
-        app:autoSizeTextType="uniform"
+        android:textSize="10sp"
+        tools:ignore="SmallSp"
         android:textStyle="bold" />
 
     <TextView
         android:id="@+id/txtSource"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="0.35"
+        android:layout_weight="35"
         android:gravity="start|center_vertical"
-        app:autoSizeMaxTextSize="10sp"
-        app:autoSizeMinTextSize="4sp"
-        app:autoSizeStepGranularity="1sp"
-        app:autoSizeTextType="uniform" />
+        android:textSize="10sp"
+        tools:ignore="SmallSp" />
 
     <TextView
         android:id="@+id/txtTarget"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="0.35"
+        android:layout_weight="35"
         android:gravity="center_vertical|start"
-        app:autoSizeMaxTextSize="10sp"
-        app:autoSizeMinTextSize="4sp"
-        app:autoSizeStepGranularity="1sp"
-        app:autoSizeTextType="uniform" />
+        android:textSize="10sp"
+        tools:ignore="SmallSp" />
 
     <TextView
         android:id="@+id/txtDaily"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="0.07"
+        android:layout_weight="7"
         android:gravity="center_vertical|end"
-        app:autoSizeMaxTextSize="10sp"
-        app:autoSizeMinTextSize="6sp"
-        app:autoSizeStepGranularity="1sp"
-        app:autoSizeTextType="uniform" />
+        android:textSize="10sp"
+        tools:ignore="SmallSp" />
 
     <TextView
         android:id="@+id/txtDistance"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="0.09"
+        android:layout_weight="10"
         android:gravity="center_vertical|end"
-        app:autoSizeMaxTextSize="10sp"
-        app:autoSizeMinTextSize="6sp"
-        app:autoSizeStepGranularity="1sp"
-        app:autoSizeTextType="uniform" />
+        android:textSize="10sp"
+        tools:ignore="SmallSp" />
 
     <TextView
         android:id="@+id/txtTime"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="0.10"
+        android:layout_weight="10"
         android:gravity="center_vertical|end"
-        app:autoSizeMaxTextSize="10sp"
-        app:autoSizeMinTextSize="6sp"
-        app:autoSizeStepGranularity="1sp"
-        app:autoSizeTextType="uniform" />
+        android:textSize="10sp"
+        tools:ignore="SmallSp" />
 
 </LinearLayout>
 
