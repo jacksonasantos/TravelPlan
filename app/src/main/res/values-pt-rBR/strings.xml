@@ -294,4 +294,6 @@
     <string name="Insurance_Contact_Type">Tipo</string>
     <string name="Insurance_Contact_Description">Descrição</string>
     <string name="Insurance_Contact_Detail">Detalhe</string>
+    <string name="Insurance_Contact_Insurance">Seguro</string>
+    <string name="Insurance_Contact_Deleting">Excluindo Contatos do Seguro</string>
 </resources>

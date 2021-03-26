@@ -193,6 +193,9 @@
 
     <!-- Insurance Contact Activity -->
     <string name="Insurance_Contact">Contact</string>
+    <string name="Insurance_Contact_Deleting">Deleting Insurance Contact</string>
+
+    <string name="Insurance_Contact_Insurance">Insurance</string>
     <string name="Insurance_Contact_Type">Type</string>
     <string name="Insurance_Contact_Description">Description</string>
     <string name="Insurance_Contact_Detail">Detail</string>

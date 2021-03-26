@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/llItemInsuranceContact"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:gravity="center_vertical"
+    android:layout_weight="1"
+    tools:context=".ui.general.InsuranceActivity">
+
+    <TextView
+        android:id="@+id/txtTypeContact"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="start|center_vertical"
+        android:layout_weight="0.45"
+        app:autoSizeMaxTextSize="12sp"
+        app:autoSizeMinTextSize="4sp"
+        app:autoSizeStepGranularity="1sp"
+        app:autoSizeTextType="uniform" />
+
+    <TextView
+        android:id="@+id/txtDescriptionContact"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="start|center_vertical"
+        android:layout_weight="0.25"
+        app:autoSizeMaxTextSize="12sp"
+        app:autoSizeMinTextSize="4sp"
+        app:autoSizeStepGranularity="1sp"
+        app:autoSizeTextType="uniform" />
+
+    <TextView
+        android:id="@+id/txtDetailContact"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="start|center_vertical"
+        android:layout_weight="0.3"
+        app:autoSizeMaxTextSize="12sp"
+        app:autoSizeMinTextSize="4sp"
+        app:autoSizeStepGranularity="1sp"
+        app:autoSizeTextType="uniform" />
+
+    <ImageButton
+        android:id="@+id/btnDelete"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:contentDescription="@string/bt_Delete"
+        android:scaleType="centerCrop"
+        app:srcCompat="@drawable/ic_menu_delete" />
+
+</LinearLayout>
+

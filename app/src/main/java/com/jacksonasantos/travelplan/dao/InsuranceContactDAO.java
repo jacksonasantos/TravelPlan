@@ -35,20 +35,20 @@ public class InsuranceContactDAO extends DbContentProvider implements InsuranceC
         return insuranceContact;
     }
 
-    public InsuranceContact fetchInsuranceContactByInsurance(Integer insurance_id) {
+    public List<InsuranceContact> fetchInsuranceContactByInsurance(Integer insurance_id) {
         final String[] selectionArgs = { String.valueOf(insurance_id) };
         final String selection = INSURANCE_CONTACT_INSURANCE_ID + " = ?";
-        InsuranceContact insuranceContact = new InsuranceContact();
+        List<InsuranceContact> insuranceContactList = new ArrayList<>();
         cursor = super.query(INSURANCE_CONTACT_TABLE, INSURANCE_CONTACT_COLUMNS, selection, selectionArgs, INSURANCE_CONTACT_TYPE_CONTACT);
-        if (cursor != null) {
-            cursor.moveToFirst();
-            while (!cursor.isAfterLast()) {
-                insuranceContact = cursorToEntity(cursor);
-                cursor.moveToNext();
-            }
+        if (cursor.moveToFirst()) {
+            do {
+                InsuranceContact insuranceContact = cursorToEntity(cursor);
+                insuranceContactList.add(insuranceContact);
+            } while (cursor.moveToNext());
+
             cursor.close();
         }
-        return insuranceContact;
+        return insuranceContactList;
     }
 
     public List<InsuranceContact> fetchAllInsuranceContacts() {

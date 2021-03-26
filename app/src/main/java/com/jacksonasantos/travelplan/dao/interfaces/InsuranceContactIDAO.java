@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface InsuranceContactIDAO {
     InsuranceContact fetchInsuranceContactById(Integer id);
-    InsuranceContact fetchInsuranceContactByInsurance(Integer insurance_id);
+    List<InsuranceContact> fetchInsuranceContactByInsurance(Integer insurance_id);
     List<InsuranceContact> fetchAllInsuranceContacts();
     void deleteInsuranceContact(Integer id);
     boolean updateInsuranceContact(InsuranceContact insuranceContact);

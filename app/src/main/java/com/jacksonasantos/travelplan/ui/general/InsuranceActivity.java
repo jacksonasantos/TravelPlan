@@ -16,6 +16,8 @@ import android.widget.Toast;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.textfield.TextInputLayout;
 import com.jacksonasantos.travelplan.R;
@@ -57,6 +59,9 @@ public  class InsuranceActivity extends AppCompatActivity {
     private Integer nrSpinVehicle;
     private TextInputLayout input_layout_spinVehicle;
     private TextInputLayout input_layout_spinTravel;
+    private RecyclerView rvInsuranceContact;
+
+    private InsuranceContactListAdapter adapterInsuranceContact;
 
     private boolean opInsert = true;
     private Insurance insurance;
@@ -112,6 +117,7 @@ public  class InsuranceActivity extends AppCompatActivity {
         spinTravel.setVisibility(View.VISIBLE);
         input_layout_spinVehicle = findViewById(R.id.input_layout_spinVehicle);
         input_layout_spinTravel = findViewById(R.id.input_layout_spinTravel);
+        rvInsuranceContact = findViewById(R.id.rvInsuranceContact);
 
         Utils.addRadioButtonResources(R.array.insurance_type_array, rgInsuranceType, this);
         rgInsuranceType.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -254,6 +260,10 @@ public  class InsuranceActivity extends AppCompatActivity {
                     }
                 }
             }
+            adapterInsuranceContact = new InsuranceContactListAdapter(insurance.getId(), Database.mInsuranceContactDao.fetchInsuranceContactByInsurance(insurance.getId()), getApplicationContext(),1,0, true);
+            rvInsuranceContact.setAdapter(adapterInsuranceContact);
+            rvInsuranceContact.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+            adapterInsuranceContact.notifyDataSetChanged();
         }
     }
 

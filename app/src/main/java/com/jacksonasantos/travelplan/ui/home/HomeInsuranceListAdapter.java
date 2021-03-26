@@ -19,12 +19,14 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.jacksonasantos.travelplan.R;
 import com.jacksonasantos.travelplan.dao.Broker;
 import com.jacksonasantos.travelplan.dao.Database;
 import com.jacksonasantos.travelplan.dao.Insurance;
+import com.jacksonasantos.travelplan.ui.general.InsuranceContactListAdapter;
 import com.jacksonasantos.travelplan.ui.utility.Utils;
 
 import java.text.ParseException;
@@ -113,6 +115,8 @@ public class HomeInsuranceListAdapter extends RecyclerView.Adapter<RecyclerView.
             itemViewHolder.txtInsuranceFinalEffectiveDate.setText(Utils.dateToString(insurance.getFinal_effective_date()));
 
             itemViewHolder.llInsuranceItem.setOnClickListener(new View.OnClickListener() {
+                @SuppressLint("WrongConstant")
+                @RequiresApi(api = Build.VERSION_CODES.O)
                 @Override
                 public void onClick(View v) {
                     LayoutInflater li = LayoutInflater.from(v.getContext());
@@ -133,6 +137,9 @@ public class HomeInsuranceListAdapter extends RecyclerView.Adapter<RecyclerView.
                     TextView txtInitialDate = promptsView.findViewById(R.id.txtInitialDate);
                     TextView txtFinalDate = promptsView.findViewById(R.id.txtFinalDate);
 
+                    CardView cardContact = promptsView.findViewById(R.id.cardContact);
+                    RecyclerView rvContact = promptsView.findViewById(R.id.rvContact);
+
                     CardView cardAsset = promptsView.findViewById(R.id.cardAsset);
                     TextView txtInsuranceVehicle = promptsView.findViewById(R.id.txtInsuranceVehicle);
                     TextView txtInsuranceTravel = promptsView.findViewById(R.id.txtInsuranceTravel);
@@ -151,16 +158,19 @@ public class HomeInsuranceListAdapter extends RecyclerView.Adapter<RecyclerView.
                     txtInitialDate.setText(Utils.dateToString(insurance.getInitial_effective_date()));
                     txtFinalDate.setText(Utils.dateToString(insurance.getFinal_effective_date()));
 
+                    InsuranceContactListAdapter adapterInsuranceContact = new InsuranceContactListAdapter(insurance.getId(), Database.mInsuranceContactDao.fetchInsuranceContactByInsurance(insurance.getId()), context, 0, 0, false);
+                    rvContact.setLayoutManager(new LinearLayoutManager(context));
+                    rvContact.setAdapter(adapterInsuranceContact);
+                    adapterInsuranceContact.notifyDataSetChanged();
+
                     txtInsuranceVehicle.setText(Database.mVehicleDao.fetchVehicleById(insurance.getVehicle_id()).getName());
                     txtInsuranceTravel.setText((Database.mTravelDao.fetchTravelById(insurance.getTravel_id()).getDescription()));
 
-                    final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(v.getContext());
+                    final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(v.getContext(), R.style.MyDialogStyle);
                     alertDialogBuilder.setView(promptsView);
-
                     alertDialogBuilder.setCancelable(false)
                             .setPositiveButton(R.string.OK, new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog,int id) {
-
                                 }
                             });
                     AlertDialog alertDialog = alertDialogBuilder.create();
