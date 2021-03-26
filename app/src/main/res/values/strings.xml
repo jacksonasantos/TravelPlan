@@ -99,7 +99,7 @@
     <string name="Maintenance_Location">Maintenance Location</string>
     <string name="Maintenance_Note">Maintenance Note</string>
 
-    <!-- Maintenance Item Fragment -->
+    <!-- Maintenance DialogItem Fragment -->
     <string name="MaintenanceItem_Deleting">Deleting Vehicle Maintenance Item </string>
 
     <string name="MaintenanceItem">Maintenance Item </string>

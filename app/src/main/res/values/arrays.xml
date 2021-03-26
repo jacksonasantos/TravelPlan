@@ -113,7 +113,7 @@
         <item>@string/km</item>
         <item>@string/days</item>
     </string-array>
-    <!-- Measure Maintenance Item -->
+    <!-- Measure Maintenance DialogItem -->
     <string-array name="measure_item">
         <item>@string/km</item>
         <item>@string/date</item>

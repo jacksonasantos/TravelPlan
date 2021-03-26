@@ -19,18 +19,22 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.jacksonasantos.travelplan.dao.DialogHeader;
+import com.jacksonasantos.travelplan.dao.DialogItem;
+import com.jacksonasantos.travelplan.dao.interfaces.ListItemDialog;
 import com.jacksonasantos.travelplan.R;
 import com.jacksonasantos.travelplan.dao.Broker;
 import com.jacksonasantos.travelplan.dao.Database;
 import com.jacksonasantos.travelplan.dao.Insurance;
-import com.jacksonasantos.travelplan.ui.general.InsuranceContactListAdapter;
+import com.jacksonasantos.travelplan.dao.InsuranceContact;
 import com.jacksonasantos.travelplan.ui.utility.Utils;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -158,8 +162,25 @@ public class HomeInsuranceListAdapter extends RecyclerView.Adapter<RecyclerView.
                     txtInitialDate.setText(Utils.dateToString(insurance.getInitial_effective_date()));
                     txtFinalDate.setText(Utils.dateToString(insurance.getFinal_effective_date()));
 
-                    InsuranceContactListAdapter adapterInsuranceContact = new InsuranceContactListAdapter(insurance.getId(), Database.mInsuranceContactDao.fetchInsuranceContactByInsurance(insurance.getId()), context, 0, 0, false);
-                    rvContact.setLayoutManager(new LinearLayoutManager(context));
+                    final ArrayList<ListItemDialog> items = new ArrayList<>();
+                    final HomeInsuranceContactDataAdapter adapterInsuranceContact = new HomeInsuranceContactDataAdapter(items);
+                    final GridLayoutManager gd = new GridLayoutManager(context, 2);
+                    gd.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+                        @Override
+                        public int getSpanSize(int position) {
+                            return adapterInsuranceContact.getItemViewType(position) == ListItemDialog.TYPE_HEADER ? 2 : 1;
+                        }
+                    });
+                    List<InsuranceContact> insuranceContact = Database.mInsuranceContactDao.fetchInsuranceContactByInsurance(insurance.getId());
+                    String x = "";
+                    for (int i=0; i<insuranceContact.size(); i++) {
+                        if (!x.equals(insuranceContact.get(i).getType_contact())){
+                            items.add(new DialogHeader(insuranceContact.get(i).getType_contact()));
+                            x = insuranceContact.get(i).getType_contact();
+                        }
+                        items.add(new DialogItem(insuranceContact.get(i).getDescription_contact(),insuranceContact.get(i).getDetail_contact()));
+                    }
+                    rvContact.setLayoutManager(gd);
                     rvContact.setAdapter(adapterInsuranceContact);
                     adapterInsuranceContact.notifyDataSetChanged();
 
