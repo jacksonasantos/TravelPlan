@@ -23,6 +23,7 @@
         android:layout_marginStart="@dimen/labels_marginLeft"
         android:layout_marginLeft="@dimen/labels_marginLeft"
         android:gravity="start|center_vertical"
+        android:textSize="12sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/imgExpense"
@@ -33,6 +34,7 @@
         android:layout_width="120dp"
         android:layout_height="wrap_content"
         android:gravity="end|center_vertical"
+        android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/txtRealizedValue"
         app:layout_constraintStart_toEndOf="@+id/txtExpense"
@@ -43,6 +45,7 @@
         android:layout_width="120dp"
         android:layout_height="wrap_content"
         android:gravity="center_vertical|end"
+        android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

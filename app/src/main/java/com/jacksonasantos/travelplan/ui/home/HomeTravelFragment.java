@@ -170,7 +170,7 @@ public class HomeTravelFragment extends Fragment implements View.OnClickListener
                 imTravelStatus.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(v.getContext());
+                        final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(v.getContext(),R.style.MyDialogStyle);
                         int checkedItem = travel[0].getStatus();
                         alertDialogBuilder.setTitle(getString(R.string.change)+ " "+getString(R.string.Travel_Status))
                               .setSingleChoiceItems(R.array.travel_status_array, checkedItem, new DialogInterface.OnClickListener() {
