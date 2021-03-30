@@ -63,6 +63,8 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
     private final MarkerOptions markerOptions = new MarkerOptions();       // Creating an instance of MarkerOptions
     private LatLngBounds.Builder builder = new LatLngBounds.Builder();
 
+    private static final int REQUEST_PERMISSOES = 1;
+
     String lang = "portuguese"; // TODO - ver language
 
     RouteClass routeClass = new RouteClass();
@@ -97,13 +99,15 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
             @Override
             public void onMapReady(GoogleMap mMap) {
                 googleMap = mMap;
-
-                if (ActivityCompat.checkSelfPermission(requireActivity(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED &&
-                    ActivityCompat.checkSelfPermission(requireActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-                    if (googleMap != null) {
-                        googleMap.setMyLocationEnabled(true);
-                        googleMap.getUiSettings().setMyLocationButtonEnabled(true);     // Show Detect location button
+                if (googleMap != null) {
+                    if (ActivityCompat.checkSelfPermission(requireActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
+                        ActivityCompat.checkSelfPermission(requireActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                        String[] permissions = {android.Manifest.permission.ACCESS_COARSE_LOCATION, android.Manifest.permission.ACCESS_FINE_LOCATION};
+                        requestPermissions(permissions, REQUEST_PERMISSOES);
+                        return;
                     }
+                    googleMap.setMyLocationEnabled(true);
+                    googleMap.getUiSettings().setMyLocationButtonEnabled(true);    // Show Detect location button
                 }
 
                 assert googleMap != null;
@@ -149,7 +153,7 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
                         try {
                             List<Address> addresses = geocoder.getFromLocationName(g, 3);
                             if (addresses != null) {
-                                search(addresses);
+                                showSearch(addresses);
                                 etSearch.setText("");
                             }
                         } catch (Exception e) {
@@ -163,7 +167,7 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
     }
 
     @SuppressLint("SetTextI18n")
-    protected void search(List<Address> addresses) {
+    protected void showSearch(List<Address> addresses) {
         Address address = addresses.get(0);
         LatLng latLng = new LatLng(address.getLatitude(), address.getLongitude());
         String addressText = String.format("%s, %s", address.getSubAdminArea(), address.getCountryCode());
@@ -274,8 +278,8 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
     @Override
     public void onResume() {
         super.onResume();
-        //Database mDb = new Database(getContext());
-        //mDb.open();
+        Database mDb = new Database(getContext());
+        mDb.open();
         final List<Travel> travels =  Database.mTravelDao.fetchArrayTravel();
         ArrayAdapter<Travel> adapter = new ArrayAdapter<>(requireActivity(), android.R.layout.simple_spinner_item, travels);
         adapter.setDropDownViewResource( android.R.layout.simple_spinner_dropdown_item);

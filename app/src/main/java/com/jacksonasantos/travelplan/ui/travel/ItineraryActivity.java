@@ -46,7 +46,6 @@ public class ItineraryActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
-        // Mostrar mapa
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction()
                     .replace(R.id.container, new TravelRouteFragment(true, travel.getId()),null);
