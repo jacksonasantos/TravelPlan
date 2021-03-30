@@ -25,6 +25,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -37,9 +39,10 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.jacksonasantos.travelplan.R;
-import com.jacksonasantos.travelplan.dao.general.Database;
 import com.jacksonasantos.travelplan.dao.Marker;
 import com.jacksonasantos.travelplan.dao.Travel;
+import com.jacksonasantos.travelplan.dao.general.Database;
+import com.jacksonasantos.travelplan.ui.home.HomeTravelItineraryListAdapter;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -48,9 +51,10 @@ import java.util.Locale;
 
 public class TravelRouteFragment extends Fragment implements LocationListener {
 
-    private final boolean clearMap;
+    public boolean clearMap;
     private Spinner spTravel;
     private Integer nrTravel_Id;
+    private RecyclerView listItinerary;
     private MapView mMapView;
     private GoogleMap googleMap;
     private EditText etSearch;
@@ -64,8 +68,9 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
     RouteClass routeClass = new RouteClass();
     ArrayList<LatLng> pointsRoute = new ArrayList<>(1);
 
-    public TravelRouteFragment(boolean clearMap) {
+    public TravelRouteFragment(boolean clearMap, Integer travel_id) {
         this.clearMap = clearMap;
+        this.nrTravel_Id = travel_id;
 
         try {
             MapsInitializer.initialize(requireActivity().getApplicationContext());
@@ -79,6 +84,7 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
         View rootView = inflater.inflate(R.layout.fragment_travel_route, container, false);
 
         spTravel = rootView.findViewById(R.id.spTravel);
+        listItinerary = rootView.findViewById(R.id.listItinerary);
         mMapView = rootView.findViewById(R.id.mapView);
         etSearch = rootView.findViewById(R.id.etSearch);
         btnSearch = rootView.findViewById(R.id.btnSearch);
@@ -268,12 +274,22 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
     @Override
     public void onResume() {
         super.onResume();
-        Database mDb = new Database(getContext());
-        mDb.open();
+        //Database mDb = new Database(getContext());
+        //mDb.open();
         final List<Travel> travels =  Database.mTravelDao.fetchArrayTravel();
         ArrayAdapter<Travel> adapter = new ArrayAdapter<>(requireActivity(), android.R.layout.simple_spinner_item, travels);
         adapter.setDropDownViewResource( android.R.layout.simple_spinner_dropdown_item);
         spTravel.setAdapter(adapter);
+
+        if (nrTravel_Id != null && nrTravel_Id > 0) {
+            Travel trip1 = Database.mTravelDao.fetchTravelById(nrTravel_Id);
+            for (int x = 0; x < spTravel.getAdapter().getCount(); x++) {
+                if (spTravel.getAdapter().getItem(x).toString().equals(trip1.getDescription())) {
+                    spTravel.setSelection(x);
+                    break;
+                }
+            }
+        }
 
         final Travel[] travel = {new Travel()};
         spTravel.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -283,6 +299,17 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
                 // Retrieves data from the selected trip in Spinner
                 travel[0] = (Travel) parent.getItemAtPosition(position);
                 nrTravel_Id = travel[0].getId();
+
+                final int Show_Header_Itinerary = 0; // 0 - NO SHOW HEADER | 1 - SHOW HEADER
+                HomeTravelItineraryListAdapter adapterItinerary = new HomeTravelItineraryListAdapter(Database.mItineraryDao.fetchAllItineraryByTravel(nrTravel_Id ), requireContext(),Show_Header_Itinerary,1);
+                if ( adapterItinerary.getItemCount() > 0){
+                    listItinerary.setAdapter(adapterItinerary);
+                    listItinerary.setLayoutManager(new LinearLayoutManager(requireContext()));
+
+                    clearMap = false;
+                } else {
+                    clearMap = true;
+                }
                 drawItinerary(nrTravel_Id);
             }
 
