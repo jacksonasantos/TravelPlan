@@ -296,16 +296,15 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
             @SuppressLint("SetTextI18n")
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                // Retrieves data from the selected trip in Spinner
                 travel[0] = (Travel) parent.getItemAtPosition(position);
                 nrTravel_Id = travel[0].getId();
 
                 final int Show_Header_Itinerary = 0; // 0 - NO SHOW HEADER | 1 - SHOW HEADER
-                HomeTravelItineraryListAdapter adapterItinerary = new HomeTravelItineraryListAdapter(Database.mItineraryDao.fetchAllItineraryByTravel(nrTravel_Id ), requireContext(),Show_Header_Itinerary,1);
+                final int Show_Footer_Itinerary = 1; // 0 - NO SHOW Footer | 1 - SHOW Footer
+                HomeTravelItineraryListAdapter adapterItinerary = new HomeTravelItineraryListAdapter(Database.mItineraryDao.fetchAllItineraryByTravel(nrTravel_Id ), requireContext(), Show_Header_Itinerary, Show_Footer_Itinerary);
                 if ( adapterItinerary.getItemCount() > 0){
                     listItinerary.setAdapter(adapterItinerary);
                     listItinerary.setLayoutManager(new LinearLayoutManager(requireContext()));
-
                     clearMap = false;
                 } else {
                     clearMap = true;
