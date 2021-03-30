@@ -121,7 +121,7 @@
                 android:layout_marginStart="@dimen/labels_marginLeft"
                 android:layout_marginLeft="@dimen/labels_marginLeft"
                 android:contentDescription="@string/Itinerary"
-                app:srcCompat="@drawable/ic_route" />
+                app:srcCompat="@drawable/ic_itinerary" />
 
             <ImageButton
                 android:id="@+id/btnAccommodation"

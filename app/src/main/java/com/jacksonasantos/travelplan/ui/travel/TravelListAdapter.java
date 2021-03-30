@@ -19,8 +19,8 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.jacksonasantos.travelplan.R;
-import com.jacksonasantos.travelplan.dao.general.Database;
 import com.jacksonasantos.travelplan.dao.Travel;
+import com.jacksonasantos.travelplan.dao.general.Database;
 import com.jacksonasantos.travelplan.ui.utility.Utils;
 
 import java.util.List;
@@ -32,19 +32,22 @@ public class TravelListAdapter extends RecyclerView.Adapter<TravelListAdapter.My
 
     public static class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        public ImageView imStatus;
-        public TextView txtDescription;
-        public TextView txtDeparture;
-        public ImageButton btnEdit;
-        public ImageButton btnDelete;
+        private final ImageView imStatus;
+        private final TextView txtDescription;
+        private final TextView txtDeparture;
+        private final ImageButton btnItinerary;
+        private final ImageButton btnEdit;
+        private final ImageButton btnDelete;
 
         public MyViewHolder(View v) {
             super(v);
             imStatus = v.findViewById(R.id.imStatus);
             txtDescription = v.findViewById(R.id.txtDescription);
             txtDeparture = v.findViewById(R.id.txtDeparture);
+            btnItinerary = v.findViewById(R.id.btnItinerary);
             btnEdit = v.findViewById(R.id.btnEdit);
             btnDelete = v.findViewById(R.id.btnDelete);
+            btnItinerary.setOnClickListener(this);
             btnEdit.setOnClickListener(this);
             btnDelete.setOnClickListener(this);
         }
@@ -79,6 +82,18 @@ public class TravelListAdapter extends RecyclerView.Adapter<TravelListAdapter.My
         holder.imStatus.setColorFilter(travel.getColorStatus(), PorterDuff.Mode.MULTIPLY);
         holder.txtDescription.setText(travel.getDescription());
         holder.txtDeparture.setText(Utils.dateToString(travel.getDeparture_date()));
+
+        // btnItinerary
+        holder.btnItinerary.setOnClickListener (new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent (v.getContext(), ItineraryActivity.class);
+                intent.putExtra("travel_id", travel.getId());
+                context.startActivity(intent);
+                notifyDataSetChanged();
+            }
+        });
+
         // btnEdit
         holder.btnEdit.setOnClickListener (new View.OnClickListener() {
             @Override

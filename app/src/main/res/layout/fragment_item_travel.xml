@@ -11,49 +11,50 @@
 
     <ImageView
         android:id="@+id/imStatus"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:layout_marginEnd="@dimen/labels_margin"
+        android:layout_marginRight="@dimen/labels_margin"
         android:contentDescription="@string/Travel_Status" />
 
     <TextView
         android:id="@+id/txtDescription"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginLeft="@dimen/labels_marginLeft"
-        android:layout_marginStart="@dimen/labels_marginLeft"
-        android:layout_marginRight="@dimen/labels_margin"
         android:layout_marginEnd="@dimen/labels_margin"
+        android:layout_marginRight="@dimen/labels_margin"
         android:layout_weight="0.3"
         android:gravity="center_vertical"
-        app:autoSizeMaxTextSize="12sp"
-        app:autoSizeMinTextSize="4sp"
-        app:autoSizeStepGranularity="1sp"
-        app:autoSizeTextType="uniform" />
+        android:textSize="12sp" />
 
     <TextView
         android:id="@+id/txtDeparture"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginLeft="@dimen/labels_margin"
+        android:layout_marginEnd="@dimen/labels_margin"
         android:layout_marginRight="@dimen/labels_margin"
         android:layout_weight="0.4"
         android:gravity="center_vertical"
-        app:autoSizeMaxTextSize="12sp"
-        app:autoSizeMinTextSize="4sp"
-        app:autoSizeStepGranularity="1sp"
-        app:autoSizeTextType="uniform" />
+        android:textSize="12sp" />
+
+    <ImageButton
+        android:id="@+id/btnItinerary"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:contentDescription="@string/Itinerary"
+        app:srcCompat="@drawable/ic_itinerary" />
 
     <ImageButton
         android:id="@+id/btnEdit"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
         android:contentDescription="@string/bt_Edit"
         app:srcCompat="@drawable/ic_menu_edit" />
 
     <ImageButton
         android:id="@+id/btnDelete"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
         android:contentDescription="@string/bt_Delete"
         app:srcCompat="@drawable/ic_menu_delete" />
 

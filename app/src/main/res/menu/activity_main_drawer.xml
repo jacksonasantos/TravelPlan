@@ -31,10 +31,6 @@
                 android:id="@+id/nav_travel"
                 android:icon="@drawable/ic_menu_travel"
                 android:title="@string/menu_travel" />
-            <item
-                android:id="@+id/nav_route"
-                android:icon="@drawable/ic_route"
-                android:title="@string/menu_route" />
         </menu>
     </item>
     <item android:title="@string/menu_general">
