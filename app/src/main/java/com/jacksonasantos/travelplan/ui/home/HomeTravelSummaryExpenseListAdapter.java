@@ -76,8 +76,8 @@ public class HomeTravelSummaryExpenseListAdapter extends RecyclerView.Adapter<Re
             headerViewHolder.llExpenseItem.setBackgroundColor(Color.LTGRAY);
             headerViewHolder.imgExpense.setVisibility(View.INVISIBLE);
             headerViewHolder.txtExpense.setText("");
-            headerViewHolder.txtExpectedValue.setText(R.string.Expected);
-            headerViewHolder.txtRealizedValue.setText(R.string.Realized);
+            headerViewHolder.txtExpectedValue.setText(R.string.expected);
+            headerViewHolder.txtRealizedValue.setText(R.string.realized);
         }
         else if (holder instanceof FooterViewHolder) {
             FooterViewHolder footerViewHolder = ( FooterViewHolder ) holder;

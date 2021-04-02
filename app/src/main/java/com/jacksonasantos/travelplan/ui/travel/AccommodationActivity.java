@@ -47,7 +47,7 @@ public class AccommodationActivity extends AppCompatActivity {
         Database mDb = new Database(getApplicationContext());
         mDb.open();
 
-        setTitle(R.string.Accommodation);
+        setTitle(R.string.accommodation);
         setContentView(R.layout.activity_accommodation);
 
         Bundle extras = getIntent().getExtras();

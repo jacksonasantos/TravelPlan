@@ -28,8 +28,8 @@
     <string name="personal_name">Your name</string>
     <string name="personal_age">Your age</string>
     <string name="personal_gender">Your gender</string>
-    <string name="personal_gender_female">Female</string>
-    <string name="personal_gender_male">Male</string>
+    <string name="female">Female</string>
+    <string name="male">Male</string>
 
     <string name="signature_title">Your signature</string>
     <string name="color_scheme_dark_title">Color Scheme Dark</string>
@@ -37,8 +37,8 @@
     <string name="color_scheme_on">Color Scheme Dark actived</string>
 
     <string name="language">Language</string>
-    <string name="language_Portuguese">Portuguese</string>
-    <string name="language_English">English</string>
+    <string name="portuguese">Portuguese</string>
+    <string name="english">English</string>
 
     <string name="vehicle_default">Vehicle Default</string>
 
@@ -46,11 +46,12 @@
     <string name="Vehicle">Vehicle</string>
     <string name="Vehicle_Deleting">Deleting Vehicle</string>
 
+    <string name="car">Car</string>
+    <string name="motorcycle">Motorcycle</string>
+    <string name="suv">SUV</string>
+
     <string name="Vehicle_Id">Identification Vehicle</string>
     <string name="Vehicle_Type">Vehicle Type</string>
-    <string name="Vehicle_TypeCar">Car</string>
-    <string name="Vehicle_TypeMotorcycle">Motorcycle</string>
-    <string name="Vehicle_TypeSUV">SUV</string>
     <string name="Vehicle_Name">Name Vehicle</string>
     <string name="Vehicle_Short_Name">Short Name </string>
     <string name="Vehicle_Brand">Brand</string>
@@ -150,14 +151,14 @@
 
     <!-- Home Travel Fragment -->
     <string name="Travel_Expenses">Travel Expenses</string>
-    <string name="Combustible">Combustible</string>
-    <string name="Toll">Toll</string>
-    <string name="Food">Food</string>
-    <string name="Tours">Tours</string>
-    <string name="Accommodation">Accommodation</string>
-    <string name="Extras" translatable="false">Extras</string>
-    <string name="Expected">Expected</string>
-    <string name="Realized">Realized</string>
+    <string name="combustible">Combustible</string>
+    <string name="toll">Toll</string>
+    <string name="food">Food</string>
+    <string name="tours">Tours</string>
+    <string name="accommodation">Accommodation</string>
+    <string name="extras" translatable="false">Extras</string>
+    <string name="expected">Expected</string>
+    <string name="realized">Realized</string>
     <string name="HomeTravelTotal" translatable="false">Total</string>
 
     <!-- Home Vehicle Fragment -->
@@ -168,7 +169,7 @@
     <string name="InsuranceExpiration">Insurance Expiration</string>
 
     <!-- Insurance Activity -->
-    <string name="Insurance">Insurance</string>
+    <string name="insurance">Insurance</string>
     <string name="Insurance_Deleting">Deleting Insurance</string>
 
     <string name="Insurance_Type">Insurance Type</string>
@@ -201,10 +202,10 @@
     <string name="Insurance_Contact_Detail">Detail</string>
 
     <!-- Arrays Insurance Type -->
-    <string name="insurance_type_vehicle">Vehicle</string>
-    <string name="insurance_type_life">Life</string>
-    <string name="insurance_type_property">Property</string>
-    <string name="insurance_type_travel">Travel</string>
+    <string name="vehicle">Vehicle</string>
+    <string name="life">Life</string>
+    <string name="property">Property</string>
+    <string name="travel">Travel</string>
 
     <!-- Insurance Company Fragment -->
     <string name="Insurance_Company">Insurance Company</string>
@@ -374,6 +375,31 @@
     <string name="Itinerary_Daily">Daily</string>
     <string name="Itinerary_Distance">Distance</string>
     <string name="Itinerary_Time">Time</string>
+
+    <string name="unregistered_bookmark">Unregistered bookmark</string>
+
+    <!-- Marker Fragment -->
+    <string name="marker">Marker</string>
+
+    <string name="marker_sequence">Seq</string>
+    <string name="marker_type">Type</string>
+    <string name="marker_description">Description</string>
+    <string name="marker_latlng" translatable="false">Lat/Lng</string>
+    <string name="marker_zoom" translatable="false">Zoom</string>
+    <string name="marker_name">Name</string>
+    <string name="marker_address">Address</string>
+    <string name="marker_city">City</string>
+    <string name="marker_state">State</string>
+    <string name="marker_country">Country</string>
+    <string name="marker_category">Category</string>
+
+    <!-- Marker Type -->
+    <string name="source">Source</string>
+    <string name="target">Target</string>
+    <string name="supply">Supply</string>
+    <string name="stayOvernight">Stay Overnight</string>
+    <string name="tollCustoms">Tool / Custom</string>
+    <string name="landmark">Landmark</string>
 
     <!-- Reservation Fragment -->
     <string name="Reservation">Reservation</string>

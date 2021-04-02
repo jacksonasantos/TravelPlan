@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import com.google.android.gms.maps.model.LatLng;
 import com.jacksonasantos.travelplan.dao.general.DbContentProvider;
 import com.jacksonasantos.travelplan.dao.interfaces.MarkerIDAO;
 import com.jacksonasantos.travelplan.dao.interfaces.MarkerISchema;
@@ -36,22 +37,34 @@ public class MarkerDAO extends DbContentProvider implements MarkerISchema, Marke
         return marker;
     }
 
-    public Cursor fetchMarkerByTravelId(Integer travel_id) {
-        //public List<Marker> fetchMarkerByTravelId(Integer travel_id) {
-        final String[] selectionArgs = { String.valueOf(travel_id) };
-        final String selection = MARKER_TRAVEL_ID + " = ?";
-        return super.query(MARKER_TABLE, MARKER_COLUMNS, selection, selectionArgs, MARKER_SEQUENCE);
+    public Marker fetchMarkerByPoint(Integer travel_id, LatLng point) {
+        final String[] selectionArgs = { String.valueOf(travel_id), String.valueOf(point.latitude), String.valueOf(point.longitude)};
+        final String selection = MARKER_TRAVEL_ID + " = ? AND " + MARKER_LATITUDE + " = ? AND " + MARKER_LONGITUDE + " = ?";
+        Marker marker = new Marker();
+        cursor = super.query(MARKER_TABLE, MARKER_COLUMNS, selection, selectionArgs, MARKER_ID);
+        if (cursor != null) {
+            cursor.moveToFirst();
+            while (!cursor.isAfterLast()) {
+                marker = cursorToEntity(cursor);
+                cursor.moveToNext();
+            }
+            cursor.close();
+        }
+        return marker;
     }
 
-    public List<Marker> fetchAllMarker() {
+    public List<Marker> fetchMarkerByTravelId(Integer travel_id) {
         List<Marker> markerList = new ArrayList<>();
-        cursor = super.query(MARKER_TABLE, MARKER_COLUMNS, null, null, MARKER_TRAVEL_ID);
+        final String[] selectionArgs = { String.valueOf(travel_id) };
+        final String selection = MARKER_TRAVEL_ID + " = ?";
+
+        cursor = super.query(MARKER_TABLE, MARKER_COLUMNS, selection, selectionArgs, MARKER_SEQUENCE);
+
         if (cursor.moveToFirst()) {
             do {
                 Marker marker = cursorToEntity(cursor);
                 markerList.add(marker);
             } while (cursor.moveToNext());
-
             cursor.close();
         }
         return markerList;
@@ -85,6 +98,7 @@ public class MarkerDAO extends DbContentProvider implements MarkerISchema, Marke
         if (c != null) {
             if (c.getColumnIndex(MARKER_ID) != -1)            {m.setId(c.getInt(c.getColumnIndexOrThrow(MARKER_ID))); }
             if (c.getColumnIndex(MARKER_TRAVEL_ID) != -1)     {m.setTravel_id(c.getInt(c.getColumnIndexOrThrow(MARKER_TRAVEL_ID))); }
+            if (c.getColumnIndex(MARKER_MARKER_TYPE) != -1)   {m.setMarker_type(c.getInt(c.getColumnIndexOrThrow(MARKER_MARKER_TYPE))); }
             if (c.getColumnIndex(MARKER_SEQUENCE) != -1)      {m.setSequence(c.getInt(c.getColumnIndexOrThrow(MARKER_SEQUENCE))); }
             if (c.getColumnIndex(MARKER_NAME) != -1)          {m.setName(c.getString(c.getColumnIndexOrThrow(MARKER_NAME))); }
             if (c.getColumnIndex(MARKER_ADDRESS) != -1)       {m.setAddress(c.getString(c.getColumnIndexOrThrow(MARKER_ADDRESS))); }
@@ -105,6 +119,7 @@ public class MarkerDAO extends DbContentProvider implements MarkerISchema, Marke
         initialValues = new ContentValues();
         initialValues.put(MARKER_ID, m.id);
         initialValues.put(MARKER_TRAVEL_ID, m.travel_id);
+        initialValues.put(MARKER_MARKER_TYPE, m.marker_type);
         initialValues.put(MARKER_SEQUENCE, m.sequence);
         initialValues.put(MARKER_NAME, m.name);
         initialValues.put(MARKER_ADDRESS, m.address);

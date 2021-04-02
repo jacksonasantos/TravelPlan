@@ -2,8 +2,8 @@ package com.jacksonasantos.travelplan.ui.travel;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.content.DialogInterface;
 import android.content.pm.PackageManager;
-import android.database.Cursor;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
@@ -20,9 +20,11 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -127,8 +129,13 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
                 googleMap.setOnMapLongClickListener(new GoogleMap.OnMapLongClickListener() {
                     @Override
                     public void onMapLongClick(LatLng point) {
-                        drawMarker( point, "", BitmapDescriptorFactory.HUE_RED);
-                        registryMarker( point );
+                        try {
+                            if (registryMarker( point )) {
+                                drawMarker( point, "", BitmapDescriptorFactory.HUE_RED);
+                            }
+                        } catch (Exception e) {
+                            Toast.makeText(getActivity(), getResources().getString(R.string.unregistered_bookmark)+" \n"+e.getMessage(), Toast.LENGTH_LONG).show();
+                        }
                     }
                 });
 
@@ -137,9 +144,15 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
                     public boolean onMarkerClick(com.google.android.gms.maps.model.Marker marker) {
                         if (deleteMarker( marker.getPosition() )) {
                             marker.remove();
+                            drawItinerary(nrTravel_Id);
                         } else {  // Change the color of the Markers in Orange added by Search to Markers in Red and record them in the database
-                            drawMarker( marker.getPosition(), marker.getTitle(), BitmapDescriptorFactory.HUE_RED);
-                            registryMarker(  marker.getPosition() );
+                            try {
+                                if (registryMarker(marker.getPosition())) {
+                                    drawMarker(marker.getPosition(), marker.getTitle(), BitmapDescriptorFactory.HUE_RED);
+                                }
+                            } catch (Exception e) {
+                                Toast.makeText(getActivity(), getResources().getString(R.string.unregistered_bookmark)+" \n"+e.getMessage(), Toast.LENGTH_LONG).show();
+                            }
                         }
                         return true;
                     }
@@ -178,48 +191,123 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
     }
 
     private boolean deleteMarker( LatLng point ) {
+        boolean result = false;
         try {
-            return Database.mMarkerDao.deleteMarker(nrTravel_Id, String.valueOf(point.latitude), String.valueOf(point.longitude));
+            Marker m = Database.mMarkerDao.fetchMarkerByPoint(nrTravel_Id, point);
+            if ( Database.mMarkerDao.deleteMarker(nrTravel_Id, String.valueOf(point.latitude), String.valueOf(point.longitude)) ) {
+                result = adjustMarker(nrTravel_Id, m.getSequence(), false);
+            }
+            return result;
         } catch (Exception e) {
             Toast.makeText(getActivity(), R.string.Error_Deleting_Data + e.getMessage(), Toast.LENGTH_LONG).show();
-            return false;
+            return result;
         }
     }
 
-    private void registryMarker(LatLng point) {
-        try {
-            Geocoder geocoder;
-            List<Address> addresses;
+    private boolean registryMarker(final LatLng point) throws IOException {
+        Geocoder geocoder = new Geocoder(getContext(), Locale.getDefault());
+        final List<Address> addresses = geocoder.getFromLocation(point.latitude, point.longitude, 1);
 
-            geocoder = new Geocoder(getContext(), Locale.getDefault());
-            addresses = geocoder.getFromLocation(point.latitude, point.longitude, 1);
+        LayoutInflater li = LayoutInflater.from(requireContext());
+        View promptsView = li.inflate(R.layout.dialog_marker, null);
 
-            String address = addresses.get(0).getAddressLine(0);
-            String city = addresses.get(0).getSubAdminArea();
-            String state = addresses.get(0).getAdminArea();
-            String country = addresses.get(0).getCountryName();
-            String abbr_country = addresses.get(0).getCountryCode();
-            String knownName = addresses.get(0).getFeatureName();
-            int vSeq = 1;
+        final TextView tvLat = promptsView.findViewById(R.id.tvLat);
+        final TextView tvLng = promptsView.findViewById(R.id.tvLng);
+        final TextView tvZoom = promptsView.findViewById(R.id.tvZoom);
+        final TextView tvName = promptsView.findViewById(R.id.tvName);
+        final TextView tvAddress = promptsView.findViewById(R.id.tvAddress);
+        final TextView tvCity = promptsView.findViewById(R.id.tvCity);
+        final TextView tvState = promptsView.findViewById(R.id.tvState);
+        final TextView tvAbbrCountry = promptsView.findViewById(R.id.tvAbbrCountry);
+        final TextView tvCountry = promptsView.findViewById(R.id.tvCountry);
+        final TextView tvCategory = promptsView.findViewById(R.id.tvCategory);
 
-            Marker m = new Marker();
-            m.setTravel_id(nrTravel_Id);
-            m.setSequence(vSeq);
-            m.setName(knownName);
-            m.setAddress(address);
-            m.setCity(city);
-            m.setState(state);
-            m.setCountry(country);
-            m.setAbbr_country(abbr_country);
-            //m.setCategory_type();
-            m.setLatitude(String.valueOf(point.latitude));
-            m.setLongitude(String.valueOf(point.longitude));
-            m.setZoom_level(String.valueOf(googleMap.getCameraPosition().zoom));
+        final Spinner spinMarkerType = promptsView.findViewById(R.id.spinMarkerType);
+        final EditText etSeq = promptsView.findViewById(R.id.etSeq);
+        final EditText etDescription = promptsView.findViewById(R.id.etDescription);
+        final RecyclerView rvListMarkers = promptsView.findViewById(R.id.rvListMarkers);
 
-            Database.mMarkerDao.addMarker(m);
-        } catch (IOException e) {
-            Toast.makeText(getActivity(), R.string.Error_Including_Data + e.getMessage(), Toast.LENGTH_LONG).show();
+        tvLat.setText(String.valueOf(point.latitude));
+        tvLng.setText(String.valueOf(point.longitude));
+        tvZoom.setText(String.valueOf(googleMap.getCameraPosition().zoom));
+        tvName.setText(addresses.get(0).getFeatureName());
+        tvAddress.setText(addresses.get(0).getAddressLine(0));
+        tvCity.setText(addresses.get(0).getSubAdminArea());
+        tvState.setText(addresses.get(0).getAdminArea());
+        tvAbbrCountry.setText(addresses.get(0).getCountryCode());
+        tvCountry.setText(addresses.get(0).getCountryName());
+        tvCategory.setText("0");
+
+        MarkerListAdapter adapterMarker = new MarkerListAdapter(Database.mMarkerDao.fetchMarkerByTravelId(nrTravel_Id), requireContext(), 1, 0);
+        rvListMarkers.setAdapter(adapterMarker);
+        rvListMarkers.setLayoutManager(new LinearLayoutManager(requireContext()));
+
+        final boolean[] isSave = {false};
+
+        final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(requireContext());
+        alertDialogBuilder.setView(promptsView);
+        alertDialogBuilder
+                .setCancelable(false)
+                .setPositiveButton(R.string.OK, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        if (!etSeq.getText().toString().isEmpty() ) {
+
+                            Marker m = new Marker();
+                            m.setTravel_id(nrTravel_Id);
+                            m.setMarker_type(spinMarkerType.getSelectedItemPosition());
+                            m.setSequence(Integer.valueOf(etSeq.getText().toString()));
+                            m.setDescription(etDescription.getText().toString());
+
+                            m.setName(tvName.getText().toString());
+                            m.setAddress(tvAddress.getText().toString());
+                            m.setCity(tvCity.getText().toString());
+                            m.setState(tvState.getText().toString());
+                            m.setAbbr_country(tvAbbrCountry.getText().toString());
+                            m.setCountry(tvCountry.getText().toString());
+                            m.setCategory_type(Integer.parseInt(tvCategory.getText().toString()));
+                            m.setLatitude(tvLat.getText().toString());
+                            m.setLongitude(tvLng.getText().toString());
+                            m.setZoom_level(tvZoom.getText().toString());
+
+                            try {
+                                isSave[0] = adjustMarker( nrTravel_Id, m.getSequence(), true );
+                                isSave[0] = Database.mMarkerDao.addMarker(m);
+                                drawItinerary(nrTravel_Id);
+                            } catch (Exception e) {
+                                Toast.makeText(requireContext(), R.string.Error_Including_Data + e.getMessage(), Toast.LENGTH_LONG).show();
+                            }
+                        }
+                        if (!isSave[0]) {
+                            Toast.makeText(requireContext(), R.string.Error_Saving_Data, Toast.LENGTH_LONG).show();
+                        }
+                    }
+                })
+                .setNegativeButton(R.string.Cancel, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        alertDialog.show();
+        return isSave[0];
+    }
+
+    private boolean adjustMarker ( Integer travel_id, int sequence, boolean increment ){
+        boolean result = false;
+        List<Marker> cursor = Database.mMarkerDao.fetchMarkerByTravelId(travel_id);
+        for (int x = 0; x < cursor.size(); x++) {
+            Marker m1 = cursor.get(x);
+            if (m1.getSequence() >= sequence ){
+                if (increment) {
+                    m1.setSequence(m1.getSequence() + 1);
+                } else {
+                    m1.setSequence(m1.getSequence() - 1);
+                }
+                Database.mMarkerDao.updateMarker(m1);
+                result = true;
+            }
         }
+        return result;
     }
 
     private void drawMarker(LatLng point, String title, float color) {
@@ -230,13 +318,7 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
         markerOptions.icon(BitmapDescriptorFactory.defaultMarker(color));
         googleMap.addMarker(markerOptions);                      // add the marker to Map
         builder.include(point);
-
         pointsRoute.add(point);
-        /*if (points.size() > 1){
-            route.drawRoute(googleMap, getActivity(), points,true, lang,true);
-            points.set(0, points.get(1));
-            points.remove(1);
-        }*/
     }
 
     private void zoomMarkers() {
@@ -254,22 +336,20 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
         pointsRoute.clear();
     }
 
-    private void drawItinerary(Integer id){
-        Cursor cursor = Database.mMarkerDao.fetchMarkerByTravelId(id);
+    private void drawItinerary(Integer travel_id){
+        List<Marker> cursor = Database.mMarkerDao.fetchMarkerByTravelId(travel_id);
         if (!clearMap) {
             clearItinerary();
 
             builder = new LatLngBounds.Builder();
-            if (cursor.moveToFirst()) {
-                do {
-                    Marker m = Database.mMarkerDao.cursorToEntity(cursor);
-                    LatLng latlng = new LatLng(Double.parseDouble(m.getLatitude()), Double.parseDouble(m.getLongitude()));
-                    drawMarker(latlng, m.getName(), BitmapDescriptorFactory.HUE_RED);
-                } while (cursor.moveToNext());
-                cursor.close();
-                routeClass.drawRoute(googleMap, getActivity(), pointsRoute, false, lang, true);
-                zoomMarkers();
+            for (int x = 0; x < cursor.size(); x++) {
+                Marker m = cursor.get(x);
+                LatLng latlng = new LatLng(Double.parseDouble(m.getLatitude()), Double.parseDouble(m.getLongitude()));
+                drawMarker(latlng, m.getName(), BitmapDescriptorFactory.HUE_RED);
             }
+            routeClass.drawRoute(googleMap, getActivity(), pointsRoute, false, lang, true);
+            zoomMarkers();
+
         } else {
             clearItinerary();
         }

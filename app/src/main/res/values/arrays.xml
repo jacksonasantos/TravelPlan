@@ -3,8 +3,8 @@
     <string translatable="false" name="languages_default">pt</string>
     <!-- Language Preference -->
     <string-array name="languages">
-        <item name="pt">@string/language_Portuguese</item>
-        <item name="en">@string/language_English</item>
+        <item name="pt">@string/portuguese</item>
+        <item name="en">@string/english</item>
     </string-array>
     <!-- Language values Preference -->
     <string-array name="languagesValues">
@@ -13,25 +13,24 @@
     </string-array>
     <!-- Gender Preference -->
     <string-array name="gender">
-        <item>@string/personal_gender_male</item>
-        <item>@string/personal_gender_female</item>
+        <item>@string/male</item>
+        <item>@string/female</item>
     </string-array>
 
     <!-- Vehicle Array-->
     <string-array name="vehicle_array">
     </string-array>
-
     <!-- Vehicle Array-->
     <string-array name="vehicle_arrayValues">
     </string-array>
 
-    <!-- Type Vehicle -->
+    <!-- Vehicle Type -->
     <string-array name="vehicle_type_array">
-        <item>@string/Vehicle_TypeCar</item>
-        <item>@string/Vehicle_TypeMotorcycle</item>
-        <item>@string/Vehicle_TypeSUV</item>
+        <item>@string/car</item>
+        <item>@string/motorcycle</item>
+        <item>@string/suv</item>
     </string-array>
-    <!-- Type Fuel -->
+    <!-- Fuel Type-->
     <string-array name="fuel_type_array">
         <item>@string/ethanol</item>
         <item>@string/gasoline</item>
@@ -72,17 +71,28 @@
         <item>@string/running</item>            <!-- GREEN -->
         <item>@string/executed</item>           <!-- BLUE -->
     </string-array>
+    <!-- Marker Type -->
+    <string-array name="marker_type_array">
+        <item>@string/source</item>
+        <item>@string/target</item>
+        <item>@string/supply</item>
+        <item>@string/food</item>
+        <item>@string/stayOvernight</item>
+        <item>@string/tollCustoms</item>
+        <item>@string/tours</item>
+        <item>@string/landmark</item>
+    </string-array>
     <!-- Expenses Type  -->
     <string-array name="expenses_type_array">
-        <item>@string/Combustible</item>
-        <item>@string/Food</item>
-        <item>@string/Toll</item>
-        <item>@string/Tours</item>
-        <item>@string/Accommodation</item>
-        <item>@string/Extras</item>
-        <item>@string/Insurance</item>
+        <item>@string/combustible</item>
+        <item>@string/food</item>
+        <item>@string/toll</item>
+        <item>@string/tours</item>
+        <item>@string/accommodation</item>
+        <item>@string/extras</item>
+        <item>@string/insurance</item>
     </string-array>
-    <!-- Services -->
+    <!-- Vehicle Services -->
     <string-array name="vehicle_services">
         <item>@string/alignment</item>                   <!--00-->
         <item>@string/balancing</item>                   <!--01-->
@@ -113,17 +123,17 @@
         <item>@string/km</item>
         <item>@string/days</item>
     </string-array>
-    <!-- Measure Maintenance DialogItem -->
+    <!-- Measure Item DialogItem -->
     <string-array name="measure_item">
         <item>@string/km</item>
         <item>@string/date</item>
     </string-array>
     <!-- Insurance Type -->
     <string-array name="insurance_type_array">
-        <item>@string/insurance_type_vehicle</item>
-        <item>@string/insurance_type_life</item>
-        <item>@string/insurance_type_property</item>
-        <item>@string/insurance_type_travel</item>
+        <item>@string/vehicle</item>
+        <item>@string/life</item>
+        <item>@string/property</item>
+        <item>@string/travel</item>
     </string-array>
     <!-- Insurance Status -->
     <string-array name="insurance_status_array">
@@ -135,7 +145,7 @@
         <item>@string/hotel</item>
         <item>@string/roost</item>
     </string-array>
-    <!-- Maintenance Status -->
+    <!-- Reservation Status -->
     <string-array name="reservation_status_array">
         <item>@string/registered</item>
         <item>@string/confirmed</item>

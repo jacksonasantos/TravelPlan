@@ -76,7 +76,7 @@ public  class InsuranceActivity extends AppCompatActivity {
         Database mDb = new Database(getApplicationContext());
         mDb.open();
 
-        setTitle(R.string.Insurance);
+        setTitle(R.string.insurance);
         setContentView(R.layout.activity_insurance);
 
         Bundle extras = getIntent().getExtras();

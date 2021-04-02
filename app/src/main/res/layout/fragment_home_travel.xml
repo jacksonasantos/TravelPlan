@@ -129,7 +129,7 @@
                 android:layout_height="40dp"
                 android:layout_marginStart="@dimen/labels_margin"
                 android:layout_marginLeft="@dimen/labels_margin"
-                android:contentDescription="@string/Accommodation"
+                android:contentDescription="@string/accommodation"
                 app:srcCompat="@drawable/ic_menu_accommodation" />
 
             <ImageButton
@@ -138,7 +138,7 @@
                 android:layout_height="40dp"
                 android:layout_marginStart="@dimen/labels_margin"
                 android:layout_marginLeft="@dimen/labels_margin"
-                android:contentDescription="@string/Accommodation"
+                android:contentDescription="@string/food"
                 app:srcCompat="@drawable/ic_food" />
 
             <ImageButton
@@ -147,7 +147,7 @@
                 android:layout_height="40dp"
                 android:layout_marginStart="@dimen/labels_margin"
                 android:layout_marginLeft="@dimen/labels_margin"
-                android:contentDescription="@string/Accommodation"
+                android:contentDescription="@string/combustible"
                 app:srcCompat="@drawable/ic_supply" />
 
             <ImageButton
@@ -156,7 +156,7 @@
                 android:layout_height="40dp"
                 android:layout_marginStart="@dimen/labels_margin"
                 android:layout_marginLeft="@dimen/labels_margin"
-                android:contentDescription="@string/Accommodation"
+                android:contentDescription="@string/extras"
                 app:srcCompat="@drawable/ic_money_extra" />
 
             <ImageButton
@@ -165,7 +165,7 @@
                 android:layout_height="40dp"
                 android:layout_marginStart="@dimen/labels_margin"
                 android:layout_marginLeft="@dimen/labels_margin"
-                android:contentDescription="@string/Accommodation"
+                android:contentDescription="@string/tours"
                 app:srcCompat="@drawable/ic_tour" />
 
             <ImageButton
@@ -174,7 +174,7 @@
                 android:layout_height="40dp"
                 android:layout_marginStart="@dimen/labels_margin"
                 android:layout_marginLeft="@dimen/labels_margin"
-                android:contentDescription="@string/Accommodation"
+                android:contentDescription="@string/toll"
                 app:srcCompat="@drawable/ic_toll" />
 
             <ImageButton
@@ -183,7 +183,7 @@
                 android:layout_height="40dp"
                 android:layout_marginStart="@dimen/labels_margin"
                 android:layout_marginLeft="@dimen/labels_margin"
-                android:contentDescription="@string/Accommodation"
+                android:contentDescription="@string/insurance"
                 app:srcCompat="@drawable/ic_menu_insurance" />
 
         </LinearLayout>

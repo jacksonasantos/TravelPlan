@@ -57,7 +57,7 @@ public class Database {
     private final Context mContext;
 
     private static final String DATABASE_NAME = "TravelPlan.db";
-    private static final int DATABASE_VERSION = 32;
+    private static final int DATABASE_VERSION = 33;
 
     public static AccommodationDAO mAccommodationDao;
     public static BrokerDAO mBrokerDao;
@@ -186,6 +186,7 @@ public class Database {
             db.execSQL(TravelExpensesISchema.CREATE_TABLE_TRAVEL_EXPENSES_V31); Log.w("Table "+TravelExpensesISchema.TRAVEL_EXPENSES_TABLE,"V31 - Create Table...");
             db.execSQL(TravelItemExpensesISchema.CREATE_TABLE_TRAVEL_ITEM_EXPENSES_V31); Log.w("Tb."+TravelItemExpensesISchema.TRAVEL_ITEM_EXPENSES_TABLE,"V31 - Create Table...");
             db.execSQL(InsuranceContactISchema.CREATE_TABLE_INSURANCE_CONTACT_V32); Log.w("Table "+InsuranceContactISchema.INSURANCE_CONTACT_TABLE,"V32 - Create Table...");
+            db.execSQL(MarkerISchema.ALTER_TABLE_MARKER_V33); Log.w("Table "+MarkerISchema.MARKER_TABLE,"V33 - Alter Table...");
         }
 
         @SuppressLint("SQLiteString")
@@ -302,6 +303,9 @@ public class Database {
                         break;
                     case 32:
                         db.execSQL(InsuranceContactISchema.CREATE_TABLE_INSURANCE_CONTACT_V32);
+                        break;
+                    case 33:
+                        db.execSQL(MarkerISchema.ALTER_TABLE_MARKER_V33);
                         break;
                     default:
                         break;

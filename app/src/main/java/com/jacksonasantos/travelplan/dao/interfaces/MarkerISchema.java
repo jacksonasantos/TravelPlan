@@ -6,6 +6,7 @@ public interface MarkerISchema {
 
     String MARKER_ID = "id";
     String MARKER_TRAVEL_ID = "travel_id";
+    String MARKER_MARKER_TYPE = "marker_type";
     String MARKER_SEQUENCE = "sequence";
     String MARKER_NAME = "name";
     String MARKER_ADDRESS = "address";
@@ -38,9 +39,14 @@ public interface MarkerISchema {
             + MARKER_ZOOM_LEVEL + " TEXT "
            + ")";
 
+    // Version 33
+    String ALTER_TABLE_MARKER_V33 = "ALTER TABLE " + MARKER_TABLE
+            + " ADD COLUMN " + MARKER_MARKER_TYPE + " INT ";
+
     String[] MARKER_COLUMNS = new String[] {
             MARKER_ID,
             MARKER_TRAVEL_ID,
+            MARKER_MARKER_TYPE,
             MARKER_SEQUENCE,
             MARKER_NAME,
             MARKER_ADDRESS,

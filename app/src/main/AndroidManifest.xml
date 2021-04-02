@@ -38,7 +38,7 @@
             android:label="@string/Insurance_Company" />
         <activity
             android:name=".ui.general.InsuranceActivity"
-            android:label="@string/Insurance" />
+            android:label="@string/insurance" />
         <activity
             android:name=".ui.general.BrokerActivity"
             android:label="@string/Broker" />
@@ -71,7 +71,7 @@
             android:label="@string/Reservation" />
         <activity
             android:name=".ui.travel.AccommodationActivity"
-            android:label="@string/Accommodation" />
+            android:label="@string/accommodation" />
         <activity
             android:name=".ui.general.SettingsActivity"
             android:label="@string/action_settings" />

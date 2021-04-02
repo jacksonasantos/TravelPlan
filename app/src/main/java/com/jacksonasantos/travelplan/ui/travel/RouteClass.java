@@ -15,6 +15,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
 import com.jacksonasantos.travelplan.MainActivity;
 import com.jacksonasantos.travelplan.R;
@@ -131,7 +132,6 @@ public class RouteClass {
             LatLng p = new LatLng((((double) lat / 1E5)), (((double) lng / 1E5)));
             poly.add(p);
         }
-
         return poly;
     }
 
@@ -176,21 +176,15 @@ public class RouteClass {
                 //Transform the string into a json object
                 final JSONObject json = new JSONObject(result);
                 JSONArray routeArray = json.getJSONArray("routes");
-                JSONObject routes = routeArray.getJSONObject(0);
+                JSONObject routes = routeArray.getJSONObject(0);            // TODO - Ver o nivel de detalhamento do tracado das rotas no mapa
                 JSONObject overviewPolylines = routes.getJSONObject("overview_polyline");
-                String encodedString = overviewPolylines.getString("points");
+                String encodedString = overviewPolylines.getString( "points");
                 List<LatLng> list = decodePoly(encodedString);
 
-                for (int z = 0; z < list.size() - 1; z++) {
-                    LatLng src = list.get(z);
-                    LatLng dest = list.get(z + 1);
-                    mMap.addPolyline(new PolylineOptions()
-                            .clickable(true)
-                            .add(new LatLng(src.latitude, src.longitude), new LatLng(dest.latitude, dest.longitude))
-                            .width(4)
-                            .color(Color.BLUE)
-                            .geodesic(true));
-                }
+                Polyline line = mMap.addPolyline( new PolylineOptions()
+                                    .addAll(list)
+                                    .clickable(true).geodesic(true)
+                                    .width(4).color(Color.BLUE));
 
                 if (withSteps) {
                     JSONArray arrayLegs = routes.getJSONArray("legs");
