@@ -1,8 +1,11 @@
 package com.jacksonasantos.travelplan.dao;
 
+import com.jacksonasantos.travelplan.R;
+
 public class Marker {
     public Integer id;
     public Integer travel_id;
+    public Integer itinerary_id;
     public int marker_type;
     public Integer sequence;
     public String name;
@@ -20,6 +23,7 @@ public class Marker {
     public Marker() {
         this.id = id;
         this.travel_id = travel_id;
+        this.itinerary_id = itinerary_id;
         this.marker_type = marker_type;
         this.sequence = sequence;
         this.name = name;
@@ -41,8 +45,28 @@ public class Marker {
     public Integer getTravel_id() { return travel_id; }
     public void setTravel_id(Integer travel_id) { this.travel_id = travel_id; }
 
+    public Integer getItinerary_id() { return itinerary_id; }
+    public void setItinerary_id(Integer itinerary_id) { this.itinerary_id = itinerary_id; }
+
     public int getMarker_type() { return marker_type; }
     public void setMarker_type(int marker_type) { this.marker_type = marker_type; }
+
+    public int getMarker_typeImage(int marker_type) {
+        int draw;
+        switch(marker_type) {
+            case 0:
+            case 1:
+                draw = R.drawable.ic_trip_target; break;
+            case 2: draw = R.drawable.ic_supply; break;
+            case 3: draw = R.drawable.ic_restaurant; break;
+            case 4: draw = R.drawable.ic_menu_accommodation; break;
+            case 5: draw = R.drawable.ic_toll; break;
+            case 6: draw = R.drawable.ic_tour; break;
+            case 7: draw = R.drawable.ic_landmark; break;
+            default: draw = R.drawable.ic_error; break;
+        }
+        return draw;
+    }
 
     public Integer getSequence() { return sequence; }
     public void setSequence(Integer sequence) { this.sequence = sequence; }

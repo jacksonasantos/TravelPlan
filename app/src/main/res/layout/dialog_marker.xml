@@ -38,16 +38,16 @@
                         android:layout_weight="2.5"
                         android:autofillHints="no"
                         android:minLines="1"
-                        android:textSize="12sp"
-                        tools:ignore="LabelFor" />
+                        android:textSize="10sp"
+                        tools:ignore="LabelFor,SmallSp" />
                     <TextView
                         android:id="@+id/tvLng"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="2.5"
                         android:autofillHints="no"
-                        tools:ignore="LabelFor"
-                        android:textSize="12sp" />
+                        android:textSize="10sp"
+                        tools:ignore="LabelFor,SmallSp" />
 
                     <TextView
                         android:id="@+id/tvZoom"
@@ -55,8 +55,8 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="2.5"
                         android:autofillHints="no"
-                        android:textSize="12sp"
-                        tools:ignore="LabelFor" />
+                        android:textSize="10sp"
+                        tools:ignore="LabelFor,SmallSp" />
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -220,6 +220,27 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="2.5"
+                    android:text="@string/marker_itinerary"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textSize="14sp"  />
+                <Spinner
+                    android:id="@+id/spinItinerary"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="7.5"
+                    android:text="@string/marker_itinerary"
+                    android:textSize="10sp">
+                </Spinner>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="10">
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2.5"
                     android:text="@string/marker_type"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:textSize="14sp"  />
@@ -230,7 +251,7 @@
                     android:layout_weight="7.5"
                     android:text="@string/marker_type"
                     android:entries="@array/marker_type_array"
-                    android:textSize="14sp" >
+                    android:textSize="10sp" >
                 </Spinner>
             </LinearLayout>
             <LinearLayout
@@ -253,7 +274,7 @@
                     android:autofillHints="no"
                     android:inputType="number"
                     tools:ignore="LabelFor"
-                    android:textSize="14sp" />
+                    android:textSize="10sp" />
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
@@ -275,7 +296,7 @@
                     android:autofillHints="no"
                     android:inputType="textCapSentences"
                     tools:ignore="LabelFor"
-                    android:textSize="14sp"  />
+                    android:textSize="10sp"  />
             </LinearLayout>
 
         </LinearLayout>

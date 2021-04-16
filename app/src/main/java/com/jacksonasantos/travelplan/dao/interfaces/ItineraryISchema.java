@@ -9,8 +9,6 @@ public interface ItineraryISchema {
     String ITINERARY_SEQUENCE ="sequence";
     String ITINERARY_ORIG_LOCATION = "orig_location";
     String ITINERARY_DEST_LOCATION = "dest_location";
-    String ITINERARY_LATLNG_TRIP_ORIG = "latlng_trip_orig";
-    String ITINERARY_LATLNG_TRIP_DEST = "latlng_trip_dest";
     String ITINERARY_DAILY = "daily";
     String ITINERARY_DISTANCE = "distance";
     String ITINERARY_TIME = "time";
@@ -23,11 +21,9 @@ public interface ItineraryISchema {
             + ITINERARY_SEQUENCE + " INT, "
             + ITINERARY_ORIG_LOCATION + " TEXT, "
             + ITINERARY_DEST_LOCATION + " TEXT, "
-            + ITINERARY_LATLNG_TRIP_ORIG + " TEXT, "
-            + ITINERARY_LATLNG_TRIP_DEST + " TEXT, "
             + ITINERARY_DAILY + "INT, "
             + ITINERARY_DISTANCE + " INT, "
-            + ITINERARY_TIME + " TEXT "
+            + ITINERARY_TIME + " INT "
             + ")";
 
     String[] ITINERARY_COLUMNS = new String[] {
@@ -36,8 +32,6 @@ public interface ItineraryISchema {
             ITINERARY_SEQUENCE,
             ITINERARY_ORIG_LOCATION,
             ITINERARY_DEST_LOCATION,
-            ITINERARY_LATLNG_TRIP_ORIG,
-            ITINERARY_LATLNG_TRIP_DEST,
             ITINERARY_DAILY,
             ITINERARY_DISTANCE,
             ITINERARY_TIME

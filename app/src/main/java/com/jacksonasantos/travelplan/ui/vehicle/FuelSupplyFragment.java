@@ -32,7 +32,6 @@ public class FuelSupplyFragment extends Fragment  {
         super.onResume();
         Database mDb = new Database(getContext());
         mDb.open();
-
         RecyclerView listFuelSupply = this.getView().findViewById(R.id.list);
         FuelSupplyListAdapter adapter = new FuelSupplyListAdapter(Database.mFuelSupplyDao.fetchAllFuelSupplies(true), getContext());
         listFuelSupply.setAdapter(adapter);
@@ -79,7 +78,6 @@ public class FuelSupplyFragment extends Fragment  {
                 } else {
                     this.mMenu.getItem(0).setIcon(getResources().getDrawable(R.drawable.ic_menu_filter_no));
                 }
-
                 RecyclerView listFuelSupply = this.getView().findViewById(R.id.list);
                 FuelSupplyListAdapter adapter = new FuelSupplyListAdapter(Database.mFuelSupplyDao.fetchAllFuelSupplies(true), getContext());
                 listFuelSupply.setAdapter(adapter);

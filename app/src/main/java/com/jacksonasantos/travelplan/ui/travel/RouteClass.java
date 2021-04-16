@@ -15,10 +15,11 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
 import com.jacksonasantos.travelplan.MainActivity;
 import com.jacksonasantos.travelplan.R;
+import com.jacksonasantos.travelplan.dao.Itinerary;
+import com.jacksonasantos.travelplan.dao.general.Database;
 import com.jacksonasantos.travelplan.ui.utility.JSONParser;
 
 import org.json.JSONArray;
@@ -34,13 +35,15 @@ public class RouteClass {
     GoogleMap mMap;
     Context context;
     String lang;
+    Integer nrTravel_Id;
 
     private static final String GOOGLE_API_KEY =  MainActivity.getAppResources().getString(R.string.google_maps_key);
 
-    public void drawRoute(GoogleMap map, Context c, ArrayList<LatLng> points, boolean withIndications, String language, boolean optimize) {
+    public void drawRoute(GoogleMap map, Context c, ArrayList<LatLng> points, boolean withIndications, String language, boolean optimize, Integer travel_id) {
         mMap = map;
         context = c;
         lang = language;
+        nrTravel_Id = travel_id;
 
         if (points.size() == 2) {
             String url = makeURL(points.get(0).latitude, points.get(0).longitude, points.get(1).latitude, points.get(1).longitude, "driving");
@@ -104,6 +107,108 @@ public class RouteClass {
         return urlString.toString();
     }
 
+    @SuppressLint("StaticFieldLeak")
+    private class connectAsyncTask extends AsyncTask<Void, Void, String> {
+        private ProgressDialog progressDialog;
+        String url;
+        boolean steps;
+
+        connectAsyncTask(String urlPass, boolean withSteps) {
+            url = urlPass;
+            steps = withSteps;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            progressDialog = new ProgressDialog(context);
+            progressDialog.setMessage("Fetching route, Please wait...");
+            progressDialog.setIndeterminate(true);
+            progressDialog.show();
+        }
+
+        @Override
+        protected void onPostExecute(String r) {
+            super.onPostExecute(r);
+            progressDialog.dismiss();
+            if (r != null) {
+                drawPath(r, steps);
+            }
+        }
+
+        @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+        @Override
+        protected String doInBackground(Void... params) {
+            JSONParser jParser = new JSONParser();
+            return jParser.getJSONFromUrl(url);
+        }
+
+        private void drawPath(String result, boolean withSteps) {
+            try {
+                final JSONObject json = new JSONObject(result);
+                JSONArray routeArray = json.getJSONArray("routes");
+                JSONObject routes = routeArray.getJSONObject(0);
+                JSONArray arrayLegs = routes.getJSONArray("legs");
+                for (int y =0; y < arrayLegs.length(); y++) {
+                    JSONObject legs = arrayLegs.getJSONObject(y);
+                    JSONArray stepsArray = legs.getJSONArray("steps");
+
+                    Itinerary itinerary = Database.mItineraryDao.fetchItineraryByTravelId(nrTravel_Id, (y + 1));
+                    itinerary.setDistance(legs.getJSONObject("distance").getInt("value"));
+                    //itinerary.setTime(legs.getJSONObject("duration").getString("value"));                 // TODO - ver valores de distancia e tempo
+                    itinerary.setTime(legs.getJSONObject("duration").getInt("value"));
+                    Database.mItineraryDao.updateItinerary(itinerary);
+
+                    for (int i = 0; i < stepsArray.length(); i++) {
+                        String polyline = (String) ((JSONObject) ((JSONObject) stepsArray.get(i)).get("polyline")).get("points");
+                        mMap.addPolyline(new PolylineOptions()
+                                .addAll(decodePoly(polyline))
+                                .width(4)
+                                .clickable(true)
+                                .color(Color.BLUE)
+                                .geodesic(true)
+                        );
+                        if (withSteps) {
+                            Step step = new Step(stepsArray.getJSONObject(i));
+                            mMap.addMarker(new MarkerOptions()
+                                    .position(step.location)
+                                    .title(step.distance + "/" + step.duration)
+                                    .snippet(step.instructions)
+                                    .draggable(true)
+                                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
+                        }
+                    }
+                }
+            } catch (JSONException e) {
+                Toast.makeText(context, "Draw Path \n"+e.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        }
+
+        private class Step {
+            public String distance;
+            public String duration;
+            public LatLng location;
+            public String instructions;
+
+            Step(JSONObject stepJSON) {
+                JSONObject startLocation;
+                try {
+                    distance = stepJSON.getJSONObject("distance").getString("text");
+                    duration = stepJSON.getJSONObject("duration").getString("text");
+                    startLocation = stepJSON.getJSONObject("start_location");
+                    location = new LatLng(startLocation.getDouble("lat"), startLocation.getDouble("lng"));
+                    try {
+                        instructions = URLDecoder.decode(Html.fromHtml(stepJSON.getString("html_instructions")).toString(), "UTF-8");
+                    } catch (UnsupportedEncodingException e) {
+                        e.printStackTrace();
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
     private List<LatLng> decodePoly(String encoded) {
 
         List<LatLng> poly = new ArrayList<>();
@@ -133,100 +238,5 @@ public class RouteClass {
             poly.add(p);
         }
         return poly;
-    }
-
-    @SuppressLint("StaticFieldLeak")
-    private class connectAsyncTask extends AsyncTask<Void, Void, String> {
-        private ProgressDialog progressDialog;
-        String url;
-        boolean steps;
-
-        connectAsyncTask(String urlPass, boolean withSteps) {
-            url = urlPass;
-            steps = withSteps;
-        }
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            progressDialog = new ProgressDialog(context);
-            progressDialog.setMessage("Fetching route, Please wait...");
-            progressDialog.setIndeterminate(true);
-            progressDialog.show();
-        }
-
-        @RequiresApi(api = Build.VERSION_CODES.KITKAT)
-        @Override
-        protected String doInBackground(Void... params) {
-            JSONParser jParser = new JSONParser();
-            return jParser.getJSONFromUrl(url);
-        }
-
-        @Override
-        protected void onPostExecute(String result) {
-            super.onPostExecute(result);
-            progressDialog.hide();
-            if (result != null) {
-                drawPath(result, steps);
-            }
-        }
-
-        private void drawPath(String result, boolean withSteps) {
-            try {
-                //Transform the string into a json object
-                final JSONObject json = new JSONObject(result);
-                JSONArray routeArray = json.getJSONArray("routes");
-                JSONObject routes = routeArray.getJSONObject(0);            // TODO - Ver o nivel de detalhamento do tracado das rotas no mapa
-                JSONObject overviewPolylines = routes.getJSONObject("overview_polyline");
-                String encodedString = overviewPolylines.getString( "points");
-                List<LatLng> list = decodePoly(encodedString);
-
-                Polyline line = mMap.addPolyline( new PolylineOptions()
-                                    .addAll(list)
-                                    .clickable(true).geodesic(true)
-                                    .width(4).color(Color.BLUE));
-
-                if (withSteps) {
-                    JSONArray arrayLegs = routes.getJSONArray("legs");
-                    JSONObject legs = arrayLegs.getJSONObject(0);
-                    JSONArray stepsArray = legs.getJSONArray("steps");
-
-                    for (int i = 0; i < stepsArray.length(); i++) {
-                        Step step = new Step(stepsArray.getJSONObject(i));
-                        mMap.addMarker(new MarkerOptions()
-                                .position(step.location)
-                                .title(step.distance)
-                                .snippet(step.instructions)
-                                .draggable(true)
-                                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
-                    }
-                }
-            } catch (JSONException e) {
-                Toast.makeText(context, "Draw Path \n"+e.getMessage(), Toast.LENGTH_LONG).show();
-            }
-        }
-
-        // Class that represent every step of the directions. It store distance, location and instructions
-        private class Step {
-            public String distance;
-            public LatLng location;
-            public String instructions;
-
-            Step(JSONObject stepJSON) {
-                JSONObject startLocation;
-                try {
-                    distance = stepJSON.getJSONObject("distance").getString("text");
-                    startLocation = stepJSON.getJSONObject("start_location");
-                    location = new LatLng(startLocation.getDouble("lat"), startLocation.getDouble("lng"));
-                    try {
-                        instructions = URLDecoder.decode(Html.fromHtml(stepJSON.getString("html_instructions")).toString(), "UTF-8");
-                    } catch (UnsupportedEncodingException e) {
-                        e.printStackTrace();
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
     }
 }

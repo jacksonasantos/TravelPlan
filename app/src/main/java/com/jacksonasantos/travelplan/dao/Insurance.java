@@ -61,7 +61,7 @@ public class Insurance {
             case 2: draw = R.drawable.ic_insurance_life; break;
             case 3: draw = R.drawable.ic_insurance_property; break;
             case 4: draw = R.drawable.ic_insurance_travel; break;
-            default: draw = R.drawable.ic_button_error; break;
+            default: draw = R.drawable.ic_error; break;
         }
         return draw;
     }

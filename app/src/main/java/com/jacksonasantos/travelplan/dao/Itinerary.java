@@ -1,16 +1,18 @@
 package com.jacksonasantos.travelplan.dao;
 
+import android.graphics.Color;
+
+import androidx.annotation.NonNull;
+
 public class Itinerary {
     public Integer id;
     public Integer travel_id;
     public int sequence;
     public String orig_location;
     public String dest_location;
-    public String latlng_trip_orig;
-    public String latlng_trip_dest;
     public int daily;
     public int distance;
-    public String time;
+    public int time;
 
     public Itinerary() {
         this.id = id;
@@ -18,13 +20,30 @@ public class Itinerary {
         this.sequence = sequence;
         this.orig_location = orig_location;
         this.dest_location = dest_location;
-        this.latlng_trip_orig = latlng_trip_orig;
-        this.latlng_trip_dest = latlng_trip_dest;
         this.daily = daily;
         this.distance = distance;
         this.time = time;
     }
+    @NonNull
+    @Override
+    public String toString() { return sequence+"-"+orig_location+" p/ "+dest_location; }
 
+    public int getColorItinerary( int sequence){
+        int color;
+        switch(sequence) {
+            case 1: color = Color.BLUE; break;
+            case 2: color = Color.MAGENTA; break;
+            case 3: color = Color.RED; break;
+            case 4: color = Color.CYAN; break;
+            case 5: color = Color.GRAY; break;
+            case 6: color = Color.YELLOW; break;
+            case 7: color = Color.LTGRAY; break;
+            case 8: color = Color.GREEN; break;
+            case 9: color = Color.DKGRAY; break;
+            default: color = Color.BLACK; break;
+        }
+        return color;
+    }
     public Integer getId() {return id;}
     public void setId(Integer id) {this.id = id;}
 
@@ -40,19 +59,18 @@ public class Itinerary {
     public String getDest_location() {return dest_location;}
     public void setDest_location(String dest_location) {this.dest_location = dest_location;}
 
-    public String getLatlng_trip_orig() { return latlng_trip_orig; }
-    public void setLatlng_trip_orig(String latlng_trip_orig) { this.latlng_trip_orig = latlng_trip_orig; }
-
-    public String getLatlng_trip_dest() {return latlng_trip_dest;}
-    public void setLatlng_trip_dest(String latlng_trip_dest) { this.latlng_trip_dest = latlng_trip_dest; }
-
     public int getDaily() { return daily; }
     public void setDaily(int daily) { this.daily = daily; }
 
-    public int getDistance() { return distance; }
+    public int getDistance() { return distance/1000; }
     public void setDistance(int distance) { this.distance = distance; }
 
-    public String getTime() { return time; }
-    public void setTime(String time) { this.time = time; }
+    public int getTime() { return time; }
+    public void setTime(int time) { this.time = time; }
 
+    public String getDuration() {
+        int totalHr = time / 3600;
+        int totalMin = (time-(totalHr * 3600)) / 60;
+        return totalHr+":"+totalMin;
+    }
 }

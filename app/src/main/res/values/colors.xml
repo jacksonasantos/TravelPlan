@@ -6,5 +6,6 @@
     <color name="colorBackgroundCard">#FFFFFF</color>
     <color name="colorAccent">#34A6A6</color>
     <color name="colorAccent2">#FF7125</color>
+    <color name="colorMarker">#6D4AED</color>
 </resources>
 

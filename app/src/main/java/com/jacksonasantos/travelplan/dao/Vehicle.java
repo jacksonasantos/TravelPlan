@@ -99,7 +99,7 @@ public class Vehicle {
                 draw = R.drawable.ic_vehicle_suv;
                 break;
             default:
-                draw = R.drawable.ic_button_error;
+                draw = R.drawable.ic_error;
                 break;
         }
         return draw;

@@ -35,7 +35,23 @@ public class ItineraryDAO extends DbContentProvider implements ItineraryISchema,
         }
         return itinerary;
     }
-    
+
+    public Itinerary fetchItineraryByTravelId(Integer travel_id, int sequence) {
+        final String[] selectionArgs = { String.valueOf(travel_id), String.valueOf(sequence) };
+        final String selection = ITINERARY_TRAVEL_ID + " = ? AND "+ITINERARY_SEQUENCE + " = ? ";
+        Itinerary itinerary = new Itinerary();
+        cursor = super.query(ITINERARY_TABLE, ITINERARY_COLUMNS, selection, selectionArgs, ITINERARY_ID);
+        if (cursor != null) {
+            cursor.moveToFirst();
+            while (!cursor.isAfterLast()) {
+                itinerary = cursorToEntity(cursor);
+                cursor.moveToNext();
+            }
+            cursor.close();
+        }
+        return itinerary;
+    }
+
     public List<Itinerary> fetchAllItineraryByTravel(Integer travel_id) {
         List<Itinerary> itineraryList = new ArrayList<>();
         final String[] selectionArgs = { String.valueOf(travel_id) };
@@ -67,6 +83,15 @@ public class ItineraryDAO extends DbContentProvider implements ItineraryISchema,
         return itineraryList;
     }
 
+    public Cursor fetchArrayItinerary(Integer travel_id){
+        final String[] selectionArgs = { String.valueOf(travel_id) };
+        final String selection = ITINERARY_TRAVEL_ID + " = ?";
+
+        return super.rawQuery("SELECT "+ITINERARY_ID+" _id, "+
+                                    ITINERARY_ORIG_LOCATION+"||' - '||"+ITINERARY_DEST_LOCATION+" text1 "+
+                                   "FROM "+ITINERARY_TABLE + " WHERE "+ selection, selectionArgs);
+    }
+
     public void deleteItinerary(Integer id) {
         final String[] selectionArgs = { String.valueOf(id) };
         final String selection = ITINERARY_ID + " = ?";
@@ -93,11 +118,9 @@ public class ItineraryDAO extends DbContentProvider implements ItineraryISchema,
             if (c.getColumnIndex(ITINERARY_SEQUENCE) != -1)         {i.setSequence(c.getInt(c.getColumnIndexOrThrow(ITINERARY_SEQUENCE))); }
             if (c.getColumnIndex(ITINERARY_ORIG_LOCATION) != -1)    {i.setOrig_location(c.getString(c.getColumnIndexOrThrow(ITINERARY_ORIG_LOCATION))); }
             if (c.getColumnIndex(ITINERARY_DEST_LOCATION) != -1)    {i.setDest_location(c.getString(c.getColumnIndexOrThrow(ITINERARY_DEST_LOCATION))); }
-            if (c.getColumnIndex(ITINERARY_LATLNG_TRIP_ORIG) != -1) {i.setLatlng_trip_orig(c.getString(c.getColumnIndexOrThrow(ITINERARY_LATLNG_TRIP_ORIG))); }
-            if (c.getColumnIndex(ITINERARY_LATLNG_TRIP_DEST) != -1) {i.setLatlng_trip_dest(c.getString(c.getColumnIndexOrThrow(ITINERARY_LATLNG_TRIP_DEST))); }
             if (c.getColumnIndex(ITINERARY_DISTANCE) != -1)         {i.setDistance(c.getInt(c.getColumnIndexOrThrow(ITINERARY_DISTANCE))); }
             if (c.getColumnIndex(ITINERARY_DAILY) != -1)            {i.setDaily(c.getInt(c.getColumnIndexOrThrow(ITINERARY_DAILY))); }
-            if (c.getColumnIndex(ITINERARY_TIME) != -1)             {i.setTime(c.getString(c.getColumnIndexOrThrow(ITINERARY_TIME))); }
+            if (c.getColumnIndex(ITINERARY_TIME) != -1)             {i.setTime(c.getInt(c.getColumnIndexOrThrow(ITINERARY_TIME))); }
         }
         return i;
     }
@@ -109,8 +132,6 @@ public class ItineraryDAO extends DbContentProvider implements ItineraryISchema,
         initialValues.put(ITINERARY_SEQUENCE, i.sequence);
         initialValues.put(ITINERARY_ORIG_LOCATION, i.orig_location);
         initialValues.put(ITINERARY_DEST_LOCATION, i.dest_location);
-        initialValues.put(ITINERARY_LATLNG_TRIP_ORIG, i.latlng_trip_orig);
-        initialValues.put(ITINERARY_LATLNG_TRIP_DEST, i.latlng_trip_dest);
         initialValues.put(ITINERARY_DAILY, i.daily);
         initialValues.put(ITINERARY_DISTANCE, i.distance);
         initialValues.put(ITINERARY_TIME, i.time);

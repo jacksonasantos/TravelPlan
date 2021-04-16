@@ -313,4 +313,7 @@
     <string name="marker_country">País</string>
     <string name="marker_category">Categoria</string>
     <string name="marker_sequence">Seq.</string>
+    <string name="marker_itinerary">Itinerário</string>
+    <string name="add_new_itinerary">Adicionar novo Itinerário</string>
+    <string name="Itinerary_Sequence">Seq</string>
 </resources>

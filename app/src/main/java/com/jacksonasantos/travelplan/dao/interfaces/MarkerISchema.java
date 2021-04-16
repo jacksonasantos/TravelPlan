@@ -6,6 +6,7 @@ public interface MarkerISchema {
 
     String MARKER_ID = "id";
     String MARKER_TRAVEL_ID = "travel_id";
+    String MARKER_ITINERARY_ID = "itinerary_id";
     String MARKER_MARKER_TYPE = "marker_type";
     String MARKER_SEQUENCE = "sequence";
     String MARKER_NAME = "name";
@@ -43,9 +44,14 @@ public interface MarkerISchema {
     String ALTER_TABLE_MARKER_V33 = "ALTER TABLE " + MARKER_TABLE
             + " ADD COLUMN " + MARKER_MARKER_TYPE + " INT ";
 
+    // Version 34
+    String ALTER_TABLE_MARKER_V34 = "ALTER TABLE " + MARKER_TABLE
+            + " ADD COLUMN " + MARKER_ITINERARY_ID + " INTEGER REFERENCES " + ItineraryISchema.ITINERARY_TABLE + " ("+ItineraryISchema.ITINERARY_ID+") ";
+
     String[] MARKER_COLUMNS = new String[] {
             MARKER_ID,
             MARKER_TRAVEL_ID,
+            MARKER_ITINERARY_ID,
             MARKER_MARKER_TYPE,
             MARKER_SEQUENCE,
             MARKER_NAME,

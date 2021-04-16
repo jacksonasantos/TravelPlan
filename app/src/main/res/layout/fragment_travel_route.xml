@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -10,24 +12,39 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
-        android:textAlignment="center" />
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Space
         android:id="@+id/spaceSeparator"
         android:layout_width="wrap_content"
-        android:layout_height="10dp"
-        android:layout_below="@+id/spTravel" />
+        android:layout_height="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spTravel" />
+
+    <Button
+        android:id="@+id/btnAddItinerary"
+        android:layout_width="32dp"
+        android:layout_height="33dp"
+        android:background="@drawable/ic_button_add"
+        android:contentDescription="@string/add_new_itinerary"
+        app:layout_constraintBottom_toTopOf="@+id/buttonSeparator"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spTravel" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/listItinerary"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/spaceSeparator"
-        android:layout_marginStart="@dimen/labels_margin"
-        android:layout_marginLeft="@dimen/labels_margin"
         android:layout_marginEnd="@dimen/labels_margin"
         android:layout_marginRight="@dimen/labels_margin"
         android:scrollbars="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/btnAddItinerary"
+        app:layout_constraintTop_toBottomOf="@+id/spaceSeparator"
         tools:itemCount="5" />
 
     <Button
@@ -35,30 +52,33 @@
         android:layout_width="match_parent"
         android:layout_height="16dp"
         android:clickable="false"
-        android:layout_below="@+id/listItinerary" />
+        app:layout_constraintTop_toBottomOf="@+id/listItinerary" />
 
     <com.google.android.gms.maps.MapView
         android:id="@+id/mapView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/buttonSeparator" />
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buttonSeparator" />
 
     <EditText
         android:id="@+id/etSearch"
         android:layout_width="250dp"
         android:layout_height="34dp"
-        android:layout_below="@+id/buttonSeparator"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
-        android:layout_marginStart="@dimen/labels_margin"
-        android:layout_marginLeft="@dimen/labels_margin"
+        android:layout_marginStart="@dimen/labels_marginLeft"
+        android:layout_marginLeft="@dimen/labels_marginLeft"
         android:layout_marginTop="@dimen/labels_space_top"
         android:autofillHints="no"
         android:background="@android:color/white"
         android:hint="@string/search_location"
-        android:inputType="textAutoComplete"
+        android:inputType="text"
         android:textColor="@color/design_default_color_primary"
-        android:textSize="14sp" />
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="@+id/mapView"
+        app:layout_constraintTop_toTopOf="@+id/mapView" />
 
     <Button
         android:id="@+id/btnSearch"
@@ -67,6 +87,8 @@
         android:layout_alignEnd="@+id/etSearch"
         android:layout_alignRight="@+id/etSearch"
         android:layout_alignBottom="@+id/etSearch"
-        android:background="@drawable/ic_button_search" />
+        android:background="@drawable/ic_button_search"
+        app:layout_constraintEnd_toEndOf="@+id/etSearch"
+        app:layout_constraintTop_toTopOf="@+id/etSearch" />
 
-</RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -7,6 +7,8 @@ import android.widget.AutoCompleteTextView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Spinner;
+import android.widget.SpinnerAdapter;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -16,6 +18,21 @@ import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
 public class Utils extends AppCompatActivity  {
+
+
+    public static void setSpinnerToValue(Spinner spinner, Integer value) {
+        int index = 0;
+        if (value != null && value > 0) {
+            SpinnerAdapter adapter = spinner.getAdapter();
+            for (int i = 0; i < adapter.getCount(); i++) {
+                if (adapter.getItemId(i) == value) {
+                    index = i;
+                    break;
+                }
+            }
+        }
+        spinner.setSelection(index);
+    }
 
     public static Date dateParse(String data ){
         Globals g = Globals.getInstance();

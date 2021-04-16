@@ -110,7 +110,7 @@ public class FuelSupplyActivity extends AppCompatActivity {
             }
         }
         if (opInsert) {
-            if (nrVehicleId == 0){
+            if (nrVehicleId == 0) {
                 nrVehicleId = g.getIdVehicle();
             }
         } else {
@@ -123,7 +123,6 @@ public class FuelSupplyActivity extends AppCompatActivity {
         }
 
         addListenerOnButtonSave();
-
         TextView txVehicleName = findViewById(R.id.txVehicleName);
         ImageView imVehicleType = findViewById(R.id.imVehicleType);
         TextView txVehicleLicencePlate = findViewById(R.id.txVehicleLicencePlate);

@@ -370,18 +370,21 @@
     <!-- Itinerary Fragment -->
     <string name="Itinerary">Itinerary</string>
 
+    <string name="Itinerary_Sequence">Sequence</string>
     <string name="Itinerary_Source">Source</string>
     <string name="Itinerary_Target">Target</string>
     <string name="Itinerary_Daily">Daily</string>
     <string name="Itinerary_Distance">Distance</string>
     <string name="Itinerary_Time">Time</string>
 
+    <string name="add_new_itinerary">Add new Itinerary</string>
     <string name="unregistered_bookmark">Unregistered bookmark</string>
 
     <!-- Marker Fragment -->
     <string name="marker">Marker</string>
 
     <string name="marker_sequence">Seq</string>
+    <string name="marker_itinerary">Itinerary</string>
     <string name="marker_type">Type</string>
     <string name="marker_description">Description</string>
     <string name="marker_latlng" translatable="false">Lat/Lng</string>

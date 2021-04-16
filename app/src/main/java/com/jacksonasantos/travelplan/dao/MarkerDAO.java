@@ -53,10 +53,10 @@ public class MarkerDAO extends DbContentProvider implements MarkerISchema, Marke
         return marker;
     }
 
-    public List<Marker> fetchMarkerByTravelId(Integer travel_id) {
+    public List<Marker> fetchMarkerByTravelItineraryId(Integer travel_id, Integer itinerary_id) {
         List<Marker> markerList = new ArrayList<>();
-        final String[] selectionArgs = { String.valueOf(travel_id) };
-        final String selection = MARKER_TRAVEL_ID + " = ?";
+        final String[] selectionArgs = { String.valueOf(travel_id), String.valueOf(itinerary_id) };
+        final String selection = MARKER_TRAVEL_ID + " = ? AND " + MARKER_ITINERARY_ID + " = ? ";
 
         cursor = super.query(MARKER_TABLE, MARKER_COLUMNS, selection, selectionArgs, MARKER_SEQUENCE);
 
@@ -98,6 +98,7 @@ public class MarkerDAO extends DbContentProvider implements MarkerISchema, Marke
         if (c != null) {
             if (c.getColumnIndex(MARKER_ID) != -1)            {m.setId(c.getInt(c.getColumnIndexOrThrow(MARKER_ID))); }
             if (c.getColumnIndex(MARKER_TRAVEL_ID) != -1)     {m.setTravel_id(c.getInt(c.getColumnIndexOrThrow(MARKER_TRAVEL_ID))); }
+            if (c.getColumnIndex(MARKER_ITINERARY_ID) != -1)  {m.setItinerary_id(c.getInt(c.getColumnIndexOrThrow(MARKER_ITINERARY_ID))); }
             if (c.getColumnIndex(MARKER_MARKER_TYPE) != -1)   {m.setMarker_type(c.getInt(c.getColumnIndexOrThrow(MARKER_MARKER_TYPE))); }
             if (c.getColumnIndex(MARKER_SEQUENCE) != -1)      {m.setSequence(c.getInt(c.getColumnIndexOrThrow(MARKER_SEQUENCE))); }
             if (c.getColumnIndex(MARKER_NAME) != -1)          {m.setName(c.getString(c.getColumnIndexOrThrow(MARKER_NAME))); }
@@ -119,6 +120,7 @@ public class MarkerDAO extends DbContentProvider implements MarkerISchema, Marke
         initialValues = new ContentValues();
         initialValues.put(MARKER_ID, m.id);
         initialValues.put(MARKER_TRAVEL_ID, m.travel_id);
+        initialValues.put(MARKER_ITINERARY_ID, m.itinerary_id);
         initialValues.put(MARKER_MARKER_TYPE, m.marker_type);
         initialValues.put(MARKER_SEQUENCE, m.sequence);
         initialValues.put(MARKER_NAME, m.name);
@@ -126,6 +128,7 @@ public class MarkerDAO extends DbContentProvider implements MarkerISchema, Marke
         initialValues.put(MARKER_CITY, m.city);
         initialValues.put(MARKER_STATE, m.state);
         initialValues.put(MARKER_COUNTRY, m.country);
+        initialValues.put(MARKER_ABBR_COUNTRY, m.abbr_country);
         initialValues.put(MARKER_CATEGORY_TYPE, m.category_type);
         initialValues.put(MARKER_DESCRIPTION, m.description);
         initialValues.put(MARKER_LATITUDE, m.latitude);
