@@ -403,6 +403,7 @@
     <string name="stayOvernight">Stay Overnight</string>
     <string name="tollCustoms">Tool / Custom</string>
     <string name="landmark">Landmark</string>
+    <string name="waypoints">Waypoints</string>
 
     <!-- Reservation Fragment -->
     <string name="Reservation">Reservation</string>

@@ -34,7 +34,7 @@ public class SummaryTravelExpenseDAO extends DbContentProvider implements Summar
                                " SUM( " + SummaryTravelExpenseISchema.SUMMARY_TRAVEL_EXPENSE_EXPECTED_VALUE + ") " + SummaryTravelExpenseISchema.SUMMARY_TRAVEL_EXPENSE_EXPECTED_VALUE + ", " +
                                " SUM( " + SummaryTravelExpenseISchema.SUMMARY_TRAVEL_EXPENSE_REALIZED_VALUE + ") " + SummaryTravelExpenseISchema.SUMMARY_TRAVEL_EXPENSE_REALIZED_VALUE +
                      " FROM ( SELECT 0 " + SummaryTravelExpenseISchema.SUMMARY_TRAVEL_EXPENSE_EXPENSE_TYPE + ", " + // Combustible
-                                   " ( SELECT SUM(i." + ItineraryISchema.ITINERARY_DISTANCE+"*v."+ VehicleISchema.VEHICLE_AVG_COST_LITRE+") " + SummaryTravelExpenseISchema.SUMMARY_TRAVEL_EXPENSE_REALIZED_VALUE +
+                                   " ( SELECT SUM((i." + ItineraryISchema.ITINERARY_DISTANCE+"/1000)*v."+ VehicleISchema.VEHICLE_AVG_COST_LITRE+") " + SummaryTravelExpenseISchema.SUMMARY_TRAVEL_EXPENSE_EXPECTED_VALUE +
                                        " FROM " + ItineraryISchema.ITINERARY_TABLE + " i " +
                                            ", " + VehicleHasTravelISchema.VEHICLE_HAS_TRAVEL_TABLE + " vt " +
                                            ", " + VehicleISchema.VEHICLE_TABLE + " v " +

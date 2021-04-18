@@ -316,4 +316,5 @@
     <string name="marker_itinerary">Itinerário</string>
     <string name="add_new_itinerary">Adicionar novo Itinerário</string>
     <string name="Itinerary_Sequence">Seq</string>
+    <string name="waypoints">Ponto de Passagem</string>
 </resources>

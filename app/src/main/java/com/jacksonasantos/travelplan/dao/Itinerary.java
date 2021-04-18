@@ -1,5 +1,6 @@
 package com.jacksonasantos.travelplan.dao;
 
+import android.annotation.SuppressLint;
 import android.graphics.Color;
 
 import androidx.annotation.NonNull;
@@ -62,15 +63,16 @@ public class Itinerary {
     public int getDaily() { return daily; }
     public void setDaily(int daily) { this.daily = daily; }
 
-    public int getDistance() { return distance/1000; }
+    public int getDistance() { return distance/1000; }                      // TODO - ajustar a divisão pela unidade adequada
     public void setDistance(int distance) { this.distance = distance; }
 
     public int getTime() { return time; }
     public void setTime(int time) { this.time = time; }
 
+    @SuppressLint("DefaultLocale")
     public String getDuration() {
         int totalHr = time / 3600;
         int totalMin = (time-(totalHr * 3600)) / 60;
-        return totalHr+":"+totalMin;
+        return String.format("%3d:%02d", totalHr, totalMin);
     }
 }

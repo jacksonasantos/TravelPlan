@@ -407,7 +407,7 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
                         LatLng latlng = new LatLng(Double.parseDouble(marker.getLatitude()), Double.parseDouble(marker.getLongitude()));
                         drawMarker(latlng, marker.getName(), ContextCompat.getColor(requireContext(), R.color.colorMarker), marker.getMarker_typeImage(marker.getMarker_type()));
                     }
-                    routeClass.drawRoute(googleMap, getContext(), pointsRoute, false, lang, false, nrTravel_Id);
+                    routeClass.drawRoute(googleMap, getContext(), pointsRoute, false, lang, false, nrTravel_Id, itinerary.getSequence());
                     zoomMarkers();
                 }
             }

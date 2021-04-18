@@ -63,6 +63,7 @@ public class Marker {
             case 5: draw = R.drawable.ic_toll; break;
             case 6: draw = R.drawable.ic_tour; break;
             case 7: draw = R.drawable.ic_landmark; break;
+            case 8: draw = R.drawable.ic_waypoints; break;
             default: draw = R.drawable.ic_error; break;
         }
         return draw;
