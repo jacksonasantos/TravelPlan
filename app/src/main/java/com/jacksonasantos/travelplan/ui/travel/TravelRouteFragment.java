@@ -357,7 +357,7 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
 
     private void drawMarker(LatLng point, String title, int color, int drawableIcon) {
         drawableIcon = drawableIcon==0 ? R.drawable.ic_trip_target : drawableIcon;
-        BitmapDescriptor markerIcon = getMarkerIconFromDrawable(getResources().getDrawable(drawableIcon), color);
+        @SuppressLint("UseCompatLoadingForDrawables") BitmapDescriptor markerIcon = getMarkerIconFromDrawable(getResources().getDrawable(drawableIcon), color);
         markerOptions.position(point);
         markerOptions.title(title);
         markerOptions.draggable(true);
@@ -470,7 +470,6 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
                                     itinerary.setDaily(Integer.parseInt(etDaily.getText().toString()));
 
                                     try {
-                                        //isSave[0] = adjustMarker( nrTravel_Id, nrItinerary_Id, m.getSequence(), true );
                                         isSave[0] = Database.mItineraryDao.addItinerary(itinerary);
                                     } catch (Exception e) {
                                         Toast.makeText(requireContext(), R.string.Error_Including_Data + e.getMessage(), Toast.LENGTH_LONG).show();
