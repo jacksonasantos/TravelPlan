@@ -76,54 +76,45 @@ public class InsuranceContactListAdapter extends RecyclerView.Adapter<RecyclerVi
             headerViewHolder.txtDetailContact.setText(R.string.Insurance_Contact_Detail);
             if (show_button) {
                 headerViewHolder.btnAddInsuranceContact.setImageResource(R.drawable.ic_button_add);
-                headerViewHolder.btnAddInsuranceContact.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        LayoutInflater li = LayoutInflater.from(v.getContext());
-                        View promptsView = li.inflate(R.layout.activity_insurance_contact_dialog, null);
+                headerViewHolder.btnAddInsuranceContact.setOnClickListener(v -> {
+                    LayoutInflater li = LayoutInflater.from(v.getContext());
+                    View promptsView = li.inflate(R.layout.activity_insurance_contact_dialog, null);
 
-                        final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(v.getContext());
+                    final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(v.getContext());
 
-                        alertDialogBuilder.setView(promptsView);
-                        final EditText etType_Contact = promptsView.findViewById(R.id.etType_Contact);
-                        final EditText etDescription_Contact = promptsView.findViewById(R.id.etDescription_Contact);
-                        final EditText etDetail_Contact = promptsView.findViewById(R.id.etDetail_Contact);
+                    alertDialogBuilder.setView(promptsView);
+                    final EditText etType_Contact = promptsView.findViewById(R.id.etType_Contact);
+                    final EditText etDescription_Contact = promptsView.findViewById(R.id.etDescription_Contact);
+                    final EditText etDetail_Contact = promptsView.findViewById(R.id.etDetail_Contact);
 
-                        alertDialogBuilder
-                                .setCancelable(false)
-                                .setPositiveButton(R.string.OK, new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog, int id) {
-                                        boolean isSave = false;
+                    alertDialogBuilder
+                            .setCancelable(false)
+                            .setPositiveButton(R.string.OK, (dialog, id) -> {
+                                boolean isSave = false;
 
-                                        InsuranceContact IC = new InsuranceContact();
+                                InsuranceContact IC = new InsuranceContact();
 
-                                        IC.setInsurance_id(insurance_id);
-                                        IC.setType_contact(etType_Contact.getText().toString());
-                                        IC.setDescription_contact(etDescription_Contact.getText().toString());
-                                        IC.setDetail_contact(etDetail_Contact.getText().toString());
+                                IC.setInsurance_id(insurance_id);
+                                IC.setType_contact(etType_Contact.getText().toString());
+                                IC.setDescription_contact(etDescription_Contact.getText().toString());
+                                IC.setDetail_contact(etDetail_Contact.getText().toString());
 
-                                        try {
-                                            isSave = Database.mInsuranceContactDao.addInsuranceContact(IC);
-                                        } catch (Exception e) {
-                                            Toast.makeText(context, R.string.Error_Including_Data + e.getMessage(), Toast.LENGTH_LONG).show();
-                                        }
-                                        if (!isSave) {
-                                            Toast.makeText(context, R.string.Error_Saving_Data, Toast.LENGTH_LONG).show();
-                                        } else {
-                                            mInsuranceContact.add(IC);
-                                            notifyItemInserted(mInsuranceContact.size());
-                                            notifyDataSetChanged();
-                                        }
-                                    }
-                                })
-                                .setNegativeButton(R.string.Cancel, new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog, int id) {
-                                        dialog.cancel();
-                                    }
-                                });
-                        AlertDialog alertDialog = alertDialogBuilder.create();
-                        alertDialog.show();
-                    }
+                                try {
+                                    isSave = Database.mInsuranceContactDao.addInsuranceContact(IC);
+                                } catch (Exception e) {
+                                    Toast.makeText(context, R.string.Error_Including_Data + e.getMessage(), Toast.LENGTH_LONG).show();
+                                }
+                                if (!isSave) {
+                                    Toast.makeText(context, R.string.Error_Saving_Data, Toast.LENGTH_LONG).show();
+                                } else {
+                                    mInsuranceContact.add(IC);
+                                    notifyItemInserted(mInsuranceContact.size());
+                                    notifyDataSetChanged();
+                                }
+                            })
+                            .setNegativeButton(R.string.Cancel, (dialog, id) -> dialog.cancel());
+                    AlertDialog alertDialog = alertDialogBuilder.create();
+                    alertDialog.show();
                 });
             } else {
                 headerViewHolder.btnAddInsuranceContact.setVisibility(View.INVISIBLE);
@@ -139,28 +130,20 @@ public class InsuranceContactListAdapter extends RecyclerView.Adapter<RecyclerVi
             itemViewHolder.txtDetailContact.setText(insuranceContact.getDetail_contact());
             // btnDelete
             if (show_button) {
-                itemViewHolder.btnDelete.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        new AlertDialog.Builder(v.getContext())
-                                .setTitle(R.string.Insurance_Contact_Deleting)
-                                .setMessage(R.string.Msg_Confirm)
-                                .setPositiveButton(R.string.Yes, new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialogInterface, int i) {
-                                        try {
-                                            Database.mInsuranceContactDao.deleteInsuranceContact(insuranceContact.getId());
-                                            mInsuranceContact.remove(position - show_header);
-                                            notifyItemRemoved(position - show_header);
-                                            notifyItemRangeChanged(position - show_header, mInsuranceContact.size());
-                                        } catch (Exception e) {
-                                            Toast.makeText(context, context.getString(R.string.Error_Deleting_Data) + "\n" + e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
-                                        }
-                                    }
-                                }).setNegativeButton(R.string.No, null)
-                                .show();
-                    }
-                });
+                itemViewHolder.btnDelete.setOnClickListener(v -> new AlertDialog.Builder(v.getContext())
+                        .setTitle(R.string.Insurance_Contact_Deleting)
+                        .setMessage(R.string.Msg_Confirm)
+                        .setPositiveButton(R.string.Yes, (dialogInterface, i) -> {
+                            try {
+                                Database.mInsuranceContactDao.deleteInsuranceContact(insuranceContact.getId());
+                                mInsuranceContact.remove(position - show_header);
+                                notifyItemRemoved(position - show_header);
+                                notifyItemRangeChanged(position - show_header, mInsuranceContact.size());
+                            } catch (Exception e) {
+                                Toast.makeText(context, context.getString(R.string.Error_Deleting_Data) + "\n" + e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+                            }
+                        }).setNegativeButton(R.string.No, null)
+                        .show());
             } else {
                 itemViewHolder.btnDelete.setVisibility(View.INVISIBLE);
             }

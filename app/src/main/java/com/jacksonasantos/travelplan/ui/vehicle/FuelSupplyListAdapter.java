@@ -93,51 +93,40 @@ public class FuelSupplyListAdapter extends RecyclerView.Adapter<FuelSupplyListAd
         NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(locale);
         holder.txtSupplyValue.setText(currencyFormatter.format(fuelSupply.getSupply_value()));
         // btnEdit
-        holder.btnEdit.setOnClickListener (new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent (v.getContext(), FuelSupplyActivity.class);
-                intent.putExtra("fuel_supply_id", fuelSupply.getId());
-                intent.putExtra("vehicle_id", fuelSupply.getVehicle_id());
-                context.startActivity(intent);
-                notifyDataSetChanged();
-            }
+        holder.btnEdit.setOnClickListener (v13 -> {
+            Intent intent = new Intent (v13.getContext(), FuelSupplyActivity.class);
+            intent.putExtra("fuel_supply_id", fuelSupply.getId());
+            intent.putExtra("vehicle_id", fuelSupply.getVehicle_id());
+            context.startActivity(intent);
+            notifyDataSetChanged();
         });
         // btnDelete
-        holder.btnDelete.setOnClickListener (new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                new AlertDialog.Builder(v.getContext())
-                        .setTitle(R.string.FuelSupply_Deleting)
-                        .setMessage(R.string.Msg_Confirm)
-                        .setPositiveButton(R.string.Yes, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                try {
-                                    Database.mFuelSupplyDao.deleteFuelSupply(fuelSupply.getId());
-                                    mFuelSupply.remove(position);
-                                    FuelSupply f1 = Database.mFuelSupplyDao.findLastFuelSupply(fuelSupply.getVehicle_id());
-                                    Vehicle v1;
-                                    v1 = Database.mVehicleDao.fetchVehicleById(fuelSupply.getVehicle_id());
-                                    v1.setDt_odometer(f1.getSupply_date());
-                                    v1.setOdometer(f1.getVehicle_odometer());
-                                    if (f1.getVehicle_odometer()==0 && f1.getFull_tank()==1) {
-                                        v1.setDt_last_fueling(f1.getSupply_date());
-                                        v1.setLast_supply_reason_type(f1.getSupply_reason_type());
-                                        v1.setAccumulated_supply_value(f1.getSupply_value());
-                                        v1.setAccumulated_number_liters(f1.getNumber_liters());
-                                    }
-                                    Database.mVehicleDao.updateVehicle(v1);
-                                    notifyItemRemoved(position);
-                                    notifyItemRangeChanged(position,mFuelSupply.size());
-                                } catch (Exception e) {
-                                    Toast.makeText(context, context.getString(R.string.Error_Deleting_Data) + "\n" + e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
-                                }
-                            }
-                        }).setNegativeButton(R.string.No, null)
-                        .show();
-            }
-        });
+        holder.btnDelete.setOnClickListener (v12 -> new AlertDialog.Builder(v12.getContext())
+                .setTitle(R.string.FuelSupply_Deleting)
+                .setMessage(R.string.Msg_Confirm)
+                .setPositiveButton(R.string.Yes, (dialogInterface, i) -> {
+                    try {
+                        Database.mFuelSupplyDao.deleteFuelSupply(fuelSupply.getId());
+                        mFuelSupply.remove(position);
+                        FuelSupply f1 = Database.mFuelSupplyDao.findLastFuelSupply(fuelSupply.getVehicle_id());
+                        Vehicle v1;
+                        v1 = Database.mVehicleDao.fetchVehicleById(fuelSupply.getVehicle_id());
+                        v1.setDt_odometer(f1.getSupply_date());
+                        v1.setOdometer(f1.getVehicle_odometer());
+                        if (f1.getVehicle_odometer() == 0 && f1.getFull_tank() == 1) {
+                            v1.setDt_last_fueling(f1.getSupply_date());
+                            v1.setLast_supply_reason_type(f1.getSupply_reason_type());
+                            v1.setAccumulated_supply_value(f1.getSupply_value());
+                            v1.setAccumulated_number_liters(f1.getNumber_liters());
+                        }
+                        Database.mVehicleDao.updateVehicle(v1);
+                        notifyItemRemoved(position);
+                        notifyItemRangeChanged(position, mFuelSupply.size());
+                    } catch (Exception e) {
+                        Toast.makeText(context, context.getString(R.string.Error_Deleting_Data) + "\n" + e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+                    }
+                }).setNegativeButton(R.string.No, null)
+                .show());
     }
 
     @Override

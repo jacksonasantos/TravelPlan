@@ -8,7 +8,6 @@
     <string name="menu_vehicle">Vehicles</string>
     <string name="menu_travel">Travels</string>
     <string name="menu_accommodation">Accommodation</string>
-    <string name="menu_route">Route</string>
     <string name="menu_fuel_supply">Fuel Supply</string>
     <string name="menu_maintenance_plan">Maintenance Plan</string>
     <string name="menu_maintenance">Maintenance Service</string>
@@ -196,7 +195,6 @@
     <string name="Insurance_Contact">Contact</string>
     <string name="Insurance_Contact_Deleting">Deleting Insurance Contact</string>
 
-    <string name="Insurance_Contact_Insurance">Insurance</string>
     <string name="Insurance_Contact_Type">Type</string>
     <string name="Insurance_Contact_Description">Description</string>
     <string name="Insurance_Contact_Detail">Detail</string>
@@ -381,14 +379,12 @@
     <string name="unregistered_bookmark">Unregistered bookmark</string>
 
     <!-- Marker Fragment -->
-    <string name="marker">Marker</string>
 
     <string name="marker_sequence">Seq</string>
     <string name="marker_itinerary">Itinerary</string>
     <string name="marker_type">Type</string>
     <string name="marker_description">Description</string>
     <string name="marker_latlng" translatable="false">Lat/Lng</string>
-    <string name="marker_zoom" translatable="false">Zoom</string>
     <string name="marker_name">Name</string>
     <string name="marker_address">Address</string>
     <string name="marker_city">City</string>

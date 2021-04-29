@@ -3,7 +3,6 @@ package com.jacksonasantos.travelplan.ui.general;
 import android.annotation.SuppressLint;
 import android.os.Build;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -13,8 +12,8 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.jacksonasantos.travelplan.R;
-import com.jacksonasantos.travelplan.dao.general.Database;
 import com.jacksonasantos.travelplan.dao.Broker;
+import com.jacksonasantos.travelplan.dao.general.Database;
 
 public class BrokerActivity extends AppCompatActivity {
     private EditText etName;
@@ -71,42 +70,39 @@ public class BrokerActivity extends AppCompatActivity {
     public void addListenerOnButtonSave() {
         Button btSaveBroker = findViewById(R.id.btSaveBroker);
 
-        btSaveBroker.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                boolean isSave = false;
+        btSaveBroker.setOnClickListener(v -> {
+            boolean isSave = false;
 
-                if (!validateData()) {
-                    Toast.makeText(getApplicationContext(), R.string.Error_Data_Validation, Toast.LENGTH_LONG).show();
+            if (!validateData()) {
+                Toast.makeText(getApplicationContext(), R.string.Error_Data_Validation, Toast.LENGTH_LONG).show();
+            } else {
+                final Broker b1 = new Broker();
+
+                b1.setName(etName.getText().toString());
+                b1.setPhone(etPhone.getText().toString());
+                b1.setEmail(etEmail.getText().toString());
+                b1.setContact_name(etContact_name.getText().toString());
+
+                if (!opInsert) {
+                    try {
+                        b1.setId(broker.getId());
+                        isSave = Database.mBrokerDao.updateBroker(b1);
+                    } catch (Exception e) {
+                        Toast.makeText(getApplicationContext(), R.string.Error_Changing_Data + e.getMessage(), Toast.LENGTH_LONG).show();
+                    }
                 } else {
-                    final Broker b1 = new Broker();
-
-                    b1.setName(etName.getText().toString());
-                    b1.setPhone(etPhone.getText().toString());
-                    b1.setEmail(etEmail.getText().toString());
-                    b1.setContact_name(etContact_name.getText().toString());
-
-                    if (!opInsert) {
-                        try {
-                            b1.setId(broker.getId());
-                            isSave = Database.mBrokerDao.updateBroker(b1);
-                        } catch (Exception e) {
-                            Toast.makeText(getApplicationContext(), R.string.Error_Changing_Data + e.getMessage(), Toast.LENGTH_LONG).show();
-                        }
-                    } else {
-                        try {
-                            isSave = Database.mBrokerDao.addBroker(b1);
-                        } catch (Exception e) {
-                            Toast.makeText(getApplicationContext(), R.string.Error_Including_Data + e.getMessage(), Toast.LENGTH_LONG).show();
-                        }
+                    try {
+                        isSave = Database.mBrokerDao.addBroker(b1);
+                    } catch (Exception e) {
+                        Toast.makeText(getApplicationContext(), R.string.Error_Including_Data + e.getMessage(), Toast.LENGTH_LONG).show();
                     }
+                }
 
-                    setResult(isSave ? 1 : 0);
-                    if (isSave) {
-                        finish();
-                    } else {
-                        Toast.makeText(getApplicationContext(), R.string.Error_Saving_Data, Toast.LENGTH_LONG).show();
-                    }
+                setResult(isSave ? 1 : 0);
+                if (isSave) {
+                    finish();
+                } else {
+                    Toast.makeText(getApplicationContext(), R.string.Error_Saving_Data, Toast.LENGTH_LONG).show();
                 }
             }
         });

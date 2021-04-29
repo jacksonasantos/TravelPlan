@@ -10,6 +10,7 @@ public class Globals {
     private String txCountry = "BR";
     private Integer nrIdCurrency;
     private String txMeasureCost;
+    private int nrMeasureIndexInMeter;
     private String txMeasureCapacity;
     private String txMeasureConsumption;
     private String txDateFormat;
@@ -41,6 +42,9 @@ public class Globals {
 
     public String getMeasureCost() { return this.txMeasureCost; }
     public void setMeasureCost(String MeasureCost) { this.txMeasureCost = MeasureCost; }
+
+    public int getMeasureIndexInMeter() { return this.nrMeasureIndexInMeter; }
+    public void setMeasureIndexInMeter(int MeasureIndexInMeter) { this.nrMeasureIndexInMeter = MeasureIndexInMeter; }
 
     public String getMeasureCapacity() { return this.txMeasureCapacity; }
     public void setMeasureCapacity(String MeasureCapacity) { this.txMeasureCapacity = MeasureCapacity; }

@@ -26,7 +26,6 @@
                 android:padding="@dimen/labels_marginLeft">
 
                 <TextView
-                    android:id="@+id/txtBroker"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/Broker"
@@ -91,7 +90,6 @@
                 android:padding="@dimen/labels_marginLeft">
 
                 <TextView
-                    android:id="@+id/txtInsurance"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/Insurance_Insurance_Policy"
@@ -142,7 +140,6 @@
                     android:weightSum="10">
 
                     <TextView
-                        android:id="@+id/txtNro"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1.5"
@@ -160,7 +157,6 @@
                         android:textSize="12sp"/>
 
                     <TextView
-                        android:id="@+id/txtIssuance"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="2.5"
@@ -188,7 +184,6 @@
                     android:weightSum="10">
 
                     <TextView
-                        android:id="@+id/txtValidity"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="2"
@@ -207,7 +202,6 @@
                         android:textSize="12sp" />
 
                     <TextView
-                        android:id="@+id/txtAte"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="2"
@@ -250,7 +244,6 @@
                 android:padding="@dimen/labels_marginLeft">
 
                 <TextView
-                    android:id="@+id/txtContact"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/Insurance_Contact"
@@ -285,7 +278,6 @@
                 android:padding="@dimen/labels_marginLeft">
 
                 <TextView
-                    android:id="@+id/txtAsset"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/Insurance_Well_Insured"

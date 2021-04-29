@@ -83,28 +83,20 @@ public class HomeTravelItemExpensesListAdapter extends RecyclerView.Adapter<Home
         holder.txtNote.setText(travelItemExpenses.getNote());
 
         // btnDelete
-        holder.btnDelete.setOnClickListener (new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                new AlertDialog.Builder(v.getContext())
-                        .setTitle(R.string.TravelItemExpenses_Deleting)
-                        .setMessage(R.string.Msg_Confirm)
-                        .setPositiveButton(R.string.Yes, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                try {
-                                    Database.mTravelItemExpensesDao.deleteTravelItemExpenses(travelItemExpenses.getId());
-                                    mTravelItemExpenses.remove(position);
-                                    notifyItemRemoved(position);
-                                    notifyItemRangeChanged(position,mTravelItemExpenses.size());
-                                } catch (Exception e) {
-                                    Toast.makeText(context, context.getString(R.string.Error_Deleting_Data) + "\n" + e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
-                                }
-                            }
-                        }).setNegativeButton(R.string.No, null)
-                        .show();
-            }
-        });
+        holder.btnDelete.setOnClickListener (v -> new AlertDialog.Builder(v.getContext())
+                .setTitle(R.string.TravelItemExpenses_Deleting)
+                .setMessage(R.string.Msg_Confirm)
+                .setPositiveButton(R.string.Yes, (dialogInterface, i) -> {
+                    try {
+                        Database.mTravelItemExpensesDao.deleteTravelItemExpenses(travelItemExpenses.getId());
+                        mTravelItemExpenses.remove(position);
+                        notifyItemRemoved(position);
+                        notifyItemRangeChanged(position, mTravelItemExpenses.size());
+                    } catch (Exception e) {
+                        Toast.makeText(context, context.getString(R.string.Error_Deleting_Data) + "\n" + e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+                    }
+                }).setNegativeButton(R.string.No, null)
+                .show());
     }
 
     @Override

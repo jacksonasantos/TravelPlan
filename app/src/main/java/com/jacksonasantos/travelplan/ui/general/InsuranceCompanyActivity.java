@@ -3,7 +3,6 @@ package com.jacksonasantos.travelplan.ui.general;
 import android.annotation.SuppressLint;
 import android.os.Build;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -13,8 +12,8 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.jacksonasantos.travelplan.R;
-import com.jacksonasantos.travelplan.dao.general.Database;
 import com.jacksonasantos.travelplan.dao.InsuranceCompany;
+import com.jacksonasantos.travelplan.dao.general.Database;
 import com.jacksonasantos.travelplan.ui.utility.DateInputMask;
 import com.jacksonasantos.travelplan.ui.utility.Utils;
 
@@ -90,47 +89,44 @@ public class InsuranceCompanyActivity extends AppCompatActivity {
     public void addListenerOnButtonSave() {
         Button btSaveInsuranceCompany = findViewById(R.id.btSaveInsuranceCompany);
 
-        btSaveInsuranceCompany.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                boolean isSave = false;
+        btSaveInsuranceCompany.setOnClickListener(v -> {
+            boolean isSave = false;
 
-                if (!validateData()) {
-                    Toast.makeText(getApplicationContext(), R.string.Error_Data_Validation, Toast.LENGTH_LONG).show();
+            if (!validateData()) {
+                Toast.makeText(getApplicationContext(), R.string.Error_Data_Validation, Toast.LENGTH_LONG).show();
+            } else {
+                final InsuranceCompany i1 = new InsuranceCompany();
+
+                i1.setCompany_name(etCompanyName.getText().toString());
+                i1.setCnpj(etCnpj.getText().toString());
+                i1.setFip_code(etFip_code.getText().toString());
+                i1.setAddress(etAddress.getText().toString());
+                i1.setCity(etCity.getText().toString());
+                i1.setState(etState.getText().toString());
+                i1.setZip_code(etZipCode.getText().toString());
+                i1.setTelephone(etTelephone.getText().toString());
+                i1.setAuthorization_date(Utils.stringToDate(etAuthorization_Date.getText().toString()));
+
+                if (!opInsert) {
+                    try {
+                        i1.setId(insuranceCompany.getId());
+                        isSave = Database.mInsuranceCompanyDao.updateInsuranceCompany(i1);
+                    } catch (Exception e) {
+                        Toast.makeText(getApplicationContext(), R.string.Error_Changing_Data + e.getMessage(), Toast.LENGTH_LONG).show();
+                    }
                 } else {
-                    final InsuranceCompany i1 = new InsuranceCompany();
-
-                    i1.setCompany_name(etCompanyName.getText().toString());
-                    i1.setCnpj(etCnpj.getText().toString());
-                    i1.setFip_code(etFip_code.getText().toString());
-                    i1.setAddress(etAddress.getText().toString());
-                    i1.setCity(etCity.getText().toString());
-                    i1.setState(etState.getText().toString());
-                    i1.setZip_code(etZipCode.getText().toString());
-                    i1.setTelephone(etTelephone.getText().toString());
-                    i1.setAuthorization_date(Utils.stringToDate(etAuthorization_Date.getText().toString()));
-
-                    if (!opInsert) {
-                        try {
-                            i1.setId(insuranceCompany.getId());
-                            isSave = Database.mInsuranceCompanyDao.updateInsuranceCompany(i1);
-                        } catch (Exception e) {
-                            Toast.makeText(getApplicationContext(), R.string.Error_Changing_Data + e.getMessage(), Toast.LENGTH_LONG).show();
-                        }
-                    } else {
-                        try {
-                            isSave = Database.mInsuranceCompanyDao.addInsuranceCompany(i1);
-                        } catch (Exception e) {
-                            Toast.makeText(getApplicationContext(), R.string.Error_Including_Data + e.getMessage(), Toast.LENGTH_LONG).show();
-                        }
+                    try {
+                        isSave = Database.mInsuranceCompanyDao.addInsuranceCompany(i1);
+                    } catch (Exception e) {
+                        Toast.makeText(getApplicationContext(), R.string.Error_Including_Data + e.getMessage(), Toast.LENGTH_LONG).show();
                     }
+                }
 
-                    setResult(isSave ? 1 : 0);
-                    if (isSave) {
-                        finish();
-                    } else {
-                        Toast.makeText(getApplicationContext(), R.string.Error_Saving_Data, Toast.LENGTH_LONG).show();
-                    }
+                setResult(isSave ? 1 : 0);
+                if (isSave) {
+                    finish();
+                } else {
+                    Toast.makeText(getApplicationContext(), R.string.Error_Saving_Data, Toast.LENGTH_LONG).show();
                 }
             }
         });

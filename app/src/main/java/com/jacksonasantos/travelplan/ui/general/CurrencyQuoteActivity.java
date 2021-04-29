@@ -66,11 +66,7 @@ public class CurrencyQuoteActivity extends AppCompatActivity {
 
         Utils.createSpinnerResources(R.array.currency_array, spinCurrencyType, this);
         nrSpinCurrencyType = 0;
-        spinCurrencyType.setOnItemClickListener(new Spinner.OnItemClickListener() {
-            @Override public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                nrSpinCurrencyType = (int) adapterView.getItemIdAtPosition(i);
-            }
-        });
+        spinCurrencyType.setOnItemClickListener((adapterView, view, i, l) -> nrSpinCurrencyType = (int) adapterView.getItemIdAtPosition(i));
         etQuoteDate.addTextChangedListener(new DateInputMask(etQuoteDate));
 
         if (currencyQuote != null) {
@@ -84,41 +80,38 @@ public class CurrencyQuoteActivity extends AppCompatActivity {
     public void addListenerOnButtonSave() {
         Button btSaveCurrencyQuote = findViewById(R.id.btSaveCurrencyQuote);
 
-        btSaveCurrencyQuote.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                boolean isSave = false;
+        btSaveCurrencyQuote.setOnClickListener(v -> {
+            boolean isSave = false;
 
-                if (!validateData()) {
-                    Toast.makeText(getApplicationContext(), R.string.Error_Data_Validation, Toast.LENGTH_LONG).show();
+            if (!validateData()) {
+                Toast.makeText(getApplicationContext(), R.string.Error_Data_Validation, Toast.LENGTH_LONG).show();
+            } else {
+                final CurrencyQuote c1 = new CurrencyQuote();
+
+                c1.setCurrency_type(nrSpinCurrencyType);
+                c1.setQuote_date(Utils.stringToDate(etQuoteDate.getText().toString()));
+                c1.setCurrency_value(Double.parseDouble(etCurrencyValue.getText().toString()));
+
+                if (!opInsert) {
+                    try {
+                        c1.setId(currencyQuote.getId());
+                        isSave = Database.mCurrencyQuoteDao.updateCurrencyQuote(c1);
+                    } catch (Exception e) {
+                        Toast.makeText(getApplicationContext(), R.string.Error_Changing_Data + e.getMessage(), Toast.LENGTH_LONG).show();
+                    }
                 } else {
-                    final CurrencyQuote c1 = new CurrencyQuote();
-
-                    c1.setCurrency_type(nrSpinCurrencyType);
-                    c1.setQuote_date(Utils.stringToDate(etQuoteDate.getText().toString()));
-                    c1.setCurrency_value(Double.parseDouble(etCurrencyValue.getText().toString()));
-
-                    if (!opInsert) {
-                        try {
-                            c1.setId(currencyQuote.getId());
-                            isSave = Database.mCurrencyQuoteDao.updateCurrencyQuote(c1);
-                        } catch (Exception e) {
-                            Toast.makeText(getApplicationContext(), R.string.Error_Changing_Data + e.getMessage(), Toast.LENGTH_LONG).show();
-                        }
-                    } else {
-                        try {
-                            isSave = Database.mCurrencyQuoteDao.addCurrencyQuote(c1);
-                        } catch (Exception e) {
-                            Toast.makeText(getApplicationContext(), R.string.Error_Including_Data + e.getMessage(), Toast.LENGTH_LONG).show();
-                        }
+                    try {
+                        isSave = Database.mCurrencyQuoteDao.addCurrencyQuote(c1);
+                    } catch (Exception e) {
+                        Toast.makeText(getApplicationContext(), R.string.Error_Including_Data + e.getMessage(), Toast.LENGTH_LONG).show();
                     }
+                }
 
-                    setResult(isSave ? 1 : 0);
-                    if (isSave) {
-                        finish();
-                    } else {
-                        Toast.makeText(getApplicationContext(), R.string.Error_Saving_Data, Toast.LENGTH_LONG).show();
-                    }
+                setResult(isSave ? 1 : 0);
+                if (isSave) {
+                    finish();
+                } else {
+                    Toast.makeText(getApplicationContext(), R.string.Error_Saving_Data, Toast.LENGTH_LONG).show();
                 }
             }
         });

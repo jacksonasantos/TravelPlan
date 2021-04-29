@@ -202,7 +202,6 @@
     <string name="search_location">Pesquisar Localização</string>
     <string name="location_not_found">Local não encontrado</string>
     <string name="mixed">Misto</string>
-    <string name="menu_route">Rota</string>
     <string name="Accommodation_Deleting">Excluindo Acomodação</string>
     <string name="Accommodation_Name">Nome</string>
     <string name="Accommodation_Address">Endereço</string>
@@ -275,7 +274,6 @@
     <string name="Insurance_Contact_Type">Tipo</string>
     <string name="Insurance_Contact_Description">Descrição</string>
     <string name="Insurance_Contact_Detail">Detalhe</string>
-    <string name="Insurance_Contact_Insurance">Seguro</string>
     <string name="Insurance_Contact_Deleting">Excluindo Contatos do Seguro</string>
     <string name="unregistered_bookmark">Marcador não Registrado</string>
     <string name="car">Carro</string>
@@ -302,8 +300,7 @@
     <string name="female">Feminino</string>
     <string name="male">Masculino</string>
     <string name="portuguese">Portugues</string>
-    <string name="english">Ingles</string>
-    <string name="marker">Marcador</string>
+    <string name="english">Inglês</string>
     <string name="marker_type">Tipo</string>
     <string name="marker_description">Descrição</string>
     <string name="marker_name">Nome</string>

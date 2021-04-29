@@ -93,40 +93,29 @@ public class HomeTravelReservationListAdapter extends RecyclerView.Adapter<Recyc
             itemViewHolder.txtDaily.setText(Integer.toString(Utils.diffBetweenDate(reservation.getCheckout_date(), reservation.getCheckin_date())));
 
             // btnEdit
-            itemViewHolder.btnEdit.setOnClickListener (new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent (v.getContext(), ReservationActivity.class);
-                    intent.putExtra("reservation_id", reservation.getId());
-                    context.startActivity(intent);
-                    notifyDataSetChanged();
-                }
+            itemViewHolder.btnEdit.setOnClickListener (v -> {
+                Intent intent = new Intent (v.getContext(), ReservationActivity.class);
+                intent.putExtra("reservation_id", reservation.getId());
+                context.startActivity(intent);
+                notifyDataSetChanged();
             });
 
             // btnDelete
-            itemViewHolder.btnDelete.setOnClickListener (new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    new AlertDialog.Builder(v.getContext())
-                            .setTitle(R.string.Reservation_Deleting)
-                            .setMessage(R.string.Msg_Confirm)
-                            .setPositiveButton(R.string.Yes, new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialogInterface, int i) {
-                                    try {
-                                        Database.mReservationDao.deleteReservation(reservation.getId());
-                                        mReservation.remove(position);
-                                        notifyItemRemoved(position);
-                                        notifyItemRangeChanged(position,mReservation.size());
-                                    } catch (Exception e) {
-                                        Toast.makeText(context, context.getString(R.string.Error_Deleting_Data) + "\n" + e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
-                                    }
-                                }
-                            })
-                            .setNegativeButton(R.string.No, null)
-                            .show();
-                }
-            });
+            itemViewHolder.btnDelete.setOnClickListener (v -> new AlertDialog.Builder(v.getContext())
+                    .setTitle(R.string.Reservation_Deleting)
+                    .setMessage(R.string.Msg_Confirm)
+                    .setPositiveButton(R.string.Yes, (dialogInterface, i) -> {
+                        try {
+                            Database.mReservationDao.deleteReservation(reservation.getId());
+                            mReservation.remove(position);
+                            notifyItemRemoved(position);
+                            notifyItemRangeChanged(position, mReservation.size());
+                        } catch (Exception e) {
+                            Toast.makeText(context, context.getString(R.string.Error_Deleting_Data) + "\n" + e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+                        }
+                    })
+                    .setNegativeButton(R.string.No, null)
+                    .show());
         }
     }
     @Override

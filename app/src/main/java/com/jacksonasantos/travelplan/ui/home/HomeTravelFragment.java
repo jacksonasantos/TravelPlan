@@ -1,7 +1,6 @@
 package com.jacksonasantos.travelplan.ui.home;
 
 import android.annotation.SuppressLint;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.os.Build;
@@ -14,7 +13,6 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -49,7 +47,6 @@ import java.util.Locale;
 
 public class HomeTravelFragment extends Fragment implements View.OnClickListener {
 
-    private ConstraintLayout layerHomeTravel;
     private ConstraintLayout layerTravel;
     private ImageView imTravelStatus;
     private Spinner spTravel;
@@ -58,7 +55,6 @@ public class HomeTravelFragment extends Fragment implements View.OnClickListener
     private TextView tvReturn;
     private TextView tvDays;
 
-    private LinearLayout layerBtnMenu;
     private ImageButton btnItinerary;
     private ImageButton btnAccommodation;
     private ImageButton btnFood;
@@ -92,7 +88,6 @@ public class HomeTravelFragment extends Fragment implements View.OnClickListener
                              final ViewGroup container, Bundle savedInstanceState) {
 
         View v=inflater.inflate(R.layout.fragment_home_travel, container, false);
-        layerHomeTravel = v.findViewById(R.id.layerHomeTravel);
         layerTravel = v.findViewById(R.id.layerTravel);
         spTravel = v.findViewById(R.id.spTravel);
         imTravelStatus = v.findViewById(R.id.imTravelStatus);
@@ -101,7 +96,6 @@ public class HomeTravelFragment extends Fragment implements View.OnClickListener
         tvReturn = v.findViewById(R.id.tvReturn);
         tvDays = v.findViewById(R.id.tvDays);
 
-        layerBtnMenu = v.findViewById(R.id.layerBtnMenu);
         btnItinerary = v.findViewById(R.id.btnItinerary);
         btnAccommodation = v.findViewById(R.id.btnAccommodation);
         btnFood = v.findViewById(R.id.btnFood);
@@ -168,99 +162,53 @@ public class HomeTravelFragment extends Fragment implements View.OnClickListener
                 btnTolls.setEnabled(true);
                 btnInsurance.setEnabled(true);
 
-                imTravelStatus.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(v.getContext(),R.style.MyDialogStyle);
-                        int checkedItem = travel[0].getStatus();
-                        alertDialogBuilder.setTitle(getString(R.string.change)+ " "+getString(R.string.Travel_Status))
-                              .setSingleChoiceItems(R.array.travel_status_array, checkedItem, new DialogInterface.OnClickListener() {
-                                  @Override
-                                  public void onClick(DialogInterface dialog, int id) {
-                                      travel[0].setStatus(id);
-                                  }
-                              })
-                              .setPositiveButton(R.string.OK, new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog,int id) {
-                                        boolean isSave = false;
-                                        try {
-                                            isSave = Database.mTravelDao.updateTravel(travel[0]);
-                                            imTravelStatus.setColorFilter(travel[0].getColorStatus(), PorterDuff.Mode.MULTIPLY);
-                                        } catch (Exception e) {
-                                            Toast.makeText(getContext(), R.string.Error_Including_Data + e.getMessage(), Toast.LENGTH_LONG).show();
-                                        }
-                                        if (!isSave) {
-                                            Toast.makeText(getContext(), R.string.Error_Saving_Data, Toast.LENGTH_LONG).show();
-                                        }
-                                    }
-                              })
-                              .setNegativeButton(R.string.Cancel, new DialogInterface.OnClickListener() {
-                                  public void onClick(DialogInterface dialog,int id) {
-                                      dialog.cancel();
-                                  }
-                              });
-                        AlertDialog alertDialog = alertDialogBuilder.create();
-                        alertDialog.show();
-                    }
+                imTravelStatus.setOnClickListener(v -> {
+                    final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(v.getContext(),R.style.MyDialogStyle);
+                    int checkedItem = travel[0].getStatus();
+                    alertDialogBuilder.setTitle(getString(R.string.change)+ " "+getString(R.string.Travel_Status))
+                          .setSingleChoiceItems(R.array.travel_status_array, checkedItem, (dialog, id13) -> travel[0].setStatus(id13))
+                          .setPositiveButton(R.string.OK, (dialog, id12) -> {
+                              boolean isSave = false;
+                              try {
+                                  isSave = Database.mTravelDao.updateTravel(travel[0]);
+                                  imTravelStatus.setColorFilter(travel[0].getColorStatus(), PorterDuff.Mode.MULTIPLY);
+                              } catch (Exception e) {
+                                  Toast.makeText(getContext(), R.string.Error_Including_Data + e.getMessage(), Toast.LENGTH_LONG).show();
+                              }
+                              if (!isSave) {
+                                  Toast.makeText(getContext(), R.string.Error_Saving_Data, Toast.LENGTH_LONG).show();
+                              }
+                          })
+                          .setNegativeButton(R.string.Cancel, (dialog, id1) -> dialog.cancel());
+                    AlertDialog alertDialog = alertDialogBuilder.create();
+                    alertDialog.show();
                 });
                 //TODO - Atualizar valores do Adapter de Despesas da Viagem
-                btnFood.setOnClickListener (new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        TravelItemExpenses(v,1);
-                    }
+                btnFood.setOnClickListener (v -> TravelItemExpenses(v,1));
+                btnTolls.setOnClickListener (v -> TravelItemExpenses(v,2));
+                btnTour.setOnClickListener (v -> TravelItemExpenses(v,3));
+                btnExtra.setOnClickListener (v -> TravelItemExpenses(v,5));
+                btnItinerary.setOnClickListener (v -> {
+                    Intent intent = new Intent(v.getContext(), ItineraryActivity.class);
+                    intent.putExtra("travel_id", travel[0].id);
+                    startActivity(intent);
                 });
-                btnTolls.setOnClickListener (new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        TravelItemExpenses(v,2);
-                    }
-                });
-                btnTour.setOnClickListener (new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        TravelItemExpenses(v,3);
-                    }
-                });
-                btnExtra.setOnClickListener (new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        TravelItemExpenses(v,5);
-                    }
-                });
-                btnItinerary.setOnClickListener (new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent intent = new Intent(v.getContext(), ItineraryActivity.class);
-                        intent.putExtra("travel_id", travel[0].id);
-                        startActivity(intent);
-                    }
-                });
-                btnAccommodation.setOnClickListener (new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent intent = new Intent(v.getContext(), ReservationActivity.class);
-                        intent.putExtra("travel_id", travel[0].id);
-                        startActivity(intent);
-                    }
+                btnAccommodation.setOnClickListener (v -> {
+                    Intent intent = new Intent(v.getContext(), ReservationActivity.class);
+                    intent.putExtra("travel_id", travel[0].id);
+                    startActivity(intent);
                 });
                 //TODO - Passar o Veículo para o FuelSupplyActivity quando for somente um veiculo
                 //TODO - Habilitar a escolha do Veiculo no abastecimento
-                btnFuel.setOnClickListener (new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent intent = new Intent(v.getContext(), FuelSupplyActivity.class);
-                        intent.putExtra("travel_id", travel[0].id);
-                        startActivity(intent);
-                    }
+                btnFuel.setOnClickListener (v -> {
+                    Intent intent = new Intent(v.getContext(), FuelSupplyActivity.class);
+                    intent.putExtra("travel_id", travel[0].id);
+                    startActivity(intent);
                 });
-                btnInsurance.setOnClickListener (new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent intent = new Intent(v.getContext(), InsuranceActivity.class);
-                        intent.putExtra("travel_id", travel[0].id);
-                        startActivity(intent);
-                    }
+                btnInsurance.setOnClickListener (v -> {
+                    Intent intent = new Intent(v.getContext(), InsuranceActivity.class);
+                    intent.putExtra("travel_id", travel[0].id);
+                    startActivity(intent);
                 });
 
                 // Vehicles has Travel
@@ -368,44 +316,38 @@ public class HomeTravelFragment extends Fragment implements View.OnClickListener
                 final List<TravelExpenses> finalTravelExpensesList = travelExpensesList;
                 alertDialogBuilder
                         .setCancelable(false)
-                        .setPositiveButton(R.string.OK, new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog,int id) {
-                                boolean isSave = false;
+                        .setPositiveButton(R.string.OK, (dialog, id) -> {
+                            boolean isSave = false;
 
-                                TravelItemExpenses TIE = new TravelItemExpenses();
+                            TravelItemExpenses TIE = new TravelItemExpenses();
 
-                                TIE.setTravel_expense_id(finalTravelExpensesList.get(0).getId());
-                                TIE.setExpense_date(Utils.stringToDate(etExpenseDate.getText().toString()));
-                                if (!etExpenseItemRealizedValue.getText().toString().isEmpty()) {
-                                    TIE.setRealized_value(Double.parseDouble(etExpenseItemRealizedValue.getText().toString()));
+                            TIE.setTravel_expense_id(finalTravelExpensesList.get(0).getId());
+                            TIE.setExpense_date(Utils.stringToDate(etExpenseDate.getText().toString()));
+                            if (!etExpenseItemRealizedValue.getText().toString().isEmpty()) {
+                                TIE.setRealized_value(Double.parseDouble(etExpenseItemRealizedValue.getText().toString()));
+                            }
+                            TIE.setNote(etExpenseItemNote.getText().toString());
+
+                            if (TIE.getExpense_date() != null ||
+                                TIE.getRealized_value() != null) {
+
+                                try {
+                                    isSave = Database.mTravelItemExpensesDao.addTravelItemExpenses(TIE);
+                                } catch (Exception e) {
+                                    Toast.makeText(requireContext(), R.string.Error_Including_Data + e.getMessage(), Toast.LENGTH_LONG).show();
                                 }
-                                TIE.setNote(etExpenseItemNote.getText().toString());
 
-                                if (TIE.getExpense_date() != null ||
-                                    TIE.getRealized_value() != null) {
-
-                                    try {
-                                        isSave = Database.mTravelItemExpensesDao.addTravelItemExpenses(TIE);
-                                    } catch (Exception e) {
-                                        Toast.makeText(requireContext(), R.string.Error_Including_Data + e.getMessage(), Toast.LENGTH_LONG).show();
-                                    }
-
-                                    if (!isSave) {
-                                        Toast.makeText(requireContext(), R.string.Error_Saving_Data, Toast.LENGTH_LONG).show();
-                                    } else {
-                                        adapterTravelItemExpenses[0] = new HomeTravelItemExpensesListAdapter(Database.mTravelItemExpensesDao.fetchTravelItemExpensesByTravelExpenseId(finalTravelExpensesList.get(0).getId()), requireContext(), finalTravelExpensesList.get(0).getTravel_id());
-                                        rvTravelExpenseItem.setAdapter(adapterTravelItemExpenses[0]);
-                                        rvTravelExpenseItem.setLayoutManager(new LinearLayoutManager(requireContext()));
-                                        adapterTravelItemExpenses[0].notifyDataSetChanged();
-                                    }
+                                if (!isSave) {
+                                    Toast.makeText(requireContext(), R.string.Error_Saving_Data, Toast.LENGTH_LONG).show();
+                                } else {
+                                    adapterTravelItemExpenses[0] = new HomeTravelItemExpensesListAdapter(Database.mTravelItemExpensesDao.fetchTravelItemExpensesByTravelExpenseId(finalTravelExpensesList.get(0).getId()), requireContext(), finalTravelExpensesList.get(0).getTravel_id());
+                                    rvTravelExpenseItem.setAdapter(adapterTravelItemExpenses[0]);
+                                    rvTravelExpenseItem.setLayoutManager(new LinearLayoutManager(requireContext()));
+                                    adapterTravelItemExpenses[0].notifyDataSetChanged();
                                 }
                             }
                         })
-                        .setNegativeButton(R.string.Cancel, new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog,int id) {
-                                dialog.cancel();
-                            }
-                        });
+                        .setNegativeButton(R.string.Cancel, (dialog, id) -> dialog.cancel());
                 AlertDialog alertDialog = alertDialogBuilder.create();
                 alertDialog.show();
             }

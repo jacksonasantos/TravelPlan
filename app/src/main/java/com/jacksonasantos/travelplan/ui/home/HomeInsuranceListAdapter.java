@@ -2,7 +2,6 @@ package com.jacksonasantos.travelplan.ui.home;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.os.Build;
@@ -17,19 +16,18 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
-import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.jacksonasantos.travelplan.R;
+import com.jacksonasantos.travelplan.dao.Broker;
+import com.jacksonasantos.travelplan.dao.Insurance;
+import com.jacksonasantos.travelplan.dao.InsuranceContact;
+import com.jacksonasantos.travelplan.dao.general.Database;
 import com.jacksonasantos.travelplan.dao.general.DialogHeader;
 import com.jacksonasantos.travelplan.dao.general.DialogItem;
 import com.jacksonasantos.travelplan.dao.general.ListItemDialog;
-import com.jacksonasantos.travelplan.R;
-import com.jacksonasantos.travelplan.dao.Broker;
-import com.jacksonasantos.travelplan.dao.general.Database;
-import com.jacksonasantos.travelplan.dao.Insurance;
-import com.jacksonasantos.travelplan.dao.InsuranceContact;
 import com.jacksonasantos.travelplan.ui.utility.Utils;
 
 import java.text.ParseException;
@@ -118,101 +116,87 @@ public class HomeInsuranceListAdapter extends RecyclerView.Adapter<RecyclerView.
             itemViewHolder.txtInsurancePolicy.setText(String.valueOf(insurance.getInsurance_policy()));
             itemViewHolder.txtInsuranceFinalEffectiveDate.setText(Utils.dateToString(insurance.getFinal_effective_date()));
 
-            itemViewHolder.llInsuranceItem.setOnClickListener(new View.OnClickListener() {
-                @SuppressLint("WrongConstant")
-                @RequiresApi(api = Build.VERSION_CODES.O)
-                @Override
-                public void onClick(View v) {
-                    LayoutInflater li = LayoutInflater.from(v.getContext());
-                    View promptsView = li.inflate(R.layout.activity_home_insurance_dialog, null);
+            itemViewHolder.llInsuranceItem.setOnClickListener(v -> {
+                LayoutInflater li = LayoutInflater.from(v.getContext());
+                View promptsView = li.inflate(R.layout.activity_home_insurance_dialog, null);
 
-                    CardView cardBroker = promptsView.findViewById(R.id.cardBroker);
-                    TextView txtBrokerName = promptsView.findViewById(R.id.txtBrokerName);
-                    TextView txtContactName = promptsView.findViewById(R.id.txtContactName);
-                    TextView txtBrokerPhone = promptsView.findViewById(R.id.txtBrokerPhone);
-                    TextView txtBrokerEmail = promptsView.findViewById(R.id.txtBrokerEmail);
+                TextView txtBrokerName = promptsView.findViewById(R.id.txtBrokerName);
+                TextView txtContactName = promptsView.findViewById(R.id.txtContactName);
+                TextView txtBrokerPhone = promptsView.findViewById(R.id.txtBrokerPhone);
+                TextView txtBrokerEmail = promptsView.findViewById(R.id.txtBrokerEmail);
 
-                    CardView cardInsurance = promptsView.findViewById(R.id.cardInsurance);
-                    ImageView imgInsuranceType = promptsView.findViewById(R.id.imgInsuranceType);
-                    TextView txtCompanyName = promptsView.findViewById(R.id.txtCompanyName);
-                    TextView txtDescription = promptsView.findViewById(R.id.txtDescription);
-                    TextView txtInsurancePolicy = promptsView.findViewById(R.id.txtInsurancePolicy);
-                    TextView txtIssuanceDate = promptsView.findViewById(R.id.txtIssuanceDate);
-                    TextView txtInitialDate = promptsView.findViewById(R.id.txtInitialDate);
-                    TextView txtFinalDate = promptsView.findViewById(R.id.txtFinalDate);
+                ImageView imgInsuranceType = promptsView.findViewById(R.id.imgInsuranceType);
+                TextView txtCompanyName = promptsView.findViewById(R.id.txtCompanyName);
+                TextView txtDescription = promptsView.findViewById(R.id.txtDescription);
+                TextView txtInsurancePolicy = promptsView.findViewById(R.id.txtInsurancePolicy);
+                TextView txtIssuanceDate = promptsView.findViewById(R.id.txtIssuanceDate);
+                TextView txtInitialDate = promptsView.findViewById(R.id.txtInitialDate);
+                TextView txtFinalDate = promptsView.findViewById(R.id.txtFinalDate);
 
-                    CardView cardContact = promptsView.findViewById(R.id.cardContact);
-                    RecyclerView rvContact = promptsView.findViewById(R.id.rvContact);
+                RecyclerView rvContact = promptsView.findViewById(R.id.rvContact);
 
-                    CardView cardAsset = promptsView.findViewById(R.id.cardAsset);
-                    TextView txtInsuranceVehicle = promptsView.findViewById(R.id.txtInsuranceVehicle);
-                    TextView txtInsuranceTravel = promptsView.findViewById(R.id.txtInsuranceTravel);
+                TextView txtInsuranceVehicle = promptsView.findViewById(R.id.txtInsuranceVehicle);
+                TextView txtInsuranceTravel = promptsView.findViewById(R.id.txtInsuranceTravel);
 
-                    Broker brokerList = Database.mBrokerDao.fetchBrokerById(insurance.getBroker_id());
-                    txtBrokerName.setText(brokerList.getName());
-                    txtContactName.setText(brokerList.getContact_name());
-                    txtBrokerPhone.setText(brokerList.getPhone());
-                    txtBrokerEmail.setText(brokerList.getEmail());
+                Broker brokerList = Database.mBrokerDao.fetchBrokerById(insurance.getBroker_id());
+                txtBrokerName.setText(brokerList.getName());
+                txtContactName.setText(brokerList.getContact_name());
+                txtBrokerPhone.setText(brokerList.getPhone());
+                txtBrokerEmail.setText(brokerList.getEmail());
 
-                    imgInsuranceType.setImageResource(insurance.getInsurance_typeImage(insurance.getInsurance_type()));
-                    txtCompanyName.setText(Database.mInsuranceCompanyDao.fetchInsuranceCompanyById(insurance.getInsurance_company_id()).getCompany_name().trim());
-                    txtDescription.setText(insurance.getDescription());
-                    txtInsurancePolicy.setText(insurance.getInsurance_policy());
-                    txtIssuanceDate.setText(Utils.dateToString(insurance.getIssuance_date()));
-                    txtInitialDate.setText(Utils.dateToString(insurance.getInitial_effective_date()));
-                    txtFinalDate.setText(Utils.dateToString(insurance.getFinal_effective_date()));
+                imgInsuranceType.setImageResource(insurance.getInsurance_typeImage(insurance.getInsurance_type()));
+                txtCompanyName.setText(Database.mInsuranceCompanyDao.fetchInsuranceCompanyById(insurance.getInsurance_company_id()).getCompany_name().trim());
+                txtDescription.setText(insurance.getDescription());
+                txtInsurancePolicy.setText(insurance.getInsurance_policy());
+                txtIssuanceDate.setText(Utils.dateToString(insurance.getIssuance_date()));
+                txtInitialDate.setText(Utils.dateToString(insurance.getInitial_effective_date()));
+                txtFinalDate.setText(Utils.dateToString(insurance.getFinal_effective_date()));
 
-                    final ArrayList<ListItemDialog> items = new ArrayList<>();
-                    final HomeInsuranceContactDataAdapter adapterInsuranceContact = new HomeInsuranceContactDataAdapter(items);
-                    final GridLayoutManager gd = new GridLayoutManager(context, 2);
-                    gd.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
-                        @Override
-                        public int getSpanSize(int position) {
-                            return adapterInsuranceContact.getItemViewType(position) == ListItemDialog.TYPE_HEADER ? 2 : 1;
-                        }
-                    });
-                    List<InsuranceContact> insuranceContact = Database.mInsuranceContactDao.fetchInsuranceContactByInsurance(insurance.getId());
-                    String x = "";
-                    for (int i=0; i<insuranceContact.size(); i++) {
-                        if (!x.equals(insuranceContact.get(i).getType_contact())){
-                            items.add(new DialogHeader(insuranceContact.get(i).getType_contact()));
-                            x = insuranceContact.get(i).getType_contact();
-                        }
-                        items.add(new DialogItem(insuranceContact.get(i).getDescription_contact(),insuranceContact.get(i).getDetail_contact()));
+                final ArrayList<ListItemDialog> items = new ArrayList<>();
+                final HomeInsuranceContactDataAdapter adapterInsuranceContact = new HomeInsuranceContactDataAdapter(items);
+                final GridLayoutManager gd = new GridLayoutManager(context, 2);
+                gd.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+                    @Override
+                    public int getSpanSize(int position1) {
+                        return adapterInsuranceContact.getItemViewType(position1) == ListItemDialog.TYPE_HEADER ? 2 : 1;
                     }
-                    rvContact.setLayoutManager(gd);
-                    rvContact.setAdapter(adapterInsuranceContact);
-                    adapterInsuranceContact.notifyDataSetChanged();
-
-                    txtInsuranceVehicle.setText(Database.mVehicleDao.fetchVehicleById(insurance.getVehicle_id()).getName());
-                    txtInsuranceTravel.setText((Database.mTravelDao.fetchTravelById(insurance.getTravel_id()).getDescription()));
-
-                    final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(v.getContext(), R.style.MyDialogStyle);
-                    alertDialogBuilder.setView(promptsView);
-                    alertDialogBuilder.setCancelable(false)
-                            .setPositiveButton(R.string.OK, new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog,int id) {
-                                }
-                            });
-                    AlertDialog alertDialog = alertDialogBuilder.create();
-                    alertDialog.show();
+                });
+                List<InsuranceContact> insuranceContact = Database.mInsuranceContactDao.fetchInsuranceContactByInsurance(insurance.getId());
+                String x = "";
+                for (int i=0; i<insuranceContact.size(); i++) {
+                    if (!x.equals(insuranceContact.get(i).getType_contact())){
+                        items.add(new DialogHeader(insuranceContact.get(i).getType_contact()));
+                        x = insuranceContact.get(i).getType_contact();
+                    }
+                    items.add(new DialogItem(insuranceContact.get(i).getDescription_contact(),insuranceContact.get(i).getDetail_contact()));
                 }
+                rvContact.setLayoutManager(gd);
+                rvContact.setAdapter(adapterInsuranceContact);
+                adapterInsuranceContact.notifyDataSetChanged();
+
+                txtInsuranceVehicle.setText(Database.mVehicleDao.fetchVehicleById(insurance.getVehicle_id()).getName());
+                txtInsuranceTravel.setText((Database.mTravelDao.fetchTravelById(insurance.getTravel_id()).getDescription()));
+
+                final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(v.getContext(), R.style.MyDialogStyle);
+                alertDialogBuilder.setView(promptsView);
+                alertDialogBuilder.setCancelable(false)
+                        .setPositiveButton(R.string.OK, (dialog, id) -> {
+                        });
+                AlertDialog alertDialog = alertDialogBuilder.create();
+                alertDialog.show();
             });
 
             // btnDone - change Status for Service for completed and remove of list
-            itemViewHolder.btnDoneInsurance.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    try {
-                        Insurance i1 = Database.mInsuranceDao.fetchInsuranceById(insurance.getId());
-                        i1.setStatus(insurance.getStatus() == 0 ? 1 : 0);
-                        if (Database.mInsuranceDao.updateInsurance(i1)) {
-                            mInsurance.remove(position);
-                            notifyDataSetChanged();
-                        }
-                    } catch (Exception e) {
-                        Toast.makeText(context, context.getString(R.string.Error_Changing_Data) + "\n" + e.getMessage(), Toast.LENGTH_LONG).show();
+            itemViewHolder.btnDoneInsurance.setOnClickListener(v -> {
+                try {
+                    Insurance i1 = Database.mInsuranceDao.fetchInsuranceById(insurance.getId());
+                    i1.setStatus(insurance.getStatus() == 0 ? 1 : 0);
+                    if (Database.mInsuranceDao.updateInsurance(i1)) {
+                        mInsurance.remove(position);
+                        notifyDataSetChanged();
                     }
+                } catch (Exception e) {
+                    Toast.makeText(context, context.getString(R.string.Error_Changing_Data) + "\n" + e.getMessage(), Toast.LENGTH_LONG).show();
                 }
             });
         }

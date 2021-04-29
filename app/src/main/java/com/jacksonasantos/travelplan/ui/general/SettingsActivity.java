@@ -47,12 +47,9 @@ public class SettingsActivity extends AppCompatActivity {
 
             ListPreference langPref = findPreference("language");
             assert langPref != null;
-            langPref.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
-                @Override
-                public boolean onPreferenceChange(Preference preference, Object o) {
-                    preference.setSummary(o.toString());
-                    return true;
-                }
+            langPref.setOnPreferenceChangeListener((preference, o) -> {
+                preference.setSummary(o.toString());
+                return true;
             });
             ListPreference langPreference = findPreference("language");
             assert langPreference != null;
@@ -69,24 +66,22 @@ public class SettingsActivity extends AppCompatActivity {
             }
             assert v != null;
             v.close();
-            final CharSequence[] entryCharSeq = entries.toArray(new CharSequence[entries.size()]);
-            final CharSequence[] entryValChar = entryValues.toArray(new CharSequence[entryValues.size()]);
+            final CharSequence[] entryCharSeq = entries.toArray(new CharSequence[0]);
+            final CharSequence[] entryValChar = entryValues.toArray(new CharSequence[0]);
+            assert vehicleList != null;
             vehicleList.setEntries(entryCharSeq);
             vehicleList.setEntryValues(entryValChar);
         }
 
-        Preference.OnPreferenceChangeListener languageChangeListener = new Preference.OnPreferenceChangeListener() {
-            @Override
-            public boolean onPreferenceChange(Preference preference, Object newValue) {
-                if ("en".equals(newValue.toString())) {
-                    PreferenceManager.getDefaultSharedPreferences(requireContext()).edit().putString("LANG", "en").apply();
-                    setLocale("en");
-                } else {
-                    PreferenceManager.getDefaultSharedPreferences(requireContext()).edit().putString("LANG", "pt").apply();
-                    setLocale("pt");
-                }
-                return true;
+        Preference.OnPreferenceChangeListener languageChangeListener = (preference, newValue) -> {
+            if ("en".equals(newValue.toString())) {
+                PreferenceManager.getDefaultSharedPreferences(requireContext()).edit().putString("LANG", "en").apply();
+                setLocale("en");
+            } else {
+                PreferenceManager.getDefaultSharedPreferences(requireContext()).edit().putString("LANG", "pt").apply();
+                setLocale("pt");
             }
+            return true;
         };
 
         public void setLocale(String lang) {

@@ -3,8 +3,6 @@ package com.jacksonasantos.travelplan.ui.vehicle;
 import android.annotation.SuppressLint;
 import android.os.Build;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
@@ -20,10 +18,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.jacksonasantos.travelplan.R;
-import com.jacksonasantos.travelplan.dao.general.Database;
 import com.jacksonasantos.travelplan.dao.MaintenancePlan;
 import com.jacksonasantos.travelplan.dao.Vehicle;
 import com.jacksonasantos.travelplan.dao.VehicleHasPlan;
+import com.jacksonasantos.travelplan.dao.general.Database;
 import com.jacksonasantos.travelplan.ui.utility.Globals;
 
 import java.util.List;
@@ -111,16 +109,13 @@ public class VehiclePlanActivity extends AppCompatActivity {
         spinService_description.setAdapter(adapterT);
 
         final MaintenancePlan[] mp1 = {new MaintenancePlan()};
-        spinService_description.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                mp1[0] = (MaintenancePlan) parent.getItemAtPosition(position);
-                nrspinService_description = mp1[0].getId();
-                etRecommendation.setText(mp1[0].getRecommendation());
-                nrMeasure = mp1[0].getMeasure();
-                etMeasure.setText(getResources().getStringArray(R.array.measure_plan)[nrMeasure]);
-                //etExpirationNumber.setText(String.valueOf(mp1[0].getExpiration_default()));
-            }
+        spinService_description.setOnItemClickListener((parent, view, position, id) -> {
+            mp1[0] = (MaintenancePlan) parent.getItemAtPosition(position);
+            nrspinService_description = mp1[0].getId();
+            etRecommendation.setText(mp1[0].getRecommendation());
+            nrMeasure = mp1[0].getMeasure();
+            etMeasure.setText(getResources().getStringArray(R.array.measure_plan)[nrMeasure]);
+            //etExpirationNumber.setText(String.valueOf(mp1[0].getExpiration_default()));
         });
         adapterT.notifyDataSetChanged();
 
@@ -147,55 +142,52 @@ public class VehiclePlanActivity extends AppCompatActivity {
         adapter.notifyDataSetChanged();
 
 
-        btSaveVehiclePlan.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                boolean isSave = false;
+        btSaveVehiclePlan.setOnClickListener(v -> {
+            boolean isSave = false;
 
-                if (!validateData()) {
-                    Toast.makeText(getApplicationContext(), R.string.Error_Data_Validation, Toast.LENGTH_LONG).show();
+            if (!validateData()) {
+                Toast.makeText(getApplicationContext(), R.string.Error_Data_Validation, Toast.LENGTH_LONG).show();
+            } else {
+                final VehicleHasPlan vp1 = new VehicleHasPlan();
+
+                vp1.setVehicle_id(nrVehicle_id);
+                vp1.setMaintenance_plan_id(nrspinService_description);
+                if (etExpirationNumber.getText().toString().isEmpty()){
+                    vp1.setExpiration(0);
                 } else {
-                    final VehicleHasPlan vp1 = new VehicleHasPlan();
+                    vp1.setExpiration(Integer.parseInt(etExpirationNumber.getText().toString()));
+                }
 
-                    vp1.setVehicle_id(nrVehicle_id);
-                    vp1.setMaintenance_plan_id(nrspinService_description);
-                    if (etExpirationNumber.getText().toString().isEmpty()){
-                        vp1.setExpiration(0);
-                    } else {
-                        vp1.setExpiration(Integer.parseInt(etExpirationNumber.getText().toString()));
+                if (!opInsert) {
+                    try {
+                        vp1.setId(vehicleHasPlan.getId());
+                        isSave = Database.mVehicleHasPlanDao.updateVehicleHasPlan(vp1);
+                    } catch (Exception e) {
+                        Toast.makeText(getApplicationContext(), R.string.Error_Changing_Data + e.getMessage(), Toast.LENGTH_LONG).show();
                     }
+                } else {
+                    try {
+                        isSave = Database.mVehicleHasPlanDao.addVehicleHasPlan(vp1);
 
-                    if (!opInsert) {
-                        try {
-                            vp1.setId(vehicleHasPlan.getId());
-                            isSave = Database.mVehicleHasPlanDao.updateVehicleHasPlan(vp1);
-                        } catch (Exception e) {
-                            Toast.makeText(getApplicationContext(), R.string.Error_Changing_Data + e.getMessage(), Toast.LENGTH_LONG).show();
-                        }
-                    } else {
-                        try {
-                            isSave = Database.mVehicleHasPlanDao.addVehicleHasPlan(vp1);
-
-                        } catch (Exception e) {
-                            Toast.makeText(getApplicationContext(), R.string.Error_Including_Data + e.getMessage(), Toast.LENGTH_LONG).show();
-                        }
+                    } catch (Exception e) {
+                        Toast.makeText(getApplicationContext(), R.string.Error_Including_Data + e.getMessage(), Toast.LENGTH_LONG).show();
                     }
+                }
 
-                    setResult(isSave ? 1 : 0);
-                    if (!isSave) {
-                        Toast.makeText(getApplicationContext(), R.string.Error_Saving_Data, Toast.LENGTH_LONG).show();
-                    } else {
-                        adapter = new VehiclePlanListAdapter(Database.mVehicleHasPlanDao.fetchAllVehicleHasPlanByVehicle(nrVehicle_id), getApplicationContext());
-                        rvVehiclePlan.setAdapter(adapter);
-                        adapter.notifyDataSetChanged();
+                setResult(isSave ? 1 : 0);
+                if (!isSave) {
+                    Toast.makeText(getApplicationContext(), R.string.Error_Saving_Data, Toast.LENGTH_LONG).show();
+                } else {
+                    adapter = new VehiclePlanListAdapter(Database.mVehicleHasPlanDao.fetchAllVehicleHasPlanByVehicle(nrVehicle_id), getApplicationContext());
+                    rvVehiclePlan.setAdapter(adapter);
+                    adapter.notifyDataSetChanged();
 
-                        spinService_description.setText("");
-                        nrspinService_description = 0;
-                        etRecommendation.setText("");
-                        nrMeasure = 0;
-                        etMeasure.setText("");
-                        etExpirationNumber.setText("");
-                    }
+                    spinService_description.setText("");
+                    nrspinService_description = 0;
+                    etRecommendation.setText("");
+                    nrMeasure = 0;
+                    etMeasure.setText("");
+                    etExpirationNumber.setText("");
                 }
             }
         });

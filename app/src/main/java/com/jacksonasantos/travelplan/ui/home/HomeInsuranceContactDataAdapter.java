@@ -63,7 +63,7 @@ public class HomeInsuranceContactDataAdapter extends RecyclerView.Adapter<Recycl
         TextView tvTypeContact;
         public VHHeader(View itemView) {
             super(itemView);
-            this.tvTypeContact = (TextView)itemView.findViewById(R.id.tvTypeContact);
+            this.tvTypeContact = itemView.findViewById(R.id.tvTypeContact);
         }
     }
 
@@ -72,8 +72,8 @@ public class HomeInsuranceContactDataAdapter extends RecyclerView.Adapter<Recycl
         TextView tvDetailContact;
         public VHItem(View itemView) {
             super(itemView);
-            this.tvDescriptionContact = (TextView)itemView.findViewById(R.id.tvDescriptionContact);
-            this.tvDetailContact = (TextView)itemView.findViewById(R.id.tvDetailContact);
+            this.tvDescriptionContact = itemView.findViewById(R.id.tvDescriptionContact);
+            this.tvDetailContact = itemView.findViewById(R.id.tvDetailContact);
         }
     }
 }

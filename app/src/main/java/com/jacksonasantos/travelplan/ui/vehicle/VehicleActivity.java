@@ -116,31 +116,17 @@ public class VehicleActivity extends AppCompatActivity {
         etAccumulatedSupplyValue= findViewById(R.id.etAccumulatedSupplyValue);
 
         Utils.addRadioButtonResources(R.array.vehicle_type_array, rgVehicleType, this);
-        rgVehicleType.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                rbVehicleType = checkedId;
-            }
-        });
+        rgVehicleType.setOnCheckedChangeListener((group, checkedId) -> rbVehicleType = checkedId);
         Utils.createSpinnerResources(R.array.fuel_type_array, spinFuelType, this);
         nrspinFuelType = 0;
-        spinFuelType.setOnItemClickListener(new Spinner.OnItemClickListener() {
-            @Override public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                nrspinFuelType = (int) adapterView.getItemIdAtPosition(i);
-            }
-        });
+        spinFuelType.setOnItemClickListener((adapterView, view, i, l) -> nrspinFuelType = (int) adapterView.getItemIdAtPosition(i));
         etAcquisition.addTextChangedListener(new DateInputMask(etAcquisition));
         etSale.addTextChangedListener(new DateInputMask(etSale));
         etDtOdometer.addTextChangedListener(new DateInputMask(etDtOdometer));
 
         etDtLastFueling.addTextChangedListener(new DateInputMask(etDtLastFueling));
         Utils.addRadioButtonResources(R.array.supply_reason_type_array, rgLastSupplyReasonType, this);
-        rgLastSupplyReasonType.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                rbLastSupplyReasonType = checkedId;
-            }
-        });
+        rgLastSupplyReasonType.setOnCheckedChangeListener((group, checkedId) -> rbLastSupplyReasonType = checkedId);
 
         if (vehicle != null) {
             rgVehicleType.check(vehicle.getVehicle_type());
@@ -179,87 +165,84 @@ public class VehicleActivity extends AppCompatActivity {
     public void addListenerOnButtonSave() {
        Button btSaveVehicle = findViewById(R.id.btSaveVehicle);
 
-        btSaveVehicle.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                boolean isSave = false;
-                if (!validateData()) {
-                    Toast.makeText(getApplicationContext(), R.string.Error_Data_Validation, Toast.LENGTH_LONG).show();
+        btSaveVehicle.setOnClickListener(v -> {
+            boolean isSave = false;
+            if (!validateData()) {
+                Toast.makeText(getApplicationContext(), R.string.Error_Data_Validation, Toast.LENGTH_LONG).show();
+            } else {
+                final Vehicle v1 = new Vehicle();
+                v1.setVehicle_type(rbVehicleType);
+                v1.setName(etNameVehicle.getText().toString());
+                v1.setShort_name(etShortNameVehicle.getText().toString());
+                v1.setBrand(etBrand.getText().toString());
+                v1.setModel(etModel.getText().toString());
+                v1.setFuel_type(nrspinFuelType);
+                v1.setYear_model(etYearModel.getText().toString());
+                v1.setYear_manufacture(etYearManufacture.getText().toString());
+                v1.setLicense_plate(etLicencePlateVehicle.getText().toString());
+                v1.setColor(etColor.getText().toString());
+                v1.setVin(etVin.getText().toString());
+                v1.setLicence_number(etLicenceNumber.getText().toString());
+                v1.setState(etStateVehicle.getText().toString());
+                v1.setCity(etCityVehicle.getText().toString());
+                v1.setDt_acquisition(Utils.stringToDate(etAcquisition.getText().toString()));
+                v1.setDt_sale(Utils.stringToDate(etSale.getText().toString()));
+                if (!etDoors.getText().toString().isEmpty()) {
+                    v1.setDoors(Integer.parseInt(etDoors.getText().toString()));
+                } else { v1.setDoors(0); }
+                if (!etCapacity.getText().toString().isEmpty()) {
+                    v1.setCapacity(Integer.parseInt(etCapacity.getText().toString()));
+                } else { v1.setCapacity(0); }
+                if (!etPower.getText().toString().isEmpty()) {
+                    v1.setPower(Integer.parseInt(etPower.getText().toString()));
+                } else { v1.setPower(0); }
+                if (!etEstimatedValue.getText().toString().isEmpty()) {
+                    v1.setEstimated_value(Double.parseDouble(etEstimatedValue.getText().toString()));
+                } else { v1.setEstimated_value(0); }
+                if (!etFullCapacity.getText().toString().isEmpty()) {
+                    v1.setFull_capacity(Integer.parseInt(etFullCapacity.getText().toString()));
+                } else { v1.setFull_capacity(0); }
+                if (!etAVGConsumption.getText().toString().isEmpty()) {
+                    v1.setAvg_consumption(Float.parseFloat(etAVGConsumption.getText().toString()));
+                } else { v1.setAvg_consumption(0); }
+                if (!etAVGCostLitre.getText().toString().isEmpty()) {
+                    v1.setAvg_cost_litre(Float.parseFloat(etAVGCostLitre.getText().toString()));
+                } else { v1.setAvg_cost_litre(0); }
+                v1.setDt_odometer(Utils.stringToDate(etDtOdometer.getText().toString()));
+                if (!etOdometer.getText().toString().isEmpty()) {
+                    v1.setOdometer(Integer.parseInt(etOdometer.getText().toString()));
+                } else { v1.setOdometer(0); }
+                v1.setDt_last_fueling(Utils.stringToDate(etDtLastFueling.getText().toString()));
+                if (rbLastSupplyReasonType>0||rgLastSupplyReasonType.getCheckedRadioButtonId()!= 0){
+                    v1.setLast_supply_reason_type(findViewById(rbLastSupplyReasonType).getId());
+                } else {v1.setLast_supply_reason_type(0);}
+                if (!etAccumulatedNumberLiters.getText().toString().isEmpty()) {
+                    v1.setAccumulated_number_liters(Double.parseDouble(etAccumulatedNumberLiters.getText().toString()));
+                } else { v1.setAccumulated_number_liters(0); }
+                if (!etAccumulatedSupplyValue.getText().toString().isEmpty()) {
+                    v1.setAccumulated_supply_value(Double.parseDouble(etAccumulatedSupplyValue.getText().toString()));
+                } else { v1.setAccumulated_supply_value(0); }
+
+                if (!opInsert) {
+                    try {
+                        v1.setId(vehicle.getId());
+                        isSave = Database.mVehicleDao.updateVehicle(v1);
+                    } catch (Exception e ){
+                        Toast.makeText(getApplicationContext(), R.string.Error_Changing_Data + e.getMessage(), Toast.LENGTH_LONG).show();
+                    }
                 } else {
-                    final Vehicle v1 = new Vehicle();
-                    v1.setVehicle_type(rbVehicleType);
-                    v1.setName(etNameVehicle.getText().toString());
-                    v1.setShort_name(etShortNameVehicle.getText().toString());
-                    v1.setBrand(etBrand.getText().toString());
-                    v1.setModel(etModel.getText().toString());
-                    v1.setFuel_type(nrspinFuelType);
-                    v1.setYear_model(etYearModel.getText().toString());
-                    v1.setYear_manufacture(etYearManufacture.getText().toString());
-                    v1.setLicense_plate(etLicencePlateVehicle.getText().toString());
-                    v1.setColor(etColor.getText().toString());
-                    v1.setVin(etVin.getText().toString());
-                    v1.setLicence_number(etLicenceNumber.getText().toString());
-                    v1.setState(etStateVehicle.getText().toString());
-                    v1.setCity(etCityVehicle.getText().toString());
-                    v1.setDt_acquisition(Utils.stringToDate(etAcquisition.getText().toString()));
-                    v1.setDt_sale(Utils.stringToDate(etSale.getText().toString()));
-                    if (!etDoors.getText().toString().isEmpty()) {
-                        v1.setDoors(Integer.parseInt(etDoors.getText().toString()));
-                    } else { v1.setDoors(0); }
-                    if (!etCapacity.getText().toString().isEmpty()) {
-                        v1.setCapacity(Integer.parseInt(etCapacity.getText().toString()));
-                    } else { v1.setCapacity(0); }
-                    if (!etPower.getText().toString().isEmpty()) {
-                        v1.setPower(Integer.parseInt(etPower.getText().toString()));
-                    } else { v1.setPower(0); }
-                    if (!etEstimatedValue.getText().toString().isEmpty()) {
-                        v1.setEstimated_value(Double.parseDouble(etEstimatedValue.getText().toString()));
-                    } else { v1.setEstimated_value(0); }
-                    if (!etFullCapacity.getText().toString().isEmpty()) {
-                        v1.setFull_capacity(Integer.parseInt(etFullCapacity.getText().toString()));
-                    } else { v1.setFull_capacity(0); }
-                    if (!etAVGConsumption.getText().toString().isEmpty()) {
-                        v1.setAvg_consumption(Float.parseFloat(etAVGConsumption.getText().toString()));
-                    } else { v1.setAvg_consumption(0); }
-                    if (!etAVGCostLitre.getText().toString().isEmpty()) {
-                        v1.setAvg_cost_litre(Float.parseFloat(etAVGCostLitre.getText().toString()));
-                    } else { v1.setAvg_cost_litre(0); }
-                    v1.setDt_odometer(Utils.stringToDate(etDtOdometer.getText().toString()));
-                    if (!etOdometer.getText().toString().isEmpty()) {
-                        v1.setOdometer(Integer.parseInt(etOdometer.getText().toString()));
-                    } else { v1.setOdometer(0); }
-                    v1.setDt_last_fueling(Utils.stringToDate(etDtLastFueling.getText().toString()));
-                    if (rbLastSupplyReasonType>0||rgLastSupplyReasonType.getCheckedRadioButtonId()!= 0){
-                        v1.setLast_supply_reason_type(findViewById(rbLastSupplyReasonType).getId());
-                    } else {v1.setLast_supply_reason_type(0);}
-                    if (!etAccumulatedNumberLiters.getText().toString().isEmpty()) {
-                        v1.setAccumulated_number_liters(Double.parseDouble(etAccumulatedNumberLiters.getText().toString()));
-                    } else { v1.setAccumulated_number_liters(0); }
-                    if (!etAccumulatedSupplyValue.getText().toString().isEmpty()) {
-                        v1.setAccumulated_supply_value(Double.parseDouble(etAccumulatedSupplyValue.getText().toString()));
-                    } else { v1.setAccumulated_supply_value(0); }
-
-                    if (!opInsert) {
-                        try {
-                            v1.setId(vehicle.getId());
-                            isSave = Database.mVehicleDao.updateVehicle(v1);
-                        } catch (Exception e ){
-                            Toast.makeText(getApplicationContext(), R.string.Error_Changing_Data + e.getMessage(), Toast.LENGTH_LONG).show();
-                        }
-                    } else {
-                        try {
-                            isSave = Database.mVehicleDao.addVehicle(v1);
-                        } catch ( Exception e ) {
-                            Toast.makeText(getApplicationContext(), R.string.Error_Including_Data + e.getMessage(), Toast.LENGTH_LONG).show();
-                        }
+                    try {
+                        isSave = Database.mVehicleDao.addVehicle(v1);
+                    } catch ( Exception e ) {
+                        Toast.makeText(getApplicationContext(), R.string.Error_Including_Data + e.getMessage(), Toast.LENGTH_LONG).show();
                     }
+                }
 
-                    setResult(isSave ? 1 : 0);
-                    if (isSave) {
-                        finish();
-                    } else {
-                        Toast.makeText(getApplicationContext(), R.string.Error_Saving_Data, Toast.LENGTH_LONG).show();
-                    }
+                setResult(isSave ? 1 : 0);
+                if (isSave) {
+                    finish();
+                } else {
+                    Toast.makeText(getApplicationContext(), R.string.Error_Saving_Data, Toast.LENGTH_LONG).show();
                 }
             }
         });

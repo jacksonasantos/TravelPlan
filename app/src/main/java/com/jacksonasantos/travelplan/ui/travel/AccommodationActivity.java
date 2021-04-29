@@ -81,12 +81,7 @@ public class AccommodationActivity extends AppCompatActivity {
 
         Utils.createSpinnerResources(R.array.accommodation_type_array, spinAccommodation_Accommodation_Type, this);
         nrSpinAccommodation_Accommodation_Type = 0;
-        spinAccommodation_Accommodation_Type.setOnItemClickListener(new Spinner.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                nrSpinAccommodation_Accommodation_Type = (int) adapterView.getItemIdAtPosition(i);
-            }
-        });
+        spinAccommodation_Accommodation_Type.setOnItemClickListener((adapterView, view, i, l) -> nrSpinAccommodation_Accommodation_Type = (int) adapterView.getItemIdAtPosition(i));
 
         if (accommodation != null) {
             etAccommodationName.setText(accommodation.getName());
@@ -107,50 +102,46 @@ public class AccommodationActivity extends AppCompatActivity {
     public void addListenerOnButtonSave() {
         Button btSaveAccommodation = findViewById(R.id.btSaveAccommodation);
 
-        btSaveAccommodation.setOnClickListener(new View.OnClickListener() {
-            @RequiresApi(api = Build.VERSION_CODES.KITKAT)
-            @Override
-            public void onClick(View v) {
-                boolean isSave = false;
+        btSaveAccommodation.setOnClickListener(v -> {
+            boolean isSave = false;
 
-                if (!validateData()) {
-                    Toast.makeText(getApplicationContext(), R.string.Error_Data_Validation, Toast.LENGTH_LONG).show();
+            if (!validateData()) {
+                Toast.makeText(getApplicationContext(), R.string.Error_Data_Validation, Toast.LENGTH_LONG).show();
+            } else {
+                final Accommodation a1 = new Accommodation();
+
+                a1.setName(etAccommodationName.getText().toString());
+                a1.setAddress(etAccommodation_Address.getText().toString());
+                a1.setCity(etAccommodation_City.getText().toString());
+                a1.setState(etAccommodation_State.getText().toString());
+                a1.setCountry(etAccommodation_Country.getText().toString());
+                a1.setLatlng_accommodation(etAccommodation_Latlng_Accommodation.getText().toString());
+                a1.setContact_name(etAccommodation_Contact_Name.getText().toString());
+                a1.setPhone(etAccommodation_Phone.getText().toString());
+                a1.setEmail(etAccommodation_Email.getText().toString());
+                a1.setSite(etAccommodation_Site.getText().toString());
+                a1.setAccommodation_type(nrSpinAccommodation_Accommodation_Type);
+
+                if (!opInsert) {
+                    try {
+                        a1.setId(accommodation.getId());
+                        isSave = Database.mAccommodationDao.updateAccommodation(a1);
+                    } catch (Exception e) {
+                        Toast.makeText(getApplicationContext(), R.string.Error_Changing_Data + e.getMessage(), Toast.LENGTH_LONG).show();
+                    }
                 } else {
-                    final Accommodation a1 = new Accommodation();
-
-                    a1.setName(etAccommodationName.getText().toString());
-                    a1.setAddress(etAccommodation_Address.getText().toString());
-                    a1.setCity(etAccommodation_City.getText().toString());
-                    a1.setState(etAccommodation_State.getText().toString());
-                    a1.setCountry(etAccommodation_Country.getText().toString());
-                    a1.setLatlng_accommodation(etAccommodation_Latlng_Accommodation.getText().toString());
-                    a1.setContact_name(etAccommodation_Contact_Name.getText().toString());
-                    a1.setPhone(etAccommodation_Phone.getText().toString());
-                    a1.setEmail(etAccommodation_Email.getText().toString());
-                    a1.setSite(etAccommodation_Site.getText().toString());
-                    a1.setAccommodation_type(nrSpinAccommodation_Accommodation_Type);
-
-                    if (!opInsert) {
-                        try {
-                            a1.setId(accommodation.getId());
-                            isSave = Database.mAccommodationDao.updateAccommodation(a1);
-                        } catch (Exception e) {
-                            Toast.makeText(getApplicationContext(), R.string.Error_Changing_Data + e.getMessage(), Toast.LENGTH_LONG).show();
-                        }
-                    } else {
-                        try {
-                            isSave = Database.mAccommodationDao.addAccommodation(a1);
-                        } catch (Exception e) {
-                            Toast.makeText(getApplicationContext(), R.string.Error_Including_Data + e.getMessage(), Toast.LENGTH_LONG).show();
-                        }
+                    try {
+                        isSave = Database.mAccommodationDao.addAccommodation(a1);
+                    } catch (Exception e) {
+                        Toast.makeText(getApplicationContext(), R.string.Error_Including_Data + e.getMessage(), Toast.LENGTH_LONG).show();
                     }
+                }
 
-                    setResult(isSave ? 1 : 0);
-                    if (isSave) {
-                        finish();
-                    } else {
-                        Toast.makeText(getApplicationContext(), R.string.Error_Saving_Data, Toast.LENGTH_LONG).show();
-                    }
+                setResult(isSave ? 1 : 0);
+                if (isSave) {
+                    finish();
+                } else {
+                    Toast.makeText(getApplicationContext(), R.string.Error_Saving_Data, Toast.LENGTH_LONG).show();
                 }
             }
         });

@@ -1,7 +1,6 @@
 package com.jacksonasantos.travelplan.ui.vehicle;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.view.LayoutInflater;
@@ -17,9 +16,9 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.jacksonasantos.travelplan.R;
-import com.jacksonasantos.travelplan.dao.general.Database;
 import com.jacksonasantos.travelplan.dao.Maintenance;
 import com.jacksonasantos.travelplan.dao.Vehicle;
+import com.jacksonasantos.travelplan.dao.general.Database;
 import com.jacksonasantos.travelplan.ui.utility.Globals;
 import com.jacksonasantos.travelplan.ui.utility.Utils;
 
@@ -92,39 +91,28 @@ public class MaintenanceListAdapter extends RecyclerView.Adapter<MaintenanceList
         holder.txtMaintenanceDetail.setText(maintenance.getDetail());
 
         // btnEdit
-        holder.btnEdit.setOnClickListener (new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent (v.getContext(), MaintenanceActivity.class);
-                intent.putExtra("maintenance_id", maintenance.getId());
-                context.startActivity(intent);
-                notifyDataSetChanged();
-            }
+        holder.btnEdit.setOnClickListener (v12 -> {
+            Intent intent = new Intent (v12.getContext(), MaintenanceActivity.class);
+            intent.putExtra("maintenance_id", maintenance.getId());
+            context.startActivity(intent);
+            notifyDataSetChanged();
         });
 
         // btnDelete
-        holder.btnDelete.setOnClickListener (new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                new AlertDialog.Builder(v.getContext())
-                        .setTitle(R.string.Maintenance_Deleting)
-                        .setMessage(R.string.Msg_Confirm)
-                        .setPositiveButton(R.string.Yes, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                try {
-                                    Database.mMaintenanceDao.deleteMaintenance(maintenance.getId());
-                                    mMaintenance.remove(position);
-                                    notifyItemRemoved(position);
-                                    notifyItemRangeChanged(position,mMaintenance.size());
-                                } catch (Exception e) {
-                                    Toast.makeText(context, context.getString(R.string.Error_Deleting_Data) + "\n" + e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
-                                }
-                            }
-                        }).setNegativeButton(R.string.No, null)
-                        .show();
-            }
-        });
+        holder.btnDelete.setOnClickListener (v1 -> new AlertDialog.Builder(v1.getContext())
+                .setTitle(R.string.Maintenance_Deleting)
+                .setMessage(R.string.Msg_Confirm)
+                .setPositiveButton(R.string.Yes, (dialogInterface, i) -> {
+                    try {
+                        Database.mMaintenanceDao.deleteMaintenance(maintenance.getId());
+                        mMaintenance.remove(position);
+                        notifyItemRemoved(position);
+                        notifyItemRangeChanged(position, mMaintenance.size());
+                    } catch (Exception e) {
+                        Toast.makeText(context, context.getString(R.string.Error_Deleting_Data) + "\n" + e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+                    }
+                }).setNegativeButton(R.string.No, null)
+                .show());
     }
 
     @Override

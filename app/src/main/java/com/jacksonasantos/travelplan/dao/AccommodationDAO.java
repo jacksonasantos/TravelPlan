@@ -10,12 +10,20 @@ import android.util.Log;
 import androidx.annotation.RequiresApi;
 
 import com.jacksonasantos.travelplan.dao.general.DbContentProvider;
-import com.jacksonasantos.travelplan.dao.interfaces.AccommodationIDAO;
 import com.jacksonasantos.travelplan.dao.interfaces.AccommodationISchema;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+
+interface AccommodationIDAO {
+    Accommodation fetchAccommodationById(Integer id);
+    List<Accommodation> fetchAllAccommodation();
+    ArrayList<Accommodation> fetchArrayAccommodation();
+    boolean addAccommodation(Accommodation accommodation);
+    void deleteAccommodation(Integer id);
+    boolean updateAccommodation(Accommodation accommodation);
+}
 
 public class AccommodationDAO extends DbContentProvider implements AccommodationISchema, AccommodationIDAO {
 
@@ -44,15 +52,12 @@ public class AccommodationDAO extends DbContentProvider implements Accommodation
 
     public List<Accommodation> fetchAllAccommodation() {
         List<Accommodation> accommodationList = new ArrayList<>();
-
         cursor = super.query(ACCOMMODATION_TABLE, ACCOMMODATION_COLUMNS, null,null, ACCOMMODATION_NAME);
-
         if (cursor.moveToFirst()) {
             do {
                 Accommodation accommodation = cursorToEntity(cursor);
                 accommodationList.add(accommodation);
             } while (cursor.moveToNext());
-
             cursor.close();
         }
         return accommodationList;
@@ -62,10 +67,10 @@ public class AccommodationDAO extends DbContentProvider implements Accommodation
         ArrayList<Accommodation> accommodationList = new ArrayList<>();
         Cursor cursor = super.query(ACCOMMODATION_TABLE, ACCOMMODATION_COLUMNS, null,null, ACCOMMODATION_NAME);
         if(cursor != null && cursor.moveToFirst()){
-            do{
+            do {
                 Accommodation accommodation = cursorToEntity(cursor);
                 accommodationList.add(accommodation);
-            }while(cursor.moveToNext());
+            } while(cursor.moveToNext());
         }
         return accommodationList;
     }
@@ -109,9 +114,9 @@ public class AccommodationDAO extends DbContentProvider implements Accommodation
             if (c.getColumnIndex(ACCOMMODATION_CITY) != -1)                 {a.setCity(c.getString(c.getColumnIndexOrThrow(ACCOMMODATION_CITY))); }
             if (c.getColumnIndex(ACCOMMODATION_STATE) != -1)                {a.setState(c.getString(c.getColumnIndexOrThrow(ACCOMMODATION_STATE))); }
             if (c.getColumnIndex(ACCOMMODATION_COUNTRY) != -1)              {a.setCountry(c.getString(c.getColumnIndexOrThrow(ACCOMMODATION_COUNTRY))); }
-            if (c.getColumnIndex(ACCOMMODATION_CONTACT_NAME) != -1)         {a.contact_name = c.getString(c.getColumnIndexOrThrow(ACCOMMODATION_CONTACT_NAME)); }
-            if (c.getColumnIndex(ACCOMMODATION_PHONE) != -1)                {a.phone = c.getString(c.getColumnIndexOrThrow(ACCOMMODATION_PHONE)); }
-            if (c.getColumnIndex(ACCOMMODATION_EMAIL) != -1)                {a.email = c.getString(c.getColumnIndexOrThrow(ACCOMMODATION_EMAIL)); }
+            if (c.getColumnIndex(ACCOMMODATION_CONTACT_NAME) != -1)         {a.setContact_name( c.getString(c.getColumnIndexOrThrow(ACCOMMODATION_CONTACT_NAME))); }
+            if (c.getColumnIndex(ACCOMMODATION_PHONE) != -1)                {a.setPhone(c.getString(c.getColumnIndexOrThrow(ACCOMMODATION_PHONE))); }
+            if (c.getColumnIndex(ACCOMMODATION_EMAIL) != -1)                {a.setEmail(c.getString(c.getColumnIndexOrThrow(ACCOMMODATION_EMAIL))); }
             if (c.getColumnIndex(ACCOMMODATION_SITE) != -1)                 {a.setSite(c.getString(c.getColumnIndexOrThrow(ACCOMMODATION_SITE))); }
             if (c.getColumnIndex(ACCOMMODATION_LATLNG_ACCOMMODATION) != -1) {a.setLatlng_accommodation(c.getString(c.getColumnIndexOrThrow(ACCOMMODATION_LATLNG_ACCOMMODATION))); }
             if (c.getColumnIndex(ACCOMMODATION_ACCOMMODATION_TYPE) != -1)   {a.setAccommodation_type(c.getInt(c.getColumnIndexOrThrow(ACCOMMODATION_ACCOMMODATION_TYPE)));   }

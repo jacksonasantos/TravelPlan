@@ -6,7 +6,6 @@
     android:padding="10dp">
 
     <TextView
-        android:id="@+id/txtType_Contact"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/Insurance_Contact_Type"
@@ -20,7 +19,6 @@
         tools:ignore="LabelFor" />
 
     <TextView
-        android:id="@+id/txtDescription_Contact"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/Insurance_Contact_Description"
@@ -34,7 +32,6 @@
         tools:ignore="LabelFor" />
 
     <TextView
-        android:id="@+id/txtDetail_Contact"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/Insurance_Contact_Detail"

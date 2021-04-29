@@ -103,38 +103,27 @@ public class InsuranceListAdapter extends RecyclerView.Adapter<InsuranceListAdap
         }holder.txtInsurancePolicy.setText(insurance.getInsurance_policy());
         holder.txtInsuranceDescription.setText(insurance.getDescription());
         // btnEdit
-        holder.btnEdit.setOnClickListener (new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent (v.getContext(), InsuranceActivity.class);
-                intent.putExtra("insurance_id", insurance.getId());
-                context.startActivity(intent);
-                notifyDataSetChanged();
-            }
+        holder.btnEdit.setOnClickListener (v -> {
+            Intent intent = new Intent (v.getContext(), InsuranceActivity.class);
+            intent.putExtra("insurance_id", insurance.getId());
+            context.startActivity(intent);
+            notifyDataSetChanged();
         });
         // btnDelete
-        holder.btnDelete.setOnClickListener (new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                new AlertDialog.Builder(v.getContext())
-                        .setTitle(R.string.Insurance_Deleting)
-                        .setMessage(R.string.Msg_Confirm)
-                        .setPositiveButton(R.string.Yes, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                try {
-                                    Database.mInsuranceDao.deleteInsurance(insurance.getId());
-                                    mInsurance.remove(position);
-                                    notifyItemRemoved(position);
-                                    notifyItemRangeChanged(position,mInsurance.size());
-                                } catch (Exception e) {
-                                    Toast.makeText(context, context.getString(R.string.Error_Deleting_Data) + "\n" + e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
-                                }
-                            }
-                        }).setNegativeButton(R.string.No, null)
-                        .show();
-            }
-        });
+        holder.btnDelete.setOnClickListener (v -> new AlertDialog.Builder(v.getContext())
+                .setTitle(R.string.Insurance_Deleting)
+                .setMessage(R.string.Msg_Confirm)
+                .setPositiveButton(R.string.Yes, (dialogInterface, i) -> {
+                    try {
+                        Database.mInsuranceDao.deleteInsurance(insurance.getId());
+                        mInsurance.remove(position);
+                        notifyItemRemoved(position);
+                        notifyItemRangeChanged(position, mInsurance.size());
+                    } catch (Exception e) {
+                        Toast.makeText(context, context.getString(R.string.Error_Deleting_Data) + "\n" + e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+                    }
+                }).setNegativeButton(R.string.No, null)
+                .show());
     }
 
     @Override

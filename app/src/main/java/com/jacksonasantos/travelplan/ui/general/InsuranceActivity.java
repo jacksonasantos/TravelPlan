@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
@@ -22,11 +21,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.textfield.TextInputLayout;
 import com.jacksonasantos.travelplan.R;
 import com.jacksonasantos.travelplan.dao.Broker;
-import com.jacksonasantos.travelplan.dao.general.Database;
 import com.jacksonasantos.travelplan.dao.Insurance;
 import com.jacksonasantos.travelplan.dao.InsuranceCompany;
 import com.jacksonasantos.travelplan.dao.Travel;
 import com.jacksonasantos.travelplan.dao.Vehicle;
+import com.jacksonasantos.travelplan.dao.general.Database;
 import com.jacksonasantos.travelplan.ui.utility.DateInputMask;
 import com.jacksonasantos.travelplan.ui.utility.Utils;
 
@@ -120,28 +119,25 @@ public  class InsuranceActivity extends AppCompatActivity {
         rvInsuranceContact = findViewById(R.id.rvInsuranceContact);
 
         Utils.addRadioButtonResources(R.array.insurance_type_array, rgInsuranceType, this);
-        rgInsuranceType.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                rbInsuranceType = checkedId;
-                switch (rbInsuranceType) {
-                    case 1:
-                        input_layout_spinVehicle.setVisibility(View.VISIBLE);
-                        input_layout_spinTravel.setVisibility(View.GONE);
-                        nrSpinTravel=0; spinTravel.setText("");
-                        break;
-                    case 4:
-                        input_layout_spinTravel.setVisibility(View.VISIBLE);
-                        input_layout_spinVehicle.setVisibility(View.GONE);
-                        nrSpinVehicle=0; spinVehicle.setText("");
-                        break;
-                    default:
-                        input_layout_spinTravel.setVisibility(View.GONE);
-                        input_layout_spinVehicle.setVisibility(View.GONE);
-                        nrSpinTravel=0; spinTravel.setText("");
-                        nrSpinVehicle=0; spinVehicle.setText("");
-                        break;
-                }
+        rgInsuranceType.setOnCheckedChangeListener((group, checkedId) -> {
+            rbInsuranceType = checkedId;
+            switch (rbInsuranceType) {
+                case 1:
+                    input_layout_spinVehicle.setVisibility(View.VISIBLE);
+                    input_layout_spinTravel.setVisibility(View.GONE);
+                    nrSpinTravel=0; spinTravel.setText("");
+                    break;
+                case 4:
+                    input_layout_spinTravel.setVisibility(View.VISIBLE);
+                    input_layout_spinVehicle.setVisibility(View.GONE);
+                    nrSpinVehicle=0; spinVehicle.setText("");
+                    break;
+                default:
+                    input_layout_spinTravel.setVisibility(View.GONE);
+                    input_layout_spinVehicle.setVisibility(View.GONE);
+                    nrSpinTravel=0; spinTravel.setText("");
+                    nrSpinVehicle=0; spinVehicle.setText("");
+                    break;
             }
         });
         final List<InsuranceCompany> insuranceCompanies =  Database.mInsuranceCompanyDao.fetchArrayInsuranceCompany();
@@ -149,13 +145,9 @@ public  class InsuranceActivity extends AppCompatActivity {
         adapterIC.setDropDownViewResource( android.R.layout.simple_spinner_dropdown_item);
         spinInsurance_Company.setAdapter(adapterIC);
         final InsuranceCompany[] insuranceCompany = {new InsuranceCompany()};
-        spinInsurance_Company.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                insuranceCompany[0] = (InsuranceCompany) parent.getItemAtPosition(position);
-                nrSpinInsurance_Company = insuranceCompany[0].getId();
-            }
-
+        spinInsurance_Company.setOnItemClickListener((parent, view, position, id) -> {
+            insuranceCompany[0] = (InsuranceCompany) parent.getItemAtPosition(position);
+            nrSpinInsurance_Company = insuranceCompany[0].getId();
         });
         adapterIC.notifyDataSetChanged();
 
@@ -164,12 +156,9 @@ public  class InsuranceActivity extends AppCompatActivity {
         adapterB.setDropDownViewResource( android.R.layout.simple_spinner_dropdown_item);
         spinBroker.setAdapter(adapterB);
         final Broker[] broker = {new Broker()};
-        spinBroker.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                broker[0] = (Broker) parent.getItemAtPosition(position);
-                nrSpinBroker = broker[0].getId();
-            }
+        spinBroker.setOnItemClickListener((parent, view, position, id) -> {
+            broker[0] = (Broker) parent.getItemAtPosition(position);
+            nrSpinBroker = broker[0].getId();
         });
         adapterB.notifyDataSetChanged();
 
@@ -178,12 +167,9 @@ public  class InsuranceActivity extends AppCompatActivity {
         adapterT.setDropDownViewResource( android.R.layout.simple_spinner_dropdown_item);
         spinTravel.setAdapter(adapterT);
         final Travel[] travel = {new Travel()};
-        spinTravel.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                travel[0] = (Travel) parent.getItemAtPosition(position);
-                nrSpinTravel = travel[0].getId();
-            }
+        spinTravel.setOnItemClickListener((parent, view, position, id) -> {
+            travel[0] = (Travel) parent.getItemAtPosition(position);
+            nrSpinTravel = travel[0].getId();
         });
         adapterT.notifyDataSetChanged();
 
@@ -192,12 +178,9 @@ public  class InsuranceActivity extends AppCompatActivity {
         adapterV.setDropDownViewResource( android.R.layout.simple_spinner_dropdown_item);
         spinVehicle.setAdapter(adapterV);
         final Vehicle[] vehicle = {new Vehicle()};
-        spinVehicle.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                vehicle[0] = (Vehicle) parent.getItemAtPosition(position);
-                nrSpinVehicle = vehicle[0].getId();
-            }
+        spinVehicle.setOnItemClickListener((parent, view, position, id) -> {
+            vehicle[0] = (Vehicle) parent.getItemAtPosition(position);
+            nrSpinVehicle = vehicle[0].getId();
         });
         adapterV.notifyDataSetChanged();
 
@@ -270,55 +253,52 @@ public  class InsuranceActivity extends AppCompatActivity {
     public void addListenerOnButtonSave() {
         Button btSaveInsurance = findViewById(R.id.btSaveInsurance);
 
-        btSaveInsurance.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                boolean isSave = false;
+        btSaveInsurance.setOnClickListener(v -> {
+            boolean isSave = false;
 
-                if (!validateData()) {
-                    Toast.makeText(getApplicationContext(), R.string.Error_Data_Validation, Toast.LENGTH_LONG).show();
-                } else {
-                    final Insurance i1 = new Insurance();
+            if (!validateData()) {
+                Toast.makeText(getApplicationContext(), R.string.Error_Data_Validation, Toast.LENGTH_LONG).show();
+            } else {
+                final Insurance i1 = new Insurance();
 
-                    i1.setInsurance_type(rbInsuranceType);
-                    i1.setInsurance_company_id(nrSpinInsurance_Company);
-                    i1.setDescription(etDescription.getText().toString());
-                    i1.setInsurance_policy(etInsurance_Policy.getText().toString());
-                    i1.setIssuance_date(Utils.stringToDate(etIssuance_Date.getText().toString()));
-                    i1.setBroker_id(nrSpinBroker);
-                    i1.setInitial_effective_date(Utils.stringToDate(etInitial_Effective_Date.getText().toString()));
-                    i1.setFinal_effective_date(Utils.stringToDate(etFinal_Effective_Date.getText().toString()));
-                    i1.setNet_premium_value(Double.parseDouble(etNet_Premium_Value.getText().toString()));
-                    i1.setTax_amount(Double.parseDouble(etTax_Amount.getText().toString()));
-                    i1.setTotal_premium_value(Double.parseDouble(etTotal_Premium_Value.getText().toString()));
-                    i1.setInsurance_deductible(Double.parseDouble(etInsurance_Deductible.getText().toString()));
-                    i1.setBonus_class(Integer.parseInt(etBonus_Class.getText().toString()));
-                    i1.setNote(etNote.getText().toString());
-                    i1.setStatus(nrStatus);
-                    i1.setTravel_id(nrSpinTravel==0 ? null : nrSpinTravel);
-                    i1.setVehicle_id(nrSpinVehicle == 0 ? null : nrSpinVehicle);
+                i1.setInsurance_type(rbInsuranceType);
+                i1.setInsurance_company_id(nrSpinInsurance_Company);
+                i1.setDescription(etDescription.getText().toString());
+                i1.setInsurance_policy(etInsurance_Policy.getText().toString());
+                i1.setIssuance_date(Utils.stringToDate(etIssuance_Date.getText().toString()));
+                i1.setBroker_id(nrSpinBroker);
+                i1.setInitial_effective_date(Utils.stringToDate(etInitial_Effective_Date.getText().toString()));
+                i1.setFinal_effective_date(Utils.stringToDate(etFinal_Effective_Date.getText().toString()));
+                i1.setNet_premium_value(Double.parseDouble(etNet_Premium_Value.getText().toString()));
+                i1.setTax_amount(Double.parseDouble(etTax_Amount.getText().toString()));
+                i1.setTotal_premium_value(Double.parseDouble(etTotal_Premium_Value.getText().toString()));
+                i1.setInsurance_deductible(Double.parseDouble(etInsurance_Deductible.getText().toString()));
+                i1.setBonus_class(Integer.parseInt(etBonus_Class.getText().toString()));
+                i1.setNote(etNote.getText().toString());
+                i1.setStatus(nrStatus);
+                i1.setTravel_id(nrSpinTravel==0 ? null : nrSpinTravel);
+                i1.setVehicle_id(nrSpinVehicle == 0 ? null : nrSpinVehicle);
 
-                    try {
-                        if (!opInsert) {
-                            try {
-                                i1.setId(insurance.getId());
-                                isSave = Database.mInsuranceDao.updateInsurance(i1);
-                            } catch (Exception e) {
-                                Toast.makeText(getApplicationContext(), getApplicationContext().getString(R.string.Error_Changing_Data) + "\n"+ e.getMessage(), Toast.LENGTH_LONG).show();
-                            }
-                        } else {
-                            try {
-                                i1.setId(null);
-                                isSave = Database.mInsuranceDao.addInsurance(i1);
-                            } catch (Exception e) {
-                                Toast.makeText(getApplicationContext(), getApplicationContext().getString(R.string.Error_Including_Data)+ "\n" + e.getMessage(), Toast.LENGTH_LONG).show();
-                            }
+                try {
+                    if (!opInsert) {
+                        try {
+                            i1.setId(insurance.getId());
+                            isSave = Database.mInsuranceDao.updateInsurance(i1);
+                        } catch (Exception e) {
+                            Toast.makeText(getApplicationContext(), getApplicationContext().getString(R.string.Error_Changing_Data) + "\n"+ e.getMessage(), Toast.LENGTH_LONG).show();
                         }
-                        setResult(isSave ? 1 : 0);
-                        if (isSave) { finish(); }
-                    } catch (Exception e) {
-                        Toast.makeText(getApplicationContext(), getApplicationContext().getString(R.string.Error_Saving_Data) + "\n" + e.getMessage(), Toast.LENGTH_LONG).show();
+                    } else {
+                        try {
+                            i1.setId(null);
+                            isSave = Database.mInsuranceDao.addInsurance(i1);
+                        } catch (Exception e) {
+                            Toast.makeText(getApplicationContext(), getApplicationContext().getString(R.string.Error_Including_Data)+ "\n" + e.getMessage(), Toast.LENGTH_LONG).show();
+                        }
                     }
+                    setResult(isSave ? 1 : 0);
+                    if (isSave) { finish(); }
+                } catch (Exception e) {
+                    Toast.makeText(getApplicationContext(), getApplicationContext().getString(R.string.Error_Saving_Data) + "\n" + e.getMessage(), Toast.LENGTH_LONG).show();
                 }
             }
         });

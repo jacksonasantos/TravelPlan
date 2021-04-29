@@ -108,13 +108,10 @@ public class HomeVehicleFragment extends Fragment implements View.OnClickListene
         layerInsuranceVehicle = v.findViewById(R.id.layerInsuranceVehicle);
         insuranceList = v.findViewById(R.id.listInsuranceExpiration);
 
-        btnRefuel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent (v.getContext(), FuelSupplyActivity.class);
-                intent.putExtra("vehicle_id", g.getIdVehicle());
-                v.getContext().startActivity(intent);
-            }
+        btnRefuel.setOnClickListener(v1 -> {
+            Intent intent = new Intent (v1.getContext(), FuelSupplyActivity.class);
+            intent.putExtra("vehicle_id", g.getIdVehicle());
+            v1.getContext().startActivity(intent);
         });
         return v;
     }

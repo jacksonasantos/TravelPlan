@@ -4,8 +4,6 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
@@ -20,9 +18,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.jacksonasantos.travelplan.R;
 import com.jacksonasantos.travelplan.dao.Accommodation;
-import com.jacksonasantos.travelplan.dao.general.Database;
 import com.jacksonasantos.travelplan.dao.Reservation;
 import com.jacksonasantos.travelplan.dao.Travel;
+import com.jacksonasantos.travelplan.dao.general.Database;
 import com.jacksonasantos.travelplan.ui.utility.DateInputMask;
 import com.jacksonasantos.travelplan.ui.utility.Utils;
 
@@ -103,12 +101,9 @@ public class ReservationActivity extends AppCompatActivity {
         adapterT.setDropDownViewResource( android.R.layout.simple_spinner_dropdown_item);
         spinTravel.setAdapter(adapterT);
         final Travel[] travel = {new Travel()};
-        spinTravel.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                travel[0] = (Travel) parent.getItemAtPosition(position);
-                nrSpinTravel = travel[0].getId();
-            }
+        spinTravel.setOnItemClickListener((parent, view, position, id) -> {
+            travel[0] = (Travel) parent.getItemAtPosition(position);
+            nrSpinTravel = travel[0].getId();
         });
         adapterT.notifyDataSetChanged();
 
@@ -117,12 +112,9 @@ public class ReservationActivity extends AppCompatActivity {
         adapterA.setDropDownViewResource( android.R.layout.simple_spinner_dropdown_item);
         spinAccommodation.setAdapter(adapterA);
         final Accommodation[] accommodation = {new Accommodation()};
-        spinAccommodation.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                accommodation[0] = (Accommodation) parent.getItemAtPosition(position);
-                nrSpinAccommodation = accommodation[0].getId();
-            }
+        spinAccommodation.setOnItemClickListener((parent, view, position, id) -> {
+            accommodation[0] = (Accommodation) parent.getItemAtPosition(position);
+            nrSpinAccommodation = accommodation[0].getId();
         });
         adapterA.notifyDataSetChanged();
 
@@ -168,64 +160,56 @@ public class ReservationActivity extends AppCompatActivity {
     public void addListenerOnButtonAddAccommodation() {
         btAddAccommodation = findViewById(R.id.btAddAccommodation);
 
-        btAddAccommodation.setOnClickListener(new View.OnClickListener() {
-            @RequiresApi(api = Build.VERSION_CODES.KITKAT)
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent (v.getContext(), AccommodationActivity.class);
-                getApplicationContext().startActivity(intent);
-            }
+        btAddAccommodation.setOnClickListener(v -> {
+            Intent intent = new Intent (v.getContext(), AccommodationActivity.class);
+            getApplicationContext().startActivity(intent);
         });
     }
 
     public void addListenerOnButtonSave() {
         Button btSaveReservation = findViewById(R.id.btSaveReservation);
 
-        btSaveReservation.setOnClickListener(new View.OnClickListener() {
-            @RequiresApi(api = Build.VERSION_CODES.KITKAT)
-            @Override
-            public void onClick(View v) {
-                boolean isSave = false;
+        btSaveReservation.setOnClickListener(v -> {
+            boolean isSave = false;
 
-                if (!validateData()) {
-                    Toast.makeText(getApplicationContext(), R.string.Error_Data_Validation, Toast.LENGTH_LONG).show();
+            if (!validateData()) {
+                Toast.makeText(getApplicationContext(), R.string.Error_Data_Validation, Toast.LENGTH_LONG).show();
+            } else {
+                final Reservation r1 = new Reservation();
+
+                r1.setTravel_id(nrSpinTravel);
+                r1.setAccommodation_id(nrSpinAccommodation);
+                r1.setVoucher_number(etVoucher_Number.getText().toString());
+                r1.setCheckin_date(Utils.stringToDate(etCheckin_Date.getText().toString()));
+                r1.setCheckout_date(Utils.stringToDate(etCheckout_Date.getText().toString()));
+                r1.setApto_type(etApto_Type.getText().toString());
+                r1.setDaily_rate(Double.parseDouble(etDaily_Rate.getText().toString()));
+                r1.setOther_rate(Double.parseDouble(etOther_Rate.getText().toString()));
+                r1.setReservation_amount(Double.parseDouble(etReservation_Amount.getText().toString()));
+                r1.setAmount_paid(Double.parseDouble(etAmount_Paid.getText().toString()));
+                r1.setNote(etNote.getText().toString());
+                r1.setStatus_reservation(nrStatus_Reservation);
+
+                if (!opInsert) {
+                    try {
+                        r1.setId(reservation.getId());
+                        isSave = Database.mReservationDao.updateReservation(r1);
+                    } catch (Exception e) {
+                        Toast.makeText(getApplicationContext(), R.string.Error_Changing_Data + e.getMessage(), Toast.LENGTH_LONG).show();
+                    }
                 } else {
-                    final Reservation r1 = new Reservation();
-
-                    r1.setTravel_id(nrSpinTravel);
-                    r1.setAccommodation_id(nrSpinAccommodation);
-                    r1.setVoucher_number(etVoucher_Number.getText().toString());
-                    r1.setCheckin_date(Utils.stringToDate(etCheckin_Date.getText().toString()));
-                    r1.setCheckout_date(Utils.stringToDate(etCheckout_Date.getText().toString()));
-                    r1.setApto_type(etApto_Type.getText().toString());
-                    r1.setDaily_rate(Double.parseDouble(etDaily_Rate.getText().toString()));
-                    r1.setOther_rate(Double.parseDouble(etOther_Rate.getText().toString()));
-                    r1.setReservation_amount(Double.parseDouble(etReservation_Amount.getText().toString()));
-                    r1.setAmount_paid(Double.parseDouble(etAmount_Paid.getText().toString()));
-                    r1.setNote(etNote.getText().toString());
-                    r1.setStatus_reservation(nrStatus_Reservation);
-
-                    if (!opInsert) {
-                        try {
-                            r1.setId(reservation.getId());
-                            isSave = Database.mReservationDao.updateReservation(r1);
-                        } catch (Exception e) {
-                            Toast.makeText(getApplicationContext(), R.string.Error_Changing_Data + e.getMessage(), Toast.LENGTH_LONG).show();
-                        }
-                    } else {
-                        try {
-                            isSave = Database.mReservationDao.addReservation(r1);
-                        } catch (Exception e) {
-                            Toast.makeText(getApplicationContext(), R.string.Error_Including_Data + e.getMessage(), Toast.LENGTH_LONG).show();
-                        }
+                    try {
+                        isSave = Database.mReservationDao.addReservation(r1);
+                    } catch (Exception e) {
+                        Toast.makeText(getApplicationContext(), R.string.Error_Including_Data + e.getMessage(), Toast.LENGTH_LONG).show();
                     }
+                }
 
-                    setResult(isSave ? 1 : 0);
-                    if (isSave) {
-                        finish();
-                    } else {
-                        Toast.makeText(getApplicationContext(), R.string.Error_Saving_Data, Toast.LENGTH_LONG).show();
-                    }
+                setResult(isSave ? 1 : 0);
+                if (isSave) {
+                    finish();
+                } else {
+                    Toast.makeText(getApplicationContext(), R.string.Error_Saving_Data, Toast.LENGTH_LONG).show();
                 }
             }
         });

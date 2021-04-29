@@ -3,7 +3,6 @@ package com.jacksonasantos.travelplan.ui.travel;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -47,7 +46,6 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.MapsInitializer;
-import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
@@ -113,87 +111,72 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
         setHasOptionsMenu(true);                                           // activate menu map options
         mMapView.onCreate(savedInstanceState);
 
-        mMapView.getMapAsync(new OnMapReadyCallback() {
-            @Override
-            public void onMapReady(GoogleMap mMap) {
-                googleMap = mMap;
-                if (googleMap != null) {
-                    if (ActivityCompat.checkSelfPermission(requireActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
-                        ActivityCompat.checkSelfPermission(requireActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                        String[] permissions = {android.Manifest.permission.ACCESS_COARSE_LOCATION, android.Manifest.permission.ACCESS_FINE_LOCATION};
-                        requestPermissions(permissions, REQUEST_PERMISSION);
-                        return;
-                    }
-                    googleMap.setMyLocationEnabled(true);
-                    googleMap.getUiSettings().setMyLocationButtonEnabled(true);    // Show Detect location button
+        mMapView.getMapAsync(mMap -> {
+            googleMap = mMap;
+            if (googleMap != null) {
+                if (ActivityCompat.checkSelfPermission(requireActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
+                    ActivityCompat.checkSelfPermission(requireActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                    String[] permissions = {Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION};
+                    requestPermissions(permissions, REQUEST_PERMISSION);
+                    return;
                 }
-
-                assert googleMap != null;
-                googleMap.setIndoorEnabled(true);                                      // Enables indoor maps
-                googleMap.setBuildingsEnabled(true);                                   // Turns on 3D buildings
-                googleMap.getUiSettings().setZoomControlsEnabled(true);                // Show Zoom buttons
-
-                googleMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
-                    @Override
-                    public void onMapClick(LatLng point) {
-                        Geocoder geocoder = new Geocoder(requireContext());
-                        try {
-                            List<Address> addresses = geocoder.getFromLocation(point.latitude, point.longitude, 1);
-                            Address address = addresses.get(0);
-                            String addressText = String.format("%s,\n%s,\n%s, %s",
-                                    address.getFeatureName(),
-                                    address.getAddressLine(0),
-                                    address.getSubAdminArea(),
-                                    address.getCountryCode());
-                            Toast.makeText(getActivity(),addressText,Toast.LENGTH_SHORT).show();
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                        googleMap.animateCamera(CameraUpdateFactory.newLatLng(point));
-                    }
-                });
-
-                googleMap.setOnMapLongClickListener(new GoogleMap.OnMapLongClickListener() {
-                    @Override
-                    public void onMapLongClick(LatLng point) {
-                        try {
-                            if (registryMarker( point )) {
-                                drawMarker( point, "", Color.RED,0);
-                            }
-                        } catch (Exception e) {
-                            Toast.makeText(getActivity(), getResources().getString(R.string.unregistered_bookmark)+" \n"+e.getMessage(), Toast.LENGTH_LONG).show();
-                        }
-                    }
-                });
-
-                googleMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
-                    @Override
-                    public boolean onMarkerClick(com.google.android.gms.maps.model.Marker marker) {
-                        if (removeMarker( marker.getPosition() )) {
-                            marker.remove();
-                            drawItinerary(nrTravel_Id);
-                        }
-                        return true;
-                    }
-                });
-
-                btnSearch.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        String g = etSearch.getText().toString();
-                        Geocoder geocoder = new Geocoder(requireContext());
-                        try {
-                            List<Address> addresses = geocoder.getFromLocationName(g, 3);
-                            if (addresses != null) {
-                                showSearch(addresses);
-                                etSearch.setText("");
-                            }
-                        } catch (Exception e) {
-                            Toast.makeText(getActivity(), getResources().getString(R.string.location_not_found)+" \n"+ e.getMessage(), Toast.LENGTH_LONG).show();
-                        }
-                    }
-                });
+                googleMap.setMyLocationEnabled(true);
+                googleMap.getUiSettings().setMyLocationButtonEnabled(true);    // Show Detect location button
             }
+
+            assert googleMap != null;
+            googleMap.setIndoorEnabled(true);                                      // Enables indoor maps
+            googleMap.setBuildingsEnabled(true);                                   // Turns on 3D buildings
+            googleMap.getUiSettings().setZoomControlsEnabled(true);                // Show Zoom buttons
+
+            googleMap.setOnMapClickListener(point -> {
+                Geocoder geocoder = new Geocoder(requireContext());
+                try {
+                    List<Address> addresses = geocoder.getFromLocation(point.latitude, point.longitude, 1);
+                    Address address = addresses.get(0);
+                    String addressText = String.format("%s,\n%s,\n%s, %s",
+                            address.getFeatureName(),
+                            address.getAddressLine(0),
+                            address.getSubAdminArea(),
+                            address.getCountryCode());
+                    Toast.makeText(getActivity(), addressText, Toast.LENGTH_SHORT).show();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                googleMap.animateCamera(CameraUpdateFactory.newLatLng(point));
+            });
+
+            googleMap.setOnMapLongClickListener(point -> {
+                try {
+                    if (registryMarker(point)) {
+                        drawMarker(point, "", Color.RED, 0);
+                    }
+                } catch (Exception e) {
+                    Toast.makeText(getActivity(), getResources().getString(R.string.unregistered_bookmark) + " \n" + e.getMessage(), Toast.LENGTH_LONG).show();
+                }
+            });
+
+            googleMap.setOnMarkerClickListener(marker -> {
+                if (removeMarker(marker.getPosition())) {
+                    marker.remove();
+                    drawItinerary(nrTravel_Id);
+                }
+                return true;
+            });
+
+            btnSearch.setOnClickListener(v -> {
+                String g = etSearch.getText().toString();
+                Geocoder geocoder = new Geocoder(requireContext());
+                try {
+                    List<Address> addresses = geocoder.getFromLocationName(g, 3);
+                    if (addresses != null) {
+                        showSearch(addresses);
+                        etSearch.setText("");
+                    }
+                } catch (Exception e) {
+                    Toast.makeText(getActivity(), getResources().getString(R.string.location_not_found) + " \n" + e.getMessage(), Toast.LENGTH_LONG).show();
+                }
+            });
         });
         mMapView.onResume();
         return rootView;
@@ -292,46 +275,40 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
         alertDialogBuilder.setView(promptsView);
         alertDialogBuilder
                 .setCancelable(false)
-                .setPositiveButton(R.string.OK, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        if (!etSeq.getText().toString().isEmpty() ) {
+                .setPositiveButton(R.string.OK, (dialog, id) -> {
+                    if (!etSeq.getText().toString().isEmpty() ) {
 
-                            Marker m = new Marker();
-                            m.setTravel_id(nrTravel_Id);
-                            m.setItinerary_id(nrItinerary_Id);
-                            m.setMarker_type(spinMarkerType.getSelectedItemPosition());
-                            m.setSequence(Integer.valueOf(etSeq.getText().toString()));
-                            m.setDescription(etDescription.getText().toString());
+                        Marker m = new Marker();
+                        m.setTravel_id(nrTravel_Id);
+                        m.setItinerary_id(nrItinerary_Id);
+                        m.setMarker_type(spinMarkerType.getSelectedItemPosition());
+                        m.setSequence(Integer.valueOf(etSeq.getText().toString()));
+                        m.setDescription(etDescription.getText().toString());
 
-                            m.setName(tvName.getText().toString());
-                            m.setAddress(tvAddress.getText().toString());
-                            m.setCity(tvCity.getText().toString());
-                            m.setState(tvState.getText().toString());
-                            m.setAbbr_country(tvAbbrCountry.getText().toString());
-                            m.setCountry(tvCountry.getText().toString());
-                            m.setCategory_type(Integer.parseInt(tvCategory.getText().toString()));
-                            m.setLatitude(tvLat.getText().toString());
-                            m.setLongitude(tvLng.getText().toString());
-                            m.setZoom_level(tvZoom.getText().toString());
+                        m.setName(tvName.getText().toString());
+                        m.setAddress(tvAddress.getText().toString());
+                        m.setCity(tvCity.getText().toString());
+                        m.setState(tvState.getText().toString());
+                        m.setAbbr_country(tvAbbrCountry.getText().toString());
+                        m.setCountry(tvCountry.getText().toString());
+                        m.setCategory_type(Integer.parseInt(tvCategory.getText().toString()));
+                        m.setLatitude(tvLat.getText().toString());
+                        m.setLongitude(tvLng.getText().toString());
+                        m.setZoom_level(tvZoom.getText().toString());
 
-                            try {
-                                isSave[0] = adjustMarker( nrTravel_Id, nrItinerary_Id, m.getSequence(), true );
-                                isSave[0] = Database.mMarkerDao.addMarker(m);
-                                drawItinerary(nrTravel_Id);
-                            } catch (Exception e) {
-                                Toast.makeText(requireContext(), R.string.Error_Including_Data + e.getMessage(), Toast.LENGTH_LONG).show();
-                            }
+                        try {
+                            isSave[0] = adjustMarker( nrTravel_Id, nrItinerary_Id, m.getSequence(), true );
+                            isSave[0] = Database.mMarkerDao.addMarker(m);
+                            drawItinerary(nrTravel_Id);
+                        } catch (Exception e) {
+                            Toast.makeText(requireContext(), R.string.Error_Including_Data + e.getMessage(), Toast.LENGTH_LONG).show();
                         }
-                        if (!isSave[0]) {
-                            Toast.makeText(requireContext(), R.string.Error_Saving_Data, Toast.LENGTH_LONG).show();
-                        }
+                    }
+                    if (!isSave[0]) {
+                        Toast.makeText(requireContext(), R.string.Error_Saving_Data, Toast.LENGTH_LONG).show();
                     }
                 })
-                .setNegativeButton(R.string.Cancel, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        dialog.cancel();
-                    }
-                });
+                .setNegativeButton(R.string.Cancel, (dialog, id) -> dialog.cancel());
         AlertDialog alertDialog = alertDialogBuilder.create();
         alertDialog.show();
         return isSave[0];
@@ -438,56 +415,47 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
         }
 
         final Travel[] travel = {new Travel()};
-        btnAddItinerary.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                LayoutInflater li = LayoutInflater.from(requireContext());
-                View promptsView = li.inflate(R.layout.dialog_itinerary, null);
+        btnAddItinerary.setOnClickListener(view -> {
+            LayoutInflater li = LayoutInflater.from(requireContext());
+            View promptsView = li.inflate(R.layout.dialog_itinerary, null);
 
-                final EditText etSequence = promptsView.findViewById(R.id.etSequence);
-                final EditText etOrig_location = promptsView.findViewById(R.id.etOrig_location);
-                final EditText etDest_location = promptsView.findViewById(R.id.etDest_location);
-                final EditText etDaily = promptsView.findViewById(R.id.etDaily);
+            final EditText etSequence = promptsView.findViewById(R.id.etSequence);
+            final EditText etOrig_location = promptsView.findViewById(R.id.etOrig_location);
+            final EditText etDest_location = promptsView.findViewById(R.id.etDest_location);
+            final EditText etDaily = promptsView.findViewById(R.id.etDaily);
 
-                final boolean[] isSave = {false};
+            final boolean[] isSave = {false};
 
-                final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(requireContext());
-                alertDialogBuilder.setView(promptsView);
-                alertDialogBuilder
-                        .setCancelable(false)
-                        .setPositiveButton(R.string.OK, new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                if (!etSequence.getText().toString().isEmpty() &&
-                                    !etOrig_location.getText().toString().isEmpty() &&
-                                    !etDest_location.getText().toString().isEmpty() &&
-                                    !etDaily.getText().toString().isEmpty()  ) {
+            final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(requireContext());
+            alertDialogBuilder.setView(promptsView);
+            alertDialogBuilder
+                    .setCancelable(false)
+                    .setPositiveButton(R.string.OK, (dialog, id) -> {
+                        if (!etSequence.getText().toString().isEmpty() &&
+                                !etOrig_location.getText().toString().isEmpty() &&
+                                !etDest_location.getText().toString().isEmpty() &&
+                                !etDaily.getText().toString().isEmpty()) {
 
-                                    Itinerary itinerary = new Itinerary();
-                                    itinerary.setTravel_id(nrTravel_Id);
-                                    itinerary.setSequence(Integer.parseInt(etSequence.getText().toString()));
-                                    itinerary.setOrig_location(etOrig_location.getText().toString());
-                                    itinerary.setDest_location(etDest_location.getText().toString());
-                                    itinerary.setDaily(Integer.parseInt(etDaily.getText().toString()));
+                            Itinerary itinerary = new Itinerary();
+                            itinerary.setTravel_id(nrTravel_Id);
+                            itinerary.setSequence(Integer.parseInt(etSequence.getText().toString()));
+                            itinerary.setOrig_location(etOrig_location.getText().toString());
+                            itinerary.setDest_location(etDest_location.getText().toString());
+                            itinerary.setDaily(Integer.parseInt(etDaily.getText().toString()));
 
-                                    try {
-                                        isSave[0] = Database.mItineraryDao.addItinerary(itinerary);
-                                    } catch (Exception e) {
-                                        Toast.makeText(requireContext(), R.string.Error_Including_Data + e.getMessage(), Toast.LENGTH_LONG).show();
-                                    }
-                                }
-                                if (!isSave[0]) {
-                                    Toast.makeText(requireContext(), R.string.Error_Saving_Data, Toast.LENGTH_LONG).show();
-                                }
+                            try {
+                                isSave[0] = Database.mItineraryDao.addItinerary(itinerary);
+                            } catch (Exception e) {
+                                Toast.makeText(requireContext(), R.string.Error_Including_Data + e.getMessage(), Toast.LENGTH_LONG).show();
                             }
-                        })
-                        .setNegativeButton(R.string.Cancel, new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                dialog.cancel();
-                            }
-                        });
-                AlertDialog alertDialog = alertDialogBuilder.create();
-                alertDialog.show();
-            }
+                        }
+                        if (!isSave[0]) {
+                            Toast.makeText(requireContext(), R.string.Error_Saving_Data, Toast.LENGTH_LONG).show();
+                        }
+                    })
+                    .setNegativeButton(R.string.Cancel, (dialog, id) -> dialog.cancel());
+            AlertDialog alertDialog = alertDialogBuilder.create();
+            alertDialog.show();
         });
 
         spTravel.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -654,15 +622,12 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
                 final ItemViewHolder itemViewHolder = (ItemViewHolder) holder;
                 final Itinerary itinerary = mItinerary.get(position-show_header);
                 if (!show_home) {
-                    itemViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            if (position!=RecyclerView.NO_POSITION){
-                                nrItinerary_Id = !itinerary.getId().equals(nrItinerary_Id) ? itinerary.getId() : null;
-                                lClick = true;
-                                notifyDataSetChanged();
-                                // TODO - Atualizar o Mapa quando escolhe um itinerario (engrossar a linha por exemplo)
-                            }
+                    itemViewHolder.itemView.setOnClickListener(view -> {
+                        if (position!=RecyclerView.NO_POSITION){
+                            nrItinerary_Id = !itinerary.getId().equals(nrItinerary_Id) ? itinerary.getId() : null;
+                            lClick = true;
+                            notifyDataSetChanged();
+                            // TODO - Atualizar o Mapa quando escolhe um itinerario (engrossar a linha por exemplo)
                         }
                     });
                     if (itinerary.getId().equals(nrItinerary_Id)) {

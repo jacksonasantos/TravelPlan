@@ -5,6 +5,8 @@ import android.graphics.Color;
 
 import androidx.annotation.NonNull;
 
+import com.jacksonasantos.travelplan.ui.utility.Globals;
+
 public class Itinerary {
     public Integer id;
     public Integer travel_id;
@@ -14,6 +16,8 @@ public class Itinerary {
     public int daily;
     public int distance;
     public int time;
+
+    Globals g = Globals.getInstance();
 
     public Itinerary() {
         this.id = id;
@@ -63,7 +67,7 @@ public class Itinerary {
     public int getDaily() { return daily; }
     public void setDaily(int daily) { this.daily = daily; }
 
-    public int getDistance() { return distance/1000; }                      // TODO - ajustar a divisão pela unidade adequada
+    public int getDistance() { return distance/g.getMeasureIndexInMeter(); }
     public void setDistance(int distance) { this.distance = distance; }
 
     public int getTime() { return time; }

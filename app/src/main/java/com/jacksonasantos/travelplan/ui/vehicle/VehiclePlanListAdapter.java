@@ -1,7 +1,6 @@
 package com.jacksonasantos.travelplan.ui.vehicle;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.view.LayoutInflater;
@@ -18,10 +17,10 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.jacksonasantos.travelplan.R;
-import com.jacksonasantos.travelplan.dao.general.Database;
 import com.jacksonasantos.travelplan.dao.MaintenanceItem;
 import com.jacksonasantos.travelplan.dao.MaintenancePlan;
 import com.jacksonasantos.travelplan.dao.VehicleHasPlan;
+import com.jacksonasantos.travelplan.dao.general.Database;
 
 import java.util.List;
 
@@ -85,39 +84,28 @@ public class VehiclePlanListAdapter extends RecyclerView.Adapter<VehiclePlanList
         holder.txtExpiration.setText(vehicleHasPlan.getExpiration()==0?null:String.valueOf(vehicleHasPlan.getExpiration()));
 
         // btnEdit
-        holder.btnEdit.setOnClickListener (new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent (v.getContext(), VehiclePlanActivity.class);
-                intent.putExtra("id", vehicleHasPlan.getId());
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                context.startActivity(intent);
-            }
+        holder.btnEdit.setOnClickListener (v -> {
+            Intent intent = new Intent (v.getContext(), VehiclePlanActivity.class);
+            intent.putExtra("id", vehicleHasPlan.getId());
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            context.startActivity(intent);
         });
 
         // btnDelete
-        holder.btnDelete.setOnClickListener (new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                new AlertDialog.Builder(v.getContext())
-                        .setTitle(R.string.Vehicle_Plan_Deleting)
-                        .setMessage(R.string.Msg_Confirm)
-                        .setPositiveButton(R.string.Yes, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                try {
-                                    Database.mVehicleHasPlanDao.deleteVehicleHasPlan(vehicleHasPlan.getId());
-                                    mVehicleHasPlan.remove(position);
-                                    notifyItemRemoved(position);
-                                    notifyItemRangeChanged(position,mVehicleHasPlan.size());
-                                } catch (Exception e) {
-                                    Toast.makeText(context, context.getString(R.string.Error_Deleting_Data) + "\n" + e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
-                                }
-                            }
-                        }).setNegativeButton(R.string.No, null)
-                        .show();
-            }
-        });
+        holder.btnDelete.setOnClickListener (v -> new AlertDialog.Builder(v.getContext())
+                .setTitle(R.string.Vehicle_Plan_Deleting)
+                .setMessage(R.string.Msg_Confirm)
+                .setPositiveButton(R.string.Yes, (dialogInterface, i) -> {
+                    try {
+                        Database.mVehicleHasPlanDao.deleteVehicleHasPlan(vehicleHasPlan.getId());
+                        mVehicleHasPlan.remove(position);
+                        notifyItemRemoved(position);
+                        notifyItemRangeChanged(position, mVehicleHasPlan.size());
+                    } catch (Exception e) {
+                        Toast.makeText(context, context.getString(R.string.Error_Deleting_Data) + "\n" + e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+                    }
+                }).setNegativeButton(R.string.No, null)
+                .show());
     }
 
     @Override

@@ -74,20 +74,10 @@ public class MaintenancePlanActivity extends AppCompatActivity {
 
         Utils.createSpinnerResources(R.array.vehicle_services, spinService_type, this);
         nrSpinService_type = 0;
-        spinService_type.setOnItemClickListener(new Spinner.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                nrSpinService_type = (int) adapterView.getItemIdAtPosition(i);
-            }
-        });
+        spinService_type.setOnItemClickListener((adapterView, view, i, l) -> nrSpinService_type = (int) adapterView.getItemIdAtPosition(i));
         Utils.createSpinnerResources(R.array.measure_plan, spinMeasure, this);
         nrSpinMeasure = 0;
-        spinMeasure.setOnItemClickListener(new Spinner.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                nrSpinMeasure = (int) adapterView.getItemIdAtPosition(i);
-            }
-        });
+        spinMeasure.setOnItemClickListener((adapterView, view, i, l) -> nrSpinMeasure = (int) adapterView.getItemIdAtPosition(i));
 
         if (maintenancePlan != null) {
             nrSpinService_type = maintenancePlan.getService_type();
@@ -103,43 +93,40 @@ public class MaintenancePlanActivity extends AppCompatActivity {
     public void addListenerOnButtonSave() {
         Button btSaveMaintenancePlan = findViewById(R.id.btSaveMaintenancePlan);
 
-        btSaveMaintenancePlan.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                boolean isSave = false;
+        btSaveMaintenancePlan.setOnClickListener(v -> {
+            boolean isSave = false;
 
-                if (!validateData()) {
-                    Toast.makeText(getApplicationContext(), R.string.Error_Data_Validation, Toast.LENGTH_LONG).show();
+            if (!validateData()) {
+                Toast.makeText(getApplicationContext(), R.string.Error_Data_Validation, Toast.LENGTH_LONG).show();
+            } else {
+                final MaintenancePlan mp1 = new MaintenancePlan();
+
+                mp1.setService_type(nrSpinService_type);
+                mp1.setDescription(etDescription.getText().toString());
+                mp1.setMeasure(nrSpinMeasure);
+                mp1.setExpiration_default((Integer.parseInt(etExpiration_default.getText().toString().isEmpty() ? "0": etExpiration_default.getText().toString())));
+                mp1.setRecommendation(etRecommendation.getText().toString());
+
+                if (!opInsert) {
+                    try {
+                        mp1.setId(maintenancePlan.getId());
+                        isSave = Database.mMaintenancePlanDao.updateMaintenancePlan(mp1);
+                    } catch (Exception e) {
+                        Toast.makeText(getApplicationContext(), R.string.Error_Changing_Data + e.getMessage(), Toast.LENGTH_LONG).show();
+                    }
                 } else {
-                    final MaintenancePlan mp1 = new MaintenancePlan();
-
-                    mp1.setService_type(nrSpinService_type);
-                    mp1.setDescription(etDescription.getText().toString());
-                    mp1.setMeasure(nrSpinMeasure);
-                    mp1.setExpiration_default((Integer.parseInt(etExpiration_default.getText().toString().isEmpty() ? "0": etExpiration_default.getText().toString())));
-                    mp1.setRecommendation(etRecommendation.getText().toString());
-
-                    if (!opInsert) {
-                        try {
-                            mp1.setId(maintenancePlan.getId());
-                            isSave = Database.mMaintenancePlanDao.updateMaintenancePlan(mp1);
-                        } catch (Exception e) {
-                            Toast.makeText(getApplicationContext(), R.string.Error_Changing_Data + e.getMessage(), Toast.LENGTH_LONG).show();
-                        }
-                    } else {
-                        try {
-                            isSave = Database.mMaintenancePlanDao.addMaintenancePlan(mp1);
-                        } catch (Exception e) {
-                            Toast.makeText(getApplicationContext(), R.string.Error_Including_Data + e.getMessage(), Toast.LENGTH_LONG).show();
-                        }
+                    try {
+                        isSave = Database.mMaintenancePlanDao.addMaintenancePlan(mp1);
+                    } catch (Exception e) {
+                        Toast.makeText(getApplicationContext(), R.string.Error_Including_Data + e.getMessage(), Toast.LENGTH_LONG).show();
                     }
+                }
 
-                    setResult(isSave ? 1 : 0);
-                    if (isSave) {
-                        finish();
-                    } else {
-                        Toast.makeText(getApplicationContext(), R.string.Error_Saving_Data, Toast.LENGTH_LONG).show();
-                    }
+                setResult(isSave ? 1 : 0);
+                if (isSave) {
+                    finish();
+                } else {
+                    Toast.makeText(getApplicationContext(), R.string.Error_Saving_Data, Toast.LENGTH_LONG).show();
                 }
             }
         });

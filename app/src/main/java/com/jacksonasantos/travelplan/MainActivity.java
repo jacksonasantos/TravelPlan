@@ -42,8 +42,11 @@ public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
 
+    // TODO - Armazenamento in Cloud
     public Database mDb;
     Globals g = Globals.getInstance();
+
+    // TODO - Autenticação ao APP
 
     @SuppressLint("ResourceType")
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
@@ -140,14 +143,9 @@ public class MainActivity extends AppCompatActivity {
                 maintenancePlan.setDescription(dataLine[1]);
                 int x;
                 switch(dataLine[2]) {
-                    case "km":
-                        x = 1;
-                        break;
-                    case "dias":
-                        x = 2;
-                        break;
-                    default:
-                        x = 0;
+                    case "km":   x = 1; break;
+                    case "dias": x = 2; break;
+                    default:     x = 0;
                 }
                 maintenancePlan.setMeasure(x);
                 if (dataLine[3] != null && !dataLine[3].isEmpty()){
@@ -197,6 +195,7 @@ public class MainActivity extends AppCompatActivity {
         g.setCountry("BR");
         g.setIdCurrency(0);                // R$ de R.array.currency_array
         g.setMeasureCost("km");
+        g.setMeasureIndexInMeter(1000);
         g.setMeasureCapacity("l");
         g.setMeasureConsumption(g.getMeasureCost()+"/"+g.getMeasureCapacity());
         g.setDateFormat("yyyy-MM-dd HH:mm:ss");

@@ -2,7 +2,6 @@ package com.jacksonasantos.travelplan.ui.travel;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
@@ -20,9 +19,9 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.jacksonasantos.travelplan.R;
-import com.jacksonasantos.travelplan.dao.general.Database;
 import com.jacksonasantos.travelplan.dao.Vehicle;
 import com.jacksonasantos.travelplan.dao.VehicleHasTravel;
+import com.jacksonasantos.travelplan.dao.general.Database;
 import com.jacksonasantos.travelplan.ui.utility.Globals;
 import com.jacksonasantos.travelplan.ui.vehicle.FuelSupplyActivity;
 
@@ -101,31 +100,25 @@ public class VehicleTravelListAdapter extends RecyclerView.Adapter<RecyclerView.
                     new AlertDialog.Builder(v.getContext())
                             .setTitle(R.string.Vehicle_Travel_Deleting)
                             .setMessage(R.string.Msg_Confirm)
-                            .setPositiveButton(R.string.Yes, new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialogInterface, int i) {
-                                    try {
-                                        Database.mVehicleHasTravelDao.deleteVehicleHasTravel(vehicleHasTravel.getVehicle_id(), vehicleHasTravel.getTravel_id());
-                                        mVehicleHasTravel.remove(position);
-                                        notifyItemRemoved(position);
-                                        notifyItemRangeChanged(position, mVehicleHasTravel.size());
-                                    } catch (Exception e) {
-                                        Toast.makeText(context, context.getString(R.string.Error_Deleting_Data) + "\n" + e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
-                                    }
+                            .setPositiveButton(R.string.Yes, (dialogInterface, i) -> {
+                                try {
+                                    Database.mVehicleHasTravelDao.deleteVehicleHasTravel(vehicleHasTravel.getVehicle_id(), vehicleHasTravel.getTravel_id());
+                                    mVehicleHasTravel.remove(position);
+                                    notifyItemRemoved(position);
+                                    notifyItemRangeChanged(position, mVehicleHasTravel.size());
+                                } catch (Exception e) {
+                                    Toast.makeText(context, context.getString(R.string.Error_Deleting_Data) + "\n" + e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
                                 }
                             }).setNegativeButton(R.string.No, null)
                             .show();
                 }
             });
 
-            itemViewHolder.btnRefuel.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(v.getContext(), FuelSupplyActivity.class);
-                    intent.putExtra("vehicle_id", vehicleHasTravel.getVehicle_id());
-                    intent.putExtra("travel_id", vehicleHasTravel.getTravel_id());
-                    v.getContext().startActivity(intent);
-                }
+            itemViewHolder.btnRefuel.setOnClickListener(v -> {
+                Intent intent = new Intent(v.getContext(), FuelSupplyActivity.class);
+                intent.putExtra("vehicle_id", vehicleHasTravel.getVehicle_id());
+                intent.putExtra("travel_id", vehicleHasTravel.getTravel_id());
+                v.getContext().startActivity(intent);
             });
         }
     }

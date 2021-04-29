@@ -1,7 +1,6 @@
 package com.jacksonasantos.travelplan.ui.travel;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.view.LayoutInflater;
@@ -71,40 +70,28 @@ public class AccommodationListAdapter extends RecyclerView.Adapter<Accommodation
 
         holder.txtNameAccommodation.setText(accommodation.getName());
         // btnEdit
-        holder.btnEdit.setOnClickListener (new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent (v.getContext(), AccommodationActivity.class);
-                intent.putExtra("accommodation_id", accommodation.getId());
-                context.startActivity(intent);
-                notifyDataSetChanged();
-            }
+        holder.btnEdit.setOnClickListener (v -> {
+            Intent intent = new Intent (v.getContext(), AccommodationActivity.class);
+            intent.putExtra("accommodation_id", accommodation.getId());
+            context.startActivity(intent);
+            notifyDataSetChanged();
         });
 
         // btnDelete
-        holder.btnDelete.setOnClickListener (new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                new AlertDialog.Builder(v.getContext())
-                        .setTitle(R.string.Accommodation_Deleting)
-                        .setMessage(R.string.Msg_Confirm)
-                        .setPositiveButton(R.string.Yes, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                try {
-                                    Database.mAccommodationDao.deleteAccommodation(accommodation.getId());
-                                    mAccommodation.remove(position);
-                                    notifyItemRemoved(position);
-                                    notifyItemRangeChanged(position,mAccommodation.size());
-                                } catch (Exception e) {
-                                    Toast.makeText(context, context.getString(R.string.Error_Deleting_Data) + "\n" + e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
-                                }
-                            }
-                        }).setNegativeButton(R.string.No, null)
-                        .show();
-
-            }
-        });
+        holder.btnDelete.setOnClickListener (v -> new AlertDialog.Builder(v.getContext())
+                .setTitle(R.string.Accommodation_Deleting)
+                .setMessage(R.string.Msg_Confirm)
+                .setPositiveButton(R.string.Yes, (dialogInterface, i) -> {
+                    try {
+                        Database.mAccommodationDao.deleteAccommodation(accommodation.getId());
+                        mAccommodation.remove(position);
+                        notifyItemRemoved(position);
+                        notifyItemRangeChanged(position, mAccommodation.size());
+                    } catch (Exception e) {
+                        Toast.makeText(context, context.getString(R.string.Error_Deleting_Data) + "\n" + e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+                    }
+                }).setNegativeButton(R.string.No, null)
+                .show());
     }
 
     @Override

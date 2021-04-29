@@ -1,7 +1,6 @@
 package com.jacksonasantos.travelplan.ui.travel;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.os.Build;
@@ -84,50 +83,36 @@ public class TravelListAdapter extends RecyclerView.Adapter<TravelListAdapter.My
         holder.txtDeparture.setText(Utils.dateToString(travel.getDeparture_date()));
 
         // btnItinerary
-        holder.btnItinerary.setOnClickListener (new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent (v.getContext(), ItineraryActivity.class);
-                intent.putExtra("travel_id", travel.getId());
-                context.startActivity(intent);
-                notifyDataSetChanged();
-            }
+        holder.btnItinerary.setOnClickListener (v -> {
+            Intent intent = new Intent (v.getContext(), ItineraryActivity.class);
+            intent.putExtra("travel_id", travel.getId());
+            context.startActivity(intent);
+            notifyDataSetChanged();
         });
 
         // btnEdit
-        holder.btnEdit.setOnClickListener (new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent (v.getContext(), TravelActivity.class);
-                intent.putExtra("travel_id", travel.getId());
-                context.startActivity(intent);
-                notifyDataSetChanged();
-            }
+        holder.btnEdit.setOnClickListener (v -> {
+            Intent intent = new Intent (v.getContext(), TravelActivity.class);
+            intent.putExtra("travel_id", travel.getId());
+            context.startActivity(intent);
+            notifyDataSetChanged();
         });
 
         // btnDelete
-        holder.btnDelete.setOnClickListener (new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                new AlertDialog.Builder(v.getContext())
-                        .setTitle(R.string.Travel_Deleting)
-                        .setMessage(R.string.Msg_Confirm)
-                        .setPositiveButton(R.string.Yes, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                try {
-                                    Database.mTravelDao.deleteTravel(travel.getId());
-                                    mTravel.remove(position);
-                                    notifyItemRemoved(position);
-                                    notifyItemRangeChanged(position,mTravel.size());
-                                } catch (Exception e) {
-                                    Toast.makeText(context, context.getString(R.string.Error_Deleting_Data) + "\n" + e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
-                                }
-                            }
-                        }).setNegativeButton(R.string.No, null)
-                        .show();
-            }
-        });
+        holder.btnDelete.setOnClickListener (v -> new AlertDialog.Builder(v.getContext())
+                .setTitle(R.string.Travel_Deleting)
+                .setMessage(R.string.Msg_Confirm)
+                .setPositiveButton(R.string.Yes, (dialogInterface, i) -> {
+                    try {
+                        Database.mTravelDao.deleteTravel(travel.getId());
+                        mTravel.remove(position);
+                        notifyItemRemoved(position);
+                        notifyItemRangeChanged(position, mTravel.size());
+                    } catch (Exception e) {
+                        Toast.makeText(context, context.getString(R.string.Error_Deleting_Data) + "\n" + e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+                    }
+                }).setNegativeButton(R.string.No, null)
+                .show());
     }
 
     @Override
