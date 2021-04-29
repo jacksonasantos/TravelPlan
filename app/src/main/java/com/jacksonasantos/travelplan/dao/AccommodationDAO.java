@@ -10,20 +10,12 @@ import android.util.Log;
 import androidx.annotation.RequiresApi;
 
 import com.jacksonasantos.travelplan.dao.general.DbContentProvider;
+import com.jacksonasantos.travelplan.dao.interfaces.AccommodationIDAO;
 import com.jacksonasantos.travelplan.dao.interfaces.AccommodationISchema;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-
-interface AccommodationIDAO {
-    Accommodation fetchAccommodationById(Integer id);
-    List<Accommodation> fetchAllAccommodation();
-    ArrayList<Accommodation> fetchArrayAccommodation();
-    boolean addAccommodation(Accommodation accommodation);
-    void deleteAccommodation(Integer id);
-    boolean updateAccommodation(Accommodation accommodation);
-}
 
 public class AccommodationDAO extends DbContentProvider implements AccommodationISchema, AccommodationIDAO {
 

@@ -148,7 +148,7 @@ public class MaintenanceItemListAdapter extends RecyclerView.Adapter<RecyclerVie
     }
 
     public static class ItemViewHolder extends RecyclerView.ViewHolder {
-        private final ConstraintLayout llMaintenanceItem;
+        //private final ConstraintLayout llMaintenanceItem;
         private final ImageView imgServiceType;
         private final TextView txtMaintenancePlanItem;
         private final TextView txtExpiration;
@@ -158,7 +158,7 @@ public class MaintenanceItemListAdapter extends RecyclerView.Adapter<RecyclerVie
 
         public ItemViewHolder(View v) {
             super(v);
-            llMaintenanceItem = v.findViewById(R.id.llMaintenanceItem);
+            //llMaintenanceItem = v.findViewById(R.id.llMaintenanceItem);
             imgServiceType = v.findViewById(R.id.imgServiceType);
             txtMaintenancePlanItem = v.findViewById(R.id.txtMaintenancePlanItem);
             txtExpiration = v.findViewById(R.id.txtExpiration);
