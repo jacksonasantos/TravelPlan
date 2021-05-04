@@ -44,7 +44,7 @@ import com.jacksonasantos.travelplan.dao.Vehicle;
 import com.jacksonasantos.travelplan.dao.VehicleStatistics;
 import com.jacksonasantos.travelplan.dao.general.Database;
 import com.jacksonasantos.travelplan.ui.travel.PlacesAdapter;
-import com.jacksonasantos.travelplan.ui.utility.Abreviations;
+import com.jacksonasantos.travelplan.ui.utility.Abbreviations;
 import com.jacksonasantos.travelplan.ui.utility.DateInputMask;
 import com.jacksonasantos.travelplan.ui.utility.Globals;
 import com.jacksonasantos.travelplan.ui.utility.Utils;
@@ -492,7 +492,7 @@ public class FuelSupplyActivity extends AppCompatActivity implements PlacesAdapt
     private String getCityNameByCoordinates(double lat, double lon) throws IOException {
         List<Address> addresses = mGeocoder.getFromLocation(lat, lon, 1);
         if (addresses != null && addresses.size() > 0) {
-            return addresses.get(0).getSubAdminArea() + "/"+ Abreviations.getAbbreviationFromState(addresses.get(0).getAdminArea())+ " - "+ addresses.get(0).getCountryCode();
+            return addresses.get(0).getSubAdminArea() + "/"+ Abbreviations.getAbbreviationFromState(addresses.get(0).getAdminArea())+ " - "+ addresses.get(0).getCountryCode();
         }
         return null;
     }
