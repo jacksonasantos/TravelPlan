@@ -23,7 +23,6 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
-import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -225,7 +224,6 @@ public class FuelSupplyActivity extends AppCompatActivity implements PlacesAdapt
                     listPlaces.setVisibility(View.VISIBLE);
                     listPlaces.setAdapter(adapterPlaces);
                     listPlaces.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.HORIZONTAL, false));
-                    listPlaces.addItemDecoration(new DividerItemDecoration(getApplicationContext(), DividerItemDecoration.VERTICAL));
                     adapterPlaces.setOnClick(FuelSupplyActivity.this);
                 } else {
                     Exception exception = task.getException();
@@ -507,6 +505,6 @@ public class FuelSupplyActivity extends AppCompatActivity implements PlacesAdapt
         } catch (IOException e) {
             e.printStackTrace();
         }
-        listPlaces.setVisibility(View.INVISIBLE);
+        listPlaces.setVisibility(View.GONE);
     }
 }
