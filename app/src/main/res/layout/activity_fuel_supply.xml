@@ -64,7 +64,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <!-- TODO - Implement location in button -->
             <ImageButton
                 android:id="@+id/btLocation"
                 android:layout_width="70dp"
@@ -72,13 +71,23 @@
                 android:layout_marginStart="@dimen/labels_margin"
                 android:layout_marginLeft="@dimen/labels_margin"
                 android:layout_marginTop="@dimen/labels_space_top"
-                android:layout_marginBottom="@dimen/labels_space_top"
                 android:contentDescription="@string/FuelSupply_Gas_Station_Location"
-                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintBottom_toBottomOf="@+id/textInputLayout"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/ic_menu_location"
                 tools:ignore="VectorDrawableCompat" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/listPlaces"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:visibility="invisible"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textInputLayout"
+                tools:itemCount="1" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/input_layout_etGasStation"
@@ -106,9 +115,9 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textInputLayout"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/btLocation"
                 app:layout_constraintTop_toBottomOf="@+id/input_layout_etGasStation">
@@ -128,6 +137,7 @@
                     android:nextFocusDown="@+id/etSupplyDate"
                     android:textSize="12sp" />
             </com.google.android.material.textfield.TextInputLayout>
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

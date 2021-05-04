@@ -1,8 +1,13 @@
 package com.jacksonasantos.travelplan.ui.vehicle;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
+import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Geocoder;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -17,8 +22,21 @@ import android.widget.Toast;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.tasks.Task;
+import com.google.android.libraries.places.api.Places;
+import com.google.android.libraries.places.api.model.Place;
+import com.google.android.libraries.places.api.model.PlaceLikelihood;
+import com.google.android.libraries.places.api.net.FindCurrentPlaceRequest;
+import com.google.android.libraries.places.api.net.FindCurrentPlaceResponse;
+import com.google.android.libraries.places.api.net.PlacesClient;
 import com.google.android.material.switchmaterial.SwitchMaterial;
+import com.jacksonasantos.travelplan.MainActivity;
 import com.jacksonasantos.travelplan.R;
 import com.jacksonasantos.travelplan.dao.CurrencyQuote;
 import com.jacksonasantos.travelplan.dao.FuelSupply;
@@ -26,21 +44,27 @@ import com.jacksonasantos.travelplan.dao.Travel;
 import com.jacksonasantos.travelplan.dao.Vehicle;
 import com.jacksonasantos.travelplan.dao.VehicleStatistics;
 import com.jacksonasantos.travelplan.dao.general.Database;
+import com.jacksonasantos.travelplan.ui.travel.PlacesAdapter;
 import com.jacksonasantos.travelplan.ui.utility.DateInputMask;
 import com.jacksonasantos.travelplan.ui.utility.Globals;
 import com.jacksonasantos.travelplan.ui.utility.Utils;
 
+import java.io.IOException;
 import java.text.NumberFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 
-public class FuelSupplyActivity extends AppCompatActivity {
+public class FuelSupplyActivity extends AppCompatActivity implements PlacesAdapter.OnItemClicked {
 
     private TextView txVehicleName;
     private ImageView imVehicleType;
     private TextView txVehicleLicencePlate;
     private Integer nrVehicleId = 0;
     private ImageButton btLocation;
+    public RecyclerView listPlaces;
     private EditText etGasStation;
     private EditText etGasStationLocation;
     private AutoCompleteTextView spinCombustible;
@@ -75,22 +99,24 @@ public class FuelSupplyActivity extends AppCompatActivity {
     private boolean opInsert = true;
     private FuelSupply fuelSupply;
 
+    private PlacesAdapter adapterPlaces;
     Globals g = Globals.getInstance();
 
-    //private static final int REQUEST_PERMISSION = 1;        // TODO - testar quando não dá permissão de localização
+    public Geocoder mGeocoder;
+
+    private static final int REQUEST_PERMISSION = 1;        // TODO - testar quando não dá permissão de localização
 
     Locale locale = new Locale(g.getLanguage(), g.getCountry());
     NumberFormat numberFormat = NumberFormat.getNumberInstance(locale);
     NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(locale);
 
     // Use fields to define the data types to return.
-    //List<Place.Field> placeFields = Collections.singletonList(Place.Field.NAME);
-    /*List<Place.Field> placeFields = Arrays.asList(
+    List<Place.Field> placeFields = Arrays.asList(
             Place.Field.NAME,
             Place.Field.LAT_LNG,
-            Place.Field.ADDRESS);*/
+            Place.Field.ADDRESS);
 
-    //private static final String GOOGLE_API_KEY =  MainActivity.getAppResources().getString(R.string.google_maps_key);
+    private static final String GOOGLE_API_KEY =  MainActivity.getAppResources().getString(R.string.google_maps_key);
 
     @SuppressLint("WrongViewCast")
     @RequiresApi(api = Build.VERSION_CODES.N)
@@ -98,8 +124,9 @@ public class FuelSupplyActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mGeocoder = new Geocoder(getApplicationContext(), Locale.getDefault());
 
-        /*Places.initialize(getApplicationContext(), GOOGLE_API_KEY);
+        Places.initialize(getApplicationContext(), GOOGLE_API_KEY);
         PlacesClient placesClient = Places.createClient(this);
 
         if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
@@ -107,7 +134,7 @@ public class FuelSupplyActivity extends AppCompatActivity {
             String[] permissions = {android.Manifest.permission.ACCESS_FINE_LOCATION, android.Manifest.permission.ACCESS_WIFI_STATE};
             requestPermissions(permissions, REQUEST_PERMISSION);
         }
-*/
+
         Database mDb = new Database(getApplicationContext());
         mDb.open();
 
@@ -154,6 +181,7 @@ public class FuelSupplyActivity extends AppCompatActivity {
         imVehicleType = findViewById(R.id.imVehicleType);
         txVehicleLicencePlate = findViewById(R.id.txVehicleLicencePlate);
         btLocation  = findViewById(R.id.btLocation);
+        listPlaces = findViewById(R.id.listPlaces);
         etGasStation = findViewById(R.id.etGasStation);
         etGasStationLocation = findViewById(R.id.etGasStationLocation);
         spinCombustible = findViewById(R.id.spinCombustible);
@@ -176,30 +204,38 @@ public class FuelSupplyActivity extends AppCompatActivity {
         txVehicleName.setText(vehicle.getName());
         txVehicleLicencePlate.setText(vehicle.getLicense_plate());
         imVehicleType.setImageResource(vehicle.getVehicleTypeImage(vehicle.getVehicle_type()));
-        btLocation.setOnClickListener(view -> {
 
-        });
-        /*btLocation.setOnClickListener(view -> {
+        btLocation.setOnClickListener(view -> {
             FindCurrentPlaceRequest request = FindCurrentPlaceRequest.builder(placeFields).build();
             Task<FindCurrentPlaceResponse> placeResponse = placesClient.findCurrentPlace(request);
+            ArrayList<PlaceLikelihood> arrayPlaces = new ArrayList<>();
+
             placeResponse.addOnCompleteListener(task -> {
                 if (task.isSuccessful()) {
                     FindCurrentPlaceResponse response = task.getResult();
+
                     for (PlaceLikelihood placeLikelihood : response.getPlaceLikelihoods()) {
-                        Log.i(TAG, String.format("Place '%s' in '%s' - '%s' has likelihood: %f",
-                                placeLikelihood.getPlace().getName(),   placeLikelihood.getPlace().getLatLng(),
-                                placeLikelihood.getPlace().getAddress(),
-                                placeLikelihood.getLikelihood()));
+                        arrayPlaces.add(placeLikelihood);
+                        Log.i("FuelSupply", String.format("Place '%s' in '%s' - '%s' has likelihood: %f",
+                                placeLikelihood.getPlace().getName(), placeLikelihood.getPlace().getLatLng(),
+                                placeLikelihood.getPlace().getAddress(), placeLikelihood.getLikelihood()));
                     }
+                    adapterPlaces = new PlacesAdapter(arrayPlaces, mGeocoder);
+                    listPlaces.setVisibility(View.VISIBLE);
+                    listPlaces.setAdapter(adapterPlaces);
+                    listPlaces.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.HORIZONTAL, false));
+                    listPlaces.addItemDecoration(new DividerItemDecoration(getApplicationContext(), DividerItemDecoration.VERTICAL));
+                    adapterPlaces.setOnClick(FuelSupplyActivity.this);
                 } else {
                     Exception exception = task.getException();
                     if (exception instanceof ApiException) {
                         ApiException apiException = (ApiException) exception;
-                        Log.e(TAG, "Place not found: " + apiException.getStatusCode());
+                        Log.e("FuelSupply", "Place not found: " + apiException.getStatusCode());
                     }
                 }
             });
-        });*/
+
+        });
         etSupplyDate.addTextChangedListener(new DateInputMask(etSupplyDate));
         Utils.createSpinnerResources(R.array.fuel_array, spinCombustible, this);
         nrSpinCombustible = 0;
@@ -216,7 +252,7 @@ public class FuelSupplyActivity extends AppCompatActivity {
                 nrSpinCurrencyType = c1.getId();
             } else {
                 etCurrencyValue.setText(null);
-                nrSpinCurrencyType = Integer.parseInt(null);
+                nrSpinCurrencyType = 0;
             }
         });
         View.OnFocusChangeListener listenerSupplyValue = (v, hasFocus) -> {
@@ -452,5 +488,24 @@ public class FuelSupplyActivity extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), R.string.Data_Validator_Error +" - " + e.getMessage(), Toast.LENGTH_LONG).show();
         }
         return isValid;
+    }
+
+    private String getCityNameByCoordinates(double lat, double lon) throws IOException {
+        List<Address> addresses = mGeocoder.getFromLocation(lat, lon, 1);
+        if (addresses != null && addresses.size() > 0) {
+            return addresses.get(0).getSubAdminArea() + " - "+ addresses.get(0).getAdminArea();
+        }
+        return null;
+    }
+
+    @Override
+    public void onItemClick(PlaceLikelihood position) {
+        etGasStation.setText(position.getPlace().getName());
+        try {
+            etGasStationLocation.setText(getCityNameByCoordinates(Objects.requireNonNull(position.getPlace().getLatLng()).latitude, Objects.requireNonNull(position.getPlace().getLatLng()).longitude));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        listPlaces.setVisibility(View.INVISIBLE);
     }
 }
