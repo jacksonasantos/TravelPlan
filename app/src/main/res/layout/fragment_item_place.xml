@@ -35,13 +35,6 @@
                 android:layout_marginTop="@dimen/labels_space_top"
                 android:textSize="8sp"
                 tools:ignore="SmallSp" />
-            <TextView
-                android:id="@+id/tv_place_location"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/labels_space_top"
-                android:textSize="8sp"
-                tools:ignore="SmallSp" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 </LinearLayout>
