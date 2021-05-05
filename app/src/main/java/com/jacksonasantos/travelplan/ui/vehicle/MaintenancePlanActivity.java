@@ -3,12 +3,9 @@ package com.jacksonasantos.travelplan.ui.vehicle;
 import android.annotation.SuppressLint;
 import android.os.Build;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
@@ -16,8 +13,8 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.jacksonasantos.travelplan.R;
-import com.jacksonasantos.travelplan.dao.general.Database;
 import com.jacksonasantos.travelplan.dao.MaintenancePlan;
+import com.jacksonasantos.travelplan.dao.general.Database;
 import com.jacksonasantos.travelplan.ui.utility.Utils;
 
 public class MaintenancePlanActivity extends AppCompatActivity {
@@ -25,10 +22,10 @@ public class MaintenancePlanActivity extends AppCompatActivity {
     private AutoCompleteTextView spinService_type;
     private int nrSpinService_type;
     private EditText etDescription;
+    private EditText etRecommendation;
     private AutoCompleteTextView spinMeasure;
     private int nrSpinMeasure;
     private EditText etExpiration_default;
-    private EditText etRecommendation;
 
     private boolean opInsert = true;
     private MaintenancePlan maintenancePlan;

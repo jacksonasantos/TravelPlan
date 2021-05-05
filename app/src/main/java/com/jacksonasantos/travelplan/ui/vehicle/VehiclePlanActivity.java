@@ -29,7 +29,11 @@ import java.util.List;
 public class VehiclePlanActivity extends AppCompatActivity {
 
     private Integer nrVehicle_id =0;
-    private Integer nrspinService_description;
+    private TextView txVehicleName;
+    private ImageView imVehicleType;
+    private TextView txVehicleLicencePlate;
+    private AutoCompleteTextView spinService_description;
+    private Integer nrSpinService_description;
     private EditText etRecommendation;
     private EditText etMeasure;
     private int nrMeasure;
@@ -37,14 +41,9 @@ public class VehiclePlanActivity extends AppCompatActivity {
     private Button btSaveVehiclePlan;
     private RecyclerView rvVehiclePlan;
 
-    private TextView txVehicleName;
-    private ImageView imVehicleType;
-    private TextView txVehicleLicencePlate;
-    private AutoCompleteTextView spinService_description;
+    private boolean opInsert = true;
 
     private VehiclePlanListAdapter adapter;
-
-    private boolean opInsert = true;
     private VehicleHasPlan vehicleHasPlan;
 
     @SuppressLint("WrongViewCast")
@@ -61,7 +60,6 @@ public class VehiclePlanActivity extends AppCompatActivity {
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
-
         txVehicleName = findViewById(R.id.txVehicleName);
         imVehicleType = findViewById(R.id.imVehicleType);
         txVehicleLicencePlate = findViewById(R.id.txVehicleLicencePlate);
@@ -111,18 +109,18 @@ public class VehiclePlanActivity extends AppCompatActivity {
         final MaintenancePlan[] mp1 = {new MaintenancePlan()};
         spinService_description.setOnItemClickListener((parent, view, position, id) -> {
             mp1[0] = (MaintenancePlan) parent.getItemAtPosition(position);
-            nrspinService_description = mp1[0].getId();
+            nrSpinService_description = mp1[0].getId();
             etRecommendation.setText(mp1[0].getRecommendation());
             nrMeasure = mp1[0].getMeasure();
             etMeasure.setText(getResources().getStringArray(R.array.measure_plan)[nrMeasure]);
-            //etExpirationNumber.setText(String.valueOf(mp1[0].getExpiration_default()));
+            etExpirationNumber.setText(String.valueOf(mp1[0].getExpiration_default()));
         });
         adapterT.notifyDataSetChanged();
 
         if (vehicleHasPlan != null) {
-            nrspinService_description = vehicleHasPlan.getMaintenance_plan_id();
-            if (nrspinService_description != null && nrspinService_description > 0) {
-                MaintenancePlan mp2 = Database.mMaintenancePlanDao.fetchMaintenancePlanById(nrspinService_description);
+            nrSpinService_description = vehicleHasPlan.getMaintenance_plan_id();
+            if (nrSpinService_description != null && nrSpinService_description > 0) {
+                MaintenancePlan mp2 = Database.mMaintenancePlanDao.fetchMaintenancePlanById(nrSpinService_description);
                 for (int x = 0; x <= spinService_description.getAdapter().getCount(); x++) {
                     if (spinService_description.getAdapter().getItem(x).toString().equals(mp2.getDescription())) {
                         spinService_description.setText(spinService_description.getAdapter().getItem(x).toString(),false);
@@ -141,7 +139,6 @@ public class VehiclePlanActivity extends AppCompatActivity {
         rvVehiclePlan.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         adapter.notifyDataSetChanged();
 
-
         btSaveVehiclePlan.setOnClickListener(v -> {
             boolean isSave = false;
 
@@ -151,7 +148,7 @@ public class VehiclePlanActivity extends AppCompatActivity {
                 final VehicleHasPlan vp1 = new VehicleHasPlan();
 
                 vp1.setVehicle_id(nrVehicle_id);
-                vp1.setMaintenance_plan_id(nrspinService_description);
+                vp1.setMaintenance_plan_id(nrSpinService_description);
                 if (etExpirationNumber.getText().toString().isEmpty()){
                     vp1.setExpiration(0);
                 } else {
@@ -183,7 +180,7 @@ public class VehiclePlanActivity extends AppCompatActivity {
                     adapter.notifyDataSetChanged();
 
                     spinService_description.setText("");
-                    nrspinService_description = 0;
+                    nrSpinService_description = 0;
                     etRecommendation.setText("");
                     nrMeasure = 0;
                     etMeasure.setText("");
@@ -196,7 +193,7 @@ public class VehiclePlanActivity extends AppCompatActivity {
     private boolean validateData() {
         boolean isValid = false;
         try {
-            if (!String.valueOf(nrspinService_description).trim().isEmpty()
+            if (!String.valueOf(nrSpinService_description).trim().isEmpty()
                 //&& !etExpirationNumber.getText().toString().trim().isEmpty()
                )
             {
