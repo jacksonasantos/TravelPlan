@@ -36,16 +36,19 @@ public class NextMaintenanceItemDAO extends DbContentProvider implements NextMai
                             "END next_service " +
                       "FROM " + MaintenancePlanISchema.MAINTENANCE_PLAN_TABLE + " mp " +
                       "JOIN (SELECT mi." + MaintenanceItemISchema.MAINTENANCE_ITEM_MAINTENANCE_PLAN_ID + ", " +
+                                   "m." + MaintenanceISchema.MAINTENANCE_VEHICLE_ID + ", " +
                                    "MAX(m." + MaintenanceISchema.MAINTENANCE_ODOMETER + ") ult_odometer, " +
                                    "MAX(m." + MaintenanceISchema.MAINTENANCE_DATE + ") ult_date " +
                               "FROM " + MaintenanceItemISchema.MAINTENANCE_ITEM_TABLE + " mi " +
                               "LEFT JOIN " + MaintenanceISchema.MAINTENANCE_TABLE + " m ON m." + MaintenanceISchema.MAINTENANCE_ID + " = mi." + MaintenanceItemISchema.MAINTENANCE_ITEM_MAINTENANCE_ID + " " +
                              "WHERE m." + MaintenanceISchema.MAINTENANCE_VEHICLE_ID + " = ? " +
                              "GROUP BY mi." + MaintenanceItemISchema.MAINTENANCE_ITEM_MAINTENANCE_PLAN_ID + ") mi ON mi." + MaintenanceItemISchema.MAINTENANCE_ITEM_MAINTENANCE_PLAN_ID + " = mp." + MaintenancePlanISchema.MAINTENANCE_PLAN_ID + " " +
-                      "LEFT JOIN "+ VehicleHasPlanISchema.VEHICLE_HAS_PLAN_TABLE + " vp ON vp."+ VehicleHasPlanISchema.VEHICLE_HAS_PLAN_MAINTENANCE_PLAN_ID + " = mp." + MaintenancePlanISchema.MAINTENANCE_PLAN_ID + " " +
-                     "WHERE (vp."+ VehicleHasPlanISchema.VEHICLE_HAS_PLAN_VEHICLE_ID + " = ? OR vp."+ VehicleHasPlanISchema.VEHICLE_HAS_PLAN_VEHICLE_ID + " IS NULL) " +
-                       "AND mp." + MaintenancePlanISchema.MAINTENANCE_PLAN_MEASURE + " > 0",
-                new String[] { String.valueOf(vehicle_id), String.valueOf(vehicle_id)});
+                      "LEFT JOIN "+ VehicleHasPlanISchema.VEHICLE_HAS_PLAN_TABLE + " vp "+
+                             "ON vp."+ VehicleHasPlanISchema.VEHICLE_HAS_PLAN_MAINTENANCE_PLAN_ID + " = mp." + MaintenancePlanISchema.MAINTENANCE_PLAN_ID + " " +
+                            "AND vp."+ VehicleHasPlanISchema.VEHICLE_HAS_PLAN_VEHICLE_ID + " = mi."+  MaintenanceISchema.MAINTENANCE_VEHICLE_ID + " " +
+                     "WHERE mp." + MaintenancePlanISchema.MAINTENANCE_PLAN_MEASURE + " > 0 " +
+                     "ORDER BY next_service",
+                new String[] { String.valueOf(vehicle_id)});
         if (null != cursor) {
             if (cursor.moveToFirst()) {
                 do {
