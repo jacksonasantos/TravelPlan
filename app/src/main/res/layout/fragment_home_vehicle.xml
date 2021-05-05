@@ -88,10 +88,9 @@
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:contentDescription="@string/FuelSupply_Combustible"
-                app:srcCompat="@drawable/ic_supply"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_supply" />
 
             <TextView
                 android:id="@+id/tvFuelSupplyLast"
@@ -107,8 +106,7 @@
             <TextView
                 android:id="@+id/tvFuelSupplyDate"
                 android:layout_width="137dp"
-                android:layout_height="24dp"
-                android:layout_marginTop="@dimen/labels_space_top"
+                android:layout_height="22dp"
                 android:ems="10"
                 android:gravity="center_horizontal|center_vertical"
                 app:autoSizeMaxTextSize="12sp"
@@ -122,8 +120,7 @@
             <TextView
                 android:id="@+id/tvFuelSupplyLastOdometer"
                 android:layout_width="0dp"
-                android:layout_height="24dp"
-                android:layout_marginTop="@dimen/labels_space_top"
+                android:layout_height="22dp"
                 android:ems="10"
                 android:gravity="center_horizontal|center_vertical"
                 app:autoSizeMaxTextSize="12sp"
@@ -136,7 +133,7 @@
             <TextView
                 android:id="@+id/tvFuelSupplyNumberLiters"
                 android:layout_width="137dp"
-                android:layout_height="24dp"
+                android:layout_height="22dp"
                 android:ems="10"
                 android:gravity="center_horizontal|center_vertical"
                 app:autoSizeMaxTextSize="12sp"
@@ -151,7 +148,7 @@
             <TextView
                 android:id="@+id/tvFuelSupplyValue"
                 android:layout_width="0dp"
-                android:layout_height="24dp"
+                android:layout_height="22dp"
                 android:ems="10"
                 android:gravity="center_horizontal|center_vertical"
                 app:autoSizeMaxTextSize="12sp"
@@ -268,7 +265,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:scrollbars="vertical"
-                android:verticalScrollbarPosition="left"
                 app:autoSizeMaxTextSize="12sp"
                 app:autoSizeMinTextSize="6sp"
                 app:autoSizeStepGranularity="1sp"
@@ -276,7 +272,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tvVehicleServiceLast"
-                tools:itemCount="3" />
+                tools:itemCount="1" />
 
             <Button
                 android:layout_width="match_parent"
@@ -316,7 +312,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:scrollbars="vertical"
-                android:verticalScrollbarPosition="left"
                 app:autoSizeMaxTextSize="12sp"
                 app:autoSizeMinTextSize="6sp"
                 app:autoSizeStepGranularity="1sp"
@@ -324,7 +319,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tvNextVehicleMaintenance"
-                tools:itemCount="3" />
+                tools:itemCount="1" />
 
             <Button
                 android:layout_width="match_parent"
@@ -362,7 +357,7 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/listInsuranceExpiration"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
+                android:layout_height="wrap_content"
                 android:scrollbars="vertical"
                 app:autoSizeMaxTextSize="12sp"
                 app:autoSizeMinTextSize="6sp"
@@ -371,7 +366,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tvInsuranceExpiration"
-                tools:itemCount="3" />
+                tools:itemCount="1" />
 
             <Button
                 android:layout_width="match_parent"

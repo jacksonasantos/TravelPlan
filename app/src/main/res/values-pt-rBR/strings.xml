@@ -246,7 +246,7 @@
     <string name="MaintenanceItem_Note">Observação</string>
     <string name="Maintenance_Type">Tipo de Manutenção</string>
     <string name="Cancel">Cancelar</string>
-    <string name="LastVehicleServices">Últimos Servicos no Veículo</string>
+    <string name="LastVehicleServices">Últimos Serviços no Veículo</string>
     <string name="MaintenanceItem">Item de Manutenção</string>
     <string name="Next_VehicleMaintenance">Próxima Manutenção do Veículo</string>
     <string name="date">Data</string>
