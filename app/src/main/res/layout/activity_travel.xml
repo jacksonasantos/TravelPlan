@@ -139,16 +139,17 @@
                 android:clickable="false" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/clVehicleTravel"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:baselineAligned="false"
                 android:orientation="horizontal">
 
                 <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/textInputLayout2"
                     style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/btnAdd"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
@@ -176,36 +177,31 @@
                     android:layout_marginEnd="@dimen/labels_margin"
                     android:layout_marginRight="@dimen/labels_margin"
                     android:contentDescription="@string/bt_Add"
-                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintBottom_toBottomOf="@+id/textInputLayout2"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:srcCompat="@drawable/ic_button_add" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvVehicleTravel"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textInputLayout2"
+                    tools:itemCount="4" />
+
+                <Button
+                    android:id="@+id/buttonSeparator2"
+                    android:layout_width="match_parent"
+                    android:layout_height="15dp"
+                    android:clickable="false"
+                    app:layout_constraintTop_toBottomOf="@+id/rvVehicleTravel" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvTravelExpenses"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@+id/buttonSeparator2" />
             </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rvVehicleTravel"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginStart="@dimen/labels_margin"
-                android:layout_marginLeft="@dimen/labels_margin"
-                android:layout_marginEnd="@dimen/labels_margin"
-                android:layout_marginRight="@dimen/labels_margin"
-                tools:itemCount="4" />
-
-            <Button
-                android:id="@+id/buttonSeparator2"
-                android:layout_width="match_parent"
-                android:layout_height="15dp"
-                android:clickable="false" />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rvTravelExpenses"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/labels_margin"
-                android:layout_marginLeft="@dimen/labels_margin"
-                android:layout_marginEnd="@dimen/labels_margin"
-                android:layout_marginRight="@dimen/labels_margin" />
         </LinearLayout>
     </LinearLayout>
 </ScrollView>

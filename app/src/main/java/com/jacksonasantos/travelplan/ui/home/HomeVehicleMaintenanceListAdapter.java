@@ -15,8 +15,8 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.jacksonasantos.travelplan.R;
-import com.jacksonasantos.travelplan.dao.general.Database;
 import com.jacksonasantos.travelplan.dao.Maintenance;
+import com.jacksonasantos.travelplan.dao.general.Database;
 import com.jacksonasantos.travelplan.ui.utility.Globals;
 import com.jacksonasantos.travelplan.ui.utility.Utils;
 
@@ -40,6 +40,7 @@ public class HomeVehicleMaintenanceListAdapter extends RecyclerView.Adapter<Home
         private final ConstraintLayout llMaintenance;
         private final TextView txtDate;
         private final TextView txtValue;
+        private final TextView txtStrOdometer;
         private final TextView txtOdometer;
         private final TextView txtDetail;
 
@@ -48,6 +49,7 @@ public class HomeVehicleMaintenanceListAdapter extends RecyclerView.Adapter<Home
             llMaintenance = v.findViewById(R.id.llMaintenance);
             txtDate = v.findViewById(R.id.txtDate);
             txtValue = v.findViewById(R.id.txtValue);
+            txtStrOdometer = v.findViewById(R.id.txtStrOdometer);
             txtOdometer = v.findViewById(R.id.txtOdometer);
             txtDetail = v.findViewById(R.id.txtDetail);
         }
@@ -74,7 +76,7 @@ public class HomeVehicleMaintenanceListAdapter extends RecyclerView.Adapter<Home
         return new MyViewHolder(maintenanceView);
     }
 
-    @SuppressLint({"SetTextI18n", "ResourceAsColor"})
+    @SuppressLint({"SetTextI18n", "ResourceAsColor", "DefaultLocale"})
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public void onBindViewHolder(@NonNull final MyViewHolder holder, final int position) {
@@ -87,7 +89,8 @@ public class HomeVehicleMaintenanceListAdapter extends RecyclerView.Adapter<Home
 
         holder.txtDate.setText(Utils.dateToString(maintenance.getDate()));
         holder.txtValue.setText(currencyFormatter.format(maintenance.getValue()==0? BigDecimal.ZERO:maintenance.getValue()));
-        holder.txtOdometer.setText(context.getString(R.string.Odometer)+ ": "+maintenance.getOdometer());
+        holder.txtStrOdometer.setText(context.getString(R.string.Odometer)+ ": ");
+        holder.txtOdometer.setText(String.format("%8d",maintenance.getOdometer()));
         holder.txtDetail.setText(maintenance.getDetail());
     }
 

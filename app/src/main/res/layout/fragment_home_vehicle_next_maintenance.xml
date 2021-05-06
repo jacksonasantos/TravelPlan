@@ -37,7 +37,7 @@
 
     <TextView
         android:id="@+id/txtMeasure"
-        android:layout_width="50dp"
+        android:layout_width="40dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/labels_marginLeft"
         android:layout_marginRight="@dimen/labels_marginLeft"
@@ -52,7 +52,7 @@
 
     <TextView
         android:id="@+id/txtNextService"
-        android:layout_width="80dp"
+        android:layout_width="70dp"
         android:layout_height="wrap_content"
         android:gravity="end|center_vertical"
         app:autoSizeMaxTextSize="12sp"

@@ -83,7 +83,7 @@ public class TravelExpensesListAdapter extends RecyclerView.Adapter<RecyclerView
 
             headerViewHolder.btnAddExpenses.setOnClickListener(v -> {
                 LayoutInflater li = LayoutInflater.from(v.getContext());
-                View promptsView = li.inflate(R.layout.activity_travel_expenses_dialog, null);
+                View promptsView = li.inflate(R.layout.dialog_travel_expenses, null);
 
                 final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(v.getContext());
 

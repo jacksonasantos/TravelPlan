@@ -48,6 +48,7 @@ public class MaintenanceActivity extends AppCompatActivity {
     private EditText etNote;
 
     private ConstraintLayout labelMaintenanceItem;
+    private ImageButton btAddMaintenanceItem ;
     private RecyclerView listMaintenanceItem;
 
     private boolean opInsert = true;
@@ -85,7 +86,6 @@ public class MaintenanceActivity extends AppCompatActivity {
         }
 
         addListenerOnButtonSave();
-        addListenerOnButtonAdd();
 
         TextView txVehicleName = findViewById(R.id.txVehicleName);
         ImageView imVehicleType = findViewById(R.id.imVehicleType);
@@ -97,6 +97,7 @@ public class MaintenanceActivity extends AppCompatActivity {
         etLocation = findViewById(R.id.etLocation);
         etNote = findViewById(R.id.etNote);
 
+        btAddMaintenanceItem = findViewById(R.id.btAddMaintenanceItem);
         listMaintenanceItem = findViewById(R.id.listMaintenanceItem);
 
         Vehicle vehicle;
@@ -116,10 +117,14 @@ public class MaintenanceActivity extends AppCompatActivity {
         etDate.addTextChangedListener(new DateInputMask(etDate));
 
         if (!opInsert) {
+            btAddMaintenanceItem.setVisibility(View.VISIBLE);
+            addListenerOnButtonAdd();
             adapterMaintenanceItem = new MaintenanceItemListAdapter(Database.mMaintenanceItemDao.fetchMaintenanceItemByMaintenance(maintenance.getId()), getApplicationContext(),1);
             listMaintenanceItem.setAdapter(adapterMaintenanceItem);
             listMaintenanceItem.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
             listMaintenanceItem.addItemDecoration(new DividerItemDecoration(getApplicationContext(), DividerItemDecoration.VERTICAL));
+        } else {
+            btAddMaintenanceItem.setVisibility(View.INVISIBLE);
         }
 
         if (maintenance != null) {
@@ -133,7 +138,6 @@ public class MaintenanceActivity extends AppCompatActivity {
     }
 
     public void addListenerOnButtonAdd() {
-        ImageButton btAddMaintenanceItem = findViewById(R.id.btAddMaintenanceItem);
 
         final List<MaintenancePlan> maintenancePlan =  Database.mMaintenancePlanDao.fetchArrayMaintenancePlan();
         final ArrayAdapter<MaintenancePlan> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, maintenancePlan);
@@ -141,7 +145,7 @@ public class MaintenanceActivity extends AppCompatActivity {
 
         btAddMaintenanceItem.setOnClickListener(v -> {
             LayoutInflater li = LayoutInflater.from(v.getContext());
-            View promptsView = li.inflate(R.layout.activity_maintenance_item_dialog, null);
+            View promptsView = li.inflate(R.layout.dialog_maintenance_item, null);
 
             final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(v.getContext());
 

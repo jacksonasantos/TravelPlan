@@ -278,7 +278,7 @@ public class HomeTravelFragment extends Fragment implements View.OnClickListener
             public void TravelItemExpenses(View v, int expense_type ) {
 
                 LayoutInflater li = LayoutInflater.from(v.getContext());
-                View promptsView = li.inflate(R.layout.activity_travel_item_expenses_dialog, null);
+                View promptsView = li.inflate(R.layout.dialog_travel_item_expenses, null);
 
                 final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(v.getContext());
                 alertDialogBuilder.setView(promptsView);

@@ -12,7 +12,8 @@
     <TextView
         android:id="@+id/txtVehicle"
         android:layout_width="0dp"
-        android:layout_height="30dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
         android:layout_weight="0.50"
         android:gravity="start|center_vertical"
         app:autoSizeMaxTextSize="12sp"
@@ -23,7 +24,8 @@
     <TextView
         android:id="@+id/txtAvgConsumption"
         android:layout_width="0dp"
-        android:layout_height="30dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
         android:layout_weight="0.5"
         android:gravity="start|center_vertical"
         app:autoSizeMaxTextSize="12sp"
@@ -31,20 +33,26 @@
         app:autoSizeStepGranularity="1sp"
         app:autoSizeTextType="uniform" />
 
-        <ImageButton
+    <ImageButton
         android:id="@+id/btnDelete"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
+        android:layout_width="22dp"
+        android:layout_height="22dp"
         android:contentDescription="@string/bt_Delete"
-        android:scaleType="centerCrop"
+        android:padding="7dp"
+        android:scaleType="fitCenter"
+        android:scaleX="1.5"
+        android:scaleY="1.5"
         app:srcCompat="@drawable/ic_menu_delete" />
 
     <ImageButton
         android:id="@+id/btnRefuel"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
+        android:layout_width="22dp"
+        android:layout_height="22dp"
         android:contentDescription="@string/bt_Refuel"
-        android:scaleType="centerCrop"
+        android:padding="7dp"
+        android:scaleType="fitCenter"
+        android:scaleX="1.5"
+        android:scaleY="1.5"
         app:srcCompat="@drawable/ic_supply" />
 
 </LinearLayout>

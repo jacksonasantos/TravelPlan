@@ -97,6 +97,7 @@
                     android:layout_marginEnd="@dimen/labels_margin"
                     android:layout_marginRight="@dimen/labels_margin"
                     android:layout_weight="0.50">
+
                     <EditText
                         android:id="@+id/etValue"
                         android:layout_width="match_parent"

@@ -3,6 +3,7 @@ package com.jacksonasantos.travelplan.ui.travel;
 import android.annotation.SuppressLint;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
@@ -14,6 +15,7 @@ import android.widget.Toast;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -35,8 +37,10 @@ public class TravelActivity extends AppCompatActivity {
     private int nrStatus;
     private TextView tvStatus;
 
+    private ConstraintLayout clVehicleTravel;
     private AutoCompleteTextView spinVehicle;
     private int nrSpinVehicle;
+    private ImageButton btnAdd;
     private RecyclerView rvVehicleTravel;
 
     private RecyclerView rvTravelExpenses;
@@ -63,7 +67,6 @@ public class TravelActivity extends AppCompatActivity {
         }
 
         addListenerOnButtonSave();
-        addListenerOnButtonAdd();
 
         etDescription = findViewById(R.id.etDescription);
         etDeparture_date = findViewById(R.id.etDeparture_date);
@@ -71,8 +74,10 @@ public class TravelActivity extends AppCompatActivity {
         etNote = findViewById(R.id.etNote);
         tvStatus = findViewById(R.id.tvStatus);
 
+        clVehicleTravel = findViewById(R.id.clVehicleTravel);
         spinVehicle = findViewById(R.id.spinVehicle);
         rvVehicleTravel = findViewById(R.id.rvVehicleTravel);
+        btnAdd = findViewById(R.id.btnAdd);
 
         rvTravelExpenses = findViewById(R.id.rvTravelExpenses);
     }
@@ -116,6 +121,8 @@ public class TravelActivity extends AppCompatActivity {
         adapterVehicle.notifyDataSetChanged();
 
         if (travel != null) {
+            addListenerOnButtonAdd();
+            clVehicleTravel.setVisibility(View.VISIBLE);
             adapterVehicleTravel = new VehicleTravelListAdapter(Database.mVehicleHasTravelDao.fetchAllVehicleHasTravelByTravel(travel.getId()), getApplicationContext(),"Travel",0);
             rvVehicleTravel.setAdapter(adapterVehicleTravel);
             rvVehicleTravel.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
@@ -125,12 +132,12 @@ public class TravelActivity extends AppCompatActivity {
             rvTravelExpenses.setAdapter(adapterTravelExpenses);
             rvTravelExpenses.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
             adapterTravelExpenses.notifyDataSetChanged();
+        } else {
+            clVehicleTravel.setVisibility(View.INVISIBLE);
         }
     }
 
     public void addListenerOnButtonAdd() {
-        ImageButton btnAdd = findViewById(R.id.btnAdd);
-
         btnAdd.setOnClickListener(v -> {
             boolean isSave = false;
 

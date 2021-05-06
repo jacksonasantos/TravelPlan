@@ -118,7 +118,7 @@ public class HomeInsuranceListAdapter extends RecyclerView.Adapter<RecyclerView.
 
             itemViewHolder.llInsuranceItem.setOnClickListener(v -> {
                 LayoutInflater li = LayoutInflater.from(v.getContext());
-                View promptsView = li.inflate(R.layout.activity_home_insurance_dialog, null);
+                View promptsView = li.inflate(R.layout.dialog_home_insurance, null);
 
                 TextView txtBrokerName = promptsView.findViewById(R.id.txtBrokerName);
                 TextView txtContactName = promptsView.findViewById(R.id.txtContactName);

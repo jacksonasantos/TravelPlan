@@ -16,7 +16,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:gravity="start|center_vertical"
-        android:layout_weight="0.35"
+        android:layout_weight="0.30"
         app:autoSizeMaxTextSize="12sp"
         app:autoSizeMinTextSize="6sp"
         app:autoSizeStepGranularity="1sp"
@@ -39,8 +39,10 @@
         android:id="@+id/txtNote"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/labels_margin"
+        android:layout_marginLeft="@dimen/labels_margin"
         android:gravity="start|center_vertical"
-        android:layout_weight="0.4"
+        android:layout_weight="0.45"
         app:autoSizeMaxTextSize="12sp"
         app:autoSizeMinTextSize="6sp"
         app:autoSizeStepGranularity="1sp"
@@ -48,10 +50,13 @@
 
     <ImageButton
         android:id="@+id/btnDelete"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
+        android:layout_width="22dp"
+        android:layout_height="22dp"
         android:contentDescription="@string/bt_Delete"
-        android:scaleType="centerCrop"
+        android:padding="7dp"
+        android:scaleType="fitCenter"
+        android:scaleX="1.5"
+        android:scaleY="1.5"
         app:srcCompat="@drawable/ic_menu_delete" />
 
 </LinearLayout>

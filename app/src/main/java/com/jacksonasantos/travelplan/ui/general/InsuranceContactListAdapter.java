@@ -2,7 +2,6 @@ package com.jacksonasantos.travelplan.ui.general;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Build;
 import android.view.LayoutInflater;
@@ -78,7 +77,7 @@ public class InsuranceContactListAdapter extends RecyclerView.Adapter<RecyclerVi
                 headerViewHolder.btnAddInsuranceContact.setImageResource(R.drawable.ic_button_add);
                 headerViewHolder.btnAddInsuranceContact.setOnClickListener(v -> {
                     LayoutInflater li = LayoutInflater.from(v.getContext());
-                    View promptsView = li.inflate(R.layout.activity_insurance_contact_dialog, null);
+                    View promptsView = li.inflate(R.layout.dialog_insurance_contact, null);
 
                     final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(v.getContext());
 
