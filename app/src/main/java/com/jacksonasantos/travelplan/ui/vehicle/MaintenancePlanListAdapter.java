@@ -34,7 +34,6 @@ public class MaintenancePlanListAdapter extends RecyclerView.Adapter<Maintenance
 
         public ImageView imServiceType;
         public TextView txtDescription;
-        public TextView txtMeasure;
         public TextView txtExpiration_default;
         public ImageButton btnEdit;
         public ImageButton btnDelete;
@@ -43,7 +42,6 @@ public class MaintenancePlanListAdapter extends RecyclerView.Adapter<Maintenance
             super(v);
             imServiceType = v.findViewById(R.id.imServiceType);
             txtDescription = v.findViewById(R.id.txtDescription);
-            txtMeasure = v.findViewById(R.id.txtMeasure);
             txtExpiration_default = v.findViewById(R.id.txtExpiration_default);
             btnEdit = v.findViewById(R.id.btnEdit);
             btnDelete = v.findViewById(R.id.btnDelete);
@@ -82,12 +80,7 @@ public class MaintenancePlanListAdapter extends RecyclerView.Adapter<Maintenance
 
         holder.imServiceType.setImageResource(maintenanceItem.getServiceTypeImage(maintenancePlan.getService_type()));
         holder.txtDescription.setText(maintenancePlan.getDescription());
-        if (maintenancePlan.getExpiration_default()>0) {
-            holder.txtExpiration_default.setText(String.valueOf(maintenancePlan.getExpiration_default()));
-        } else {
-            holder.txtExpiration_default.setText("");
-        }
-        holder.txtMeasure.setText(measureArray[maintenancePlan.getMeasure()]);
+        holder.txtExpiration_default.setText(maintenancePlan.getExpiration_default()==0?measureArray[maintenancePlan.getMeasure()]:maintenancePlan.getExpiration_default()+" "+measureArray[maintenancePlan.getMeasure()]);
 
         // btnEdit
         holder.btnEdit.setOnClickListener (v -> {

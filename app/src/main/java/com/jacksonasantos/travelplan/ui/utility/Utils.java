@@ -89,7 +89,7 @@ public class Utils extends AppCompatActivity  {
     public static void createSpinnerResources(int resource_array, AutoCompleteTextView spin, Context context) {
         ArrayAdapter<String> adapter = new ArrayAdapter<>(
                 context,
-                android.R.layout.select_dialog_item,
+                android.R.layout.simple_spinner_dropdown_item,
                 context.getResources().getStringArray(resource_array));
         spin.setAdapter(adapter);
     }

@@ -12,14 +12,14 @@
     <ImageView
         android:id="@+id/imServiceType"
         android:layout_width="35dp"
-        android:layout_height="35dp"
-        android:scaleType="fitCenter"
-        android:contentDescription="@string/Maintenance_Type" />
+        android:layout_height="31dp"
+        android:contentDescription="@string/Maintenance_Type"
+        android:scaleType="fitCenter" />
 
     <TextView
         android:id="@+id/txtDescription"
         android:layout_width="0dp"
-        android:layout_height="35dp"
+        android:layout_height="match_parent"
         android:layout_weight="54"
         android:gravity="center"
         app:autoSizeMaxTextSize="12sp"
@@ -30,10 +30,10 @@
     <TextView
         android:id="@+id/txtExpiration"
         android:layout_width="0dp"
-        android:layout_height="35dp"
+        android:layout_height="match_parent"
         android:layout_marginEnd="4dp"
         android:layout_marginRight="4dp"
-        android:layout_weight="30"
+        android:layout_weight="35"
         android:gravity="end|center_vertical"
         app:autoSizeMaxTextSize="12sp"
         app:autoSizeMinTextSize="4sp"
@@ -43,14 +43,14 @@
     <ImageButton
         android:id="@+id/btnEdit"
         android:layout_width="35dp"
-        android:layout_height="35dp"
+        android:layout_height="match_parent"
         android:contentDescription="@string/bt_Edit"
         app:srcCompat="@drawable/ic_menu_edit" />
 
     <ImageButton
         android:id="@+id/btnDelete"
         android:layout_width="35dp"
-        android:layout_height="35dp"
+        android:layout_height="match_parent"
         android:contentDescription="@string/bt_Delete"
         app:srcCompat="@drawable/ic_menu_delete" />
 

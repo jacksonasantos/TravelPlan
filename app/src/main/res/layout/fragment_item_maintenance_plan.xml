@@ -36,35 +36,21 @@
 
     <TextView
         android:id="@+id/txtExpiration_default"
-        android:layout_width="120dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/labels_margin"
-        android:layout_marginLeft="@dimen/labels_margin"
-        android:gravity="end|center_vertical"
-        app:autoSizeMaxTextSize="12sp"
-        app:autoSizeMinTextSize="4sp"
-        app:autoSizeStepGranularity="1sp"
-        app:autoSizeTextType="uniform"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/imServiceType"
-        app:layout_constraintTop_toBottomOf="@+id/txtDescription" />
-
-    <TextView
-        android:id="@+id/txtMeasure"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/labels_margin"
         android:layout_marginLeft="@dimen/labels_margin"
         android:layout_marginEnd="@dimen/labels_margin"
         android:layout_marginRight="@dimen/labels_margin"
-        android:gravity="start|center_vertical"
+        android:contentDescription="@string/Maintenance_Plan_Expiration"
+        android:gravity="center"
         app:autoSizeMaxTextSize="12sp"
         app:autoSizeMinTextSize="4sp"
         app:autoSizeStepGranularity="1sp"
         app:autoSizeTextType="uniform"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/btnEdit"
-        app:layout_constraintStart_toEndOf="@+id/txtExpiration_default"
+        app:layout_constraintStart_toEndOf="@+id/imServiceType"
         app:layout_constraintTop_toBottomOf="@+id/txtDescription" />
 
     <ImageButton
