@@ -6,23 +6,24 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:layout_weight="1"
+    android:layout_weight="100"
     tools:context=".ui.vehicle.VehiclePlanActivity">
 
     <ImageView
         android:id="@+id/imServiceType"
         android:layout_width="35dp"
         android:layout_height="35dp"
+        android:scaleType="fitCenter"
         android:contentDescription="@string/Maintenance_Type" />
 
     <TextView
         android:id="@+id/txtDescription"
-        android:layout_width="100dp"
+        android:layout_width="0dp"
         android:layout_height="35dp"
-        android:layout_weight="0.3"
-        android:gravity="center_horizontal|center_vertical"
+        android:layout_weight="54"
+        android:gravity="center"
         app:autoSizeMaxTextSize="12sp"
-        app:autoSizeMinTextSize="4sp"
+        app:autoSizeMinTextSize="2sp"
         app:autoSizeStepGranularity="1sp"
         app:autoSizeTextType="uniform" />
 
@@ -32,26 +33,15 @@
         android:layout_height="35dp"
         android:layout_marginEnd="4dp"
         android:layout_marginRight="4dp"
-        android:layout_weight="0.2"
+        android:layout_weight="30"
         android:gravity="end|center_vertical"
         app:autoSizeMaxTextSize="12sp"
         app:autoSizeMinTextSize="4sp"
         app:autoSizeStepGranularity="1sp"
         app:autoSizeTextType="uniform" />
 
-    <TextView
-        android:id="@+id/txtMeasure"
-        android:layout_width="0dp"
-        android:layout_height="35dp"
-        android:layout_weight="0.3"
-        android:gravity="start|center_vertical"
-        app:autoSizeMaxTextSize="12sp"
-        app:autoSizeMinTextSize="4sp"
-        app:autoSizeStepGranularity="1sp"
-        app:autoSizeTextType="uniform" />
-
     <ImageButton
-    android:id="@+id/btnEdit"
+        android:id="@+id/btnEdit"
         android:layout_width="35dp"
         android:layout_height="35dp"
         android:contentDescription="@string/bt_Edit"

@@ -34,7 +34,6 @@ public class VehiclePlanListAdapter extends RecyclerView.Adapter<VehiclePlanList
 
         public ImageView imServiceType;
         public TextView txtDescription;
-        public TextView txtMeasure;
         public TextView txtExpiration;
         public ImageButton btnEdit;
         public ImageButton btnDelete;
@@ -43,7 +42,6 @@ public class VehiclePlanListAdapter extends RecyclerView.Adapter<VehiclePlanList
             super(v);
             imServiceType = v.findViewById(R.id.imServiceType);
             txtDescription = v.findViewById(R.id.txtDescription);
-            txtMeasure = v.findViewById(R.id.txtMeasure);
             txtExpiration = v.findViewById(R.id.txtExpiration);
             btnEdit = v.findViewById(R.id.btnEdit);
             btnDelete = v.findViewById(R.id.btnDelete);
@@ -80,8 +78,7 @@ public class VehiclePlanListAdapter extends RecyclerView.Adapter<VehiclePlanList
 
         holder.imServiceType.setImageResource(maintenanceItem.getServiceTypeImage(maintenancePlan.getService_type()));
         holder.txtDescription.setText(maintenancePlan.getDescription());
-        holder.txtMeasure.setText(measureArray[maintenancePlan.getMeasure()]);
-        holder.txtExpiration.setText(vehicleHasPlan.getExpiration()==0?null:String.valueOf(vehicleHasPlan.getExpiration()));
+        holder.txtExpiration.setText(vehicleHasPlan.getExpiration()==0?measureArray[maintenancePlan.getMeasure()]:vehicleHasPlan.getExpiration()+" "+measureArray[maintenancePlan.getMeasure()]);
 
         // btnEdit
         holder.btnEdit.setOnClickListener (v -> {
