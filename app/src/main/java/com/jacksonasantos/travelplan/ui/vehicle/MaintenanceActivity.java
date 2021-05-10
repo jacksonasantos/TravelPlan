@@ -19,7 +19,6 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -47,7 +46,7 @@ public class MaintenanceActivity extends AppCompatActivity {
     private EditText etLocation;
     private EditText etNote;
 
-    private ConstraintLayout labelMaintenanceItem;
+    //private ConstraintLayout labelMaintenanceItem;
     private ImageButton btAddMaintenanceItem ;
     private RecyclerView listMaintenanceItem;
 

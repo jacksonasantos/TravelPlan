@@ -314,4 +314,8 @@
     <string name="add_new_itinerary">Adicionar novo Itinerário</string>
     <string name="Itinerary_Sequence">Seq</string>
     <string name="waypoints">Ponto de Passagem</string>
+    <string name="NextMaintenance_Type">Tipo</string>
+    <string name="NextMaintenance_Description">Descrição</string>
+    <string name="NextMaintenance_Measure">Medida</string>
+    <string name="NextMaintenance_Service">Serviço</string>
 </resources>

@@ -200,7 +200,7 @@ public class HomeVehicleFragment extends Fragment implements View.OnClickListene
                 adapterVehicle.notifyDataSetChanged();
 
                 // Last Vehicle Services - layerServiceVehicle
-                HomeVehicleMaintenanceListAdapter adapterMaintenance = new HomeVehicleMaintenanceListAdapter(Database.mMaintenanceDao.findReminderMaintenance( g.getIdVehicle() ), getContext());
+                HomeVehicleMaintenanceListAdapter adapterMaintenance = new HomeVehicleMaintenanceListAdapter(Database.mMaintenanceDao.findReminderMaintenance( g.getIdVehicle() ), getContext(), 0);
                 if (adapterMaintenance.getItemCount() > 0){
                     layerServiceVehicle.setVisibility(View.VISIBLE);
                     maintenanceList.setAdapter(adapterMaintenance);
@@ -211,7 +211,7 @@ public class HomeVehicleFragment extends Fragment implements View.OnClickListene
                 adapterMaintenance.notifyDataSetChanged();
 
                 // Next Vehicle Maintenance - layerMaintenanceItemVehicle
-                HomeVehicleNextMaintenanceListAdapter adapterNextMaintenance = new HomeVehicleNextMaintenanceListAdapter(Database.mNextMaintenanceItemDao.findNextMaintenanceItem( g.getIdVehicle() ), getContext());
+                HomeVehicleNextMaintenanceListAdapter adapterNextMaintenance = new HomeVehicleNextMaintenanceListAdapter(Database.mNextMaintenanceItemDao.findNextMaintenanceItem( g.getIdVehicle() ), getContext(),0);
                 if (adapterNextMaintenance.getItemCount() > 0){
                     layerMaintenanceItemVehicle.setVisibility(View.VISIBLE);
                     nextVehicleMaintenanceList.setAdapter(adapterNextMaintenance);
