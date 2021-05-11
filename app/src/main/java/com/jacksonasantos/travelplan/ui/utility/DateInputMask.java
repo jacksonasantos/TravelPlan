@@ -65,7 +65,6 @@ public class DateInputMask implements TextWatcher {
                 clean.substring(0, 2),
                 clean.substring(2, 4),
                 clean.substring(4, 8));
-
         sel = Math.max(sel, 0);
         current = clean;
         input.setText(current);
@@ -74,6 +73,5 @@ public class DateInputMask implements TextWatcher {
 
     @Override
     public void afterTextChanged(Editable s) {
-
     }
 }

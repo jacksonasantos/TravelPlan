@@ -536,7 +536,7 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
 
     @Override
     public void onProviderEnabled(@NonNull String provider) {
-        (Toast.makeText(getActivity(), "Reconnecting", Toast.LENGTH_LONG)).show();
+        Toast.makeText(getActivity(), "Reconnecting", Toast.LENGTH_LONG).show();
     }
 
     @Override

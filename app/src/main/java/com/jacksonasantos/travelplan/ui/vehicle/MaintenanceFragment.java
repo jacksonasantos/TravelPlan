@@ -19,6 +19,8 @@ import com.jacksonasantos.travelplan.R;
 import com.jacksonasantos.travelplan.dao.general.Database;
 import com.jacksonasantos.travelplan.ui.utility.Globals;
 
+import java.util.Objects;
+
 public class MaintenanceFragment extends Fragment  {
 
     @Override
@@ -33,11 +35,11 @@ public class MaintenanceFragment extends Fragment  {
         Database mDb = new Database(getContext());
         mDb.open();
 
-        RecyclerView listMaintenance = this.getView().findViewById(R.id.list);
+        RecyclerView listMaintenance = this.requireView().findViewById(R.id.list);
         MaintenanceListAdapter adapter = new MaintenanceListAdapter(Database.mMaintenanceDao.fetchAllMaintenance(), getContext());
         listMaintenance.setAdapter(adapter);
         listMaintenance.setLayoutManager(new LinearLayoutManager(getContext()));
-        listMaintenance.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
+        listMaintenance.addItemDecoration(new DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL));
 
         adapter.notifyDataSetChanged();
         mDb.close();
@@ -81,7 +83,7 @@ public class MaintenanceFragment extends Fragment  {
                     this.mMenu.getItem(0).setIcon(getResources().getDrawable(R.drawable.ic_menu_filter_no));
                 }
 
-                RecyclerView listMaintenance = this.getView().findViewById(R.id.list);
+                RecyclerView listMaintenance = this.requireView().findViewById(R.id.list);
                 MaintenanceListAdapter adapter = new MaintenanceListAdapter(Database.mMaintenanceDao.fetchAllMaintenance(), getContext());
                 listMaintenance.setAdapter(adapter);
                 break;

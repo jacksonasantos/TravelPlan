@@ -32,11 +32,11 @@ public class BrokerFragment extends Fragment  {
         Database mDb = new Database(getContext());
         mDb.open();
 
-        RecyclerView listBroker = this.getView().findViewById(R.id.list);
+        RecyclerView listBroker = this.requireView().findViewById(R.id.list);
         BrokerListAdapter adapter = new BrokerListAdapter(Database.mBrokerDao.fetchAllBroker(), getContext());
         listBroker.setAdapter(adapter);
         listBroker.setLayoutManager(new LinearLayoutManager(getContext()));
-        listBroker.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
+        listBroker.addItemDecoration(new DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL));
 
         adapter.notifyDataSetChanged();
         mDb.close();

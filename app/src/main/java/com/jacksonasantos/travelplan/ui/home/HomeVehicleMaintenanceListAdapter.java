@@ -116,7 +116,6 @@ public class HomeVehicleMaintenanceListAdapter extends RecyclerView.Adapter<Recy
         private final TextView txtDate;
         private final TextView txtValue;
         private final TextView txtStrOdometer;
-        private final TextView txtOdometer;
         private final TextView txtDetail;
 
         public HeaderViewHolder(View v) {
@@ -125,7 +124,6 @@ public class HomeVehicleMaintenanceListAdapter extends RecyclerView.Adapter<Recy
             txtDate = v.findViewById(R.id.txtDate);
             txtValue = v.findViewById(R.id.txtValue);
             txtStrOdometer = v.findViewById(R.id.txtStrOdometer);
-            txtOdometer = v.findViewById(R.id.txtOdometer);
             txtDetail = v.findViewById(R.id.txtDetail);
         }
     }
