@@ -19,8 +19,6 @@ import com.jacksonasantos.travelplan.R;
 import com.jacksonasantos.travelplan.dao.general.Database;
 import com.jacksonasantos.travelplan.ui.utility.Globals;
 
-import java.util.Objects;
-
 public class MaintenanceFragment extends Fragment  {
 
     @Override
