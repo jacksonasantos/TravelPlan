@@ -37,8 +37,8 @@ public class HomeVehicleStatisticsListAdapter extends RecyclerView.Adapter<HomeV
         private final TextView txtAVGCostLitre;
         private final TextView txtMeasureCost;
         private final TextView txtAVGConsumption;
-        private final TextView txtAVGMaxConsumption;
         private final TextView txtMeasureConsumption;
+        private final TextView txtAVGMaxConsumption;
         private final TextView txtMeasureMaxConsumption;
 
         public MyViewHolder(View v) {
@@ -47,8 +47,8 @@ public class HomeVehicleStatisticsListAdapter extends RecyclerView.Adapter<HomeV
             txtAVGCostLitre = v.findViewById(R.id.txtAVGCostLitre);
             txtMeasureCost = v.findViewById(R.id.txtMeasureCost);
             txtAVGConsumption = v.findViewById(R.id.txtAVGConsumption);
-            txtAVGMaxConsumption = v.findViewById(R.id.txtAVGMaxConsumption);
             txtMeasureConsumption = v.findViewById(R.id.txtMeasureConsumption);
+            txtAVGMaxConsumption = v.findViewById(R.id.txtAVGMaxConsumption);
             txtMeasureMaxConsumption = v.findViewById(R.id.txtMeasureMaxConsumption);
         }
 

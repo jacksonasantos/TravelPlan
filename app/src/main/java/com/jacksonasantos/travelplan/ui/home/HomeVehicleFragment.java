@@ -23,11 +23,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.jacksonasantos.travelplan.R;
-import com.jacksonasantos.travelplan.dao.general.Database;
 import com.jacksonasantos.travelplan.dao.FuelSupply;
 import com.jacksonasantos.travelplan.dao.Vehicle;
 import com.jacksonasantos.travelplan.dao.VehicleGraphStatistics;
 import com.jacksonasantos.travelplan.dao.VehicleStatistics;
+import com.jacksonasantos.travelplan.dao.general.Database;
 import com.jacksonasantos.travelplan.ui.utility.Globals;
 import com.jacksonasantos.travelplan.ui.utility.Utils;
 import com.jacksonasantos.travelplan.ui.vehicle.FuelSupplyActivity;
@@ -244,11 +244,11 @@ public class HomeVehicleFragment extends Fragment implements View.OnClickListene
     private void addDataSeries() {
         String[] reasonTypeArray;
         reasonTypeArray = getResources().getStringArray(R.array.supply_reason_type_array);
-        for(int type=1; type<=reasonTypeArray.length; type++){
+        for (int type=1; type<=reasonTypeArray.length; type++) {
             List<VehicleGraphStatistics> graphHelper = Database.mVehicleGraphStatisticsDao.findLastVehicleGraphStatistics(g.getIdVehicle(), type);
             DataPoint[] dataSeries = new DataPoint[graphHelper.size()];
-            if (graphHelper.size()>0){
-                for(int x = 0;x<graphHelper.size(); x++){
+            if (graphHelper.size()>0) {
+                for (int x = 0;x<graphHelper.size(); x++) {
                     dataSeries[x] = new DataPoint(graphHelper.get(x).getXaxis_date(), graphHelper.get(x).getYaxis_avg_consumption());
                 }
                 if (dataSeries.length > tamHorizontalLabels)

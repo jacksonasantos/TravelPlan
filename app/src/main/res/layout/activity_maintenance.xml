@@ -18,7 +18,6 @@
                 android:layout_height="20dp"
                 android:layout_marginStart="@dimen/labels_margin"
                 android:layout_marginLeft="@dimen/labels_margin"
-                android:layout_marginTop="@dimen/labels_space_top"
                 android:gravity="bottom|center_horizontal"
                 android:hint="@string/Vehicle_Name"
                 android:textSize="12sp"
@@ -27,7 +26,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
             <ImageView android:id="@+id/imVehicleType"
                 android:layout_width="45dp"
-                android:layout_height="45dp"
+                android:layout_height="40dp"
                 android:layout_marginStart="@dimen/labels_margin"
                 android:layout_marginLeft="@dimen/labels_margin"
                 android:contentDescription="@string/Vehicle_Type"
@@ -38,10 +37,9 @@
                 tools:ignore="ContentDescription" />
             <TextView android:id="@+id/txVehicleLicencePlate"
                 android:layout_width="330dp"
-                android:layout_height="25dp"
+                android:layout_height="20dp"
                 android:layout_marginStart="@dimen/labels_margin"
                 android:layout_marginLeft="@dimen/labels_margin"
-                android:layout_marginTop="@dimen/labels_space_top"
                 android:gravity="bottom|center_horizontal"
                 android:hint="@string/Vehicle_Licence_Plate"
                 android:textSize="14sp"
