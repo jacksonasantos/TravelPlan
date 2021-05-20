@@ -138,8 +138,8 @@
     </string-array>
     <!-- Insurance Status -->
     <string-array name="insurance_status_array">
-        <item>@string/registered</item>
-        <item>@string/overdue</item>
+        <item>@string/registered</item> <!--0-->
+        <item>@string/closed</item>     <!--1-->
     </string-array>
     <!-- Accommodation Type -->
     <string-array name="accommodation_type_array">

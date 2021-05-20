@@ -31,6 +31,7 @@ import com.jacksonasantos.travelplan.dao.Vehicle;
 import com.jacksonasantos.travelplan.dao.VehicleGraphStatistics;
 import com.jacksonasantos.travelplan.dao.VehicleStatistics;
 import com.jacksonasantos.travelplan.dao.general.Database;
+import com.jacksonasantos.travelplan.ui.general.InsuranceDialog;
 import com.jacksonasantos.travelplan.ui.utility.Globals;
 import com.jacksonasantos.travelplan.ui.utility.Utils;
 import com.jacksonasantos.travelplan.ui.vehicle.FuelSupplyActivity;
@@ -42,11 +43,9 @@ import com.jjoe64.graphview.series.LineGraphSeries;
 
 import java.math.BigDecimal;
 import java.text.NumberFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Locale;
-import java.util.Objects;
 
 public class HomeVehicleFragment extends Fragment implements View.OnClickListener {
 
@@ -60,16 +59,16 @@ public class HomeVehicleFragment extends Fragment implements View.OnClickListene
     private TextView tvFuelSupplyNumberLiters;
     private TextView tvFuelSupplyValue;
 
-    private ConstraintLayout layerInsuranceVehicle2;
+    private ConstraintLayout layerInsuranceVehicle;
     private ImageView imInsuranceType;
     private ImageView imInsuranceStatus;
     private TextView txtInsuranceFinalEffectiveDate;
 
     private ConstraintLayout layerStatisticsVehicle;
+    private TextView tvAVGType9;
     private TextView tvAVGType1;
     private TextView tvAVGType2;
     private TextView tvAVGType3;
-    private TextView tvAVGType9;
     private GraphView graphStatistics;
 
     private ConstraintLayout layerServiceVehicle;
@@ -77,9 +76,6 @@ public class HomeVehicleFragment extends Fragment implements View.OnClickListene
 
     private ConstraintLayout layerMaintenanceItemVehicle;
     private RecyclerView nextVehicleMaintenanceList;
-
-    private ConstraintLayout layerInsuranceVehicle;
-    private RecyclerView insuranceList;
 
     int tamHorizontalLabels = 3;
     double vMinX = 0;
@@ -91,8 +87,8 @@ public class HomeVehicleFragment extends Fragment implements View.OnClickListene
 
     Locale locale = new Locale(g.getLanguage(), g.getCountry());
     NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(locale);
-
     NumberFormat numberFormat = NumberFormat.getNumberInstance(locale);
+
     @Override
     public View onCreateView(@NonNull final LayoutInflater inflater,
                              final ViewGroup container, Bundle savedInstanceState) {
@@ -108,16 +104,16 @@ public class HomeVehicleFragment extends Fragment implements View.OnClickListene
         tvFuelSupplyNumberLiters = v.findViewById(R.id.tvFuelSupplyNumberLiters);
         tvFuelSupplyValue = v.findViewById(R.id.tvFuelSupplyValue);
 
-        layerInsuranceVehicle2 = v.findViewById(R.id.layerInsuranceVehicle2);
+        layerInsuranceVehicle = v.findViewById(R.id.layerInsuranceVehicle);
         imInsuranceType = v.findViewById(R.id.imInsuranceType);
         imInsuranceStatus = v.findViewById(R.id.imInsuranceStatus);
         txtInsuranceFinalEffectiveDate = v.findViewById(R.id.txtInsuranceFinalEffectiveDate);
 
         layerStatisticsVehicle = v.findViewById(R.id.layerStatisticsVehicle);
+        tvAVGType9 = v.findViewById(R.id.tvAVGType9);
         tvAVGType1 = v.findViewById(R.id.tvAVGType1);
         tvAVGType2 = v.findViewById(R.id.tvAVGType2);
         tvAVGType3 = v.findViewById(R.id.tvAVGType3);
-        tvAVGType9 = v.findViewById(R.id.tvAVGType9);
         graphStatistics = v.findViewById(R.id.graphStatistics);
 
         layerServiceVehicle = v.findViewById(R.id.layerServiceVehicle);
@@ -125,9 +121,6 @@ public class HomeVehicleFragment extends Fragment implements View.OnClickListene
 
         layerMaintenanceItemVehicle = v.findViewById(R.id.layerMaintenanceItemVehicle);
         nextVehicleMaintenanceList = v.findViewById(R.id.listNextVehicleMaintenance);
-
-        layerInsuranceVehicle = v.findViewById(R.id.layerInsuranceVehicle);
-        insuranceList = v.findViewById(R.id.listInsuranceExpiration);
 
         layerFuelSupply.setOnClickListener(v1 -> {
             Intent intent = new Intent (v1.getContext(), FuelSupplyActivity.class);
@@ -157,7 +150,7 @@ public class HomeVehicleFragment extends Fragment implements View.OnClickListene
         spVehicle.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @SuppressLint({"SetTextI18n", "SimpleDateFormat"})
             @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long idx) {
 
                 // Retrieves data from the vehicle selected in Spinner - layerVehicle
                 vehicle[0] = (Vehicle) parent.getItemAtPosition(position);
@@ -169,13 +162,30 @@ public class HomeVehicleFragment extends Fragment implements View.OnClickListene
                 // Last Fuel Supply of Vehicle in Global selection - layerFuelSupply
                 FuelSupply fuelSupply = Database.mFuelSupplyDao.findLastFuelSupply( g.getIdVehicle() );
                 tvFuelSupplyDate.setText(Utils.dateToString(fuelSupply.getSupply_date()));
-                tvFuelSupplyLastOdometer.setText(getString(R.string.Odometer)+ ": "+fuelSupply.getVehicle_odometer());
+                tvFuelSupplyLastOdometer.setText(numberFormat.format(fuelSupply.getVehicle_odometer()));
                 tvFuelSupplyNumberLiters.setText(fuelSupply.getNumber_liters()==0? "0 "+g.getMeasureCapacity() :fuelSupply.getNumber_liters() +" "+g.getMeasureCapacity());
                 tvFuelSupplyValue.setText(currencyFormatter.format(fuelSupply.getSupply_value()==0?BigDecimal.ZERO:fuelSupply.getSupply_value()));
 
+                // Insurance - layerInsuranceVehicle
+                List<Insurance> insurance = Database.mInsuranceDao.findReminderInsurance("V", g.getIdVehicle() );
+                if (!insurance.isEmpty()) {
+                    layerInsuranceVehicle.setVisibility(View.VISIBLE);
+                    imInsuranceType.setImageResource(insurance.get(0).getInsurance_typeImage(insurance.get(0).getInsurance_type()));
+                    imInsuranceStatus.setImageResource(R.drawable.ic_ball);
+                    imInsuranceStatus.setColorFilter(insurance.get(0).getColorInsuranceStatus(), PorterDuff.Mode.MULTIPLY);
+                    txtInsuranceFinalEffectiveDate.setText(Utils.dateToString(insurance.get(0).getFinal_effective_date()));
+
+                    layerInsuranceVehicle.setOnClickListener(v -> {
+                        Insurance x = InsuranceDialog.InsuranceClass(insurance.get(0), v);
+                        imInsuranceStatus.setColorFilter(x.getColorInsuranceStatus(), PorterDuff.Mode.MULTIPLY);
+                    });
+                } else {
+                    layerInsuranceVehicle.setVisibility(View.INVISIBLE);
+                }
+
                 // Statistics of Vehicle in Global selection - layerStatisticsVehicle
-                HomeVehicleStatisticsListAdapter adapterVehicle = new HomeVehicleStatisticsListAdapter(Database.mVehicleStatisticsDao.findLastVehicleStatistics(g.getIdVehicle()), getContext());
-                if (adapterVehicle.getItemCount() > 0 ) {
+                HomeVehicleStatisticsListAdapter adapterLastVehicleStatistics = new HomeVehicleStatisticsListAdapter(Database.mVehicleStatisticsDao.findLastVehicleStatistics(g.getIdVehicle()), getContext());
+                if (adapterLastVehicleStatistics.getItemCount() > 0 ) {
                     layerStatisticsVehicle.setVisibility(View.VISIBLE);
 
                     // Graph Statistics Vehicle - https://github.com/jjoe64/GraphView
@@ -212,7 +222,7 @@ public class HomeVehicleFragment extends Fragment implements View.OnClickListene
                 } else {
                     layerStatisticsVehicle.setVisibility(View.GONE);
                 }
-                adapterVehicle.notifyDataSetChanged();
+                adapterLastVehicleStatistics.notifyDataSetChanged();
 
                 // Last Vehicle Services - layerServiceVehicle
                 HomeVehicleMaintenanceListAdapter adapterMaintenance = new HomeVehicleMaintenanceListAdapter(Database.mMaintenanceDao.findReminderMaintenance( g.getIdVehicle() ), getContext(), 0);
@@ -228,49 +238,13 @@ public class HomeVehicleFragment extends Fragment implements View.OnClickListene
                 // Next Vehicle Maintenance - layerMaintenanceItemVehicle
                 HomeVehicleNextMaintenanceListAdapter adapterNextMaintenance = new HomeVehicleNextMaintenanceListAdapter(Database.mNextMaintenanceItemDao.findNextMaintenanceItem( g.getIdVehicle() ), getContext(),0);
                 if (adapterNextMaintenance.getItemCount() > 0){
-
-                    layerInsuranceVehicle.setVisibility(View.VISIBLE);
-                    @SuppressLint("SimpleDateFormat") SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-                    List<Insurance> insurance = Database.mInsuranceDao.findReminderInsurance("V", g.getIdVehicle() );
-                    imInsuranceType.setImageResource(insurance.get(0).getInsurance_typeImage(insurance.get(0).getInsurance_type()));
-                    imInsuranceStatus.setImageResource(R.drawable.ic_ball);
-                    try {
-                        if (insurance.get(0).getStatus() == 1) {
-                            imInsuranceStatus.setColorFilter(Color.BLUE, PorterDuff.Mode.MULTIPLY);
-                        } else {
-                            if (!(insurance.get(0).getFinal_effective_date() == null)) {
-                                if (System.currentTimeMillis() < Objects.requireNonNull(sdf.parse(Objects.requireNonNull(Utils.dateToString(insurance.get(0).getFinal_effective_date())))).getTime()) {
-                                    imInsuranceStatus.setColorFilter(Color.GREEN, PorterDuff.Mode.MULTIPLY);
-                                } else {
-                                    imInsuranceStatus.setColorFilter(Color.RED, PorterDuff.Mode.MULTIPLY);
-                                }
-                            }
-                        }
-                    } catch (ParseException e) {
-                        e.printStackTrace();
-                    }
-                    txtInsuranceFinalEffectiveDate.setText(Utils.dateToString(insurance.get(0).getFinal_effective_date()));
-
-
                     layerMaintenanceItemVehicle.setVisibility(View.VISIBLE);
                     nextVehicleMaintenanceList.setAdapter(adapterNextMaintenance);
                     nextVehicleMaintenanceList.setLayoutManager(new LinearLayoutManager(getContext()));
                 } else {
                     layerMaintenanceItemVehicle.setVisibility(View.GONE);
-                    layerInsuranceVehicle.setVisibility(View.GONE);
                 }
                 adapterNextMaintenance.notifyDataSetChanged();
-
-                // Insurance - layerInsuranceVehicle
-                HomeInsuranceListAdapter adapterInsurance = new HomeInsuranceListAdapter(Database.mInsuranceDao.findReminderInsurance("V", g.getIdVehicle() ), getContext(),0);
-                if ( adapterInsurance.getItemCount() > 0){
-                    layerInsuranceVehicle.setVisibility(View.VISIBLE);
-                    insuranceList.setAdapter(adapterInsurance);
-                    insuranceList.setLayoutManager(new LinearLayoutManager(getContext()));
-                }else {
-                    layerInsuranceVehicle.setVisibility(View.GONE);
-                }
-                adapterInsurance.notifyDataSetChanged();
             }
 
             @Override

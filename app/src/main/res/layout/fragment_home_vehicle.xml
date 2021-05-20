@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     tools:context=".ui.home.HomeVehicleFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -118,6 +118,30 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tvFuelSupplyLast"
                     app:srcCompat="@drawable/ic_calendar" />
+                <ImageView
+                    android:id="@+id/imgFuelSupplyNumberLiters"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:contentDescription="@string/FuelSupply_Combustible"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/imgFuelSupplyDate"
+                    app:srcCompat="@drawable/ic_liters" />
+                <ImageView
+                    android:id="@+id/imgFuelSupplyLastOdometer"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:contentDescription="@string/FuelSupply_Combustible"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/imgFuelSupplyNumberLiters"
+                    app:srcCompat="@drawable/ic_odometer" />
+                <ImageView
+                    android:id="@+id/imgFuelSupplyValue"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:contentDescription="@string/FuelSupply_Combustible"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/imgFuelSupplyLastOdometer"
+                    app:srcCompat="@drawable/ic_money" />
                 <TextView
                     android:id="@+id/tvFuelSupplyDate"
                     android:layout_width="0dp"
@@ -131,14 +155,6 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/imgFuelSupplyDate"
                     app:layout_constraintTop_toBottomOf="@+id/tvFuelSupplyLast" />
-                <ImageView
-                    android:id="@+id/imgFuelSupplyNumberLiters"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:contentDescription="@string/FuelSupply_Combustible"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/imgFuelSupplyDate"
-                    app:srcCompat="@drawable/ic_liters" />
                 <TextView
                     android:id="@+id/tvFuelSupplyNumberLiters"
                     android:layout_width="0dp"
@@ -152,14 +168,6 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/imgFuelSupplyNumberLiters"
                     app:layout_constraintTop_toBottomOf="@+id/tvFuelSupplyDate" />
-                <ImageView
-                    android:id="@+id/imgFuelSupplyLastOdometer"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:contentDescription="@string/FuelSupply_Combustible"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/imgFuelSupplyNumberLiters"
-                    app:srcCompat="@drawable/ic_odometer" />
                 <TextView
                     android:id="@+id/tvFuelSupplyLastOdometer"
                     android:layout_width="0dp"
@@ -173,14 +181,6 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/imgFuelSupplyLastOdometer"
                     app:layout_constraintTop_toBottomOf="@+id/tvFuelSupplyNumberLiters" />
-                <ImageView
-                    android:id="@+id/imgFuelSupplyValue"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:contentDescription="@string/FuelSupply_Combustible"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/imgFuelSupplyLastOdometer"
-                    app:srcCompat="@drawable/ic_money" />
                 <TextView
                     android:id="@+id/tvFuelSupplyValue"
                     android:layout_width="0dp"
@@ -196,8 +196,9 @@
                     app:layout_constraintStart_toEndOf="@+id/imgFuelSupplyValue"
                     app:layout_constraintTop_toBottomOf="@+id/tvFuelSupplyLastOdometer" />
             </androidx.constraintlayout.widget.ConstraintLayout>
+
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/layerInsuranceVehicle2"
+                android:id="@+id/layerInsuranceVehicle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="5"
@@ -460,53 +461,6 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/listNextVehicleMaintenance" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/layerInsuranceVehicle"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginStart="@dimen/labels_margin"
-            android:layout_marginLeft="@dimen/labels_margin"
-            android:layout_marginEnd="@dimen/labels_margin"
-            android:layout_marginRight="@dimen/labels_margin"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/layerMaintenanceItemVehicle">
-
-            <TextView
-                android:id="@+id/tvInsuranceExpiration"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/InsuranceExpiration"
-                android:textColor="@color/design_default_color_secondary_variant"
-                android:textSize="14sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/listInsuranceExpiration"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:scrollbars="vertical"
-                app:autoSizeMaxTextSize="12sp"
-                app:autoSizeMinTextSize="6sp"
-                app:autoSizeStepGranularity="1sp"
-                app:autoSizeTextType="uniform"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvInsuranceExpiration"
-                tools:itemCount="1" />
-
-            <Button
-                android:layout_width="match_parent"
-                android:layout_height="16dp"
-                android:clickable="false"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/listInsuranceExpiration" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>

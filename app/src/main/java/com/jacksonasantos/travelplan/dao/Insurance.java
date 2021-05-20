@@ -1,8 +1,15 @@
 package com.jacksonasantos.travelplan.dao;
 
-import com.jacksonasantos.travelplan.R;
+import android.annotation.SuppressLint;
+import android.graphics.Color;
 
+import com.jacksonasantos.travelplan.R;
+import com.jacksonasantos.travelplan.ui.utility.Utils;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Objects;
 
 public class Insurance {
     public Integer id;
@@ -64,6 +71,28 @@ public class Insurance {
             default: draw = R.drawable.ic_error; break;
         }
         return draw;
+    }
+
+    public int getColorInsuranceStatus() {
+        try {
+            @SuppressLint("SimpleDateFormat") SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+            int color = 0;
+            if (status == 1) {  // Closed
+                color = Color.BLUE;
+            } else {
+                if (!(final_effective_date == null)) {
+                    if (System.currentTimeMillis() < Objects.requireNonNull(sdf.parse(Objects.requireNonNull(Utils.dateToString(final_effective_date)))).getTime()) {
+                        color = Color.GREEN;         // 0 - Registered
+                    } else {
+                        color = Color.RED;
+                    }
+                }
+            }
+            return color;
+        } catch (ParseException e) {
+          e.printStackTrace();
+          return 0;
+        }
     }
 
     public int getInsurance_type() { return insurance_type; }

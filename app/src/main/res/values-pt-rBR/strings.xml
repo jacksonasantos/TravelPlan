@@ -319,4 +319,6 @@
     <string name="NextMaintenance_Measure">Medida</string>
     <string name="NextMaintenance_Service">Serviço</string>
     <string name="Supply_Last">Último Abastecimento</string>
+    <string name="closed">Encerrado</string>
+    <string name="bt_Closed_Insurance">Encerrar Seguro</string>
 </resources>

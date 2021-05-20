@@ -177,6 +177,7 @@
     <!-- Insurance Activity -->
     <string name="insurance">Insurance</string>
     <string name="Insurance_Deleting">Deleting Insurance</string>
+    <string name="bt_Closed_Insurance">Closed Insurance</string>
 
     <string name="Insurance_Type">Insurance Type</string>
     <string name="Insurance_Description">Description</string>
@@ -323,6 +324,7 @@
     <string name="Travel_Status">Travel Status</string>
 
     <string name="change">Change</string>
+    <string name="closed">Closed</string>
 
     <!-- Travel Expenses Fragment -->
     <string name="Travel_Expenses_Deleting">Deleting Travel Expenses</string>
