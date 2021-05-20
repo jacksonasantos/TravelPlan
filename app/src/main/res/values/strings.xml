@@ -169,6 +169,7 @@
     <!-- Home Vehicle Fragment -->
     <string name="Odometer">Odometer</string>
     <string name="FuelSupply_Last">Last Fuel Supply</string>
+    <string name="Supply_Last">Last Supply</string>
     <string name="LastVehicleServices">Last Vehicle Services</string>
     <string name="VehicleStatistics">Vehicle Statistics</string>
     <string name="InsuranceExpiration">Insurance Expiration</string>

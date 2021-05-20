@@ -14,6 +14,7 @@ import com.jacksonasantos.travelplan.ui.utility.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class VehicleDAO extends DbContentProvider implements VehicleISchema, VehicleIDAO {
 
@@ -39,7 +40,7 @@ public class VehicleDAO extends DbContentProvider implements VehicleISchema, Veh
                 cursor.close();
             }
         } catch (SQLiteConstraintException ex) {
-            Log.w("Update Table", ex.getMessage());
+            Log.w("Update Table", Objects.requireNonNull(ex.getMessage()));
         }
         return vehicle;
     }

@@ -69,7 +69,33 @@ public class VehicleStatisticsDAO extends DbContentProvider implements VehicleSt
         }
         return vehicleStatisticsList;
     }
-
+    public VehicleStatistics findLastVehicleStatistics(Integer vehicle_id, int reason_type) {
+        VehicleStatistics vehicleStatisticsList = new VehicleStatistics();
+        cursor = super.rawQuery("SELECT " + FuelSupplyISchema.FUEL_SUPPLY_VEHICLE_ID + " "+VEHICLE_STATISTICS_VEHICLE_ID+", " +
+                        FuelSupplyISchema.FUEL_SUPPLY_SUPPLY_REASON_TYPE + " "+VEHICLE_STATISTICS_SUPPLY_REASON_TYPE+", " +
+                        " AVG( avg_cost_litre ) "+VEHICLE_STATISTICS_AVG_COST_LITRE+", " +
+                        " AVG( avg_consumption ) "+VEHICLE_STATISTICS_AVG_CONSUMPTION+", " +
+                        " MAX( avg_consumption ) "+VEHICLE_STATISTICS_AVG_MAX_CONSUMPTION+" " +
+                        "FROM (SELECT " + FuelSupplyISchema.FUEL_SUPPLY_VEHICLE_ID + ", " +
+                        FuelSupplyISchema.FUEL_SUPPLY_SUPPLY_REASON_TYPE + ", " +
+                        "(" + FuelSupplyISchema.FUEL_SUPPLY_SUPPLY_VALUE + " / " + FuelSupplyISchema.FUEL_SUPPLY_VEHICLE_TRAVELLED_DISTANCE + " ) avg_cost_litre, " +
+                        "(" + FuelSupplyISchema.FUEL_SUPPLY_VEHICLE_TRAVELLED_DISTANCE + " / (" + FuelSupplyISchema.FUEL_SUPPLY_NUMBER_LITERS + "+" + FuelSupplyISchema.FUEL_SUPPLY_ACCUMULATED_NUMBER_LITERS+ ") ) avg_consumption " +
+                        "FROM " + FuelSupplyISchema.FUEL_SUPPLY_TABLE + " " +
+                        "WHERE " + FuelSupplyISchema.FUEL_SUPPLY_VEHICLE_TRAVELLED_DISTANCE + " > 0 " +
+                        "AND " + FuelSupplyISchema.FUEL_SUPPLY_VEHICLE_ID + "=?  " +
+                        "AND " + FuelSupplyISchema.FUEL_SUPPLY_SUPPLY_REASON_TYPE + "=? )"+
+                        "GROUP BY " + FuelSupplyISchema.FUEL_SUPPLY_SUPPLY_REASON_TYPE + ", " + FuelSupplyISchema.FUEL_SUPPLY_VEHICLE_ID,
+                new String[] { String.valueOf(vehicle_id), String.valueOf(reason_type) });
+        if (cursor != null) {
+            cursor.moveToFirst();
+            while (!cursor.isAfterLast()) {
+                vehicleStatisticsList = cursorToEntity(cursor);
+                cursor.moveToNext();
+            }
+            cursor.close();
+        }
+        return vehicleStatisticsList;
+    }
     protected VehicleStatistics cursorToEntity(Cursor c) {
         VehicleStatistics vS = new VehicleStatistics();
         if (c != null) {

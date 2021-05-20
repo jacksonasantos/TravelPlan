@@ -190,9 +190,9 @@ public class MainActivity extends AppCompatActivity {
             DisplayMetrics dm = res.getDisplayMetrics();
             Locale.setDefault(myLocale);
             res.updateConfiguration(config, dm);
+            g.setCountry(myLocale.getCountry());
         }
         // TODO - Criar formulario para configurar as variáveis Globais
-        g.setCountry("BR");
         g.setIdCurrency(0);                // R$ de R.array.currency_array
         g.setMeasureCost("km");
         g.setMeasureIndexInMeter(1000);

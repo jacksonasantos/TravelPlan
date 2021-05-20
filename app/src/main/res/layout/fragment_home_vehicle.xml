@@ -6,14 +6,20 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.home.HomeVehicleFragment">
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/layerVehicle"
             android:layout_width="match_parent"
             android:layout_height="60dp"
+            android:layout_marginStart="@dimen/labels_margin"
+            android:layout_marginLeft="@dimen/labels_margin"
+            android:layout_marginEnd="@dimen/labels_margin"
+            android:layout_marginRight="@dimen/labels_margin"
             app:layout_constraintTop_toTopOf="parent">
 
             <Spinner
@@ -71,105 +77,182 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/layerFuelSupply"
-            android:layout_width="match_parent"
+        <LinearLayout
+            android:id="@+id/linearLayout2"
+            android:layout_width="fill_parent"
             android:layout_height="0dp"
             android:layout_marginStart="@dimen/labels_margin"
             android:layout_marginLeft="@dimen/labels_margin"
             android:layout_marginEnd="@dimen/labels_margin"
             android:layout_marginRight="@dimen/labels_margin"
+            android:layout_weight="10"
+            android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/layerVehicle">
-
-            <ImageButton
-                android:id="@+id/btnRefuel"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:contentDescription="@string/FuelSupply_Combustible"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/ic_supply" />
-
-            <TextView
-                android:id="@+id/tvFuelSupplyLast"
-                android:layout_width="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/layerVehicle"
+            android:baselineAligned="false">
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layerFuelSupply"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="@string/FuelSupply_Last"
-                android:textColor="@color/design_default_color_secondary_variant"
-                android:textSize="14sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/btnRefuel"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/tvFuelSupplyDate"
-                android:layout_width="137dp"
-                android:layout_height="22dp"
-                android:ems="10"
-                android:gravity="center_horizontal|center_vertical"
-                app:autoSizeMaxTextSize="12sp"
-                app:autoSizeMinTextSize="6sp"
-                app:autoSizeStepGranularity="1sp"
-                app:autoSizeTextType="uniform"
-                app:layout_constraintEnd_toStartOf="@+id/tvFuelSupplyLastOdometer"
-                app:layout_constraintStart_toEndOf="@+id/btnRefuel"
-                app:layout_constraintTop_toBottomOf="@+id/tvFuelSupplyLast" />
-
-            <TextView
-                android:id="@+id/tvFuelSupplyLastOdometer"
+                android:layout_weight="5"
+                android:padding="@dimen/labels_margin"
+                tools:ignore="NestedWeights">
+                <TextView
+                    android:id="@+id/tvFuelSupplyLast"
+                    android:layout_width="match_parent"
+                    android:layout_height="19dp"
+                    android:gravity="center_horizontal"
+                    android:text="@string/Supply_Last"
+                    android:textAlignment="center"
+                    android:textColor="@color/design_default_color_secondary_variant"
+                    android:textSize="12sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+                <ImageView
+                    android:id="@+id/imgFuelSupplyDate"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:contentDescription="@string/FuelSupply_Combustible"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tvFuelSupplyLast"
+                    app:srcCompat="@drawable/ic_calendar" />
+                <TextView
+                    android:id="@+id/tvFuelSupplyDate"
+                    android:layout_width="0dp"
+                    android:layout_height="20dp"
+                    android:ems="10"
+                    android:gravity="center_horizontal|center_vertical"
+                    app:autoSizeMaxTextSize="12sp"
+                    app:autoSizeMinTextSize="6sp"
+                    app:autoSizeStepGranularity="1sp"
+                    app:autoSizeTextType="uniform"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/imgFuelSupplyDate"
+                    app:layout_constraintTop_toBottomOf="@+id/tvFuelSupplyLast" />
+                <ImageView
+                    android:id="@+id/imgFuelSupplyNumberLiters"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:contentDescription="@string/FuelSupply_Combustible"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/imgFuelSupplyDate"
+                    app:srcCompat="@drawable/ic_liters" />
+                <TextView
+                    android:id="@+id/tvFuelSupplyNumberLiters"
+                    android:layout_width="0dp"
+                    android:layout_height="20dp"
+                    android:ems="10"
+                    android:gravity="center_horizontal|center_vertical"
+                    app:autoSizeMaxTextSize="12sp"
+                    app:autoSizeMinTextSize="6sp"
+                    app:autoSizeStepGranularity="1sp"
+                    app:autoSizeTextType="uniform"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/imgFuelSupplyNumberLiters"
+                    app:layout_constraintTop_toBottomOf="@+id/tvFuelSupplyDate" />
+                <ImageView
+                    android:id="@+id/imgFuelSupplyLastOdometer"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:contentDescription="@string/FuelSupply_Combustible"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/imgFuelSupplyNumberLiters"
+                    app:srcCompat="@drawable/ic_odometer" />
+                <TextView
+                    android:id="@+id/tvFuelSupplyLastOdometer"
+                    android:layout_width="0dp"
+                    android:layout_height="20dp"
+                    android:ems="10"
+                    android:gravity="center_horizontal|center_vertical"
+                    app:autoSizeMaxTextSize="12sp"
+                    app:autoSizeMinTextSize="6sp"
+                    app:autoSizeStepGranularity="1sp"
+                    app:autoSizeTextType="uniform"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/imgFuelSupplyLastOdometer"
+                    app:layout_constraintTop_toBottomOf="@+id/tvFuelSupplyNumberLiters" />
+                <ImageView
+                    android:id="@+id/imgFuelSupplyValue"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:contentDescription="@string/FuelSupply_Combustible"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/imgFuelSupplyLastOdometer"
+                    app:srcCompat="@drawable/ic_money" />
+                <TextView
+                    android:id="@+id/tvFuelSupplyValue"
+                    android:layout_width="0dp"
+                    android:layout_height="20dp"
+                    android:ems="10"
+                    android:gravity="center_horizontal|center_vertical"
+                    app:autoSizeMaxTextSize="12sp"
+                    app:autoSizeMinTextSize="6sp"
+                    app:autoSizeStepGranularity="1sp"
+                    app:autoSizeTextType="uniform"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/imgFuelSupplyValue"
+                    app:layout_constraintTop_toBottomOf="@+id/tvFuelSupplyLastOdometer" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layerInsuranceVehicle2"
                 android:layout_width="0dp"
-                android:layout_height="22dp"
-                android:ems="10"
-                android:gravity="center_horizontal|center_vertical"
-                app:autoSizeMaxTextSize="12sp"
-                app:autoSizeMinTextSize="6sp"
-                app:autoSizeStepGranularity="1sp"
-                app:autoSizeTextType="uniform"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvFuelSupplyLast" />
+                android:layout_height="wrap_content"
+                android:layout_weight="5"
+                android:padding="@dimen/labels_margin">
 
-            <TextView
-                android:id="@+id/tvFuelSupplyNumberLiters"
-                android:layout_width="137dp"
-                android:layout_height="22dp"
-                android:ems="10"
-                android:gravity="center_horizontal|center_vertical"
-                app:autoSizeMaxTextSize="12sp"
-                app:autoSizeMinTextSize="6sp"
-                app:autoSizeStepGranularity="1sp"
-                app:autoSizeTextType="uniform"
-                app:layout_constraintBottom_toTopOf="@+id/buttonSeparator2"
-                app:layout_constraintEnd_toStartOf="@+id/tvFuelSupplyValue"
-                app:layout_constraintStart_toEndOf="@+id/btnRefuel"
-                app:layout_constraintTop_toBottomOf="@+id/tvFuelSupplyDate" />
+                <TextView
+                    android:id="@+id/tvInsurance"
+                    android:layout_width="0dp"
+                    android:layout_height="19dp"
+                    android:gravity="center_horizontal"
+                    android:text="@string/InsuranceExpiration"
+                    android:textAlignment="center"
+                    android:textColor="@color/design_default_color_secondary_variant"
+                    android:textSize="12sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/tvFuelSupplyValue"
-                android:layout_width="0dp"
-                android:layout_height="22dp"
-                android:ems="10"
-                android:gravity="center_horizontal|center_vertical"
-                app:autoSizeMaxTextSize="12sp"
-                app:autoSizeMinTextSize="6sp"
-                app:autoSizeStepGranularity="1sp"
-                app:autoSizeTextType="uniform"
-                app:layout_constraintBottom_toTopOf="@+id/buttonSeparator2"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvFuelSupplyLastOdometer" />
+                <ImageView
+                    android:id="@+id/imInsuranceType"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:contentDescription="@string/FuelSupply_Combustible"
+                    android:scaleType="centerCrop"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tvInsurance" />
+                <ImageView
+                    android:id="@+id/imInsuranceStatus"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:contentDescription="@string/Insurance_Status"
+                    android:scaleType="centerCrop"
+                    android:text="@string/FuelSupply_Last"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="@+id/imInsuranceType"
+                    app:layout_constraintStart_toStartOf="@+id/imInsuranceType"
+                    app:layout_constraintTop_toBottomOf="@+id/imInsuranceType"
+                    app:srcCompat="@drawable/ic_ball" />
+                <TextView
+                    android:id="@+id/txtInsuranceFinalEffectiveDate"
+                    android:layout_width="0dp"
+                    android:layout_height="20dp"
+                    android:gravity="center_horizontal|center_vertical"
+                    android:textAlignment="center"
+                    app:autoSizeMaxTextSize="12sp"
+                    app:autoSizeMinTextSize="6sp"
+                    app:autoSizeStepGranularity="1sp"
+                    app:autoSizeTextType="uniform"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/imInsuranceType"
+                    app:layout_constraintTop_toBottomOf="@+id/tvInsurance" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <Button
-                android:id="@+id/buttonSeparator2"
-                android:layout_width="match_parent"
-                android:layout_height="16dp"
-                android:clickable="false"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/btnRefuel" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/layerStatisticsVehicle"
@@ -181,7 +264,17 @@
             android:layout_marginRight="@dimen/labels_margin"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/layerFuelSupply">
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
+
+            <Button
+                android:id="@+id/buttonSeparator2"
+                android:layout_width="match_parent"
+                android:layout_height="16dp"
+                android:clickable="false"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/tvVehicleStatistics"
@@ -189,43 +282,82 @@
                 android:layout_height="wrap_content"
                 android:text="@string/VehicleStatistics"
                 android:textColor="@color/design_default_color_secondary_variant"
-                android:textSize="14sp"
+                android:textSize="12sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toBottomOf="@+id/buttonSeparator2" />
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/listVehicleStatistics"
+            <TextView
+                android:id="@+id/tvAVGType9"
                 android:layout_width="0dp"
-                android:layout_height="56dp"
-                android:scrollbars="vertical"
-                app:autoSizeMaxTextSize="12sp"
-                app:autoSizeMinTextSize="6sp"
-                app:autoSizeStepGranularity="1sp"
-                app:autoSizeTextType="uniform"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:textAlignment="center"
+                android:textSize="10sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvVehicleStatistics" />
+                app:layout_constraintTop_toBottomOf="@+id/tvVehicleStatistics"
+                tools:ignore="SmallSp" />
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/listVehicleStatisticsTotal"
-                android:layout_width="0dp"
-                android:layout_height="22dp"
-                android:layout_marginTop="@dimen/labels_margin"
-                android:scrollbars="vertical"
+            <LinearLayout
+                android:id="@+id/layerAVG"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="10"
+                android:orientation="horizontal"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/listVehicleStatistics" />
+                app:layout_constraintTop_toBottomOf="@+id/tvAVGType9">
+
+                <TextView
+                    android:id="@+id/tvAVGType1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
+                    android:gravity="center_horizontal"
+                    android:textAlignment="center"
+                    android:textSize="10sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:ignore="SmallSp" />
+
+                <TextView
+                    android:id="@+id/tvAVGType2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
+                    android:gravity="center_horizontal"
+                    android:textAlignment="center"
+                    android:textSize="10sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:ignore="SmallSp" />
+
+                <TextView
+                    android:id="@+id/tvAVGType3"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
+                    android:gravity="center_horizontal"
+                    android:textAlignment="center"
+                    android:textSize="10sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:ignore="SmallSp" />
+            </LinearLayout>
 
             <com.jjoe64.graphview.GraphView
                 android:id="@+id/graphStatistics"
                 android:layout_width="0dp"
-                android:layout_height="100dp"
-                android:layout_marginTop="@dimen/labels_margin"
+                android:layout_height="160dp"
                 app:layout_constraintBottom_toTopOf="@+id/buttonSeparator3"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/listVehicleStatisticsTotal" />
+                app:layout_constraintTop_toBottomOf="@+id/layerAVG" />
 
             <Button
                 android:id="@+id/buttonSeparator3"

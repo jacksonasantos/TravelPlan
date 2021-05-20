@@ -318,4 +318,5 @@
     <string name="NextMaintenance_Description">Descrição</string>
     <string name="NextMaintenance_Measure">Medida</string>
     <string name="NextMaintenance_Service">Serviço</string>
+    <string name="Supply_Last">Último Abastecimento</string>
 </resources>
