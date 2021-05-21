@@ -35,11 +35,13 @@ public class MaintenanceListAdapter extends RecyclerView.Adapter<MaintenanceList
 
     Locale locale = new Locale(g.getLanguage(), g.getCountry());
     NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(locale);
+    NumberFormat numberFormatter = NumberFormat.getNumberInstance(locale);
 
     public static class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         public TextView txtMaintenanceDate;
         public TextView txtVehicleName;
+        public TextView txtMaintenanceOdometer;
         public TextView txtMaintenanceValue;
         public TextView txtMaintenanceDetail;
         public ImageButton btnEdit;
@@ -49,6 +51,7 @@ public class MaintenanceListAdapter extends RecyclerView.Adapter<MaintenanceList
             super(v);
             txtMaintenanceDate = v.findViewById(R.id.txtMaintenanceDate);
             txtVehicleName = v.findViewById(R.id.txtVehicleName);
+            txtMaintenanceOdometer = v.findViewById(R.id.txtMaintenanceOdometer);
             txtMaintenanceValue = v.findViewById(R.id.txtMaintenanceValue);
             txtMaintenanceDetail = v.findViewById(R.id.txtMaintenanceDetail);
             btnEdit = v.findViewById(R.id.btnEdit);
@@ -88,6 +91,7 @@ public class MaintenanceListAdapter extends RecyclerView.Adapter<MaintenanceList
         holder.txtMaintenanceDate.setText(Utils.dateToString(maintenance.getDate()));
         holder.txtVehicleName.setText(v.getName());
         holder.txtMaintenanceValue.setText(currencyFormatter.format(maintenance.getValue()));
+        holder.txtMaintenanceOdometer.setText(numberFormatter.format(maintenance.getOdometer()));
         holder.txtMaintenanceDetail.setText(maintenance.getDetail());
 
         // btnEdit

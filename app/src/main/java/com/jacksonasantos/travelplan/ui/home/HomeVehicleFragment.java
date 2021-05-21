@@ -71,9 +71,6 @@ public class HomeVehicleFragment extends Fragment implements View.OnClickListene
     private TextView tvAVGType3;
     private GraphView graphStatistics;
 
-    private ConstraintLayout layerServiceVehicle;
-    private RecyclerView maintenanceList;
-
     private ConstraintLayout layerMaintenanceItemVehicle;
     private RecyclerView nextVehicleMaintenanceList;
 
@@ -87,7 +84,7 @@ public class HomeVehicleFragment extends Fragment implements View.OnClickListene
 
     Locale locale = new Locale(g.getLanguage(), g.getCountry());
     NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(locale);
-    NumberFormat numberFormat = NumberFormat.getNumberInstance(locale);
+    NumberFormat numberFormatter = NumberFormat.getNumberInstance(locale);
 
     @Override
     public View onCreateView(@NonNull final LayoutInflater inflater,
@@ -116,9 +113,6 @@ public class HomeVehicleFragment extends Fragment implements View.OnClickListene
         tvAVGType3 = v.findViewById(R.id.tvAVGType3);
         graphStatistics = v.findViewById(R.id.graphStatistics);
 
-        layerServiceVehicle = v.findViewById(R.id.layerServiceVehicle);
-        maintenanceList = v.findViewById(R.id.listLastVehicleService);
-
         layerMaintenanceItemVehicle = v.findViewById(R.id.layerMaintenanceItemVehicle);
         nextVehicleMaintenanceList = v.findViewById(R.id.listNextVehicleMaintenance);
 
@@ -143,9 +137,12 @@ public class HomeVehicleFragment extends Fragment implements View.OnClickListene
         adapter.setDropDownViewResource( android.R.layout.simple_spinner_dropdown_item);
         spVehicle.setAdapter(adapter);
 
-        int nrPosVehicle = g.getIdVehicle()-1;
-        spVehicle.setSelection(nrPosVehicle);
-
+        for (int x = 0; x <= vehicles.size(); x++) {
+            if (vehicles.get(x).getId().equals(g.getIdVehicle())) {
+                spVehicle.setSelection(x);
+                break;
+            }
+        }
         final Vehicle[] vehicle = {new Vehicle()};
         spVehicle.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @SuppressLint({"SetTextI18n", "SimpleDateFormat"})
@@ -162,7 +159,7 @@ public class HomeVehicleFragment extends Fragment implements View.OnClickListene
                 // Last Fuel Supply of Vehicle in Global selection - layerFuelSupply
                 FuelSupply fuelSupply = Database.mFuelSupplyDao.findLastFuelSupply( g.getIdVehicle() );
                 tvFuelSupplyDate.setText(Utils.dateToString(fuelSupply.getSupply_date()));
-                tvFuelSupplyLastOdometer.setText(numberFormat.format(fuelSupply.getVehicle_odometer()));
+                tvFuelSupplyLastOdometer.setText(numberFormatter.format(fuelSupply.getVehicle_odometer()));
                 tvFuelSupplyNumberLiters.setText(fuelSupply.getNumber_liters()==0? "0 "+g.getMeasureCapacity() :fuelSupply.getNumber_liters() +" "+g.getMeasureCapacity());
                 tvFuelSupplyValue.setText(currencyFormatter.format(fuelSupply.getSupply_value()==0?BigDecimal.ZERO:fuelSupply.getSupply_value()));
 
@@ -224,17 +221,6 @@ public class HomeVehicleFragment extends Fragment implements View.OnClickListene
                 }
                 adapterLastVehicleStatistics.notifyDataSetChanged();
 
-                // Last Vehicle Services - layerServiceVehicle
-                HomeVehicleMaintenanceListAdapter adapterMaintenance = new HomeVehicleMaintenanceListAdapter(Database.mMaintenanceDao.findReminderMaintenance( g.getIdVehicle() ), getContext(), 0);
-                if (adapterMaintenance.getItemCount() > 0){
-                    layerServiceVehicle.setVisibility(View.VISIBLE);
-                    maintenanceList.setAdapter(adapterMaintenance);
-                    maintenanceList.setLayoutManager(new LinearLayoutManager(getContext()));
-                } else {
-                    layerServiceVehicle.setVisibility(View.GONE);
-                }
-                adapterMaintenance.notifyDataSetChanged();
-
                 // Next Vehicle Maintenance - layerMaintenanceItemVehicle
                 HomeVehicleNextMaintenanceListAdapter adapterNextMaintenance = new HomeVehicleNextMaintenanceListAdapter(Database.mNextMaintenanceItemDao.findNextMaintenanceItem( g.getIdVehicle() ), getContext(),0);
                 if (adapterNextMaintenance.getItemCount() > 0){
@@ -245,6 +231,7 @@ public class HomeVehicleFragment extends Fragment implements View.OnClickListene
                     layerMaintenanceItemVehicle.setVisibility(View.GONE);
                 }
                 adapterNextMaintenance.notifyDataSetChanged();
+                adapter.notifyDataSetChanged();
             }
 
             @Override
@@ -257,7 +244,7 @@ public class HomeVehicleFragment extends Fragment implements View.OnClickListene
 
     private void addDataSeries() {
         List<VehicleStatistics> vehicleStatisticsList = Database.mVehicleStatisticsDao.findTotalVehicleStatistics(g.getIdVehicle());
-        String text = requireContext().getString(R.string.general) + ": " + numberFormat.format(vehicleStatisticsList.get(0).getAvg_consumption()) + " " + g.getMeasureConsumption();
+        String text = requireContext().getString(R.string.general) + ": " + numberFormatter.format(vehicleStatisticsList.get(0).getAvg_consumption()) + " " + g.getMeasureConsumption();
         tvAVGType9.setText(text);
         tvAVGType9.setTextColor(VehicleStatistics.getSupply_reason_type_color(vehicleStatisticsList.get(0).getSupply_reason_type()));
 
@@ -266,7 +253,7 @@ public class HomeVehicleFragment extends Fragment implements View.OnClickListene
         for (int type=1; type<=reasonTypeArray.length; type++) {
             List<VehicleGraphStatistics> graphHelper = Database.mVehicleGraphStatisticsDao.findLastVehicleGraphStatistics(g.getIdVehicle(), type);
             VehicleStatistics vehicleStatistics = Database.mVehicleStatisticsDao.findLastVehicleStatistics(g.getIdVehicle(), type);
-            text = reasonTypeArray[type - 1] + ": " + numberFormat.format(vehicleStatistics.getAvg_consumption()) + " " + g.getMeasureConsumption();
+            text = reasonTypeArray[type - 1] + ": " + numberFormatter.format(vehicleStatistics.getAvg_consumption()) + " " + g.getMeasureConsumption();
             switch (type) {
                 case 1:
                     tvAVGType1.setText(text);
@@ -293,7 +280,6 @@ public class HomeVehicleFragment extends Fragment implements View.OnClickListene
                 LineGraphSeries<DataPoint> series = new LineGraphSeries<>(dataSeries);
                 LineGraphSeries<DataPoint> seriesAVG = new LineGraphSeries<>(dataSeriesAVG);
                 LineGraphSeries<DataPoint> seriesAVGGeneral = new LineGraphSeries<>(dataSeriesAVGGeneral);
-                Paint paintAVG = new Paint();
 
                 series.setColor(VehicleStatistics.getSupply_reason_type_color(type));
                 series.setDrawDataPoints(true);
@@ -304,6 +290,7 @@ public class HomeVehicleFragment extends Fragment implements View.OnClickListene
                 vMaxY = vMaxY==0?series.getHighestValueY():Math.max(series.getHighestValueY(), vMaxY);
                 graphStatistics.addSeries(series);
 
+                Paint paintAVG = new Paint();
                 paintAVG.setStyle(Paint.Style.STROKE);
                 paintAVG.setStrokeWidth(4);
                 paintAVG.setPathEffect(new DashPathEffect(new float[]{8, 5}, 0));
@@ -314,7 +301,7 @@ public class HomeVehicleFragment extends Fragment implements View.OnClickListene
                 graphStatistics.addSeries(seriesAVG);
 
                 Paint paint = new Paint();
-                paint.setStyle(Paint.Style.STROKE);
+                paint.setStyle(Paint.Style.FILL_AND_STROKE);
                 paint.setStrokeWidth(4);
                 paint.setPathEffect(new DashPathEffect(new float[]{8, 5}, 0));
                 paint.setColor(VehicleStatistics.getSupply_reason_type_color(9));

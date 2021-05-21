@@ -371,9 +371,9 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/layerServiceVehicle"
+            android:id="@+id/layerMaintenanceItemVehicle"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="match_parent"
             android:layout_marginStart="@dimen/labels_margin"
             android:layout_marginLeft="@dimen/labels_margin"
             android:layout_marginEnd="@dimen/labels_margin"
@@ -381,53 +381,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/layerStatisticsVehicle">
-
-            <TextView
-                android:id="@+id/tvVehicleServiceLast"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/LastVehicleServices"
-                android:textColor="@color/design_default_color_secondary_variant"
-                android:textSize="14sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/listLastVehicleService"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:scrollbars="vertical"
-                app:autoSizeMaxTextSize="12sp"
-                app:autoSizeMinTextSize="6sp"
-                app:autoSizeStepGranularity="1sp"
-                app:autoSizeTextType="uniform"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvVehicleServiceLast"
-                tools:itemCount="1" />
-
-            <Button
-                android:layout_width="match_parent"
-                android:layout_height="16dp"
-                android:clickable="false"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/listLastVehicleService" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/layerMaintenanceItemVehicle"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginStart="@dimen/labels_margin"
-            android:layout_marginLeft="@dimen/labels_margin"
-            android:layout_marginEnd="@dimen/labels_margin"
-            android:layout_marginRight="@dimen/labels_margin"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/layerServiceVehicle">
 
             <TextView
                 android:id="@+id/tvNextVehicleMaintenance"
@@ -452,7 +405,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tvNextVehicleMaintenance"
-                tools:itemCount="1" />
+                tools:itemCount="4" />
 
             <Button
                 android:layout_width="match_parent"
