@@ -8,7 +8,6 @@
     tools:context=".ui.home.HomeTravelFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/layerHomeTravel"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -353,7 +352,6 @@
             app:layout_constraintStart_toStartOf="parent">
 
             <TextView
-                android:id="@+id/tvInsuranceExpiration"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/InsuranceExpiration"

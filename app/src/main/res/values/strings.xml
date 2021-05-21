@@ -109,7 +109,6 @@
     <string name="MaintenanceItem_Note">Note</string>
 
     <string name="Next_VehicleMaintenance">Next Vehicle Maintenance</string>
-    <string name="NextMaintenance_Type">Type</string>
     <string name="NextMaintenance_Description">Description</string>
     <string name="NextMaintenance_Measure">Measure</string>
     <string name="NextMaintenance_Service">Service</string>
@@ -167,10 +166,8 @@
     <string name="HomeTravelTotal" translatable="false">Total</string>
 
     <!-- Home Vehicle Fragment -->
-    <string name="Odometer">Odometer</string>
     <string name="FuelSupply_Last">Last Fuel Supply</string>
     <string name="Supply_Last">Last Supply</string>
-    <string name="LastVehicleServices">Last Vehicle Services</string>
     <string name="VehicleStatistics">Vehicle Statistics</string>
     <string name="InsuranceExpiration">Insurance Expiration</string>
 
@@ -345,7 +342,6 @@
     <string name="planning">Planning</string>
     <string name="running">Running</string>
     <string name="executed">Executed</string>
-    <string name="overdue">Overdue</string>
 
     <!-- Itinerary Fragment -->
     <string name="normal_map">Normal</string>

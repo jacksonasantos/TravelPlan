@@ -95,7 +95,6 @@
     <string name="Maintenance_Value">Valor do Serviço</string>
     <string name="Maintenance_Location">Localização do Serviço</string>
     <string name="Maintenance_Note">Observação de Manutenção</string>
-    <string name="Odometer">Odômetro</string>
     <string name="bt_Done">Feito</string>
     <string name="real">R$ - Real</string>
     <string name="dollar">US$ - Dólar</string>
@@ -158,7 +157,6 @@
     <string name="menu_insurance">Seguros</string>
     <string name="Insurance_Description">Descrição</string>
     <string name="InsuranceExpiration">Vencimento de Seguros</string>
-    <string name="overdue">Em atraso</string>
     <string name="Error_Deleting_Data">Erro ao excluir dados</string>
     <string name="menu_general">Gerais</string>
     <string name="FuelSupply_AssociatedTravel">Viagem Associada</string>
@@ -246,7 +244,6 @@
     <string name="MaintenanceItem_Note">Observação</string>
     <string name="Maintenance_Type">Tipo de Manutenção</string>
     <string name="Cancel">Cancelar</string>
-    <string name="LastVehicleServices">Últimos Serviços no Veículo</string>
     <string name="MaintenanceItem">Item de Manutenção</string>
     <string name="Next_VehicleMaintenance">Próxima Manutenção do Veículo</string>
     <string name="date">Data</string>
@@ -314,7 +311,6 @@
     <string name="add_new_itinerary">Adicionar novo Itinerário</string>
     <string name="Itinerary_Sequence">Seq</string>
     <string name="waypoints">Ponto de Passagem</string>
-    <string name="NextMaintenance_Type">Tipo</string>
     <string name="NextMaintenance_Description">Descrição</string>
     <string name="NextMaintenance_Measure">Medida</string>
     <string name="NextMaintenance_Service">Serviço</string>

@@ -4,10 +4,7 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteConstraintException;
 import android.database.sqlite.SQLiteDatabase;
-import android.os.Build;
 import android.util.Log;
-
-import androidx.annotation.RequiresApi;
 
 import com.jacksonasantos.travelplan.dao.general.DbContentProvider;
 import com.jacksonasantos.travelplan.dao.interfaces.AccommodationIDAO;
@@ -73,7 +70,6 @@ public class AccommodationDAO extends DbContentProvider implements Accommodation
         super.delete(ACCOMMODATION_TABLE, selection, selectionArgs);
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     public boolean updateAccommodation(Accommodation accommodation) {
         setContentValue(accommodation);
         final String[] selectionArgs = { String.valueOf(accommodation.getId()) };
@@ -86,7 +82,6 @@ public class AccommodationDAO extends DbContentProvider implements Accommodation
         }
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     public boolean addAccommodation(Accommodation accommodation) {
         setContentValue(accommodation);
         try {

@@ -229,7 +229,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="7.5"
                     android:text="@string/marker_itinerary"
-                    android:textSize="10sp">
+                    android:textSize="10sp"
+                    tools:ignore="SmallSp">
                 </Spinner>
             </LinearLayout>
             <LinearLayout
@@ -251,7 +252,8 @@
                     android:layout_weight="7.5"
                     android:text="@string/marker_type"
                     android:entries="@array/marker_type_array"
-                    android:textSize="10sp" >
+                    android:textSize="10sp"
+                    tools:ignore="SmallSp">
                 </Spinner>
             </LinearLayout>
             <LinearLayout
@@ -273,7 +275,7 @@
                     android:layout_weight="7.5"
                     android:autofillHints="no"
                     android:inputType="number"
-                    tools:ignore="LabelFor"
+                    tools:ignore="LabelFor,SmallSp"
                     android:textSize="10sp" />
             </LinearLayout>
             <LinearLayout
@@ -295,7 +297,7 @@
                     android:layout_weight="7.5"
                     android:autofillHints="no"
                     android:inputType="textCapSentences"
-                    tools:ignore="LabelFor"
+                    tools:ignore="LabelFor,SmallSp"
                     android:textSize="10sp"  />
             </LinearLayout>
 

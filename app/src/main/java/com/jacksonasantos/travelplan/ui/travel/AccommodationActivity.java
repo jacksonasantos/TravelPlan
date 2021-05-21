@@ -99,6 +99,7 @@ public class AccommodationActivity extends AppCompatActivity {
         }
     }
 
+    @SuppressLint("NewApi")
     public void addListenerOnButtonSave() {
         Button btSaveAccommodation = findViewById(R.id.btSaveAccommodation);
 
