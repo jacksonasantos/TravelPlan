@@ -27,7 +27,6 @@ import com.jacksonasantos.travelplan.dao.TravelDAO;
 import com.jacksonasantos.travelplan.dao.TravelExpensesDAO;
 import com.jacksonasantos.travelplan.dao.TravelItemExpensesDAO;
 import com.jacksonasantos.travelplan.dao.VehicleDAO;
-import com.jacksonasantos.travelplan.dao.VehicleGraphStatisticsDAO;
 import com.jacksonasantos.travelplan.dao.VehicleHasPlanDAO;
 import com.jacksonasantos.travelplan.dao.VehicleHasTravelDAO;
 import com.jacksonasantos.travelplan.dao.VehicleStatisticsDAO;
@@ -80,7 +79,6 @@ public class Database {
     public static VehicleDAO mVehicleDao;
 
     public static SummaryTravelExpenseDAO mSummaryTravelExpenseDao;
-    public static VehicleGraphStatisticsDAO mVehicleGraphStatisticsDao;
     public static VehicleStatisticsDAO mVehicleStatisticsDao;
     public static NextMaintenanceItemDAO mNextMaintenanceItemDao;
 
@@ -104,7 +102,6 @@ public class Database {
         mInsuranceDao = new InsuranceDAO(mDb);
         mMaintenancePlanDao = new MaintenancePlanDAO(mDb);
         mVehicleHasPlanDao = new VehicleHasPlanDAO(mDb);
-        mVehicleGraphStatisticsDao = new VehicleGraphStatisticsDAO(mDb);
         mSummaryTravelExpenseDao = new SummaryTravelExpenseDAO(mDb);
         mVehicleHasTravelDao = new VehicleHasTravelDAO(mDb);
         mMarkerDao = new MarkerDAO(mDb);

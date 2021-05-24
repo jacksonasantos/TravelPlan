@@ -28,7 +28,6 @@ import com.jacksonasantos.travelplan.R;
 import com.jacksonasantos.travelplan.dao.FuelSupply;
 import com.jacksonasantos.travelplan.dao.Insurance;
 import com.jacksonasantos.travelplan.dao.Vehicle;
-import com.jacksonasantos.travelplan.dao.VehicleGraphStatistics;
 import com.jacksonasantos.travelplan.dao.VehicleStatistics;
 import com.jacksonasantos.travelplan.dao.general.Database;
 import com.jacksonasantos.travelplan.ui.general.InsuranceDialog;
@@ -243,36 +242,35 @@ public class HomeVehicleFragment extends Fragment implements View.OnClickListene
     }
 
     private void addDataSeries() {
-        List<VehicleStatistics> vehicleStatisticsList = Database.mVehicleStatisticsDao.findTotalVehicleStatistics(g.getIdVehicle());
-        String text = requireContext().getString(R.string.general) + ": " + numberFormatter.format(vehicleStatisticsList.get(0).getAvg_consumption()) + " " + g.getMeasureConsumption();
+        List<VehicleStatistics> vehicleStatisticsAVGGeneral = Database.mVehicleStatisticsDao.findTotalVehicleStatistics(g.getIdVehicle());
+        String text = requireContext().getString(R.string.general) + ": " + numberFormatter.format(vehicleStatisticsAVGGeneral.get(0).getAvg_consumption()) + " " + g.getMeasureConsumption();
         tvAVGType9.setText(text);
-        tvAVGType9.setTextColor(VehicleStatistics.getSupply_reason_type_color(vehicleStatisticsList.get(0).getSupply_reason_type()));
+        tvAVGType9.setTextColor(VehicleStatistics.getSupply_reason_type_color(vehicleStatisticsAVGGeneral.get(0).getSupply_reason_type()));
 
-        String[] reasonTypeArray;
-        reasonTypeArray = getResources().getStringArray(R.array.supply_reason_type_array);
+        String[] reasonTypeArray = getResources().getStringArray(R.array.supply_reason_type_array);
         for (int type=1; type<=reasonTypeArray.length; type++) {
-            List<VehicleGraphStatistics> graphHelper = Database.mVehicleGraphStatisticsDao.findLastVehicleGraphStatistics(g.getIdVehicle(), type);
-            VehicleStatistics vehicleStatistics = Database.mVehicleStatisticsDao.findLastVehicleStatistics(g.getIdVehicle(), type);
-            text = reasonTypeArray[type - 1] + ": " + numberFormatter.format(vehicleStatistics.getAvg_consumption()) + " " + g.getMeasureConsumption();
-            switch (type) {
-                case 1:
-                    tvAVGType1.setText(text);
-                    tvAVGType1.setTextColor(VehicleStatistics.getSupply_reason_type_color(vehicleStatistics.getSupply_reason_type()));
-                case 2:
-                    tvAVGType2.setText(text);
-                    tvAVGType2.setTextColor(VehicleStatistics.getSupply_reason_type_color(vehicleStatistics.getSupply_reason_type()));
-                case 3:
-                    tvAVGType3.setText(text);
-                    tvAVGType3.setTextColor(VehicleStatistics.getSupply_reason_type_color(vehicleStatistics.getSupply_reason_type()));
-            }
-            DataPoint[] dataSeries = new DataPoint[graphHelper.size()];
-            DataPoint[] dataSeriesAVG = new DataPoint[graphHelper.size()];
-            DataPoint[] dataSeriesAVGGeneral = new DataPoint[graphHelper.size()];
-            if (graphHelper.size()>0) {
-                for (int x = 0;x<graphHelper.size(); x++) {
-                    dataSeries[x] = new DataPoint(graphHelper.get(x).getXaxis_date(), graphHelper.get(x).getYaxis_avg_consumption());
-                    dataSeriesAVG[x] = new DataPoint(graphHelper.get(x).getXaxis_date(), vehicleStatistics.getAvg_consumption());
-                    dataSeriesAVGGeneral[x] = new DataPoint(graphHelper.get(x).getXaxis_date(), vehicleStatisticsList.get(0).getAvg_consumption());
+            List<VehicleStatistics> vehicleStatisticsGraph = Database.mVehicleStatisticsDao.findLastVehicleGraphStatistics(g.getIdVehicle(), type);
+            if (vehicleStatisticsGraph.size()>0) {
+                VehicleStatistics vehicleStatisticsAVG = Database.mVehicleStatisticsDao.findLastVehicleStatistics(g.getIdVehicle(), type);
+                text = reasonTypeArray[type - 1] + ": " + numberFormatter.format(vehicleStatisticsAVG.getAvg_consumption()) + " " + g.getMeasureConsumption();
+                switch (type) {
+                    case 1:
+                        tvAVGType1.setText(text);
+                        tvAVGType1.setTextColor(VehicleStatistics.getSupply_reason_type_color(vehicleStatisticsAVG.getSupply_reason_type()));
+                    case 2:
+                        tvAVGType2.setText(text);
+                        tvAVGType2.setTextColor(VehicleStatistics.getSupply_reason_type_color(vehicleStatisticsAVG.getSupply_reason_type()));
+                    case 3:
+                        tvAVGType3.setText(text);
+                        tvAVGType3.setTextColor(VehicleStatistics.getSupply_reason_type_color(vehicleStatisticsAVG.getSupply_reason_type()));
+                }
+                DataPoint[] dataSeries = new DataPoint[vehicleStatisticsGraph.size()];
+                DataPoint[] dataSeriesAVG = new DataPoint[vehicleStatisticsGraph.size()];
+                DataPoint[] dataSeriesAVGGeneral = new DataPoint[vehicleStatisticsGraph.size()];
+                for (int x = 0;x<vehicleStatisticsGraph.size(); x++) {
+                    dataSeries[x]           = new DataPoint(vehicleStatisticsGraph.get(x).getStatistic_date(), vehicleStatisticsGraph.get(x).getAvg_consumption());
+                    dataSeriesAVG[x]        = new DataPoint(vehicleStatisticsGraph.get(x).getStatistic_date(), vehicleStatisticsAVG.getAvg_consumption());
+                    dataSeriesAVGGeneral[x] = new DataPoint(vehicleStatisticsGraph.get(x).getStatistic_date(), vehicleStatisticsAVGGeneral.get(0).getAvg_consumption());
                 }
                 if (dataSeries.length > tamHorizontalLabels)
                     tamHorizontalLabels = dataSeries.length;
