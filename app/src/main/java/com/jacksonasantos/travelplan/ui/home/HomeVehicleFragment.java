@@ -187,7 +187,7 @@ public class HomeVehicleFragment extends Fragment implements View.OnClickListene
                     // Graph Statistics Vehicle - https://github.com/jjoe64/GraphView
                     vMinX = 0; vMaxX = 0; vMinY = 0; vMaxY = 0;
                     tamHorizontalLabels = 3;
-                    graphStatistics.removeAllSeries();                   // Clear the Graph
+                    graphStatistics.removeAllSeries();                              // Clear the Graph
                     graphStatistics.onDataChanged(true, true);
 
                     addDataSeries();
@@ -203,10 +203,10 @@ public class HomeVehicleFragment extends Fragment implements View.OnClickListene
                     graphStatistics.getGridLabelRenderer().setVerticalAxisTitleColor(R.color.design_default_color_secondary);
                     graphStatistics.getGridLabelRenderer().setVerticalAxisTitle(g.getMeasureConsumption());
 
-                    graphStatistics.getViewport().setScalable(true);            //         activate horizontal zooming and scrolling
-                    graphStatistics.getViewport().setScrollable(true);          //         activate horizontal scrolling
-                    graphStatistics.getViewport().setScalableY(true);           //         activate horizontal and vertical zooming and scrolling
-                    graphStatistics.getViewport().setScrollableY(true);         //         activate vertical scrolling
+                    graphStatistics.getViewport().setScalable(true);                // activate horizontal zooming and scrolling
+                    graphStatistics.getViewport().setScrollable(true);              // activate horizontal scrolling
+                    graphStatistics.getViewport().setScalableY(true);               // activate horizontal and vertical zooming and scrolling
+                    graphStatistics.getViewport().setScrollableY(true);             // activate vertical scrolling
                     graphStatistics.getViewport().setXAxisBoundsManual(true);
                     graphStatistics.getViewport().setMinX(vMinX);
                     graphStatistics.getViewport().setMaxX(vMaxX);
@@ -234,9 +234,7 @@ public class HomeVehicleFragment extends Fragment implements View.OnClickListene
             }
 
             @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-                vehicle[0] = null;
-            }
+            public void onNothingSelected(AdapterView<?> parent) { vehicle[0] = null; }
         });
         adapter.notifyDataSetChanged();
     }
