@@ -75,6 +75,7 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
     private GoogleMap googleMap;
     private EditText etSearch;
     private Button btnSearch;
+    private RecyclerView listMarkers;
 
     private final MarkerOptions markerOptions = new MarkerOptions();       // Creating an instance of MarkerOptions
     private LatLngBounds.Builder builder = new LatLngBounds.Builder();
@@ -107,6 +108,7 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
         mMapView = rootView.findViewById(R.id.mapView);
         etSearch = rootView.findViewById(R.id.etSearch);
         btnSearch = rootView.findViewById(R.id.btnSearch);
+        listMarkers = rootView.findViewById(R.id.listMarkers);
 
         setHasOptionsMenu(true);                                           // activate menu map options
         mMapView.onCreate(savedInstanceState);
@@ -178,6 +180,11 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
                 }
             });
         });
+
+        MarkerListAdapter adapterTmp = new MarkerListAdapter(Database.mMarkerDao.fetchMarkerByTravelId(nrTravel_Id), requireContext(), 0, 0);
+        listMarkers.setAdapter(adapterTmp);
+        listMarkers.setLayoutManager(new LinearLayoutManager(requireContext()));
+
         mMapView.onResume();
         return rootView;
     }
@@ -477,6 +484,7 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
                     clearMap = true;
                 }
                 drawItinerary(nrTravel_Id);
+
             }
 
             @Override
@@ -485,6 +493,7 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
                 nrTravel_Id = 0;
             }
         });
+
         mMapView.onResume();
     }
 

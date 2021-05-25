@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.jacksonasantos.travelplan.R;
 import com.jacksonasantos.travelplan.dao.Marker;
+import com.jacksonasantos.travelplan.ui.utility.Utils;
 
 import java.util.List;
 
@@ -57,15 +58,23 @@ public class MarkerListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         if (holder instanceof HeaderViewHolder) {
             HeaderViewHolder headerViewHolder = (HeaderViewHolder) holder;
             headerViewHolder.llMarker.setBackgroundColor(Color.LTGRAY);
-            headerViewHolder.txtSequence.setText(R.string.marker_sequence);
-            headerViewHolder.txtMarkerType.setText(R.string.marker_type);
             headerViewHolder.txtDescription.setText(R.string.marker_description);
         } else if (holder instanceof ItemViewHolder) {
             ItemViewHolder itemViewHolder = (ItemViewHolder) holder;
             Marker marker = mMarker.get(position - show_header);
-            itemViewHolder.txtSequence.setText(String.valueOf(marker.getSequence()));
-            itemViewHolder.txtMarkerType.setText(context.getResources().getStringArray(R.array.marker_type_array)[marker.getMarker_type()]);
-            itemViewHolder.txtDescription.setText(marker.getDescription());
+
+            if (marker.getItinerary_id()%2==0) {
+                itemViewHolder.llMarker.setBackgroundColor(Utils.getColorWithAlpha(Color.LTGRAY,0.7f));
+            } else {
+                itemViewHolder.llMarker.setBackgroundColor(Utils.getColorWithAlpha(Color.WHITE,0.7f));
+            }
+            String txt = " " + marker.getItinerary_id() +
+                         "." +
+                         marker.getSequence() +
+                         " " +
+                         context.getResources().getStringArray(R.array.marker_type_array)[marker.getMarker_type()];
+                         if (!marker.getDescription().equals("")) { txt = txt + "-" + marker.getDescription(); }
+            itemViewHolder.txtDescription.setText(txt);
         }
     }
 
@@ -87,45 +96,33 @@ public class MarkerListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     private static class HeaderViewHolder extends RecyclerView.ViewHolder {
         public LinearLayout llMarker;
-        public TextView txtSequence;
-        public TextView txtMarkerType;
         public TextView txtDescription;
 
         public HeaderViewHolder(View v) {
             super(v);
             llMarker = v.findViewById(R.id.llMarker);
-            txtSequence = v.findViewById(R.id.txtSequence);
-            txtMarkerType = v.findViewById(R.id.txtMarkerType);
             txtDescription = v.findViewById(R.id.txtDescription);
         }
     }
 
     public static class ItemViewHolder extends RecyclerView.ViewHolder {
         public LinearLayout llMarker;
-        public TextView txtSequence;
-        public TextView txtMarkerType;
         public TextView txtDescription;
 
         public ItemViewHolder(View v) {
             super(v);
             llMarker = v.findViewById(R.id.llMarker);
-            txtSequence = v.findViewById(R.id.txtSequence);
-            txtMarkerType = v.findViewById(R.id.txtMarkerType);
             txtDescription = v.findViewById(R.id.txtDescription);
         }
     }
 
     public static class FooterViewHolder extends RecyclerView.ViewHolder {
         public LinearLayout llMarker;
-        public TextView txtSequence;
-        public TextView txtMarkerType;
         public TextView txtDescription;
 
         public FooterViewHolder(View v) {
             super(v);
             llMarker = v.findViewById(R.id.llMarker);
-            txtSequence = v.findViewById(R.id.txtSequence);
-            txtMarkerType = v.findViewById(R.id.txtMarkerType);
             txtDescription = v.findViewById(R.id.txtDescription);
         }
     }

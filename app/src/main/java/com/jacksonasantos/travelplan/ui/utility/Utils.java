@@ -2,6 +2,7 @@ package com.jacksonasantos.travelplan.ui.utility;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.Color;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.LinearLayout;
@@ -19,6 +20,13 @@ import java.util.concurrent.TimeUnit;
 
 public class Utils extends AppCompatActivity  {
 
+    public static int getColorWithAlpha(int color, float ratio) {
+        return Color.argb(
+                Math.round(Color.alpha(color) * ratio),
+                Color.red(color),
+                Color.green(color),
+                Color.blue(color));
+    }
 
     public static void setSpinnerToValue(Spinner spinner, Integer value) {
         int index = 0;
