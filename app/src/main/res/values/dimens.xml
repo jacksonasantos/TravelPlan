@@ -11,5 +11,6 @@
     <dimen name="labels_space_top">4dp</dimen>
 
     <dimen name="cardCornerRadius">8dp</dimen>
+    <dimen name="cardCornerRadiusMin">4dp</dimen>
     <dimen name="cardElevation">8dp</dimen>
 </resources>

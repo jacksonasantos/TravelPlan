@@ -13,6 +13,7 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -47,6 +48,7 @@ import java.util.Locale;
 
 public class HomeTravelFragment extends Fragment implements View.OnClickListener {
 
+    private ScrollView layerHomeTravel;
     private ConstraintLayout layerTravel;
     private ImageView imTravelStatus;
     private Spinner spTravel;
@@ -88,6 +90,7 @@ public class HomeTravelFragment extends Fragment implements View.OnClickListener
                              final ViewGroup container, Bundle savedInstanceState) {
 
         View v=inflater.inflate(R.layout.fragment_home_travel, container, false);
+        layerHomeTravel = v.findViewById(R.id.layerHomeTravel);
         layerTravel = v.findViewById(R.id.layerTravel);
         spTravel = v.findViewById(R.id.spTravel);
         imTravelStatus = v.findViewById(R.id.imTravelStatus);
@@ -119,6 +122,10 @@ public class HomeTravelFragment extends Fragment implements View.OnClickListener
 
         layerInsurance = v.findViewById(R.id.layerInsurance);
         listInsuranceExpiration = v.findViewById(R.id.listInsuranceExpiration);
+
+        layerHomeTravel.setFocusable(false);
+        layerHomeTravel.setFocusableInTouchMode(true);
+        layerHomeTravel.setDescendantFocusability(ViewGroup.FOCUS_BEFORE_DESCENDANTS);
 
         return v;
     }

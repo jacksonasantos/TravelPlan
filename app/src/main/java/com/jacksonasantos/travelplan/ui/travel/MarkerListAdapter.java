@@ -63,7 +63,7 @@ public class MarkerListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             ItemViewHolder itemViewHolder = (ItemViewHolder) holder;
             Marker marker = mMarker.get(position - show_header);
 
-            if (marker.getItinerary_id()%2==0) {
+            if (marker.getItinerary_id()%2 == 0) {
                 itemViewHolder.llMarker.setBackgroundColor(Utils.getColorWithAlpha(Color.LTGRAY,0.7f));
             } else {
                 itemViewHolder.llMarker.setBackgroundColor(Utils.getColorWithAlpha(Color.WHITE,0.7f));

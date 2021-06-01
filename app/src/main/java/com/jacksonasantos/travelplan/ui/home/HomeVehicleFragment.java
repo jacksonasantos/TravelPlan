@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -48,6 +49,7 @@ import java.util.Locale;
 
 public class HomeVehicleFragment extends Fragment implements View.OnClickListener {
 
+    private ScrollView layerHomeVehicle;
     private Spinner spVehicle;
     private TextView tvLicencePlate;
     private ImageView imVehicleType;
@@ -74,6 +76,7 @@ public class HomeVehicleFragment extends Fragment implements View.OnClickListene
     private RecyclerView nextVehicleMaintenanceList;
 
     int tamHorizontalLabels = 3;
+    int tamVerticalLabels = 3;
     double vMinX = 0;
     double vMaxX = 0;
     double vMinY = 0;
@@ -90,6 +93,7 @@ public class HomeVehicleFragment extends Fragment implements View.OnClickListene
                              final ViewGroup container, Bundle savedInstanceState) {
 
         View v=inflater.inflate(R.layout.fragment_home_vehicle, container, false);
+        layerHomeVehicle = v.findViewById((R.id.layerHomeVehicle));
         imVehicleType = v.findViewById(R.id.imVehicleType);
         spVehicle =v.findViewById(R.id.spVehicle);
         tvLicencePlate = v.findViewById(R.id.tvLicencePlate);
@@ -120,6 +124,11 @@ public class HomeVehicleFragment extends Fragment implements View.OnClickListene
             intent.putExtra("vehicle_id", g.getIdVehicle());
             v1.getContext().startActivity(intent);
         });
+
+        layerHomeVehicle.setFocusable(false);
+        layerHomeVehicle.setFocusableInTouchMode(true);
+        layerHomeVehicle.setDescendantFocusability(ViewGroup.FOCUS_BEFORE_DESCENDANTS);
+
         return v;
     }
 
@@ -187,21 +196,13 @@ public class HomeVehicleFragment extends Fragment implements View.OnClickListene
                     // Graph Statistics Vehicle - https://github.com/jjoe64/GraphView
                     vMinX = 0; vMaxX = 0; vMinY = 0; vMaxY = 0;
                     tamHorizontalLabels = 3;
+                    tamVerticalLabels = 5;
+                    graphStatistics.clearSecondScale();
                     graphStatistics.removeAllSeries();                              // Clear the Graph
-                    graphStatistics.onDataChanged(true, true);
+                    graphStatistics.onDataChanged(true, false);
+                    graphStatistics.getGridLabelRenderer().resetStyles();
 
                     addDataSeries();
-
-                    graphStatistics.getGridLabelRenderer().setVerticalLabelsColor(Color.BLUE);
-                    graphStatistics.getGridLabelRenderer().setHorizontalLabelsColor(Color.BLUE);
-                    graphStatistics.getGridLabelRenderer().setTextSize(20);
-                    graphStatistics.getGridLabelRenderer().setLabelFormatter(new DateAsXAxisLabelFormatter(graphStatistics.getContext(), new SimpleDateFormat("dd/MM")));
-                    graphStatistics.getGridLabelRenderer().setGridStyle(GridLabelRenderer.GridStyle.BOTH);
-                    graphStatistics.getGridLabelRenderer().setNumHorizontalLabels(tamHorizontalLabels);
-                    graphStatistics.getGridLabelRenderer().setHumanRounding(false);
-                    graphStatistics.getGridLabelRenderer().setVerticalAxisTitleTextSize(20);
-                    graphStatistics.getGridLabelRenderer().setVerticalAxisTitleColor(R.color.design_default_color_secondary);
-                    graphStatistics.getGridLabelRenderer().setVerticalAxisTitle(g.getMeasureConsumption());
 
                     graphStatistics.getViewport().setScalable(true);                // activate horizontal zooming and scrolling
                     graphStatistics.getViewport().setScrollable(true);              // activate horizontal scrolling
@@ -213,6 +214,18 @@ public class HomeVehicleFragment extends Fragment implements View.OnClickListene
                     graphStatistics.getViewport().setYAxisBoundsManual(true);
                     graphStatistics.getViewport().setMinY(vMinY);
                     graphStatistics.getViewport().setMaxY(vMaxY);
+
+                    graphStatistics.getGridLabelRenderer().setVerticalLabelsColor(Color.BLUE);
+                    graphStatistics.getGridLabelRenderer().setHorizontalLabelsColor(Color.BLUE);
+                    graphStatistics.getGridLabelRenderer().setTextSize(20);
+                    graphStatistics.getGridLabelRenderer().setGridStyle(GridLabelRenderer.GridStyle.BOTH);
+                    graphStatistics.getGridLabelRenderer().setHumanRounding(false,false);
+                    graphStatistics.getGridLabelRenderer().setNumHorizontalLabels(tamHorizontalLabels);
+                    graphStatistics.getGridLabelRenderer().setNumVerticalLabels(tamVerticalLabels);
+                    graphStatistics.getGridLabelRenderer().setVerticalAxisTitleTextSize(24);
+                    graphStatistics.getGridLabelRenderer().setVerticalAxisTitleColor(Color.DKGRAY);
+                    graphStatistics.getGridLabelRenderer().setVerticalAxisTitle(g.getMeasureConsumption());
+                    graphStatistics.getGridLabelRenderer().setLabelFormatter(new DateAsXAxisLabelFormatter(graphStatistics.getContext(), new SimpleDateFormat("dd/MM")));
 
                     graphStatistics.refreshDrawableState();
                 } else {
@@ -255,12 +268,15 @@ public class HomeVehicleFragment extends Fragment implements View.OnClickListene
                     case 1:
                         tvAVGType1.setText(text);
                         tvAVGType1.setTextColor(VehicleStatistics.getSupply_reason_type_color(vehicleStatisticsAVG.getSupply_reason_type()));
+                        break;
                     case 2:
                         tvAVGType2.setText(text);
                         tvAVGType2.setTextColor(VehicleStatistics.getSupply_reason_type_color(vehicleStatisticsAVG.getSupply_reason_type()));
+                        break;
                     case 3:
                         tvAVGType3.setText(text);
                         tvAVGType3.setTextColor(VehicleStatistics.getSupply_reason_type_color(vehicleStatisticsAVG.getSupply_reason_type()));
+                        break;
                 }
                 DataPoint[] dataSeries = new DataPoint[vehicleStatisticsGraph.size()];
                 DataPoint[] dataSeriesAVG = new DataPoint[vehicleStatisticsGraph.size()];
@@ -270,9 +286,10 @@ public class HomeVehicleFragment extends Fragment implements View.OnClickListene
                     dataSeriesAVG[x]        = new DataPoint(vehicleStatisticsGraph.get(x).getStatistic_date(), vehicleStatisticsAVG.getAvg_consumption());
                     dataSeriesAVGGeneral[x] = new DataPoint(vehicleStatisticsGraph.get(x).getStatistic_date(), vehicleStatisticsAVGGeneral.get(0).getAvg_consumption());
                 }
-                if (dataSeries.length > tamHorizontalLabels)
-                    tamHorizontalLabels = dataSeries.length;
+                if (dataSeries.length > tamHorizontalLabels) tamHorizontalLabels = dataSeries.length+1;
                 if (tamHorizontalLabels > 10) tamHorizontalLabels = 10;
+                if (dataSeries.length > tamVerticalLabels) tamVerticalLabels = dataSeries.length+1;
+                if (tamVerticalLabels > 10) tamVerticalLabels = 10;
                 LineGraphSeries<DataPoint> series = new LineGraphSeries<>(dataSeries);
                 LineGraphSeries<DataPoint> seriesAVG = new LineGraphSeries<>(dataSeriesAVG);
                 LineGraphSeries<DataPoint> seriesAVGGeneral = new LineGraphSeries<>(dataSeriesAVGGeneral);
@@ -280,10 +297,10 @@ public class HomeVehicleFragment extends Fragment implements View.OnClickListene
                 series.setColor(VehicleStatistics.getSupply_reason_type_color(type));
                 series.setDrawDataPoints(true);
                 series.setDataPointsRadius(7);
-                vMinX = vMinX==0?series.getLowestValueX():Math.min(series.getLowestValueX(), vMinX);
-                vMaxX = vMaxX==0?series.getHighestValueX():Math.max(series.getHighestValueX(), vMaxX);
-                vMinY = vMinY==0?series.getLowestValueY():Math.min(series.getLowestValueY(), vMinY);
-                vMaxY = vMaxY==0?series.getHighestValueY():Math.max(series.getHighestValueY(), vMaxY);
+                vMinX = (vMinX==0?series.getLowestValueX():Math.min(series.getLowestValueX(), vMinX));
+                vMaxX = (vMaxX==0?series.getHighestValueX():Math.max(series.getHighestValueX(), vMaxX));
+                vMinY = (vMinY==0?series.getLowestValueY():Math.min(series.getLowestValueY(), vMinY));
+                vMaxY = (vMaxY==0?series.getHighestValueY():Math.max(series.getHighestValueY(), vMaxY));
                 graphStatistics.addSeries(series);
 
                 Paint paintAVG = new Paint();

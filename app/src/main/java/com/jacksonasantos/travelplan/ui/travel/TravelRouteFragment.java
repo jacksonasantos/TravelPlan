@@ -99,7 +99,7 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_travel_route, container, false);
 
         spTravel = rootView.findViewById(R.id.spTravel);
@@ -115,18 +115,14 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
 
         mMapView.getMapAsync(mMap -> {
             googleMap = mMap;
-            if (googleMap != null) {
-                if (ActivityCompat.checkSelfPermission(requireActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
-                    ActivityCompat.checkSelfPermission(requireActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                    String[] permissions = {Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION};
-                    requestPermissions(permissions, REQUEST_PERMISSION);
-                    return;
-                }
-                googleMap.setMyLocationEnabled(true);
-                googleMap.getUiSettings().setMyLocationButtonEnabled(true);    // Show Detect location button
+            if (ActivityCompat.checkSelfPermission(requireActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
+                ActivityCompat.checkSelfPermission(requireActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                String[] permissions = {Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION};
+                requestPermissions(permissions, REQUEST_PERMISSION);
+                return;
             }
-
-            assert googleMap != null;
+            googleMap.setMyLocationEnabled(true);
+            googleMap.getUiSettings().setMyLocationButtonEnabled(true);            // Show Detect location button
             googleMap.setIndoorEnabled(true);                                      // Enables indoor maps
             googleMap.setBuildingsEnabled(true);                                   // Turns on 3D buildings
             googleMap.getUiSettings().setZoomControlsEnabled(true);                // Show Zoom buttons
@@ -181,16 +177,12 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
             });
         });
 
-        MarkerListAdapter adapterTmp = new MarkerListAdapter(Database.mMarkerDao.fetchMarkerByTravelId(nrTravel_Id), requireContext(), 0, 0);
-        listMarkers.setAdapter(adapterTmp);
-        listMarkers.setLayoutManager(new LinearLayoutManager(requireContext()));
-
         mMapView.onResume();
         return rootView;
     }
 
     @SuppressLint("SetTextI18n")
-    protected void showSearch(List<Address> addresses) {
+    protected void showSearch(@NonNull List<Address> addresses) {
         Address address = addresses.get(0);
         LatLng latLng = new LatLng(address.getLatitude(), address.getLongitude());
         String addressText = String.format("%s, %s", address.getSubAdminArea(), address.getCountryCode());
@@ -213,7 +205,7 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
         return result;
     }
 
-    private boolean registryMarker(final LatLng point) throws IOException {
+    private boolean registryMarker(@NonNull final LatLng point) throws IOException {
         Geocoder geocoder = new Geocoder(getContext(), Locale.getDefault());
         final List<Address> addresses = geocoder.getFromLocation(point.latitude, point.longitude, 1);
 
@@ -352,7 +344,7 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
         pointsRoute.add(point);
     }
 
-    private BitmapDescriptor getMarkerIconFromDrawable(Drawable drawable, int color) {
+    private @NonNull BitmapDescriptor getMarkerIconFromDrawable(@NonNull Drawable drawable, int color) {
         Bitmap bitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas(bitmap);
         DrawableCompat.setTint(drawable,  color);
@@ -391,10 +383,14 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
                         LatLng latlng = new LatLng(Double.parseDouble(marker.getLatitude()), Double.parseDouble(marker.getLongitude()));
                         drawMarker(latlng, marker.getName(), ContextCompat.getColor(requireContext(), R.color.colorMarker), marker.getMarker_typeImage(marker.getMarker_type()));
                     }
-                    routeClass.drawRoute(googleMap, getContext(), pointsRoute, false, lang, false, nrTravel_Id, itinerary.getSequence());
+                    routeClass.drawRoute(googleMap, getContext(), pointsRoute, false, lang, false, nrTravel_Id, itinerary.getSequence(), nrItinerary_Id);
                     zoomMarkers();
                 }
             }
+            MarkerListAdapter adapterTmp = new MarkerListAdapter(Database.mMarkerDao.fetchMarkerByTravelId(nrTravel_Id), requireContext(), 0, 0);
+            listMarkers.setAdapter(adapterTmp);
+            listMarkers.setLayoutManager(new LinearLayoutManager(requireContext()));
+
         } else {
             clearItinerary();
         }
@@ -493,7 +489,6 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
                 nrTravel_Id = 0;
             }
         });
-
         mMapView.onResume();
     }
 
@@ -516,14 +511,14 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
     }
 
     @Override
-    public void onCreateOptionsMenu(@NonNull Menu menu, MenuInflater inflater) {
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         inflater.inflate(R.menu.map_menu_options, menu);
         super.onCreateOptionsMenu(menu, inflater);  // TODO - ver porque nao aparece
     }
 
     @SuppressLint("NonConstantResourceId")
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.hybrid_map:
                 googleMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
@@ -559,7 +554,7 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
     }
 
     @Override
-    public void onLocationChanged(Location location) {
+    public void onLocationChanged(@NonNull Location location) {
         Toast.makeText(getActivity(), "Latitude " + location.getLatitude()+"/"+location.getLongitude(), Toast.LENGTH_LONG).show();
     }
 
@@ -635,8 +630,8 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
                         if (position!=RecyclerView.NO_POSITION){
                             nrItinerary_Id = !itinerary.getId().equals(nrItinerary_Id) ? itinerary.getId() : null;
                             lClick = true;
-                            notifyDataSetChanged();
                             // TODO - Atualizar o Mapa quando escolhe um itinerario (engrossar a linha por exemplo)
+                            notifyDataSetChanged();
                         }
                     });
                     if (itinerary.getId().equals(nrItinerary_Id)) {
@@ -663,6 +658,7 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
                 }
             }
         }
+
         @Override
         public int getItemViewType(int position) {
             if (position == 0 && show_header == 1) {

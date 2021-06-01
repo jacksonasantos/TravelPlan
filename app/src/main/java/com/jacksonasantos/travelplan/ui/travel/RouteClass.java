@@ -39,7 +39,7 @@ public class RouteClass {
 
     private static final String GOOGLE_API_KEY =  MainActivity.getAppResources().getString(R.string.google_maps_key);
 
-    public void drawRoute(GoogleMap map, Context c, ArrayList<LatLng> points, boolean withIndications, String language, boolean optimize, Integer travel_id, int sequence) {
+    public void drawRoute(GoogleMap map, Context c, ArrayList<LatLng> points, boolean withIndications, String language, boolean optimize, Integer travel_id, int sequence, Integer sequenceSelected) {
         mMap = map;
         context = c;
         lang = language;
@@ -47,10 +47,10 @@ public class RouteClass {
 
         if (points.size() == 2) {
             String url = makeURL(points.get(0).latitude, points.get(0).longitude, points.get(1).latitude, points.get(1).longitude, "driving");
-            new connectAsyncTask(url, withIndications, sequence).execute();
+            new connectAsyncTask(url, withIndications, sequence, sequenceSelected).execute();
         } else if (points.size() > 2) {
             String url = makeURL(points, "driving", optimize);
-            new connectAsyncTask(url, withIndications, sequence).execute();
+            new connectAsyncTask(url, withIndications, sequence, sequenceSelected).execute();
         }
     }
 
@@ -113,11 +113,13 @@ public class RouteClass {
         String url;
         boolean steps;
         int nrSequence;
+        Integer nrSequenceSelected;
 
-        connectAsyncTask(String urlPass, boolean withSteps,int sequence ) {
+        connectAsyncTask(String urlPass, boolean withSteps,int sequence, Integer sequenceSelected ) {
             url = urlPass;
             steps = withSteps;
             nrSequence = sequence;
+            nrSequenceSelected = sequenceSelected;
         }
 
         @Override
@@ -134,7 +136,7 @@ public class RouteClass {
             super.onPostExecute(r);
             progressDialog.dismiss();
             if (r != null) {
-                drawPath(r, steps, nrSequence);
+                drawPath(r, steps, nrSequence, nrSequenceSelected);
             }
         }
 
@@ -145,7 +147,7 @@ public class RouteClass {
             return jParser.getJSONFromUrl(url);
         }
 
-        private void drawPath(String result, boolean withSteps, int nrSequence) {
+        private void drawPath(String result, boolean withSteps, int nrSequence, Integer nrSequenceSelected) {
             try {
                 final JSONObject json = new JSONObject(result);
                 JSONArray routeArray = json.getJSONArray("routes");
@@ -162,11 +164,17 @@ public class RouteClass {
 
                     for (int i = 0; i < stepsArray.length(); i++) {
                         String polyline = (String) ((JSONObject) ((JSONObject) stepsArray.get(i)).get("polyline")).get("points");
+                        int vColor=Color.BLUE;
+                        int vWidth=4;
+                        if (nrSequenceSelected != null) {
+                            vColor = nrSequence==nrSequenceSelected ? vColor : Color.RED;
+                            vWidth = nrSequence==nrSequenceSelected ? vWidth : 8;
+                        }
                         mMap.addPolyline(new PolylineOptions()
                                 .addAll(decodePoly(polyline))
-                                .width(4)
+                                .width(vWidth)
                                 .clickable(true)
-                                .color(Color.BLUE)
+                                .color(vColor)
                                 .geodesic(true)
                         );
                         if (withSteps) {

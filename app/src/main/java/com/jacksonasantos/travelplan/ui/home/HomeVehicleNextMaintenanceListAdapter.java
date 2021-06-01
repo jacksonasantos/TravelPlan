@@ -107,6 +107,7 @@ public class HomeVehicleNextMaintenanceListAdapter extends RecyclerView.Adapter<
                     Date vDataLim = vData;
 
                     Calendar c = Calendar.getInstance();
+                    assert vDataLim != null;
                     c.setTime(vDataLim);
                     c.add(Calendar.DATE, g.getDaysPreviousAlert() * -1);
                     vDataLim = c.getTime();
