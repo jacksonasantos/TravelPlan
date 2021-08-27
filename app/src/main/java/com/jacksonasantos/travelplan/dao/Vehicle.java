@@ -1,8 +1,11 @@
 package com.jacksonasantos.travelplan.dao;
 
+import android.graphics.Color;
+
 import androidx.annotation.NonNull;
 
 import com.jacksonasantos.travelplan.R;
+import com.jacksonasantos.travelplan.ui.utility.Utils;
 
 import java.util.Date;
 
@@ -19,6 +22,7 @@ public class Vehicle {
     public String year_manufacture;
     public String license_plate;
     public String color;
+    public int color_code;
     public String vin;
     public String licence_number;
     public String state;
@@ -59,6 +63,7 @@ public class Vehicle {
         this.state = state;
         this.city = city;
         this.color = color;
+        this.color_code = color_code;
         this.dt_acquisition = dt_acquisition;
         this.dt_sale = dt_sale;
 
@@ -84,6 +89,12 @@ public class Vehicle {
     public Integer getId() { return id; }
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public static int getVehicle_color(String color_code) {
+        color_code = color_code==null ? "000000" : color_code;
+        int[] x = Utils.getRGB(color_code);
+        return Color.rgb(x[0],x[1],x[2]);
     }
 
     public int getVehicleTypeImage( int vehicle_type ) {
@@ -168,6 +179,9 @@ public class Vehicle {
 
     public String getColor() {return color;}
     public void setColor(String color) {this.color = color;}
+
+    public int getColor_code() {return color_code;}
+    public void setColor_code(int color_code) {this.color_code = color_code;}
 
     public String getYear_model() {return year_model;}
     public void setYear_model(String year_model) {this.year_model = year_model;}

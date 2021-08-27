@@ -201,7 +201,7 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/layerInsuranceVehicle"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_weight="5"
                 android:padding="@dimen/labels_margin">
 
@@ -224,20 +224,10 @@
                     android:layout_height="40dp"
                     android:contentDescription="@string/FuelSupply_Combustible"
                     android:scaleType="centerCrop"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tvInsurance" />
-                <ImageView
-                    android:id="@+id/imInsuranceStatus"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:contentDescription="@string/Insurance_Status"
-                    android:scaleType="centerCrop"
-                    android:text="@string/FuelSupply_Last"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="@+id/imInsuranceType"
-                    app:layout_constraintStart_toStartOf="@+id/imInsuranceType"
-                    app:layout_constraintTop_toBottomOf="@+id/imInsuranceType"
-                    app:srcCompat="@drawable/ic_ball" />
+
                 <TextView
                     android:id="@+id/txtInsuranceFinalEffectiveDate"
                     android:layout_width="0dp"
@@ -355,8 +345,7 @@
                 android:id="@+id/graphStatistics"
                 android:layout_width="0dp"
                 android:layout_height="160dp"
-                android:layout_marginEnd="@dimen/labels_margin"
-                android:layout_marginRight="@dimen/labels_margin"
+                android:padding="@dimen/labels_margin"
                 app:layout_constraintBottom_toTopOf="@+id/buttonSeparator3"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"

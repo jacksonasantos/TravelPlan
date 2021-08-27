@@ -20,6 +20,16 @@ import java.util.concurrent.TimeUnit;
 
 public class Utils extends AppCompatActivity  {
 
+    public static int[] getRGB(final String rgb)
+    {
+        final int[] ret = new int[3];
+        for (int i = 0; i < 3; i++)
+        {
+            ret[i] = Integer.parseInt(rgb.substring(i * 2, i * 2 + 2), 16);
+        }
+        return ret;
+    }
+
     public static int getColorWithAlpha(int color, float ratio) {
         return Color.argb(
                 Math.round(Color.alpha(color) * ratio),

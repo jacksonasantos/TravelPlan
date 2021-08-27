@@ -135,7 +135,7 @@ public class MaintenancePlanActivity extends AppCompatActivity {
             if (!String.valueOf(nrSpinService_type).trim().isEmpty()
                 && !etDescription.getText().toString().trim().isEmpty()
                 && !String.valueOf(nrSpinMeasure).trim().isEmpty()
-                && !etExpiration_default.getText().toString().trim().isEmpty()
+                //&& !etExpiration_default.getText().toString().trim().isEmpty()
                 && !etRecommendation.getText().toString().trim().isEmpty()
                )
             {

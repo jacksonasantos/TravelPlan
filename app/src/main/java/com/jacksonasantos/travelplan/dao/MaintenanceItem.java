@@ -57,6 +57,7 @@ public class MaintenanceItem {
             case 19: draw = R.drawable.ic_service_parts_exchange; break;
             case 20: draw = R.drawable.ic_service_oil_change; break;
             case 21: draw = R.drawable.ic_service_spark_plug; break;
+            case 22: draw = R.drawable.ic_accessory; break;
             default: draw = R.drawable.ic_error; break;
         }
         return draw;

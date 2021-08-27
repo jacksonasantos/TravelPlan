@@ -1,23 +1,23 @@
 package com.jacksonasantos.travelplan.ui.vehicle;
 
+import android.annotation.SuppressLint;
 import android.os.Build;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioGroup;
-import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.jacksonasantos.travelplan.dao.general.Database;
-import com.jacksonasantos.travelplan.dao.Vehicle;
+import com.flask.colorpicker.ColorPickerView;
+import com.flask.colorpicker.builder.ColorPickerDialogBuilder;
 import com.jacksonasantos.travelplan.R;
+import com.jacksonasantos.travelplan.dao.Vehicle;
+import com.jacksonasantos.travelplan.dao.general.Database;
 import com.jacksonasantos.travelplan.ui.utility.DateInputMask;
 import com.jacksonasantos.travelplan.ui.utility.Utils;
 
@@ -30,12 +30,13 @@ public class VehicleActivity extends AppCompatActivity {
     private EditText etBrand;                            // TODO - Implement API of BRAND´s
     private EditText etModel;
     private AutoCompleteTextView spinFuelType;
-    private int nrspinFuelType;
+    private int nrSpinFuelType;
 
     private EditText etYearModel;
     private EditText etYearManufacture;
     private EditText etLicencePlateVehicle;
     private EditText etColor;
+    private Button btColorCode;
     private EditText etVin;
     private EditText etLicenceNumber;
     private EditText etStateVehicle;
@@ -63,6 +64,7 @@ public class VehicleActivity extends AppCompatActivity {
     private Vehicle vehicle;
     private boolean opInsert = true;
 
+    @SuppressLint({"SetTextI18n", "ResourceType"})
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,6 +97,7 @@ public class VehicleActivity extends AppCompatActivity {
         etYearManufacture = findViewById(R.id.etYearManufacture);
         etLicencePlateVehicle = findViewById(R.id.etLicencePlateVehicle);
         etColor = findViewById(R.id.etColor);
+        btColorCode = findViewById(R.id.btColorCode);
         etVin = findViewById(R.id.etVin);
         etLicenceNumber = findViewById(R.id.etLicenceNumber);
         etStateVehicle = findViewById(R.id.etStateVehicle);
@@ -115,11 +118,23 @@ public class VehicleActivity extends AppCompatActivity {
         etAccumulatedNumberLiters = findViewById(R.id.etAccumulatedNumberLiters);
         etAccumulatedSupplyValue= findViewById(R.id.etAccumulatedSupplyValue);
 
+        btColorCode.setOnClickListener(view -> ColorPickerDialogBuilder
+                .with(VehicleActivity.this)
+                .setTitle("Choose color")
+                .initialColor(vehicle.getColor_code())
+                .wheelType(ColorPickerView.WHEEL_TYPE.CIRCLE)
+                .density(12)
+                .setOnColorSelectedListener(selectedColor -> btColorCode.setText(String.valueOf(selectedColor)))
+                .setPositiveButton("ok", (dialog, selectedColor, allColors) -> btColorCode.setBackgroundColor(selectedColor))
+                .setNegativeButton("cancel", (dialog, which) -> { })
+                .build()
+                .show());
+
         Utils.addRadioButtonResources(R.array.vehicle_type_array, rgVehicleType, this);
         rgVehicleType.setOnCheckedChangeListener((group, checkedId) -> rbVehicleType = checkedId);
         Utils.createSpinnerResources(R.array.fuel_type_array, spinFuelType, this);
-        nrspinFuelType = 0;
-        spinFuelType.setOnItemClickListener((adapterView, view, i, l) -> nrspinFuelType = (int) adapterView.getItemIdAtPosition(i));
+        nrSpinFuelType = 0;
+        spinFuelType.setOnItemClickListener((adapterView, view, i, l) -> nrSpinFuelType = (int) adapterView.getItemIdAtPosition(i));
         etAcquisition.addTextChangedListener(new DateInputMask(etAcquisition));
         etSale.addTextChangedListener(new DateInputMask(etSale));
         etDtOdometer.addTextChangedListener(new DateInputMask(etDtOdometer));
@@ -134,12 +149,14 @@ public class VehicleActivity extends AppCompatActivity {
             etShortNameVehicle.setText(vehicle.getShort_name());
             etBrand.setText(vehicle.getBrand());
             etModel.setText(vehicle.getModel());
-            nrspinFuelType=vehicle.getFuel_type();
-            spinFuelType.setText(getResources().getStringArray(R.array.fuel_type_array)[nrspinFuelType],false);
+            nrSpinFuelType=vehicle.getFuel_type();
+            spinFuelType.setText(getResources().getStringArray(R.array.fuel_type_array)[nrSpinFuelType],false);
             etYearModel.setText(vehicle.getYear_model());
             etYearManufacture.setText(vehicle.getYear_manufacture());
             etLicencePlateVehicle.setText(vehicle.getLicense_plate());
             etColor.setText(vehicle.getColor());
+            btColorCode.setText(String.valueOf(vehicle.getColor_code()));
+            btColorCode.setBackgroundColor(vehicle.getColor_code());
             etVin.setText(vehicle.getVin());
             etLicenceNumber.setText(vehicle.getLicence_number());
             etStateVehicle.setText(vehicle.getState());
@@ -176,11 +193,14 @@ public class VehicleActivity extends AppCompatActivity {
                 v1.setShort_name(etShortNameVehicle.getText().toString());
                 v1.setBrand(etBrand.getText().toString());
                 v1.setModel(etModel.getText().toString());
-                v1.setFuel_type(nrspinFuelType);
+                v1.setFuel_type(nrSpinFuelType);
                 v1.setYear_model(etYearModel.getText().toString());
                 v1.setYear_manufacture(etYearManufacture.getText().toString());
                 v1.setLicense_plate(etLicencePlateVehicle.getText().toString());
                 v1.setColor(etColor.getText().toString());
+                if (!btColorCode.getText().toString().isEmpty()) {
+                    v1.setColor_code(Integer.parseInt(btColorCode.getText().toString()));
+                }
                 v1.setVin(etVin.getText().toString());
                 v1.setLicence_number(etLicenceNumber.getText().toString());
                 v1.setState(etStateVehicle.getText().toString());
@@ -256,11 +276,12 @@ public class VehicleActivity extends AppCompatActivity {
                 etShortNameVehicle.getText().toString().isEmpty() ||
                 etBrand.getText().toString().isEmpty() ||
                 etModel.getText().toString().isEmpty() ||
-                String.valueOf(nrspinFuelType).isEmpty() ||
+                String.valueOf(nrSpinFuelType).isEmpty() ||
                 etYearModel.getText().toString().isEmpty() ||
                 etYearManufacture.getText().toString().isEmpty() ||
                 etLicencePlateVehicle.getText().toString().isEmpty() ||
                 etColor.getText().toString().isEmpty() ||
+                //etColorCode.getText().toString().isEmpty() ||
                 etVin.getText().toString().isEmpty() ||
                 etLicenceNumber.getText().toString().isEmpty() ||
                 etStateVehicle.getText().toString().isEmpty() ||

@@ -62,7 +62,6 @@ public class HomeVehicleFragment extends Fragment implements View.OnClickListene
 
     private ConstraintLayout layerInsuranceVehicle;
     private ImageView imInsuranceType;
-    private ImageView imInsuranceStatus;
     private TextView txtInsuranceFinalEffectiveDate;
 
     private ConstraintLayout layerStatisticsVehicle;
@@ -106,7 +105,6 @@ public class HomeVehicleFragment extends Fragment implements View.OnClickListene
 
         layerInsuranceVehicle = v.findViewById(R.id.layerInsuranceVehicle);
         imInsuranceType = v.findViewById(R.id.imInsuranceType);
-        imInsuranceStatus = v.findViewById(R.id.imInsuranceStatus);
         txtInsuranceFinalEffectiveDate = v.findViewById(R.id.txtInsuranceFinalEffectiveDate);
 
         layerStatisticsVehicle = v.findViewById(R.id.layerStatisticsVehicle);
@@ -145,10 +143,12 @@ public class HomeVehicleFragment extends Fragment implements View.OnClickListene
         adapter.setDropDownViewResource( android.R.layout.simple_spinner_dropdown_item);
         spVehicle.setAdapter(adapter);
 
-        for (int x = 0; x <= vehicles.size(); x++) {
-            if (vehicles.get(x).getId().equals(g.getIdVehicle())) {
-                spVehicle.setSelection(x);
-                break;
+        if (vehicles.size()>0) {
+            for (int x = 0; x <= vehicles.size(); x++) {
+                if (vehicles.get(x).getId().equals(g.getIdVehicle())) {
+                    spVehicle.setSelection(x);
+                    break;
+                }
             }
         }
         final Vehicle[] vehicle = {new Vehicle()};
@@ -176,13 +176,12 @@ public class HomeVehicleFragment extends Fragment implements View.OnClickListene
                 if (!insurance.isEmpty()) {
                     layerInsuranceVehicle.setVisibility(View.VISIBLE);
                     imInsuranceType.setImageResource(insurance.get(0).getInsurance_typeImage(insurance.get(0).getInsurance_type()));
-                    imInsuranceStatus.setImageResource(R.drawable.ic_ball);
-                    imInsuranceStatus.setColorFilter(insurance.get(0).getColorInsuranceStatus(), PorterDuff.Mode.MULTIPLY);
+                    imInsuranceType.setColorFilter(insurance.get(0).getColorInsuranceStatus(), PorterDuff.Mode.MULTIPLY);
                     txtInsuranceFinalEffectiveDate.setText(Utils.dateToString(insurance.get(0).getFinal_effective_date()));
 
                     layerInsuranceVehicle.setOnClickListener(v -> {
                         Insurance x = InsuranceDialog.InsuranceClass(insurance.get(0), v);
-                        imInsuranceStatus.setColorFilter(x.getColorInsuranceStatus(), PorterDuff.Mode.MULTIPLY);
+                        imInsuranceType.setColorFilter(x.getColorInsuranceStatus(), PorterDuff.Mode.MULTIPLY);
                     });
                 } else {
                     layerInsuranceVehicle.setVisibility(View.INVISIBLE);
@@ -235,7 +234,7 @@ public class HomeVehicleFragment extends Fragment implements View.OnClickListene
 
                 // Next Vehicle Maintenance - layerMaintenanceItemVehicle
                 HomeVehicleNextMaintenanceListAdapter adapterNextMaintenance = new HomeVehicleNextMaintenanceListAdapter(Database.mNextMaintenanceItemDao.findNextMaintenanceItem( g.getIdVehicle() ), getContext(),0);
-                if (adapterNextMaintenance.getItemCount() > 0){
+                if (adapterNextMaintenance.getItemCount() > 0) {
                     layerMaintenanceItemVehicle.setVisibility(View.VISIBLE);
                     nextVehicleMaintenanceList.setAdapter(adapterNextMaintenance);
                     nextVehicleMaintenanceList.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -253,6 +252,10 @@ public class HomeVehicleFragment extends Fragment implements View.OnClickListene
     }
 
     private void addDataSeries() {
+        tvAVGType1.setText("");
+        tvAVGType2.setText("");
+        tvAVGType3.setText("");
+        tvAVGType9.setText("");
         List<VehicleStatistics> vehicleStatisticsAVGGeneral = Database.mVehicleStatisticsDao.findTotalVehicleStatistics(g.getIdVehicle());
         String text = requireContext().getString(R.string.general) + ": " + numberFormatter.format(vehicleStatisticsAVGGeneral.get(0).getAvg_consumption()) + " " + g.getMeasureConsumption();
         tvAVGType9.setText(text);

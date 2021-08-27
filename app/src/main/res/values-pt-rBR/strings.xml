@@ -86,6 +86,7 @@
     <string name="parts_exchange">Troca de Peças</string>
     <string name="oil_change">Troca de Óleo</string>
     <string name="spark_plug">Velas de Ignição</string>
+    <string name="accessory">Acessórios</string>
     <string name="menu_maintenance">Serviço de Manutenção</string>
     <string name="Maintenance_Deleting">Excluindo Manutenção do Veículo</string>
     <string name="Maintenance_Vehicle">Manutenção do Veículo</string>
@@ -317,4 +318,5 @@
     <string name="Supply_Last">Último Abastecimento</string>
     <string name="closed">Encerrado</string>
     <string name="bt_Closed_Insurance">Encerrar Seguro</string>
+    <string name="Vehicle_Color_Code">Código Cor</string>
 </resources>

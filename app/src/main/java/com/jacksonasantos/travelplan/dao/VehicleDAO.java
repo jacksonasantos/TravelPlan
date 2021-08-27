@@ -126,6 +126,7 @@ public class VehicleDAO extends DbContentProvider implements VehicleISchema, Veh
             if (c.getColumnIndex(VEHICLE_ODOMETER) != -1)                   {v.setOdometer(c.getInt(c.getColumnIndexOrThrow(VEHICLE_ODOMETER))); }
             if (c.getColumnIndex(VEHICLE_MODEL) != -1)                      {v.setModel(c.getString(c.getColumnIndexOrThrow(VEHICLE_MODEL))); }
             if (c.getColumnIndex(VEHICLE_COLOR) != -1)                      {v.setColor(c.getString(c.getColumnIndexOrThrow(VEHICLE_COLOR))); }
+            if (c.getColumnIndex(VEHICLE_COLOR_CODE) != -1)                 {v.setColor_code(c.getInt(c.getColumnIndexOrThrow(VEHICLE_COLOR_CODE))); }
             if (c.getColumnIndex(VEHICLE_YEAR_MODEL) != -1)                 {v.setYear_model(c.getString(c.getColumnIndexOrThrow(VEHICLE_YEAR_MODEL))); }
             if (c.getColumnIndex(VEHICLE_YEAR_MANUFACTURE) != -1)           {v.setYear_manufacture(c.getString(c.getColumnIndexOrThrow(VEHICLE_YEAR_MANUFACTURE))); }
             if (c.getColumnIndex(VEHICLE_VIN) != -1)                        {v.setVin(c.getString(c.getColumnIndexOrThrow(VEHICLE_VIN))); }
@@ -161,6 +162,7 @@ public class VehicleDAO extends DbContentProvider implements VehicleISchema, Veh
         initialValues.put(VEHICLE_ODOMETER, v.odometer);
         initialValues.put(VEHICLE_MODEL, v.model);
         initialValues.put(VEHICLE_COLOR, v.color);
+        initialValues.put(VEHICLE_COLOR_CODE, v.color_code);
         initialValues.put(VEHICLE_YEAR_MODEL, v.year_model);
         initialValues.put(VEHICLE_YEAR_MANUFACTURE, v.year_manufacture);
         initialValues.put(VEHICLE_VIN, v.vin);

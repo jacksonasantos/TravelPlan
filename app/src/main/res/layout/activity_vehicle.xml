@@ -181,9 +181,9 @@
             android:weightSum="1"
             android:baselineAligned="false">
             <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.50"
+                android:layout_weight="0.51"
                 android:layout_marginStart="@dimen/labels_margin"
                 android:layout_marginLeft="@dimen/labels_margin"
                 android:layout_marginTop="@dimen/labels_space_top"
@@ -204,9 +204,9 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.50"
+                android:layout_weight="0.25"
                 android:layout_marginStart="@dimen/labels_margin"
                 android:layout_marginLeft="@dimen/labels_margin"
                 android:layout_marginTop="@dimen/labels_space_top"
@@ -219,9 +219,26 @@
                     android:autofillHints="no"
                     android:hint="@string/Vehicle_Color"
                     android:inputType="text"
-                    android:nextFocusDown="@+id/etVin"
+                    android:nextFocusDown="@+id/etColorCode"
                     android:textSize="14sp" />
             </com.google.android.material.textfield.TextInputLayout>
+
+            <Button
+                android:id="@+id/btColorCode"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.24"
+                android:layout_marginStart="@dimen/labels_margin"
+                android:layout_marginLeft="@dimen/labels_margin"
+                android:layout_marginTop="@dimen/labels_space_top"
+                android:layout_marginEnd="@dimen/labels_margin"
+                android:layout_marginRight="@dimen/labels_margin"
+                android:autofillHints="no"
+                android:hint="@string/Vehicle_Color_Code"
+                android:nextFocusDown="@+id/etVin"
+                android:textSize="10sp"
+                tools:ignore="SmallSp" />
+
         </LinearLayout>
 
         <LinearLayout

@@ -20,6 +20,7 @@ public interface VehicleISchema {
     String VEHICLE_ODOMETER = "odometer";
     String VEHICLE_MODEL = "model";
     String VEHICLE_COLOR = "color";
+    String VEHICLE_COLOR_CODE = "color_code";
     String VEHICLE_YEAR_MODEL = "year_model";
     String VEHICLE_YEAR_MANUFACTURE = "year_manufacture";
     String VEHICLE_VIN = "vin";
@@ -84,6 +85,9 @@ public interface VehicleISchema {
     String ALTER_TABLE_VEHICLE_V28_3 = "ALTER TABLE " + VEHICLE_TABLE + " ADD COLUMN " + VEHICLE_ACCUMULATED_NUMBER_LITERS + " DOUBLE";
     String ALTER_TABLE_VEHICLE_V28_4 = "ALTER TABLE " + VEHICLE_TABLE + " ADD COLUMN " + VEHICLE_ACCUMULATED_SUPPLY_VALUE + " DOUBLE";
 
+    // Version 35
+    String ALTER_TABLE_VEHICLE_V35 = "ALTER TABLE " + VEHICLE_TABLE + " ADD COLUMN " + VEHICLE_COLOR_CODE + " INT";
+
     String[] VEHICLE_COLUMNS = new String[] {
             VEHICLE_ID,
             VEHICLE_VEHICLE_TYPE,
@@ -101,6 +105,7 @@ public interface VehicleISchema {
             VEHICLE_ODOMETER,
             VEHICLE_MODEL,
             VEHICLE_COLOR,
+            VEHICLE_COLOR_CODE,
             VEHICLE_YEAR_MODEL,
             VEHICLE_YEAR_MANUFACTURE,
             VEHICLE_VIN,

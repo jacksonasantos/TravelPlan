@@ -129,10 +129,10 @@ public class HomeVehicleNextMaintenanceListAdapter extends RecyclerView.Adapter<
             switch (vStatus) {
                 case 0:
                     itemViewHolder.txtNextService.setTextColor(Color.BLACK);
-                    break;  // Normal
+                    break;    // Normal
                 case 1:
                     itemViewHolder.txtNextService.setTextColor(Color.MAGENTA);
-                    break; // To Win
+                    break;    // To Win
                 case 2:
                     itemViewHolder.txtNextService.setTextColor(Color.RED);
                     break;    // Expired

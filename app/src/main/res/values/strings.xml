@@ -65,6 +65,7 @@
     <string name="Vehicle_State">State</string>
     <string name="Vehicle_City">City</string>
     <string name="Vehicle_Color">Color</string>
+    <string name="Vehicle_Color_Code">Color Code</string>
     <string name="Vehicle_DtAcquisition">Acquisition Data</string>
     <string name="Vehicle_DtSale">Sale Data</string>
 

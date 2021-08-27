@@ -1,6 +1,7 @@
 <resources>
     <!-- Language Preference Default -->
     <string translatable="false" name="languages_default">pt</string>
+    <string name="accessory">Accessory</string>
     <!-- Language Preference -->
     <string-array name="languages">
         <item name="pt">@string/portuguese</item>
@@ -117,6 +118,7 @@
         <item>@string/parts_exchange</item>              <!--19-->
         <item>@string/oil_change</item>                  <!--20-->
         <item>@string/spark_plug</item>                  <!--21-->
+        <item>@string/accessory</item>                   <!--22-->
     </string-array>
     <!-- Measure Plan -->
     <string-array name="measure_plan">
