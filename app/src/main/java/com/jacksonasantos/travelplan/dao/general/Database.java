@@ -9,6 +9,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.jacksonasantos.travelplan.dao.AccommodationDAO;
+import com.jacksonasantos.travelplan.dao.AchievementDAO;
 import com.jacksonasantos.travelplan.dao.BrokerDAO;
 import com.jacksonasantos.travelplan.dao.CurrencyQuoteDAO;
 import com.jacksonasantos.travelplan.dao.FuelSupplyDAO;
@@ -32,6 +33,7 @@ import com.jacksonasantos.travelplan.dao.VehicleHasTravelDAO;
 import com.jacksonasantos.travelplan.dao.VehicleStatisticsDAO;
 import com.jacksonasantos.travelplan.dao.VehicleStatisticsPeriodDAO;
 import com.jacksonasantos.travelplan.dao.interfaces.AccommodationISchema;
+import com.jacksonasantos.travelplan.dao.interfaces.AchievementISchema;
 import com.jacksonasantos.travelplan.dao.interfaces.BrokerISchema;
 import com.jacksonasantos.travelplan.dao.interfaces.CurrencyQuoteISchema;
 import com.jacksonasantos.travelplan.dao.interfaces.FuelSupplyISchema;
@@ -57,9 +59,10 @@ public class Database {
     private final Context mContext;
 
     private static final String DATABASE_NAME = "TravelPlan.db";
-    private static final int DATABASE_VERSION = 35;
+    private static final int DATABASE_VERSION = 36;
 
     public static AccommodationDAO mAccommodationDao;
+    public static AchievementDAO mAchievementDao;
     public static BrokerDAO mBrokerDao;
     public static CurrencyQuoteDAO mCurrencyQuoteDao;
     public static FuelSupplyDAO mFuelSupplyDao;
@@ -116,6 +119,7 @@ public class Database {
         mTravelExpensesDao = new TravelExpensesDAO(mDb);
         mTravelItemExpensesDao = new TravelItemExpensesDAO(mDb);
         mInsuranceContactDao = new InsuranceContactDAO(mDb);
+        mAchievementDao = new AchievementDAO(mDb);
     }
 
     public void close() {
@@ -189,6 +193,7 @@ public class Database {
             db.execSQL(MarkerISchema.ALTER_TABLE_MARKER_V33); Log.w("Table "+MarkerISchema.MARKER_TABLE,"V33 - Alter Table...");
             db.execSQL(MarkerISchema.ALTER_TABLE_MARKER_V34); Log.w("Table "+MarkerISchema.MARKER_TABLE,"V34 - Alter Table...");
             db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V35); Log.w("Table "+VehicleISchema.VEHICLE_TABLE,"V35 - Alter Table...");
+            db.execSQL(AchievementISchema.CREATE_TABLE_ACHIEVEMENT_V36); Log.w("Table "+AchievementISchema.ACHIEVEMENT_TABLE,"V36 - Create Table...");
         }
 
         @SuppressLint("SQLiteString")
@@ -314,6 +319,9 @@ public class Database {
                         break;
                     case 35:
                         db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V35);
+                        break;
+                    case 36:
+                        db.execSQL(AchievementISchema.CREATE_TABLE_ACHIEVEMENT_V36);
                         break;
                     default:
                         break;

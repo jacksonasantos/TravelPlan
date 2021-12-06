@@ -416,7 +416,7 @@ public class FuelSupplyActivity extends AppCompatActivity implements PlacesAdapt
                 f1.setSupply_reason_type(findViewById(rbSupplyReasonType).getId());
                 f1.setSupply_reason(etSupplyReason.getText().toString());
                 f1.setAssociated_travel_id(nrSpinAssociatedTravelId);
-                if (!etVehicleOdometer.getText().toString().isEmpty()) {
+                if (!etVehicleOdometer.getText().toString().isEmpty()){
                     f1.setVehicle_odometer(Integer.parseInt(etVehicleOdometer.getText().toString()));
                     f1.setVehicle_travelled_distance(Integer.parseInt(etVehicleTravelledDistance.getText().toString()));
                     f1.setStat_avg_fuel_consumption(vStatAvgFuelConsumption);

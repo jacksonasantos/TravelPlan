@@ -1,6 +1,7 @@
 package com.jacksonasantos.travelplan.ui.vehicle;
 
 import android.annotation.SuppressLint;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.widget.AutoCompleteTextView;
@@ -78,7 +79,11 @@ public class VehicleActivity extends AppCompatActivity {
             vehicle.setId(extras.getInt("id"));
             vehicle = Database.mVehicleDao.fetchVehicleById(vehicle.getId());
             opInsert = false;
+        } else {
+            vehicle = new Vehicle();
+            vehicle.setColor_code(Color.BLACK);
         }
+
 
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
@@ -121,9 +126,10 @@ public class VehicleActivity extends AppCompatActivity {
         btColorCode.setOnClickListener(view -> ColorPickerDialogBuilder
                 .with(VehicleActivity.this)
                 .setTitle("Choose color")
-                .initialColor(vehicle.getColor_code())
+                .showAlphaSlider(false)
+                //.initialColor(vehicle.getColor_code())
                 .wheelType(ColorPickerView.WHEEL_TYPE.CIRCLE)
-                .density(12)
+                .density(6)
                 .setOnColorSelectedListener(selectedColor -> btColorCode.setText(String.valueOf(selectedColor)))
                 .setPositiveButton("ok", (dialog, selectedColor, allColors) -> btColorCode.setBackgroundColor(selectedColor))
                 .setNegativeButton("cancel", (dialog, which) -> { })
