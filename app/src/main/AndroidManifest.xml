@@ -79,6 +79,9 @@
             android:name=".ui.travel.AccommodationActivity"
             android:label="@string/accommodation" />
         <activity
+            android:name=".ui.travel.AchievementActivity"
+            android:label="@string/Achievement" />
+        <activity
             android:name=".ui.general.SettingsActivity"
             android:label="@string/action_settings" />
     </application>

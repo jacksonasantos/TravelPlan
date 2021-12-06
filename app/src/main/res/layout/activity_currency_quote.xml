@@ -24,6 +24,7 @@
                 android:layout_marginEnd="@dimen/labels_margin"
                 android:layout_marginRight="@dimen/labels_margin"
                 style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu">
+
                 <AutoCompleteTextView
                     android:id="@+id/spinCurrencyType"
                     android:layout_width="match_parent"
@@ -43,15 +44,17 @@
                 android:layout_marginTop="@dimen/labels_space_top"
                 android:layout_marginEnd="@dimen/labels_margin"
                 android:layout_marginRight="@dimen/labels_margin">
+
                 <EditText
                     android:id="@+id/etQuoteDate"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:autofillHints="no"
                     android:hint="@string/Currency_Quote_Date"
+                    android:inputType="date"
                     android:nextFocusDown="@+id/etCurrencyValue"
                     android:textSize="12sp"
-                    android:inputType="date" />
+                    tools:ignore="SpeakableTextPresentCheck" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -63,6 +66,7 @@
                 android:layout_marginTop="@dimen/labels_space_top"
                 android:layout_marginEnd="@dimen/labels_margin"
                 android:layout_marginRight="@dimen/labels_margin">
+
                 <EditText
                     android:id="@+id/etCurrencyValue"
                     android:layout_width="match_parent"
@@ -71,7 +75,8 @@
                     android:hint="@string/Currency_Quote_Value"
                     android:inputType="numberDecimal"
                     android:nextFocusDown="@+id/btSaveCurrencyQuote"
-                    android:textSize="12sp" />
+                    android:textSize="12sp"
+                    tools:ignore="SpeakableTextPresentCheck" />
             </com.google.android.material.textfield.TextInputLayout>
 
         </LinearLayout>

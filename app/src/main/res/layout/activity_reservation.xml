@@ -42,7 +42,6 @@
                 android:layout_width="350dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/labels_margin"
-                android:layout_marginLeft="@dimen/labels_margin"
                 android:layout_marginTop="@dimen/labels_space_top"
                 style = "@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu">
                 <AutoCompleteTextView
@@ -63,8 +62,7 @@
                 android:contentDescription="@string/add_new_accommodation"
                 app:srcCompat="@drawable/ic_button_add"
                 android:layout_marginTop="12dp"
-                android:layout_marginEnd="@dimen/labels_margin"
-                android:layout_marginRight="@dimen/labels_margin" />
+                android:layout_marginEnd="@dimen/labels_margin"/>
         </LinearLayout>
 
         <com.google.android.material.textfield.TextInputLayout

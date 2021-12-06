@@ -319,4 +319,15 @@
     <string name="closed">Encerrado</string>
     <string name="bt_Closed_Insurance">Encerrar Seguro</string>
     <string name="Vehicle_Color_Code">Código Cor</string>
+    <string name="menu_achievement">Conquista</string>
+    <string name="Achievement_Deleting">Excluindo Conquista</string>
+    <string name="Achievement_Name">Nome</string>
+    <string name="Achievement_City">Cidade</string>
+    <string name="Achievement_State">Estado</string>
+    <string name="Achievement_Country">País</string>
+    <string name="Achievement_Status">Situação</string>
+    <string name="Achievement_Note">Observação</string>
+    <string name="Achievement_Latlng_Achievement">Lat/Lng</string>
+    <string name="Achievement">Conquista</string>
+    <string name="add_new_accommodation">Adicionar Nova Acomodação</string>
 </resources>

@@ -49,6 +49,10 @@
                 android:icon="@drawable/ic_menu_accommodation"
                 android:title="@string/menu_accommodation" />
             <item
+                android:id="@+id/nav_achievement"
+                android:icon="@drawable/ic_menu_achievement"
+                android:title="@string/menu_achievement" />
+            <item
                 android:id="@+id/nav_insurance"
                 android:icon="@drawable/ic_menu_insurance"
                 android:title="@string/menu_insurance" />

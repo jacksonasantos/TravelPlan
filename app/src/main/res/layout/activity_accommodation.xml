@@ -84,7 +84,6 @@
                     android:layout_width="180dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/labels_margin"
-                    android:layout_marginLeft="@dimen/labels_margin"
                     android:layout_marginTop="@dimen/labels_space_top">
 
                     <EditText
@@ -102,7 +101,6 @@
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/labels_margin"
-                    android:layout_marginLeft="@dimen/labels_margin"
                     android:layout_marginTop="@dimen/labels_space_top">
 
                     <EditText

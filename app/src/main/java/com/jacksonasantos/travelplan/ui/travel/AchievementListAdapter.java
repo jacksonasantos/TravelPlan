@@ -1,5 +1,6 @@
 package com.jacksonasantos.travelplan.ui.travel;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
@@ -16,25 +17,25 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.jacksonasantos.travelplan.R;
-import com.jacksonasantos.travelplan.dao.Accommodation;
+import com.jacksonasantos.travelplan.dao.Achievement;
 import com.jacksonasantos.travelplan.dao.general.Database;
 
 import java.util.List;
 
-public class AccommodationListAdapter extends RecyclerView.Adapter<AccommodationListAdapter.MyViewHolder> {
+public class AchievementListAdapter extends RecyclerView.Adapter<AchievementListAdapter.MyViewHolder> {
 
-    private final List<Accommodation> mAccommodation;
+    private final List<Achievement> mAchievement;
     final Context context;
 
     public static class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        public final TextView txtNameAccommodation;
+        public final TextView txtNameAchievement;
         public final ImageButton btnEdit;
         public final ImageButton btnDelete;
 
         public MyViewHolder(View v) {
             super(v);
-            txtNameAccommodation = v.findViewById(R.id.txtNameAchievement);
+            txtNameAchievement = v.findViewById(R.id.txtNameAchievement);
             btnEdit = v.findViewById(R.id.btnEdit);
             btnDelete = v.findViewById(R.id.btnDelete);
             btnEdit.setOnClickListener(this);
@@ -46,8 +47,8 @@ public class AccommodationListAdapter extends RecyclerView.Adapter<Accommodation
         }
     }
 
-    public AccommodationListAdapter(List<Accommodation> accommodation, Context context) {
-        this.mAccommodation = accommodation;
+    public AchievementListAdapter(List<Achievement> achievement, Context context) {
+        this.mAchievement = achievement;
         this.context = context;
 
         Database mdb = new Database(context);
@@ -56,37 +57,38 @@ public class AccommodationListAdapter extends RecyclerView.Adapter<Accommodation
 
     @NonNull
     @Override
-    public AccommodationListAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View accommodationView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.fragment_item_accommodation, parent, false);
+    public AchievementListAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View achievementView = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.fragment_item_achievement, parent, false);
 
-        return new MyViewHolder(accommodationView);
+        return new MyViewHolder(achievementView);
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public void onBindViewHolder(@NonNull final MyViewHolder holder, final int position) {
-        final Accommodation accommodation = mAccommodation.get(position);
+        final Achievement achievement = mAchievement.get(position);
 
-        holder.txtNameAccommodation.setText(accommodation.getName());
+        holder.txtNameAchievement.setText(achievement.getName());
         // btnEdit
         holder.btnEdit.setOnClickListener (v -> {
-            Intent intent = new Intent (v.getContext(), AccommodationActivity.class);
-            intent.putExtra("accommodation_id", accommodation.getId());
+            Intent intent = new Intent (v.getContext(), AchievementActivity.class);
+            intent.putExtra("achievement_id", achievement.getId());
             context.startActivity(intent);
             notifyDataSetChanged();
         });
 
         // btnDelete
         holder.btnDelete.setOnClickListener (v -> new AlertDialog.Builder(v.getContext())
-                .setTitle(R.string.Accommodation_Deleting)
+                .setTitle(R.string.Achievement_Deleting)
                 .setMessage(R.string.Msg_Confirm)
                 .setPositiveButton(R.string.Yes, (dialogInterface, i) -> {
                     try {
-                        Database.mAccommodationDao.deleteAccommodation(accommodation.getId());
-                        mAccommodation.remove(position);
+                        Database.mAchievementDao.deleteAchievement(achievement.getId());
+                        mAchievement.remove(position);
                         notifyItemRemoved(position);
-                        notifyItemRangeChanged(position, mAccommodation.size());
+                        notifyItemRangeChanged(position, mAchievement.size());
                     } catch (Exception e) {
                         Toast.makeText(context, context.getString(R.string.Error_Deleting_Data) + "\n" + e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
                     }
@@ -96,6 +98,6 @@ public class AccommodationListAdapter extends RecyclerView.Adapter<Accommodation
 
     @Override
     public int getItemCount() {
-        return mAccommodation.size();
+        return mAchievement.size();
     }
 }

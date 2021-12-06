@@ -354,6 +354,7 @@
     <string name="location_not_found">Location not Found</string>
 
     <!-- Accommodation Fragment -->
+    <string name="add_new_accommodation">ADD New Accommodation</string>
     <string name="Accommodation_Deleting">Deleting Accommodation</string>
 
     <string name="Accommodation_Name">Name</string>
@@ -423,10 +424,21 @@
     <string name="Reservation_Status_Reservation">Status Reservation</string>
     <string name="Reservation_Daily">Daily</string>
 
-    <string name="add_new_accommodation">Add New Accommodation</string>
-
     <!-- Array Status reservation -->
     <string name="confirmed">Confirmed</string>
     <string name="pay">Pay</string>
+
+    <string name="menu_achievement">Achievement</string>
+    <!-- Achievement Fragment -->
+    <string name="Achievement"> Achievement</string>
+    <string name="Achievement_Deleting">Deleting Achievement</string>
+
+    <string name="Achievement_Name">Name</string>
+    <string name="Achievement_City">City</string>
+    <string name="Achievement_State">State</string>
+    <string name="Achievement_Country">Country</string>
+    <string name="Achievement_Status">Status</string>
+    <string name="Achievement_Note">Note</string>
+    <string name="Achievement_Latlng_Achievement">Lat/Lng</string>
 
 </resources>
