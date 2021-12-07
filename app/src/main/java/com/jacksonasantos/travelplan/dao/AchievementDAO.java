@@ -51,6 +51,20 @@ public class AchievementDAO extends DbContentProvider implements AchievementISch
         }
         return achievementList;
     }
+    public List<Achievement> fetchAllAchievementByTravel( Integer id ) {
+        final String[] selectionArgs = { String.valueOf(id) };
+        final String selection = ACHIEVEMENT_TRAVEL_ID + " = ?";
+        List<Achievement> achievementList = new ArrayList<>();
+        cursor = super.query(ACHIEVEMENT_TABLE, ACHIEVEMENT_COLUMNS, selection,selectionArgs, ACHIEVEMENT_NAME);
+        if (cursor.moveToFirst()) {
+            do {
+                Achievement achievement = cursorToEntity(cursor);
+                achievementList.add(achievement);
+            } while (cursor.moveToNext());
+            cursor.close();
+        }
+        return achievementList;
+    }
 
     public ArrayList<Achievement> fetchArrayAchievement(){
         ArrayList<Achievement> achievementList = new ArrayList<>();
@@ -105,6 +119,7 @@ public class AchievementDAO extends DbContentProvider implements AchievementISch
             if (c.getColumnIndex(ACHIEVEMENT_COUNTRY) != -1)              {a.setCountry(c.getString(c.getColumnIndexOrThrow(ACHIEVEMENT_COUNTRY))); }
             if (c.getColumnIndex(ACHIEVEMENT_NOTE) != -1)                 {a.setNote(c.getString(c.getColumnIndexOrThrow(ACHIEVEMENT_NOTE))); }
             if (c.getColumnIndex(ACHIEVEMENT_LATLNG_ACHIEVEMENT) != -1)   {a.setLatlng_achievement(c.getString(c.getColumnIndexOrThrow(ACHIEVEMENT_LATLNG_ACHIEVEMENT))); }
+            if (c.getColumnIndex(ACHIEVEMENT_STATUS_ACHIEVEMENT) != -1)   {a.setStatus_achievement(c.getInt(c.getColumnIndexOrThrow(ACHIEVEMENT_STATUS_ACHIEVEMENT))); }
         }
         return a;
     }
@@ -121,6 +136,7 @@ public class AchievementDAO extends DbContentProvider implements AchievementISch
         initialValues.put(ACHIEVEMENT_COUNTRY, a.country);
         initialValues.put(ACHIEVEMENT_NOTE, a.note);
         initialValues.put(ACHIEVEMENT_LATLNG_ACHIEVEMENT, a.latlng_achievement);
+        initialValues.put(ACHIEVEMENT_STATUS_ACHIEVEMENT, a.status_achievement);
     }
 
     private ContentValues getContentValue() {

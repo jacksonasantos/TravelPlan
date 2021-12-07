@@ -755,7 +755,7 @@
 <RELATION_END ID="1380" />
 </RELATIONS_END>
 </TABLE>
-<TABLE ID="1382" Tablename="travel" PrevTableName="Table_07" XPos="1399" YPos="836" TableType="0" TablePrefix="0" nmTable="0" Temporary="0" UseStandardInserts="0" StandardInserts="\n" TableOptions="DelayKeyTblUpdates=0\nPackKeys=0\nRowChecksum=0\nRowFormat=0\nUseRaid=0\nRaidType=0\n" Comments="" Collapsed="0" IsLinkedObject="0" IDLinkedModel="-1" Obj_id_Linked="-1" OrderPos="11" >
+<TABLE ID="1382" Tablename="travel" PrevTableName="Table_07" XPos="1400" YPos="842" TableType="0" TablePrefix="0" nmTable="0" Temporary="0" UseStandardInserts="0" StandardInserts="\n" TableOptions="DelayKeyTblUpdates=0\nPackKeys=0\nRowChecksum=0\nRowFormat=0\nUseRaid=0\nRaidType=0\n" Comments="" Collapsed="0" IsLinkedObject="0" IDLinkedModel="-1" Obj_id_Linked="-1" OrderPos="11" >
 <COLUMNS>
 <COLUMN ID="1384" ColName="id" PrevColName="" Pos="0" idDatatype="5" DatatypeParams="" Width="-1" Prec="-1" PrimaryKey="1" NotNull="1" AutoInc="1" IsForeignKey="0" DefaultValue="" Comments="">
 <OPTIONSELECTED>
@@ -794,6 +794,7 @@
 <RELATION_START ID="1597" />
 <RELATION_START ID="1611" />
 <RELATION_START ID="1698" />
+<RELATION_START ID="1760" />
 </RELATIONS_START>
 <INDICES>
 <INDEX ID="1385" IndexName="PRIMARY" IndexKind="0" FKRefDef_Obj_id="-1">
@@ -1626,9 +1627,15 @@
 </INDEX>
 </INDICES>
 </TABLE>
-<TABLE ID="1743" Tablename="achievement" PrevTableName="Table_21" XPos="1318" YPos="1168" TableType="0" TablePrefix="0" nmTable="0" Temporary="0" UseStandardInserts="0" StandardInserts="\n" TableOptions="DelayKeyTblUpdates=0\nPackKeys=0\nRowChecksum=0\nRowFormat=0\nUseRaid=0\nRaidType=0\n" Comments="" Collapsed="0" IsLinkedObject="0" IDLinkedModel="-1" Obj_id_Linked="-1" OrderPos="46" >
+<TABLE ID="1743" Tablename="achievement" PrevTableName="Table_21" XPos="1327" YPos="1121" TableType="0" TablePrefix="0" nmTable="0" Temporary="0" UseStandardInserts="0" StandardInserts="\n" TableOptions="DelayKeyTblUpdates=0\nPackKeys=0\nRowChecksum=0\nRowFormat=0\nUseRaid=0\nRaidType=0\n" Comments="" Collapsed="0" IsLinkedObject="0" IDLinkedModel="-1" Obj_id_Linked="-1" OrderPos="46" >
 <COLUMNS>
 <COLUMN ID="1747" ColName="id" PrevColName="" Pos="0" idDatatype="5" DatatypeParams="" Width="-1" Prec="-1" PrimaryKey="1" NotNull="1" AutoInc="1" IsForeignKey="0" DefaultValue="" Comments="">
+<OPTIONSELECTED>
+<OPTIONSELECT Value="1" />
+<OPTIONSELECT Value="0" />
+</OPTIONSELECTED>
+</COLUMN>
+<COLUMN ID="1761" ColName="travel_id" PrevColName="" Pos="1" idDatatype="5" DatatypeParams="" Width="-1" Prec="-1" PrimaryKey="0" NotNull="1" AutoInc="0" IsForeignKey="1" DefaultValue="" Comments="">
 <OPTIONSELECTED>
 <OPTIONSELECT Value="1" />
 <OPTIONSELECT Value="0" />
@@ -1666,11 +1673,25 @@
 <OPTIONSELECTED>
 </OPTIONSELECTED>
 </COLUMN>
+<COLUMN ID="1764" ColName="status_achievement" PrevColName="" Pos="10" idDatatype="4" DatatypeParams="" Width="-1" Prec="-1" PrimaryKey="0" NotNull="0" AutoInc="0" IsForeignKey="0" DefaultValue="" Comments="">
+<OPTIONSELECTED>
+<OPTIONSELECT Value="0" />
+<OPTIONSELECT Value="0" />
+</OPTIONSELECTED>
+</COLUMN>
 </COLUMNS>
+<RELATIONS_END>
+<RELATION_END ID="1760" />
+</RELATIONS_END>
 <INDICES>
 <INDEX ID="1748" IndexName="PRIMARY" IndexKind="0" FKRefDef_Obj_id="-1">
 <INDEXCOLUMNS>
 <INDEXCOLUMN idColumn="1747" LengthParam="0" />
+</INDEXCOLUMNS>
+</INDEX>
+<INDEX ID="1762" IndexName="achievement_FKIndex1" IndexKind="1" FKRefDef_Obj_id="1760">
+<INDEXCOLUMNS>
+<INDEXCOLUMN idColumn="1761" LengthParam="0" />
 </INDEXCOLUMNS>
 </INDEX>
 </INDICES>
@@ -1691,7 +1712,7 @@
 <RELATION ID="1502" RelationName="Rel_CurrencyQuote_FuelSupply" Kind="2" SrcTable="1001" DestTable="1022" FKFields="id=currency_quote_id\n" FKFieldsComments="\n" relDirection="2" MidOffset="-62" OptionalStart="0" OptionalEnd="0" CaptionOffsetX="-66" CaptionOffsetY="-58" StartIntervalOffsetX="0" StartIntervalOffsetY="0" EndIntervalOffsetX="0" EndIntervalOffsetY="0" CreateRefDef="1" Invisible="0" RefDef="Matching=0\nOnDelete=3\nOnUpdate=3\n" Comments="" FKRefDefIndex_Obj_id="1504" Splitted="0" IsLinkedObject="0" IDLinkedModel="-1" Obj_id_Linked="-1" OrderPos="30" />
 <RELATION ID="1532" RelationName="Rel_Vehicle_Plan" Kind="2" SrcTable="1047" DestTable="1531" FKFields="id=vehicle_id\n" FKFieldsComments="\n" relDirection="2" MidOffset="2" OptionalStart="0" OptionalEnd="0" CaptionOffsetX="-60" CaptionOffsetY="-27" StartIntervalOffsetX="0" StartIntervalOffsetY="0" EndIntervalOffsetX="0" EndIntervalOffsetY="0" CreateRefDef="1" Invisible="0" RefDef="Matching=0\nOnDelete=3\nOnUpdate=3\n" Comments="" FKRefDefIndex_Obj_id="1535" Splitted="0" IsLinkedObject="0" IDLinkedModel="-1" Obj_id_Linked="-1" OrderPos="33" />
 <RELATION ID="1533" RelationName="Rel_Plan_Vehicle" Kind="2" SrcTable="1505" DestTable="1531" FKFields="id=maintenance_plan_id\n" FKFieldsComments="\n" relDirection="4" MidOffset="-33" OptionalStart="0" OptionalEnd="0" CaptionOffsetX="-35" CaptionOffsetY="-46" StartIntervalOffsetX="0" StartIntervalOffsetY="0" EndIntervalOffsetX="0" EndIntervalOffsetY="0" CreateRefDef="1" Invisible="0" RefDef="Matching=0\nOnDelete=3\nOnUpdate=3\n" Comments="" FKRefDefIndex_Obj_id="1537" Splitted="0" IsLinkedObject="0" IDLinkedModel="-1" Obj_id_Linked="-1" OrderPos="34" />
-<RELATION ID="1597" RelationName="Rel_Travel_Itinerary" Kind="2" SrcTable="1382" DestTable="1588" FKFields="id=travel_id\n" FKFieldsComments="\n" relDirection="3" MidOffset="-31" OptionalStart="0" OptionalEnd="0" CaptionOffsetX="-11" CaptionOffsetY="-8" StartIntervalOffsetX="0" StartIntervalOffsetY="0" EndIntervalOffsetX="0" EndIntervalOffsetY="0" CreateRefDef="1" Invisible="0" RefDef="Matching=0\nOnDelete=3\nOnUpdate=3\n" Comments="" FKRefDefIndex_Obj_id="1599" Splitted="0" IsLinkedObject="0" IDLinkedModel="-1" Obj_id_Linked="-1" OrderPos="38" />
+<RELATION ID="1597" RelationName="Rel_Travel_Itinerary" Kind="2" SrcTable="1382" DestTable="1588" FKFields="id=travel_id\n" FKFieldsComments="\n" relDirection="3" MidOffset="-15" OptionalStart="0" OptionalEnd="0" CaptionOffsetX="-11" CaptionOffsetY="-8" StartIntervalOffsetX="0" StartIntervalOffsetY="0" EndIntervalOffsetX="0" EndIntervalOffsetY="0" CreateRefDef="1" Invisible="0" RefDef="Matching=0\nOnDelete=3\nOnUpdate=3\n" Comments="" FKRefDefIndex_Obj_id="1599" Splitted="0" IsLinkedObject="0" IDLinkedModel="-1" Obj_id_Linked="-1" OrderPos="38" />
 <RELATION ID="1611" RelationName="Rel_Travel_Reservation" Kind="2" SrcTable="1382" DestTable="1600" FKFields="id=travel_id\n" FKFieldsComments="\n" relDirection="2" MidOffset="-33" OptionalStart="0" OptionalEnd="0" CaptionOffsetX="-75" CaptionOffsetY="121" StartIntervalOffsetX="0" StartIntervalOffsetY="0" EndIntervalOffsetX="0" EndIntervalOffsetY="0" CreateRefDef="1" Invisible="0" RefDef="Matching=0\nOnDelete=3\nOnUpdate=3\n" Comments="" FKRefDefIndex_Obj_id="1613" Splitted="0" IsLinkedObject="0" IDLinkedModel="-1" Obj_id_Linked="-1" OrderPos="38" />
 <RELATION ID="1635" RelationName="Rel_Accommodation_Reservation" Kind="2" SrcTable="1617" DestTable="1600" FKFields="id=accommodation_id\n" FKFieldsComments="\n" relDirection="1" MidOffset="0" OptionalStart="0" OptionalEnd="0" CaptionOffsetX="-30" CaptionOffsetY="-6" StartIntervalOffsetX="0" StartIntervalOffsetY="0" EndIntervalOffsetX="0" EndIntervalOffsetY="0" CreateRefDef="1" Invisible="0" RefDef="Matching=0\nOnDelete=3\nOnUpdate=3\n" Comments="" FKRefDefIndex_Obj_id="1637" Splitted="0" IsLinkedObject="0" IDLinkedModel="-1" Obj_id_Linked="-1" OrderPos="40" />
 <RELATION ID="1673" RelationName="Rel_Maintenance_Item" Kind="2" SrcTable="1075" DestTable="1664" FKFields="id=maintenance_id\n" FKFieldsComments="\n" relDirection="2" MidOffset="0" OptionalStart="0" OptionalEnd="0" CaptionOffsetX="2" CaptionOffsetY="-3" StartIntervalOffsetX="0" StartIntervalOffsetY="0" EndIntervalOffsetX="0" EndIntervalOffsetY="0" CreateRefDef="1" Invisible="0" RefDef="Matching=0\nOnDelete=3\nOnUpdate=3\n" Comments="" FKRefDefIndex_Obj_id="1675" Splitted="0" IsLinkedObject="0" IDLinkedModel="-1" Obj_id_Linked="-1" OrderPos="42" />
@@ -1700,6 +1721,7 @@
 <RELATION ID="1712" RelationName="Rel_TravelExpense_ItemExpenses" Kind="2" SrcTable="1694" DestTable="1707" FKFields="id=travel_expenses_id\n" FKFieldsComments="\n" relDirection="4" MidOffset="0" OptionalStart="0" OptionalEnd="0" CaptionOffsetX="-112" CaptionOffsetY="-5" StartIntervalOffsetX="0" StartIntervalOffsetY="0" EndIntervalOffsetX="0" EndIntervalOffsetY="0" CreateRefDef="1" Invisible="0" RefDef="Matching=0\nOnDelete=3\nOnUpdate=3\n" Comments="" FKRefDefIndex_Obj_id="1714" Splitted="0" IsLinkedObject="0" IDLinkedModel="-1" Obj_id_Linked="-1" OrderPos="47" />
 <RELATION ID="1730" RelationName="Rel_Insurance_Contact" Kind="2" SrcTable="1408" DestTable="1723" FKFields="id=insurance_id\n" FKFieldsComments="\n" relDirection="4" MidOffset="0" OptionalStart="0" OptionalEnd="0" CaptionOffsetX="2" CaptionOffsetY="-53" StartIntervalOffsetX="0" StartIntervalOffsetY="0" EndIntervalOffsetX="0" EndIntervalOffsetY="0" CreateRefDef="1" Invisible="0" RefDef="Matching=0\nOnDelete=3\nOnUpdate=3\n" Comments="" FKRefDefIndex_Obj_id="1732" Splitted="0" IsLinkedObject="0" IDLinkedModel="-1" Obj_id_Linked="-1" OrderPos="49" />
 <RELATION ID="1735" RelationName="Rel_Itinerary_Marker" Kind="2" SrcTable="1588" DestTable="1404" FKFields="id=itinerary_id\n" FKFieldsComments="\n" relDirection="1" MidOffset="0" OptionalStart="0" OptionalEnd="0" CaptionOffsetX="-92" CaptionOffsetY="-52" StartIntervalOffsetX="0" StartIntervalOffsetY="0" EndIntervalOffsetX="0" EndIntervalOffsetY="0" CreateRefDef="1" Invisible="0" RefDef="Matching=0\nOnDelete=3\nOnUpdate=3\n" Comments="" FKRefDefIndex_Obj_id="1737" Splitted="0" IsLinkedObject="0" IDLinkedModel="-1" Obj_id_Linked="-1" OrderPos="50" />
+<RELATION ID="1760" RelationName="Rel_Travel_Achievement" Kind="5" SrcTable="1382" DestTable="1743" FKFields="id=travel_id\n" FKFieldsComments="\n" relDirection="3" MidOffset="0" OptionalStart="0" OptionalEnd="0" CaptionOffsetX="-69" CaptionOffsetY="-47" StartIntervalOffsetX="0" StartIntervalOffsetY="0" EndIntervalOffsetX="0" EndIntervalOffsetY="0" CreateRefDef="1" Invisible="0" RefDef="Matching=0\nOnDelete=3\nOnUpdate=3\n" Comments="" FKRefDefIndex_Obj_id="1762" Splitted="0" IsLinkedObject="0" IDLinkedModel="-1" Obj_id_Linked="-1" OrderPos="47" />
 </RELATIONS>
 <NOTES>
 </NOTES>

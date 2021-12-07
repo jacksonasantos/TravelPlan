@@ -14,6 +14,7 @@ public interface AchievementISchema {
     String ACHIEVEMENT_COUNTRY = "country";
     String ACHIEVEMENT_NOTE = "note";
     String ACHIEVEMENT_LATLNG_ACHIEVEMENT = "latlng_achievement";
+    String ACHIEVEMENT_STATUS_ACHIEVEMENT = "status_achievement";
 
     // Version 36
     String CREATE_TABLE_ACHIEVEMENT_V36 = "CREATE TABLE IF NOT EXISTS "
@@ -32,6 +33,9 @@ public interface AchievementISchema {
     // Version 38
     String ALTER_TABLE_ACHIEVEMENT_V38 = "ALTER TABLE " + ACHIEVEMENT_TABLE
             + " ADD COLUMN " + ACHIEVEMENT_TRAVEL_ID + " INTEGER REFERENCES " + TravelISchema.TRAVEL_TABLE + " ("+TravelISchema.TRAVEL_ID+") ";
+    // Version 39
+    String ALTER_TABLE_ACHIEVEMENT_V39 = "ALTER TABLE " + ACHIEVEMENT_TABLE
+            + " ADD COLUMN " + ACHIEVEMENT_STATUS_ACHIEVEMENT + " INTEGER DEFAULT 0 ";
 
     String[] ACHIEVEMENT_COLUMNS = new String[] {
             ACHIEVEMENT_ID,
@@ -43,6 +47,7 @@ public interface AchievementISchema {
             ACHIEVEMENT_STATE,
             ACHIEVEMENT_COUNTRY,
             ACHIEVEMENT_NOTE,
-            ACHIEVEMENT_LATLNG_ACHIEVEMENT
+            ACHIEVEMENT_LATLNG_ACHIEVEMENT,
+            ACHIEVEMENT_STATUS_ACHIEVEMENT
     };
 }

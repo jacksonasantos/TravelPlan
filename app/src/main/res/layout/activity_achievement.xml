@@ -110,7 +110,7 @@
                     android:autofillHints="no"
                     android:hint="@string/Achievement_State"
                     android:inputType="text|textCapCharacters"
-                    android:nextFocusDown="@+id/etAchievement_State"
+                    android:nextFocusDown="@+id/etAchievement_Country"
                     android:textSize="12sp" />
             </com.google.android.material.textfield.TextInputLayout>
 

@@ -7,12 +7,14 @@ public class Achievement {
     public Integer travel_id;
     public String short_name;
     public String name;
+    // TODO - Ajustar o tipo de armazenamento da imagem
     public String image;
     public String city;
     public String state;
     public String country;
     public String note;
     public String latlng_achievement;
+    public int status_achievement;
 
     public Achievement() {
         this.travel_id = travel_id;
@@ -24,6 +26,7 @@ public class Achievement {
         this.country = country;
         this.note = note;
         this.latlng_achievement = latlng_achievement;
+        this.status_achievement = status_achievement;
     }
 
     @NonNull
@@ -59,4 +62,7 @@ public class Achievement {
 
     public String getLatlng_achievement() {return latlng_achievement;}
     public void setLatlng_achievement(String latlng_achievement) {this.latlng_achievement = latlng_achievement;}
+
+    public int getStatus_achievement() {return status_achievement;}
+    public void setStatus_achievement(int status_achievement) {this.status_achievement = status_achievement;}
 }

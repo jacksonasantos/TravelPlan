@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/llAchievementTravelItem"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    tools:context=".ui.travel.TravelActivity">
+
+    <TextView
+        android:id="@+id/txtNameAchievement"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_weight="0.50"
+        android:gravity="start|center_vertical"
+        app:autoSizeMaxTextSize="12sp"
+        app:autoSizeMinTextSize="6sp"
+        app:autoSizeStepGranularity="1sp"
+        app:autoSizeTextType="uniform" />
+
+    <ImageButton
+        android:id="@+id/btnDelete"
+        android:layout_width="22dp"
+        android:layout_height="22dp"
+        android:contentDescription="@string/bt_Delete"
+        android:padding="7dp"
+        android:scaleType="fitCenter"
+        android:scaleX="1.5"
+        android:scaleY="1.5"
+        app:srcCompat="@drawable/ic_menu_delete" />
+
+</LinearLayout>
+

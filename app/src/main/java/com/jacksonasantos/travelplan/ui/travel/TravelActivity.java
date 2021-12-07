@@ -20,6 +20,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.jacksonasantos.travelplan.R;
+import com.jacksonasantos.travelplan.dao.Achievement;
 import com.jacksonasantos.travelplan.dao.Travel;
 import com.jacksonasantos.travelplan.dao.Vehicle;
 import com.jacksonasantos.travelplan.dao.VehicleHasTravel;
@@ -43,9 +44,15 @@ public class TravelActivity extends AppCompatActivity {
     private ImageButton btnAdd;
     private RecyclerView rvVehicleTravel;
 
+    private AutoCompleteTextView spinAchievement;
+    private int nrSpinAchievement;
+    private ImageButton btnAddAchievement;
+    private RecyclerView rvAchievementTravel;
+
     private RecyclerView rvTravelExpenses;
 
     private TravelVehicleListAdapter adapterVehicleTravel;
+    private TravelAchievementListAdapter adapterAchievementTravel;
     private TravelExpensesListAdapter adapterTravelExpenses;
 
     private boolean opInsert = true;
@@ -79,10 +86,14 @@ public class TravelActivity extends AppCompatActivity {
         rvVehicleTravel = findViewById(R.id.rvVehicleTravel);
         btnAdd = findViewById(R.id.btnAdd);
 
+        spinAchievement = findViewById(R.id.spinAchievement);
+        rvAchievementTravel = findViewById(R.id.rvAchievementTravel);
+        btnAddAchievement = findViewById(R.id.btnAddAchievement);
+
         rvTravelExpenses = findViewById(R.id.rvTravelExpenses);
     }
 
-    @SuppressLint("UseCompatLoadingForDrawables")
+    @SuppressLint({"UseCompatLoadingForDrawables", "NotifyDataSetChanged"})
     protected void onResume() {
         super.onResume();
 
@@ -120,6 +131,18 @@ public class TravelActivity extends AppCompatActivity {
         });
         adapterVehicle.notifyDataSetChanged();
 
+        final List<Achievement> achievements = Database.mAchievementDao.fetchArrayAchievement();
+        ArrayAdapter<Achievement> adapterAchievement = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, achievements);
+        adapterAchievement.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinAchievement.setAdapter(adapterAchievement);
+
+        final Achievement[] a1 = {new Achievement()};
+        spinAchievement.setOnItemClickListener((parent, view, position, id) -> {
+            a1[0] = (Achievement) parent.getItemAtPosition(position);
+            nrSpinAchievement = a1[0].getId();
+        });
+        adapterAchievement.notifyDataSetChanged();
+
         if (travel != null) {
             addListenerOnButtonAdd();
             clVehicleTravel.setVisibility(View.VISIBLE);
@@ -127,6 +150,11 @@ public class TravelActivity extends AppCompatActivity {
             rvVehicleTravel.setAdapter(adapterVehicleTravel);
             rvVehicleTravel.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
             adapterVehicleTravel.notifyDataSetChanged();
+
+            adapterAchievementTravel = new TravelAchievementListAdapter(Database.mAchievementDao.fetchAllAchievementByTravel(travel.getId()), getApplicationContext(),"Travel",0);
+            rvAchievementTravel.setAdapter(adapterAchievementTravel);
+            rvAchievementTravel.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+            adapterAchievementTravel.notifyDataSetChanged();
 
             adapterTravelExpenses = new TravelExpensesListAdapter(travel.getId(), Database.mTravelExpensesDao.fetchAllTravelExpensesByTravel(travel.getId()), getApplicationContext(),1,0);
             rvTravelExpenses.setAdapter(adapterTravelExpenses);
@@ -137,6 +165,7 @@ public class TravelActivity extends AppCompatActivity {
         }
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     public void addListenerOnButtonAdd() {
         btnAdd.setOnClickListener(v -> {
             boolean isSave = false;
@@ -162,6 +191,32 @@ public class TravelActivity extends AppCompatActivity {
                     rvVehicleTravel.setAdapter(adapterVehicleTravel);
                     rvVehicleTravel.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
                     adapterVehicleTravel.notifyDataSetChanged();
+                }
+            }
+        });
+        btnAddAchievement.setOnClickListener(v -> {
+            boolean isSave = false;
+
+            if (nrSpinAchievement==0) {
+                Toast.makeText(getApplicationContext(), "Conquista não selecionada", Toast.LENGTH_LONG).show(); // TODO - ver msg
+            } else {
+                Achievement ac1 = Database.mAchievementDao.fetchAchievementById(nrSpinAchievement);
+
+                ac1.setTravel_id(travel.getId());
+                try {
+                    isSave = Database.mAchievementDao.updateAchievement(ac1);
+                } catch (Exception e) {
+                    Toast.makeText(getApplicationContext(), R.string.Error_Including_Data + e.getMessage(), Toast.LENGTH_LONG).show();
+                }
+
+                setResult(isSave ? 1 : 0);
+                if (!isSave) {
+                    Toast.makeText(getApplicationContext(), R.string.Error_Saving_Data, Toast.LENGTH_LONG).show();
+                } else {
+                    adapterAchievementTravel = new TravelAchievementListAdapter(Database.mAchievementDao.fetchAllAchievementByTravel(travel.getId()), getApplicationContext(),"travel",0);
+                    rvAchievementTravel.setAdapter(adapterAchievementTravel);
+                    rvAchievementTravel.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+                    adapterAchievementTravel.notifyDataSetChanged();
                 }
             }
         });

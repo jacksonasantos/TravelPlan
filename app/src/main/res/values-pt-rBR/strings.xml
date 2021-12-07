@@ -331,4 +331,5 @@
     <string name="add_new_accommodation">Adicionar Nova Acomodação</string>
     <string name="Achievement_Image">Image</string>
     <string name="Achievement_Short_Name">Sigla</string>
+    <string name="Achievement_Travel_Deleting">Excluindo Conquista da Viagem</string>
 </resources>

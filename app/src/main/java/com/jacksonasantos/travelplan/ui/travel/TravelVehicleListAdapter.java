@@ -57,7 +57,7 @@ public class TravelVehicleListAdapter extends RecyclerView.Adapter<RecyclerView.
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View vehicleView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.fragment_item_vehicle_travel, parent, false);
+                .inflate(R.layout.fragment_item_travel_vehicle, parent, false);
 
         if (viewType == TYPE_HEADER) {
             return new HeaderViewHolder(vehicleView);

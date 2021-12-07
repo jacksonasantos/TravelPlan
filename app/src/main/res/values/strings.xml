@@ -338,6 +338,7 @@
     <string name="TravelItemExpenses_Deleting">Deleting Travel Item Expenses</string>
 
     <string name="Vehicle_Travel_Deleting">Deleting Vehicle has Travel</string>
+    <string name="Achievement_Travel_Deleting">Deleting Achievement from the Travel</string>
 
     <!-- Array Status Travel -->
     <string name="registered">Registered</string>
