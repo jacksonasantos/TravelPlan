@@ -171,7 +171,7 @@ public class TravelActivity extends AppCompatActivity {
             boolean isSave = false;
 
             if (nrSpinVehicle==0) {
-                Toast.makeText(getApplicationContext(), "Veiculo não selecionado", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), R.string.Vehicle_not_Selected, Toast.LENGTH_LONG).show();
             } else {
                 final VehicleHasTravel vt1 = new VehicleHasTravel();
 
@@ -198,7 +198,7 @@ public class TravelActivity extends AppCompatActivity {
             boolean isSave = false;
 
             if (nrSpinAchievement==0) {
-                Toast.makeText(getApplicationContext(), "Conquista não selecionada", Toast.LENGTH_LONG).show(); // TODO - ver msg
+                Toast.makeText(getApplicationContext(), R.string.Achievement_not_Selected, Toast.LENGTH_LONG).show();
             } else {
                 Achievement ac1 = Database.mAchievementDao.fetchAchievementById(nrSpinAchievement);
 

@@ -332,4 +332,6 @@
     <string name="Achievement_Image">Image</string>
     <string name="Achievement_Short_Name">Sigla</string>
     <string name="Achievement_Travel_Deleting">Excluindo Conquista da Viagem</string>
+    <string name="Achievement_not_Selected">Conquista não Selecionada</string>
+    <string name="Vehicle_not_Selected">Veículo não Selecionado</string>
 </resources>

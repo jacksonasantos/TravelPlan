@@ -339,6 +339,8 @@
 
     <string name="Vehicle_Travel_Deleting">Deleting Vehicle has Travel</string>
     <string name="Achievement_Travel_Deleting">Deleting Achievement from the Travel</string>
+    <string name="Vehicle_not_Selected">Vehicle not Selected</string>
+    <string name="Achievement_not_Selected">Achievement not Selected</string>
 
     <!-- Array Status Travel -->
     <string name="registered">Registered</string>
