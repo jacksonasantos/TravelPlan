@@ -35,7 +35,7 @@ import com.jacksonasantos.travelplan.ui.general.InsuranceActivity;
 import com.jacksonasantos.travelplan.ui.travel.ItineraryActivity;
 import com.jacksonasantos.travelplan.ui.travel.ReservationActivity;
 import com.jacksonasantos.travelplan.ui.travel.TravelRouteFragment;
-import com.jacksonasantos.travelplan.ui.travel.VehicleTravelListAdapter;
+import com.jacksonasantos.travelplan.ui.travel.TravelVehicleListAdapter;
 import com.jacksonasantos.travelplan.ui.utility.DateInputMask;
 import com.jacksonasantos.travelplan.ui.utility.Globals;
 import com.jacksonasantos.travelplan.ui.utility.Utils;
@@ -218,7 +218,7 @@ public class HomeTravelFragment extends Fragment implements View.OnClickListener
 
                 // Vehicles has Travel
                 final int Show_Header_VehicleTravel = 0 ;
-                VehicleTravelListAdapter adapterVehicle = new VehicleTravelListAdapter(Database.mVehicleHasTravelDao.fetchAllVehicleHasTravelByTravel(travel[0].getId() ), getContext(),"Home", Show_Header_VehicleTravel);
+                TravelVehicleListAdapter adapterVehicle = new TravelVehicleListAdapter(Database.mVehicleHasTravelDao.fetchAllVehicleHasTravelByTravel(travel[0].getId() ), getContext(),"Home", Show_Header_VehicleTravel);
                 if ( adapterVehicle.getItemCount() > Show_Header_VehicleTravel){
                     layerVehicle.setVisibility(View.VISIBLE);
                     listVehicle.setAdapter(adapterVehicle);

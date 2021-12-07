@@ -29,7 +29,7 @@ import java.text.NumberFormat;
 import java.util.List;
 import java.util.Locale;
 
-public class VehicleTravelListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class TravelVehicleListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private static final int TYPE_HEADER = 0;
     private static final int TYPE_ITEM = 1;
@@ -44,7 +44,7 @@ public class VehicleTravelListAdapter extends RecyclerView.Adapter<RecyclerView.
     NumberFormat numberFormatter = NumberFormat.getNumberInstance(locale);
     NumberFormat integerFormatter = NumberFormat.getNumberInstance(locale);
 
-    public VehicleTravelListAdapter(List<VehicleHasTravel> vehicleHasTravels, Context context, String form, int show_header) {
+    public TravelVehicleListAdapter(List<VehicleHasTravel> vehicleHasTravels, Context context, String form, int show_header) {
         this.mVehicleHasTravel = vehicleHasTravels;
         this.context = context;
         this.form = form;
@@ -59,12 +59,10 @@ public class VehicleTravelListAdapter extends RecyclerView.Adapter<RecyclerView.
         View vehicleView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.fragment_item_vehicle_travel, parent, false);
 
-        if (viewType == TYPE_ITEM) {
-            return new ItemViewHolder(vehicleView);
-        } else if (viewType == TYPE_HEADER) {
+        if (viewType == TYPE_HEADER) {
             return new HeaderViewHolder(vehicleView);
-        }
-        else return null;
+        } else
+            return new ItemViewHolder(vehicleView);
     }
 
     // Replace the contents of a view (invoked by the layout manager)

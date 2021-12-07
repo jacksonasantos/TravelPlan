@@ -45,7 +45,7 @@ public class TravelActivity extends AppCompatActivity {
 
     private RecyclerView rvTravelExpenses;
 
-    private VehicleTravelListAdapter adapterVehicleTravel;
+    private TravelVehicleListAdapter adapterVehicleTravel;
     private TravelExpensesListAdapter adapterTravelExpenses;
 
     private boolean opInsert = true;
@@ -123,7 +123,7 @@ public class TravelActivity extends AppCompatActivity {
         if (travel != null) {
             addListenerOnButtonAdd();
             clVehicleTravel.setVisibility(View.VISIBLE);
-            adapterVehicleTravel = new VehicleTravelListAdapter(Database.mVehicleHasTravelDao.fetchAllVehicleHasTravelByTravel(travel.getId()), getApplicationContext(),"Travel",0);
+            adapterVehicleTravel = new TravelVehicleListAdapter(Database.mVehicleHasTravelDao.fetchAllVehicleHasTravelByTravel(travel.getId()), getApplicationContext(),"Travel",0);
             rvVehicleTravel.setAdapter(adapterVehicleTravel);
             rvVehicleTravel.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
             adapterVehicleTravel.notifyDataSetChanged();
@@ -158,7 +158,7 @@ public class TravelActivity extends AppCompatActivity {
                 if (!isSave) {
                     Toast.makeText(getApplicationContext(), R.string.Error_Saving_Data, Toast.LENGTH_LONG).show();
                 } else {
-                    adapterVehicleTravel = new VehicleTravelListAdapter(Database.mVehicleHasTravelDao.fetchAllVehicleHasTravelByTravel(travel.getId()), getApplicationContext(),"travel",0);
+                    adapterVehicleTravel = new TravelVehicleListAdapter(Database.mVehicleHasTravelDao.fetchAllVehicleHasTravelByTravel(travel.getId()), getApplicationContext(),"travel",0);
                     rvVehicleTravel.setAdapter(adapterVehicleTravel);
                     rvVehicleTravel.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
                     adapterVehicleTravel.notifyDataSetChanged();
