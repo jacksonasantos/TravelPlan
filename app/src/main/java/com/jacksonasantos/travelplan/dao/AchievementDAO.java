@@ -51,8 +51,8 @@ public class AchievementDAO extends DbContentProvider implements AchievementISch
         }
         return achievementList;
     }
-    public List<Achievement> fetchAllAchievementByTravel( Integer id ) {
-        final String[] selectionArgs = { String.valueOf(id) };
+    public List<Achievement> fetchAllAchievementByTravel( Integer travel_id ) {
+        final String[] selectionArgs = { String.valueOf(travel_id) };
         final String selection = ACHIEVEMENT_TRAVEL_ID + " = ?";
         List<Achievement> achievementList = new ArrayList<>();
         cursor = super.query(ACHIEVEMENT_TABLE, ACHIEVEMENT_COLUMNS, selection,selectionArgs, ACHIEVEMENT_NAME);
