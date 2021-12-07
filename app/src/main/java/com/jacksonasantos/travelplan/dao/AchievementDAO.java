@@ -96,11 +96,12 @@ public class AchievementDAO extends DbContentProvider implements AchievementISch
         Achievement a = new Achievement();
         if (c != null) {
             if (c.getColumnIndex(ACHIEVEMENT_ID) != -1)                   {a.setId(c.getInt(c.getColumnIndexOrThrow(ACHIEVEMENT_ID))); }
+            if (c.getColumnIndex(ACHIEVEMENT_SHORT_NAME) != -1)           {a.setShort_name(c.getString(c.getColumnIndexOrThrow(ACHIEVEMENT_SHORT_NAME))); }
             if (c.getColumnIndex(ACHIEVEMENT_NAME) != -1)                 {a.setName(c.getString(c.getColumnIndexOrThrow(ACHIEVEMENT_NAME))); }
+            if (c.getColumnIndex(ACHIEVEMENT_IMAGE) != -1)                {a.setImage(c.getString(c.getColumnIndexOrThrow(ACHIEVEMENT_IMAGE))); }
             if (c.getColumnIndex(ACHIEVEMENT_CITY) != -1)                 {a.setCity(c.getString(c.getColumnIndexOrThrow(ACHIEVEMENT_CITY))); }
             if (c.getColumnIndex(ACHIEVEMENT_STATE) != -1)                {a.setState(c.getString(c.getColumnIndexOrThrow(ACHIEVEMENT_STATE))); }
             if (c.getColumnIndex(ACHIEVEMENT_COUNTRY) != -1)              {a.setCountry(c.getString(c.getColumnIndexOrThrow(ACHIEVEMENT_COUNTRY))); }
-            if (c.getColumnIndex(ACHIEVEMENT_STATUS) != -1)               {a.setStatus( c.getString(c.getColumnIndexOrThrow(ACHIEVEMENT_STATUS))); }
             if (c.getColumnIndex(ACHIEVEMENT_NOTE) != -1)                 {a.setNote(c.getString(c.getColumnIndexOrThrow(ACHIEVEMENT_NOTE))); }
             if (c.getColumnIndex(ACHIEVEMENT_LATLNG_ACHIEVEMENT) != -1)   {a.setLatlng_achievement(c.getString(c.getColumnIndexOrThrow(ACHIEVEMENT_LATLNG_ACHIEVEMENT))); }
         }
@@ -110,11 +111,12 @@ public class AchievementDAO extends DbContentProvider implements AchievementISch
     private void setContentValue(Achievement a) {
         initialValues = new ContentValues();
         initialValues.put(ACHIEVEMENT_ID, a.id);
+        initialValues.put(ACHIEVEMENT_SHORT_NAME, a.short_name);
         initialValues.put(ACHIEVEMENT_NAME, a.name);
+        initialValues.put(ACHIEVEMENT_IMAGE, a.image);
         initialValues.put(ACHIEVEMENT_CITY, a.city);
         initialValues.put(ACHIEVEMENT_STATE, a.state);
         initialValues.put(ACHIEVEMENT_COUNTRY, a.country);
-        initialValues.put(ACHIEVEMENT_STATUS, a.status);
         initialValues.put(ACHIEVEMENT_NOTE, a.note);
         initialValues.put(ACHIEVEMENT_LATLNG_ACHIEVEMENT, a.latlng_achievement);
     }

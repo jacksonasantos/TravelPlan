@@ -16,12 +16,13 @@ import com.jacksonasantos.travelplan.dao.Achievement;
 import com.jacksonasantos.travelplan.dao.general.Database;
 
 public class AchievementActivity extends AppCompatActivity {
+    private EditText etAchievement_Short_Name;
     private EditText etAchievement_Name;
+    private EditText etAchievement_Image;
     private EditText etAchievement_City;
     private EditText etAchievement_State;
     private EditText etAchievement_Country;
     private EditText etAchievement_Latlng_Achievement;
-    private EditText etAchievement_Status;
     private EditText etAchievement_Note;
 
     private boolean opInsert = true;
@@ -57,21 +58,23 @@ public class AchievementActivity extends AppCompatActivity {
 
         addListenerOnButtonSave();
 
+        etAchievement_Short_Name = findViewById(R.id.etAchievement_Short_Name);
         etAchievement_Name = findViewById(R.id.etAchievement_Name);
+        etAchievement_Image = findViewById(R.id.etAchievement_Image);
         etAchievement_City = findViewById(R.id.etAchievement_City);
         etAchievement_State = findViewById(R.id.etAchievement_State);
         etAchievement_Country = findViewById(R.id.etAchievement_Country);
         etAchievement_Latlng_Achievement = findViewById(R.id.etAchievement_Latlng_Achievement);
-        etAchievement_Status = findViewById(R.id.etAchievement_Status);
         etAchievement_Note = findViewById(R.id.etAchievement_Note);
 
         if (achievement != null) {
+            etAchievement_Short_Name.setText(achievement.getShort_name());
             etAchievement_Name.setText(achievement.getName());
+            etAchievement_Image.setText(achievement.getImage());
             etAchievement_City.setText(achievement.getCity());
             etAchievement_State.setText(achievement.getState());
             etAchievement_Country.setText(achievement.getCountry());
             etAchievement_Latlng_Achievement.setText(achievement.getLatlng_achievement());
-            etAchievement_Status.setText(achievement.getStatus());
             etAchievement_Note.setText(achievement.getNote());
         }
     }
@@ -88,12 +91,13 @@ public class AchievementActivity extends AppCompatActivity {
             } else {
                 final Achievement a1 = new Achievement();
 
+                a1.setShort_name(etAchievement_Short_Name.getText().toString());
                 a1.setName(etAchievement_Name.getText().toString());
+                a1.setImage(etAchievement_Image.getText().toString());
                 a1.setCity(etAchievement_City.getText().toString());
                 a1.setState(etAchievement_State.getText().toString());
                 a1.setCountry(etAchievement_Country.getText().toString());
                 a1.setLatlng_achievement(etAchievement_Latlng_Achievement.getText().toString());
-                a1.setStatus(etAchievement_Status.getText().toString());
                 a1.setNote(etAchievement_Note.getText().toString());
 
                 if (!opInsert) {
@@ -124,12 +128,13 @@ public class AchievementActivity extends AppCompatActivity {
         boolean isValid = true;
 
         try {
-            if (etAchievement_Name.getText().toString().trim().isEmpty() ||
+            if (etAchievement_Short_Name.getText().toString().trim().isEmpty() ||
+                etAchievement_Name.getText().toString().trim().isEmpty() ||
+                etAchievement_Image.getText().toString().trim().isEmpty() ||
                 etAchievement_City.getText().toString().trim().isEmpty() ||
                 etAchievement_State.getText().toString().trim().isEmpty() ||
-                etAchievement_Country.getText().toString().trim().isEmpty() ||
+                etAchievement_Country.getText().toString().trim().isEmpty() //||
                 //etAchievement_Latlng_Achievement.getText().toString().trim().isEmpty() ||
-                etAchievement_Status.getText().toString().trim().isEmpty() //||
                 //etAchievement_Note.getText().toString().trim().isEmpty()
             ){
                 isValid = false;

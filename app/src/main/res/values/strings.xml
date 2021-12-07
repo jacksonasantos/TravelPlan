@@ -8,6 +8,7 @@
     <string name="menu_vehicle">Vehicles</string>
     <string name="menu_travel">Travels</string>
     <string name="menu_accommodation">Accommodation</string>
+    <string name="menu_achievement">Achievement</string>
     <string name="menu_fuel_supply">Fuel Supply</string>
     <string name="menu_maintenance_plan">Maintenance Plan</string>
     <string name="menu_maintenance">Maintenance Service</string>
@@ -428,16 +429,16 @@
     <string name="confirmed">Confirmed</string>
     <string name="pay">Pay</string>
 
-    <string name="menu_achievement">Achievement</string>
     <!-- Achievement Fragment -->
     <string name="Achievement"> Achievement</string>
     <string name="Achievement_Deleting">Deleting Achievement</string>
 
+    <string name="Achievement_Short_Name">Short Name</string>
     <string name="Achievement_Name">Name</string>
+    <string name="Achievement_Image">Image</string>
     <string name="Achievement_City">City</string>
     <string name="Achievement_State">State</string>
     <string name="Achievement_Country">Country</string>
-    <string name="Achievement_Status">Status</string>
     <string name="Achievement_Note">Note</string>
     <string name="Achievement_Latlng_Achievement">Lat/Lng</string>
 

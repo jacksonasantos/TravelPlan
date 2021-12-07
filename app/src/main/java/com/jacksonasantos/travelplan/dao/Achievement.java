@@ -4,20 +4,22 @@ import androidx.annotation.NonNull;
 
 public class Achievement {
     public Integer id;
+    public String short_name;
     public String name;
+    public String image;
     public String city;
     public String state;
     public String country;
-    public String status;
     public String note;
     public String latlng_achievement;
 
     public Achievement() {
+        this.short_name = short_name;
         this.name = name;
+        this.image = image;
         this.city = city;
         this.state = state;
         this.country = country;
-        this.status = status;
         this.note = note;
         this.latlng_achievement = latlng_achievement;
     }
@@ -29,8 +31,14 @@ public class Achievement {
     public Integer getId() {return id;}
     public void setId(Integer id) {this.id = id;}
 
+    public String getShort_name() {return short_name;}
+    public void setShort_name(String short_name) {this.short_name = short_name;}
+
     public String getName() {return name;}
     public void setName(String name) {this.name = name;}
+
+    public String getImage() {return image;}
+    public void setImage(String image) {this.image = image;}
 
     public String getCity() {return city;}
     public void setCity(String city) {this.city = city; }
@@ -40,9 +48,6 @@ public class Achievement {
 
     public String getCountry() { return country;    }
     public void setCountry(String country) { this.country = country; }
-
-    public String getStatus() {return status;}
-    public void setStatus(String status) {this.status = status;}
 
     public String getNote() {return note;}
     public void setNote(String note) {this.note = note; }

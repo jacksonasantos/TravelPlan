@@ -325,9 +325,10 @@
     <string name="Achievement_City">Cidade</string>
     <string name="Achievement_State">Estado</string>
     <string name="Achievement_Country">País</string>
-    <string name="Achievement_Status">Situação</string>
     <string name="Achievement_Note">Observação</string>
     <string name="Achievement_Latlng_Achievement">Lat/Lng</string>
     <string name="Achievement">Conquista</string>
     <string name="add_new_accommodation">Adicionar Nova Acomodação</string>
+    <string name="Achievement_Image">Image</string>
+    <string name="Achievement_Short_Name">Sigla</string>
 </resources>

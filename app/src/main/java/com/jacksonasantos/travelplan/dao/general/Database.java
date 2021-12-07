@@ -59,7 +59,7 @@ public class Database {
     private final Context mContext;
 
     private static final String DATABASE_NAME = "TravelPlan.db";
-    private static final int DATABASE_VERSION = 36;
+    private static final int DATABASE_VERSION = 37;
 
     public static AccommodationDAO mAccommodationDao;
     public static AchievementDAO mAchievementDao;
