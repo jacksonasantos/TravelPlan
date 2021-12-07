@@ -5,6 +5,7 @@ public interface AchievementISchema {
     String ACHIEVEMENT_TABLE = "achievement";
 
     String ACHIEVEMENT_ID = "id";
+    String ACHIEVEMENT_TRAVEL_ID = "travel_id";
     String ACHIEVEMENT_SHORT_NAME = "short_name";
     String ACHIEVEMENT_NAME = "name";
     String ACHIEVEMENT_IMAGE = "image";
@@ -28,8 +29,13 @@ public interface AchievementISchema {
             + ACHIEVEMENT_LATLNG_ACHIEVEMENT + " TEXT "
             + ")";
 
+    // Version 38
+    String ALTER_TABLE_ACHIEVEMENT_V38 = "ALTER TABLE " + ACHIEVEMENT_TABLE
+            + " ADD COLUMN " + ACHIEVEMENT_TRAVEL_ID + " INTEGER REFERENCES " + TravelISchema.TRAVEL_TABLE + " ("+TravelISchema.TRAVEL_ID+") ";
+
     String[] ACHIEVEMENT_COLUMNS = new String[] {
             ACHIEVEMENT_ID,
+            ACHIEVEMENT_TRAVEL_ID,
             ACHIEVEMENT_SHORT_NAME,
             ACHIEVEMENT_NAME,
             ACHIEVEMENT_IMAGE,

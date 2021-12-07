@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 
 public class Achievement {
     public Integer id;
+    public Integer travel_id;
     public String short_name;
     public String name;
     public String image;
@@ -14,6 +15,7 @@ public class Achievement {
     public String latlng_achievement;
 
     public Achievement() {
+        this.travel_id = travel_id;
         this.short_name = short_name;
         this.name = name;
         this.image = image;
@@ -30,6 +32,9 @@ public class Achievement {
 
     public Integer getId() {return id;}
     public void setId(Integer id) {this.id = id;}
+
+    public Integer getTravel_id() { return travel_id; }
+    public void setTravel_id(Integer travel_id) { this.travel_id = travel_id; }
 
     public String getShort_name() {return short_name;}
     public void setShort_name(String short_name) {this.short_name = short_name;}

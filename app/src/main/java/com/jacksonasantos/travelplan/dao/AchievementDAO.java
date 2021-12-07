@@ -96,6 +96,7 @@ public class AchievementDAO extends DbContentProvider implements AchievementISch
         Achievement a = new Achievement();
         if (c != null) {
             if (c.getColumnIndex(ACHIEVEMENT_ID) != -1)                   {a.setId(c.getInt(c.getColumnIndexOrThrow(ACHIEVEMENT_ID))); }
+            if (c.getColumnIndex(ACHIEVEMENT_TRAVEL_ID) != -1)            {a.setTravel_id(c.getInt(c.getColumnIndexOrThrow(ACHIEVEMENT_TRAVEL_ID))); }
             if (c.getColumnIndex(ACHIEVEMENT_SHORT_NAME) != -1)           {a.setShort_name(c.getString(c.getColumnIndexOrThrow(ACHIEVEMENT_SHORT_NAME))); }
             if (c.getColumnIndex(ACHIEVEMENT_NAME) != -1)                 {a.setName(c.getString(c.getColumnIndexOrThrow(ACHIEVEMENT_NAME))); }
             if (c.getColumnIndex(ACHIEVEMENT_IMAGE) != -1)                {a.setImage(c.getString(c.getColumnIndexOrThrow(ACHIEVEMENT_IMAGE))); }
@@ -111,6 +112,7 @@ public class AchievementDAO extends DbContentProvider implements AchievementISch
     private void setContentValue(Achievement a) {
         initialValues = new ContentValues();
         initialValues.put(ACHIEVEMENT_ID, a.id);
+        initialValues.put(ACHIEVEMENT_TRAVEL_ID, a.travel_id);
         initialValues.put(ACHIEVEMENT_SHORT_NAME, a.short_name);
         initialValues.put(ACHIEVEMENT_NAME, a.name);
         initialValues.put(ACHIEVEMENT_IMAGE, a.image);
