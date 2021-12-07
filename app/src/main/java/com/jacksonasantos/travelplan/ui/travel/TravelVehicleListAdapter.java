@@ -61,8 +61,7 @@ public class TravelVehicleListAdapter extends RecyclerView.Adapter<RecyclerView.
 
         if (viewType == TYPE_HEADER) {
             return new HeaderViewHolder(vehicleView);
-        } else
-            return new ItemViewHolder(vehicleView);
+        } else return new ItemViewHolder(vehicleView);
     }
 
     // Replace the contents of a view (invoked by the layout manager)

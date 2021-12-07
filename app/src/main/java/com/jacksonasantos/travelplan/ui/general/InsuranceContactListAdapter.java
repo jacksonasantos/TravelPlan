@@ -52,14 +52,11 @@ public class InsuranceContactListAdapter extends RecyclerView.Adapter<RecyclerVi
         View insuranceContactView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.fragment_item_insurance_contact, parent, false);
 
-        if (viewType == TYPE_ITEM) {
-            return new ItemViewHolder(insuranceContactView);
-        } else if (viewType == TYPE_HEADER) {
+        if (viewType == TYPE_HEADER) {
             return new HeaderViewHolder(insuranceContactView);
         } else if (viewType == TYPE_FOOTER) {
             return new FooterViewHolder(insuranceContactView);
-        }
-        else return null;
+        } else return new ItemViewHolder(insuranceContactView);
     }
 
     @SuppressLint({"SetTextI18n", "DefaultLocale"})

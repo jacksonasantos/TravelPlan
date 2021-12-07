@@ -1,7 +1,6 @@
 package com.jacksonasantos.travelplan.ui.general;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.view.LayoutInflater;
@@ -17,15 +16,15 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.jacksonasantos.travelplan.R;
-import com.jacksonasantos.travelplan.dao.general.Database;
 import com.jacksonasantos.travelplan.dao.InsuranceCompany;
+import com.jacksonasantos.travelplan.dao.general.Database;
+
 import java.util.List;
 
 public class InsuranceCompanyListAdapter extends RecyclerView.Adapter<InsuranceCompanyListAdapter.MyViewHolder> {
 
     private final List<InsuranceCompany> mInsuranceCompany;
     Context context;
-
 
     public static class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 

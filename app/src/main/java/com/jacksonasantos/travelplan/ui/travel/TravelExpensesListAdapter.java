@@ -57,14 +57,12 @@ public class TravelExpensesListAdapter extends RecyclerView.Adapter<RecyclerView
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View travelExpensesView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.fragment_item_travel_expenses, parent, false);
-        if (viewType == TYPE_ITEM) {
-            return new ItemViewHolder(travelExpensesView);
-        } else if (viewType == TYPE_HEADER) {
+
+        if (viewType == TYPE_HEADER) {
             return new HeaderViewHolder(travelExpensesView);
         } else if (viewType == TYPE_FOOTER) {
             return new FooterViewHolder(travelExpensesView);
-        }
-        else return null;
+        } else return new ItemViewHolder(travelExpensesView);
     }
 
     // Replace the contents of a view (invoked by the layout manager)

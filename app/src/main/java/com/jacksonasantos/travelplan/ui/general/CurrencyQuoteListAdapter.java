@@ -1,7 +1,6 @@
 package com.jacksonasantos.travelplan.ui.general;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.view.LayoutInflater;
@@ -17,8 +16,8 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.jacksonasantos.travelplan.R;
-import com.jacksonasantos.travelplan.dao.general.Database;
 import com.jacksonasantos.travelplan.dao.CurrencyQuote;
+import com.jacksonasantos.travelplan.dao.general.Database;
 import com.jacksonasantos.travelplan.ui.utility.Utils;
 
 import java.util.List;
@@ -28,7 +27,6 @@ public class CurrencyQuoteListAdapter extends RecyclerView.Adapter<CurrencyQuote
     private final List<CurrencyQuote> mCurrencyQuote;
     Context context;
     String[] currencyArray;
-
 
     public static class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 

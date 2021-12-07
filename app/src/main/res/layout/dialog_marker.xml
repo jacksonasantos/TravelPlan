@@ -10,6 +10,7 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/labels_space_top"
         app:cardBackgroundColor="@color/colorBackgroundCard"
         app:cardCornerRadius="@dimen/cardCornerRadius"
         app:cardElevation="@dimen/cardElevation">
@@ -196,13 +197,11 @@
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 
-    <Space
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/labels_marginLeft" />
-
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/labels_space_top"
+        android:layout_marginBottom="@dimen/labels_space_top"
         app:cardBackgroundColor="@color/colorBackgroundCard"
         app:cardCornerRadius="@dimen/cardCornerRadius"
         app:cardElevation="@dimen/cardElevation">
@@ -304,13 +303,10 @@
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 
-    <Space
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/labels_marginLeft" />
-
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/labels_space_top"
         app:cardBackgroundColor="@color/colorBackgroundCard"
         app:cardCornerRadius="@dimen/cardCornerRadius"
         app:cardElevation="@dimen/cardElevation">

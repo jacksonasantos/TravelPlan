@@ -1,5 +1,6 @@
 package com.jacksonasantos.travelplan.ui.general;
 
+import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -26,6 +27,7 @@ import java.util.List;
 
 public class InsuranceDialog {
 
+    @SuppressLint("NotifyDataSetChanged")
     public static Insurance InsuranceClass(Insurance insurance, View v) {
         LayoutInflater li = LayoutInflater.from(v.getContext());
         View promptsView = li.inflate(R.layout.dialog_home_insurance, null);
@@ -85,6 +87,7 @@ public class InsuranceDialog {
         adapterInsuranceContact.notifyDataSetChanged();
 
         txtInsuranceVehicle.setText(Database.mVehicleDao.fetchVehicleById(insurance.getVehicle_id()).getName());
+        // TODO - Incluir detalhes do veículo
         txtInsuranceTravel.setText((Database.mTravelDao.fetchTravelById(insurance.getTravel_id()).getDescription()));
 
         Insurance i1 = Database.mInsuranceDao.fetchInsuranceById(insurance.getId());

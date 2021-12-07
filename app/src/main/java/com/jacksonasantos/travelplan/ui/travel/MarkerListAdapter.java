@@ -42,14 +42,11 @@ public class MarkerListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View markerView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.fragment_item_marker, parent, false);
-        if (viewType == TYPE_ITEM) {
-            return new ItemViewHolder(markerView);
-        } else if (viewType == TYPE_HEADER) {
+        if (viewType == TYPE_HEADER) {
             return new HeaderViewHolder(markerView);
         } else if (viewType == TYPE_FOOTER) {
             return new FooterViewHolder(markerView);
-        }
-        else return null;
+        } else return new ItemViewHolder(markerView);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)

@@ -52,12 +52,9 @@ public class MaintenanceItemListAdapter extends RecyclerView.Adapter<RecyclerVie
         View maintenanceItemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.activity_maintenance_item_list, parent, false);
         measureArray = parent.getResources().getStringArray(R.array.measure_plan);
-        if (viewType == TYPE_ITEM) {
-            return new ItemViewHolder(maintenanceItemView);
-        } else if (viewType == TYPE_HEADER) {
+        if (viewType == TYPE_HEADER) {
             return new HeaderViewHolder(maintenanceItemView);
-        }
-        else return null;
+        } else return new ItemViewHolder(maintenanceItemView);
     }
 
     // Replace the contents of a view (invoked by the layout manager)

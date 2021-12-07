@@ -14,6 +14,7 @@
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/labels_space_top"
             app:cardBackgroundColor="@color/colorBackgroundCard"
             app:cardCornerRadius="@dimen/cardCornerRadius"
             app:cardElevation="@dimen/cardElevation">
@@ -70,13 +71,11 @@
 
         </androidx.cardview.widget.CardView>
 
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/labels_marginLeft" />
-
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/labels_space_top"
+            android:layout_marginBottom="@dimen/labels_space_top"
             app:cardBackgroundColor="@color/colorBackgroundCard"
             app:cardCornerRadius="@dimen/cardCornerRadius"
             app:cardElevation="@dimen/cardElevation">
@@ -107,7 +106,6 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/labels_marginLeft"
                         android:layout_marginStart="@dimen/labels_marginLeft"
                         android:orientation="vertical">
 
@@ -133,8 +131,8 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="25dp"
-                    android:orientation="horizontal"
                     android:gravity="center_vertical"
+                    android:orientation="horizontal"
                     android:weightSum="10">
 
                     <TextView
@@ -144,7 +142,7 @@
                         android:gravity="center_vertical"
                         android:text="@string/Insurance_Nr"
                         android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:textSize="12sp"/>
+                        android:textSize="12sp" />
 
                     <TextView
                         android:id="@+id/txtInsurancePolicy"
@@ -152,7 +150,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="3"
                         android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:textSize="12sp"/>
+                        android:textSize="12sp" />
 
                     <TextView
                         android:layout_width="0dp"
@@ -177,8 +175,8 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="25dp"
-                    android:orientation="horizontal"
                     android:gravity="center_vertical"
+                    android:orientation="horizontal"
                     android:weightSum="10">
 
                     <TextView
@@ -223,13 +221,11 @@
 
         </androidx.cardview.widget.CardView>
 
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/labels_marginLeft" />
-
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/labels_space_top"
+            android:layout_marginBottom="@dimen/labels_space_top"
             app:cardBackgroundColor="@color/colorBackgroundCard"
             app:cardCornerRadius="@dimen/cardCornerRadius"
             app:cardElevation="@dimen/cardElevation">
@@ -256,13 +252,10 @@
 
         </androidx.cardview.widget.CardView>
 
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/labels_marginLeft" />
-
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/labels_space_top"
             app:cardBackgroundColor="@color/colorBackgroundCard"
             app:cardCornerRadius="@dimen/cardCornerRadius"
             app:cardElevation="@dimen/cardElevation">
