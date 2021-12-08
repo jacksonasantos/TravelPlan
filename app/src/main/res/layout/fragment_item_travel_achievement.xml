@@ -22,6 +22,17 @@
         app:autoSizeTextType="uniform" />
 
     <ImageButton
+        android:id="@+id/btnStatus_Achievement"
+        android:layout_width="22dp"
+        android:layout_height="22dp"
+        android:contentDescription="@string/Achievement_Status"
+        android:padding="7dp"
+        android:scaleType="fitCenter"
+        android:scaleX="1.5"
+        android:scaleY="1.5"
+        app:srcCompat="@drawable/ic_menu_achievement" />
+
+    <ImageButton
         android:id="@+id/btnDelete"
         android:layout_width="22dp"
         android:layout_height="22dp"

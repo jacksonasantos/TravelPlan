@@ -62,6 +62,7 @@ public class TravelAchievementListAdapter extends RecyclerView.Adapter<RecyclerV
             headerViewHolder.llAchievementTravelItem.setBackgroundColor(Color.LTGRAY);
             headerViewHolder.txtNameAchievement.setText(R.string.Achievement);
             headerViewHolder.btnDelete.setVisibility(View.INVISIBLE);
+            headerViewHolder.btnStatus_Achievement.setVisibility(View.INVISIBLE);
         }
         else if (holder instanceof ItemViewHolder) {
             final ItemViewHolder itemViewHolder = (ItemViewHolder) holder;
@@ -69,7 +70,32 @@ public class TravelAchievementListAdapter extends RecyclerView.Adapter<RecyclerV
 
             if (form.equals("Home")) {
                 itemViewHolder.btnDelete.setVisibility(View.INVISIBLE);
+                itemViewHolder.btnStatus_Achievement.setVisibility(View.VISIBLE);
+                if (mAchievement.get(position-show_header).getStatus_achievement() == 1){
+                    itemViewHolder.btnStatus_Achievement.setBackgroundColor(Color.GREEN);
+                } else {
+                    itemViewHolder.btnStatus_Achievement.setBackgroundColor(Color.LTGRAY);
+                }
             }
+
+            itemViewHolder.btnStatus_Achievement.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    itemViewHolder.btnStatus_Achievement.setOnClickListener(this);
+                    try {
+                        Achievement mAchievementNew = mAchievement.get(position-show_header);
+                        if ( mAchievementNew.getStatus_achievement()==0 ) {
+                            mAchievementNew.setStatus_achievement(1);
+                        } else {
+                            mAchievementNew.setStatus_achievement(0);
+                        }
+                        Database.mAchievementDao.updateAchievement(mAchievementNew);
+                        notifyItemRangeChanged(position, mAchievement.size());
+                    } catch (Exception e) {
+                        Toast.makeText(context, context.getString(R.string.Error_Changing_Data) + "\n" + e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+                    }
+                }
+            });
 
             itemViewHolder.btnDelete.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -113,12 +139,14 @@ public class TravelAchievementListAdapter extends RecyclerView.Adapter<RecyclerV
         public LinearLayout llAchievementTravelItem;
         public TextView txtNameAchievement;
         public ImageButton btnDelete;
+        public ImageButton btnStatus_Achievement;
 
         public HeaderViewHolder(View v) {
             super(v);
             llAchievementTravelItem = v.findViewById(R.id.llAchievementTravelItem);
             txtNameAchievement = v.findViewById(R.id.txtNameAchievement);
             btnDelete = v.findViewById(R.id.btnDelete);
+            btnStatus_Achievement = v.findViewById(R.id.btnStatus_Achievement);
         }
     }
 
@@ -126,12 +154,14 @@ public class TravelAchievementListAdapter extends RecyclerView.Adapter<RecyclerV
         public LinearLayout llAchievementTravelItem;
         public TextView txtNameAchievement;
         public ImageButton btnDelete;
+        public ImageButton btnStatus_Achievement;
 
         public ItemViewHolder(View v) {
             super(v);
             llAchievementTravelItem = v.findViewById(R.id.llAchievementTravelItem);
             txtNameAchievement = v.findViewById(R.id.txtNameAchievement);
             btnDelete = v.findViewById(R.id.btnDelete);
+            btnStatus_Achievement = v.findViewById(R.id.btnStatus_Achievement);
         }
     }
 }

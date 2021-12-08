@@ -3,6 +3,8 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/JacksonAlessandrodos/Documents/GitHub/TravelPlan/app/src/main/res/drawable/ic_status_done.xml" value="0.25833333333333336" />
+        <entry key="..\:/Users/JacksonAlessandrodos/Documents/GitHub/TravelPlan/app/src/main/res/drawable/ic_status_unchecked.xml" value="0.25833333333333336" />
         <entry key="..\:/Users/JacksonAlessandrodos/Documents/GitHub/TravelPlan/app/src/main/res/layout/activity_achievement.xml" value="0.264" />
         <entry key="..\:/Users/JacksonAlessandrodos/Documents/GitHub/TravelPlan/app/src/main/res/layout/activity_currency_quote.xml" value="0.536" />
         <entry key="..\:/Users/JacksonAlessandrodos/Documents/GitHub/TravelPlan/app/src/main/res/layout/activity_insurance.xml" value="0.115625" />
@@ -18,8 +20,10 @@
         <entry key="..\:/Users/JacksonAlessandrodos/Documents/GitHub/TravelPlan/app/src/main/res/layout/dialog_marker.xml" value="0.23846153846153847" />
         <entry key="..\:/Users/JacksonAlessandrodos/Documents/GitHub/TravelPlan/app/src/main/res/layout/dialog_travel_expenses.xml" value="0.23846153846153847" />
         <entry key="..\:/Users/JacksonAlessandrodos/Documents/GitHub/TravelPlan/app/src/main/res/layout/dialog_travel_item_expenses.xml" value="0.23846153846153847" />
+        <entry key="..\:/Users/JacksonAlessandrodos/Documents/GitHub/TravelPlan/app/src/main/res/layout/fragment_home_travel.xml" value="0.264" />
         <entry key="..\:/Users/JacksonAlessandrodos/Documents/GitHub/TravelPlan/app/src/main/res/layout/fragment_item_achievement.xml" value="0.178125" />
         <entry key="..\:/Users/JacksonAlessandrodos/Documents/GitHub/TravelPlan/app/src/main/res/layout/fragment_item_achievement_travel.xml" value="0.2421875" />
+        <entry key="..\:/Users/JacksonAlessandrodos/Documents/GitHub/TravelPlan/app/src/main/res/layout/fragment_item_travel_achievement.xml" value="0.2421875" />
         <entry key="..\:/Users/JacksonAlessandrodos/Documents/GitHub/TravelPlan/app/src/main/res/menu/activity_main.xml" value="0.178125" />
         <entry key="..\:/Users/JacksonAlessandrodos/Documents/GitHub/TravelPlan/app/src/main/res/menu/activity_main_drawer.xml" value="0.264" />
         <entry key="..\:/Users/JacksonAlessandrodos/Documents/GitHub/TravelPlan/app/src/main/res/menu/content_main.xml" value="0.178125" />

@@ -41,7 +41,6 @@
                 android:layout_width="45dp"
                 android:layout_height="45dp"
                 android:layout_marginStart="@dimen/labels_margin"
-                android:layout_marginLeft="@dimen/labels_margin"
                 android:contentDescription="@string/Vehicle_Type"
                 app:layout_constraintBottom_toBottomOf="@+id/tvNote"
                 app:layout_constraintStart_toStartOf="parent"
@@ -63,7 +62,6 @@
                 android:layout_width="120dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/labels_margin"
-                android:layout_marginLeft="@dimen/labels_margin"
                 android:layout_marginTop="@dimen/labels_space_top"
                 android:gravity="center_horizontal"
                 android:textAlignment="center"
@@ -119,7 +117,6 @@
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_marginStart="@dimen/labels_marginLeft"
-                android:layout_marginLeft="@dimen/labels_marginLeft"
                 android:contentDescription="@string/Itinerary"
                 app:srcCompat="@drawable/ic_itinerary" />
 
@@ -128,7 +125,6 @@
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_marginStart="@dimen/labels_margin"
-                android:layout_marginLeft="@dimen/labels_margin"
                 android:contentDescription="@string/accommodation"
                 app:srcCompat="@drawable/ic_menu_accommodation" />
 
@@ -137,7 +133,6 @@
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_marginStart="@dimen/labels_margin"
-                android:layout_marginLeft="@dimen/labels_margin"
                 android:contentDescription="@string/food"
                 app:srcCompat="@drawable/ic_food" />
 
@@ -146,7 +141,6 @@
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_marginStart="@dimen/labels_margin"
-                android:layout_marginLeft="@dimen/labels_margin"
                 android:contentDescription="@string/combustible"
                 app:srcCompat="@drawable/ic_supply" />
 
@@ -155,7 +149,6 @@
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_marginStart="@dimen/labels_margin"
-                android:layout_marginLeft="@dimen/labels_margin"
                 android:contentDescription="@string/extras"
                 app:srcCompat="@drawable/ic_money_extra" />
 
@@ -164,7 +157,6 @@
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_marginStart="@dimen/labels_margin"
-                android:layout_marginLeft="@dimen/labels_margin"
                 android:contentDescription="@string/tours"
                 app:srcCompat="@drawable/ic_tour" />
 
@@ -173,7 +165,6 @@
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_marginStart="@dimen/labels_margin"
-                android:layout_marginLeft="@dimen/labels_margin"
                 android:contentDescription="@string/toll"
                 app:srcCompat="@drawable/ic_toll" />
 
@@ -182,7 +173,6 @@
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_marginStart="@dimen/labels_margin"
-                android:layout_marginLeft="@dimen/labels_margin"
                 android:contentDescription="@string/insurance"
                 app:srcCompat="@drawable/ic_menu_insurance" />
 
@@ -201,7 +191,7 @@
             app:layout_constraintTop_toBottomOf="@+id/layerBtnMenu">
 
             <Button
-                android:id="@+id/buttonSeparator1"
+                android:id="@+id/buttonSeparator0"
                 android:layout_width="match_parent"
                 android:layout_height="16dp"
                 android:clickable="false"
@@ -216,11 +206,11 @@
                 android:scrollbars="vertical"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/buttonSeparator1"
+                app:layout_constraintTop_toBottomOf="@+id/buttonSeparator0"
                 tools:itemCount="2" />
 
             <Button
-                android:id="@+id/buttonSeparator2"
+                android:id="@+id/buttonSeparator1"
                 android:layout_width="match_parent"
                 android:layout_height="16dp"
                 android:clickable="false"
@@ -253,13 +243,43 @@
                 tools:itemCount="2" />
 
             <Button
-                android:id="@+id/buttonSeparator3"
+                android:id="@+id/buttonSeparator2"
                 android:layout_width="match_parent"
                 android:layout_height="16dp"
                 android:clickable="false"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/listItinerary" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layerAchievement"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginStart="@dimen/labels_margin"
+            android:layout_marginLeft="@dimen/labels_margin"
+            android:layout_marginEnd="@dimen/labels_margin"
+            android:layout_marginRight="@dimen/labels_margin"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/layerItinerary" >
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/listAchievement"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scrollbars="vertical"
+                tools:itemCount="2" />
+
+            <Button
+                android:id="@+id/buttonSeparator3"
+                android:layout_width="match_parent"
+                android:layout_height="16dp"
+                android:clickable="false"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/listAchievement" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -273,17 +293,13 @@
             android:layout_marginRight="@dimen/labels_margin"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/layerItinerary">
+            app:layout_constraintTop_toBottomOf="@+id/layerAchievement">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/listReservation"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scrollbars="vertical"
-                app:layout_constraintBottom_toTopOf="@+id/buttonSeparator4"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
                 tools:itemCount="2" />
 
             <Button
@@ -291,9 +307,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="16dp"
                 android:clickable="false"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/listReservation" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

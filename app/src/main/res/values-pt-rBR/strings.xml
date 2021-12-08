@@ -334,4 +334,5 @@
     <string name="Achievement_Travel_Deleting">Excluindo Conquista da Viagem</string>
     <string name="Achievement_not_Selected">Conquista não Selecionada</string>
     <string name="Vehicle_not_Selected">Veículo não Selecionado</string>
+    <string name="Achievement_Status">Situação</string>
 </resources>

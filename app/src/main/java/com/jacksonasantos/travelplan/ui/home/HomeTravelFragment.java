@@ -34,6 +34,7 @@ import com.jacksonasantos.travelplan.dao.general.Database;
 import com.jacksonasantos.travelplan.ui.general.InsuranceActivity;
 import com.jacksonasantos.travelplan.ui.travel.ItineraryActivity;
 import com.jacksonasantos.travelplan.ui.travel.ReservationActivity;
+import com.jacksonasantos.travelplan.ui.travel.TravelAchievementListAdapter;
 import com.jacksonasantos.travelplan.ui.travel.TravelRouteFragment;
 import com.jacksonasantos.travelplan.ui.travel.TravelVehicleListAdapter;
 import com.jacksonasantos.travelplan.ui.utility.DateInputMask;
@@ -68,6 +69,9 @@ public class HomeTravelFragment extends Fragment implements View.OnClickListener
 
     private ConstraintLayout layerVehicle;
     private RecyclerView listVehicle;
+
+    private ConstraintLayout layerAchievement;
+    private RecyclerView listAchievement;
 
     private ConstraintLayout layerItinerary;
     private RecyclerView listItinerary;
@@ -111,6 +115,9 @@ public class HomeTravelFragment extends Fragment implements View.OnClickListener
         layerVehicle = v.findViewById(R.id.layerVehicle);
         listVehicle = v.findViewById(R.id.listVehicle);
 
+        layerAchievement = v.findViewById(R.id.layerAchievement);
+        listAchievement = v.findViewById(R.id.listAchievement);
+
         layerItinerary = v.findViewById(R.id.layerItinerary);
         listItinerary = v.findViewById(R.id.listItinerary);
 
@@ -138,13 +145,13 @@ public class HomeTravelFragment extends Fragment implements View.OnClickListener
         mDb.open();
 
         final List<Travel> travels =  Database.mTravelDao.fetchArrayTravel();
-        ArrayAdapter<Travel> adapter = new ArrayAdapter<>(requireActivity(), android.R.layout.simple_spinner_item, travels);
-        adapter.setDropDownViewResource( android.R.layout.simple_spinner_dropdown_item);
-        spTravel.setAdapter(adapter);
+        ArrayAdapter<Travel> adapterTravel = new ArrayAdapter<>(requireActivity(), android.R.layout.simple_spinner_item, travels);
+        adapterTravel.setDropDownViewResource( android.R.layout.simple_spinner_dropdown_item);
+        spTravel.setAdapter(adapterTravel);
 
         final Travel[] travel = {new Travel()};
         spTravel.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @SuppressLint({"SetTextI18n", "DefaultLocale"})
+            @SuppressLint({"SetTextI18n", "DefaultLocale", "NotifyDataSetChanged"})
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
@@ -227,6 +234,17 @@ public class HomeTravelFragment extends Fragment implements View.OnClickListener
                     layerVehicle.setVisibility(View.GONE);
                 }
 
+                // Achievement has Travel
+                final int Show_Header_AchievementTravel = 0 ;
+                TravelAchievementListAdapter adapterAchievement = new TravelAchievementListAdapter(Database.mAchievementDao.fetchAllAchievementByTravel(travel[0].getId() ), getContext(),"Home", Show_Header_AchievementTravel);
+                if ( adapterAchievement.getItemCount() > Show_Header_AchievementTravel){
+                    layerAchievement.setVisibility(View.VISIBLE);
+                    listAchievement.setAdapter(adapterAchievement);
+                    listAchievement.setLayoutManager(new LinearLayoutManager(getContext()));
+                } else {
+                    layerAchievement.setVisibility(View.GONE);
+                }
+
                 //TODO- Mostrar todos os Abastecimentos com médias quilometragem, km percorridos
                 
                 // Itinerary
@@ -274,12 +292,13 @@ public class HomeTravelFragment extends Fragment implements View.OnClickListener
                 }
 
                 adapterVehicle.notifyDataSetChanged();
+                adapterAchievement.notifyDataSetChanged();
                 adapterReservation.notifyDataSetChanged();
                 adapterTravelExpense.notifyDataSetChanged();
                 adapterInsurance.notifyDataSetChanged();
             }
 
-            @SuppressLint("SetTextI18n")
+            @SuppressLint({"SetTextI18n", "NotifyDataSetChanged"})
             public void TravelItemExpenses(View v, int expense_type ) {
 
                 LayoutInflater li = LayoutInflater.from(v.getContext());
@@ -362,7 +381,7 @@ public class HomeTravelFragment extends Fragment implements View.OnClickListener
                 travel[0] = null;
             }
         });
-        adapter.notifyDataSetChanged();
+        adapterTravel.notifyDataSetChanged();
     }
 
     @Override
