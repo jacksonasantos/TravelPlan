@@ -1,10 +1,13 @@
 package com.jacksonasantos.travelplan.ui.travel;
 
 import android.annotation.SuppressLint;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
@@ -24,6 +27,9 @@ public class AchievementActivity extends AppCompatActivity {
     private EditText etAchievement_Country;
     private EditText etAchievement_Latlng_Achievement;
     private EditText etAchievement_Note;
+    private TextView txTravelAchievement;
+    private ImageButton imgStatusAchievement;
+    private Integer nrStatusAchievement;
 
     private boolean opInsert = true;
     private Achievement achievement;
@@ -57,6 +63,7 @@ public class AchievementActivity extends AppCompatActivity {
         }
 
         addListenerOnButtonSave();
+        addListenerOnButtonAchievement();
 
         etAchievement_Short_Name = findViewById(R.id.etAchievement_Short_Name);
         etAchievement_Name = findViewById(R.id.etAchievement_Name);
@@ -66,6 +73,8 @@ public class AchievementActivity extends AppCompatActivity {
         etAchievement_Country = findViewById(R.id.etAchievement_Country);
         etAchievement_Latlng_Achievement = findViewById(R.id.etAchievement_Latlng_Achievement);
         etAchievement_Note = findViewById(R.id.etAchievement_Note);
+        txTravelAchievement = findViewById(R.id.txTravelAchievement);
+        imgStatusAchievement = findViewById(R.id.imgStatusAchievement);
 
         if (achievement != null) {
             etAchievement_Short_Name.setText(achievement.getShort_name());
@@ -76,7 +85,28 @@ public class AchievementActivity extends AppCompatActivity {
             etAchievement_Country.setText(achievement.getCountry());
             etAchievement_Latlng_Achievement.setText(achievement.getLatlng_achievement());
             etAchievement_Note.setText(achievement.getNote());
+            txTravelAchievement.setText(Database.mTravelDao.fetchTravelById(achievement.getTravel_id()).getDescription());
+            nrStatusAchievement = achievement.getStatus_achievement();
+            if (nrStatusAchievement == 1){
+                imgStatusAchievement.setBackgroundColor(Color.GREEN);
+            } else {
+                imgStatusAchievement.setBackgroundColor(Color.LTGRAY);
+            }
         }
+    }
+
+    private void addListenerOnButtonAchievement() {
+        ImageButton imgStatusAchievement = findViewById(R.id.imgStatusAchievement);
+        imgStatusAchievement.setOnClickListener( view -> {
+
+        if ( nrStatusAchievement==0 ) {
+            nrStatusAchievement = 1;
+            imgStatusAchievement.setBackgroundColor(Color.GREEN);
+        } else {
+            nrStatusAchievement = 0;
+            imgStatusAchievement.setBackgroundColor(Color.LTGRAY);
+        }
+        });
     }
 
     @SuppressLint("NewApi")
@@ -99,6 +129,8 @@ public class AchievementActivity extends AppCompatActivity {
                 a1.setCountry(etAchievement_Country.getText().toString());
                 a1.setLatlng_achievement(etAchievement_Latlng_Achievement.getText().toString());
                 a1.setNote(etAchievement_Note.getText().toString());
+                a1.setTravel_id(achievement.getTravel_id());
+                a1.setStatus_achievement(nrStatusAchievement);
 
                 if (!opInsert) {
                     try {
