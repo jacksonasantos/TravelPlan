@@ -133,7 +133,7 @@ public class AchievementActivity extends AppCompatActivity {
                 a1.setStatus_achievement(nrStatusAchievement);
 
                 if (!opInsert) {
-                    try {
+                     try {
                         a1.setId(achievement.getId());
                         isSave = Database.mAchievementDao.updateAchievement(a1);
                     } catch (Exception e) {
