@@ -265,6 +265,7 @@
     <string name="Error_Changing_Data">Error Changing Data</string>
     <string name="Error_Deleting_Data">Error Deleting Data</string>
     <string name="Error_Data_Validation">Error in data validation</string>
+    <string name="Error_No_Image_Found">No Image Found</string>
 
     <!-- Arrays Currency -->
     <string name="real">R$ - Real</string>

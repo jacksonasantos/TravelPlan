@@ -113,7 +113,7 @@ public class AchievementDAO extends DbContentProvider implements AchievementISch
             if (c.getColumnIndex(ACHIEVEMENT_TRAVEL_ID) != -1)            {a.setTravel_id(c.getInt(c.getColumnIndexOrThrow(ACHIEVEMENT_TRAVEL_ID))); }
             if (c.getColumnIndex(ACHIEVEMENT_SHORT_NAME) != -1)           {a.setShort_name(c.getString(c.getColumnIndexOrThrow(ACHIEVEMENT_SHORT_NAME))); }
             if (c.getColumnIndex(ACHIEVEMENT_NAME) != -1)                 {a.setName(c.getString(c.getColumnIndexOrThrow(ACHIEVEMENT_NAME))); }
-            if (c.getColumnIndex(ACHIEVEMENT_IMAGE) != -1)                {a.setImage(c.getString(c.getColumnIndexOrThrow(ACHIEVEMENT_IMAGE))); }
+            if (c.getColumnIndex(ACHIEVEMENT_IMAGE) != -1)                {a.setImage(c.getBlob(c.getColumnIndexOrThrow(ACHIEVEMENT_IMAGE))); }
             if (c.getColumnIndex(ACHIEVEMENT_CITY) != -1)                 {a.setCity(c.getString(c.getColumnIndexOrThrow(ACHIEVEMENT_CITY))); }
             if (c.getColumnIndex(ACHIEVEMENT_STATE) != -1)                {a.setState(c.getString(c.getColumnIndexOrThrow(ACHIEVEMENT_STATE))); }
             if (c.getColumnIndex(ACHIEVEMENT_COUNTRY) != -1)              {a.setCountry(c.getString(c.getColumnIndexOrThrow(ACHIEVEMENT_COUNTRY))); }

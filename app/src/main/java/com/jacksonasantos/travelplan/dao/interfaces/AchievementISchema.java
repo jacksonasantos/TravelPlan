@@ -22,7 +22,7 @@ public interface AchievementISchema {
             + ACHIEVEMENT_ID + " INTEGER PRIMARY KEY, "
             + ACHIEVEMENT_SHORT_NAME + " TEXT, "
             + ACHIEVEMENT_NAME + " TEXT, "
-            + ACHIEVEMENT_IMAGE + " TEXT, "
+            + ACHIEVEMENT_IMAGE + " BLOB, "
             + ACHIEVEMENT_CITY + " TEXT, "
             + ACHIEVEMENT_STATE + " TEXT, "
             + ACHIEVEMENT_COUNTRY + " TEXT, "

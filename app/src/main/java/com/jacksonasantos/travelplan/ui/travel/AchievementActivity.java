@@ -1,27 +1,43 @@
 package com.jacksonasantos.travelplan.ui.travel;
 
 import android.annotation.SuppressLint;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.GridView;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.jacksonasantos.travelplan.R;
 import com.jacksonasantos.travelplan.dao.Achievement;
 import com.jacksonasantos.travelplan.dao.general.Database;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.util.ArrayList;
+import java.util.Objects;
+import java.util.concurrent.atomic.AtomicInteger;
+
 public class AchievementActivity extends AppCompatActivity {
-    private EditText etAchievement_Short_Name;
     private EditText etAchievement_Name;
-    private EditText etAchievement_Image;
+    private EditText etAchievement_Short_Name;
+    private ImageView imgAchievement_Image;
+    Bitmap raw;
+    private byte[] imgArray;
     private EditText etAchievement_City;
     private EditText etAchievement_State;
     private EditText etAchievement_Country;
@@ -64,10 +80,11 @@ public class AchievementActivity extends AppCompatActivity {
 
         addListenerOnButtonSave();
         addListenerOnButtonAchievement();
+        addListenerOnImageAchievement();
 
-        etAchievement_Short_Name = findViewById(R.id.etAchievement_Short_Name);
         etAchievement_Name = findViewById(R.id.etAchievement_Name);
-        etAchievement_Image = findViewById(R.id.etAchievement_Image);
+        etAchievement_Short_Name = findViewById(R.id.etAchievement_Short_Name);
+        imgAchievement_Image = findViewById(R.id.imgAchievement_Image);
         etAchievement_City = findViewById(R.id.etAchievement_City);
         etAchievement_State = findViewById(R.id.etAchievement_State);
         etAchievement_Country = findViewById(R.id.etAchievement_Country);
@@ -77,9 +94,13 @@ public class AchievementActivity extends AppCompatActivity {
         imgStatusAchievement = findViewById(R.id.imgStatusAchievement);
 
         if (achievement != null) {
-            etAchievement_Short_Name.setText(achievement.getShort_name());
             etAchievement_Name.setText(achievement.getName());
-            etAchievement_Image.setText(achievement.getImage());
+            etAchievement_Short_Name.setText(achievement.getShort_name());
+            imgArray = achievement.getImage();
+            if(imgArray!=null){
+                raw = BitmapFactory.decodeByteArray(imgArray,0, imgArray.length);
+                imgAchievement_Image.setImageBitmap(raw);
+            }
             etAchievement_City.setText(achievement.getCity());
             etAchievement_State.setText(achievement.getState());
             etAchievement_Country.setText(achievement.getCountry());
@@ -94,22 +115,57 @@ public class AchievementActivity extends AppCompatActivity {
             }
         }
     }
+    private void addListenerOnImageAchievement() {
+        ImageView imgAchievement = findViewById(R.id.imgAchievement_Image);
+        AtomicInteger imgPos = new AtomicInteger();
+
+        imgAchievement.setOnClickListener( view -> {
+            ArrayList<File> list = imageReader(Objects.requireNonNull(getExternalFilesDir(null)));
+            LayoutInflater inflater = this.getLayoutInflater();
+            View v = inflater.inflate(R.layout.dialog_my_files, null);
+            GridView gV = v.findViewById(R.id.gridView1);
+            gV.setAdapter(new AchievementDialogAdapter(this, list));
+            gV.setOnItemClickListener((parent, view1, position, id) -> imgPos.set(position) );
+            final AlertDialog.Builder builder2 = new AlertDialog.Builder(this);
+            builder2.setView(v)
+                    .setPositiveButton(R.string.OK, (dialog, which) -> {
+                        Bitmap myBitmap = BitmapFactory.decodeFile(list.get(imgPos.get()).getAbsolutePath());
+                        imgAchievement_Image.setImageBitmap(myBitmap);
+                        dialog.dismiss();
+                    })
+                    .setNegativeButton(R.string.Cancel, (dialog, which) -> dialog.cancel());
+            builder2.setCancelable(false);
+            builder2.create().show();
+        });
+    }
+    private ArrayList<File> imageReader(File root) {
+        ArrayList<File> a = new  ArrayList<>();
+        File[] files = root.listFiles();
+        if (files != null) {
+            for (File file : files) {
+                if (file.isDirectory()) {
+                    a.addAll(imageReader(file));
+                } else {
+                    a.add(file);
+                }
+            }
+        }
+        return a;
+    }
 
     private void addListenerOnButtonAchievement() {
         ImageButton imgStatusAchievement = findViewById(R.id.imgStatusAchievement);
         imgStatusAchievement.setOnClickListener( view -> {
-
-        if ( nrStatusAchievement==0 ) {
-            nrStatusAchievement = 1;
-            imgStatusAchievement.setBackgroundColor(Color.GREEN);
-        } else {
-            nrStatusAchievement = 0;
-            imgStatusAchievement.setBackgroundColor(Color.LTGRAY);
-        }
+            if (nrStatusAchievement == 0) {
+                nrStatusAchievement = 1;
+                imgStatusAchievement.setBackgroundColor(Color.GREEN);
+            } else {
+                nrStatusAchievement = 0;
+                imgStatusAchievement.setBackgroundColor(Color.LTGRAY);
+            }
         });
     }
 
-    @SuppressLint("NewApi")
     public void addListenerOnButtonSave() {
         Button btSaveAchievement = findViewById(R.id.btSaveAchievement);
 
@@ -123,7 +179,14 @@ public class AchievementActivity extends AppCompatActivity {
 
                 a1.setShort_name(etAchievement_Short_Name.getText().toString());
                 a1.setName(etAchievement_Name.getText().toString());
-                a1.setImage(etAchievement_Image.getText().toString());
+
+                //a1.setImage(imgAchievement_Image.getBlob());
+                Bitmap bitmap = ((BitmapDrawable)imgAchievement_Image.getDrawable()).getBitmap();
+                ByteArrayOutputStream saida = new ByteArrayOutputStream();
+                bitmap.compress(Bitmap.CompressFormat.PNG,100,saida);
+                byte[] img = saida.toByteArray();
+                a1.setImage(img);
+
                 a1.setCity(etAchievement_City.getText().toString());
                 a1.setState(etAchievement_State.getText().toString());
                 a1.setCountry(etAchievement_Country.getText().toString());
@@ -162,7 +225,7 @@ public class AchievementActivity extends AppCompatActivity {
         try {
             if (etAchievement_Short_Name.getText().toString().trim().isEmpty() ||
                 etAchievement_Name.getText().toString().trim().isEmpty() ||
-                etAchievement_Image.getText().toString().trim().isEmpty() ||
+                //imgAchievement_Image.getImageMatrix().toString().trim().isEmpty() ||
                 etAchievement_City.getText().toString().trim().isEmpty() ||
                 etAchievement_State.getText().toString().trim().isEmpty() ||
                 etAchievement_Country.getText().toString().trim().isEmpty() //||

@@ -8,7 +8,7 @@ public class Achievement {
     public String short_name;
     public String name;
     // TODO - Ajustar o tipo de armazenamento da imagem
-    public String image;
+    public byte[] image;
     public String city;
     public String state;
     public String country;
@@ -45,8 +45,8 @@ public class Achievement {
     public String getName() {return name;}
     public void setName(String name) {this.name = name;}
 
-    public String getImage() {return image;}
-    public void setImage(String image) {this.image = image;}
+    public byte[] getImage() {return image;}
+    public void setImage(byte[] image) {this.image = image;}
 
     public String getCity() {return city;}
     public void setCity(String city) {this.city = city; }

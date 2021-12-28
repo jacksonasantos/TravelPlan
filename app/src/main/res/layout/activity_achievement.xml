@@ -25,53 +25,13 @@
                 android:layout_marginRight="@dimen/labels_margin">
 
                 <EditText
-                    android:id="@+id/etAchievement_Short_Name"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:autofillHints="no"
-                    android:hint="@string/Achievement_Short_Name"
-                    android:inputType="text|textCapSentences"
-                    android:nextFocusDown="@+id/etAchievement_Name"
-                    android:textSize="12sp" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/labels_margin"
-                android:layout_marginLeft="@dimen/labels_margin"
-                android:layout_marginTop="@dimen/labels_space_top"
-                android:layout_marginEnd="@dimen/labels_margin"
-                android:layout_marginRight="@dimen/labels_margin">
-
-                <EditText
                     android:id="@+id/etAchievement_Name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:autofillHints="no"
                     android:hint="@string/Achievement_Name"
                     android:inputType="text|textCapSentences"
-                    android:nextFocusDown="@+id/etAchievement_Image"
-                    android:textSize="12sp" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/labels_margin"
-                android:layout_marginLeft="@dimen/labels_margin"
-                android:layout_marginTop="@dimen/labels_space_top"
-                android:layout_marginEnd="@dimen/labels_margin"
-                android:layout_marginRight="@dimen/labels_margin">
-
-                <EditText
-                    android:id="@+id/etAchievement_Image"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:autofillHints="no"
-                    android:hint="@string/Achievement_Image"
-                    android:inputType="text"
-                    android:nextFocusDown="@+id/etAchievement_City"
+                    android:nextFocusDown="@+id/etAchievement_Short_Name"
                     android:textSize="12sp" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -82,18 +42,62 @@
                 android:layout_marginLeft="@dimen/labels_margin"
                 android:layout_marginTop="@dimen/labels_space_top"
                 android:layout_marginEnd="@dimen/labels_margin"
-                android:layout_marginRight="@dimen/labels_margin"
-                android:orientation="horizontal">
+                android:layout_marginRight="@dimen/labels_margin">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/textInputLayout7"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toStartOf="@+id/imgAchievement_Image"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <EditText
+                        android:id="@+id/etAchievement_Short_Name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:autofillHints="no"
+                        android:hint="@string/Achievement_Short_Name"
+                        android:inputType="text|textCapSentences"
+                        android:nextFocusDown="@+id/etAchievement_Image"
+                        android:textSize="12sp" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <ImageView
+                    android:id="@+id/imgAchievement_Image"
+                    android:layout_width="110dp"
+                    android:layout_height="110dp"
+                    android:gravity="center"
+                    android:hint="@string/Achievement_Image"
+                    android:nextFocusDown="@+id/etAchievement_City"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/ic_menu_achievement"
+                    tools:ignore="ContentDescription" />
+
+                <ImageView
+                    android:id="@+id/imgEdit_Image"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:gravity="center"
+                    android:hint="@string/Achievement_Image"
+                    android:nextFocusDown="@+id/etAchievement_City"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/ic_menu_edit"
+                    tools:ignore="ContentDescription" />
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/textInputLayout4"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/labels_space_top"
                     android:layout_marginEnd="@dimen/labels_margin"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/textInputLayout5"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
+                    app:layout_constraintTop_toBottomOf="@+id/textInputLayout7">
 
                     <EditText
                         android:id="@+id/etAchievement_City"
@@ -109,12 +113,12 @@
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/textInputLayout5"
                     android:layout_width="80dp"
-                    android:layout_height="0dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/labels_margin"
+                    android:layout_marginTop="@dimen/labels_space_top"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/textInputLayout4"
-                    app:layout_constraintTop_toTopOf="parent">
+                    app:layout_constraintEnd_toStartOf="@+id/imgAchievement_Image"
+                    app:layout_constraintTop_toBottomOf="@+id/textInputLayout7">
 
                     <EditText
                         android:id="@+id/etAchievement_State"
