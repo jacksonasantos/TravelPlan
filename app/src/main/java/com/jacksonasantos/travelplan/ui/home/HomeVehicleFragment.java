@@ -2,6 +2,8 @@ package com.jacksonasantos.travelplan.ui.home;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.DashPathEffect;
 import android.graphics.Paint;
@@ -160,7 +162,13 @@ public class HomeVehicleFragment extends Fragment implements View.OnClickListene
                 // Retrieves data from the vehicle selected in Spinner - layerVehicle
                 vehicle[0] = (Vehicle) parent.getItemAtPosition(position);
                 tvLicencePlate.setText(vehicle[0].getLicense_plate());
-                imVehicleType.setImageResource(vehicle[0].getVehicleTypeImage(vehicle[0].getVehicle_type()));
+                byte[] imgArray = vehicle[0].getImage();
+                if(imgArray!=null){
+                    Bitmap raw = BitmapFactory.decodeByteArray(imgArray, 0, imgArray.length);
+                    imVehicleType.setImageBitmap(raw);
+                } else {
+                    imVehicleType.setImageResource(vehicle[0].getVehicleTypeImage(vehicle[0].getVehicle_type()));
+                }
 
                 g.setIdVehicle(vehicle[0].getId());
 

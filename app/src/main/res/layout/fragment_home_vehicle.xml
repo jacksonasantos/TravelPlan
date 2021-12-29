@@ -16,7 +16,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/layerVehicle"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
+            android:layout_height="75dp"
             android:layout_marginStart="@dimen/labels_margin"
             android:layout_marginLeft="@dimen/labels_margin"
             android:layout_marginEnd="@dimen/labels_margin"
@@ -41,10 +41,9 @@
 
             <ImageView
                 android:id="@+id/imVehicleType"
-                android:layout_width="45dp"
-                android:layout_height="45dp"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
                 android:layout_marginStart="@dimen/labels_margin"
-                android:layout_marginLeft="@dimen/labels_margin"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 android:contentDescription="@string/Vehicle_Type" />
@@ -54,15 +53,12 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/labels_margin"
-                android:layout_marginLeft="@dimen/labels_margin"
                 android:layout_marginTop="@dimen/labels_space_top"
                 android:layout_marginEnd="@dimen/labels_margin"
-                android:layout_marginRight="@dimen/labels_margin"
-                android:layout_marginBottom="26dp"
                 android:gravity="center_horizontal"
                 android:textAlignment="center"
                 android:textSize="14sp"
-                app:layout_constraintBottom_toBottomOf="@+id/buttonSeparator1"
+                app:layout_constraintBottom_toTopOf="@+id/buttonSeparator1"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/imVehicleType"
                 app:layout_constraintTop_toBottomOf="@+id/spVehicle" />
