@@ -111,6 +111,7 @@ public class VehicleDAO extends DbContentProvider implements VehicleISchema, Veh
         Vehicle v = new Vehicle();
         if (c != null) {
             if (c.getColumnIndex(VEHICLE_ID) != -1)                         {v.setId( c.getInt(c.getColumnIndexOrThrow(VEHICLE_ID))); }
+            if (c.getColumnIndex(VEHICLE_IMAGE) != -1)                      {v.setImage(c.getBlob(c.getColumnIndexOrThrow(VEHICLE_IMAGE))); }
             if (c.getColumnIndex(VEHICLE_VEHICLE_TYPE) != -1)               {v.setVehicle_type(c.getInt(c.getColumnIndexOrThrow(VEHICLE_VEHICLE_TYPE))); }
             if (c.getColumnIndex(VEHICLE_NAME) != -1)                       {v.setName(c.getString(c.getColumnIndexOrThrow(VEHICLE_NAME))); }
             if (c.getColumnIndex(VEHICLE_SHORT_NAME) != -1)                 {v.setShort_name(c.getString( c.getColumnIndexOrThrow(VEHICLE_SHORT_NAME))); }
@@ -148,6 +149,7 @@ public class VehicleDAO extends DbContentProvider implements VehicleISchema, Veh
     private void setContentValue(Vehicle v) {
         initialValues = new ContentValues();
         initialValues.put(VEHICLE_ID, v.id);
+        initialValues.put(VEHICLE_IMAGE, v.image);
         initialValues.put(VEHICLE_VEHICLE_TYPE, v.vehicle_type);
         initialValues.put(VEHICLE_NAME, v.name);
         initialValues.put(VEHICLE_LICENCE_PLATE, v.license_plate);

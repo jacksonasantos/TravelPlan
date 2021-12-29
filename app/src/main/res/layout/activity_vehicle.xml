@@ -29,42 +29,68 @@
                 android:hint="@string/Vehicle_Type">
             </RadioGroup>
         </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <EditText
-                android:id="@+id/etNameVehicle"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginStart="@dimen/labels_margin"
-                android:layout_marginLeft="@dimen/labels_margin"
-                android:layout_marginTop="@dimen/labels_space_top"
-                android:layout_marginEnd="@dimen/labels_margin"
-                android:layout_marginRight="@dimen/labels_margin"
-                android:autofillHints="no"
-                android:hint="@string/Vehicle_Name"
-                android:inputType="text|textCapWords"
-                android:textSize="14sp" />
-        </com.google.android.material.textfield.TextInputLayout>
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/labels_margin"
+            android:layout_marginLeft="@dimen/labels_margin"
+            android:layout_marginTop="@dimen/labels_space_top"
+            android:layout_marginEnd="@dimen/labels_margin"
+            android:layout_marginRight="@dimen/labels_margin">
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <EditText
-                android:id="@+id/etShortNameVehicle"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginStart="@dimen/labels_margin"
-                android:layout_marginLeft="@dimen/labels_margin"
-                android:layout_marginTop="@dimen/labels_space_top"
-                android:layout_marginEnd="@dimen/labels_margin"
-                android:layout_marginRight="@dimen/labels_margin"
-                android:autofillHints="no"
-                android:hint="@string/Vehicle_Short_Name"
-                android:inputType="text|textCapWords"
-                android:textSize="14sp" />
-        </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textInputLayout6"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toStartOf="@+id/imgVehicle_Image"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <EditText
+                    android:id="@+id/etNameVehicle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/labels_space_top"
+                    android:layout_marginEnd="@dimen/labels_margin"
+                    android:autofillHints="no"
+                    android:hint="@string/Vehicle_Name"
+                    android:inputType="text|textCapWords"
+                    android:textSize="14sp" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <ImageView
+                android:id="@+id/imgVehicle_Image"
+                android:layout_width="110dp"
+                android:layout_height="110dp"
+                android:gravity="center"
+                android:hint="@string/Vehicle_Image"
+                android:nextFocusDown="@+id/etShortNameVehicle"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_menu_vehicle"
+                tools:ignore="ContentDescription" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/imgVehicle_Image"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textInputLayout6">
+
+                <EditText
+                    android:id="@+id/etShortNameVehicle"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="@dimen/labels_space_top"
+                    android:layout_marginEnd="@dimen/labels_margin"
+                    android:autofillHints="no"
+                    android:hint="@string/Vehicle_Short_Name"
+                    android:inputType="text|textCapWords"
+                    android:textSize="14sp" />
+            </com.google.android.material.textfield.TextInputLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"

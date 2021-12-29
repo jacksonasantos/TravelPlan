@@ -11,6 +11,7 @@ import java.util.Date;
 
 public class Vehicle {
     public Integer id;
+    public byte[] image;
     public int vehicle_type;
     public String name;
     public String short_name;
@@ -48,6 +49,7 @@ public class Vehicle {
 
     public Vehicle() {
         this.id = id;
+        this.image = image;
         this.vehicle_type = vehicle_type;
         this.name = name;
         this.short_name = short_name;
@@ -90,6 +92,9 @@ public class Vehicle {
     public void setId(Integer id) {
         this.id = id;
     }
+
+    public byte[] getImage() {return image;}
+    public void setImage(byte[] image) {this.image = image;}
 
     public static int getVehicle_color(String color_code) {
         color_code = color_code==null ? "000000" : color_code;

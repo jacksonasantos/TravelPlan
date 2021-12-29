@@ -51,6 +51,7 @@
     <string name="suv">SUV</string>
 
     <string name="Vehicle_Id">Identification Vehicle</string>
+    <string name="Vehicle_Image">Vehicle Image</string>
     <string name="Vehicle_Type">Vehicle Type</string>
     <string name="Vehicle_Name">Name Vehicle</string>
     <string name="Vehicle_Short_Name">Short Name </string>

@@ -338,4 +338,5 @@
     <string name="Error_No_Image_Found">Nenhuma Imagem Encontrada</string>
     <string name="review">Revisão</string>
     <string name="plating_painting_polishing">Chapeação/Pintura/Polimento</string>
+    <string name="Vehicle_Image">Imagem do Veículo</string>
 </resources>

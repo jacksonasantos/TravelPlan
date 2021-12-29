@@ -7,7 +7,6 @@ public class Achievement {
     public Integer travel_id;
     public String short_name;
     public String name;
-    // TODO - Ajustar o tipo de armazenamento da imagem
     public byte[] image;
     public String city;
     public String state;

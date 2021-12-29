@@ -26,6 +26,7 @@ import com.jacksonasantos.travelplan.R;
 import com.jacksonasantos.travelplan.dao.Achievement;
 import com.jacksonasantos.travelplan.dao.general.Database;
 import com.jacksonasantos.travelplan.ui.general.MyGalleryImageAdapter;
+import com.jacksonasantos.travelplan.ui.utility.Utils;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -121,7 +122,7 @@ public class AchievementActivity extends AppCompatActivity {
         AtomicInteger imgPos = new AtomicInteger();
 
         imgAchievement.setOnClickListener( view -> {
-            ArrayList<File> list = imageReader(Objects.requireNonNull(getExternalFilesDir(null)));
+            ArrayList<File> list = Utils.imageReader(Objects.requireNonNull(getExternalFilesDir(null)));
             LayoutInflater inflater = this.getLayoutInflater();
             View v = inflater.inflate(R.layout.dialog_my_files, null);
             GridView gV = v.findViewById(R.id.gridView1);
@@ -138,20 +139,6 @@ public class AchievementActivity extends AppCompatActivity {
             builder2.setCancelable(false);
             builder2.create().show();
         });
-    }
-    private ArrayList<File> imageReader(File root) {
-        ArrayList<File> a = new  ArrayList<>();
-        File[] files = root.listFiles();
-        if (files != null) {
-            for (File file : files) {
-                if (file.isDirectory()) {
-                    a.addAll(imageReader(file));
-                } else {
-                    a.add(file);
-                }
-            }
-        }
-        return a;
     }
 
     private void addListenerOnButtonAchievement() {
@@ -181,7 +168,6 @@ public class AchievementActivity extends AppCompatActivity {
                 a1.setShort_name(etAchievement_Short_Name.getText().toString());
                 a1.setName(etAchievement_Name.getText().toString());
 
-                //a1.setImage(imgAchievement_Image.getBlob());
                 Bitmap bitmap = ((BitmapDrawable)imgAchievement_Image.getDrawable()).getBitmap();
                 ByteArrayOutputStream saida = new ByteArrayOutputStream();
                 bitmap.compress(Bitmap.CompressFormat.PNG,100,saida);

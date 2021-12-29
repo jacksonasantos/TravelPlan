@@ -5,6 +5,7 @@ public interface VehicleISchema {
     String VEHICLE_TABLE = "vehicle";
 
     String VEHICLE_ID = "id";
+    String VEHICLE_IMAGE = "image";
     String VEHICLE_VEHICLE_TYPE = "vehicle_type";
     String VEHICLE_NAME = "name";
     String VEHICLE_LICENCE_PLATE = "license_plate";
@@ -88,8 +89,12 @@ public interface VehicleISchema {
     // Version 35
     String ALTER_TABLE_VEHICLE_V35 = "ALTER TABLE " + VEHICLE_TABLE + " ADD COLUMN " + VEHICLE_COLOR_CODE + " INT";
 
+    // Version 40
+    String ALTER_TABLE_VEHICLE_V40 = "ALTER TABLE " + VEHICLE_TABLE + " ADD COLUMN " + VEHICLE_IMAGE + " BLOB";
+
     String[] VEHICLE_COLUMNS = new String[] {
             VEHICLE_ID,
+            VEHICLE_IMAGE,
             VEHICLE_VEHICLE_TYPE,
             VEHICLE_NAME,
             VEHICLE_LICENCE_PLATE,

@@ -1,17 +1,25 @@
 package com.jacksonasantos.travelplan.ui.vehicle;
 
 import android.annotation.SuppressLint;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.GridView;
+import android.widget.ImageView;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.flask.colorpicker.ColorPickerView;
@@ -19,13 +27,23 @@ import com.flask.colorpicker.builder.ColorPickerDialogBuilder;
 import com.jacksonasantos.travelplan.R;
 import com.jacksonasantos.travelplan.dao.Vehicle;
 import com.jacksonasantos.travelplan.dao.general.Database;
+import com.jacksonasantos.travelplan.ui.general.MyGalleryImageAdapter;
 import com.jacksonasantos.travelplan.ui.utility.DateInputMask;
 import com.jacksonasantos.travelplan.ui.utility.Utils;
+
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.util.ArrayList;
+import java.util.Objects;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class VehicleActivity extends AppCompatActivity {
 
     private RadioGroup rgVehicleType;
     private int rbVehicleType;
+    private ImageView imgVehicle_Image;
+    Bitmap raw;
+    private byte[] imgArray;
     private EditText etNameVehicle;
     private EditText etShortNameVehicle;
     private EditText etBrand;                            // TODO - Implement API of BRAND´s
@@ -74,16 +92,14 @@ public class VehicleActivity extends AppCompatActivity {
         setContentView(R.layout.activity_vehicle);
 
         Bundle extras = getIntent().getExtras();
+        vehicle = new Vehicle();
         if (extras != null) {
-            vehicle = new Vehicle();
             vehicle.setId(extras.getInt("id"));
             vehicle = Database.mVehicleDao.fetchVehicleById(vehicle.getId());
             opInsert = false;
         } else {
-            vehicle = new Vehicle();
             vehicle.setColor_code(Color.BLACK);
         }
-
 
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
@@ -91,9 +107,11 @@ public class VehicleActivity extends AppCompatActivity {
         }
 
         addListenerOnButtonSave();
+        addListenerOnImageVehicle();
 
         rgVehicleType = findViewById(R.id.rgVehicleType);
         etNameVehicle = findViewById(R.id.etNameVehicle);
+        imgVehicle_Image = findViewById(R.id.imgVehicle_Image);
         etShortNameVehicle = findViewById(R.id.etShortNameVehicle);
         etBrand = findViewById(R.id.etBrand);
         etModel = findViewById(R.id.etModel);
@@ -152,6 +170,11 @@ public class VehicleActivity extends AppCompatActivity {
         if (vehicle != null) {
             rgVehicleType.check(vehicle.getVehicle_type());
             etNameVehicle.setText(vehicle.getName());
+            imgArray = vehicle.getImage();
+            if(imgArray!=null){
+                raw = BitmapFactory.decodeByteArray(imgArray,0, imgArray.length);
+                imgVehicle_Image.setImageBitmap(raw);
+            }
             etShortNameVehicle.setText(vehicle.getShort_name());
             etBrand.setText(vehicle.getBrand());
             etModel.setText(vehicle.getModel());
@@ -185,6 +208,30 @@ public class VehicleActivity extends AppCompatActivity {
         }
     }
 
+    private void addListenerOnImageVehicle() {
+        ImageView imgVehicle_Image = findViewById(R.id.imgVehicle_Image);
+        AtomicInteger imgPos = new AtomicInteger();
+
+        imgVehicle_Image.setOnClickListener(view -> {
+            ArrayList<File> list = Utils.imageReader(Objects.requireNonNull(getExternalFilesDir(null)));
+            LayoutInflater inflater = this.getLayoutInflater();
+            View v = inflater.inflate(R.layout.dialog_my_files, null);
+            GridView gV = v.findViewById(R.id.gridView1);
+            gV.setAdapter(new MyGalleryImageAdapter(this, list));
+            gV.setOnItemClickListener((parent, view1, position, id) -> imgPos.set(position));
+            final AlertDialog.Builder builder2 = new AlertDialog.Builder(this);
+            builder2.setView(v)
+                    .setPositiveButton(R.string.OK, (dialog, which) -> {
+                        Bitmap myBitmap = BitmapFactory.decodeFile(list.get(imgPos.get()).getAbsolutePath());
+                        imgVehicle_Image.setImageBitmap(myBitmap);
+                        dialog.dismiss();
+                    })
+                    .setNegativeButton(R.string.Cancel, (dialog, which) -> dialog.cancel());
+            builder2.setCancelable(false);
+            builder2.create().show();
+        });
+    }
+
     public void addListenerOnButtonSave() {
        Button btSaveVehicle = findViewById(R.id.btSaveVehicle);
 
@@ -196,6 +243,13 @@ public class VehicleActivity extends AppCompatActivity {
                 final Vehicle v1 = new Vehicle();
                 v1.setVehicle_type(rbVehicleType);
                 v1.setName(etNameVehicle.getText().toString());
+
+                Bitmap bitmap = ((BitmapDrawable)imgVehicle_Image.getDrawable()).getBitmap();
+                ByteArrayOutputStream saida = new ByteArrayOutputStream();
+                bitmap.compress(Bitmap.CompressFormat.PNG,100,saida);
+                byte[] img = saida.toByteArray();
+                v1.setImage(img);
+
                 v1.setShort_name(etShortNameVehicle.getText().toString());
                 v1.setBrand(etBrand.getText().toString());
                 v1.setModel(etModel.getText().toString());

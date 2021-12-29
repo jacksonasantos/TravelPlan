@@ -13,12 +13,30 @@ import android.widget.SpinnerAdapter;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.io.File;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
 public class Utils extends AppCompatActivity  {
+
+    public static ArrayList<File> imageReader(File root)
+    {
+        ArrayList<File> a = new  ArrayList<>();
+        File[] files = root.listFiles();
+        if (files != null) {
+            for (File file : files) {
+                if (file.isDirectory()) {
+                    a.addAll(imageReader(file));
+                } else {
+                    a.add(file);
+                }
+            }
+        }
+        return a;
+    }
 
     public static int[] getRGB(final String rgb)
     {
