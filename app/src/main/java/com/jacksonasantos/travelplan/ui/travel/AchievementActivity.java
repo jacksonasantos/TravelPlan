@@ -25,6 +25,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.jacksonasantos.travelplan.R;
 import com.jacksonasantos.travelplan.dao.Achievement;
 import com.jacksonasantos.travelplan.dao.general.Database;
+import com.jacksonasantos.travelplan.ui.general.MyGalleryImageAdapter;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -124,7 +125,7 @@ public class AchievementActivity extends AppCompatActivity {
             LayoutInflater inflater = this.getLayoutInflater();
             View v = inflater.inflate(R.layout.dialog_my_files, null);
             GridView gV = v.findViewById(R.id.gridView1);
-            gV.setAdapter(new AchievementDialogAdapter(this, list));
+            gV.setAdapter(new MyGalleryImageAdapter(this, list));
             gV.setOnItemClickListener((parent, view1, position, id) -> imgPos.set(position) );
             final AlertDialog.Builder builder2 = new AlertDialog.Builder(this);
             builder2.setView(v)

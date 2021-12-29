@@ -119,6 +119,8 @@
         <item>@string/oil_change</item>                  <!--20-->
         <item>@string/spark_plug</item>                  <!--21-->
         <item>@string/accessory</item>                   <!--22-->
+        <item>@string/review</item>                      <!--23-->
+        <item>@string/plating_painting_polishing</item>  <!--24-->
     </string-array>
     <!-- Measure Plan -->
     <string-array name="measure_plan">

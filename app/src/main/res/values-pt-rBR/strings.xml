@@ -336,4 +336,6 @@
     <string name="Vehicle_not_Selected">Veículo não Selecionado</string>
     <string name="Achievement_Status">Situação</string>
     <string name="Error_No_Image_Found">Nenhuma Imagem Encontrada</string>
+    <string name="review">Revisão</string>
+    <string name="plating_painting_polishing">Chapeação/Pintura/Polimento</string>
 </resources>

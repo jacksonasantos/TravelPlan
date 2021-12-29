@@ -4,11 +4,16 @@
     android:orientation="vertical"
     android:background="@color/colorBackgroundDialog"
     android:padding="5dp">
+
     <GridView
         android:id="@+id/gridView1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:clickable="true"
+        android:drawSelectorOnTop="true"
+        android:focusable="true"
         android:gravity="center"
+        android:listSelector="@color/colorSelectedImage"
         android:numColumns="auto_fit"
         android:stretchMode="columnWidth" />
 </RelativeLayout >

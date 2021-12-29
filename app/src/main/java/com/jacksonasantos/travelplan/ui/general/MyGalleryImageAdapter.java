@@ -1,4 +1,4 @@
-package com.jacksonasantos.travelplan.ui.travel;
+package com.jacksonasantos.travelplan.ui.general;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -15,11 +15,11 @@ import com.jacksonasantos.travelplan.R;
 import java.io.File;
 import java.util.ArrayList;
 
-public class AchievementDialogAdapter extends BaseAdapter {
+public class MyGalleryImageAdapter extends BaseAdapter {
     private final Context context;
     private final ArrayList<File> listImages;
 
-    public AchievementDialogAdapter(Context context, ArrayList<File> listImages) {
+    public MyGalleryImageAdapter(Context context, ArrayList<File> listImages) {
         this.context = context;
         this.listImages = listImages;
     }
@@ -38,7 +38,6 @@ public class AchievementDialogAdapter extends BaseAdapter {
             viewHolder.textViewItem = convertView.findViewById(R.id.grid_item_label);
             viewHolder.imageViewItem = convertView.findViewById(R.id.grid_item_image);
             convertView.setTag(viewHolder);
-
         } else {
             viewHolder = (ViewHolderItem) convertView.getTag();
         }
