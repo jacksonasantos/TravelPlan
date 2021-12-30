@@ -9,6 +9,14 @@
     android:orientation="horizontal"
     tools:context=".ui.travel.TravelActivity">
 
+    <ImageView
+        android:id="@+id/imgAchievement"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginEnd="@dimen/labels_margin"
+        android:layout_gravity="center"
+        android:contentDescription="@string/Achievement_Image" />
+
     <TextView
         android:id="@+id/txtNameAchievement"
         android:layout_width="0dp"
@@ -25,6 +33,8 @@
         android:id="@+id/btnStatus_Achievement"
         android:layout_width="22dp"
         android:layout_height="22dp"
+        android:layout_marginEnd="@dimen/labels_margin"
+        android:adjustViewBounds="true"
         android:contentDescription="@string/Achievement_Status"
         android:padding="7dp"
         android:scaleType="fitCenter"

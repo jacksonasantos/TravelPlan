@@ -2,12 +2,16 @@ package com.jacksonasantos.travelplan.ui.travel;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.res.ColorStateList;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -60,22 +64,32 @@ public class TravelAchievementListAdapter extends RecyclerView.Adapter<RecyclerV
             HeaderViewHolder headerViewHolder = (HeaderViewHolder) holder;
 
             headerViewHolder.llAchievementTravelItem.setBackgroundColor(Color.LTGRAY);
+            headerViewHolder.imgAchievement.setImageBitmap(null);
             headerViewHolder.txtNameAchievement.setText(R.string.Achievement);
             headerViewHolder.btnDelete.setVisibility(View.INVISIBLE);
             headerViewHolder.btnStatus_Achievement.setVisibility(View.INVISIBLE);
         }
         else if (holder instanceof ItemViewHolder) {
             final ItemViewHolder itemViewHolder = (ItemViewHolder) holder;
+            byte[] imgArray = mAchievement.get(position-show_header).getImage();
+            if (imgArray!=null){
+                Bitmap raw = BitmapFactory.decodeByteArray(imgArray, 0, imgArray.length);
+                itemViewHolder.imgAchievement.setImageBitmap(raw);
+            }
             itemViewHolder.txtNameAchievement.setText(mAchievement.get(position-show_header).getName());
 
             if (form.equals("Home")) {
                 itemViewHolder.btnDelete.setVisibility(View.INVISIBLE);
                 itemViewHolder.btnStatus_Achievement.setVisibility(View.VISIBLE);
-                if (mAchievement.get(position-show_header).getStatus_achievement() == 1){
-                    itemViewHolder.btnStatus_Achievement.setBackgroundColor(Color.GREEN);
-                } else {
-                    itemViewHolder.btnStatus_Achievement.setBackgroundColor(Color.LTGRAY);
-                }
+            } else {
+                itemViewHolder.btnDelete.setVisibility(View.VISIBLE);
+                itemViewHolder.btnStatus_Achievement.setVisibility(View.VISIBLE);
+            }
+
+            if (mAchievement.get(position-show_header).getStatus_achievement() == 1){
+                itemViewHolder.btnStatus_Achievement.setBackgroundTintList(ColorStateList.valueOf(Color.GREEN));
+            } else {
+                itemViewHolder.btnStatus_Achievement.setBackgroundTintList(ColorStateList.valueOf(Color.LTGRAY));
             }
 
             itemViewHolder.btnStatus_Achievement.setOnClickListener(new View.OnClickListener() {
@@ -137,6 +151,7 @@ public class TravelAchievementListAdapter extends RecyclerView.Adapter<RecyclerV
 
     private static class HeaderViewHolder extends RecyclerView.ViewHolder {
         public LinearLayout llAchievementTravelItem;
+        public ImageView imgAchievement;
         public TextView txtNameAchievement;
         public ImageButton btnDelete;
         public ImageButton btnStatus_Achievement;
@@ -144,6 +159,7 @@ public class TravelAchievementListAdapter extends RecyclerView.Adapter<RecyclerV
         public HeaderViewHolder(View v) {
             super(v);
             llAchievementTravelItem = v.findViewById(R.id.llAchievementTravelItem);
+            imgAchievement = v.findViewById(R.id.imgAchievement);
             txtNameAchievement = v.findViewById(R.id.txtNameAchievement);
             btnDelete = v.findViewById(R.id.btnDelete);
             btnStatus_Achievement = v.findViewById(R.id.btnStatus_Achievement);
@@ -152,6 +168,7 @@ public class TravelAchievementListAdapter extends RecyclerView.Adapter<RecyclerV
 
     public static class ItemViewHolder extends RecyclerView.ViewHolder {
         public LinearLayout llAchievementTravelItem;
+        public ImageView imgAchievement;
         public TextView txtNameAchievement;
         public ImageButton btnDelete;
         public ImageButton btnStatus_Achievement;
@@ -159,6 +176,7 @@ public class TravelAchievementListAdapter extends RecyclerView.Adapter<RecyclerV
         public ItemViewHolder(View v) {
             super(v);
             llAchievementTravelItem = v.findViewById(R.id.llAchievementTravelItem);
+            imgAchievement = v.findViewById(R.id.imgAchievement);
             txtNameAchievement = v.findViewById(R.id.txtNameAchievement);
             btnDelete = v.findViewById(R.id.btnDelete);
             btnStatus_Achievement = v.findViewById(R.id.btnStatus_Achievement);

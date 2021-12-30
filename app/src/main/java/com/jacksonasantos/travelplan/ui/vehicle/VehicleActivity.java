@@ -174,6 +174,8 @@ public class VehicleActivity extends AppCompatActivity {
             if(imgArray!=null){
                 raw = BitmapFactory.decodeByteArray(imgArray,0, imgArray.length);
                 imgVehicle_Image.setImageBitmap(raw);
+            } else {
+                imgVehicle_Image.setImageResource(vehicle.getVehicleTypeImage(vehicle.getVehicle_type()));
             }
             etShortNameVehicle.setText(vehicle.getShort_name());
             etBrand.setText(vehicle.getBrand());

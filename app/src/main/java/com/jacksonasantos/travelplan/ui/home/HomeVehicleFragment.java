@@ -155,7 +155,7 @@ public class HomeVehicleFragment extends Fragment implements View.OnClickListene
         }
         final Vehicle[] vehicle = {new Vehicle()};
         spVehicle.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @SuppressLint({"SetTextI18n", "SimpleDateFormat"})
+            @SuppressLint({"SetTextI18n", "SimpleDateFormat", "NotifyDataSetChanged"})
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long idx) {
 
@@ -163,7 +163,7 @@ public class HomeVehicleFragment extends Fragment implements View.OnClickListene
                 vehicle[0] = (Vehicle) parent.getItemAtPosition(position);
                 tvLicencePlate.setText(vehicle[0].getLicense_plate());
                 byte[] imgArray = vehicle[0].getImage();
-                if(imgArray!=null){
+                if (imgArray!=null){
                     Bitmap raw = BitmapFactory.decodeByteArray(imgArray, 0, imgArray.length);
                     imVehicleType.setImageBitmap(raw);
                 } else {

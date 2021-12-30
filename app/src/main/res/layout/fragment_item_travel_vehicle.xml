@@ -37,6 +37,7 @@
         android:id="@+id/btnDelete"
         android:layout_width="22dp"
         android:layout_height="22dp"
+        android:layout_marginEnd="@dimen/labels_margin"
         android:contentDescription="@string/bt_Delete"
         android:padding="7dp"
         android:scaleType="fitCenter"
