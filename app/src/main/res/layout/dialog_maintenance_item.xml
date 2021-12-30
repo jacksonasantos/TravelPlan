@@ -57,7 +57,7 @@
                     android:layout_weight="0.5"
                     android:inputType="number"
                     tools:ignore="LabelFor"
-                    android:autofillHints="" />
+                    android:autofillHints="no" />
             </LinearLayout>
 
             <TextView
