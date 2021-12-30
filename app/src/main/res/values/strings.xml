@@ -41,6 +41,7 @@
     <string name="english">English</string>
 
     <string name="vehicle_default">Vehicle Default</string>
+    <string name="travel_default">Travel Default</string>
 
     <!-- Vehicle Fragment -->
     <string name="Vehicle">Vehicle</string>

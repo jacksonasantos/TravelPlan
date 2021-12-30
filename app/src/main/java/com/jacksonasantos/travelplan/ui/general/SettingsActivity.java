@@ -57,20 +57,37 @@ public class SettingsActivity extends AppCompatActivity {
 
             ListPreference vehicleList = findPreference("vehicle_default");
             Cursor v = Database.mVehicleDao.selectVehicles();
-            List<String> entries = new ArrayList<>();
-            List<String> entryValues = new ArrayList<>();
+            List<String> vehicle_entries = new ArrayList<>();
+            List<String> vehicle_entryValues = new ArrayList<>();
             if(v != null && v.moveToFirst()){
-                do {entries.add(v.getString(1));
-                    entryValues.add(Integer.toString(v.getInt(0)));
+                do {vehicle_entries.add(v.getString(1));
+                    vehicle_entryValues.add(Integer.toString(v.getInt(0)));
                 } while (v.moveToNext());
             }
             assert v != null;
             v.close();
-            final CharSequence[] entryCharSeq = entries.toArray(new CharSequence[0]);
-            final CharSequence[] entryValChar = entryValues.toArray(new CharSequence[0]);
+            final CharSequence[] entryCharSeq = vehicle_entries.toArray(new CharSequence[0]);
+            final CharSequence[] entryValChar = vehicle_entryValues.toArray(new CharSequence[0]);
             assert vehicleList != null;
             vehicleList.setEntries(entryCharSeq);
             vehicleList.setEntryValues(entryValChar);
+
+            ListPreference travelList = findPreference("travel_default");
+            Cursor t = Database.mTravelDao.selectTravels();
+            List<String> travel_entries = new ArrayList<>();
+            List<String> travel_entryValues = new ArrayList<>();
+            if(t != null && t.moveToFirst()){
+                do {travel_entries.add(t.getString(1));
+                    travel_entryValues.add(Integer.toString(t.getInt(0)));
+                } while (t.moveToNext());
+            }
+            assert t != null;
+            t.close();
+            final CharSequence[] t_entryCharSeq = travel_entries.toArray(new CharSequence[0]);
+            final CharSequence[] t_entryValChar = travel_entryValues.toArray(new CharSequence[0]);
+            assert travelList != null;
+            travelList.setEntries(t_entryCharSeq);
+            travelList.setEntryValues(t_entryValChar);
         }
 
         Preference.OnPreferenceChangeListener languageChangeListener = (preference, newValue) -> {

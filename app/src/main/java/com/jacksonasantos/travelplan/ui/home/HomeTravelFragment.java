@@ -149,11 +149,23 @@ public class HomeTravelFragment extends Fragment implements View.OnClickListener
         adapterTravel.setDropDownViewResource( android.R.layout.simple_spinner_dropdown_item);
         spTravel.setAdapter(adapterTravel);
 
+        if (travels.size()>0) {
+            for (int x = 0; x <= travels.size(); x++) {
+                if (travels.get(x).getId().equals(g.getIdTravel())) {
+                    spTravel.setSelection(x);
+                    break;
+                }
+            }
+        }
+
         final Travel[] travel = {new Travel()};
         spTravel.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @SuppressLint({"SetTextI18n", "DefaultLocale", "NotifyDataSetChanged"})
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                travel[0] = (Travel) parent.getItemAtPosition(position);
+                g.setIdTravel(travel[0].getId());
 
                 layerTravel.setVisibility(View.VISIBLE);
                 travel[0] = (Travel) parent.getItemAtPosition(position);

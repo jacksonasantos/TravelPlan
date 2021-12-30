@@ -5,6 +5,7 @@ public class Globals {
     private static Globals instance;
 
     private Integer idVehicle;
+    private Integer idTravel;
     private boolean blFilterVehicle;
     private String txLanguage = "pt";
     private String txCountry = "BR";
@@ -24,6 +25,9 @@ public class Globals {
 
     public Integer getIdVehicle() { return this.idVehicle; }
     public void setIdVehicle(Integer id) { this.idVehicle = id; }
+
+    public Integer getIdTravel() { return this.idTravel; }
+    public void setIdTravel(Integer id) { this.idTravel = id; }
 
     public Boolean getFilterVehicle() { return this.blFilterVehicle; }
     public void setFilterVehicle(Boolean filter) { this.blFilterVehicle = filter; }

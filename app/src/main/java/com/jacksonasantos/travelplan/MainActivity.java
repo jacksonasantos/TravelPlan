@@ -182,6 +182,10 @@ public class MainActivity extends AppCompatActivity {
         assert vehicle_pref != null;
         g.setIdVehicle(Integer.valueOf(vehicle_pref));
 
+        String travel_pref = settings.getString("travel_default", String.valueOf(0));
+        assert travel_pref != null;
+        g.setIdTravel(Integer.valueOf(travel_pref));
+
         String lang = settings.getString("language", "");
         if (lang != null && !"".equals(lang) && !config.locale.getLanguage().equals(lang)) {
             g.setLanguage(lang);

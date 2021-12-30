@@ -44,6 +44,14 @@
             app:key="vehicle_default"
             app:title="@string/vehicle_default"
             app:useSimpleSummaryProvider="true" />
+
+        <ListPreference
+            app:entries="@array/travel_array"
+            app:entryValues="@array/travel_arrayValues"
+            app:key="travel_default"
+            app:title="@string/travel_default"
+            app:useSimpleSummaryProvider="true" />
+
     </PreferenceCategory>
 
  </PreferenceScreen>

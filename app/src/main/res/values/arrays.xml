@@ -17,14 +17,16 @@
         <item>@string/male</item>
         <item>@string/female</item>
     </string-array>
-
     <!-- Vehicle Array-->
     <string-array name="vehicle_array">
     </string-array>
     <!-- Vehicle Array-->
     <string-array name="vehicle_arrayValues">
     </string-array>
-
+    <string-array name="travel_array">
+    </string-array>
+    <string-array name="travel_arrayValues">
+    </string-array>
     <!-- Vehicle Type -->
     <string-array name="vehicle_type_array">
         <item>@string/car</item>

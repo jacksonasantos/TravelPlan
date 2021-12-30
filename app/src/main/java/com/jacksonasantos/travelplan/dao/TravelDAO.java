@@ -37,6 +37,14 @@ public class TravelDAO extends DbContentProvider implements TravelISchema, Trave
         return travel;
     }
 
+    public Cursor selectTravels(){
+        String[] TRAVEL_COLUMNS = new String[] {
+                TRAVEL_ID,
+                TRAVEL_DESCRIPTION
+        };
+        return super.query(TRAVEL_TABLE, TRAVEL_COLUMNS, null,null, TRAVEL_DESCRIPTION);
+    }
+
     public Travel fetchTravelByStatus(int status) {
         final String[] selectionArgs = { String.valueOf(status) };
         final String selection = TRAVEL_STATUS + " = ?";
