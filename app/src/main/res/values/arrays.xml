@@ -20,9 +20,9 @@
     <!-- Vehicle Array-->
     <string-array name="vehicle_array">
     </string-array>
-    <!-- Vehicle Array-->
     <string-array name="vehicle_arrayValues">
     </string-array>
+    <!-- Travel Array-->
     <string-array name="travel_array">
     </string-array>
     <string-array name="travel_arrayValues">

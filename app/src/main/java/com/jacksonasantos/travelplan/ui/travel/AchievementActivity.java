@@ -47,7 +47,7 @@ public class AchievementActivity extends AppCompatActivity {
     private EditText etAchievement_Note;
     private TextView txTravelAchievement;
     private ImageButton imgStatusAchievement;
-    private Integer nrStatusAchievement;
+    private Integer nrStatusAchievement = 0;
 
     private boolean opInsert = true;
     private Achievement achievement;
@@ -179,12 +179,12 @@ public class AchievementActivity extends AppCompatActivity {
                 a1.setCountry(etAchievement_Country.getText().toString());
                 a1.setLatlng_achievement(etAchievement_Latlng_Achievement.getText().toString());
                 a1.setNote(etAchievement_Note.getText().toString());
-                a1.setTravel_id(achievement.getTravel_id());
                 a1.setStatus_achievement(nrStatusAchievement);
 
                 if (!opInsert) {
                      try {
                         a1.setId(achievement.getId());
+                        a1.setTravel_id(achievement.getTravel_id());
                         isSave = Database.mAchievementDao.updateAchievement(a1);
                     } catch (Exception e) {
                         Toast.makeText(getApplicationContext(), R.string.Error_Changing_Data + e.getMessage(), Toast.LENGTH_LONG).show();
