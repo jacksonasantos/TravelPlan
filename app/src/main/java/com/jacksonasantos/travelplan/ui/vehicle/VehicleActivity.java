@@ -215,7 +215,7 @@ public class VehicleActivity extends AppCompatActivity {
         AtomicInteger imgPos = new AtomicInteger();
 
         imgVehicle_Image.setOnClickListener(view -> {
-            ArrayList<File> list = Utils.imageReader(Objects.requireNonNull(getExternalFilesDir(null)));
+            ArrayList<File> list = Utils.imageReader(Objects.requireNonNull(getExternalFilesDir("/vehicles")));
             LayoutInflater inflater = this.getLayoutInflater();
             View v = inflater.inflate(R.layout.dialog_my_files, null);
             GridView gV = v.findViewById(R.id.gridView1);

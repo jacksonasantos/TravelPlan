@@ -122,7 +122,7 @@ public class AchievementActivity extends AppCompatActivity {
         AtomicInteger imgPos = new AtomicInteger();
 
         imgAchievement.setOnClickListener( view -> {
-            ArrayList<File> list = Utils.imageReader(Objects.requireNonNull(getExternalFilesDir(null)));
+            ArrayList<File> list = Utils.imageReader(Objects.requireNonNull(getExternalFilesDir("/achievements")));
             LayoutInflater inflater = this.getLayoutInflater();
             View v = inflater.inflate(R.layout.dialog_my_files, null);
             GridView gV = v.findViewById(R.id.gridView1);
