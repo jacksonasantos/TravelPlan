@@ -29,23 +29,23 @@ import java.util.Locale;
 public class MaintenanceListAdapter extends RecyclerView.Adapter<MaintenanceListAdapter.MyViewHolder> {
 
     private final List<Maintenance> mMaintenance;
-    Context context;
+    final Context context;
 
-    Globals g = Globals.getInstance();
+    final Globals g = Globals.getInstance();
 
-    Locale locale = new Locale(g.getLanguage(), g.getCountry());
-    NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(locale);
-    NumberFormat numberFormatter = NumberFormat.getNumberInstance(locale);
+    final Locale locale = new Locale(g.getLanguage(), g.getCountry());
+    final NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(locale);
+    final NumberFormat numberFormatter = NumberFormat.getNumberInstance(locale);
 
     public static class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        public TextView txtMaintenanceDate;
-        public TextView txtVehicleName;
-        public TextView txtMaintenanceOdometer;
-        public TextView txtMaintenanceValue;
-        public TextView txtMaintenanceDetail;
-        public ImageButton btnEdit;
-        public ImageButton btnDelete;
+        public final TextView txtMaintenanceDate;
+        public final TextView txtVehicleName;
+        public final TextView txtMaintenanceOdometer;
+        public final TextView txtMaintenanceValue;
+        public final TextView txtMaintenanceDetail;
+        public final ImageButton btnEdit;
+        public final ImageButton btnDelete;
 
         public MyViewHolder(View v) {
             super(v);
@@ -99,7 +99,7 @@ public class MaintenanceListAdapter extends RecyclerView.Adapter<MaintenanceList
             Intent intent = new Intent (v12.getContext(), MaintenanceActivity.class);
             intent.putExtra("maintenance_id", maintenance.getId());
             context.startActivity(intent);
-            notifyDataSetChanged();
+            notifyItemChanged(position);
         });
 
         // btnDelete

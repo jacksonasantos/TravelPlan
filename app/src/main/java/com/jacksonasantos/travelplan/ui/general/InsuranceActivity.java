@@ -65,7 +65,7 @@ public  class InsuranceActivity extends AppCompatActivity {
     private boolean opInsert = true;
     private Insurance insurance;
 
-    @SuppressLint("WrongViewCast")
+    @SuppressLint({"WrongViewCast", "NotifyDataSetChanged"})
     @RequiresApi(api = Build.VERSION_CODES.N)
 
     @Override

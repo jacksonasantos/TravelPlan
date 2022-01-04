@@ -85,9 +85,9 @@ public class HomeTravelFragment extends Fragment implements View.OnClickListener
     private ConstraintLayout layerInsurance;
     private RecyclerView listInsuranceExpiration;
 
-    Globals g = Globals.getInstance();
-    Locale locale = new Locale(g.getLanguage(), g.getCountry());
-    NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(locale);
+    final Globals g = Globals.getInstance();
+    final Locale locale = new Locale(g.getLanguage(), g.getCountry());
+    final NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(locale);
 
     @Override
     public View onCreateView(@NonNull final LayoutInflater inflater,

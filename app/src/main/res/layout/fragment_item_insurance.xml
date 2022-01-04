@@ -43,7 +43,6 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/labels_marginLeft"
-        android:layout_marginLeft="@dimen/labels_marginLeft"
         android:gravity="center_horizontal|center_vertical"
         app:autoSizeMaxTextSize="12sp"
         app:autoSizeMinTextSize="4sp"

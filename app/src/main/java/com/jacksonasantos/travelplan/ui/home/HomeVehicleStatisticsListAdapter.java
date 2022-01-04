@@ -21,14 +21,14 @@ import java.util.Locale;
 
 public class HomeVehicleStatisticsListAdapter extends RecyclerView.Adapter<HomeVehicleStatisticsListAdapter.MyViewHolder> {
 
-    Globals g = Globals.getInstance();
+    final Globals g = Globals.getInstance();
 
-    Locale locale = new Locale(g.getLanguage(), g.getCountry());
-    NumberFormat numberFormat = NumberFormat.getNumberInstance(locale);
-    NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(locale);
+    final Locale locale = new Locale(g.getLanguage(), g.getCountry());
+    final NumberFormat numberFormat = NumberFormat.getNumberInstance(locale);
+    final NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(locale);
 
     private final List<VehicleStatistics> mVehicleStatistics;
-    Context context;
+    final Context context;
     String[] reasonTypeArray;
 
     public static class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {

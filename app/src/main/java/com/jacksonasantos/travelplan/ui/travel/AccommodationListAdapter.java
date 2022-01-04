@@ -74,7 +74,7 @@ public class AccommodationListAdapter extends RecyclerView.Adapter<Accommodation
             Intent intent = new Intent (v.getContext(), AccommodationActivity.class);
             intent.putExtra("accommodation_id", accommodation.getId());
             context.startActivity(intent);
-            notifyDataSetChanged();
+            notifyItemChanged(position);
         });
 
         // btnDelete

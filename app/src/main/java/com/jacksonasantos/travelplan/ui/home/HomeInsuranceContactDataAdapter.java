@@ -60,7 +60,7 @@ public class HomeInsuranceContactDataAdapter extends RecyclerView.Adapter<Recycl
     }
 
     static class VHHeader extends RecyclerView.ViewHolder{
-        TextView tvTypeContact;
+        final TextView tvTypeContact;
         public VHHeader(View itemView) {
             super(itemView);
             this.tvTypeContact = itemView.findViewById(R.id.tvTypeContact);
@@ -68,8 +68,8 @@ public class HomeInsuranceContactDataAdapter extends RecyclerView.Adapter<Recycl
     }
 
     static class VHItem extends RecyclerView.ViewHolder{
-        TextView tvDescriptionContact;
-        TextView tvDetailContact;
+        final TextView tvDescriptionContact;
+        final TextView tvDetailContact;
         public VHItem(View itemView) {
             super(itemView);
             this.tvDescriptionContact = itemView.findViewById(R.id.tvDescriptionContact);

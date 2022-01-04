@@ -1,6 +1,5 @@
 package com.jacksonasantos.travelplan.ui.travel;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
@@ -64,7 +63,6 @@ public class AchievementListAdapter extends RecyclerView.Adapter<AchievementList
         return new MyViewHolder(achievementView);
     }
 
-    @SuppressLint("NotifyDataSetChanged")
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public void onBindViewHolder(@NonNull final MyViewHolder holder, final int position) {
@@ -76,7 +74,7 @@ public class AchievementListAdapter extends RecyclerView.Adapter<AchievementList
             Intent intent = new Intent (v.getContext(), AchievementActivity.class);
             intent.putExtra("achievement_id", achievement.getId());
             context.startActivity(intent);
-            notifyDataSetChanged();
+            notifyItemChanged(position);
         });
 
         // btnDelete

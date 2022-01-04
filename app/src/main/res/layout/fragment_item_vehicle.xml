@@ -13,7 +13,6 @@
         android:id="@+id/imVehicleType"
         android:layout_width="40sp"
         android:layout_height="40sp"
-        android:layout_marginRight="@dimen/labels_margin"
         android:layout_marginEnd="@dimen/labels_margin"
         android:contentDescription="@string/Vehicle_Type" />
 

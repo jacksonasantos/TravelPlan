@@ -27,16 +27,16 @@ import java.util.List;
 public class VehiclePlanListAdapter extends RecyclerView.Adapter<VehiclePlanListAdapter.MyViewHolder> {
 
     private final List<VehicleHasPlan> mVehicleHasPlan;
-    Context context;
+    final Context context;
     String[] measureArray;
 
     public static class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        public ImageView imServiceType;
-        public TextView txtDescription;
-        public TextView txtExpiration;
-        public ImageButton btnEdit;
-        public ImageButton btnDelete;
+        public final ImageView imServiceType;
+        public final TextView txtDescription;
+        public final TextView txtExpiration;
+        public final ImageButton btnEdit;
+        public final ImageButton btnDelete;
 
         public MyViewHolder(View v) {
             super(v);

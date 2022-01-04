@@ -10,7 +10,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
@@ -29,8 +28,6 @@ public class JSONParser {
             URL urlNew = new URL(url);
             HttpURLConnection urlConnection = (HttpURLConnection) urlNew.openConnection();
             is = new BufferedInputStream(urlConnection.getInputStream());
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }

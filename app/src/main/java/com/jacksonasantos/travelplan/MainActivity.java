@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
 
     // TODO - Armazenamento in Cloud
     public Database mDb;
-    Globals g = Globals.getInstance();
+    final Globals g = Globals.getInstance();
 
     // TODO - Autenticação ao APP
 

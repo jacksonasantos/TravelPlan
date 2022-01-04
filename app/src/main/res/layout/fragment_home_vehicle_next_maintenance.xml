@@ -40,7 +40,6 @@
         android:layout_width="40dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/labels_marginLeft"
-        android:layout_marginRight="@dimen/labels_marginLeft"
         android:gravity="start|center_vertical"
         app:autoSizeMaxTextSize="12sp"
         app:autoSizeMinTextSize="6sp"

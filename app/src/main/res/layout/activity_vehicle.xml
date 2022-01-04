@@ -59,15 +59,39 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <ImageView
+                android:id="@+id/imgEdit_Image"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:gravity="center"
+                android:hint="@string/Vehicle_Image"
+                android:nextFocusDown="@+id/imgDelete_Image"
+                app:layout_constraintStart_toEndOf="@+id/textInputLayout6"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_menu_edit"
+                tools:ignore="ContentDescription" />
+
+            <ImageView
+                android:id="@+id/imgDelete_Image"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:gravity="center"
+                android:hint="@string/Vehicle_Image"
+                android:nextFocusDown="@+id/imgVehicle_Image_Image"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_menu_delete"
+                tools:ignore="ContentDescription" />
+
+            <ImageView
                 android:id="@+id/imgVehicle_Image"
                 android:layout_width="110dp"
-                android:layout_height="110dp"
+                android:layout_height="90dp"
                 android:gravity="center"
                 android:hint="@string/Vehicle_Image"
                 android:nextFocusDown="@+id/etShortNameVehicle"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imgDelete_Image"
                 app:srcCompat="@drawable/ic_menu_vehicle"
                 tools:ignore="ContentDescription" />
 
@@ -139,15 +163,17 @@
             android:layout_marginEnd="@dimen/labels_margin"
             android:layout_marginRight="@dimen/labels_margin"
             style = "@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu">
+
             <AutoCompleteTextView
                 android:id="@+id/spinFuelType"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:autofillHints="no"
                 android:hint="@string/Vehicle_Fuel_Type"
+                android:inputType="none"
                 android:nextFocusDown="@+id/etYearModel"
-                android:textSize="14sp"
-                android:inputType="none" />
+                android:textColorHint="#616161"
+                android:textSize="14sp" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <LinearLayout
@@ -505,10 +531,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0.50"
                 android:layout_marginStart="@dimen/labels_margin"
-                android:layout_marginLeft="@dimen/labels_margin"
                 android:layout_marginTop="@dimen/labels_space_top"
-                android:layout_marginEnd="20dp"
-                android:layout_marginRight="20dp">
+                android:layout_marginEnd="20dp">
                 <EditText
                     android:id="@+id/etFullCapacity"
                     android:layout_width="match_parent"
@@ -658,10 +682,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0.50"
                 android:layout_marginStart="@dimen/labels_margin"
-                android:layout_marginLeft="@dimen/labels_margin"
                 android:layout_marginTop="@dimen/labels_space_top"
-                android:layout_marginEnd="20dp"
-                android:layout_marginRight="20dp">
+                android:layout_marginEnd="20dp">
                 <EditText
                     android:id="@+id/etDtLastFueling"
                     android:layout_width="match_parent"

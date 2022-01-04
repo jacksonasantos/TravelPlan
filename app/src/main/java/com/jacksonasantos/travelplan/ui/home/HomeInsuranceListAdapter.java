@@ -20,7 +20,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.jacksonasantos.travelplan.R;
 import com.jacksonasantos.travelplan.dao.Insurance;
 import com.jacksonasantos.travelplan.dao.general.Database;
-import com.jacksonasantos.travelplan.ui.general.InsuranceDialog;
 import com.jacksonasantos.travelplan.ui.utility.Utils;
 
 import java.util.List;
@@ -31,8 +30,8 @@ public class HomeInsuranceListAdapter extends RecyclerView.Adapter<RecyclerView.
     private static final int TYPE_ITEM = 1;
 
     private final List<Insurance> mInsurance;
-    Context context;
-    int show_header;
+    final Context context;
+    final int show_header;
     String[] insurance_typeArray;
 
     public HomeInsuranceListAdapter(List<Insurance> insurance, Context context, int show_header) {
@@ -56,7 +55,7 @@ public class HomeInsuranceListAdapter extends RecyclerView.Adapter<RecyclerView.
         } else if (viewType == TYPE_HEADER) {
             return new HeaderViewHolder(insuranceView);
         }
-        else return null;
+        else return new ItemViewHolder(insuranceView);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
@@ -91,7 +90,7 @@ public class HomeInsuranceListAdapter extends RecyclerView.Adapter<RecyclerView.
             itemViewHolder.txtInsuranceFinalEffectiveDate.setText(Utils.dateToString(insurance.getFinal_effective_date()));
 
             itemViewHolder.llInsuranceItem.setOnClickListener(v -> {
-                Insurance x = InsuranceDialog.InsuranceClass(insurance, v);
+                //Insurance x = InsuranceDialog.InsuranceClass(insurance, v);
             });
 
             // btnDone - change Status for Service for completed and remove of list
@@ -101,7 +100,7 @@ public class HomeInsuranceListAdapter extends RecyclerView.Adapter<RecyclerView.
                     i1.setStatus(insurance.getStatus() == 0 ? 1 : 0);
                     if (Database.mInsuranceDao.updateInsurance(i1)) {
                         mInsurance.remove(position);
-                        notifyDataSetChanged();
+                        notifyItemRemoved(position);
                     }
                 } catch (Exception e) {
                     Toast.makeText(context, context.getString(R.string.Error_Changing_Data) + "\n" + e.getMessage(), Toast.LENGTH_LONG).show();

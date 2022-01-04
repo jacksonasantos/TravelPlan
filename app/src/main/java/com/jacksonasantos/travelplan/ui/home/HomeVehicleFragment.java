@@ -83,11 +83,11 @@ public class HomeVehicleFragment extends Fragment implements View.OnClickListene
     double vMinY = 0;
     double vMaxY = 0;
 
-    Globals g = Globals.getInstance();
+    final Globals g = Globals.getInstance();
 
-    Locale locale = new Locale(g.getLanguage(), g.getCountry());
-    NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(locale);
-    NumberFormat numberFormatter = NumberFormat.getNumberInstance(locale);
+    final Locale locale = new Locale(g.getLanguage(), g.getCountry());
+    final NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(locale);
+    final NumberFormat numberFormatter = NumberFormat.getNumberInstance(locale);
 
     @Override
     public View onCreateView(@NonNull final LayoutInflater inflater,

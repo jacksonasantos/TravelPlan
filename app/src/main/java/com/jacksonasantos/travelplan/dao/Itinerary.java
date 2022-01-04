@@ -17,7 +17,7 @@ public class Itinerary {
     public int distance;
     public int time;
 
-    Globals g = Globals.getInstance();
+    final Globals g = Globals.getInstance();
 
     public Itinerary() {
         this.id = id;

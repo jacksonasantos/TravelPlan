@@ -100,18 +100,18 @@ public class FuelSupplyActivity extends AppCompatActivity implements PlacesAdapt
     private FuelSupply fuelSupply;
 
     private PlacesAdapter adapterPlaces;
-    Globals g = Globals.getInstance();
+    final Globals g = Globals.getInstance();
 
     public Geocoder mGeocoder;
 
     private static final int REQUEST_PERMISSION = 1;        // TODO - testar quando não dá permissão de localização
 
-    Locale locale = new Locale(g.getLanguage(), g.getCountry());
-    NumberFormat numberFormat = NumberFormat.getNumberInstance(locale);
-    NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(locale);
+    final Locale locale = new Locale(g.getLanguage(), g.getCountry());
+    final NumberFormat numberFormat = NumberFormat.getNumberInstance(locale);
+    final NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(locale);
 
     // Use fields to define the data types to return.
-    List<Place.Field> placeFields = Arrays.asList(
+    final List<Place.Field> placeFields = Arrays.asList(
             Place.Field.NAME,
             Place.Field.LAT_LNG,
             Place.Field.ADDRESS);

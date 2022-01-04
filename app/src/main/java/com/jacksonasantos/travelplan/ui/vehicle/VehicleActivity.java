@@ -41,7 +41,9 @@ public class VehicleActivity extends AppCompatActivity {
 
     private RadioGroup rgVehicleType;
     private int rbVehicleType;
-    private ImageView imgVehicle_Image;
+    public ImageView imgVehicle_Image;
+    public ImageView imgEdit_Image;
+    public ImageView imgDelete_Image;
     Bitmap raw;
     private byte[] imgArray;
     private EditText etNameVehicle;
@@ -108,10 +110,14 @@ public class VehicleActivity extends AppCompatActivity {
 
         addListenerOnButtonSave();
         addListenerOnImageVehicle();
+        addListenerOnDeleteImageVehicle();
+        addListenerOnEditImageVehicle();
 
         rgVehicleType = findViewById(R.id.rgVehicleType);
         etNameVehicle = findViewById(R.id.etNameVehicle);
         imgVehicle_Image = findViewById(R.id.imgVehicle_Image);
+        imgEdit_Image = findViewById(R.id.imgEdit_Image);
+        imgDelete_Image = findViewById(R.id.imgDelete_Image);
         etShortNameVehicle = findViewById(R.id.etShortNameVehicle);
         etBrand = findViewById(R.id.etBrand);
         etModel = findViewById(R.id.etModel);
@@ -210,27 +216,42 @@ public class VehicleActivity extends AppCompatActivity {
         }
     }
 
-    private void addListenerOnImageVehicle() {
-        ImageView imgVehicle_Image = findViewById(R.id.imgVehicle_Image);
+    private void button() {
         AtomicInteger imgPos = new AtomicInteger();
 
-        imgVehicle_Image.setOnClickListener(view -> {
-            ArrayList<File> list = Utils.imageReader(Objects.requireNonNull(getExternalFilesDir("/vehicles")));
-            LayoutInflater inflater = this.getLayoutInflater();
-            View v = inflater.inflate(R.layout.dialog_my_files, null);
-            GridView gV = v.findViewById(R.id.gridView1);
-            gV.setAdapter(new MyGalleryImageAdapter(this, list));
-            gV.setOnItemClickListener((parent, view1, position, id) -> imgPos.set(position));
-            final AlertDialog.Builder builder2 = new AlertDialog.Builder(this);
-            builder2.setView(v)
-                    .setPositiveButton(R.string.OK, (dialog, which) -> {
-                        Bitmap myBitmap = BitmapFactory.decodeFile(list.get(imgPos.get()).getAbsolutePath());
-                        imgVehicle_Image.setImageBitmap(myBitmap);
-                        dialog.dismiss();
-                    })
-                    .setNegativeButton(R.string.Cancel, (dialog, which) -> dialog.cancel());
-            builder2.setCancelable(false);
-            builder2.create().show();
+        ArrayList<File> list = Utils.imageReader(Objects.requireNonNull(getExternalFilesDir("/vehicles")));
+        LayoutInflater inflater = this.getLayoutInflater();
+        View v = inflater.inflate(R.layout.dialog_my_files, null);
+        GridView gV = v.findViewById(R.id.gridView1);
+        gV.setAdapter(new MyGalleryImageAdapter(this, list));
+        gV.setOnItemClickListener((parent, view1, position, id) -> imgPos.set(position));
+        final AlertDialog.Builder builder2 = new AlertDialog.Builder(this);
+        builder2.setView(v)
+                .setPositiveButton(R.string.OK, (dialog, which) -> {
+                    Bitmap myBitmap = BitmapFactory.decodeFile(list.get(imgPos.get()).getAbsolutePath());
+                    imgVehicle_Image.setImageBitmap(myBitmap);
+                    dialog.dismiss();
+                })
+                .setNegativeButton(R.string.Cancel, (dialog, which) -> dialog.cancel());
+        builder2.setCancelable(false);
+        builder2.create().show();
+    }
+
+    private void addListenerOnImageVehicle() {
+        ImageView imgVehicle_Image = findViewById(R.id.imgVehicle_Image);
+        imgVehicle_Image.setOnClickListener( view -> button());
+    }
+
+    private void addListenerOnEditImageVehicle() {
+        ImageView imgEditVehicle = findViewById(R.id.imgEdit_Image);
+        imgEditVehicle.setOnClickListener(view -> button());
+    }
+
+    private void addListenerOnDeleteImageVehicle() {
+        ImageView imgDeleteVehicle = findViewById(R.id.imgDelete_Image);
+        imgDeleteVehicle.setOnClickListener(view -> {
+            imgVehicle_Image.setImageBitmap(null);
+            imgArray= vehicle.getImage();
         });
     }
 
@@ -246,12 +267,13 @@ public class VehicleActivity extends AppCompatActivity {
                 v1.setVehicle_type(rbVehicleType);
                 v1.setName(etNameVehicle.getText().toString());
 
-                Bitmap bitmap = ((BitmapDrawable)imgVehicle_Image.getDrawable()).getBitmap();
-                ByteArrayOutputStream saida = new ByteArrayOutputStream();
-                bitmap.compress(Bitmap.CompressFormat.PNG,100,saida);
-                byte[] img = saida.toByteArray();
-                v1.setImage(img);
-
+                Bitmap bitmap = ((BitmapDrawable) imgVehicle_Image.getDrawable()).getBitmap();
+                if (bitmap!=null) {
+                    ByteArrayOutputStream saida = new ByteArrayOutputStream();
+                    bitmap.compress(Bitmap.CompressFormat.PNG, 100, saida);
+                    byte[] img = saida.toByteArray();
+                    v1.setImage(img);
+                }
                 v1.setShort_name(etShortNameVehicle.getText().toString());
                 v1.setBrand(etBrand.getText().toString());
                 v1.setModel(etModel.getText().toString());

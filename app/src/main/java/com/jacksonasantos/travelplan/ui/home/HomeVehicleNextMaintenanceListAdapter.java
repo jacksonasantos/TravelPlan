@@ -34,11 +34,11 @@ public class HomeVehicleNextMaintenanceListAdapter extends RecyclerView.Adapter<
     private static final int TYPE_ITEM = 1;
 
     private final List<NextMaintenanceItem> mNextMaintenanceItem;
-    Context context;
-    int show_header;
+    final Context context;
+    final int show_header;
     String[] measureArray;
 
-    Globals g = Globals.getInstance();
+    final Globals g = Globals.getInstance();
 
     public HomeVehicleNextMaintenanceListAdapter(List<NextMaintenanceItem> nextMaintenanceItem, Context context, int show_header) {
         this.mNextMaintenanceItem = nextMaintenanceItem;
@@ -116,8 +116,6 @@ public class HomeVehicleNextMaintenanceListAdapter extends RecyclerView.Adapter<
                         vStatus = 2;
                     } else if (vDataNow.compareTo(vData) <= 0 && vDataNow.compareTo(vDataLim) > 0) {
                         vStatus = 1;
-                    } else {
-                        vStatus = 0;
                     }
                 } catch (ParseException e) {
                     e.printStackTrace();

@@ -26,17 +26,17 @@ import java.util.List;
 public class MaintenancePlanListAdapter extends RecyclerView.Adapter<MaintenancePlanListAdapter.MyViewHolder> {
 
     private final List<MaintenancePlan> mMaintenancePlan;
-    Context context;
+    final Context context;
     String[] measureArray;
 
 
     public static class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        public ImageView imServiceType;
-        public TextView txtDescription;
-        public TextView txtExpiration_default;
-        public ImageButton btnEdit;
-        public ImageButton btnDelete;
+        public final ImageView imServiceType;
+        public final TextView txtDescription;
+        public final TextView txtExpiration_default;
+        public final ImageButton btnEdit;
+        public final ImageButton btnDelete;
 
         public MyViewHolder(View v) {
             super(v);
@@ -87,7 +87,7 @@ public class MaintenancePlanListAdapter extends RecyclerView.Adapter<Maintenance
             Intent intent = new Intent (v.getContext(), MaintenancePlanActivity.class);
             intent.putExtra("maintenance_plan_id", maintenancePlan.getId());
             context.startActivity(intent);
-            notifyDataSetChanged();
+            notifyItemChanged(position);
         });
 
         // btnDelete

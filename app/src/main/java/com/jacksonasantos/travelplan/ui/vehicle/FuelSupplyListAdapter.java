@@ -2,7 +2,6 @@ package com.jacksonasantos.travelplan.ui.vehicle;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.view.LayoutInflater;
@@ -31,20 +30,20 @@ import java.util.Locale;
 public class FuelSupplyListAdapter extends RecyclerView.Adapter<FuelSupplyListAdapter.MyViewHolder> {
 
     private final List<FuelSupply> mFuelSupply;
-    Context context;
+    final Context context;
 
-    Globals g = Globals.getInstance();
+    final Globals g = Globals.getInstance();
 
-    Locale locale = new Locale(g.getLanguage(), g.getCountry());
+    final Locale locale = new Locale(g.getLanguage(), g.getCountry());
 
     public static class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        public TextView txtSupplyDate;
-        public TextView txtVehicleName;
-        public TextView txtNumberLiters;
-        public TextView txtSupplyValue;
-        public ImageButton btnEdit;
-        public ImageButton btnDelete;
+        public final TextView txtSupplyDate;
+        public final TextView txtVehicleName;
+        public final TextView txtNumberLiters;
+        public final TextView txtSupplyValue;
+        public final ImageButton btnEdit;
+        public final ImageButton btnDelete;
 
         public MyViewHolder(View v) {
             super(v);
@@ -98,7 +97,7 @@ public class FuelSupplyListAdapter extends RecyclerView.Adapter<FuelSupplyListAd
             intent.putExtra("fuel_supply_id", fuelSupply.getId());
             intent.putExtra("vehicle_id", fuelSupply.getVehicle_id());
             context.startActivity(intent);
-            notifyDataSetChanged();
+            notifyItemChanged(position);
         });
         // btnDelete
         holder.btnDelete.setOnClickListener (v12 -> new AlertDialog.Builder(v12.getContext())

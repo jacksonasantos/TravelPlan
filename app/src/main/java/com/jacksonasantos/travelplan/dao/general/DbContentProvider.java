@@ -7,7 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import java.text.ParseException;
 
 public abstract class DbContentProvider {
-    public SQLiteDatabase mDb;
+    public final SQLiteDatabase mDb;
 
     public int delete(String tableName, String selection,
                       String[] selectionArgs) {

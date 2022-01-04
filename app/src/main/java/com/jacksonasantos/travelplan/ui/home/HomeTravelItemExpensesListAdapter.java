@@ -1,7 +1,6 @@
 package com.jacksonasantos.travelplan.ui.home;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,12 +29,12 @@ import java.util.Locale;
 public class HomeTravelItemExpensesListAdapter extends RecyclerView.Adapter<HomeTravelItemExpensesListAdapter.MyViewHolder> {
 
     public final List<TravelItemExpenses> mTravelItemExpenses;
-    Context context;
-    Integer travel_id;
+    final Context context;
+    final Integer travel_id;
 
-    Globals g = Globals.getInstance();
-    Locale locale = new Locale(g.getLanguage(), g.getCountry());
-    NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(locale);
+    final Globals g = Globals.getInstance();
+    final Locale locale = new Locale(g.getLanguage(), g.getCountry());
+    final NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(locale);
 
     public HomeTravelItemExpensesListAdapter(List<TravelItemExpenses> travelItemExpenses, Context context, Integer travel_id) {
         this.mTravelItemExpenses = travelItemExpenses;

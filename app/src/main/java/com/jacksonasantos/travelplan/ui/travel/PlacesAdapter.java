@@ -55,9 +55,9 @@ public class PlacesAdapter extends RecyclerView.Adapter <PlacesAdapter.PlaceView
     }
 
     public static class PlaceViewHolder extends RecyclerView.ViewHolder{
-        TextView tv_place_name;
-        TextView tv_place_address;
-        CardView cardPlace;
+        final TextView tv_place_name;
+        final TextView tv_place_address;
+        final CardView cardPlace;
 
         public PlaceViewHolder(View itemView) {
             super(itemView);

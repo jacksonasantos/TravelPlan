@@ -1,4 +1,4 @@
-<resources xmlns:android="http://schemas.android.com/apk/res/android">
+<resources>
     <string name="app_name" translatable="false">Travel PLAN</string>
     <string name="nav_header_title">Travel Planning and Control</string>
     <string name="nav_header_desc" translatable="false">Navigation header</string>
@@ -33,8 +33,8 @@
 
     <string name="signature_title">Your signature</string>
     <string name="color_scheme_dark_title">Color Scheme Dark</string>
-    <string name="color_scheme_off">Color Scheme Normal actived</string>
-    <string name="color_scheme_on">Color Scheme Dark actived</string>
+    <string name="color_scheme_off">Color Scheme Normal active</string>
+    <string name="color_scheme_on">Color Scheme Dark active</string>
 
     <string name="language">Language</string>
     <string name="portuguese">Portuguese</string>
@@ -170,7 +170,6 @@
     <string name="HomeTravelTotal" translatable="false">Total</string>
 
     <!-- Home Vehicle Fragment -->
-    <string name="FuelSupply_Last">Last Fuel Supply</string>
     <string name="Supply_Last">Last Supply</string>
     <string name="VehicleStatistics">Vehicle Statistics</string>
     <string name="InsuranceExpiration">Insurance Expiration</string>
@@ -267,7 +266,6 @@
     <string name="Error_Changing_Data">Error Changing Data</string>
     <string name="Error_Deleting_Data">Error Deleting Data</string>
     <string name="Error_Data_Validation">Error in data validation</string>
-    <string name="Error_No_Image_Found">No Image Found</string>
 
     <!-- Arrays Currency -->
     <string name="real">R$ - Real</string>

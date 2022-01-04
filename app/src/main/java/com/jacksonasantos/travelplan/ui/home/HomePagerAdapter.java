@@ -14,15 +14,10 @@ public class HomePagerAdapter extends FragmentStatePagerAdapter {
     @NonNull
     @Override
     public Fragment getItem(int position) {
-        switch (position)
-        {
-            case 0:
-                return new HomeVehicleFragment();
-            case 1:
-                return new HomeTravelFragment();
-            default:
-                return null;
+        if (position == 1) {
+            return new HomeTravelFragment();
         }
+        return new HomeVehicleFragment();
     }
 
     @Override

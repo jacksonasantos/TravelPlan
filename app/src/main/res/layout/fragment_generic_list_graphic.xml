@@ -9,7 +9,6 @@
         android:id="@+id/graph"
         android:layout_width="0dp"
         android:layout_height="160dp"
-        android:layout_marginRight="@dimen/labels_margin"
         android:layout_marginEnd="@dimen/labels_margin"
         android:padding="@dimen/labels_margin"
         app:layout_constraintEnd_toEndOf="parent"

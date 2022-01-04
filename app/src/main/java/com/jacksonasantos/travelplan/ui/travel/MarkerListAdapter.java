@@ -26,9 +26,9 @@ public class MarkerListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     private static final int TYPE_FOOTER = 2;
 
     private final List<Marker> mMarker;
-    Context context;
-    int show_header;
-    int show_footer;
+    final Context context;
+    final int show_header;
+    final int show_footer;
 
     public MarkerListAdapter(List<Marker> marker, Context context, int show_header, int show_footer) {
         this.mMarker = marker;
@@ -92,8 +92,8 @@ public class MarkerListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     }
 
     private static class HeaderViewHolder extends RecyclerView.ViewHolder {
-        public LinearLayout llMarker;
-        public TextView txtDescription;
+        public final LinearLayout llMarker;
+        public final TextView txtDescription;
 
         public HeaderViewHolder(View v) {
             super(v);
@@ -103,8 +103,8 @@ public class MarkerListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     }
 
     public static class ItemViewHolder extends RecyclerView.ViewHolder {
-        public LinearLayout llMarker;
-        public TextView txtDescription;
+        public final LinearLayout llMarker;
+        public final TextView txtDescription;
 
         public ItemViewHolder(View v) {
             super(v);
@@ -114,8 +114,8 @@ public class MarkerListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     }
 
     public static class FooterViewHolder extends RecyclerView.ViewHolder {
-        public LinearLayout llMarker;
-        public TextView txtDescription;
+        public final LinearLayout llMarker;
+        public final TextView txtDescription;
 
         public FooterViewHolder(View v) {
             super(v);

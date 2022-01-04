@@ -23,7 +23,7 @@ public class SummaryTravelExpenseDAO extends DbContentProvider implements Summar
 
     private Cursor cursor;
 
-    Globals g = Globals.getInstance();
+    final Globals g = Globals.getInstance();
 
     public SummaryTravelExpenseDAO(SQLiteDatabase db) {
         super(db);

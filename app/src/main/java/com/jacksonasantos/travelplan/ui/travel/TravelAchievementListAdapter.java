@@ -33,9 +33,9 @@ public class TravelAchievementListAdapter extends RecyclerView.Adapter<RecyclerV
     private static final int TYPE_ITEM = 1;
 
     private final List<Achievement> mAchievement;
-    Context context;
-    int show_header;
-    public String form;
+    final Context context;
+    final int show_header;
+    public final String form;
 
     public TravelAchievementListAdapter(List<Achievement> achievements, Context context, String form, int show_header) {
         this.mAchievement = achievements;
@@ -80,11 +80,10 @@ public class TravelAchievementListAdapter extends RecyclerView.Adapter<RecyclerV
 
             if (form.equals("Home")) {
                 itemViewHolder.btnDelete.setVisibility(View.INVISIBLE);
-                itemViewHolder.btnStatus_Achievement.setVisibility(View.VISIBLE);
             } else {
                 itemViewHolder.btnDelete.setVisibility(View.VISIBLE);
-                itemViewHolder.btnStatus_Achievement.setVisibility(View.VISIBLE);
             }
+            itemViewHolder.btnStatus_Achievement.setVisibility(View.VISIBLE);
 
             if (mAchievement.get(position-show_header).getStatus_achievement() == 1){
                 itemViewHolder.btnStatus_Achievement.setBackgroundTintList(ColorStateList.valueOf(Color.GREEN));
@@ -150,11 +149,11 @@ public class TravelAchievementListAdapter extends RecyclerView.Adapter<RecyclerV
     }
 
     private static class HeaderViewHolder extends RecyclerView.ViewHolder {
-        public LinearLayout llAchievementTravelItem;
-        public ImageView imgAchievement;
-        public TextView txtNameAchievement;
-        public ImageButton btnDelete;
-        public ImageButton btnStatus_Achievement;
+        public final LinearLayout llAchievementTravelItem;
+        public final ImageView imgAchievement;
+        public final TextView txtNameAchievement;
+        public final ImageButton btnDelete;
+        public final ImageButton btnStatus_Achievement;
 
         public HeaderViewHolder(View v) {
             super(v);
@@ -167,11 +166,11 @@ public class TravelAchievementListAdapter extends RecyclerView.Adapter<RecyclerV
     }
 
     public static class ItemViewHolder extends RecyclerView.ViewHolder {
-        public LinearLayout llAchievementTravelItem;
-        public ImageView imgAchievement;
-        public TextView txtNameAchievement;
-        public ImageButton btnDelete;
-        public ImageButton btnStatus_Achievement;
+        public final LinearLayout llAchievementTravelItem;
+        public final ImageView imgAchievement;
+        public final TextView txtNameAchievement;
+        public final ImageButton btnDelete;
+        public final ImageButton btnStatus_Achievement;
 
         public ItemViewHolder(View v) {
             super(v);

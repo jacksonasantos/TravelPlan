@@ -28,7 +28,7 @@ import java.util.List;
 public class TravelListAdapter extends RecyclerView.Adapter<TravelListAdapter.MyViewHolder> {
 
     private final List<Travel> mTravel;
-    Context context;
+    final Context context;
 
     public static class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 

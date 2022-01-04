@@ -2,7 +2,6 @@ package com.jacksonasantos.travelplan.ui.home;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
@@ -33,8 +32,8 @@ public class HomeTravelReservationListAdapter extends RecyclerView.Adapter<Recyc
     private static final int TYPE_ITEM = 1;
 
     private final List<Reservation> mReservation;
-    Context context;
-    int show_header;
+    final Context context;
+    final int show_header;
 
     public HomeTravelReservationListAdapter(List<Reservation> reservation, Context context, int show_header) {
         this.mReservation = reservation;
@@ -97,7 +96,7 @@ public class HomeTravelReservationListAdapter extends RecyclerView.Adapter<Recyc
                 Intent intent = new Intent (v.getContext(), ReservationActivity.class);
                 intent.putExtra("reservation_id", reservation.getId());
                 context.startActivity(intent);
-                notifyDataSetChanged();
+                notifyItemChanged(position);
             });
 
             // btnDelete

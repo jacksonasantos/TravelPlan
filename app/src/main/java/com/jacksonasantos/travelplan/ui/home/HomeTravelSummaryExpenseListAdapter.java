@@ -33,14 +33,14 @@ public class HomeTravelSummaryExpenseListAdapter extends RecyclerView.Adapter<Re
     private Double vTotRealized = (double) 0;
 
     public final List<SummaryTravelExpense> mSummaryTravelExpense;
-    Context context;
-    Integer travel_id;
-    int show_header;
-    int show_footer;
+    final Context context;
+    final Integer travel_id;
+    final int show_header;
+    final int show_footer;
 
-    Globals g = Globals.getInstance();
-    Locale locale = new Locale(g.getLanguage(), g.getCountry());
-    NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(locale);
+    final Globals g = Globals.getInstance();
+    final Locale locale = new Locale(g.getLanguage(), g.getCountry());
+    final NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(locale);
 
     public HomeTravelSummaryExpenseListAdapter(List<SummaryTravelExpense> summaryTravelExpense, Context context, Integer travel_id, int show_header, int show_footer) {
         this.mSummaryTravelExpense = summaryTravelExpense;

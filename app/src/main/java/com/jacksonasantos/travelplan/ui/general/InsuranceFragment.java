@@ -27,6 +27,7 @@ public class InsuranceFragment extends Fragment  {
         return inflater.inflate(R.layout.fragment_generic_list, container, false);
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     @Override
     public void onResume() {
         super.onResume();

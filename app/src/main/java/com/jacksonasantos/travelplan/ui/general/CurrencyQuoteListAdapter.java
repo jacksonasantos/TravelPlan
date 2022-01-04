@@ -25,16 +25,16 @@ import java.util.List;
 public class CurrencyQuoteListAdapter extends RecyclerView.Adapter<CurrencyQuoteListAdapter.MyViewHolder> {
 
     private final List<CurrencyQuote> mCurrencyQuote;
-    Context context;
+    final Context context;
     String[] currencyArray;
 
     public static class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        public TextView txtCurrency;
-        public TextView txtDate;
-        public TextView txtQuote;
-        public ImageButton btnEdit;
-        public ImageButton btnDelete;
+        public final TextView txtCurrency;
+        public final TextView txtDate;
+        public final TextView txtQuote;
+        public final ImageButton btnEdit;
+        public final ImageButton btnDelete;
 
         public MyViewHolder(View v) {
             super(v);
@@ -85,7 +85,7 @@ public class CurrencyQuoteListAdapter extends RecyclerView.Adapter<CurrencyQuote
             Intent intent = new Intent (v.getContext(), CurrencyQuoteActivity.class);
             intent.putExtra("currencyQuote_id", currencyQuote.getId());
             context.startActivity(intent);
-            notifyDataSetChanged();
+            notifyItemChanged(position);
         });
 
         // btnDelete

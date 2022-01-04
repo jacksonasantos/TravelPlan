@@ -35,14 +35,14 @@ public class TravelVehicleListAdapter extends RecyclerView.Adapter<RecyclerView.
     private static final int TYPE_ITEM = 1;
 
     private final List<VehicleHasTravel> mVehicleHasTravel;
-    Context context;
-    int show_header;
-    public String form;
+    final Context context;
+    final int show_header;
+    public final String form;
 
-    Globals g = Globals.getInstance();
-    Locale locale = new Locale(g.getLanguage(), g.getCountry());
-    NumberFormat numberFormatter = NumberFormat.getNumberInstance(locale);
-    NumberFormat integerFormatter = NumberFormat.getNumberInstance(locale);
+    final Globals g = Globals.getInstance();
+    final Locale locale = new Locale(g.getLanguage(), g.getCountry());
+    final NumberFormat numberFormatter = NumberFormat.getNumberInstance(locale);
+    final NumberFormat integerFormatter = NumberFormat.getNumberInstance(locale);
 
     public TravelVehicleListAdapter(List<VehicleHasTravel> vehicleHasTravels, Context context, String form, int show_header) {
         this.mVehicleHasTravel = vehicleHasTravels;
@@ -134,11 +134,11 @@ public class TravelVehicleListAdapter extends RecyclerView.Adapter<RecyclerView.
     }
 
     private static class HeaderViewHolder extends RecyclerView.ViewHolder {
-        public LinearLayout llVehicleTravelItem;
-        public TextView txtVehicle;
-        public TextView txtAvgConsumption;
-        public ImageButton btnDelete;
-        public ImageButton btnRefuel;
+        public final LinearLayout llVehicleTravelItem;
+        public final TextView txtVehicle;
+        public final TextView txtAvgConsumption;
+        public final ImageButton btnDelete;
+        public final ImageButton btnRefuel;
 
         public HeaderViewHolder(View v) {
             super(v);
@@ -151,11 +151,11 @@ public class TravelVehicleListAdapter extends RecyclerView.Adapter<RecyclerView.
     }
 
     public static class ItemViewHolder extends RecyclerView.ViewHolder {
-        public LinearLayout llVehicleTravelItem;
-        public TextView txtVehicle;
-        public TextView txtAvgConsumption;
-        public ImageButton btnDelete;
-        public ImageButton btnRefuel;
+        public final LinearLayout llVehicleTravelItem;
+        public final TextView txtVehicle;
+        public final TextView txtAvgConsumption;
+        public final ImageButton btnDelete;
+        public final ImageButton btnRefuel;
 
         public ItemViewHolder(View v) {
             super(v);

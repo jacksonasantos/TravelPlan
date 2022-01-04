@@ -2,7 +2,6 @@ package com.jacksonasantos.travelplan.ui.general;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
@@ -33,16 +32,16 @@ import java.util.Objects;
 public class InsuranceListAdapter extends RecyclerView.Adapter<InsuranceListAdapter.MyViewHolder> {
 
     private final List<Insurance> mInsurance;
-    Context context;
+    final Context context;
 
     public static class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        public TextView txtInsurancePolicy;
-        public TextView txtInsuranceDescription;
-        public ImageView imInsuranceType;
-        public ImageView imInsuranceStatus;
-        public ImageButton btnEdit;
-        public ImageButton btnDelete;
+        public final TextView txtInsurancePolicy;
+        public final TextView txtInsuranceDescription;
+        public final ImageView imInsuranceType;
+        public final ImageView imInsuranceStatus;
+        public final ImageButton btnEdit;
+        public final ImageButton btnDelete;
 
         public MyViewHolder(View v) {
             super(v);
@@ -107,7 +106,7 @@ public class InsuranceListAdapter extends RecyclerView.Adapter<InsuranceListAdap
             Intent intent = new Intent (v.getContext(), InsuranceActivity.class);
             intent.putExtra("insurance_id", insurance.getId());
             context.startActivity(intent);
-            notifyDataSetChanged();
+            notifyItemChanged(position);
         });
         // btnDelete
         holder.btnDelete.setOnClickListener (v -> new AlertDialog.Builder(v.getContext())

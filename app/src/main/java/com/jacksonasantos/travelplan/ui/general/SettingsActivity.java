@@ -90,7 +90,7 @@ public class SettingsActivity extends AppCompatActivity {
             travelList.setEntryValues(t_entryValChar);
         }
 
-        Preference.OnPreferenceChangeListener languageChangeListener = (preference, newValue) -> {
+        final Preference.OnPreferenceChangeListener languageChangeListener = (preference, newValue) -> {
             if ("en".equals(newValue.toString())) {
                 PreferenceManager.getDefaultSharedPreferences(requireContext()).edit().putString("LANG", "en").apply();
                 setLocale("en");

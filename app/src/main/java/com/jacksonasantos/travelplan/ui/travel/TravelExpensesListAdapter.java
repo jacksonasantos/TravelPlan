@@ -35,14 +35,14 @@ public class TravelExpensesListAdapter extends RecyclerView.Adapter<RecyclerView
     private static final int TYPE_FOOTER = 2;
 
     private final List<TravelExpenses> mTravelExpenses;
-    Context context;
-    int show_header;
-    int show_footer;
-    Integer travel_id;
+    final Context context;
+    final int show_header;
+    final int show_footer;
+    final Integer travel_id;
 
-    Globals g = Globals.getInstance();
-    Locale locale = new Locale(g.getLanguage(), g.getCountry());
-    NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(locale);
+    final Globals g = Globals.getInstance();
+    final Locale locale = new Locale(g.getLanguage(), g.getCountry());
+    final NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(locale);
 
     public TravelExpensesListAdapter(Integer travel_id, List<TravelExpenses> travelExpenses, Context context, int show_header, int show_footer) {
         this.mTravelExpenses = travelExpenses;
@@ -114,7 +114,6 @@ public class TravelExpensesListAdapter extends RecyclerView.Adapter<RecyclerView
                             } else {
                                 mTravelExpenses.add(TE);
                                 notifyItemInserted(mTravelExpenses.size());
-                                notifyDataSetChanged();
                             }
                         })
                         .setNegativeButton(R.string.Cancel, (dialog, id) -> dialog.cancel());
@@ -162,11 +161,11 @@ public class TravelExpensesListAdapter extends RecyclerView.Adapter<RecyclerView
     }
 
     private static class HeaderViewHolder extends RecyclerView.ViewHolder {
-        public LinearLayout llItemTravelExpense;
-        public TextView txtExpenseType;
-        public TextView txtExpectedValue;
-        public TextView txtNote;
-        public ImageButton btnAddExpenses;
+        public final LinearLayout llItemTravelExpense;
+        public final TextView txtExpenseType;
+        public final TextView txtExpectedValue;
+        public final TextView txtNote;
+        public final ImageButton btnAddExpenses;
 
         public HeaderViewHolder(View v) {
             super(v);
@@ -179,10 +178,10 @@ public class TravelExpensesListAdapter extends RecyclerView.Adapter<RecyclerView
     }
 
     public static class ItemViewHolder extends RecyclerView.ViewHolder {
-        public TextView txtExpenseType;
-        public TextView txtExpectedValue;
-        public TextView txtNote;
-        public ImageButton btnDelete;
+        public final TextView txtExpenseType;
+        public final TextView txtExpectedValue;
+        public final TextView txtNote;
+        public final ImageButton btnDelete;
 
         public ItemViewHolder(View v) {
             super(v);
@@ -194,10 +193,10 @@ public class TravelExpensesListAdapter extends RecyclerView.Adapter<RecyclerView
     }
 
     public static class FooterViewHolder extends RecyclerView.ViewHolder {
-        public TextView txtExpenseType;
-        public TextView txtExpectedValue;
-        public TextView txtNote;
-        public ImageButton btnDelete;
+        public final TextView txtExpenseType;
+        public final TextView txtExpectedValue;
+        public final TextView txtNote;
+        public final ImageButton btnDelete;
 
         public FooterViewHolder(View v) {
             super(v);

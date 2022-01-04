@@ -37,9 +37,11 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class AchievementActivity extends AppCompatActivity {
     private EditText etAchievement_Name;
     private EditText etAchievement_Short_Name;
-    private ImageView imgAchievement_Image;
+    public ImageView imgAchievement_Image;
+    public ImageView imgEdit_Image;
+    public ImageView imgDelete_Image;
     Bitmap raw;
-    private byte[] imgArray;
+    private byte[] imgArray = null;
     private EditText etAchievement_City;
     private EditText etAchievement_State;
     private EditText etAchievement_Country;
@@ -83,10 +85,14 @@ public class AchievementActivity extends AppCompatActivity {
         addListenerOnButtonSave();
         addListenerOnButtonAchievement();
         addListenerOnImageAchievement();
+        addListenerOnDeleteImageAchievement();
+        addListenerOnEditImageAchievement();
 
         etAchievement_Name = findViewById(R.id.etAchievement_Name);
         etAchievement_Short_Name = findViewById(R.id.etAchievement_Short_Name);
         imgAchievement_Image = findViewById(R.id.imgAchievement_Image);
+        imgEdit_Image = findViewById(R.id.imgEdit_Image);
+        imgDelete_Image = findViewById(R.id.imgDelete_Image);
         etAchievement_City = findViewById(R.id.etAchievement_City);
         etAchievement_State = findViewById(R.id.etAchievement_State);
         etAchievement_Country = findViewById(R.id.etAchievement_Country);
@@ -117,27 +123,42 @@ public class AchievementActivity extends AppCompatActivity {
             }
         }
     }
+
+    private void button() {
+        AtomicInteger imgPos = new AtomicInteger();
+        ArrayList<File> list = Utils.imageReader(Objects.requireNonNull(getExternalFilesDir("/achievements")));
+        LayoutInflater inflater = this.getLayoutInflater();
+        View v = inflater.inflate(R.layout.dialog_my_files, null);
+        GridView gV = v.findViewById(R.id.gridView1);
+        gV.setAdapter(new MyGalleryImageAdapter(this, list));
+        gV.setOnItemClickListener((parent, view1, position, id) -> imgPos.set(position) );
+        final AlertDialog.Builder builder2 = new AlertDialog.Builder(this);
+        builder2.setView(v)
+                .setPositiveButton(R.string.OK, (dialog, which) -> {
+                    Bitmap myBitmap = BitmapFactory.decodeFile(list.get(imgPos.get()).getAbsolutePath());
+                    imgAchievement_Image.setImageBitmap(myBitmap);
+                    dialog.dismiss();
+                })
+                .setNegativeButton(R.string.Cancel, (dialog, which) -> dialog.cancel());
+        builder2.setCancelable(false);
+        builder2.create().show();
+    }
+
     private void addListenerOnImageAchievement() {
         ImageView imgAchievement = findViewById(R.id.imgAchievement_Image);
-        AtomicInteger imgPos = new AtomicInteger();
+        imgAchievement.setOnClickListener( view -> button());
+    }
 
-        imgAchievement.setOnClickListener( view -> {
-            ArrayList<File> list = Utils.imageReader(Objects.requireNonNull(getExternalFilesDir("/achievements")));
-            LayoutInflater inflater = this.getLayoutInflater();
-            View v = inflater.inflate(R.layout.dialog_my_files, null);
-            GridView gV = v.findViewById(R.id.gridView1);
-            gV.setAdapter(new MyGalleryImageAdapter(this, list));
-            gV.setOnItemClickListener((parent, view1, position, id) -> imgPos.set(position) );
-            final AlertDialog.Builder builder2 = new AlertDialog.Builder(this);
-            builder2.setView(v)
-                    .setPositiveButton(R.string.OK, (dialog, which) -> {
-                        Bitmap myBitmap = BitmapFactory.decodeFile(list.get(imgPos.get()).getAbsolutePath());
-                        imgAchievement_Image.setImageBitmap(myBitmap);
-                        dialog.dismiss();
-                    })
-                    .setNegativeButton(R.string.Cancel, (dialog, which) -> dialog.cancel());
-            builder2.setCancelable(false);
-            builder2.create().show();
+    private void addListenerOnEditImageAchievement() {
+        ImageView imgEditAchievement = findViewById(R.id.imgEdit_Image);
+        imgEditAchievement.setOnClickListener(view -> button());
+    }
+
+    private void addListenerOnDeleteImageAchievement() {
+        ImageView imgDeleteAchievement = findViewById(R.id.imgDelete_Image);
+        imgDeleteAchievement.setOnClickListener(view -> {
+            imgAchievement_Image.setImageBitmap(null);
+            imgArray= achievement.getImage();
         });
     }
 
@@ -168,11 +189,13 @@ public class AchievementActivity extends AppCompatActivity {
                 a1.setShort_name(etAchievement_Short_Name.getText().toString());
                 a1.setName(etAchievement_Name.getText().toString());
 
-                Bitmap bitmap = ((BitmapDrawable)imgAchievement_Image.getDrawable()).getBitmap();
-                ByteArrayOutputStream saida = new ByteArrayOutputStream();
-                bitmap.compress(Bitmap.CompressFormat.PNG,100,saida);
-                byte[] img = saida.toByteArray();
-                a1.setImage(img);
+                Bitmap bitmap = ((BitmapDrawable) imgAchievement_Image.getDrawable()).getBitmap();
+                if (bitmap!=null) {
+                    ByteArrayOutputStream saida = new ByteArrayOutputStream();
+                    bitmap.compress(Bitmap.CompressFormat.PNG, 100, saida);
+                    byte[] img = saida.toByteArray();
+                    a1.setImage(img);
+                }
 
                 a1.setCity(etAchievement_City.getText().toString());
                 a1.setState(etAchievement_State.getText().toString());
@@ -180,11 +203,14 @@ public class AchievementActivity extends AppCompatActivity {
                 a1.setLatlng_achievement(etAchievement_Latlng_Achievement.getText().toString());
                 a1.setNote(etAchievement_Note.getText().toString());
                 a1.setStatus_achievement(nrStatusAchievement);
-
+                if (achievement.getTravel_id()==0) {
+                    a1.setTravel_id(null);
+                } else {
+                    a1.setTravel_id(achievement.getTravel_id());
+                }
                 if (!opInsert) {
                      try {
                         a1.setId(achievement.getId());
-                        a1.setTravel_id(achievement.getTravel_id());
                         isSave = Database.mAchievementDao.updateAchievement(a1);
                     } catch (Exception e) {
                         Toast.makeText(getApplicationContext(), R.string.Error_Changing_Data + e.getMessage(), Toast.LENGTH_LONG).show();

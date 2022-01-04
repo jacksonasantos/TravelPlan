@@ -25,17 +25,17 @@ import java.util.List;
 public class VehicleListAdapter extends RecyclerView.Adapter<VehicleListAdapter.MyViewHolder> {
 
     public final List<Vehicle> mVehicle;
-    Context context;
+    final Context context;
 
     public static class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        public ImageView imVehicleType;
-        public TextView txtPlate;
-        public TextView txtShortName;
-        public ImageButton btnEdit;
-        public ImageButton btnDelete;
-        public ImageButton btnRefuel;
-        public ImageButton btnPlan;
+        public final ImageView imVehicleType;
+        public final TextView txtPlate;
+        public final TextView txtShortName;
+        public final ImageButton btnEdit;
+        public final ImageButton btnDelete;
+        public final ImageButton btnRefuel;
+        public final ImageButton btnPlan;
 
         public MyViewHolder(View v) {
             super(v);
@@ -90,7 +90,6 @@ public class VehicleListAdapter extends RecyclerView.Adapter<VehicleListAdapter.
             Intent intent = new Intent (v.getContext(), VehiclePlanActivity.class);
             intent.putExtra("vehicle_id", vehicle.getId());
             context.startActivity(intent);
-            notifyDataSetChanged();
         });
 
         // btnRefuel
@@ -98,7 +97,6 @@ public class VehicleListAdapter extends RecyclerView.Adapter<VehicleListAdapter.
             Intent intent = new Intent (v.getContext(), FuelSupplyActivity.class);
             intent.putExtra("vehicle_id", vehicle.getId());
             context.startActivity(intent);
-            notifyDataSetChanged();
         });
 
         // btnEdit
@@ -106,7 +104,7 @@ public class VehicleListAdapter extends RecyclerView.Adapter<VehicleListAdapter.
             Intent intent = new Intent (v.getContext(), VehicleActivity.class);
             intent.putExtra("id", vehicle.getId());
             context.startActivity(intent);
-            notifyDataSetChanged();
+            notifyItemChanged(position);
         });
 
         // btnDelete

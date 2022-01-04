@@ -31,11 +31,11 @@ public class InsuranceContactListAdapter extends RecyclerView.Adapter<RecyclerVi
     private static final int TYPE_FOOTER = 2;
 
     public final List<InsuranceContact> mInsuranceContact;
-    Context context;
-    int show_header;
-    int show_footer;
-    Integer insurance_id;
-    boolean show_button;
+    final Context context;
+    final int show_header;
+    final int show_footer;
+    final Integer insurance_id;
+    final boolean show_button;
 
     public InsuranceContactListAdapter(Integer insurance_id, List<InsuranceContact> insuranceContact, Context context, int show_header, int show_footer, boolean show_button) {
         this.mInsuranceContact = insuranceContact;
@@ -105,7 +105,6 @@ public class InsuranceContactListAdapter extends RecyclerView.Adapter<RecyclerVi
                                 } else {
                                     mInsuranceContact.add(IC);
                                     notifyItemInserted(mInsuranceContact.size());
-                                    notifyDataSetChanged();
                                 }
                             })
                             .setNegativeButton(R.string.Cancel, (dialog, id) -> dialog.cancel());

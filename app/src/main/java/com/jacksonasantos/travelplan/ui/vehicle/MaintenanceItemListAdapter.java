@@ -32,13 +32,13 @@ public class MaintenanceItemListAdapter extends RecyclerView.Adapter<RecyclerVie
     private static final int TYPE_ITEM = 1;
 
     public final List<MaintenanceItem> mMaintenanceItem;
-    Context context;
-    int show_header;
+    final Context context;
+    final int show_header;
     String[] measureArray;
 
-    Globals g = Globals.getInstance();
-    Locale locale = new Locale(g.getLanguage(), g.getCountry());
-    NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(locale);
+    final Globals g = Globals.getInstance();
+    final Locale locale = new Locale(g.getLanguage(), g.getCountry());
+    final NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(locale);
 
     public MaintenanceItemListAdapter(List<MaintenanceItem> maintenanceItem, Context context, int show_header) {
         this.mMaintenanceItem = maintenanceItem;

@@ -23,14 +23,14 @@ import java.util.List;
 
 public class BrokerListAdapter extends RecyclerView.Adapter<BrokerListAdapter.MyViewHolder> {
 
-    private final List<Broker> mBroker;
-    Context context;
+        private final List<Broker> mBroker;
+    final Context context;
 
     public static class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        public TextView txtName;
-        public ImageButton btnEdit;
-        public ImageButton btnDelete;
+        public final TextView txtName;
+        public final ImageButton btnEdit;
+        public final ImageButton btnDelete;
 
         public MyViewHolder(View v) {
             super(v);
@@ -74,7 +74,7 @@ public class BrokerListAdapter extends RecyclerView.Adapter<BrokerListAdapter.My
             Intent intent = new Intent (v.getContext(), BrokerActivity.class);
             intent.putExtra("broker_id", broker.getId());
             context.startActivity(intent);
-            notifyDataSetChanged();
+            notifyItemChanged(position);
         });
 
         // btnDelete

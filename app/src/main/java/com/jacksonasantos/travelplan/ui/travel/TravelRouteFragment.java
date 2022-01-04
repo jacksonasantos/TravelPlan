@@ -82,10 +82,10 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
 
     private static final int REQUEST_PERMISSION = 1; // TODO - testar quando não dá permissão de localização
 
-    String lang = "portuguese"; // TODO - ver language
+    final String lang = "portuguese"; // TODO - ver language
 
-    RouteClass routeClass = new RouteClass();
-    ArrayList<LatLng> pointsRoute = new ArrayList<>(1);
+    final RouteClass routeClass = new RouteClass();
+    final ArrayList<LatLng> pointsRoute = new ArrayList<>(1);
 
     public TravelRouteFragment(boolean clearMap, Integer travel_id) {
         this.clearMap = clearMap;
@@ -571,10 +571,10 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
         private long totalMin = 0;
 
         public final List<Itinerary> mItinerary;
-        Context context;
-        int show_header;
-        int show_footer;
-        boolean show_home;
+        final Context context;
+        final int show_header;
+        final int show_footer;
+        final boolean show_home;
         boolean lClick = false;
 
         public HomeTravelItineraryListAdapter(List<Itinerary> itinerary, Context context, int show_header, int show_footer, boolean show_home) {

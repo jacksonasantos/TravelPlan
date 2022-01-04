@@ -47,9 +47,7 @@ public class InsuranceDAO extends DbContentProvider implements InsuranceISchema,
         } else {
             selection = INSURANCE_TRAVEL_ID + " = ? AND ";
         }
-        final String selectionField = selection + INSURANCE_STATUS + " = 0 "; //AND ( " +
-        //            MAINTENANCE_EXPIRATION_DATE + " NOT NULL AND " +
-        //            MAINTENANCE_EXPIRATION_DATE + " > DATE ('now') )" ;
+        final String selectionField = selection + INSURANCE_STATUS + " = 0 ";
 
         cursor = super.query(INSURANCE_TABLE, INSURANCE_COLUMNS, selectionField, selectionArgs, INSURANCE_FINAL_EFFECTIVE_DATE);
         if (cursor.moveToFirst()) {

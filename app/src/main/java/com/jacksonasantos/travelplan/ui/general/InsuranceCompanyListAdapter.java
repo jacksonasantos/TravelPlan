@@ -24,13 +24,13 @@ import java.util.List;
 public class InsuranceCompanyListAdapter extends RecyclerView.Adapter<InsuranceCompanyListAdapter.MyViewHolder> {
 
     private final List<InsuranceCompany> mInsuranceCompany;
-    Context context;
+    final Context context;
 
     public static class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        public TextView txtCompanyName;
-        public ImageButton btnEdit;
-        public ImageButton btnDelete;
+        public final TextView txtCompanyName;
+        public final ImageButton btnEdit;
+        public final ImageButton btnDelete;
 
         public MyViewHolder(View v) {
             super(v);
@@ -74,7 +74,7 @@ public class InsuranceCompanyListAdapter extends RecyclerView.Adapter<InsuranceC
             Intent intent = new Intent (v.getContext(), InsuranceCompanyActivity.class);
             intent.putExtra("insuranceCompany_id", insuranceCompany.getId());
             context.startActivity(intent);
-            notifyDataSetChanged();
+            notifyItemChanged(position);
         });
 
         // btnDelete

@@ -110,10 +110,10 @@ public class RouteClass {
     @SuppressLint("StaticFieldLeak")
     private class connectAsyncTask extends AsyncTask<Void, Void, String> {
         private ProgressDialog progressDialog;
-        String url;
-        boolean steps;
-        int nrSequence;
-        Integer nrSequenceSelected;
+        final String url;
+        final boolean steps;
+        final int nrSequence;
+        final Integer nrSequenceSelected;
 
         connectAsyncTask(String urlPass, boolean withSteps,int sequence, Integer sequenceSelected ) {
             url = urlPass;

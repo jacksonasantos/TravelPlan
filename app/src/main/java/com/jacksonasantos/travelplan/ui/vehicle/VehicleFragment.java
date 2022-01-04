@@ -34,7 +34,7 @@ import java.util.List;
 
 public class VehicleFragment extends Fragment  {
 
-    Globals g = Globals.getInstance();
+    final Globals g = Globals.getInstance();
 
     private RecyclerView listVehicles;
     private GraphView graphStatistics;
@@ -84,12 +84,7 @@ public class VehicleFragment extends Fragment  {
         graphStatistics.getViewport().setMaxXAxisSize(vMaxX);
         graphStatistics.getViewport().setMinY(0);
         graphStatistics.getViewport().setMaxY(vMaxY+2);
-        /*graphStatistics.getViewport().setScalable(true);                // activate horizontal zooming and scrolling
-        graphStatistics.getViewport().setScrollable(true);              // activate horizontal scrolling
-        graphStatistics.getViewport().setScalableY(true);               // activate horizontal and vertical zooming and scrolling
-        graphStatistics.getViewport().setScrollableY(true);             // activate vertical scrolling
 
-*/
         graphStatistics.getGridLabelRenderer().setHorizontalLabelsAngle(135);
         graphStatistics.getGridLabelRenderer().setVerticalLabelsColor(Color.BLUE);
         graphStatistics.getGridLabelRenderer().setHorizontalLabelsColor(Color.BLUE);
@@ -186,10 +181,6 @@ public class VehicleFragment extends Fragment  {
                 series.setColor(adapterVehicle.mVehicle.get(v).getColor_code());
                 series.setDrawDataPoints(true);
                 series.setDataPointsRadius(7);
-                //vMinX = (vMinX==0?series.getLowestValueX():Math.min(series.getLowestValueX(), vMinX));
-                //vMaxX = (vMaxX==0?series.getHighestValueX():Math.max(series.getHighestValueX(), vMaxX));
-                //vMinY = (vMinY==0?series.getLowestValueY():Math.min(series.getLowestValueY(), vMinY));
-                //vMaxY = (vMaxY==0?series.getHighestValueY():Math.max(series.getHighestValueY(), vMaxY));
                 graphStatistics.addSeries(series);
             }
         }
