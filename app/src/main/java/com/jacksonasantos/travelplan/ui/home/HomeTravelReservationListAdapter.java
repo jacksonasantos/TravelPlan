@@ -52,12 +52,10 @@ public class HomeTravelReservationListAdapter extends RecyclerView.Adapter<Recyc
                 .from(parent.getContext())
                 .inflate(R.layout.fragment_home_travel_item_reservation, parent, false);
 
-        if (viewType == TYPE_ITEM) {
-            return new ItemViewHolder(reservationView);
-        } else if (viewType == TYPE_HEADER) {
+        if (viewType == TYPE_HEADER) {
             return new HeaderViewHolder(reservationView);
         }
-        else return null;
+        else return new ItemViewHolder(reservationView);
     }
 
     @SuppressLint("SetTextI18n")

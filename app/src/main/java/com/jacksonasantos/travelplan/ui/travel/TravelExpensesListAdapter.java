@@ -135,7 +135,7 @@ public class TravelExpensesListAdapter extends RecyclerView.Adapter<RecyclerView
                     .setPositiveButton(R.string.Yes, (dialogInterface, i) -> {
                         try {
                             Database.mTravelExpensesDao.deleteTravelExpenses(travelExpenses.getId());
-                            mTravelExpenses.remove(position);
+                            mTravelExpenses.remove(position-show_header);
                             notifyItemRemoved(position);
                             notifyItemRangeChanged(position, mTravelExpenses.size());
                         } catch (Exception e) {
@@ -143,7 +143,6 @@ public class TravelExpensesListAdapter extends RecyclerView.Adapter<RecyclerView
                         }
                     }).setNegativeButton(R.string.No, null)
                     .show());
-
         }
     }
     @Override

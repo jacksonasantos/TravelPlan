@@ -56,12 +56,10 @@ public class HomeVehicleNextMaintenanceListAdapter extends RecyclerView.Adapter<
                 .inflate(R.layout.fragment_home_vehicle_next_maintenance, parent, false);
         measureArray = parent.getResources().getStringArray(R.array.measure_item);
 
-        if (viewType == TYPE_ITEM) {
-            return new ItemViewHolder(nextMaintenanceItemView);
-        } else if (viewType == TYPE_HEADER) {
+        if (viewType == TYPE_HEADER) {
             return new HeaderViewHolder(nextMaintenanceItemView);
         }
-        else return null;
+        else return new ItemViewHolder(nextMaintenanceItemView);
     }
 
     @SuppressLint({"SetTextI18n", "ResourceAsColor"})
