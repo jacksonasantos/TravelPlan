@@ -6,6 +6,7 @@ public class TravelExpenses {
     public int expense_type;
     public Double expected_value;
     public String note;
+    public Integer marker_id;
 
     public TravelExpenses() {
         this.id = id;
@@ -13,6 +14,7 @@ public class TravelExpenses {
         this.expense_type = expense_type;
         this.expected_value = expected_value;
         this.note = note;
+        this.marker_id = marker_id;
     }
 
     public Integer getId() { return id; }
@@ -29,4 +31,7 @@ public class TravelExpenses {
 
     public String getNote() { return note; }
     public void setNote(String note) { this.note = note; }
+
+    public Integer getMarker_id() { return marker_id; }
+    public void setMarker_id(Integer marker_id) { this.marker_id = marker_id; }
 }

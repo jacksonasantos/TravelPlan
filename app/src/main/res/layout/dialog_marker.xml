@@ -27,10 +27,11 @@
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="2.5"
+                        android:layout_weight="3"
                         android:text="@string/marker_latlng"
                         android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:textSize="14sp"/>
+                        android:textSize="10sp"
+                        tools:ignore="SmallSp" />
 
                     <TextView
                         android:id="@+id/tvLat"
@@ -54,7 +55,7 @@
                         android:id="@+id/tvZoom"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="2.5"
+                        android:layout_weight="2"
                         android:autofillHints="no"
                         android:textSize="10sp"
                         tools:ignore="LabelFor,SmallSp" />
@@ -68,18 +69,19 @@
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="2.5"
+                        android:layout_weight="3"
                         android:text="@string/marker_name"
                         android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:textSize="14sp" />
+                        android:textSize="10sp"
+                        tools:ignore="SmallSp" />
                     <TextView
                         android:id="@+id/tvName"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="7.5"
+                        android:layout_weight="7"
                         android:autofillHints="no"
-                        tools:ignore="LabelFor"
-                        android:textSize="14sp" />
+                        tools:ignore="LabelFor,SmallSp"
+                        android:textSize="10sp" />
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -89,18 +91,19 @@
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="2.5"
+                        android:layout_weight="3"
                         android:text="@string/marker_address"
                         android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:textSize="14sp" />
+                        android:textSize="10sp"
+                        tools:ignore="SmallSp" />
                     <TextView
                         android:id="@+id/tvAddress"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="7.5"
+                        android:layout_weight="7"
                         android:autofillHints="no"
-                        tools:ignore="LabelFor"
-                        android:textSize="14sp" />
+                        tools:ignore="LabelFor,SmallSp"
+                        android:textSize="10sp" />
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -110,18 +113,19 @@
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="2.5"
+                        android:layout_weight="3"
                         android:text="@string/marker_city"
                         android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:textSize="14sp" />
+                        android:textSize="10sp"
+                        tools:ignore="SmallSp" />
                     <TextView
                         android:id="@+id/tvCity"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="7.5"
+                        android:layout_weight="7"
                         android:autofillHints="no"
-                        tools:ignore="LabelFor"
-                        android:textSize="14sp" />
+                        tools:ignore="LabelFor,SmallSp"
+                        android:textSize="10sp" />
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -131,18 +135,19 @@
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="2.5"
+                        android:layout_weight="3"
                         android:text="@string/marker_state"
                         android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:textSize="14sp" />
+                        android:textSize="10sp"
+                        tools:ignore="SmallSp" />
                     <TextView
                         android:id="@+id/tvState"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="7.5"
+                        android:layout_weight="7"
                         android:autofillHints="no"
-                        tools:ignore="LabelFor"
-                        android:textSize="14sp" />
+                        tools:ignore="LabelFor,SmallSp"
+                        android:textSize="10sp" />
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -152,26 +157,27 @@
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="2.5"
+                        android:layout_weight="3"
                         android:text="@string/marker_country"
                         android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:textSize="14sp" />
+                        android:textSize="10sp"
+                        tools:ignore="SmallSp" />
                     <TextView
                         android:id="@+id/tvAbbrCountry"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="2.5"
+                        android:layout_weight="2"
                         android:autofillHints="no"
-                        tools:ignore="LabelFor"
-                        android:textSize="14sp" />
+                        tools:ignore="LabelFor,SmallSp"
+                        android:textSize="10sp" />
                     <TextView
                         android:id="@+id/tvCountry"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="5"
                         android:autofillHints="no"
-                        tools:ignore="LabelFor"
-                        android:textSize="14sp" />
+                        tools:ignore="LabelFor,SmallSp"
+                        android:textSize="10sp" />
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -181,18 +187,19 @@
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="2.5"
+                        android:layout_weight="3"
                         android:text="@string/marker_category"
                         android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:textSize="14sp" />
+                        android:textSize="10sp"
+                        tools:ignore="SmallSp" />
                     <TextView
                         android:id="@+id/tvCategory"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="7.5"
+                        android:layout_weight="7"
                         android:autofillHints="no"
-                        tools:ignore="LabelFor"
-                        android:textSize="14sp" />
+                        tools:ignore="LabelFor,SmallSp"
+                        android:textSize="10sp" />
                 </LinearLayout>
         </LinearLayout>
     </androidx.cardview.widget.CardView>
@@ -218,15 +225,16 @@
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="2.5"
+                    android:layout_weight="3"
                     android:text="@string/marker_itinerary"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textSize="14sp"  />
+                    android:textSize="10sp"
+                    tools:ignore="SmallSp" />
                 <Spinner
                     android:id="@+id/spinItinerary"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="7.5"
+                    android:layout_weight="7"
                     android:text="@string/marker_itinerary"
                     android:textSize="10sp"
                     tools:ignore="SmallSp">
@@ -240,19 +248,22 @@
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="2.5"
+                    android:layout_weight="3"
                     android:text="@string/marker_type"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textSize="14sp"  />
+                    android:textSize="10sp"
+                    tools:ignore="SmallSp" />
+
                 <Spinner
                     android:id="@+id/spinMarkerType"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="7.5"
-                    android:text="@string/marker_type"
+                    android:layout_weight="7"
                     android:entries="@array/marker_type_array"
+                    android:text="@string/marker_type"
                     android:textSize="10sp"
                     tools:ignore="SmallSp">
+
                 </Spinner>
             </LinearLayout>
             <LinearLayout
@@ -263,15 +274,16 @@
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="2.5"
+                    android:layout_weight="3"
                     android:text="@string/marker_sequence"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textSize="14sp"  />
+                    android:textSize="10sp"
+                    tools:ignore="SmallSp" />
                 <EditText
                     android:id="@+id/etSeq"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="7.5"
+                    android:layout_weight="7"
                     android:autofillHints="no"
                     android:inputType="number"
                     tools:ignore="LabelFor,SmallSp"
@@ -285,21 +297,45 @@
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="2.5"
+                    android:layout_weight="3"
                     android:text="@string/marker_description"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textSize="14sp" />
+                    android:textSize="10sp"
+                    tools:ignore="SmallSp" />
                 <EditText
                     android:id="@+id/etDescription"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="7.5"
+                    android:layout_weight="7"
                     android:autofillHints="no"
                     android:inputType="textCapSentences"
                     tools:ignore="LabelFor,SmallSp"
                     android:textSize="10sp"  />
             </LinearLayout>
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="10">
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
+                    android:text="@string/marker_expected_value"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textSize="10sp"
+                    tools:ignore="SmallSp" />
+                <EditText
+                    android:id="@+id/etExpectedValue"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="7"
+                    android:autofillHints="no"
+                    android:inputType="numberDecimal"
+                    android:textSize="10sp"
+                    tools:ignore="LabelFor,SmallSp" />
+            </LinearLayout>
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 

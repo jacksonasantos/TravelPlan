@@ -42,7 +42,6 @@ import com.jacksonasantos.travelplan.ui.utility.Globals;
 import com.jacksonasantos.travelplan.ui.utility.Utils;
 import com.jacksonasantos.travelplan.ui.vehicle.FuelSupplyActivity;
 
-import java.math.BigDecimal;
 import java.text.NumberFormat;
 import java.util.List;
 import java.util.Locale;
@@ -339,12 +338,16 @@ public class HomeTravelFragment extends Fragment implements View.OnClickListener
                     travelExpensesList = Database.mTravelExpensesDao.fetchAllTravelExpensesByTravelType(travel[0].getId(), expense_type);
                 }
                 spinExpenseType.setSelection(expense_type);
-                etExpectedValue.setText(currencyFormatter.format(travelExpensesList.get(0).getExpected_value()==null? BigDecimal.ZERO:travelExpensesList.get(0).getExpected_value()));
+                double vlrExpectedValue = 0.0;
+                for (int x = 0; x < travelExpensesList.size(); x++) {
+                    vlrExpectedValue = vlrExpectedValue + travelExpensesList.get(x).getExpected_value();
+                }
+                etExpectedValue.setText(currencyFormatter.format(vlrExpectedValue));
                 etNote.setText(travelExpensesList.get(0).getNote());
 
                 etExpenseDate.addTextChangedListener(new DateInputMask(etExpenseDate));
 
-                adapterTravelItemExpenses[0] = new HomeTravelItemExpensesListAdapter(Database.mTravelItemExpensesDao.fetchTravelItemExpensesByTravelExpenseId( travelExpensesList.get(0).getId()), requireContext(),travelExpensesList.get(0).getTravel_id());
+                adapterTravelItemExpenses[0] = new HomeTravelItemExpensesListAdapter(Database.mTravelItemExpensesDao.fetchTravelItemExpensesByExpenseType( travelExpensesList.get(0).getTravel_id(), travelExpensesList.get(0).getExpense_type()), requireContext(),travelExpensesList.get(0).getTravel_id());
                 rvTravelExpenseItem.setAdapter(adapterTravelItemExpenses[0]);
                 rvTravelExpenseItem.setLayoutManager(new LinearLayoutManager(requireContext()));
                 adapterTravelItemExpenses[0].notifyDataSetChanged();
@@ -357,7 +360,8 @@ public class HomeTravelFragment extends Fragment implements View.OnClickListener
 
                             TravelItemExpenses TIE = new TravelItemExpenses();
 
-                            TIE.setTravel_expense_id(finalTravelExpensesList.get(0).getId());
+                            TIE.setExpense_type(finalTravelExpensesList.get(0).getExpense_type());
+                            TIE.setTravel_id(travel[0].getId());
                             TIE.setExpense_date(Utils.stringToDate(etExpenseDate.getText().toString()));
                             if (!etExpenseItemRealizedValue.getText().toString().isEmpty()) {
                                 TIE.setRealized_value(Double.parseDouble(etExpenseItemRealizedValue.getText().toString()));
@@ -376,7 +380,7 @@ public class HomeTravelFragment extends Fragment implements View.OnClickListener
                                 if (!isSave) {
                                     Toast.makeText(requireContext(), R.string.Error_Saving_Data, Toast.LENGTH_LONG).show();
                                 } else {
-                                    adapterTravelItemExpenses[0] = new HomeTravelItemExpensesListAdapter(Database.mTravelItemExpensesDao.fetchTravelItemExpensesByTravelExpenseId(finalTravelExpensesList.get(0).getId()), requireContext(), finalTravelExpensesList.get(0).getTravel_id());
+                                    adapterTravelItemExpenses[0] = new HomeTravelItemExpensesListAdapter(Database.mTravelItemExpensesDao.fetchTravelItemExpensesByExpenseType(finalTravelExpensesList.get(0).getTravel_id(),finalTravelExpensesList.get(0).getExpense_type()), requireContext(), finalTravelExpensesList.get(0).getTravel_id());
                                     rvTravelExpenseItem.setAdapter(adapterTravelItemExpenses[0]);
                                     rvTravelExpenseItem.setLayoutManager(new LinearLayoutManager(requireContext()));
                                     adapterTravelItemExpenses[0].notifyDataSetChanged();

@@ -83,7 +83,7 @@ public class HomeTravelReservationListAdapter extends RecyclerView.Adapter<Recyc
             if (position%2==0) {
                 itemViewHolder.llReservationItem.setBackgroundColor(Color.WHITE);
             } else {
-                itemViewHolder.llReservationItem.setBackgroundColor(Color.rgb(209,193,233));
+                itemViewHolder.llReservationItem.setBackgroundColor(Utils.getColorWithAlpha(R.color.colorItemList,0.1f));
             }
 
             itemViewHolder.txtAccommodation.setText(Database.mAccommodationDao.fetchAccommodationById(reservation.getAccommodation_id()).getName());

@@ -9,6 +9,7 @@ public interface TravelExpensesISchema {
     String TRAVEL_EXPENSES_EXPENSE_TYPE = "expense_type";
     String TRAVEL_EXPENSES_EXPECTED_VALUE = "expected_value";
     String TRAVEL_EXPENSES_NOTE = "note";
+    String TRAVEL_EXPENSES_MARKER_ID = "marker_id";
 
     // Version 31
     String CREATE_TABLE_TRAVEL_EXPENSES_V31 = "CREATE TABLE IF NOT EXISTS "
@@ -20,11 +21,16 @@ public interface TravelExpensesISchema {
             + TRAVEL_EXPENSES_NOTE + " TEXT "
             + ")";
 
+    // Version 43
+    String ALTER_TABLE_TRAVEL_EXPENSES_V43 = "ALTER TABLE " + TRAVEL_EXPENSES_TABLE
+            + " ADD COLUMN " + TRAVEL_EXPENSES_MARKER_ID + " INTEGER REFERENCES " + MarkerISchema.MARKER_TABLE + " ("+MarkerISchema.MARKER_ID+") ";
+
     String[] TRAVEL_EXPENSES_COLUMNS = new String[] {
             TRAVEL_EXPENSES_ID,
             TRAVEL_EXPENSES_TRAVEL_ID,
             TRAVEL_EXPENSES_EXPENSE_TYPE,
             TRAVEL_EXPENSES_EXPECTED_VALUE,
-            TRAVEL_EXPENSES_NOTE
+            TRAVEL_EXPENSES_NOTE,
+            TRAVEL_EXPENSES_MARKER_ID
    };
 }

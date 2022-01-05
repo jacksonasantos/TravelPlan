@@ -394,10 +394,12 @@
 
     <!-- Marker Fragment -->
 
+    <string name="marker">Marker</string>
     <string name="marker_sequence">Seq</string>
     <string name="marker_itinerary">Itinerary</string>
     <string name="marker_type">Type</string>
     <string name="marker_description">Description</string>
+    <string name="marker_expected_value">Expected Value</string>
     <string name="marker_latlng" translatable="false">Lat/Lng</string>
     <string name="marker_name">Name</string>
     <string name="marker_address">Address</string>

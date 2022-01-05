@@ -286,7 +286,7 @@
     <string name="toll">Pedágio</string>
     <string name="food">Alimentação</string>
     <string name="tours">Passeios</string>
-    <string name="accommodation">Hospedágem</string>
+    <string name="accommodation">Hospedagem</string>
     <string name="expected">Previsto</string>
     <string name="realized">Realizado</string>
     <string name="insurance">Seguro</string>
@@ -338,4 +338,6 @@
     <string name="plating_painting_polishing">Chapeação/Pintura/Polimento</string>
     <string name="Vehicle_Image">Imagem do Veículo</string>
     <string name="travel_default">Viagem Padrão</string>
+    <string name="marker_expected_value">Valor Previsto</string>
+    <string name="marker">Marcador</string>
 </resources>

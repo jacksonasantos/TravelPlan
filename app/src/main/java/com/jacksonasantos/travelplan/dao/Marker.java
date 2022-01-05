@@ -1,6 +1,7 @@
 package com.jacksonasantos.travelplan.dao;
 
 import com.jacksonasantos.travelplan.R;
+import com.jacksonasantos.travelplan.ui.utility.Globals;
 
 public class Marker {
     public Integer id;
@@ -55,8 +56,7 @@ public class Marker {
         int draw;
         switch(marker_type) {
             case 0:
-            case 1:
-                draw = R.drawable.ic_trip_target; break;
+            case 1: draw = R.drawable.ic_trip_target; break;
             case 2: draw = R.drawable.ic_supply; break;
             case 3: draw = R.drawable.ic_restaurant; break;
             case 4: draw = R.drawable.ic_menu_accommodation; break;
@@ -67,6 +67,37 @@ public class Marker {
             default: draw = R.drawable.ic_error; break;
         }
         return draw;
+    }
+
+    public Double getMarker_typeExpectedValue( int marker_type){
+        final Globals g = Globals.getInstance();
+        Double value;
+        switch(marker_type) {
+            case 3:
+            case 8: value = g.getExpectedValueRestaurant(); break;
+            case 4: value = g.getExpectedValueAccommodation(); break;
+            case 5: value = g.getExpectedValueToll(); break;
+            case 6: value = g.getExpectedValueTour(); break;
+            case 7: value = g.getExpectedValueLandmark(); break;
+            default: value = 0.0; break;
+        }
+        return value;
+    }
+
+    public int getMarker_typeExpenseType( int marker_type) {
+        /* Get for translate of Type Marker for Type Expense */
+        int value ;
+        switch(marker_type) {
+            case 3:                     // 3-food          -> 1-food
+            case 8: value = 1; break;   // 8-waypoints     -> 1-food
+            case 4: value = 4; break;   // 4-Accommodation -> 4-accommodation
+            case 5: value = 2; break;   // 5-Toll          -> 2-Toll
+            case 6:                     // 6-Tour          -> 3-Tours
+            case 7: value = 3; break;   // 7-Landmark      -> 3-Tours
+            default:
+                throw new IllegalStateException("Unexpected value: " + marker_type);
+        }
+        return value;
     }
 
     public Integer getSequence() { return sequence; }

@@ -68,6 +68,23 @@ public class TravelExpensesDAO extends DbContentProvider implements TravelExpens
         return travelExpensesList;
     }
 
+    public TravelExpenses fetchTravelExpensesByTravelMarker( Integer travel_id, Integer marker_id) {
+        final String[] selectionArgs = { String.valueOf(travel_id), String.valueOf(marker_id) };
+        final String selection = TRAVEL_EXPENSES_TRAVEL_ID + " = ? AND " + TRAVEL_EXPENSES_MARKER_ID + " = ? ";
+        TravelExpenses travelExpenses = new TravelExpenses();
+
+        cursor = super.query(TRAVEL_EXPENSES_TABLE, TRAVEL_EXPENSES_COLUMNS, selection, selectionArgs, null);
+        if (cursor != null) {
+            cursor.moveToFirst();
+            while (!cursor.isAfterLast()) {
+                travelExpenses = cursorToEntity(cursor);
+                cursor.moveToNext();
+            }
+            cursor.close();
+        }
+        return travelExpenses;
+    }
+
     public List<TravelExpenses> fetchAllTravelExpenses() {
         List<TravelExpenses> travelExpensesList = new ArrayList<>();
 
@@ -108,6 +125,7 @@ public class TravelExpensesDAO extends DbContentProvider implements TravelExpens
             if (c.getColumnIndex(TRAVEL_EXPENSES_EXPENSE_TYPE) != -1)   {t.setExpense_type(c.getInt(c.getColumnIndexOrThrow(TRAVEL_EXPENSES_EXPENSE_TYPE))); }
             if (c.getColumnIndex(TRAVEL_EXPENSES_EXPECTED_VALUE) != -1) {t.setExpected_value(c.getDouble(c.getColumnIndexOrThrow(TRAVEL_EXPENSES_EXPECTED_VALUE))); }
             if (c.getColumnIndex(TRAVEL_EXPENSES_NOTE) != -1 )          {t.setNote(c.getString(c.getColumnIndexOrThrow(TRAVEL_EXPENSES_NOTE))); }
+            if (c.getColumnIndex(TRAVEL_EXPENSES_MARKER_ID) != -1)      {t.setMarker_id(c.getInt(c.getColumnIndexOrThrow(TRAVEL_EXPENSES_MARKER_ID))); }
         }
         return t;
     }
@@ -119,6 +137,7 @@ public class TravelExpensesDAO extends DbContentProvider implements TravelExpens
         initialValues.put(TRAVEL_EXPENSES_EXPENSE_TYPE, t.expense_type);
         initialValues.put(TRAVEL_EXPENSES_EXPECTED_VALUE, t.expected_value);
         initialValues.put(TRAVEL_EXPENSES_NOTE, t.note);
+        initialValues.put(TRAVEL_EXPENSES_MARKER_ID, t.marker_id);
     }
 
     private ContentValues getContentValue() {

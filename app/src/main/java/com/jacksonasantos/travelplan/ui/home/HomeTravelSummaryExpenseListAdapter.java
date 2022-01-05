@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.jacksonasantos.travelplan.R;
 import com.jacksonasantos.travelplan.dao.SummaryTravelExpense;
 import com.jacksonasantos.travelplan.ui.utility.Globals;
+import com.jacksonasantos.travelplan.ui.utility.Utils;
 
 import java.math.BigDecimal;
 import java.text.NumberFormat;
@@ -58,14 +59,12 @@ public class HomeTravelSummaryExpenseListAdapter extends RecyclerView.Adapter<Re
                 .from(parent.getContext())
                 .inflate(R.layout.fragment_home_travel_item_expense, parent, false);
 
-        if (viewType == TYPE_ITEM) {
-            return new ItemViewHolder(expenseView);
-        } else if (viewType == TYPE_HEADER) {
+        if (viewType == TYPE_HEADER) {
             return new HeaderViewHolder(expenseView);
         } else if (viewType == TYPE_FOOTER) {
           return new FooterViewHolder(expenseView);
         }
-        else return null;
+        else return new ItemViewHolder(expenseView);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
@@ -81,7 +80,7 @@ public class HomeTravelSummaryExpenseListAdapter extends RecyclerView.Adapter<Re
         }
         else if (holder instanceof FooterViewHolder) {
             FooterViewHolder footerViewHolder = ( FooterViewHolder ) holder;
-            footerViewHolder.llExpenseItem.setBackgroundColor(Color.rgb(209,193,233));
+            footerViewHolder.llExpenseItem.setBackgroundColor(Utils.getColorWithAlpha(R.color.colorItemList,0.7f));
             footerViewHolder.imgExpense.setVisibility(View.INVISIBLE);
             footerViewHolder.txtExpense.setText(R.string.HomeTravelTotal);
             footerViewHolder.txtExpectedValue.setText(currencyFormatter.format(vTotExpected==null? BigDecimal.ZERO: vTotExpected));
@@ -90,6 +89,7 @@ public class HomeTravelSummaryExpenseListAdapter extends RecyclerView.Adapter<Re
         else if (holder instanceof ItemViewHolder) {
             final ItemViewHolder itemViewHolder = (ItemViewHolder) holder;
             final SummaryTravelExpense summaryTravelExpense = mSummaryTravelExpense.get(position-show_header);
+            itemViewHolder.llExpenseItem.setBackgroundColor(Utils.getColorWithAlpha(R.color.colorItemList,0.1f));
             itemViewHolder.imgExpense.setImageResource(summaryTravelExpense.getExpense_type_image(summaryTravelExpense.getExpense_type()));
             itemViewHolder.txtExpense.setText(context.getResources().getStringArray(R.array.expenses_type_array)[summaryTravelExpense.getExpense_type()]);
             itemViewHolder.txtExpectedValue.setText(currencyFormatter.format(summaryTravelExpense.getExpected_value()==null? BigDecimal.ZERO: summaryTravelExpense.getExpected_value()));

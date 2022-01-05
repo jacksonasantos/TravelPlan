@@ -64,11 +64,13 @@ public class SummaryTravelExpenseDAO extends DbContentProvider implements Summar
                                    " SUM(" + TravelExpensesISchema.TRAVEL_EXPENSES_EXPECTED_VALUE + ") " + SummaryTravelExpenseISchema.SUMMARY_TRAVEL_EXPENSE_EXPECTED_VALUE + ", " +
                                    " [IFNULL]( (SELECT SUM(tie." + TravelItemExpensesISchema.TRAVEL_ITEM_EXPENSES_REALIZED_VALUE+") " +
                                                 " FROM " + TravelItemExpensesISchema.TRAVEL_ITEM_EXPENSES_TABLE+" tie " +
-                                               " WHERE tie." + TravelItemExpensesISchema.TRAVEL_ITEM_EXPENSES_TRAVEL_EXPENSE_ID + " = " + TravelExpensesISchema.TRAVEL_EXPENSES_TABLE +"."+TravelExpensesISchema.TRAVEL_EXPENSES_ID+")" +
+                                               " WHERE tie." + TravelItemExpensesISchema.TRAVEL_ITEM_EXPENSES_TRAVEL_ID + " = " + TravelExpensesISchema.TRAVEL_EXPENSES_TABLE +"."+TravelExpensesISchema.TRAVEL_EXPENSES_TRAVEL_ID +
+                                               " AND tie." + TravelItemExpensesISchema.TRAVEL_ITEM_EXPENSES_EXPENSE_TYPE + " = " + TravelExpensesISchema.TRAVEL_EXPENSES_TABLE +"."+TravelExpensesISchema.TRAVEL_EXPENSES_EXPENSE_TYPE + " )" +
                                             ", 0) " + SummaryTravelExpenseISchema.SUMMARY_TRAVEL_EXPENSE_REALIZED_VALUE +
                               " FROM " + TravelExpensesISchema.TRAVEL_EXPENSES_TABLE +
                              " WHERE " + TravelExpensesISchema.TRAVEL_EXPENSES_TRAVEL_ID + " = ? " +
-                          " GROUP BY " + TravelExpensesISchema.TRAVEL_EXPENSES_EXPENSE_TYPE + ") " +
+                             " GROUP BY " + TravelExpensesISchema.TRAVEL_EXPENSES_EXPENSE_TYPE + " " +
+                           ") " +
                   " GROUP BY " + TravelExpensesISchema.TRAVEL_EXPENSES_EXPENSE_TYPE,
         new String[] { String.valueOf(travel_id), String.valueOf(travel_id), String.valueOf(travel_id), String.valueOf(travel_id), String.valueOf(travel_id)});
         if (null != cursor) {

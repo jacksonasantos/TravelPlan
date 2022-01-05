@@ -37,9 +37,9 @@ public class TravelItemExpensesDAO extends DbContentProvider implements TravelIt
         return travelItemExpenses;
     }
 
-    public List<TravelItemExpenses> fetchTravelItemExpensesByTravelExpenseId(Integer travel_expense_id) {
-        final String[] selectionArgs = { String.valueOf(travel_expense_id) };
-        final String selection = TRAVEL_ITEM_EXPENSES_TRAVEL_EXPENSE_ID + " = ?";
+    public List<TravelItemExpenses> fetchTravelItemExpensesByExpenseType(Integer travel_id, Integer expense_type) {
+        final String[] selectionArgs = { String.valueOf(travel_id), String.valueOf(expense_type) };
+        final String selection = TRAVEL_ITEM_EXPENSES_TRAVEL_ID + " = ? AND " + TRAVEL_ITEM_EXPENSES_EXPENSE_TYPE + " = ?";
         List<TravelItemExpenses> travelItemExpensesList = new ArrayList<>();
         cursor = super.query(TRAVEL_ITEM_EXPENSES_TABLE, TRAVEL_ITEM_EXPENSES_COLUMNS, selection, selectionArgs, TRAVEL_ITEM_EXPENSES_EXPENSE_DATE+", "+TRAVEL_ITEM_EXPENSES_ID);
         if (cursor.moveToFirst()) {
@@ -88,10 +88,11 @@ public class TravelItemExpensesDAO extends DbContentProvider implements TravelIt
         TravelItemExpenses t = new TravelItemExpenses();
         if (c != null) {
             if (c.getColumnIndex(TRAVEL_ITEM_EXPENSES_ID) != -1)                 {t.setId(c.getInt(c.getColumnIndexOrThrow(TRAVEL_ITEM_EXPENSES_ID))); }
-            if (c.getColumnIndex(TRAVEL_ITEM_EXPENSES_TRAVEL_EXPENSE_ID) != -1) {t.setTravel_expense_id(c.getInt(c.getColumnIndexOrThrow(TRAVEL_ITEM_EXPENSES_TRAVEL_EXPENSE_ID))); }
+            if (c.getColumnIndex(TRAVEL_ITEM_EXPENSES_EXPENSE_TYPE) != -1)       {t.setExpense_type(c.getInt(c.getColumnIndexOrThrow(TRAVEL_ITEM_EXPENSES_EXPENSE_TYPE))); }
             if (c.getColumnIndex(TRAVEL_ITEM_EXPENSES_EXPENSE_DATE) != -1)       {t.setExpense_date(Utils.dateParse(c.getString(c.getColumnIndexOrThrow(TRAVEL_ITEM_EXPENSES_EXPENSE_DATE)))); }
             if (c.getColumnIndex(TRAVEL_ITEM_EXPENSES_REALIZED_VALUE) != -1)     {t.setRealized_value(c.getDouble(c.getColumnIndexOrThrow(TRAVEL_ITEM_EXPENSES_REALIZED_VALUE))); }
             if (c.getColumnIndex(TRAVEL_ITEM_EXPENSES_NOTE) != -1 )              {t.setNote(c.getString(c.getColumnIndexOrThrow(TRAVEL_ITEM_EXPENSES_NOTE))); }
+            if (c.getColumnIndex(TRAVEL_ITEM_EXPENSES_TRAVEL_ID) != -1)          {t.setTravel_id(c.getInt(c.getColumnIndexOrThrow(TRAVEL_ITEM_EXPENSES_TRAVEL_ID))); }
         }
         return t;
     }
@@ -99,10 +100,11 @@ public class TravelItemExpensesDAO extends DbContentProvider implements TravelIt
     private void setContentValue(TravelItemExpenses t) {
         initialValues = new ContentValues();
         initialValues.put(TRAVEL_ITEM_EXPENSES_ID, t.id);
-        initialValues.put(TRAVEL_ITEM_EXPENSES_TRAVEL_EXPENSE_ID, t.travel_expense_id);
+        initialValues.put(TRAVEL_ITEM_EXPENSES_EXPENSE_TYPE, t.expense_type);
         initialValues.put(TRAVEL_ITEM_EXPENSES_EXPENSE_DATE,  Utils.dateFormat(t.expense_date));
         initialValues.put(TRAVEL_ITEM_EXPENSES_REALIZED_VALUE, t.realized_value);
         initialValues.put(TRAVEL_ITEM_EXPENSES_NOTE, t.note);
+        initialValues.put(TRAVEL_ITEM_EXPENSES_TRAVEL_ID, t.travel_id);
     }
 
     private ContentValues getContentValue() {

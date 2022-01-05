@@ -209,5 +209,11 @@ public class MainActivity extends AppCompatActivity {
         g.setLongitudeHome(String.valueOf(-51.18268178210297));
         g.setKMsPreviousAlert(1000);
         g.setDaysPreviousAlert(60);
+
+        g.setExpectedValueRestaurant(100.00);
+        g.setExpectedValueAccommodation(200.00);
+        g.setExpectedValueToll(7.00);
+        g.setExpectedValueTour(60.00);
+        g.setExpectedValueLandmark(30.00);
     }
 }

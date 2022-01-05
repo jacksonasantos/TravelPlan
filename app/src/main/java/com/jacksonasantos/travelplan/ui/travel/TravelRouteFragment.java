@@ -55,10 +55,14 @@ import com.jacksonasantos.travelplan.R;
 import com.jacksonasantos.travelplan.dao.Itinerary;
 import com.jacksonasantos.travelplan.dao.Marker;
 import com.jacksonasantos.travelplan.dao.Travel;
+import com.jacksonasantos.travelplan.dao.TravelExpenses;
 import com.jacksonasantos.travelplan.dao.general.Database;
+import com.jacksonasantos.travelplan.ui.utility.Globals;
 import com.jacksonasantos.travelplan.ui.utility.Utils;
 
 import java.io.IOException;
+import java.math.BigDecimal;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -196,6 +200,8 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
         boolean result = true;
         try {
             Marker m = Database.mMarkerDao.fetchMarkerByPoint(nrTravel_Id, point);
+            TravelExpenses te = Database.mTravelExpensesDao.fetchTravelExpensesByTravelMarker(nrTravel_Id, m.getId() );
+            Database.mTravelExpensesDao.deleteTravelExpenses(te.getId());
             if ( Database.mMarkerDao.deleteMarker(nrTravel_Id, String.valueOf(point.latitude), String.valueOf(point.longitude)) ) {
                 result = adjustMarker(nrTravel_Id, m.getItinerary_id(), m.getSequence(), false);
             }
@@ -206,6 +212,10 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
     }
 
     private boolean registryMarker(@NonNull final LatLng point) throws IOException {
+        final Globals g = Globals.getInstance();
+        final Locale locale = new Locale(g.getLanguage(), g.getCountry());
+        final DecimalFormat decimalFormatter = (DecimalFormat) DecimalFormat.getNumberInstance(locale);
+
         Geocoder geocoder = new Geocoder(getContext(), Locale.getDefault());
         final List<Address> addresses = geocoder.getFromLocation(point.latitude, point.longitude, 1);
 
@@ -228,6 +238,7 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
         final EditText etSeq = promptsView.findViewById(R.id.etSeq);
         final EditText etDescription = promptsView.findViewById(R.id.etDescription);
         final RecyclerView rvListMarkers = promptsView.findViewById(R.id.rvListMarkers);
+        final EditText etExpectedValue = promptsView.findViewById(R.id.etExpectedValue);
 
         tvLat.setText(String.valueOf(point.latitude));
         tvLng.setText(String.valueOf(point.longitude));
@@ -248,6 +259,17 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
         String[] adapterCols = new String[]{"text1"};
         int[] adapterRowViews = new int[]{android.R.id.text1};
 
+        spinMarkerType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                Marker m = new Marker();
+                etExpectedValue.setText(decimalFormatter.format(m.getMarker_typeExpectedValue(i)==null? BigDecimal.ZERO:m.getMarker_typeExpectedValue(i)));
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+            }
+        });
         SimpleCursorAdapter cursorAdapter = new SimpleCursorAdapter( requireActivity(),
                 android.R.layout.simple_spinner_item, cursor, adapterCols, adapterRowViews, 0);
         cursorAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -298,6 +320,19 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
                         try {
                             isSave[0] = adjustMarker( nrTravel_Id, nrItinerary_Id, m.getSequence(), true );
                             isSave[0] = Database.mMarkerDao.addMarker(m);
+
+                            LatLng latlng = new LatLng(Double.parseDouble(tvLat.getText().toString()), Double.parseDouble(tvLng.getText().toString()));
+                            m = Database.mMarkerDao.fetchMarkerByPoint(nrTravel_Id, latlng  );
+                            TravelExpenses te = new TravelExpenses();
+                            te.setMarker_id(m.getId());
+                            te.setTravel_id(m.getTravel_id());
+                            te.setNote(getResources().getString(R.string.marker)+" - "+getResources().getString(R.string.marker_itinerary)+": "+nrItinerary_Id);
+                            te.setExpected_value(Double.parseDouble(etExpectedValue.getText().toString()));
+                            if (Double.parseDouble(etExpectedValue.getText().toString()) > 0.0) {
+                                te.setExpense_type(m.getMarker_typeExpenseType(spinMarkerType.getSelectedItemPosition()));
+                            }
+                            isSave[0] = Database.mTravelExpensesDao.addTravelExpenses(te);
+
                             drawItinerary(nrTravel_Id);
                         } catch (Exception e) {
                             Toast.makeText(requireContext(), R.string.Error_Including_Data + e.getMessage(), Toast.LENGTH_LONG).show();
@@ -615,7 +650,7 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
             }
             else if (holder instanceof FooterViewHolder) {
                 FooterViewHolder footerViewHolder = (FooterViewHolder) holder;
-                footerViewHolder.llItineraryItem.setBackgroundColor(Color.rgb(209,193,233));
+                footerViewHolder.llItineraryItem.setBackgroundColor(Utils.getColorWithAlpha(R.color.colorItemList,0.7f));
                 footerViewHolder.txtSource.setText(R.string.HomeTravelTotal);
                 footerViewHolder.txtDaily.setText(Long.toString(vTotDaily));
                 footerViewHolder.txtDistance.setText(Long.toString(vTotDistance));

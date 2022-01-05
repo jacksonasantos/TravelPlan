@@ -20,6 +20,11 @@ public class Globals {
     private String txLongitudeHome;
     private int nrKMsPreviousAlert;
     private int nrDaysPreviousAlert;
+    private Double vlExpectedValueRestaurant;
+    private Double vlExpectedValueAccommodation;
+    private Double vlExpectedValueTool;
+    private Double vlExpectedValueTour;
+    private Double vlrExpectedValueLandmark;
 
     private Globals() { }
 
@@ -70,6 +75,21 @@ public class Globals {
 
     public int getDaysPreviousAlert() { return this.nrDaysPreviousAlert; }
     public void setDaysPreviousAlert(int nrDaysPreviousAlert) { this.nrDaysPreviousAlert = nrDaysPreviousAlert; }
+
+    public Double getExpectedValueRestaurant() { return this.vlExpectedValueRestaurant; }
+    public void setExpectedValueRestaurant(Double vlExpectedValueRestaurant) { this.vlExpectedValueRestaurant = vlExpectedValueRestaurant; }
+
+    public Double getExpectedValueAccommodation() { return this.vlExpectedValueAccommodation; }
+    public void setExpectedValueAccommodation(Double vlExpectedValueAccommodation) { this.vlExpectedValueAccommodation = vlExpectedValueAccommodation; }
+
+    public Double getExpectedValueToll() { return this.vlExpectedValueTool; }
+    public void setExpectedValueToll(Double vlExpectedValueTool) { this.vlExpectedValueTool = vlExpectedValueTool; }
+
+    public Double getExpectedValueTour() { return this.vlExpectedValueTour; }
+    public void setExpectedValueTour(Double vlExpectedValueTour) { this.vlExpectedValueTour = vlExpectedValueTour; }
+
+    public Double getExpectedValueLandmark() { return this.vlrExpectedValueLandmark; }
+    public void setExpectedValueLandmark(Double vlrExpectedValueLandmark) { this.vlrExpectedValueLandmark = vlrExpectedValueLandmark; }
 
     public static synchronized Globals getInstance() { if(instance==null){ instance=new Globals(); } return instance;
     }

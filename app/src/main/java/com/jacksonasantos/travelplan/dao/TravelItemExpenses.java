@@ -4,24 +4,26 @@ import java.util.Date;
 
 public class TravelItemExpenses {
     public Integer id;
-    public Integer travel_expense_id;
+    public int expense_type;
     public Date expense_date;
     public Double realized_value;
     public String note;
+    public Integer travel_id;
 
     public TravelItemExpenses() {
         this.id = id;
-        this.travel_expense_id = travel_expense_id;
+        this.expense_type = expense_type;
         this.expense_date=expense_date;
         this.realized_value = realized_value;
         this.note = note;
+        this.travel_id = travel_id;
     }
 
     public Integer getId() { return id; }
     public void setId(Integer id) { this.id = id; }
 
-    public Integer getTravel_expense_id() { return travel_expense_id; }
-    public void setTravel_expense_id(Integer travel_expense_id) { this.travel_expense_id = travel_expense_id; }
+    public Integer getExpense_type() { return expense_type; }
+    public void setExpense_type(Integer expense_type) { this.expense_type = expense_type; }
 
     public Date getExpense_date() {return expense_date; }
     public void setExpense_date(Date expense_date) {this.expense_date =expense_date; }
@@ -31,4 +33,7 @@ public class TravelItemExpenses {
 
     public String getNote() { return note; }
     public void setNote(String note) { this.note = note; }
+
+    public Integer getTravel_id() { return travel_id; }
+    public void setTravel_id(Integer travel_id) { this.travel_id = travel_id; }
 }

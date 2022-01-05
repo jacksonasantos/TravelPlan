@@ -18,6 +18,7 @@ import com.jacksonasantos.travelplan.dao.Marker;
 import com.jacksonasantos.travelplan.ui.utility.Utils;
 
 import java.util.List;
+import java.util.Objects;
 
 public class MarkerListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
@@ -61,16 +62,16 @@ public class MarkerListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             Marker marker = mMarker.get(position - show_header);
 
             if (marker.getItinerary_id()%2 == 0) {
-                itemViewHolder.llMarker.setBackgroundColor(Utils.getColorWithAlpha(Color.LTGRAY,0.7f));
+                itemViewHolder.llMarker.setBackgroundColor(Utils.getColorWithAlpha(Color.LTGRAY,(marker.getSequence()%2 == 0?0.7f:0.5f)));
             } else {
-                itemViewHolder.llMarker.setBackgroundColor(Utils.getColorWithAlpha(Color.WHITE,0.7f));
+                itemViewHolder.llMarker.setBackgroundColor(Utils.getColorWithAlpha(Color.WHITE,(marker.getSequence()%2 == 0?0.7f:0.5f)));
             }
             String txt = " " + marker.getItinerary_id() +
                          "." +
                          marker.getSequence() +
                          " " +
                          context.getResources().getStringArray(R.array.marker_type_array)[marker.getMarker_type()];
-                         if (!marker.getDescription().equals("")) { txt = txt + "-" + marker.getDescription(); }
+            if (!Objects.equals(marker.getDescription(), "") && marker.getDescription()!=null) { txt = txt + "-" + marker.getDescription(); }
             itemViewHolder.txtDescription.setText(txt);
         }
     }
