@@ -61,7 +61,7 @@
             android:name=".ui.vehicle.MaintenanceActivity"
             android:label="@string/Maintenance_Vehicle" />
         <activity
-            android:name=".ui.vehicle.MaintenancePlanActivity"
+            android:name=".ui.general.MaintenancePlanActivity"
             android:label="@string/Maintenance_Plan" />
         <activity
             android:name=".ui.vehicle.VehicleActivity"

@@ -1,4 +1,4 @@
-package com.jacksonasantos.travelplan.ui.vehicle;
+package com.jacksonasantos.travelplan.ui.general;
 
 import android.content.Context;
 import android.content.Intent;

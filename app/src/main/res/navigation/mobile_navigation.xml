@@ -31,7 +31,7 @@
 
     <fragment
         android:id="@+id/nav_maintenance_plan"
-        android:name="com.jacksonasantos.travelplan.ui.vehicle.MaintenancePlanFragment"
+        android:name="com.jacksonasantos.travelplan.ui.general.MaintenancePlanFragment"
         android:label="@string/menu_maintenance_plan"
         tools:layout="@layout/fragment_generic_list" />
 
