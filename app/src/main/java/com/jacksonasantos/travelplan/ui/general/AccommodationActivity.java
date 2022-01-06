@@ -1,4 +1,4 @@
-package com.jacksonasantos.travelplan.ui.travel;
+package com.jacksonasantos.travelplan.ui.general;
 
 import android.annotation.SuppressLint;
 import android.os.Build;

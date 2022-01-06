@@ -164,8 +164,8 @@ public class RouteClass {
 
                     for (int i = 0; i < stepsArray.length(); i++) {
                         String polyline = (String) ((JSONObject) ((JSONObject) stepsArray.get(i)).get("polyline")).get("points");
-                        int vColor=Color.BLUE;
-                        int vWidth=4;
+                        int vColor = nrSequence%2==0 ? Color.MAGENTA : Color.BLUE;
+                        int vWidth = 4;
                         if (nrSequenceSelected != null) {
                             vColor = nrSequence==nrSequenceSelected ? vColor : Color.RED;
                             vWidth = nrSequence==nrSequenceSelected ? vWidth : 8;

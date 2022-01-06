@@ -425,7 +425,6 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
             MarkerListAdapter adapterTmp = new MarkerListAdapter(Database.mMarkerDao.fetchMarkerByTravelId(nrTravel_Id), requireContext(), 0, 0);
             listMarkers.setAdapter(adapterTmp);
             listMarkers.setLayoutManager(new LinearLayoutManager(requireContext()));
-
         } else {
             clearItinerary();
         }
@@ -470,9 +469,9 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
                     .setCancelable(false)
                     .setPositiveButton(R.string.OK, (dialog, id) -> {
                         if (!etSequence.getText().toString().isEmpty() &&
-                                !etOrig_location.getText().toString().isEmpty() &&
-                                !etDest_location.getText().toString().isEmpty() &&
-                                !etDaily.getText().toString().isEmpty()) {
+                            !etOrig_location.getText().toString().isEmpty() &&
+                            !etDest_location.getText().toString().isEmpty() &&
+                            !etDaily.getText().toString().isEmpty()) {
 
                             Itinerary itinerary = new Itinerary();
                             itinerary.setTravel_id(nrTravel_Id);
@@ -489,7 +488,7 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
                         }
                         if (!isSave[0]) {
                             Toast.makeText(requireContext(), R.string.Error_Saving_Data, Toast.LENGTH_LONG).show();
-                        }
+                        } // TODO - Atualizar o listItinerary apos o ADDItinerary
                     })
                     .setNegativeButton(R.string.Cancel, (dialog, id) -> dialog.cancel());
             AlertDialog alertDialog = alertDialogBuilder.create();
@@ -515,7 +514,6 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
                     clearMap = true;
                 }
                 drawItinerary(nrTravel_Id);
-
             }
 
             @Override
@@ -548,7 +546,7 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         inflater.inflate(R.menu.map_menu_options, menu);
-        super.onCreateOptionsMenu(menu, inflater);  // TODO - ver porque nao aparece
+        super.onCreateOptionsMenu(menu, inflater);  // TODO - ver porque nao aparece map_menu_options
     }
 
     @SuppressLint("NonConstantResourceId")
@@ -626,11 +624,8 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
             View itineraryView = LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.fragment_home_travel_item_itinerary, parent, false);
 
-            if (viewType == TYPE_HEADER) {
-                return new HeaderViewHolder(itineraryView);
-            } else if (viewType == TYPE_FOOTER) {
-                return new FooterViewHolder(itineraryView);
-            }
+            if (viewType == TYPE_HEADER) return new HeaderViewHolder(itineraryView);
+            else if (viewType == TYPE_FOOTER) return new FooterViewHolder(itineraryView);
             else return new ItemViewHolder(itineraryView);
         }
 
@@ -657,7 +652,6 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
                 footerViewHolder.txtTime.setText(String.format("%3d:%02d", totalHr, totalMin));
             }
             else if (holder instanceof ItemViewHolder) {
-
                 final ItemViewHolder itemViewHolder = (ItemViewHolder) holder;
                 final Itinerary itinerary = mItinerary.get(position-show_header);
                 if (!show_home) {
@@ -668,6 +662,28 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
                             // TODO - Atualizar o Mapa quando escolhe um itinerario (engrossar a linha por exemplo)
                             notifyDataSetChanged();
                         }
+                    });
+                    itemViewHolder.itemView.setOnLongClickListener( view -> {
+                        new AlertDialog.Builder(view.getContext())
+                                .setTitle(R.string.Itinerary_Deleting)
+                                .setMessage(context.getResources().getString(R.string.Msg_Confirm) + "\n\n" +
+                                        context.getResources().getString(R.string.marker_itinerary) + ":\n" +
+                                        context.getResources().getString(R.string.from) + ": " +
+                                        itinerary.getOrig_location() + "\n" +
+                                        context.getResources().getString(R.string.to) + ": " +
+                                        itinerary.getDest_location())
+                                .setPositiveButton(R.string.Yes, (dialogInterface, i) -> {
+                                    try {
+                                        Database.mItineraryDao.deleteItinerary(nrItinerary_Id);
+                                        mItinerary.remove(position);
+                                        notifyItemRemoved(position);
+                                        notifyItemRangeChanged(position, mItinerary.size());
+                                    } catch (Exception e) {
+                                        Toast.makeText(context, context.getString(R.string.Error_Deleting_Data) + "\n" + e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+                                    }
+                                }).setNegativeButton(R.string.No, null)
+                                .show();
+                        return true;
                     });
                     if (itinerary.getId().equals(nrItinerary_Id)) {
                         itemViewHolder.llItineraryItem.setBackgroundColor(Color.GRAY);
@@ -685,8 +701,7 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
                     vTotDaily += itinerary.getDaily();
                     vTotDistance += itinerary.getDistance();
                     if (itinerary.getTime() >0) {
-                        int time = itinerary.getTime();
-                        vTotTime += time;
+                        vTotTime += itinerary.getTime();
                     }
                     totalHr = vTotTime / 3600;
                     totalMin = (vTotTime-(totalHr * 3600)) / 60;
@@ -696,11 +711,8 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
 
         @Override
         public int getItemViewType(int position) {
-            if (position == 0 && show_header == 1) {
-                return TYPE_HEADER;
-            } if (position == mItinerary.size()+show_header && show_footer == 1) {
-                return TYPE_FOOTER;
-            }
+            if (position == 0 && show_header == 1) return TYPE_HEADER;
+            if (position == mItinerary.size()+show_header && show_footer == 1) return TYPE_FOOTER;
             return TYPE_ITEM;
         }
 

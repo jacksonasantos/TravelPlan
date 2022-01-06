@@ -21,6 +21,7 @@ import com.jacksonasantos.travelplan.dao.Accommodation;
 import com.jacksonasantos.travelplan.dao.Reservation;
 import com.jacksonasantos.travelplan.dao.Travel;
 import com.jacksonasantos.travelplan.dao.general.Database;
+import com.jacksonasantos.travelplan.ui.general.AccommodationActivity;
 import com.jacksonasantos.travelplan.ui.utility.DateInputMask;
 import com.jacksonasantos.travelplan.ui.utility.Utils;
 

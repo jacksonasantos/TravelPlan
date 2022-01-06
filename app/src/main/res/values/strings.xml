@@ -247,6 +247,8 @@
     <!-- Generic -->
     <string name="Yes">Yes</string>
     <string name="No">No</string>
+    <string name="from">from</string>
+    <string name="to">to</string>
     <string name="OK" translatable="false">OK</string>
     <string name="Cancel">Cancel</string>
     <string name="bt_Save">Save</string>
@@ -389,6 +391,7 @@
     <string name="Itinerary_Distance">Distance</string>
     <string name="Itinerary_Time">Time</string>
 
+    <string name="Itinerary_Deleting">Deleting Itinerary</string>
     <string name="add_new_itinerary">Add new Itinerary</string>
     <string name="unregistered_bookmark">Unregistered bookmark</string>
 

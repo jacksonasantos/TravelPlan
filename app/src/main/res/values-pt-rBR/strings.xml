@@ -340,4 +340,7 @@
     <string name="travel_default">Viagem Padrão</string>
     <string name="marker_expected_value">Valor Previsto</string>
     <string name="marker">Marcador</string>
+    <string name="Itinerary_Deleting">Excluindo Itinerário</string>
+    <string name="from">de</string>
+    <string name="to">para</string>
 </resources>

@@ -43,13 +43,13 @@
 
     <fragment
         android:id="@+id/nav_accommodation"
-        android:name="com.jacksonasantos.travelplan.ui.travel.AccommodationFragment"
+        android:name="com.jacksonasantos.travelplan.ui.general.AccommodationFragment"
         android:label="@string/menu_accommodation"
         tools:layout="@layout/fragment_generic_list" />
 
     <fragment
         android:id="@+id/nav_achievement"
-        android:name="com.jacksonasantos.travelplan.ui.travel.AchievementFragment"
+        android:name="com.jacksonasantos.travelplan.ui.general.AchievementFragment"
         android:label="@string/menu_achievement"
         tools:layout="@layout/fragment_generic_list" />
 

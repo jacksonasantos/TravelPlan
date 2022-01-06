@@ -14,7 +14,9 @@ import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.jacksonasantos.travelplan.R;
+import com.jacksonasantos.travelplan.dao.Itinerary;
 import com.jacksonasantos.travelplan.dao.Marker;
+import com.jacksonasantos.travelplan.dao.general.Database;
 import com.jacksonasantos.travelplan.ui.utility.Utils;
 
 import java.util.List;
@@ -66,7 +68,8 @@ public class MarkerListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             } else {
                 itemViewHolder.llMarker.setBackgroundColor(Utils.getColorWithAlpha(Color.WHITE,(marker.getSequence()%2 == 0?0.7f:0.5f)));
             }
-            String txt = " " + marker.getItinerary_id() +
+            Itinerary itinerary = Database.mItineraryDao.fetchItineraryById(marker.getItinerary_id());
+            String txt = " " + itinerary.getSequence() +
                          "." +
                          marker.getSequence() +
                          " " +
@@ -78,12 +81,8 @@ public class MarkerListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     @Override
     public int getItemViewType(int position) {
-        if (position == 0 && show_header == 1) {
-            return TYPE_HEADER;
-        }
-        if (position == mMarker.size() + show_header && show_footer == 1) {
-            return TYPE_FOOTER;
-        }
+        if (position == 0 && show_header == 1) return TYPE_HEADER;
+        if (position == mMarker.size() + show_header && show_footer == 1) return TYPE_FOOTER;
         return TYPE_ITEM;
     }
 

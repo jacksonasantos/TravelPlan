@@ -92,10 +92,10 @@ public class ItineraryDAO extends DbContentProvider implements ItineraryISchema,
                                    "FROM "+ITINERARY_TABLE + " WHERE "+ selection, selectionArgs);
     }
 
-    public void deleteItinerary(Integer id) {
+    public boolean deleteItinerary(Integer id) {
         final String[] selectionArgs = { String.valueOf(id) };
         final String selection = ITINERARY_ID + " = ?";
-        super.delete(ITINERARY_TABLE, selection, selectionArgs);
+        return (super.delete(ITINERARY_TABLE, selection, selectionArgs) > 0);
     }
 
     public boolean updateItinerary(Itinerary itinerary) {

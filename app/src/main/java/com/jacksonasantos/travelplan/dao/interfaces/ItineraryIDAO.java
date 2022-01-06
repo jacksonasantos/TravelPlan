@@ -13,6 +13,6 @@ public interface ItineraryIDAO {
     List<Itinerary> fetchAllItineraryByTravel( Integer travel_id);
     Cursor fetchArrayItinerary(Integer travel_id);
     boolean addItinerary(Itinerary itinerary);
-    void deleteItinerary(Integer id);
+    boolean deleteItinerary(Integer id);
     boolean updateItinerary(Itinerary itinerary);
 }

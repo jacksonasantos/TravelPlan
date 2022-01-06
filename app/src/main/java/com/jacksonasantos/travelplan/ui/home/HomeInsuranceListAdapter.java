@@ -50,11 +50,7 @@ public class HomeInsuranceListAdapter extends RecyclerView.Adapter<RecyclerView.
                 .inflate(R.layout.fragment_home_item_insurance, parent, false);
         insurance_typeArray = parent.getResources().getStringArray(R.array.insurance_type_array);
 
-        if (viewType == TYPE_ITEM) {
-            return new ItemViewHolder(insuranceView);
-        } else if (viewType == TYPE_HEADER) {
-            return new HeaderViewHolder(insuranceView);
-        }
+        if (viewType == TYPE_HEADER) return new HeaderViewHolder(insuranceView);
         else return new ItemViewHolder(insuranceView);
     }
 
