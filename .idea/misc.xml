@@ -35,12 +35,14 @@
         <entry key="..\:/Users/JacksonAlessandrodos/Documents/GitHub/TravelPlan/app/src/main/res/layout/fragment_home.xml" value="0.1" />
         <entry key="..\:/Users/JacksonAlessandrodos/Documents/GitHub/TravelPlan/app/src/main/res/layout/fragment_home_item_insurance.xml" value="0.15925925925925927" />
         <entry key="..\:/Users/JacksonAlessandrodos/Documents/GitHub/TravelPlan/app/src/main/res/layout/fragment_home_travel.xml" value="0.264" />
+        <entry key="..\:/Users/JacksonAlessandrodos/Documents/GitHub/TravelPlan/app/src/main/res/layout/fragment_home_travel_item_expense.xml" value="0.2421875" />
         <entry key="..\:/Users/JacksonAlessandrodos/Documents/GitHub/TravelPlan/app/src/main/res/layout/fragment_home_travel_item_itinerary.xml" value="0.2421875" />
+        <entry key="..\:/Users/JacksonAlessandrodos/Documents/GitHub/TravelPlan/app/src/main/res/layout/fragment_home_travel_item_reservation.xml" value="0.2421875" />
         <entry key="..\:/Users/JacksonAlessandrodos/Documents/GitHub/TravelPlan/app/src/main/res/layout/fragment_home_vehicle.xml" value="0.46808510638297873" />
         <entry key="..\:/Users/JacksonAlessandrodos/Documents/GitHub/TravelPlan/app/src/main/res/layout/fragment_item_achievement.xml" value="0.178125" />
         <entry key="..\:/Users/JacksonAlessandrodos/Documents/GitHub/TravelPlan/app/src/main/res/layout/fragment_item_achievement_travel.xml" value="0.2421875" />
         <entry key="..\:/Users/JacksonAlessandrodos/Documents/GitHub/TravelPlan/app/src/main/res/layout/fragment_item_travel.xml" value="0.2421875" />
-        <entry key="..\:/Users/JacksonAlessandrodos/Documents/GitHub/TravelPlan/app/src/main/res/layout/fragment_item_travel_achievement.xml" value="0.536" />
+        <entry key="..\:/Users/JacksonAlessandrodos/Documents/GitHub/TravelPlan/app/src/main/res/layout/fragment_item_travel_achievement.xml" value="0.4" />
         <entry key="..\:/Users/JacksonAlessandrodos/Documents/GitHub/TravelPlan/app/src/main/res/layout/fragment_item_travel_vehicle.xml" value="0.2421875" />
         <entry key="..\:/Users/JacksonAlessandrodos/Documents/GitHub/TravelPlan/app/src/main/res/layout/fragment_travel_route.xml" value="0.2" />
         <entry key="..\:/Users/JacksonAlessandrodos/Documents/GitHub/TravelPlan/app/src/main/res/menu/activity_main.xml" value="0.178125" />

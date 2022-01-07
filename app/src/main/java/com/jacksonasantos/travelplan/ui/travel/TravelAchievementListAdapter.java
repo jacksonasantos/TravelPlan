@@ -2,7 +2,6 @@ package com.jacksonasantos.travelplan.ui.travel;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -67,7 +66,6 @@ public class TravelAchievementListAdapter extends RecyclerView.Adapter<RecyclerV
             headerViewHolder.imgAchievement.setImageBitmap(null);
             headerViewHolder.txtNameAchievement.setText(R.string.Achievement);
             headerViewHolder.btnDelete.setVisibility(View.INVISIBLE);
-            headerViewHolder.btnStatus_Achievement.setVisibility(View.INVISIBLE);
         }
         else if (holder instanceof ItemViewHolder) {
             final ItemViewHolder itemViewHolder = (ItemViewHolder) holder;
@@ -75,6 +73,11 @@ public class TravelAchievementListAdapter extends RecyclerView.Adapter<RecyclerV
             if (imgArray!=null){
                 Bitmap raw = BitmapFactory.decodeByteArray(imgArray, 0, imgArray.length);
                 itemViewHolder.imgAchievement.setImageBitmap(raw);
+                if (mAchievement.get(position-show_header).getStatus_achievement() == 1){
+                    itemViewHolder.imgAchievement.setAlpha(1f);
+                } else {
+                    itemViewHolder.imgAchievement.setAlpha(0.5f);
+                }
             }
             itemViewHolder.txtNameAchievement.setText(mAchievement.get(position-show_header).getName());
 
@@ -83,18 +86,11 @@ public class TravelAchievementListAdapter extends RecyclerView.Adapter<RecyclerV
             } else {
                 itemViewHolder.btnDelete.setVisibility(View.VISIBLE);
             }
-            itemViewHolder.btnStatus_Achievement.setVisibility(View.VISIBLE);
 
-            if (mAchievement.get(position-show_header).getStatus_achievement() == 1){
-                itemViewHolder.btnStatus_Achievement.setBackgroundTintList(ColorStateList.valueOf(Color.GREEN));
-            } else {
-                itemViewHolder.btnStatus_Achievement.setBackgroundTintList(ColorStateList.valueOf(Color.LTGRAY));
-            }
-
-            itemViewHolder.btnStatus_Achievement.setOnClickListener(new View.OnClickListener() {
+            itemViewHolder.imgAchievement.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    itemViewHolder.btnStatus_Achievement.setOnClickListener(this);
+                    itemViewHolder.imgAchievement.setOnClickListener(this);
                     try {
                         Achievement mAchievementNew = mAchievement.get(position-show_header);
                         if ( mAchievementNew.getStatus_achievement()==0 ) {
@@ -153,7 +149,6 @@ public class TravelAchievementListAdapter extends RecyclerView.Adapter<RecyclerV
         public final ImageView imgAchievement;
         public final TextView txtNameAchievement;
         public final ImageButton btnDelete;
-        public final ImageButton btnStatus_Achievement;
 
         public HeaderViewHolder(View v) {
             super(v);
@@ -161,7 +156,6 @@ public class TravelAchievementListAdapter extends RecyclerView.Adapter<RecyclerV
             imgAchievement = v.findViewById(R.id.imgAchievement);
             txtNameAchievement = v.findViewById(R.id.txtNameAchievement);
             btnDelete = v.findViewById(R.id.btnDelete);
-            btnStatus_Achievement = v.findViewById(R.id.btnStatus_Achievement);
         }
     }
 
@@ -170,7 +164,6 @@ public class TravelAchievementListAdapter extends RecyclerView.Adapter<RecyclerV
         public final ImageView imgAchievement;
         public final TextView txtNameAchievement;
         public final ImageButton btnDelete;
-        public final ImageButton btnStatus_Achievement;
 
         public ItemViewHolder(View v) {
             super(v);
@@ -178,7 +171,6 @@ public class TravelAchievementListAdapter extends RecyclerView.Adapter<RecyclerV
             imgAchievement = v.findViewById(R.id.imgAchievement);
             txtNameAchievement = v.findViewById(R.id.txtNameAchievement);
             btnDelete = v.findViewById(R.id.btnDelete);
-            btnStatus_Achievement = v.findViewById(R.id.btnStatus_Achievement);
         }
     }
 }
