@@ -42,10 +42,10 @@
     <string name="gasoline_common">Gasolina Comum</string>
     <string name="gasoline_additives">Gasolina Aditivada</string>
     <string name="gasoline_premium">Gasolina Premium</string>
-    <string name="FuelSupply_Combustible">Combustível de Abastecimento</string>
+    <string name="FuelSupply_Combustible">Combustível</string>
     <string name="bt_Refuel">Reabastecer</string>
-    <string name="FuelSupply_Supply_Date">Data do Abastecimento</string>
-    <string name="FuelSupply_Number_Liters">Quantidade de Litros</string>
+    <string name="FuelSupply_Supply_Date">Data</string>
+    <string name="FuelSupply_Number_Liters">Qtde de Litros</string>
     <string name="FuelSupply_Currency_Type">Tipo de Moeda</string>
     <string name="FuelSupply_Fuel_value">Valor do Combustível</string>
     <string name="FuelSupply_Supply_Value">Valor do Abastecimento</string>
@@ -96,12 +96,6 @@
     <string name="Maintenance_Location">Localização do Serviço</string>
     <string name="Maintenance_Note">Observação de Manutenção</string>
     <string name="bt_Done">Feito</string>
-    <string name="real">R$ - Real</string>
-    <string name="dollar">US$ - Dólar</string>
-    <string name="argentinian_peso">$ - Peso Argentino</string>
-    <string name="uruguayan_peso">$ - Peso Urugaio</string>
-    <string name="chilean_peso">$ - Peso Chileno</string>
-    <string name="euro">€ - Euro</string>
     <string name="Vehicle_Model">Modelo</string>
     <string name="Vehicle_Vin">Chassi</string>
     <string name="Vehicle_Licence_Number">Número Renavan</string>

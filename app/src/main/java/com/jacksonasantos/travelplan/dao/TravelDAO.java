@@ -76,7 +76,7 @@ public class TravelDAO extends DbContentProvider implements TravelISchema, Trave
 
     public ArrayList<Travel> fetchArrayTravel(){
         ArrayList<Travel> travelList = new ArrayList<>();
-        Cursor cursor = super.query(TRAVEL_TABLE, TRAVEL_COLUMNS, null,null, TRAVEL_DESCRIPTION);
+        Cursor cursor = super.query(TRAVEL_TABLE, TRAVEL_COLUMNS, null,null, TRAVEL_STATUS + " ASC ,"+TRAVEL_DEPARTURE_DATE + " DESC" );
         if(cursor != null && cursor.moveToFirst()){
             do{
                 Travel travel = cursorToEntity(cursor);

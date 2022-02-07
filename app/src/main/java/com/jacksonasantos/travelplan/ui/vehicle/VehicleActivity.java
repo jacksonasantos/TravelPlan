@@ -255,6 +255,7 @@ public class VehicleActivity extends AppCompatActivity {
         });
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     public void addListenerOnButtonSave() {
        Button btSaveVehicle = findViewById(R.id.btSaveVehicle);
 
@@ -267,12 +268,14 @@ public class VehicleActivity extends AppCompatActivity {
                 v1.setVehicle_type(rbVehicleType);
                 v1.setName(etNameVehicle.getText().toString());
 
-                Bitmap bitmap = ((BitmapDrawable) imgVehicle_Image.getDrawable()).getBitmap();
-                if (bitmap!=null) {
-                    ByteArrayOutputStream saida = new ByteArrayOutputStream();
-                    bitmap.compress(Bitmap.CompressFormat.PNG, 100, saida);
-                    byte[] img = saida.toByteArray();
-                    v1.setImage(img);
+                if (imgVehicle_Image.getDrawable().isFilterBitmap()) {
+                    Bitmap bitmap = ((BitmapDrawable) imgVehicle_Image.getDrawable()).getBitmap();
+                    if (bitmap != null) {
+                        ByteArrayOutputStream saida = new ByteArrayOutputStream();
+                        bitmap.compress(Bitmap.CompressFormat.PNG, 100, saida);
+                        byte[] img = saida.toByteArray();
+                        v1.setImage(img);
+                    }
                 }
                 v1.setShort_name(etShortNameVehicle.getText().toString());
                 v1.setBrand(etBrand.getText().toString());

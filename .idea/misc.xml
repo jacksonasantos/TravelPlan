@@ -12,6 +12,10 @@
         <entry key="..\:/Users/JacksonAlessandrodos/Documents/GitHub/TravelPlan/app/src/main/res/layout/activity_achievement.xml" value="0.3492063492063492" />
         <entry key="..\:/Users/JacksonAlessandrodos/Documents/GitHub/TravelPlan/app/src/main/res/layout/activity_broker.xml" value="0.264" />
         <entry key="..\:/Users/JacksonAlessandrodos/Documents/GitHub/TravelPlan/app/src/main/res/layout/activity_currency_quote.xml" value="0.536" />
+        <entry key="..\:/Users/JacksonAlessandrodos/Documents/GitHub/TravelPlan/app/src/main/res/layout/activity_fuel_supply.xml" value="0.264" />
+        <entry key="..\:/Users/JacksonAlessandrodos/Documents/GitHub/TravelPlan/app/src/main/res/layout/activity_fuel_supplyNEW.xml" value="0.1" />
+        <entry key="..\:/Users/JacksonAlessandrodos/Documents/GitHub/TravelPlan/app/src/main/res/layout/activity_fuel_supply_n.xml" value="0.19091751621872105" />
+        <entry key="..\:/Users/JacksonAlessandrodos/Documents/GitHub/TravelPlan/app/src/main/res/layout/activity_fuel_supply_new.xml" value="0.1" />
         <entry key="..\:/Users/JacksonAlessandrodos/Documents/GitHub/TravelPlan/app/src/main/res/layout/activity_insurance.xml" value="0.115625" />
         <entry key="..\:/Users/JacksonAlessandrodos/Documents/GitHub/TravelPlan/app/src/main/res/layout/activity_insurance_company.xml" value="0.1203125" />
         <entry key="..\:/Users/JacksonAlessandrodos/Documents/GitHub/TravelPlan/app/src/main/res/layout/activity_itinerary.xml" value="0.2421875" />
@@ -20,6 +24,7 @@
         <entry key="..\:/Users/JacksonAlessandrodos/Documents/GitHub/TravelPlan/app/src/main/res/layout/activity_settings.xml" value="0.2421875" />
         <entry key="..\:/Users/JacksonAlessandrodos/Documents/GitHub/TravelPlan/app/src/main/res/layout/activity_travel.xml" value="0.2" />
         <entry key="..\:/Users/JacksonAlessandrodos/Documents/GitHub/TravelPlan/app/src/main/res/layout/activity_vehicle.xml" value="0.264" />
+        <entry key="..\:/Users/JacksonAlessandrodos/Documents/GitHub/TravelPlan/app/src/main/res/layout/dialog_fuel_supply.xml" value="0.264" />
         <entry key="..\:/Users/JacksonAlessandrodos/Documents/GitHub/TravelPlan/app/src/main/res/layout/dialog_home_insurance.xml" value="0.264" />
         <entry key="..\:/Users/JacksonAlessandrodos/Documents/GitHub/TravelPlan/app/src/main/res/layout/dialog_insurance_contact.xml" value="0.23846153846153847" />
         <entry key="..\:/Users/JacksonAlessandrodos/Documents/GitHub/TravelPlan/app/src/main/res/layout/dialog_insurance_contact_header.xml" value="0.23846153846153847" />

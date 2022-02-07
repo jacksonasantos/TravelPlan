@@ -9,13 +9,14 @@ import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RadioGroup;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -67,27 +68,28 @@ public class FuelSupplyActivity extends AppCompatActivity implements PlacesAdapt
     public RecyclerView listPlaces;
     private EditText etGasStation;
     private EditText etGasStationLocation;
-    private AutoCompleteTextView spinCombustible;
+    private Spinner spCombustible;
+    private int nrSpCombustible;
     private EditText etSupplyDate;
     private EditText etNumberLiters;
-    private int nrSpinCombustible;
     private SwitchMaterial cbFullTank;
     private int vlFullTank = 0;
-    private AutoCompleteTextView spinCurrencyType;
-    private int nrSpinCurrencyType;
-    private EditText etCurrencyValue;
+    private Spinner spCurrencyType;
+    private int nrSpCurrencyType;
     private Integer nrCurrencyQuoteId;
     private EditText etSupplyValue;
     private EditText etFuelValue;
     private EditText etVehicleOdometer;
-    private EditText etVehicleTravelledDistance;
+    private TextView txVehicleTravelledDistance;
     private TextView txStatAvgFuelConsumption;
     private TextView txStatCostPerLitre;
+    private TextView txUnitDistance;
+    private TextView txUnitConsumption;
     private RadioGroup rgSupplyReasonType;
     private int rbSupplyReasonType;
     private EditText etSupplyReason;
-    private AutoCompleteTextView spinAssociatedTravelId;
-    private Integer nrSpinAssociatedTravelId;
+    private Spinner spAssociatedTravelId;
+    private Integer nrSpAssociatedTravelId;
     private int vLastOdometer;
     private int vLastTravelledDistance;
     private double vAccumulatedNumberLitre = 0;
@@ -126,6 +128,9 @@ public class FuelSupplyActivity extends AppCompatActivity implements PlacesAdapt
         super.onCreate(savedInstanceState);
         mGeocoder = new Geocoder(getApplicationContext(), Locale.getDefault());
 
+        numberFormat.setMaximumFractionDigits(2);
+        numberFormat.setMinimumFractionDigits(0);
+
         Places.initialize(getApplicationContext(), GOOGLE_API_KEY);
         PlacesClient placesClient = Places.createClient(this);
 
@@ -139,15 +144,15 @@ public class FuelSupplyActivity extends AppCompatActivity implements PlacesAdapt
         mDb.open();
 
         setTitle(R.string.FuelSupply_Vehicle);
-        setContentView(R.layout.activity_fuel_supply);
+        setContentView(R.layout.dialog_fuel_supply);
 
         Bundle extras = getIntent().getExtras();
+        fuelSupply = new FuelSupply();
         if (extras != null) {
             nrVehicleId = extras.getInt("vehicle_id");
+            fuelSupply.setVehicle_id(nrVehicleId);
 
             if (extras.getInt( "fuel_supply_id") > 0) {
-                fuelSupply = new FuelSupply();
-                fuelSupply.setVehicle_id(extras.getInt("vehicle_id"));
                 fuelSupply.setId(extras.getInt("fuel_supply_id"));
                 fuelSupply = Database.mFuelSupplyDao.fetchFuelSupplyById(fuelSupply.getId());
 
@@ -160,7 +165,7 @@ public class FuelSupplyActivity extends AppCompatActivity implements PlacesAdapt
                 opInsert = false;
             }
             if (extras.getInt("travel_id")> 0) {
-                nrSpinAssociatedTravelId = extras.getInt("travel_id");
+                nrSpAssociatedTravelId = extras.getInt("travel_id");
             }
         }
         if (opInsert) {
@@ -184,21 +189,22 @@ public class FuelSupplyActivity extends AppCompatActivity implements PlacesAdapt
         listPlaces = findViewById(R.id.listPlaces);
         etGasStation = findViewById(R.id.etGasStation);
         etGasStationLocation = findViewById(R.id.etGasStationLocation);
-        spinCombustible = findViewById(R.id.spinCombustible);
+        spCombustible = findViewById(R.id.spCombustible);
         etSupplyDate = findViewById(R.id.etSupplyDate);
         cbFullTank = findViewById(R.id.cbFullTank);
-        spinCurrencyType = findViewById(R.id.spinCurrencyType);
-        etCurrencyValue = findViewById(R.id.etCurrencyValue);
+        spCurrencyType = findViewById(R.id.spCurrencyType);
         etNumberLiters = findViewById(R.id.etNumberLiters);
         etSupplyValue = findViewById(R.id.etSupplyValue);
         etFuelValue = findViewById(R.id.etFuelValue);
         etVehicleOdometer = findViewById(R.id.etVehicleOdometer);
-        etVehicleTravelledDistance = findViewById(R.id.etVehicleTravelledDistance);
+        txVehicleTravelledDistance = findViewById(R.id.txVehicleTravelledDistance);
         txStatAvgFuelConsumption = findViewById(R.id.txStatAvgFuelConsumption);
         txStatCostPerLitre = findViewById(R.id.txStatCostPerLitre);
+        txUnitDistance = findViewById(R.id.txUnitDistance);
+        txUnitConsumption = findViewById(R.id.txUnitConsumption);
         rgSupplyReasonType = findViewById(R.id.rgSupplyReasonType);
         etSupplyReason = findViewById(R.id.etSupplyReason);
-        spinAssociatedTravelId = findViewById(R.id.spinAssociatedTravelId);
+        spAssociatedTravelId = findViewById(R.id.spAssociatedTravelId);
 
         final Vehicle vehicle = Database.mVehicleDao.fetchVehicleById(nrVehicleId);
         txVehicleName.setText(vehicle.getName());
@@ -236,33 +242,77 @@ public class FuelSupplyActivity extends AppCompatActivity implements PlacesAdapt
 
         });
         etSupplyDate.addTextChangedListener(new DateInputMask(etSupplyDate));
-        Utils.createSpinnerResources(R.array.fuel_array, spinCombustible, this);
-        nrSpinCombustible = 0;
-        spinCombustible.setOnItemClickListener((adapterView, view, i, l) -> nrSpinCombustible = (int) adapterView.getItemIdAtPosition(i));
         cbFullTank.setOnClickListener(v -> vlFullTank = !cbFullTank.isChecked()?0:1);
-        Utils.createSpinnerResources(R.array.currency_array, spinCurrencyType, this);
-        nrSpinCurrencyType = 0;
-        spinCurrencyType.setText(getResources().getStringArray(R.array.currency_array)[nrSpinCurrencyType],false);
-        spinCurrencyType.setOnItemClickListener((adapterView, view, i, l) -> {
-            nrSpinCurrencyType = (int) adapterView.getItemIdAtPosition(i);
-            if (g.getIdCurrency() != nrSpinCurrencyType ) {
-                CurrencyQuote c1 = Database.mCurrencyQuoteDao.findQuoteDay(nrSpinCurrencyType, Utils.stringToDate(etSupplyDate.getText().toString()));
-                etCurrencyValue.setText(String.valueOf(c1.getCurrency_value()));
-                nrSpinCurrencyType = c1.getId();
-            } else {
-                etCurrencyValue.setText(null);
-                nrSpinCurrencyType = 0;
+
+        Utils.createSpinnerResources(R.array.fuel_array, spCombustible, this);
+        nrSpCombustible = fuelSupply.getCombustible();
+        spCombustible.setSelection(nrSpCombustible);
+        spCombustible.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long idx) {
+                nrSpCombustible = position;  }
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                nrSpCombustible =0;
             }
         });
+
+        Utils.createSpinnerResources(R.array.currency_array, spCurrencyType, this);
+        nrSpCurrencyType = fuelSupply.getCurrency_type();
+        spCurrencyType.setSelection(nrSpCurrencyType);
+        spCurrencyType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long idx) {
+                nrSpCurrencyType = position;
+                // TODO - ver cotação correta da moeda para a data do abastecimento
+                nrCurrencyQuoteId = null;
+//               CurrencyQuote c1 = Database.mCurrencyQuoteDao.findQuoteDay(nrSpCurrencyType, Utils.stringToDate(etSupplyDate.getText().toString()));
+//               etCurrencyValue.setText(String.valueOf(c1.getCurrency_value()));
+               //nrSpCurrencyType = c1.getId();
+                //spCurrencyType.setSelection(nrSpCurrencyType);
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                nrCurrencyQuoteId = null;
+                nrSpCurrencyType =0;
+            }
+        });
+
+        /*View.OnFocusChangeListener listenerNumberLiters = (v, hasFocus) -> {
+            if (!hasFocus) {
+                // TODO - Implementar o cálculo com o valor da moeda correta
+                String vFuelValue = etFuelValue.getText().toString();
+                String vNumberLiters = etNumberLiters.getText().toString();
+                double vSupplyValue = 0;
+                if (!vFuelValue.equals("") && !vNumberLiters.equals("")) {
+                    try {
+                        vSupplyValue = Utils.convertStrCurrencyToDouble(vFuelValue) * Utils.convertStrCurrencyToDouble(vNumberLiters);
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                }
+                etSupplyValue.setText( numberFormat.format(Double.isNaN(vSupplyValue)?0:vSupplyValue));
+            }
+        };
+        etNumberLiters.setOnFocusChangeListener(listenerNumberLiters);
+
         View.OnFocusChangeListener listenerSupplyValue = (v, hasFocus) -> {
             if (!hasFocus) {
                 String vSupplyValue = etSupplyValue.getText().toString();
                 String vNumberLiters = etNumberLiters.getText().toString();
-                etFuelValue.setText( numberFormat.format(Double.parseDouble(vSupplyValue) / Double.parseDouble(vNumberLiters)));
+                double vFuelValue = 0;
+                if (!vSupplyValue.equals("") && !vNumberLiters.equals("") ) {
+                    try {
+                        vFuelValue = Utils.convertStrCurrencyToDouble(vSupplyValue ) / Utils.convertStrCurrencyToDouble(vNumberLiters);
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                }
+                etFuelValue.setText( numberFormat.format(Double.isNaN(vFuelValue)?0:vFuelValue) );
             }
         };
         etSupplyValue.setOnFocusChangeListener(listenerSupplyValue);
-
+        */
         vLastOdometer = vehicle.getOdometer();
         View.OnFocusChangeListener listenerOdometer = (v, hasFocus) -> {
             if (!hasFocus) {
@@ -272,73 +322,83 @@ public class FuelSupplyActivity extends AppCompatActivity implements PlacesAdapt
                     vLastTravelledDistance = 0;
                     if ((vValOdometerFuelSupply >= vLastOdometer) && (vlFullTank==1)) {
                         vLastTravelledDistance = vValOdometerFuelSupply - vLastOdometer;
-                        etVehicleTravelledDistance.setText(String.valueOf(vLastTravelledDistance));
+                        txVehicleTravelledDistance.setText(String.valueOf(vLastTravelledDistance));
                     }
                 }
             }
         };
         etVehicleOdometer.setOnFocusChangeListener(listenerOdometer);
-        //etVehicleTravelledDistance.setOnFocusChangeListener(listenerOdometer);
 
         Utils.addRadioButtonResources(R.array.supply_reason_type_array, rgSupplyReasonType, this);
         rgSupplyReasonType.setOnCheckedChangeListener((group, checkedId) -> rbSupplyReasonType = checkedId);
 
         final List<Travel> travels =  Database.mTravelDao.fetchArrayTravel();
+        travels.add(0, new Travel());
+
         ArrayAdapter<Travel> adapterT = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, travels);
         adapterT.setDropDownViewResource( android.R.layout.simple_spinner_dropdown_item);
-        spinAssociatedTravelId.setAdapter(adapterT);
-        if (nrSpinAssociatedTravelId != null && nrSpinAssociatedTravelId > 0) {
-            Travel trip1 = Database.mTravelDao.fetchTravelById(nrSpinAssociatedTravelId);
-            for (int x = 0; x <= spinAssociatedTravelId.getAdapter().getCount(); x++) {
-                if (spinAssociatedTravelId.getAdapter().getItem(x).toString().equals(trip1.getDescription())) {
-                    spinAssociatedTravelId.setText(spinAssociatedTravelId.getAdapter().getItem(x).toString(),false);
+        spAssociatedTravelId.setAdapter(adapterT);
+        if (nrSpAssociatedTravelId != null && nrSpAssociatedTravelId > 0) {
+            Travel trip1 = Database.mTravelDao.fetchTravelById(nrSpAssociatedTravelId);
+            for (int x = 1; x <= spAssociatedTravelId.getAdapter().getCount(); x++) {
+                if (spAssociatedTravelId.getAdapter().getItem(x).toString().equals(trip1.getDescription())) {
+                    spAssociatedTravelId.setSelection(x);
+                    nrSpAssociatedTravelId = trip1.getId();
                     break;
                 }
             }
         }
 
         final Travel[] t1 = {new Travel()};
-        spinAssociatedTravelId.setOnItemClickListener((parent, view, position, id) -> {
-            t1[0] = (Travel) parent.getItemAtPosition(position);
-            nrSpinAssociatedTravelId = t1[0].getId();
+        spAssociatedTravelId.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long idx) {
+                t1[0] = (Travel) parent.getItemAtPosition(position);
+                nrSpAssociatedTravelId = t1[0].getId();
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                nrSpAssociatedTravelId = null;
+            }
         });
         adapterT.notifyDataSetChanged();
 
         if (fuelSupply != null) {
             etGasStation.setText(fuelSupply.getGas_station());
             etGasStationLocation.setText(fuelSupply.getGas_station_location());
-            nrSpinCombustible=fuelSupply.getCombustible();
-            spinCombustible.setText(getResources().getStringArray(R.array.fuel_array)[nrSpinCombustible],false);
+            nrSpCombustible=fuelSupply.getCombustible();
+            spCombustible.setSelection(nrSpCombustible);
             etSupplyDate.setText(Utils.dateToString(fuelSupply.getSupply_date()));
             cbFullTank.setChecked(fuelSupply.getFull_tank()==1);
             vlFullTank = fuelSupply.getFull_tank();
-            nrSpinCurrencyType=fuelSupply.getCurrency_type();
-            spinCurrencyType.setText(getResources().getStringArray(R.array.currency_array)[nrSpinCurrencyType],false);
+            nrSpCurrencyType=fuelSupply.getCurrency_type();
+            spCurrencyType.setSelection(nrSpCurrencyType);
 
-            if (g.getIdCurrency() != nrSpinCurrencyType ) {
+            if (g.getIdCurrency() != nrSpCurrencyType ) {
                 nrCurrencyQuoteId = fuelSupply.getCurrency_quote_id();
-                CurrencyQuote c1 = Database.mCurrencyQuoteDao.fetchCurrencyQuoteById(nrSpinCurrencyType);
-                etCurrencyValue.setText(String.valueOf(c1.getCurrency_value()));
+                CurrencyQuote c1 = Database.mCurrencyQuoteDao.fetchCurrencyQuoteById(nrSpCurrencyType);
+                nrCurrencyQuoteId = c1.getId();
             } else {
                 nrCurrencyQuoteId = null;
-                etCurrencyValue.setText(null);
             }
 
-            etNumberLiters.setText(String.valueOf(fuelSupply.getNumber_liters()));
-            etSupplyValue.setText(String.valueOf(fuelSupply.getSupply_value()));
-            etFuelValue.setText(numberFormat.format(fuelSupply.getFuel_value()));
-            etVehicleOdometer.setText(String.valueOf(fuelSupply.getVehicle_odometer()));
-            etVehicleTravelledDistance.setText(String.valueOf(fuelSupply.getVehicle_travelled_distance()));
+            etNumberLiters.setText(String.valueOf(fuelSupply.getNumber_liters()==0?"":fuelSupply.getNumber_liters()));
+            etSupplyValue.setText(String.valueOf(fuelSupply.getSupply_value()==0?"":fuelSupply.getSupply_value()));
+            etFuelValue.setText(String.valueOf(fuelSupply.getFuel_value()==0?"":fuelSupply.getFuel_value()));
+            etVehicleOdometer.setText(String.valueOf(fuelSupply.getVehicle_odometer()==0?"":fuelSupply.getVehicle_odometer()));
+            txVehicleTravelledDistance.setText(String.valueOf(fuelSupply.getVehicle_travelled_distance()));
             txStatAvgFuelConsumption.setText(numberFormat.format(fuelSupply.getStat_avg_fuel_consumption()));
             txStatCostPerLitre.setText(currencyFormatter.format(fuelSupply.getStat_cost_per_litre()));
+            txUnitDistance.setText(g.getMeasureCost());
+            txUnitConsumption.setText(g.getMeasureConsumption());
             rgSupplyReasonType.check(fuelSupply.getSupply_reason_type());
             etSupplyReason.setText(fuelSupply.getSupply_reason());
-            nrSpinAssociatedTravelId=fuelSupply.getAssociated_travel_id()==0?null:fuelSupply.getAssociated_travel_id();
-            if (nrSpinAssociatedTravelId != null && nrSpinAssociatedTravelId > 0) {
-                Travel trip1 = Database.mTravelDao.fetchTravelById(nrSpinAssociatedTravelId);
-                for (int x = 0; x <= spinAssociatedTravelId.getAdapter().getCount(); x++) {
-                    if (spinAssociatedTravelId.getAdapter().getItem(x).toString().equals(trip1.getDescription())) {
-                        spinAssociatedTravelId.setText(spinAssociatedTravelId.getAdapter().getItem(x).toString(),false);
+            nrSpAssociatedTravelId=fuelSupply.getAssociated_travel_id();
+            if (nrSpAssociatedTravelId != null && nrSpAssociatedTravelId > 0) {
+                Travel trip1 = Database.mTravelDao.fetchTravelById(nrSpAssociatedTravelId);
+                for (int x = 1; x <= spAssociatedTravelId.getAdapter().getCount(); x++) {
+                    if (spAssociatedTravelId.getAdapter().getItem(x).toString().equals(trip1.getDescription())) {
+                        spAssociatedTravelId.setSelection(x);
                         break;
                     }
                 }
@@ -360,15 +420,18 @@ public class FuelSupplyActivity extends AppCompatActivity implements PlacesAdapt
 
                 vLastOdometer = v1.getOdometer();
                 String vTxtOdometerFuelSupply = etVehicleOdometer.getText().toString();
-                if (!vTxtOdometerFuelSupply.isEmpty() && vlFullTank==1) {
+                if (vTxtOdometerFuelSupply.equals("0")||vTxtOdometerFuelSupply.equals("")){
+                    vTxtOdometerFuelSupply = null;
+                }
+                if (!(vTxtOdometerFuelSupply ==null) && vlFullTank==1) {
                     int vValOdometerFuelSupply = Integer.parseInt(vTxtOdometerFuelSupply);
                     vLastTravelledDistance = 0;
                     if ((vValOdometerFuelSupply >= vLastOdometer) && (vlFullTank==1)) {
                         vLastTravelledDistance = vValOdometerFuelSupply - vLastOdometer;
-                        etVehicleTravelledDistance.setText(String.valueOf(vLastTravelledDistance));
+                        txVehicleTravelledDistance.setText(String.valueOf(vLastTravelledDistance));
                     }
                     if (vLastTravelledDistance > 0) {
-                        // TODO - Verifiar ajustes nas estatisicas quando for alterados o Odometro e a Distancia viajada
+                        // TODO - VERIFIAR AJUSTES NAS ESTATISICAS QUANDO FOR ALTERADOS O ODOMETRO E A DISTANCIA VIAJADA
                         vStatAvgFuelConsumption = vLastTravelledDistance / Float.parseFloat(Double.toString(Double.parseDouble(etNumberLiters.getText().toString()) + v1.getAccumulated_number_liters()));
                         vStatCostPerLitre = vLastTravelledDistance / Float.parseFloat(Double.toString(Double.parseDouble(etSupplyValue.getText().toString()) + v1.getAccumulated_supply_value()));
                         vAccumulatedNumberLitre = v1.getAccumulated_number_liters();
@@ -388,11 +451,12 @@ public class FuelSupplyActivity extends AppCompatActivity implements PlacesAdapt
                     vAccumSupplyValue = Double.parseDouble(etSupplyValue.getText().toString()) + v1.getAccumulated_supply_value();
                 }
 
-                if (g.getIdCurrency() != nrSpinCurrencyType ) {
+                if (g.getIdCurrency() != nrSpCurrencyType ) {
                     final CurrencyQuote c1 = new CurrencyQuote();
                     c1.setId(nrCurrencyQuoteId);
-                    c1.setCurrency_type(nrSpinCurrencyType);
-                    c1.setCurrency_value(Float.parseFloat(etCurrencyValue.getText().toString()));
+                    c1.setCurrency_type(nrSpCurrencyType);
+                    // TODO - Definir um dialog para entrada do valor da cotação do dia
+//                    c1.setCurrency_value(Float.parseFloat(etCurrencyValue.getText().toString()));
                     c1.setQuote_date( Utils.stringToDate(etSupplyDate.getText().toString()));
                     if (nrCurrencyQuoteId > 0) {
                         isSave = Database.mCurrencyQuoteDao.updateCurrencyQuote(c1);
@@ -407,18 +471,18 @@ public class FuelSupplyActivity extends AppCompatActivity implements PlacesAdapt
                 f1.setSupply_date( Utils.stringToDate(etSupplyDate.getText().toString()));
                 f1.setNumber_liters(Double.parseDouble(etNumberLiters.getText().toString()));
                 f1.setAccumulated_Number_liters(vAccumulatedNumberLitre);
-                f1.setCombustible(nrSpinCombustible);
+                f1.setCombustible(nrSpCombustible);
                 f1.setFull_tank(vlFullTank);
-                f1.setCurrency_type(nrSpinCurrencyType);
-                f1.setCurrency_quote_id(nrCurrencyQuoteId); // TODO - ver id correto da moeda
+                f1.setCurrency_type(nrSpCurrencyType);
+                f1.setCurrency_quote_id(nrCurrencyQuoteId); // TODO - ver id correto da cotação da moeda
                 f1.setSupply_value(Double.parseDouble(etSupplyValue.getText().toString()));
                 f1.setFuel_value(Double.parseDouble(etFuelValue.getText().toString().replace(",",".")));
                 f1.setSupply_reason_type(findViewById(rbSupplyReasonType).getId());
                 f1.setSupply_reason(etSupplyReason.getText().toString());
-                f1.setAssociated_travel_id(nrSpinAssociatedTravelId);
+                f1.setAssociated_travel_id(nrSpAssociatedTravelId);
                 if (!etVehicleOdometer.getText().toString().isEmpty()){
                     f1.setVehicle_odometer(Integer.parseInt(etVehicleOdometer.getText().toString()));
-                    f1.setVehicle_travelled_distance(Integer.parseInt(etVehicleTravelledDistance.getText().toString()));
+                    f1.setVehicle_travelled_distance(Integer.parseInt(txVehicleTravelledDistance.getText().toString()));
                     f1.setStat_avg_fuel_consumption(vStatAvgFuelConsumption);
                     f1.setStat_cost_per_litre(vStatCostPerLitre);
                 }
@@ -464,10 +528,10 @@ public class FuelSupplyActivity extends AppCompatActivity implements PlacesAdapt
         try {
             if (!etGasStation.getText().toString().trim().isEmpty()
                 && !etGasStationLocation.getText().toString().trim().isEmpty()
-                && !String.valueOf(nrSpinCombustible).trim().isEmpty()
+                && !String.valueOf(nrSpCombustible).trim().isEmpty()
                 && !etSupplyDate.getText().toString().trim().isEmpty()
                 //&& !cbFullTank.getText().toString().trim().isEmpty()
-                && !String.valueOf(nrSpinCurrencyType).trim().isEmpty()
+                && !String.valueOf(nrSpCurrencyType).trim().isEmpty()
                 //&& !etCurrencyValue.getText().toString().trim().isEmpty()
                 && !etNumberLiters.getText().toString().trim().isEmpty()
                 && !etSupplyValue.getText().toString().trim().isEmpty()

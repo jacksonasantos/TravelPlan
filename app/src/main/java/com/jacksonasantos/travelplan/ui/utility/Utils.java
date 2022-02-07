@@ -14,10 +14,13 @@ import android.widget.SpinnerAdapter;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.io.File;
+import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Locale;
+import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
 public class Utils extends AppCompatActivity  {
@@ -130,6 +133,14 @@ public class Utils extends AppCompatActivity  {
         spin.setAdapter(adapter);
     }
 
+    public static void createSpinnerResources(int resource_array, Spinner spin, Context context) {
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(
+                context,
+                android.R.layout.simple_spinner_dropdown_item,
+                context.getResources().getStringArray(resource_array));
+        spin.setAdapter(adapter);
+    }
+
     public static void addRadioButtonResources(int resource_array, RadioGroup rg, Context context) {
         int i = 0;
         String[] S = context.getResources().getStringArray(resource_array);
@@ -137,6 +148,13 @@ public class Utils extends AppCompatActivity  {
             RadioButton newRadio = createRadioButton(item, ++i, context);
             rg.addView(newRadio);
         }
+    }
+
+    public static double convertStrCurrencyToDouble(String arg) throws ParseException {
+        //obtem um NumberFormat para o Locale default (BR)
+        NumberFormat nf = NumberFormat.getNumberInstance(new Locale("pt", "BR"));
+        //converte um número com vírgulas ex: 2,56 para double
+        return Objects.requireNonNull(nf.parse(arg)).doubleValue();
     }
 
     public static RadioButton createRadioButton(String txt, int i, Context context) {

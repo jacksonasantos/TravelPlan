@@ -139,8 +139,8 @@
 
     <string name="FuelSupply_Gas_Station">Gas Station</string>
     <string name="FuelSupply_Gas_Station_Location">Fuel Supply Gas Station Location</string>
-    <string name="FuelSupply_Combustible">Fuel Supply Combustible</string>
-    <string name="FuelSupply_Supply_Date">Supply Date</string>
+    <string name="FuelSupply_Combustible">Combustible</string>
+    <string name="FuelSupply_Supply_Date">Date</string>
     <string name="FuelSupply_Number_Liters">Number of Liters</string>
     <string name="FuelSupply_Currency_Type">Currency Type</string>
     <string name="FuelSupply_Fuel_value">Fuel Value</string>
@@ -270,12 +270,12 @@
     <string name="Error_Data_Validation">Error in data validation</string>
 
     <!-- Arrays Currency -->
-    <string name="real">R$ - Real</string>
-    <string name="dollar">US$ - Dollar</string>
-    <string name="argentinian_peso">$ - Argentinian Peso</string>
-    <string name="uruguayan_peso">$ - Uruguayan Peso</string>
-    <string name="chilean_peso">$ - Chilean Peso</string>
-    <string name="euro">€ - Euro</string>
+    <string name="real" translatable="false">R$</string>
+    <string name="dollar" translatable="false">US$</string>
+    <string name="argentinian_peso" translatable="false">þ$</string>
+    <string name="uruguayan_peso" translatable="false">$U</string>
+    <string name="chilean_peso" translatable="false">C$</string>
+    <string name="euro" translatable="false">€</string>
 
     <!-- Arrays Fuel -->
     <string name="ethanol">Ethanol</string>
