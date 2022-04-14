@@ -76,9 +76,9 @@ public class MaintenanceFragment extends Fragment  {
             case R.id.filtermenu:
                 Globals.getInstance().setFilterVehicle(!Globals.getInstance().getFilterVehicle());
                 if ( Globals.getInstance().getFilterVehicle() ) {
-                    this.mMenu.getItem(0).setIcon(getResources().getDrawable(R.drawable.ic_menu_filter));
+                    this.mMenu.getItem(0).setIcon(getResources().getDrawable(R.drawable.ic_button_filter));
                 } else {
-                    this.mMenu.getItem(0).setIcon(getResources().getDrawable(R.drawable.ic_menu_filter_no));
+                    this.mMenu.getItem(0).setIcon(getResources().getDrawable(R.drawable.ic_button_filter_no));
                 }
 
                 RecyclerView listMaintenance = this.requireView().findViewById(R.id.list);

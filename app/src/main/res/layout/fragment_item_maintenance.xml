@@ -84,7 +84,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/btnDelete"
         app:layout_constraintTop_toBottomOf="@+id/txtVehicleName"
-        app:srcCompat="@drawable/ic_menu_edit" />
+        app:srcCompat="@drawable/ic_button_edit" />
 
     <ImageButton
         android:id="@+id/btnDelete"
@@ -94,7 +94,7 @@
         app:layout_constraintBottom_toBottomOf="@+id/btnEdit"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/btnEdit"
-        app:srcCompat="@drawable/ic_menu_delete" />
+        app:srcCompat="@drawable/ic_button_delete" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -72,7 +72,7 @@
                     android:nextFocusDown="@+id/imgDelete_Image"
                     app:layout_constraintStart_toEndOf="@+id/textInputLayout7"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/ic_menu_edit"
+                    app:srcCompat="@drawable/ic_button_edit"
                     tools:ignore="ContentDescription" />
 
                 <ImageView
@@ -84,7 +84,7 @@
                     android:nextFocusDown="@+id/imgAchievement_Image"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/ic_menu_delete"
+                    app:srcCompat="@drawable/ic_button_delete"
                     tools:ignore="ContentDescription" />
 
                 <ImageView

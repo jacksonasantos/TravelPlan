@@ -227,7 +227,7 @@
                 android:layout_gravity="center_horizontal"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:srcCompat="@drawable/ic_menu_add"
+                app:srcCompat="@drawable/ic_button_add_circle"
                 android:contentDescription="@string/bt_Add" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 

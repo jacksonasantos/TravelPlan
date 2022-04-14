@@ -44,14 +44,14 @@
         android:layout_width="35dp"
         android:layout_height="match_parent"
         android:contentDescription="@string/bt_Edit"
-        app:srcCompat="@drawable/ic_menu_edit" />
+        app:srcCompat="@drawable/ic_button_edit" />
 
     <ImageButton
         android:id="@+id/btnDelete"
         android:layout_width="35dp"
         android:layout_height="match_parent"
         android:contentDescription="@string/bt_Delete"
-        app:srcCompat="@drawable/ic_menu_delete" />
+        app:srcCompat="@drawable/ic_button_delete" />
 
 </LinearLayout>
 

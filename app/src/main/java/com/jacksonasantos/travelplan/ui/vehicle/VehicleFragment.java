@@ -140,9 +140,9 @@ public class VehicleFragment extends Fragment  {
             case R.id.filtermenu:
                 Globals.getInstance().setFilterVehicle(!Globals.getInstance().getFilterVehicle());
                 if ( Globals.getInstance().getFilterVehicle() ) {
-                    this.mMenu.getItem(0).setIcon(getResources().getDrawable(R.drawable.ic_menu_filter));
+                    this.mMenu.getItem(0).setIcon(getResources().getDrawable(R.drawable.ic_button_filter));
                 } else {
-                    this.mMenu.getItem(0).setIcon(getResources().getDrawable(R.drawable.ic_menu_filter_no));
+                    this.mMenu.getItem(0).setIcon(getResources().getDrawable(R.drawable.ic_button_filter_no));
                 }
 
                 VehicleListAdapter adapterVehicle = new VehicleListAdapter(Database.mVehicleDao.fetchAllVehicles(), getContext());

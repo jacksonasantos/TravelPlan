@@ -50,7 +50,7 @@
         android:layout_height="30dp"
         android:contentDescription="@string/bt_Delete"
         android:scaleType="centerCrop"
-        app:srcCompat="@drawable/ic_menu_delete" />
+        app:srcCompat="@drawable/ic_button_delete" />
 
 </LinearLayout>
 
