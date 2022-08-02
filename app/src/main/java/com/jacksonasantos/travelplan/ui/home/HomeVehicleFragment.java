@@ -151,6 +151,10 @@ public class HomeVehicleFragment extends Fragment implements View.OnClickListene
                     spVehicle.setSelection(x);
                     break;
                 }
+                else
+                {
+                    spVehicle.setSelection(x);
+                }
             }
         }
         final Vehicle[] vehicle = {new Vehicle()};

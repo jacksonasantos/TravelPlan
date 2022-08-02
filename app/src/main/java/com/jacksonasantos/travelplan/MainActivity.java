@@ -180,11 +180,21 @@ public class MainActivity extends AppCompatActivity {
 
         String vehicle_pref = settings.getString("vehicle_default", String.valueOf(0));
         assert vehicle_pref != null;
-        g.setIdVehicle(Integer.valueOf(vehicle_pref));
+        if (!vehicle_pref.equals("0")) {
+            g.setIdVehicle(Integer.valueOf(vehicle_pref));
+        }
+        else {
+            g.setIdVehicle(1); // TODO - Ajustar para quando não existir preferencia definida
+        }
 
         String travel_pref = settings.getString("travel_default", String.valueOf(0));
         assert travel_pref != null;
-        g.setIdTravel(Integer.valueOf(travel_pref));
+        if (!travel_pref.equals("0")) {
+            g.setIdTravel(Integer.valueOf(travel_pref));
+        }
+        else {
+            g.setIdTravel(1);  // TODO - Ajustar para quando não existir preferencia definida
+        }
 
         String lang = settings.getString("language", "");
         if (lang != null && !"".equals(lang) && !config.locale.getLanguage().equals(lang)) {

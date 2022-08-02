@@ -25,7 +25,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.jacksonasantos.travelplan.R;
 import com.jacksonasantos.travelplan.dao.Achievement;
 import com.jacksonasantos.travelplan.dao.general.Database;
-import com.jacksonasantos.travelplan.ui.general.MyGalleryImageAdapter;
 import com.jacksonasantos.travelplan.ui.utility.Utils;
 
 import java.io.ByteArrayOutputStream;

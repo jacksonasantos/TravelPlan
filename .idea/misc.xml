@@ -5,9 +5,11 @@
       <map>
         <entry key="..\:/Users/JacksonAlessandrodos/Documents/GitHub/TravelPlan/app/src/main/res/drawable/ic_accessory.xml" value="0.25833333333333336" />
         <entry key="..\:/Users/JacksonAlessandrodos/Documents/GitHub/TravelPlan/app/src/main/res/drawable/ic_button_add.xml" value="0.25833333333333336" />
+        <entry key="..\:/Users/JacksonAlessandrodos/Documents/GitHub/TravelPlan/app/src/main/res/drawable/ic_button_delete.xml" value="0.123" />
         <entry key="..\:/Users/JacksonAlessandrodos/Documents/GitHub/TravelPlan/app/src/main/res/drawable/ic_button_edit.xml" value="0.25833333333333336" />
         <entry key="..\:/Users/JacksonAlessandrodos/Documents/GitHub/TravelPlan/app/src/main/res/drawable/ic_button_search.xml" value="0.25833333333333336" />
         <entry key="..\:/Users/JacksonAlessandrodos/Documents/GitHub/TravelPlan/app/src/main/res/drawable/ic_calendar.xml" value="0.25833333333333336" />
+        <entry key="..\:/Users/JacksonAlessandrodos/Documents/GitHub/TravelPlan/app/src/main/res/drawable/ic_error.xml" value="0.123" />
         <entry key="..\:/Users/JacksonAlessandrodos/Documents/GitHub/TravelPlan/app/src/main/res/drawable/ic_logo_travelplan.xml" value="0.25833333333333336" />
         <entry key="..\:/Users/JacksonAlessandrodos/Documents/GitHub/TravelPlan/app/src/main/res/drawable/ic_logo_travelplanNew.xml" value="0.4" />
         <entry key="..\:/Users/JacksonAlessandrodos/Documents/GitHub/TravelPlan/app/src/main/res/drawable/ic_menu_add.xml" value="0.25833333333333336" />
@@ -15,6 +17,9 @@
         <entry key="..\:/Users/JacksonAlessandrodos/Documents/GitHub/TravelPlan/app/src/main/res/drawable/ic_menu_edit.xml" value="0.25833333333333336" />
         <entry key="..\:/Users/JacksonAlessandrodos/Documents/GitHub/TravelPlan/app/src/main/res/drawable/ic_status_done.xml" value="0.25833333333333336" />
         <entry key="..\:/Users/JacksonAlessandrodos/Documents/GitHub/TravelPlan/app/src/main/res/drawable/ic_status_unchecked.xml" value="0.25833333333333336" />
+        <entry key="..\:/Users/JacksonAlessandrodos/Documents/GitHub/TravelPlan/app/src/main/res/drawable/ic_teste.xml" value="0.123" />
+        <entry key="..\:/Users/JacksonAlessandrodos/Documents/GitHub/TravelPlan/app/src/main/res/drawable/ic_vehicle_motorcycle.xml" value="0.123" />
+        <entry key="..\:/Users/JacksonAlessandrodos/Documents/GitHub/TravelPlan/app/src/main/res/drawable/ic_vehicle_suv.xml" value="0.123" />
         <entry key="..\:/Users/JacksonAlessandrodos/Documents/GitHub/TravelPlan/app/src/main/res/drawable/selector.xml" value="0.25833333333333336" />
         <entry key="..\:/Users/JacksonAlessandrodos/Documents/GitHub/TravelPlan/app/src/main/res/layout/activity_accommodation.xml" value="0.2" />
         <entry key="..\:/Users/JacksonAlessandrodos/Documents/GitHub/TravelPlan/app/src/main/res/layout/activity_accommodation_new.xml" value="0.2421875" />

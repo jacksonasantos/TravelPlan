@@ -2,6 +2,8 @@ package com.jacksonasantos.travelplan.ui.vehicle;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.BlendMode;
+import android.graphics.BlendModeColorFilter;
 import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -75,13 +77,17 @@ public class VehicleListAdapter extends RecyclerView.Adapter<VehicleListAdapter.
     }
 
     // Replace the contents of a view (invoked by the layout manager)
-    @RequiresApi(api = Build.VERSION_CODES.N)
+    @RequiresApi(api = Build.VERSION_CODES.Q)
     @Override
     public void onBindViewHolder(@NonNull final MyViewHolder holder, final int position) {
         final Vehicle vehicle = mVehicle.get(position);
 
-        holder.imVehicleType.setColorFilter(vehicle.getColor_code());
-        holder.imVehicleType.setImageResource(vehicle.getVehicleTypeImage(vehicle.getVehicle_type()));
+        holder.imVehicleType.setColorFilter(new BlendModeColorFilter(vehicle.getColor_code(), BlendMode.SRC_ATOP));
+        if (vehicle.getDt_sale() != null ) {
+            holder.imVehicleType.setImageResource( R.drawable.ic_block );
+        } else {
+            holder.imVehicleType.setImageResource(vehicle.getVehicleTypeImage(vehicle.getVehicle_type()));
+        }
         holder.txtPlate.setText(vehicle.getLicense_plate());
         holder.txtShortName.setText(vehicle.getShort_name());
 
