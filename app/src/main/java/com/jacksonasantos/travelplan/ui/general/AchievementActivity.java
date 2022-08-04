@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
-import android.graphics.drawable.BitmapDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -188,7 +187,8 @@ public class AchievementActivity extends AppCompatActivity {
                 a1.setShort_name(etAchievement_Short_Name.getText().toString());
                 a1.setName(etAchievement_Name.getText().toString());
 
-                Bitmap bitmap = ((BitmapDrawable) imgAchievement_Image.getDrawable()).getBitmap();
+                imgAchievement_Image.buildDrawingCache();
+                Bitmap bitmap = imgAchievement_Image.getDrawingCache();
                 if (bitmap!=null) {
                     ByteArrayOutputStream saida = new ByteArrayOutputStream();
                     bitmap.compress(Bitmap.CompressFormat.PNG, 100, saida);
@@ -202,7 +202,7 @@ public class AchievementActivity extends AppCompatActivity {
                 a1.setLatlng_achievement(etAchievement_Latlng_Achievement.getText().toString());
                 a1.setNote(etAchievement_Note.getText().toString());
                 a1.setStatus_achievement(nrStatusAchievement);
-                if (achievement.getTravel_id()==0) {
+                if (txTravelAchievement.getText().toString()=="" ) {
                     a1.setTravel_id(null);
                 } else {
                     a1.setTravel_id(achievement.getTravel_id());
