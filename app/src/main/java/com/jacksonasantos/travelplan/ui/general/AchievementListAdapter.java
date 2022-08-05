@@ -2,11 +2,14 @@ package com.jacksonasantos.travelplan.ui.general;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,12 +31,16 @@ public class AchievementListAdapter extends RecyclerView.Adapter<AchievementList
 
     public static class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
+        public final ImageView imgAchievement;
+        public final TextView txtShortNameAchievement;
         public final TextView txtNameAchievement;
         public final ImageButton btnEdit;
         public final ImageButton btnDelete;
 
         public MyViewHolder(View v) {
             super(v);
+            imgAchievement = v.findViewById(R.id.imgAchievement);
+            txtShortNameAchievement = v.findViewById(R.id.txtShortNameAchievement);
             txtNameAchievement = v.findViewById(R.id.txtNameAchievement);
             btnEdit = v.findViewById(R.id.btnEdit);
             btnDelete = v.findViewById(R.id.btnDelete);
@@ -68,6 +75,17 @@ public class AchievementListAdapter extends RecyclerView.Adapter<AchievementList
     public void onBindViewHolder(@NonNull final MyViewHolder holder, final int position) {
         final Achievement achievement = mAchievement.get(position);
 
+        byte[] imgArray = achievement.getImage();
+        if (imgArray!=null){
+            Bitmap raw = BitmapFactory.decodeByteArray(imgArray, 0, imgArray.length);
+            holder.imgAchievement.setImageBitmap(raw);
+            if (achievement.getStatus_achievement() == 1){
+                holder.imgAchievement.setAlpha(1f);
+            } else {
+                holder.imgAchievement.setAlpha(0.5f);
+            }
+        }
+        holder.txtShortNameAchievement.setText(achievement.getShort_name());
         holder.txtNameAchievement.setText(achievement.getName());
         // btnEdit
         holder.btnEdit.setOnClickListener (v -> {

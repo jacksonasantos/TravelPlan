@@ -7,6 +7,26 @@
     android:layout_height="wrap_content"
     tools:context=".ui.general.AccommodationFragment">
 
+    <ImageView
+        android:id="@+id/imgAchievement"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_gravity="center"
+        android:contentDescription="@string/Achievement_Image"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/txtShortNameAchievement"
+        android:layout_width="100dp"
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal|center_vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/txtNameAchievement"
+        app:layout_constraintStart_toEndOf="@+id/imgAchievement"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
         android:id="@+id/txtNameAchievement"
         android:layout_width="0dp"
@@ -14,7 +34,7 @@
         android:gravity="center_horizontal|center_vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/btnEdit"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/txtShortNameAchievement"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton

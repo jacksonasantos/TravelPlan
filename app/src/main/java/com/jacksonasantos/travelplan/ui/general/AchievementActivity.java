@@ -238,8 +238,8 @@ public class AchievementActivity extends AppCompatActivity {
             if (etAchievement_Short_Name.getText().toString().trim().isEmpty() ||
                 etAchievement_Name.getText().toString().trim().isEmpty() ||
                 //imgAchievement_Image.getImageMatrix().toString().trim().isEmpty() ||
-                etAchievement_City.getText().toString().trim().isEmpty() ||
-                etAchievement_State.getText().toString().trim().isEmpty() ||
+                //etAchievement_City.getText().toString().trim().isEmpty() ||
+                //etAchievement_State.getText().toString().trim().isEmpty() ||
                 etAchievement_Country.getText().toString().trim().isEmpty() //||
                 //etAchievement_Latlng_Achievement.getText().toString().trim().isEmpty() ||
                 //etAchievement_Note.getText().toString().trim().isEmpty()
