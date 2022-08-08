@@ -198,8 +198,8 @@ public class Database {
             db.execSQL(AchievementISchema.ALTER_TABLE_ACHIEVEMENT_V39); Log.w("Table "+AchievementISchema.ACHIEVEMENT_TABLE,"V39 - Alter Table...");
             db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V40); Log.w("Table "+VehicleISchema.VEHICLE_TABLE,"V40 - Alter Table...");
             db.execSQL(TravelExpensesISchema.ALTER_TABLE_TRAVEL_EXPENSES_V43); Log.w("Table "+TravelExpensesISchema.TRAVEL_EXPENSES_TABLE,"V43 - Alter Table...");
-            db.execSQL(TravelItemExpensesISchema.ALTER_TABLE_TRAVEL_ITEM_EXPENSES_V44);; Log.w("Ta "+TravelItemExpensesISchema.TRAVEL_ITEM_EXPENSES_TABLE,"V44 - Alter Table...");
-            db.execSQL(TravelItemExpensesISchema.ALTER_TABLE_TRAVEL_ITEM_EXPENSES_V44_1);; Log.w("Ta "+TravelItemExpensesISchema.TRAVEL_ITEM_EXPENSES_TABLE,"V441 - Alter Table...");
+            db.execSQL(TravelItemExpensesISchema.ALTER_TABLE_TRAVEL_ITEM_EXPENSES_V44); Log.w("Ta "+TravelItemExpensesISchema.TRAVEL_ITEM_EXPENSES_TABLE,"V44 - Alter Table...");
+            db.execSQL(TravelItemExpensesISchema.ALTER_TABLE_TRAVEL_ITEM_EXPENSES_V44_1); Log.w("Ta "+TravelItemExpensesISchema.TRAVEL_ITEM_EXPENSES_TABLE,"V441 - Alter Table...");
         }
 
         @SuppressLint("SQLiteString")

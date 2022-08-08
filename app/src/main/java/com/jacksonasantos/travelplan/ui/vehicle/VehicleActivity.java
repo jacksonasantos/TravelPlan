@@ -41,7 +41,7 @@ public class VehicleActivity extends AppCompatActivity {
 
     private RadioGroup rgVehicleType;
     private int rbVehicleType;
-    public ImageView imgVehicle_Image;
+    public ImageView imgVehicle_Image;                   // TODO - Ajustar a pesquisa e conversão de imagens (diretorio ou internet)
     public ImageView imgEdit_Image;
     public ImageView imgDelete_Image;
     Bitmap raw;
@@ -85,8 +85,8 @@ public class VehicleActivity extends AppCompatActivity {
     private Vehicle vehicle;
     private boolean opInsert = true;
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @SuppressLint({"SetTextI18n", "ResourceType"})
-    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

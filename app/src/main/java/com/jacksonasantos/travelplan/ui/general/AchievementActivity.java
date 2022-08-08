@@ -202,7 +202,7 @@ public class AchievementActivity extends AppCompatActivity {
                 a1.setLatlng_achievement(etAchievement_Latlng_Achievement.getText().toString());
                 a1.setNote(etAchievement_Note.getText().toString());
                 a1.setStatus_achievement(nrStatusAchievement);
-                if (txTravelAchievement.getText().toString()=="" ) {
+                if (txTravelAchievement.getText().toString().equals("")) {
                     a1.setTravel_id(null);
                 } else {
                     a1.setTravel_id(achievement.getTravel_id());

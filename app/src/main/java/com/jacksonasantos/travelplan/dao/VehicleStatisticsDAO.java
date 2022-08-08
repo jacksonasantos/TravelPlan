@@ -20,7 +20,7 @@ public class VehicleStatisticsDAO extends DbContentProvider implements VehicleSt
         super(db);
     }
 
-    public List<VehicleStatistics> findTotalVehicleStatistics(Integer vehicle_id) {
+    public List<VehicleStatistics> findTotalFuelingVehicleStatistics(Integer vehicle_id) {
         List<VehicleStatistics> vehicleStatisticsList = new ArrayList<>();
         cursor = super.rawQuery("SELECT " + FuelSupplyISchema.FUEL_SUPPLY_VEHICLE_ID + ", " +
                                              "9 supply_reason_type, " +
@@ -43,7 +43,7 @@ public class VehicleStatisticsDAO extends DbContentProvider implements VehicleSt
         return vehicleStatisticsList;
     }
 
-    public List<VehicleStatistics> findLastVehicleStatistics(Integer vehicle_id) {
+    public List<VehicleStatistics> findVehicleFuelingStatistics(Integer vehicle_id) {
         List<VehicleStatistics> vehicleStatisticsList = new ArrayList<>();
         cursor = super.rawQuery("SELECT " + FuelSupplyISchema.FUEL_SUPPLY_VEHICLE_ID + ", " +
                                                 FuelSupplyISchema.FUEL_SUPPLY_SUPPLY_REASON_TYPE + ", " +
@@ -71,7 +71,7 @@ public class VehicleStatisticsDAO extends DbContentProvider implements VehicleSt
         return vehicleStatisticsList;
     }
 
-    public VehicleStatistics findLastVehicleStatistics(Integer vehicle_id, int reason_type) {
+    public VehicleStatistics findVehicleFuelingStatistics(Integer vehicle_id, int reason_type) {
         VehicleStatistics vehicleStatisticsList = new VehicleStatistics();
         cursor = super.rawQuery("SELECT " + FuelSupplyISchema.FUEL_SUPPLY_VEHICLE_ID + " "+VEHICLE_STATISTICS_VEHICLE_ID+", " +
                                                  FuelSupplyISchema.FUEL_SUPPLY_SUPPLY_REASON_TYPE + " "+VEHICLE_STATISTICS_SUPPLY_REASON_TYPE+", " +
@@ -100,11 +100,11 @@ public class VehicleStatisticsDAO extends DbContentProvider implements VehicleSt
         return vehicleStatisticsList;
     }
 
-    public List<VehicleStatistics> findLastVehicleGraphStatistics(Integer vehicle_id, Integer type) {
+    public List<VehicleStatistics> findVehicleFuelingGraphStatistics(Integer vehicle_id, Integer type) {
         List<VehicleStatistics> vehicleGraphStatisticsList = new ArrayList<>();
         cursor = super.rawQuery("SELECT " + FuelSupplyISchema.FUEL_SUPPLY_VEHICLE_ID + " " + VehicleStatisticsISchema.VEHICLE_STATISTICS_VEHICLE_ID+", " +
                                                 FuelSupplyISchema.FUEL_SUPPLY_SUPPLY_REASON_TYPE + " " + VehicleStatisticsISchema.VEHICLE_STATISTICS_SUPPLY_REASON_TYPE+ ", " +
-                                                FuelSupplyISchema.FUEL_SUPPLY_SUPPLY_DATE + " " + VehicleStatisticsISchema.VEHICLE_STATISTICS_STATISTIC_DATE+ ", " +
+                                                "DATETIME(STRFTIME( '%Y-%m-01 00:00:00', "+FuelSupplyISchema.FUEL_SUPPLY_SUPPLY_DATE + ")) " + VehicleStatisticsISchema.VEHICLE_STATISTICS_STATISTIC_DATE+ ", " +
                                                 "(SUM("+ FuelSupplyISchema.FUEL_SUPPLY_VEHICLE_TRAVELLED_DISTANCE+") / SUM(" + FuelSupplyISchema.FUEL_SUPPLY_NUMBER_LITERS+"+"+FuelSupplyISchema.FUEL_SUPPLY_ACCUMULATED_NUMBER_LITERS+") ) " + VehicleStatisticsISchema.VEHICLE_STATISTICS_AVG_CONSUMPTION+", " +
                                                 "(SUM(" + FuelSupplyISchema.FUEL_SUPPLY_SUPPLY_VALUE+") / SUM(" + FuelSupplyISchema.FUEL_SUPPLY_VEHICLE_TRAVELLED_DISTANCE + ") ) "+ VehicleStatisticsISchema.VEHICLE_STATISTICS_AVG_COST_LITRE+" " +
                                        "FROM " + FuelSupplyISchema.FUEL_SUPPLY_TABLE + " " +
@@ -113,10 +113,10 @@ public class VehicleStatisticsDAO extends DbContentProvider implements VehicleSt
                                         "AND " + FuelSupplyISchema.FUEL_SUPPLY_SUPPLY_REASON_TYPE + "=? " +
                                       "GROUP BY " + FuelSupplyISchema.FUEL_SUPPLY_VEHICLE_ID +
                                              ", " + FuelSupplyISchema.FUEL_SUPPLY_SUPPLY_REASON_TYPE +
-                                             ", " + FuelSupplyISchema.FUEL_SUPPLY_SUPPLY_DATE + " " +
-                                      "ORDER BY " + FuelSupplyISchema.FUEL_SUPPLY_VEHICLE_ID +
+                                             ", DATETIME(STRFTIME( '%Y-%m-01 00:00:00', "+FuelSupplyISchema.FUEL_SUPPLY_SUPPLY_DATE + ")) "+ " " +
+                        "ORDER BY " + FuelSupplyISchema.FUEL_SUPPLY_VEHICLE_ID +
                                              ", " + FuelSupplyISchema.FUEL_SUPPLY_SUPPLY_REASON_TYPE +
-                                             ", " + FuelSupplyISchema.FUEL_SUPPLY_SUPPLY_DATE,
+                                             ", DATETIME(STRFTIME( '%Y-%m-01 00:00:00', " + FuelSupplyISchema.FUEL_SUPPLY_SUPPLY_DATE+ ")) ",
                 new String[] { String.valueOf(vehicle_id), String.valueOf(type)});
         if (null != cursor) {
             if (cursor.moveToFirst()) {

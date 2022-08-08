@@ -496,7 +496,7 @@ public class FuelSupplyActivity extends AppCompatActivity implements PlacesAdapt
                             v1.setDt_odometer(Utils.stringToDate(etSupplyDate.getText().toString()));
                             v1.setOdometer(Integer.parseInt(etVehicleOdometer.getText().toString()));
                             if (vStatAvgFuelConsumption>0){
-                                List<VehicleStatistics> vStat = Database.mVehicleStatisticsDao.findTotalVehicleStatistics(nrVehicleId);
+                                List<VehicleStatistics> vStat = Database.mVehicleStatisticsDao.findTotalFuelingVehicleStatistics(nrVehicleId);
                                 v1.setAvg_consumption(vStat.get(0).getAvg_consumption());
                                 v1.setAvg_cost_litre(vStat.get(0).getAvg_cost_litre());
                                 v1.setDt_last_fueling(Utils.stringToDate(etSupplyDate.getText().toString()));

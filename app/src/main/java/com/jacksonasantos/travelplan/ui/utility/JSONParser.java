@@ -1,9 +1,6 @@
 package com.jacksonasantos.travelplan.ui.utility;
 
-import android.os.Build;
 import android.util.Log;
-
-import androidx.annotation.RequiresApi;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
@@ -22,7 +19,6 @@ public class JSONParser {
     public JSONParser() {
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     public String getJSONFromUrl(String url) {
         try {
             URL urlNew = new URL(url);
@@ -41,7 +37,7 @@ public class JSONParser {
             json = sb.toString();
             is.close();
         } catch (Exception e) {
-            Log.e("Buffer Error", "Error converting result " + e.toString());
+            Log.e("Buffer Error", "Error converting result " + e);
         }
         Log.d("JSON_RUTA", json);
         return json;

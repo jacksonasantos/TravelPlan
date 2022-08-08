@@ -8,7 +8,6 @@ import android.graphics.Color;
 import android.graphics.DashPathEffect;
 import android.graphics.Paint;
 import android.graphics.PorterDuff;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,7 +20,6 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -46,6 +44,9 @@ import com.jjoe64.graphview.series.LineGraphSeries;
 import java.math.BigDecimal;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Locale;
 
@@ -132,7 +133,6 @@ public class HomeVehicleFragment extends Fragment implements View.OnClickListene
         return v;
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public void onResume() {
         super.onResume();
@@ -200,7 +200,7 @@ public class HomeVehicleFragment extends Fragment implements View.OnClickListene
                 }
 
                 // Statistics of Vehicle in Global selection - layerStatisticsVehicle
-                HomeVehicleStatisticsListAdapter adapterLastVehicleStatistics = new HomeVehicleStatisticsListAdapter(Database.mVehicleStatisticsDao.findLastVehicleStatistics(g.getIdVehicle()), getContext());
+                HomeVehicleStatisticsListAdapter adapterLastVehicleStatistics = new HomeVehicleStatisticsListAdapter(Database.mVehicleStatisticsDao.findVehicleFuelingStatistics(g.getIdVehicle()), getContext());
                 if (adapterLastVehicleStatistics.getItemCount() > 0 ) {
                     layerStatisticsVehicle.setVisibility(View.VISIBLE);
 
@@ -236,7 +236,7 @@ public class HomeVehicleFragment extends Fragment implements View.OnClickListene
                     graphStatistics.getGridLabelRenderer().setVerticalAxisTitleTextSize(24);
                     graphStatistics.getGridLabelRenderer().setVerticalAxisTitleColor(Color.DKGRAY);
                     graphStatistics.getGridLabelRenderer().setVerticalAxisTitle(g.getMeasureConsumption());
-                    graphStatistics.getGridLabelRenderer().setLabelFormatter(new DateAsXAxisLabelFormatter(graphStatistics.getContext(), new SimpleDateFormat("dd/MM")));
+                    graphStatistics.getGridLabelRenderer().setLabelFormatter(new DateAsXAxisLabelFormatter(graphStatistics.getContext(), new SimpleDateFormat("MM/yy")));
 
                     graphStatistics.refreshDrawableState();
                 } else {
@@ -268,16 +268,16 @@ public class HomeVehicleFragment extends Fragment implements View.OnClickListene
         tvAVGType2.setText("");
         tvAVGType3.setText("");
         tvAVGType9.setText("");
-        List<VehicleStatistics> vehicleStatisticsAVGGeneral = Database.mVehicleStatisticsDao.findTotalVehicleStatistics(g.getIdVehicle());
+        List<VehicleStatistics> vehicleStatisticsAVGGeneral = Database.mVehicleStatisticsDao.findTotalFuelingVehicleStatistics(g.getIdVehicle());
         String text = requireContext().getString(R.string.general) + ": " + numberFormatter.format(vehicleStatisticsAVGGeneral.get(0).getAvg_consumption()) + " " + g.getMeasureConsumption();
         tvAVGType9.setText(text);
         tvAVGType9.setTextColor(VehicleStatistics.getSupply_reason_type_color(vehicleStatisticsAVGGeneral.get(0).getSupply_reason_type()));
 
         String[] reasonTypeArray = getResources().getStringArray(R.array.supply_reason_type_array);
         for (int type=1; type<=reasonTypeArray.length; type++) {
-            List<VehicleStatistics> vehicleStatisticsGraph = Database.mVehicleStatisticsDao.findLastVehicleGraphStatistics(g.getIdVehicle(), type);
+            List<VehicleStatistics> vehicleStatisticsGraph = Database.mVehicleStatisticsDao.findVehicleFuelingGraphStatistics(g.getIdVehicle(), type);
             if (vehicleStatisticsGraph.size()>0) {
-                VehicleStatistics vehicleStatisticsAVG = Database.mVehicleStatisticsDao.findLastVehicleStatistics(g.getIdVehicle(), type);
+                VehicleStatistics vehicleStatisticsAVG = Database.mVehicleStatisticsDao.findVehicleFuelingStatistics(g.getIdVehicle(), type);
                 text = reasonTypeArray[type - 1] + ": " + numberFormatter.format(vehicleStatisticsAVG.getAvg_consumption()) + " " + g.getMeasureConsumption();
                 switch (type) {
                     case 1:
@@ -297,9 +297,18 @@ public class HomeVehicleFragment extends Fragment implements View.OnClickListene
                 DataPoint[] dataSeriesAVG = new DataPoint[vehicleStatisticsGraph.size()];
                 DataPoint[] dataSeriesAVGGeneral = new DataPoint[vehicleStatisticsGraph.size()];
                 for (int x = 0;x<vehicleStatisticsGraph.size(); x++) {
-                    dataSeries[x]           = new DataPoint(vehicleStatisticsGraph.get(x).getStatistic_date(), vehicleStatisticsGraph.get(x).getAvg_consumption());
-                    dataSeriesAVG[x]        = new DataPoint(vehicleStatisticsGraph.get(x).getStatistic_date(), vehicleStatisticsAVG.getAvg_consumption());
-                    dataSeriesAVGGeneral[x] = new DataPoint(vehicleStatisticsGraph.get(x).getStatistic_date(), vehicleStatisticsAVGGeneral.get(0).getAvg_consumption());
+                    Calendar c = new GregorianCalendar(vehicleStatisticsGraph.get(x).getStatistic_date().getYear(),
+                            vehicleStatisticsGraph.get(x).getStatistic_date().getMonth()-1,      // Jan = 0, Dec = 11
+                            1,//Calendar.DAY_OF_MONTH,
+                            0,
+                            0,
+                            0);
+
+                    Date d = c.getTime();
+                    //dataSeries[x]           = new DataPoint(vehicleStatisticsGraph.get(x).getStatistic_date(), vehicleStatisticsGraph.get(x).getAvg_consumption());
+                    dataSeries[x]           = new DataPoint(d.getTime(), vehicleStatisticsGraph.get(x).getAvg_consumption());
+                    dataSeriesAVG[x]        = new DataPoint(d.getTime(), vehicleStatisticsAVG.getAvg_consumption());
+                    dataSeriesAVGGeneral[x] = new DataPoint(d.getTime(), vehicleStatisticsAVGGeneral.get(0).getAvg_consumption());
                 }
                 if (dataSeries.length > tamHorizontalLabels) tamHorizontalLabels = dataSeries.length+1;
                 if (tamHorizontalLabels > 10) tamHorizontalLabels = 10;
