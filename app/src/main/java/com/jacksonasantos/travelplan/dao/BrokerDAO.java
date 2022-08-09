@@ -12,6 +12,7 @@ import com.jacksonasantos.travelplan.dao.interfaces.BrokerISchema;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class BrokerDAO extends DbContentProvider implements BrokerISchema, BrokerIDAO {
 
@@ -79,7 +80,7 @@ public class BrokerDAO extends DbContentProvider implements BrokerISchema, Broke
         try {
             return (super.update(BROKER_TABLE, getContentValue(), selection, selectionArgs) > 0);
         } catch (SQLiteConstraintException ex){
-            Log.w("Update Table", ex.getMessage());
+            Log.w("Update Table", Objects.requireNonNull(ex.getMessage()));
             return false;
         }
     }
@@ -89,7 +90,7 @@ public class BrokerDAO extends DbContentProvider implements BrokerISchema, Broke
         try {
             return (super.insert(BROKER_TABLE, getContentValue()) > 0);
         } catch (SQLiteConstraintException ex){
-            Log.w("Insert Table", ex.getMessage());
+            Log.w("Insert Table", Objects.requireNonNull(ex.getMessage()));
             return false;
         }
     }

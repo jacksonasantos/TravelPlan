@@ -3,7 +3,6 @@ package com.jacksonasantos.travelplan.ui.home;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Color;
-import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,14 +10,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.jacksonasantos.travelplan.R;
-import com.jacksonasantos.travelplan.dao.general.Database;
 import com.jacksonasantos.travelplan.dao.NextMaintenanceItem;
 import com.jacksonasantos.travelplan.dao.Vehicle;
+import com.jacksonasantos.travelplan.dao.general.Database;
 import com.jacksonasantos.travelplan.ui.utility.Globals;
 import com.jacksonasantos.travelplan.ui.utility.Utils;
 
@@ -63,7 +61,6 @@ public class HomeVehicleNextMaintenanceListAdapter extends RecyclerView.Adapter<
     }
 
     @SuppressLint({"SetTextI18n", "ResourceAsColor"})
-    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public void onBindViewHolder(@NonNull final RecyclerView.ViewHolder holder, final int position) {
         if (holder instanceof HeaderViewHolder){
@@ -92,8 +89,7 @@ public class HomeVehicleNextMaintenanceListAdapter extends RecyclerView.Adapter<
                 } else if (v1.getOdometer() > Integer.parseInt(nextMaintenanceItem.getNext_service()) - g.getKMsPreviousAlert() ||
                         v1.getOdometer() == Integer.parseInt(nextMaintenanceItem.getNext_service())) {
                     vStatus = 1;
-                } else
-                    vStatus = 0;
+                }
             } else {                                            // Date
                 Date vData;
                 Date vDataNow = new Date();

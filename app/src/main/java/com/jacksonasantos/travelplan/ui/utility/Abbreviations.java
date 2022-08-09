@@ -106,10 +106,6 @@ public class Abbreviations {
     }
 
     public static String getAbbreviationFromState(String state) {
-        if (STATE_MAP.containsKey(state)) {
-            return STATE_MAP.get(state);
-        }else{
-            return state;
-        }
+        return STATE_MAP.getOrDefault(state, state);
     }
 }
