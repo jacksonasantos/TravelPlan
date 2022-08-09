@@ -93,6 +93,7 @@ public class FuelSupplyActivity extends AppCompatActivity implements PlacesAdapt
     private int vLastOdometer;
     private int vLastTravelledDistance;
     private double vAccumulatedNumberLitre = 0;
+    private double vAccumulatedSupplyValue = 0;
     private double vAccumNumberLitre = 0;
     private double vAccumSupplyValue = 0;
     private float vStatAvgFuelConsumption = (float) 0;
@@ -435,6 +436,7 @@ public class FuelSupplyActivity extends AppCompatActivity implements PlacesAdapt
                         vStatAvgFuelConsumption = vLastTravelledDistance / Float.parseFloat(Double.toString(Double.parseDouble(etNumberLiters.getText().toString()) + v1.getAccumulated_number_liters()));
                         vStatCostPerLitre = vLastTravelledDistance / Float.parseFloat(Double.toString(Double.parseDouble(etSupplyValue.getText().toString()) + v1.getAccumulated_supply_value()));
                         vAccumulatedNumberLitre = v1.getAccumulated_number_liters();
+                        vAccumulatedSupplyValue = v1.getAccumulated_supply_value();
                         vAccumNumberLitre = 0;
                         vAccumSupplyValue = 0;
                         if (rbSupplyReasonType!=3 &&
@@ -447,6 +449,7 @@ public class FuelSupplyActivity extends AppCompatActivity implements PlacesAdapt
                     }
                 } else {
                     vAccumulatedNumberLitre = 0;
+                    vAccumulatedSupplyValue = 0;
                     vAccumNumberLitre = Double.parseDouble(etNumberLiters.getText().toString()) + v1.getAccumulated_number_liters();
                     vAccumSupplyValue = Double.parseDouble(etSupplyValue.getText().toString()) + v1.getAccumulated_supply_value();
                 }
@@ -471,6 +474,7 @@ public class FuelSupplyActivity extends AppCompatActivity implements PlacesAdapt
                 f1.setSupply_date( Utils.stringToDate(etSupplyDate.getText().toString()));
                 f1.setNumber_liters(Double.parseDouble(etNumberLiters.getText().toString()));
                 f1.setAccumulated_Number_liters(vAccumulatedNumberLitre);
+                f1.setAccumulated_supply_value(vAccumulatedSupplyValue);
                 f1.setCombustible(nrSpCombustible);
                 f1.setFull_tank(vlFullTank);
                 f1.setCurrency_type(nrSpCurrencyType);

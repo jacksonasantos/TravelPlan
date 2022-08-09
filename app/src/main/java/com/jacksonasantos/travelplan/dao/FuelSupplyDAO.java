@@ -116,6 +116,7 @@ public class FuelSupplyDAO extends DbContentProvider implements FuelSupplyISchem
             if (c.getColumnIndex(FUEL_SUPPLY_SUPPLY_DATE) != -1) {fS.setSupply_date(Utils.dateParse(c.getString(c.getColumnIndexOrThrow(FUEL_SUPPLY_SUPPLY_DATE)))); }
             if (c.getColumnIndex(FUEL_SUPPLY_NUMBER_LITERS) != -1) {fS.setNumber_liters(c.getDouble(c.getColumnIndexOrThrow(FUEL_SUPPLY_NUMBER_LITERS))); }
             if (c.getColumnIndex(FUEL_SUPPLY_ACCUMULATED_NUMBER_LITERS) != -1) {fS.setAccumulated_Number_liters(c.getDouble(c.getColumnIndexOrThrow(FUEL_SUPPLY_ACCUMULATED_NUMBER_LITERS))); }
+            if (c.getColumnIndex(FUEL_SUPPLY_ACCUMULATED_SUPPLY_VALUE) != -1) {fS.setAccumulated_supply_value(c.getDouble(c.getColumnIndexOrThrow(FUEL_SUPPLY_ACCUMULATED_SUPPLY_VALUE))); }
             if (c.getColumnIndex(FUEL_SUPPLY_COMBUSTIBLE) != -1) {fS.setCombustible(c.getInt(c.getColumnIndexOrThrow(FUEL_SUPPLY_COMBUSTIBLE))); }
             if (c.getColumnIndex(FUEL_SUPPLY_FULL_TANK) != -1) {fS.setFull_tank(c.getInt(c.getColumnIndexOrThrow(FUEL_SUPPLY_FULL_TANK))); }
             if (c.getColumnIndex(FUEL_SUPPLY_CURRENCY_TYPE) != -1) {fS.setCurrency_type(c.getInt(c.getColumnIndexOrThrow(FUEL_SUPPLY_CURRENCY_TYPE))); }
@@ -142,6 +143,7 @@ public class FuelSupplyDAO extends DbContentProvider implements FuelSupplyISchem
         initialValues.put(FUEL_SUPPLY_SUPPLY_DATE, Utils.dateFormat(fS.supply_date));
         initialValues.put(FUEL_SUPPLY_NUMBER_LITERS, fS.number_liters);
         initialValues.put(FUEL_SUPPLY_ACCUMULATED_NUMBER_LITERS, fS.accumulated_number_liters);
+        initialValues.put(FUEL_SUPPLY_ACCUMULATED_SUPPLY_VALUE, fS.accumulated_supply_value);
         initialValues.put(FUEL_SUPPLY_COMBUSTIBLE, fS.combustible);
         initialValues.put(FUEL_SUPPLY_FULL_TANK, fS.full_tank);
         initialValues.put(FUEL_SUPPLY_CURRENCY_TYPE, fS.currency_type);

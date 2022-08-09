@@ -11,6 +11,7 @@ public interface FuelSupplyISchema {
     String FUEL_SUPPLY_SUPPLY_DATE = "supply_date";
     String FUEL_SUPPLY_NUMBER_LITERS = "number_liters";
     String FUEL_SUPPLY_ACCUMULATED_NUMBER_LITERS = "accumulated_number_liters";
+    String FUEL_SUPPLY_ACCUMULATED_SUPPLY_VALUE = "accumulated_supply_value";
     String FUEL_SUPPLY_COMBUSTIBLE = "combustible";
     String FUEL_SUPPLY_FULL_TANK = "full_tank";
     String FUEL_SUPPLY_CURRENCY_TYPE = "currency_type";
@@ -59,6 +60,10 @@ public interface FuelSupplyISchema {
     String ALTER_TABLE_FUEL_SUPPLY_V30 = "ALTER TABLE " + FUEL_SUPPLY_TABLE
             + " ADD COLUMN " + FUEL_SUPPLY_ACCUMULATED_NUMBER_LITERS + " DOUBLE ";
 
+    // Version 45
+    String ALTER_TABLE_FUEL_SUPPLY_V45 = "ALTER TABLE " + FUEL_SUPPLY_TABLE
+            + " ADD COLUMN " + FUEL_SUPPLY_ACCUMULATED_SUPPLY_VALUE + " DOUBLE ";
+
     String[] FUEL_SUPPLY_COLUMNS = new String[] {
             FUEL_SUPPLY_ID,
             FUEL_SUPPLY_VEHICLE_ID,
@@ -67,6 +72,7 @@ public interface FuelSupplyISchema {
             FUEL_SUPPLY_SUPPLY_DATE,
             FUEL_SUPPLY_NUMBER_LITERS,
             FUEL_SUPPLY_ACCUMULATED_NUMBER_LITERS,
+            FUEL_SUPPLY_ACCUMULATED_SUPPLY_VALUE,
             FUEL_SUPPLY_COMBUSTIBLE,
             FUEL_SUPPLY_FULL_TANK,
             FUEL_SUPPLY_CURRENCY_TYPE,
