@@ -11,9 +11,12 @@ public interface AchievementISchema {
     String ACHIEVEMENT_IMAGE = "image";
     String ACHIEVEMENT_CITY = "city";
     String ACHIEVEMENT_STATE = "state";
+    String ACHIEVEMENT_CITY_END = "city_end";
+    String ACHIEVEMENT_STATE_END = "state_end";
     String ACHIEVEMENT_COUNTRY = "country";
     String ACHIEVEMENT_NOTE = "note";
     String ACHIEVEMENT_LATLNG_ACHIEVEMENT = "latlng_achievement";
+    String ACHIEVEMENT_LENGTH = "length";
     String ACHIEVEMENT_STATUS_ACHIEVEMENT = "status_achievement";
 
     // Version 36
@@ -36,6 +39,13 @@ public interface AchievementISchema {
     // Version 39
     String ALTER_TABLE_ACHIEVEMENT_V39 = "ALTER TABLE " + ACHIEVEMENT_TABLE
             + " ADD COLUMN " + ACHIEVEMENT_STATUS_ACHIEVEMENT + " INTEGER DEFAULT 0 ";
+    // Version 46
+    String ALTER_TABLE_ACHIEVEMENT_V46_1 = "ALTER TABLE " + ACHIEVEMENT_TABLE
+            + " ADD COLUMN " + ACHIEVEMENT_LENGTH + " DOUBLE ";
+    String ALTER_TABLE_ACHIEVEMENT_V46_2 = "ALTER TABLE " + ACHIEVEMENT_TABLE
+            + " ADD COLUMN " + ACHIEVEMENT_CITY_END + " TEXT ";
+    String ALTER_TABLE_ACHIEVEMENT_V46_3 = "ALTER TABLE " + ACHIEVEMENT_TABLE
+            + " ADD COLUMN " + ACHIEVEMENT_STATE_END + " TEXT ";
 
     String[] ACHIEVEMENT_COLUMNS = new String[] {
             ACHIEVEMENT_ID,
@@ -45,9 +55,12 @@ public interface AchievementISchema {
             ACHIEVEMENT_IMAGE,
             ACHIEVEMENT_CITY,
             ACHIEVEMENT_STATE,
+            ACHIEVEMENT_CITY_END,
+            ACHIEVEMENT_STATE_END,
             ACHIEVEMENT_COUNTRY,
             ACHIEVEMENT_NOTE,
             ACHIEVEMENT_LATLNG_ACHIEVEMENT,
+            ACHIEVEMENT_LENGTH,
             ACHIEVEMENT_STATUS_ACHIEVEMENT
     };
 }

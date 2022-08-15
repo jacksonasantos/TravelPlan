@@ -447,11 +447,14 @@
     <string name="Achievement_Short_Name">Short Name</string>
     <string name="Achievement_Name">Name</string>
     <string name="Achievement_Image">Image</string>
-    <string name="Achievement_City">City</string>
-    <string name="Achievement_State">State</string>
+    <string name="Achievement_City_Start">City Start</string>
+    <string name="Achievement_State_Start">State Start</string>
+    <string name="Achievement_City_End">City End</string>
+    <string name="Achievement_State_End">State End</string>
     <string name="Achievement_Country">Country</string>
     <string name="Achievement_Note">Note</string>
     <string name="Achievement_Latlng_Achievement">Lat/Lng</string>
+    <string name="Achievement_Length">Length</string>
     <string name="Achievement_Status">Status</string>
 
 </resources>

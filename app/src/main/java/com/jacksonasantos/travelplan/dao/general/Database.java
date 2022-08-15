@@ -59,7 +59,7 @@ public class Database {
     private final Context mContext;
 
     private static final String DATABASE_NAME = "TravelPlan.db";
-    private static final int DATABASE_VERSION = 45;
+    private static final int DATABASE_VERSION = 46;
 
     public static AccommodationDAO mAccommodationDao;
     public static AchievementDAO mAchievementDao;
@@ -202,6 +202,9 @@ public class Database {
             db.execSQL(FuelSupplyISchema.ALTER_TABLE_FUEL_SUPPLY_V30); Log.w("Table "+FuelSupplyISchema.FUEL_SUPPLY_TABLE,"V30 - Alter Table...");
             db.execSQL(TravelItemExpensesISchema.ALTER_TABLE_TRAVEL_ITEM_EXPENSES_V44_1); Log.w("Ta "+TravelItemExpensesISchema.TRAVEL_ITEM_EXPENSES_TABLE,"V441 - Alter Table...");
             db.execSQL(FuelSupplyISchema.ALTER_TABLE_FUEL_SUPPLY_V45); Log.w("Table "+FuelSupplyISchema.FUEL_SUPPLY_TABLE,"V45 - Alter Table...");
+            db.execSQL(AchievementISchema.ALTER_TABLE_ACHIEVEMENT_V46_1); Log.w("Table "+AchievementISchema.ACHIEVEMENT_TABLE,"V461 - Alter Table...");
+            db.execSQL(AchievementISchema.ALTER_TABLE_ACHIEVEMENT_V46_2); Log.w("Table "+AchievementISchema.ACHIEVEMENT_TABLE,"V462 - Alter Table...");
+            db.execSQL(AchievementISchema.ALTER_TABLE_ACHIEVEMENT_V46_3); Log.w("Table "+AchievementISchema.ACHIEVEMENT_TABLE,"V463 - Alter Table...");
         }
 
         @SuppressLint("SQLiteString")
@@ -349,6 +352,11 @@ public class Database {
                         break;
                     case 45:
                         db.execSQL(FuelSupplyISchema.ALTER_TABLE_FUEL_SUPPLY_V45);
+                        break;
+                    case 46:
+                        db.execSQL(AchievementISchema.ALTER_TABLE_ACHIEVEMENT_V46_1);
+                        db.execSQL(AchievementISchema.ALTER_TABLE_ACHIEVEMENT_V46_2);
+                        db.execSQL(AchievementISchema.ALTER_TABLE_ACHIEVEMENT_V46_3);
                         break;
                     default:
                         break;

@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,7 +15,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -42,8 +40,11 @@ public class AchievementActivity extends AppCompatActivity {
     private byte[] imgArray = null;
     private EditText etAchievement_City;
     private EditText etAchievement_State;
+    private EditText etAchievement_City_End;
+    private EditText etAchievement_State_End;
     private EditText etAchievement_Country;
     private EditText etAchievement_Latlng_Achievement;
+    private EditText etAchievement_Length;
     private EditText etAchievement_Note;
     private TextView txTravelAchievement;
     private ImageButton imgStatusAchievement;
@@ -53,7 +54,6 @@ public class AchievementActivity extends AppCompatActivity {
     private Achievement achievement;
 
     @SuppressLint("WrongViewCast")
-    @RequiresApi(api = Build.VERSION_CODES.N)
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,8 +93,11 @@ public class AchievementActivity extends AppCompatActivity {
         imgDelete_Image = findViewById(R.id.imgDelete_Image);
         etAchievement_City = findViewById(R.id.etAchievement_City);
         etAchievement_State = findViewById(R.id.etAchievement_State);
+        etAchievement_City_End = findViewById(R.id.etAchievement_City_End);
+        etAchievement_State_End = findViewById(R.id.etAchievement_State_End);
         etAchievement_Country = findViewById(R.id.etAchievement_Country);
         etAchievement_Latlng_Achievement = findViewById(R.id.etAchievement_Latlng_Achievement);
+        etAchievement_Length = findViewById(R.id.etAchievement_Length);
         etAchievement_Note = findViewById(R.id.etAchievement_Note);
         txTravelAchievement = findViewById(R.id.txTravelAchievement);
         imgStatusAchievement = findViewById(R.id.imgStatusAchievement);
@@ -109,8 +112,11 @@ public class AchievementActivity extends AppCompatActivity {
             }
             etAchievement_City.setText(achievement.getCity());
             etAchievement_State.setText(achievement.getState());
+            etAchievement_City_End.setText(achievement.getCity_end());
+            etAchievement_State_End.setText(achievement.getState_end());
             etAchievement_Country.setText(achievement.getCountry());
             etAchievement_Latlng_Achievement.setText(achievement.getLatlng_achievement());
+            etAchievement_Length.setText(String.valueOf(achievement.getLength()));
             etAchievement_Note.setText(achievement.getNote());
             txTravelAchievement.setText(Database.mTravelDao.fetchTravelById(achievement.getTravel_id()).getDescription());
             nrStatusAchievement = achievement.getStatus_achievement();
@@ -198,8 +204,11 @@ public class AchievementActivity extends AppCompatActivity {
 
                 a1.setCity(etAchievement_City.getText().toString());
                 a1.setState(etAchievement_State.getText().toString());
+                a1.setCity_end(etAchievement_City_End.getText().toString());
+                a1.setState_end(etAchievement_State_End.getText().toString());
                 a1.setCountry(etAchievement_Country.getText().toString());
                 a1.setLatlng_achievement(etAchievement_Latlng_Achievement.getText().toString());
+                a1.setLength(Double.parseDouble(etAchievement_Length.getText().toString()));
                 a1.setNote(etAchievement_Note.getText().toString());
                 a1.setStatus_achievement(nrStatusAchievement);
                 if (txTravelAchievement.getText().toString().equals("")) {
@@ -238,10 +247,13 @@ public class AchievementActivity extends AppCompatActivity {
             if (etAchievement_Short_Name.getText().toString().trim().isEmpty() ||
                 etAchievement_Name.getText().toString().trim().isEmpty() ||
                 //imgAchievement_Image.getImageMatrix().toString().trim().isEmpty() ||
-                //etAchievement_City.getText().toString().trim().isEmpty() ||
-                //etAchievement_State.getText().toString().trim().isEmpty() ||
+                    //etAchievement_City.getText().toString().trim().isEmpty() ||
+                    //etAchievement_State.getText().toString().trim().isEmpty() ||
+                    //etAchievement_City_End.getText().toString().trim().isEmpty() ||
+                    //etAchievement_State_End.getText().toString().trim().isEmpty() ||
                 etAchievement_Country.getText().toString().trim().isEmpty() //||
                 //etAchievement_Latlng_Achievement.getText().toString().trim().isEmpty() ||
+                //etAchievement_Length.getText().toString().trim().isEmpty() ||
                 //etAchievement_Note.getText().toString().trim().isEmpty()
             ){
                 isValid = false;
