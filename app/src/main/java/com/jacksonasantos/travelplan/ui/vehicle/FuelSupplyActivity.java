@@ -88,6 +88,8 @@ public class FuelSupplyActivity extends AppCompatActivity implements PlacesAdapt
     private EditText etSupplyReason;
     private Spinner spAssociatedTravelId;
     private Integer nrSpAssociatedTravelId;
+    private TextView txAccumulatedNumberLiters;
+    private TextView txAccumulatedSupplyValue;
     private int vLastOdometer;
     private int vLastTravelledDistance;
     private double vAccumulatedNumberLitre = 0;
@@ -203,6 +205,8 @@ public class FuelSupplyActivity extends AppCompatActivity implements PlacesAdapt
         rgSupplyReasonType = findViewById(R.id.rgSupplyReasonType);
         etSupplyReason = findViewById(R.id.etSupplyReason);
         spAssociatedTravelId = findViewById(R.id.spAssociatedTravelId);
+        txAccumulatedNumberLiters = findViewById(R.id.txAccumulatedNumberLiters);
+        txAccumulatedSupplyValue = findViewById(R.id.txAccumulatedSupplyValue);
 
         final Vehicle vehicle = Database.mVehicleDao.fetchVehicleById(nrVehicleId);
         txVehicleName.setText(vehicle.getName());
@@ -401,6 +405,8 @@ public class FuelSupplyActivity extends AppCompatActivity implements PlacesAdapt
                     }
                 }
             }
+            txAccumulatedNumberLiters.setText(String.valueOf(fuelSupply.getAccumulated_number_liters()==0?"":fuelSupply.getAccumulated_number_liters()));
+            txAccumulatedSupplyValue.setText(currencyFormatter.format(fuelSupply.getAccumulated_supply_value()));
         }
     }
 
@@ -443,6 +449,8 @@ public class FuelSupplyActivity extends AppCompatActivity implements PlacesAdapt
                         }
                         txStatAvgFuelConsumption.setText(numberFormat.format(vStatAvgFuelConsumption));
                         txStatCostPerLitre.setText(currencyFormatter.format(vStatCostPerLitre));
+                        txAccumulatedNumberLiters.setText(numberFormat.format(vAccumulatedNumberLitre));
+                        txAccumulatedSupplyValue.setText(currencyFormatter.format(vAccumulatedSupplyValue));
                     }
                 } else {
                     vAccumulatedNumberLitre = 0;

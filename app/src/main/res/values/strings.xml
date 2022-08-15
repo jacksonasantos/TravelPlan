@@ -152,6 +152,9 @@
     <string name="Vehicle_Stat_Cost_Per_Litre">Cost Per Litre</string>
     <string name="FuelSupply_AssociatedTravel">Associated Travel</string>
     <string name="FuelSupply_Currency_Value">Currency Value</string>
+    <string name="FuelSupply_Accumulated">Accumulated</string>
+    <string name="FuelSupply_Accumulated_Number_Liters">Accumulated Number Liters</string>
+    <string name="FuelSupply_Accumulated_Supply_Value">Accumulated Supply Value</string>
 
     <string name="gasoline_common">Gasoline Common</string>
     <string name="gasoline_additives">Gasoline Additives</string>
