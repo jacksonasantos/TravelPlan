@@ -13,14 +13,6 @@ public class Maintenance {
     public String note;
 
     public Maintenance() {
-        this.id = id;
-        this.vehicle_id=vehicle_id;
-        this.detail=detail;
-        this.date=date;
-        this.odometer=odometer;
-        this.value=value;
-        this.location=location;
-        this.note=note;
     }
 
     public Integer getId() { return id; }

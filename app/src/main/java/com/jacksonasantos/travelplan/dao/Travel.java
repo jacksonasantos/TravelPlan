@@ -15,12 +15,6 @@ public class Travel {
     public int status;
 
     public Travel() {
-        this.id = id;
-        this.description = description;
-        this.departure_date = departure_date;
-        this.return_date = return_date;
-        this.note = note;
-        this.status = status;
     }
     @NonNull
     @Override

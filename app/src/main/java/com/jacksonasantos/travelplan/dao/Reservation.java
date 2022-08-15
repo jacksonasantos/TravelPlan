@@ -19,19 +19,6 @@ public class Reservation {
     public int status_reservation;
 
     public Reservation() {
-        this.id = id;
-        this.travel_id = travel_id;
-        this.accommodation_id = accommodation_id;
-        this.voucher_number = voucher_number;
-        this.checkin_date = checkin_date;
-        this.checkout_date = checkout_date;
-        this.apto_type = apto_type;
-        this.daily_rate = daily_rate;
-        this.other_rate = other_rate;
-        this.reservation_amount = reservation_amount;
-        this.amount_paid = amount_paid;
-        this.note = note;
-        this.status_reservation = status_reservation;
     }
 
     public Integer getId() {return id;}

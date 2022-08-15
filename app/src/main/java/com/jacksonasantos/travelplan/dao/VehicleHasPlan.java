@@ -7,10 +7,6 @@ public class VehicleHasPlan {
     public int expiration;
 
     public VehicleHasPlan() {
-        this.id = id;
-        this.vehicle_id = vehicle_id;
-        this.maintenance_plan_id = maintenance_plan_id;
-        this.expiration = expiration;
     }
 
     public Integer getId() { return id; }

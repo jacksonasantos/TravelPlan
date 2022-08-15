@@ -19,19 +19,6 @@ public class Achievement {
     public int status_achievement;
 
     public Achievement() {
-        this.travel_id = travel_id;
-        this.short_name = short_name;
-        this.name = name;
-        this.image = image;
-        this.city = city;
-        this.state = state;
-        this.city_end = city_end;
-        this.state_end = state_end;
-        this.country = country;
-        this.note = note;
-        this.latlng_achievement = latlng_achievement;
-        this.length_achievement = length_achievement;
-        this.status_achievement = status_achievement;
     }
 
     @NonNull

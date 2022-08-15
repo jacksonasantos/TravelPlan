@@ -9,10 +9,6 @@ public class CurrencyQuote {
     public double currency_value;
 
     public CurrencyQuote() {
-        this.id = id;
-        this.currency_type = currency_type;
-        this.quote_date = quote_date;
-        this.currency_value = currency_value;
     }
 
     public Integer getId() { return id; }

@@ -32,24 +32,6 @@ public class Insurance {
     public Integer vehicle_id;
 
     public Insurance() {
-        this.id = id;
-        this.insurance_company_id = insurance_company_id;
-        this.broker_id = broker_id;
-        this.insurance_type = insurance_type;
-        this.description = description;
-        this.insurance_policy = insurance_policy;
-        this.issuance_date = issuance_date;
-        this.initial_effective_date = initial_effective_date;
-        this.final_effective_date = final_effective_date;
-        this.net_premium_value = net_premium_value;
-        this.tax_amount = tax_amount;
-        this.total_premium_value = total_premium_value;
-        this.insurance_deductible = insurance_deductible;
-        this.bonus_class = bonus_class;
-        this.note = note;
-        this.status = status;
-        this.travel_id = travel_id;
-        this.vehicle_id = vehicle_id;
     }
 
     public Integer getId() {return id;}

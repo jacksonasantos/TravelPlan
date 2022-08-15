@@ -17,16 +17,6 @@ public class InsuranceCompany {
     public Date authorization_date;
 
     public InsuranceCompany() {
-        this.id = id;
-        this.company_name = company_name;
-        this.cnpj = cnpj;
-        this.fip_code = fip_code;
-        this.address = address;
-        this.city = city;
-        this.state = state;
-        this.zip_code = zip_code;
-        this.telephone = telephone;
-        this.authorization_date = authorization_date;
     }
 
     @NonNull

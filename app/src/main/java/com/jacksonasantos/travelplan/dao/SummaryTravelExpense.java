@@ -8,9 +8,6 @@ public class SummaryTravelExpense {
     public Double realized_value;
 
     public SummaryTravelExpense() {
-        this.expense_type = expense_type;
-        this.expected_value = expected_value;
-        this.realized_value = realized_value;
     }
 
     public int getExpense_type_image( int expense_type ) {

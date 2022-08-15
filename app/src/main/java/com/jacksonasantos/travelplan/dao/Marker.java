@@ -22,22 +22,6 @@ public class Marker {
     public String zoom_level;
 
     public Marker() {
-        this.id = id;
-        this.travel_id = travel_id;
-        this.itinerary_id = itinerary_id;
-        this.marker_type = marker_type;
-        this.sequence = sequence;
-        this.name = name;
-        this.address = address;
-        this.city = city;
-        this.state = state;
-        this.country = country;
-        this.abbr_country = abbr_country;
-        this.category_type = category_type;
-        this.description = description;
-        this.latitude = latitude;
-        this.longitude = longitude;
-        this.zoom_level = zoom_level;
     }
 
     public Integer getId() {return id;}

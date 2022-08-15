@@ -13,14 +13,6 @@ public class MaintenanceItem {
     public String note;
 
     public MaintenanceItem() {
-        this.id = id;
-        this.maintenance_plan_id=maintenance_plan_id;
-        this.maintenance_id=maintenance_id;
-        this.service_type=service_type;
-        this.measure_type=measure_type;
-        this.expiration_value=expiration_value;
-        this.value=value;
-        this.note=note;
     }
 
     public Integer getId() { return id; }

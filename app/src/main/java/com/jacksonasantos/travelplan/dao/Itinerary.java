@@ -20,15 +20,8 @@ public class Itinerary {
     final Globals g = Globals.getInstance();
 
     public Itinerary() {
-        this.id = id;
-        this.travel_id = travel_id;
-        this.sequence = sequence;
-        this.orig_location = orig_location;
-        this.dest_location = dest_location;
-        this.daily = daily;
-        this.distance = distance;
-        this.time = time;
     }
+
     @NonNull
     @Override
     public String toString() { return sequence+"-"+orig_location+" p/ "+dest_location; }

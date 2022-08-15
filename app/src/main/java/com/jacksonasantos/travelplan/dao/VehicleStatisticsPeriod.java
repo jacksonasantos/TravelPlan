@@ -7,10 +7,6 @@ public class VehicleStatisticsPeriod {
     public float avg_consumption;
 
     public VehicleStatisticsPeriod() {
-        this.vehicle_id = vehicle_id;
-        this.short_name = short_name;
-        this.statistic_period = statistic_period;
-        this.avg_consumption = avg_consumption;
     }
 
     public Integer getVehicle_id() { return vehicle_id; }

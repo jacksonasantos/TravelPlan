@@ -11,12 +11,6 @@ public class MaintenancePlan {
     public String recommendation;
 
     public MaintenancePlan() {
-        this.id = id;
-        this.service_type = service_type;
-        this.description = description;
-        this.measure = measure;
-        this.expiration_default = expiration_default;
-        this.recommendation = recommendation;
     }
 
     @NonNull

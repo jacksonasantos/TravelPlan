@@ -11,12 +11,6 @@ public class TravelItemExpenses {
     public Integer travel_id;
 
     public TravelItemExpenses() {
-        this.id = id;
-        this.expense_type = expense_type;
-        this.expense_date=expense_date;
-        this.realized_value = realized_value;
-        this.note = note;
-        this.travel_id = travel_id;
     }
 
     public Integer getId() { return id; }

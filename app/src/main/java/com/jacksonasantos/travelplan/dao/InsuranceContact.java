@@ -8,11 +8,6 @@ public class InsuranceContact {
     public String detail_contact;
 
     public InsuranceContact() {
-        this.id = id;
-        this.insurance_id = insurance_id;
-        this.type_contact = type_contact;
-        this.description_contact = description_contact;
-        this.detail_contact = detail_contact;
     }
 
     public Integer getId() { return id;}

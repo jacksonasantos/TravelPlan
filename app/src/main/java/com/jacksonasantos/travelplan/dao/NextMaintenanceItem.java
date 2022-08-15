@@ -10,11 +10,6 @@ public class NextMaintenanceItem {
     public String next_service;
 
     public NextMaintenanceItem() {
-        this.service_type=service_type;
-        this.maintenance_plan_id=maintenance_plan_id;
-        this.description=description;
-        this.measure=measure;
-        this.next_service=next_service;
     }
 
     public Integer getMaintenance_plan_id() { return maintenance_plan_id; }

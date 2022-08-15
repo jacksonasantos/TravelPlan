@@ -26,27 +26,6 @@ public class FuelSupply {
     public Integer associated_travel_id;
 
     public FuelSupply() {
-        this.id = id;
-        this.vehicle_id=vehicle_id;
-        this.gas_station=gas_station;
-        this.gas_station_location=gas_station_location;
-        this.supply_date=supply_date;
-        this.number_liters=number_liters;
-        this.accumulated_number_liters=accumulated_number_liters;
-        this.accumulated_supply_value=accumulated_supply_value;
-        this.combustible=combustible;
-        this.full_tank=full_tank;
-        this.currency_type=currency_type;
-        this.currency_quote_id=currency_quote_id;
-        this.supply_value=supply_value;
-        this.fuel_value=fuel_value;
-        this.vehicle_odometer=vehicle_odometer;
-        this.vehicle_travelled_distance=vehicle_travelled_distance;
-        this.stat_avg_fuel_consumption=stat_avg_fuel_consumption;
-        this.stat_cost_per_litre=stat_cost_per_litre;
-        this.supply_reason_type = supply_reason_type;
-        this.supply_reason=supply_reason;
-        this.associated_travel_id=associated_travel_id;
     }
 
     public Integer getId() { return id;}

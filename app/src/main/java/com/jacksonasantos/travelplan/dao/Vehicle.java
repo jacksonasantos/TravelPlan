@@ -48,41 +48,6 @@ public class Vehicle {
     public double accumulated_supply_value;
 
     public Vehicle() {
-        this.id = id;
-        this.image = image;
-        this.vehicle_type = vehicle_type;
-        this.name = name;
-        this.short_name = short_name;
-        this.brand = brand;
-        this.model = model;
-        this.fuel_type = fuel_type;
-
-        this.year_model = year_model;
-        this.year_manufacture = year_manufacture;
-        this.license_plate = license_plate;
-        this.vin = vin;
-        this.licence_number = licence_number;
-        this.state = state;
-        this.city = city;
-        this.color = color;
-        this.color_code = color_code;
-        this.dt_acquisition = dt_acquisition;
-        this.dt_sale = dt_sale;
-
-        this.doors = doors;
-        this.capacity = capacity;
-        this.power = power;
-        this.estimated_value = estimated_value;
-        this.full_capacity = full_capacity;
-        this.avg_consumption = avg_consumption;
-        this.avg_cost_litre = avg_cost_litre;
-        this.dt_odometer = dt_odometer;
-        this.odometer = odometer;
-
-        this.dt_last_fueling = dt_last_fueling;
-        this.last_supply_reason_type =last_supply_reason_type;
-        this.accumulated_number_liters = accumulated_number_liters;
-        this.accumulated_supply_value = accumulated_supply_value;
     }
     @NonNull
     @Override

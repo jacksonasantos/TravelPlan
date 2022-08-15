@@ -10,11 +10,6 @@ public class Broker {
     public String contact_name;
 
     public Broker() {
-        this.id = id;
-        this.name = name;
-        this.phone = phone;
-        this.email = email;
-        this.contact_name = contact_name;
     }
 
     @NonNull

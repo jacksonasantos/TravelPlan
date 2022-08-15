@@ -5,8 +5,6 @@ public class VehicleHasTravel {
     public Integer travel_id;
 
     public VehicleHasTravel() {
-        this.vehicle_id = vehicle_id;
-        this.travel_id = travel_id;
     }
 
     public Integer getVehicle_id() { return vehicle_id; }

@@ -9,12 +9,6 @@ public class TravelExpenses {
     public Integer marker_id;
 
     public TravelExpenses() {
-        this.id = id;
-        this.travel_id = travel_id;
-        this.expense_type = expense_type;
-        this.expected_value = expected_value;
-        this.note = note;
-        this.marker_id = marker_id;
     }
 
     public Integer getId() { return id; }

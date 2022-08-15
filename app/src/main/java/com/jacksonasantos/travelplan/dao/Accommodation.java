@@ -18,18 +18,6 @@ public class Accommodation {
     public int accommodation_type;
 
     public Accommodation() {
-        this.id = id;
-        this.name = name;
-        this.address = address;
-        this.city = city;
-        this.state = state;
-        this.country = country;
-        this.contact_name = contact_name;
-        this.phone = phone;
-        this.email = email;
-        this.site = site;
-        this.latlng_accommodation = latlng_accommodation;
-        this.accommodation_type = accommodation_type;
     }
 
     @NonNull
