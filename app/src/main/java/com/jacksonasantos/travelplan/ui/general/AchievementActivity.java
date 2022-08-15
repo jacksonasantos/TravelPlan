@@ -44,7 +44,7 @@ public class AchievementActivity extends AppCompatActivity {
     private EditText etAchievement_State_End;
     private EditText etAchievement_Country;
     private EditText etAchievement_Latlng_Achievement;
-    private EditText etAchievement_Length;
+    private EditText etAchievement_Length_Achievement;
     private EditText etAchievement_Note;
     private TextView txTravelAchievement;
     private ImageButton imgStatusAchievement;
@@ -97,7 +97,7 @@ public class AchievementActivity extends AppCompatActivity {
         etAchievement_State_End = findViewById(R.id.etAchievement_State_End);
         etAchievement_Country = findViewById(R.id.etAchievement_Country);
         etAchievement_Latlng_Achievement = findViewById(R.id.etAchievement_Latlng_Achievement);
-        etAchievement_Length = findViewById(R.id.etAchievement_Length);
+        etAchievement_Length_Achievement = findViewById(R.id.etAchievement_Length_Achievement);
         etAchievement_Note = findViewById(R.id.etAchievement_Note);
         txTravelAchievement = findViewById(R.id.txTravelAchievement);
         imgStatusAchievement = findViewById(R.id.imgStatusAchievement);
@@ -116,7 +116,7 @@ public class AchievementActivity extends AppCompatActivity {
             etAchievement_State_End.setText(achievement.getState_end());
             etAchievement_Country.setText(achievement.getCountry());
             etAchievement_Latlng_Achievement.setText(achievement.getLatlng_achievement());
-            etAchievement_Length.setText(String.valueOf(achievement.getLength()));
+            etAchievement_Length_Achievement.setText(String.valueOf(achievement.getLength_achievement()));
             etAchievement_Note.setText(achievement.getNote());
             txTravelAchievement.setText(Database.mTravelDao.fetchTravelById(achievement.getTravel_id()).getDescription());
             nrStatusAchievement = achievement.getStatus_achievement();
@@ -208,7 +208,7 @@ public class AchievementActivity extends AppCompatActivity {
                 a1.setState_end(etAchievement_State_End.getText().toString());
                 a1.setCountry(etAchievement_Country.getText().toString());
                 a1.setLatlng_achievement(etAchievement_Latlng_Achievement.getText().toString());
-                a1.setLength(Double.parseDouble(etAchievement_Length.getText().toString()));
+                a1.setLength_achievement(Double.parseDouble(etAchievement_Length_Achievement.getText().toString()));
                 a1.setNote(etAchievement_Note.getText().toString());
                 a1.setStatus_achievement(nrStatusAchievement);
                 if (txTravelAchievement.getText().toString().equals("")) {

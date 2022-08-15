@@ -15,7 +15,7 @@ public class Achievement {
     public String country;
     public String note;
     public String latlng_achievement;
-    public double length;
+    public double length_achievement;
     public int status_achievement;
 
     public Achievement() {
@@ -30,7 +30,7 @@ public class Achievement {
         this.country = country;
         this.note = note;
         this.latlng_achievement = latlng_achievement;
-        this.length = length;
+        this.length_achievement = length_achievement;
         this.status_achievement = status_achievement;
     }
 
@@ -74,8 +74,8 @@ public class Achievement {
     public String getLatlng_achievement() {return latlng_achievement;}
     public void setLatlng_achievement(String latlng_achievement) {this.latlng_achievement = latlng_achievement;}
 
-    public double getLength() {return length;}
-    public void setLength(double length) {this.length = length;}
+    public double getLength_achievement() {return length_achievement;}
+    public void setLength_achievement(double length) {this.length_achievement = length;}
 
     public int getStatus_achievement() {return status_achievement;}
     public void setStatus_achievement(int status_achievement) {this.status_achievement = status_achievement;}

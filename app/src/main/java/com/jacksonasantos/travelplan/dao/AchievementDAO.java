@@ -121,7 +121,7 @@ public class AchievementDAO extends DbContentProvider implements AchievementISch
             if (c.getColumnIndex(ACHIEVEMENT_COUNTRY) != -1)              {a.setCountry(c.getString(c.getColumnIndexOrThrow(ACHIEVEMENT_COUNTRY))); }
             if (c.getColumnIndex(ACHIEVEMENT_NOTE) != -1)                 {a.setNote(c.getString(c.getColumnIndexOrThrow(ACHIEVEMENT_NOTE))); }
             if (c.getColumnIndex(ACHIEVEMENT_LATLNG_ACHIEVEMENT) != -1)   {a.setLatlng_achievement(c.getString(c.getColumnIndexOrThrow(ACHIEVEMENT_LATLNG_ACHIEVEMENT))); }
-            if (c.getColumnIndex(ACHIEVEMENT_LENGTH) != -1)               {a.setLength(c.getDouble(c.getColumnIndexOrThrow(ACHIEVEMENT_LENGTH))); }
+            if (c.getColumnIndex(ACHIEVEMENT_LENGTH_ACHIEVEMENT) != -1)   {a.setLength_achievement(c.getDouble(c.getColumnIndexOrThrow(ACHIEVEMENT_LENGTH_ACHIEVEMENT))); }
             if (c.getColumnIndex(ACHIEVEMENT_STATUS_ACHIEVEMENT) != -1)   {a.setStatus_achievement(c.getInt(c.getColumnIndexOrThrow(ACHIEVEMENT_STATUS_ACHIEVEMENT))); }
         }
         return a;
@@ -141,7 +141,7 @@ public class AchievementDAO extends DbContentProvider implements AchievementISch
         initialValues.put(ACHIEVEMENT_COUNTRY, a.country);
         initialValues.put(ACHIEVEMENT_NOTE, a.note);
         initialValues.put(ACHIEVEMENT_LATLNG_ACHIEVEMENT, a.latlng_achievement);
-        initialValues.put(ACHIEVEMENT_LENGTH, a.length);
+        initialValues.put(ACHIEVEMENT_LENGTH_ACHIEVEMENT, a.length_achievement);
         initialValues.put(ACHIEVEMENT_STATUS_ACHIEVEMENT, a.status_achievement);
     }
 

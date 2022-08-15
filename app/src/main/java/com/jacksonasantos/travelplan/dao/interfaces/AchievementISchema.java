@@ -16,7 +16,7 @@ public interface AchievementISchema {
     String ACHIEVEMENT_COUNTRY = "country";
     String ACHIEVEMENT_NOTE = "note";
     String ACHIEVEMENT_LATLNG_ACHIEVEMENT = "latlng_achievement";
-    String ACHIEVEMENT_LENGTH = "length";
+    String ACHIEVEMENT_LENGTH_ACHIEVEMENT = "length_achievement";
     String ACHIEVEMENT_STATUS_ACHIEVEMENT = "status_achievement";
 
     // Version 36
@@ -41,7 +41,7 @@ public interface AchievementISchema {
             + " ADD COLUMN " + ACHIEVEMENT_STATUS_ACHIEVEMENT + " INTEGER DEFAULT 0 ";
     // Version 46
     String ALTER_TABLE_ACHIEVEMENT_V46_1 = "ALTER TABLE " + ACHIEVEMENT_TABLE
-            + " ADD COLUMN " + ACHIEVEMENT_LENGTH + " DOUBLE ";
+            + " ADD COLUMN " + ACHIEVEMENT_LENGTH_ACHIEVEMENT + " DOUBLE ";
     String ALTER_TABLE_ACHIEVEMENT_V46_2 = "ALTER TABLE " + ACHIEVEMENT_TABLE
             + " ADD COLUMN " + ACHIEVEMENT_CITY_END + " TEXT ";
     String ALTER_TABLE_ACHIEVEMENT_V46_3 = "ALTER TABLE " + ACHIEVEMENT_TABLE
@@ -60,7 +60,7 @@ public interface AchievementISchema {
             ACHIEVEMENT_COUNTRY,
             ACHIEVEMENT_NOTE,
             ACHIEVEMENT_LATLNG_ACHIEVEMENT,
-            ACHIEVEMENT_LENGTH,
+            ACHIEVEMENT_LENGTH_ACHIEVEMENT,
             ACHIEVEMENT_STATUS_ACHIEVEMENT
     };
 }
