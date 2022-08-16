@@ -13,7 +13,6 @@ import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationListener;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -32,10 +31,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -66,6 +65,8 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class TravelRouteFragment extends Fragment implements LocationListener {
 
@@ -277,7 +278,6 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
 
         Utils.setSpinnerToValue(spinItinerary, nrItinerary_Id); // Selected Value of Spinner with value marked maps
         spinItinerary.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 nrItinerary_Id = Math.toIntExact(spinItinerary.getSelectedItemId());
@@ -290,7 +290,7 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
             }
         });
 
-        final boolean[] isSave = {false};
+        AtomicBoolean isSave = new AtomicBoolean(false);
 
         final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(requireContext());
         alertDialogBuilder.setView(promptsView);
@@ -317,9 +317,9 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
                         m.setLongitude(tvLng.getText().toString());
                         m.setZoom_level(tvZoom.getText().toString());
 
-                        try {
-                            isSave[0] = adjustMarker( nrTravel_Id, nrItinerary_Id, m.getSequence(), true );
-                            isSave[0] = Database.mMarkerDao.addMarker(m);
+                       try {
+                            isSave.set(adjustMarker(nrTravel_Id, nrItinerary_Id, m.getSequence(), true));
+                            isSave.set(Database.mMarkerDao.addMarker(m));
 
                             LatLng latlng = new LatLng(Double.parseDouble(tvLat.getText().toString()), Double.parseDouble(tvLng.getText().toString()));
                             m = Database.mMarkerDao.fetchMarkerByPoint(nrTravel_Id, latlng  );
@@ -331,21 +331,20 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
                             if (Double.parseDouble(etExpectedValue.getText().toString()) > 0.0) {
                                 te.setExpense_type(m.getMarker_typeExpenseType(spinMarkerType.getSelectedItemPosition()));
                             }
-                            isSave[0] = Database.mTravelExpensesDao.addTravelExpenses(te);
+                            isSave.set(Database.mTravelExpensesDao.addTravelExpenses(te));
 
                             drawItinerary(nrTravel_Id);
+
                         } catch (Exception e) {
                             Toast.makeText(requireContext(), R.string.Error_Including_Data + e.getMessage(), Toast.LENGTH_LONG).show();
                         }
                     }
-                    if (!isSave[0]) {
-                        Toast.makeText(requireContext(), R.string.Error_Saving_Data, Toast.LENGTH_LONG).show();
-                    }
+
                 })
                 .setNegativeButton(R.string.Cancel, (dialog, id) -> dialog.cancel());
         AlertDialog alertDialog = alertDialogBuilder.create();
         alertDialog.show();
-        return isSave[0];
+        return isSave.get();
     }
 
     private boolean adjustMarker ( Integer travel_id, Integer itinerary_id, int sequence, boolean increment ){
@@ -368,7 +367,7 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
 
     private void drawMarker(LatLng point, String title, int color, int drawableIcon) {
         drawableIcon = drawableIcon==0 ? R.drawable.ic_trip_target : drawableIcon;
-        @SuppressLint("UseCompatLoadingForDrawables") BitmapDescriptor markerIcon = getMarkerIconFromDrawable(getResources().getDrawable(drawableIcon), color);
+        @SuppressLint("UseCompatLoadingForDrawables") BitmapDescriptor markerIcon = getMarkerIconFromDrawable(Objects.requireNonNull(ResourcesCompat.getDrawable(requireActivity().getResources(), drawableIcon, null)), color);
         markerOptions.position(point);
         markerOptions.title(title);
         markerOptions.draggable(true);
@@ -629,8 +628,7 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
             else return new ItemViewHolder(itineraryView);
         }
 
-        @SuppressLint({"SetTextI18n", "DefaultLocale"})
-        @RequiresApi(api = Build.VERSION_CODES.N)
+        @SuppressLint({"SetTextI18n", "DefaultLocale", "NotifyDataSetChanged"})
         @Override
         public void onBindViewHolder(@NonNull final RecyclerView.ViewHolder holder, final int position) {
             if (holder instanceof HeaderViewHolder) {
