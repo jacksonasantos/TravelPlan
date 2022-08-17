@@ -10,7 +10,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
+import androidx.core.view.MenuProvider;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Lifecycle;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -23,7 +26,53 @@ public class FuelSupplyFragment extends Fragment  {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        setHasOptionsMenu(true);
+
+        requireActivity().addMenuProvider(new MenuProvider() {
+            private Menu mMenu;
+
+            @Override
+            public void onCreateMenu(@NonNull Menu menu, @NonNull MenuInflater menuInflater) {
+                menu.clear();
+                menuInflater.inflate(R.menu.main, menu);
+
+                this.mMenu = menu;
+                MenuItem m1 = menu.findItem(R.id.addmenu);
+                MenuItem m2 = menu.findItem(R.id.savemenu);
+                MenuItem m3 = menu.findItem(R.id.filtermenu);
+                m1.setVisible(true);
+                m2.setVisible(false);
+                m3.setVisible(true);
+            }
+
+            @SuppressLint("NonConstantResourceId")
+            @Override
+            public boolean onMenuItemSelected(@NonNull MenuItem item) {
+                Intent intent;
+                switch(item.getItemId()) {
+                    case R.id.addmenu:
+                        intent = new Intent( getContext(), FuelSupplyActivity.class );
+                        startActivity( intent );
+                        break;
+
+                    case R.id.filtermenu:
+                        Globals.getInstance().setFilterVehicle(!Globals.getInstance().getFilterVehicle());
+                        if ( Globals.getInstance().getFilterVehicle() ) {
+                            this.mMenu.getItem(0).setIcon(R.drawable.ic_button_filter);
+                        } else {
+                            this.mMenu.getItem(0).setIcon(R.drawable.ic_button_filter_no);
+                        }
+                        RecyclerView listFuelSupply = requireView().findViewById(R.id.list);
+                        FuelSupplyListAdapter adapter = new FuelSupplyListAdapter(Database.mFuelSupplyDao.fetchAllFuelSupplies(true), getContext());
+                        listFuelSupply.setAdapter(adapter);
+                        break;
+
+                    default:
+                        return false;
+                }
+                return true;
+            }
+        }, getViewLifecycleOwner(), Lifecycle.State.RESUMED);
+
         return inflater.inflate(R.layout.fragment_generic_list, container, false);
     }
 
@@ -40,53 +89,5 @@ public class FuelSupplyFragment extends Fragment  {
         listFuelSupply.addItemDecoration(new DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL));
         adapter.notifyDataSetChanged();
         mDb.close();
-    }
-
-    private Menu mMenu;
-
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        menu.clear();
-        inflater.inflate(R.menu.main, menu);
-        this.mMenu = menu;
-        super.onCreateOptionsMenu(menu, inflater);
-    }
-
-    @Override
-    public void onPrepareOptionsMenu(Menu menu) {
-        MenuItem m1 = menu.findItem(R.id.addmenu);
-        MenuItem m2 = menu.findItem(R.id.savemenu);
-        MenuItem m3 = menu.findItem(R.id.filtermenu);
-        m1.setVisible(true);
-        m2.setVisible(false);
-        m3.setVisible(true);
-    }
-
-    @SuppressLint({"UseCompatLoadingForDrawables", "NonConstantResourceId"})
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        Intent intent;
-        switch(item.getItemId()) {
-            case R.id.addmenu:
-                intent = new Intent( getContext(), FuelSupplyActivity.class );
-                startActivity( intent );
-                break;
-
-            case R.id.filtermenu:
-                Globals.getInstance().setFilterVehicle(!Globals.getInstance().getFilterVehicle());
-                if ( Globals.getInstance().getFilterVehicle() ) {
-                    this.mMenu.getItem(0).setIcon(getResources().getDrawable(R.drawable.ic_button_filter));
-                } else {
-                    this.mMenu.getItem(0).setIcon(getResources().getDrawable(R.drawable.ic_button_filter_no));
-                }
-                RecyclerView listFuelSupply = this.requireView().findViewById(R.id.list);
-                FuelSupplyListAdapter adapter = new FuelSupplyListAdapter(Database.mFuelSupplyDao.fetchAllFuelSupplies(true), getContext());
-                listFuelSupply.setAdapter(adapter);
-                break;
-
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-        return true;
     }
 }

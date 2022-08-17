@@ -297,15 +297,13 @@ public class HomeVehicleFragment extends Fragment implements View.OnClickListene
                 DataPoint[] dataSeriesAVG = new DataPoint[vehicleStatisticsGraph.size()];
                 DataPoint[] dataSeriesAVGGeneral = new DataPoint[vehicleStatisticsGraph.size()];
                 for (int x = 0;x<vehicleStatisticsGraph.size(); x++) {
-                    Calendar c = new GregorianCalendar(vehicleStatisticsGraph.get(x).getStatistic_date().getYear(),
-                            vehicleStatisticsGraph.get(x).getStatistic_date().getMonth()-1,      // Jan = 0, Dec = 11
-                            1,//Calendar.DAY_OF_MONTH,
-                            0,
-                            0,
-                            0);
+                    Calendar cal = Calendar.getInstance();
+                    cal.setTime(vehicleStatisticsGraph.get(x).getStatistic_date());
+                    int month = cal.get(Calendar.MONTH);
+                    int year = cal.get(Calendar.YEAR);
+                    Calendar c = new GregorianCalendar(year, month,1,0,0,0);
 
                     Date d = c.getTime();
-                    //dataSeries[x]           = new DataPoint(vehicleStatisticsGraph.get(x).getStatistic_date(), vehicleStatisticsGraph.get(x).getAvg_consumption());
                     dataSeries[x]           = new DataPoint(d.getTime(), vehicleStatisticsGraph.get(x).getAvg_consumption());
                     dataSeriesAVG[x]        = new DataPoint(d.getTime(), vehicleStatisticsAVG.getAvg_consumption());
                     dataSeriesAVGGeneral[x] = new DataPoint(d.getTime(), vehicleStatisticsAVGGeneral.get(0).getAvg_consumption());

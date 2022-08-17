@@ -3,7 +3,6 @@ package com.jacksonasantos.travelplan.ui.home;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.PorterDuff;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,7 +18,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
@@ -109,7 +107,7 @@ public class HomeTravelFragment extends Fragment implements View.OnClickListener
         btnExtra = v.findViewById(R.id.btnExtra);
         btnTour = v.findViewById(R.id.btnTour);
         btnTolls = v.findViewById(R.id.btnTolls);
-        btnInsurance = v.findViewById(R.id.btnInsurance);
+        btnInsurance = v.findViewById(R.id.btnInsurance); // TODO - Create Insurance of the TYPE Travel in form
 
         layerVehicle = v.findViewById(R.id.layerVehicle);
         listVehicle = v.findViewById(R.id.listVehicle);
@@ -136,7 +134,6 @@ public class HomeTravelFragment extends Fragment implements View.OnClickListener
         return v;
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public void onResume() {
         super.onResume();
@@ -167,7 +164,7 @@ public class HomeTravelFragment extends Fragment implements View.OnClickListener
                 g.setIdTravel(travel[0].getId());
 
                 layerTravel.setVisibility(View.VISIBLE);
-                travel[0] = (Travel) parent.getItemAtPosition(position);
+                //travel[0] = (Travel) parent.getItemAtPosition(position);
                 imTravelStatus.setImageResource(R.drawable.ic_ball );
                 imTravelStatus.setColorFilter(travel[0].getColorStatus(), PorterDuff.Mode.MULTIPLY);
                 tvNote.setText(travel[0].getNote());
@@ -208,7 +205,7 @@ public class HomeTravelFragment extends Fragment implements View.OnClickListener
                     AlertDialog alertDialog = alertDialogBuilder.create();
                     alertDialog.show();
                 });
-                //TODO - Atualizar valores do Adapter de Despesas da Viagem
+                //TODO - Update Travel Expense Adapter values
                 btnFood.setOnClickListener (v -> TravelItemExpenses(v,1));
                 btnTolls.setOnClickListener (v -> TravelItemExpenses(v,2));
                 btnTour.setOnClickListener (v -> TravelItemExpenses(v,3));
@@ -256,7 +253,7 @@ public class HomeTravelFragment extends Fragment implements View.OnClickListener
                     layerAchievement.setVisibility(View.GONE);
                 }
 
-                //TODO- Mostrar todos os Abastecimentos com médias quilometragem, km percorridos
+                //TODO- Show all Refueling with average mileage, km traveled
                 
                 // Itinerary
                 final int Show_Header_Itinerary = 0;    // 0 - NO SHOW HEADER | 1 - SHOW HEADER
@@ -328,7 +325,7 @@ public class HomeTravelFragment extends Fragment implements View.OnClickListener
                 final EditText etExpenseItemNote = promptsView.findViewById(R.id.etExpenseItemNote);
 
                 final RecyclerView rvTravelExpenseItem = promptsView.findViewById(R.id.rvTravelExpenseItem);
-                List<TravelExpenses> travelExpensesList = Database.mTravelExpensesDao.fetchAllTravelExpensesByTravelType(travel[0].getId(), expense_type); // TODO - Ver o uso de somente a primeira (0) opçao da lista de retorno
+                List<TravelExpenses> travelExpensesList = Database.mTravelExpensesDao.fetchAllTravelExpensesByTravelType(travel[0].getId(), expense_type); // TODO - See usage of only the first (0) option of the return list
 
                 if( travelExpensesList.size() == 0 ){
                     TravelExpenses te = new TravelExpenses();

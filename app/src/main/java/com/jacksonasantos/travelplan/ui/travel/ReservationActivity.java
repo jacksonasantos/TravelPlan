@@ -2,7 +2,6 @@ package com.jacksonasantos.travelplan.ui.travel;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -12,7 +11,6 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -37,7 +35,7 @@ public class ReservationActivity extends AppCompatActivity {
     private EditText etVoucher_Number;
     private EditText etCheckin_Date;
     private EditText etCheckout_Date;
-    private EditText etApto_Type;
+    private EditText etApt_Type;
     private EditText etDaily_Rate;
     private EditText etOther_Rate;
     private EditText etReservation_Amount;
@@ -50,7 +48,6 @@ public class ReservationActivity extends AppCompatActivity {
     private Reservation reservation;
 
     @SuppressLint("WrongViewCast")
-    @RequiresApi(api = Build.VERSION_CODES.N)
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,7 +85,7 @@ public class ReservationActivity extends AppCompatActivity {
         etVoucher_Number = findViewById(R.id.etVoucher_Number);
         etCheckin_Date = findViewById(R.id.etCheckin_Date);
         etCheckout_Date = findViewById(R.id.etCheckout_Date);
-        etApto_Type = findViewById(R.id.etApto_Type);
+        etApt_Type = findViewById(R.id.etApt_Type);
         etDaily_Rate = findViewById(R.id.etDaily_Rate);
         etOther_Rate = findViewById(R.id.etOther_Rate);
         etReservation_Amount = findViewById(R.id.etReservation_Amount);
@@ -148,7 +145,7 @@ public class ReservationActivity extends AppCompatActivity {
             etVoucher_Number.setText(reservation.getVoucher_number());
             etCheckin_Date.setText(Utils.dateToString(reservation.getCheckin_date()));
             etCheckout_Date.setText(Utils.dateToString(reservation.getCheckout_date()));
-            etApto_Type.setText(reservation.getApto_type());
+            etApt_Type.setText(reservation.getApt_type());
             etDaily_Rate.setText(String.valueOf(reservation.getDaily_rate()));
             etOther_Rate.setText(String.valueOf(reservation.getOther_rate()));
             etReservation_Amount.setText(String.valueOf(reservation.getReservation_amount()));
@@ -183,7 +180,7 @@ public class ReservationActivity extends AppCompatActivity {
                 r1.setVoucher_number(etVoucher_Number.getText().toString());
                 r1.setCheckin_date(Utils.stringToDate(etCheckin_Date.getText().toString()));
                 r1.setCheckout_date(Utils.stringToDate(etCheckout_Date.getText().toString()));
-                r1.setApto_type(etApto_Type.getText().toString());
+                r1.setApt_type(etApt_Type.getText().toString());
                 r1.setDaily_rate(Double.parseDouble(etDaily_Rate.getText().toString()));
                 r1.setOther_rate(Double.parseDouble(etOther_Rate.getText().toString()));
                 r1.setReservation_amount(Double.parseDouble(etReservation_Amount.getText().toString()));
@@ -224,7 +221,7 @@ public class ReservationActivity extends AppCompatActivity {
                 etVoucher_Number.getText().toString().trim().isEmpty() ||
                 etCheckin_Date.getText().toString().trim().isEmpty() ||
                 etCheckout_Date.getText().toString().trim().isEmpty() ||
-                etApto_Type.getText().toString().trim().isEmpty() ||
+                etApt_Type.getText().toString().trim().isEmpty() ||
                 etDaily_Rate.getText().toString().trim().isEmpty() ||
                 etOther_Rate.getText().toString().trim().isEmpty() ||
                 etReservation_Amount.getText().toString().trim().isEmpty() //||

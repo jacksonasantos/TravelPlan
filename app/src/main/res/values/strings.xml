@@ -2,7 +2,8 @@
     <string name="app_name" translatable="false">Travel PLAN</string>
     <string name="nav_header_title">Travel Planning and Control</string>
     <string name="nav_header_desc" translatable="false">Navigation header</string>
-
+    <string name="tab_home_vehicle">Home - Vehicle</string>
+    <string name="tab_home_travel">Home - Travel</string>
     <!-- Menu Options -->
     <string name="menu_home">Home</string>
     <string name="menu_vehicle">Vehicles</string>
@@ -430,7 +431,7 @@
     <string name="Reservation_Voucher_Number">Voucher</string>
     <string name="Reservation_Checkin_Date">CheckIn</string>
     <string name="Reservation_Checkout_Date">CheckOut</string>
-    <string name="Reservation_Apto_Type">Apto Type</string>
+    <string name="Reservation_Apt_Type">Apt Type</string>
     <string name="Reservation_Daily_Rate">Daily Rate</string>
     <string name="Reservation_Other_Rate">Other Rate</string>
     <string name="Reservation_Reservation_Amount">Reservation Amount</string>

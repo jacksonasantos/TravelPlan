@@ -6,13 +6,12 @@ import android.content.SharedPreferences;
 import android.content.res.AssetManager;
 import android.content.res.Configuration;
 import android.content.res.Resources;
-import android.os.Build;
 import android.os.Bundle;
+import android.os.LocaleList;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.widget.Toast;
 
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -23,9 +22,9 @@ import androidx.navigation.ui.NavigationUI;
 import androidx.preference.PreferenceManager;
 
 import com.google.android.material.navigation.NavigationView;
-import com.jacksonasantos.travelplan.dao.general.Database;
 import com.jacksonasantos.travelplan.dao.InsuranceCompany;
 import com.jacksonasantos.travelplan.dao.MaintenancePlan;
+import com.jacksonasantos.travelplan.dao.general.Database;
 import com.jacksonasantos.travelplan.ui.utility.Globals;
 import com.jacksonasantos.travelplan.ui.utility.Utils;
 
@@ -42,14 +41,13 @@ public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
 
-    // TODO - Armazenamento in Cloud
+    // TODO - Amazement in Cloud
     public Database mDb;
     final Globals g = Globals.getInstance();
 
-    // TODO - Autenticação ao APP
+    // TODO - Authenticate ao APP
 
     @SuppressLint("ResourceType")
-    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -88,13 +86,12 @@ public class MainActivity extends AppCompatActivity {
         return res;
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     public void InitialLoadCSV(Context ctx) {
 
         mDb = new Database( ctx );
         mDb.open();
 
-        // Carga de Seguradoras
+        // Load of Insurers
         try {
             AssetManager assetManager = ctx.getAssets();
             InputStreamReader is = new InputStreamReader(assetManager.open("seguradoras.csv"), StandardCharsets.UTF_8);
@@ -129,7 +126,7 @@ public class MainActivity extends AppCompatActivity {
         } catch (IOException ex) {
             Log.i("debug", "Error load 'Seguradoras': " + ex.getMessage());
         }
-        // Carga de Plano de Manutenção
+        // Maintenance Plan Load
         try {
             AssetManager assetManager = ctx.getAssets();
             InputStreamReader is = new InputStreamReader(assetManager.open("service_type.csv"), StandardCharsets.UTF_8);
@@ -184,7 +181,7 @@ public class MainActivity extends AppCompatActivity {
             g.setIdVehicle(Integer.valueOf(vehicle_pref));
         }
         else {
-            g.setIdVehicle(1); // TODO - Ajustar para quando não existir preferencia definida
+            g.setIdVehicle(1); // TODO - Adjust for when there is no defined preference
         }
 
         String travel_pref = settings.getString("travel_default", String.valueOf(0));
@@ -193,20 +190,22 @@ public class MainActivity extends AppCompatActivity {
             g.setIdTravel(Integer.valueOf(travel_pref));
         }
         else {
-            g.setIdTravel(1);  // TODO - Ajustar para quando não existir preferencia definida
+            g.setIdTravel(1);  // TODO - Adjust for when there is no defined preference
         }
 
         String lang = settings.getString("language", "");
-        if (lang != null && !"".equals(lang) && !config.locale.getLanguage().equals(lang)) {
+        if (lang != null && !"".equals(lang) && !config.getLocales().get(0).getLanguage().equals(lang)) {
             g.setLanguage(lang);
             Locale myLocale = new Locale(lang);
-            config.locale = myLocale;
+            LocaleList localeList = new LocaleList(myLocale);
+            LocaleList.setDefault(localeList);
+            config.setLocales(localeList);
             DisplayMetrics dm = res.getDisplayMetrics();
             Locale.setDefault(myLocale);
             res.updateConfiguration(config, dm);
             g.setCountry(myLocale.getCountry());
         }
-        // TODO - Criar formulario para configurar as variáveis Globais
+        // TODO - Create form to configure Global variables
         g.setIdCurrency(0);                // R$ de R.array.currency_array
         g.setMeasureCost("km");
         g.setMeasureIndexInMeter(1000);

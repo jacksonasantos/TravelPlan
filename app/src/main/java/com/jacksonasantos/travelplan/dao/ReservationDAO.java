@@ -94,7 +94,7 @@ public class ReservationDAO extends DbContentProvider implements ReservationISch
             if (c.getColumnIndex(RESERVATION_VOUCHER_NUMBER) != -1)     {r.setVoucher_number(c.getString(c.getColumnIndexOrThrow(RESERVATION_VOUCHER_NUMBER))); }
             if (c.getColumnIndex(RESERVATION_CHECKIN_DATE) != -1)       {r.setCheckin_date(Utils.dateParse(c.getString(c.getColumnIndexOrThrow(RESERVATION_CHECKIN_DATE)))); }
             if (c.getColumnIndex(RESERVATION_CHECKOUT_DATE) != -1)      {r.setCheckout_date(Utils.dateParse(c.getString(c.getColumnIndexOrThrow(RESERVATION_CHECKOUT_DATE)))); }
-            if (c.getColumnIndex(RESERVATION_APTO_TYPE) != -1)          {r.setApto_type(c.getString(c.getColumnIndexOrThrow(RESERVATION_APTO_TYPE))); }
+            if (c.getColumnIndex(RESERVATION_APT_TYPE) != -1)           {r.setApt_type(c.getString(c.getColumnIndexOrThrow(RESERVATION_APT_TYPE))); }
             if (c.getColumnIndex(RESERVATION_DAILY_RATE) != -1)         {r.setDaily_rate(c.getDouble(c.getColumnIndexOrThrow(RESERVATION_DAILY_RATE))); }
             if (c.getColumnIndex(RESERVATION_OTHER_RATE) != -1)         {r.setOther_rate(c.getDouble(c.getColumnIndexOrThrow(RESERVATION_OTHER_RATE))); }
             if (c.getColumnIndex(RESERVATION_RESERVATION_AMOUNT) != -1) {r.setReservation_amount(c.getDouble(c.getColumnIndexOrThrow(RESERVATION_RESERVATION_AMOUNT))); }
@@ -113,7 +113,7 @@ public class ReservationDAO extends DbContentProvider implements ReservationISch
         initialValues.put(RESERVATION_VOUCHER_NUMBER, r.voucher_number);
         initialValues.put(RESERVATION_CHECKIN_DATE, Utils.dateFormat(r.checkin_date));
         initialValues.put(RESERVATION_CHECKOUT_DATE, Utils.dateFormat(r.checkout_date));
-        initialValues.put(RESERVATION_APTO_TYPE, r.apto_type);
+        initialValues.put(RESERVATION_APT_TYPE, r.apt_type);
         initialValues.put(RESERVATION_DAILY_RATE, r.daily_rate);
         initialValues.put(RESERVATION_OTHER_RATE, r.other_rate);
         initialValues.put(RESERVATION_RESERVATION_AMOUNT, r.reservation_amount);

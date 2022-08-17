@@ -54,7 +54,7 @@ public class SummaryTravelExpenseDAO extends DbContentProvider implements Summar
                               " FROM " + ReservationISchema.RESERVATION_TABLE +
                              " WHERE " + ReservationISchema.RESERVATION_TRAVEL_ID + " = ? " +
                             " UNION " +
-                            " SELECT 6 "+ SummaryTravelExpenseISchema.SUMMARY_TRAVEL_EXPENSE_EXPENSE_TYPE + ", " +  // Insuranse
+                            " SELECT 6 "+ SummaryTravelExpenseISchema.SUMMARY_TRAVEL_EXPENSE_EXPENSE_TYPE + ", " +  // Insurance
                                    " 0 " + SummaryTravelExpenseISchema.SUMMARY_TRAVEL_EXPENSE_EXPECTED_VALUE + ", " +
                                    " SUM(" + InsuranceISchema.INSURANCE_TOTAL_PREMIUM_VALUE + ") " + SummaryTravelExpenseISchema.SUMMARY_TRAVEL_EXPENSE_REALIZED_VALUE +
                               " FROM " + InsuranceISchema.INSURANCE_TABLE +

@@ -127,7 +127,7 @@
                     android:autofillHints="no"
                     android:hint="@string/Reservation_Checkout_Date"
                     android:inputType="date"
-                    android:nextFocusDown="@+id/etApto_Type"
+                    android:nextFocusDown="@+id/etApt_Type"
                     android:textSize="14sp" />
             </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>
@@ -141,11 +141,11 @@
             android:layout_marginEnd="@dimen/labels_margin"
             android:layout_marginRight="@dimen/labels_margin">
             <EditText
-                android:id="@+id/etApto_Type"
+                android:id="@+id/etApt_Type"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:autofillHints="no"
-                android:hint="@string/Reservation_Apto_Type"
+                android:hint="@string/Reservation_Apt_Type"
                 android:nextFocusDown="@+id/etDaily_Rate"
                 android:textSize="14sp"
                 android:inputType="text" />

@@ -3,7 +3,6 @@ package com.jacksonasantos.travelplan.dao.interfaces;
 import com.jacksonasantos.travelplan.dao.CurrencyQuote;
 
 import java.util.Date;
-import java.util.List;
 
 public interface CurrencyQuoteIDAO {
     // --Commented out by Inspection (15/08/2022 22:25):CurrencyQuote fetchCurrencyQuoteById(Integer id);

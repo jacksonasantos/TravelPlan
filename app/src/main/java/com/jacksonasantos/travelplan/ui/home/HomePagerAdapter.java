@@ -2,22 +2,25 @@ package com.jacksonasantos.travelplan.ui.home;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentStatePagerAdapter;
+import androidx.fragment.app.FragmentActivity;
+import androidx.viewpager2.adapter.FragmentStateAdapter;
 
-public class HomePagerAdapter extends FragmentStatePagerAdapter {
+public class HomePagerAdapter extends FragmentStateAdapter {
 
-    public HomePagerAdapter(FragmentManager fm) {
-        super(fm);
+    public HomePagerAdapter(FragmentActivity fa)
+    {
+        super(fa);
     }
 
     @NonNull
     @Override
-    public Fragment getItem(int position) {
+    public Fragment createFragment(int position) {
         if (position == 1) return new HomeTravelFragment();
         else return new HomeVehicleFragment();
     }
 
     @Override
-    public int getCount() {return 2; }
+    public int getItemCount() {
+        return 2;
+    }
 }

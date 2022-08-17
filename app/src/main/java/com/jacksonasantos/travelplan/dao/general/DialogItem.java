@@ -5,8 +5,8 @@ public class DialogItem implements ListItemDialog {
     String txt_detail;
 
     public DialogItem(String txt_description, String txt_detail) {
-        this.txt_description = txt_description;
-        this.txt_detail = txt_detail;
+        setTxt_description(txt_description);
+        setTxt_detail(txt_detail);
     }
 
     public String getTxt_description() {

@@ -10,7 +10,7 @@ public class Reservation {
     public String voucher_number;
     public Date checkin_date;
     public Date checkout_date;
-    public String apto_type;
+    public String apt_type;
     public Double daily_rate;
     public Double other_rate;
     public Double reservation_amount;
@@ -39,8 +39,8 @@ public class Reservation {
     public Date getCheckout_date() { return checkout_date;    }
     public void setCheckout_date(Date checkout_date) { this.checkout_date = checkout_date; }
 
-    public String getApto_type() {return apto_type;}
-    public void setApto_type(String apto_type) {this.apto_type = apto_type;}
+    public String getApt_type() {return apt_type;}
+    public void setApt_type(String apt_type) {this.apt_type = apt_type;}
 
     public Double getDaily_rate() {return daily_rate;}
     public void setDaily_rate(Double daily_rate) {this.daily_rate = daily_rate; }

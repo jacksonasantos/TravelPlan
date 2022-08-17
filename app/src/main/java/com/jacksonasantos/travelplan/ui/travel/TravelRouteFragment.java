@@ -14,6 +14,7 @@ import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationListener;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -30,13 +31,17 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.core.graphics.drawable.DrawableCompat;
+import androidx.core.view.MenuProvider;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Lifecycle;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -85,8 +90,6 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
     private final MarkerOptions markerOptions = new MarkerOptions();       // Creating an instance of MarkerOptions
     private LatLngBounds.Builder builder = new LatLngBounds.Builder();
 
-    private static final int REQUEST_PERMISSION = 1; // TODO - testar quando não dá permissão de localização
-
     final String lang = "portuguese"; // TODO - ver language
 
     final RouteClass routeClass = new RouteClass();
@@ -115,15 +118,49 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
         btnSearch = rootView.findViewById(R.id.btnSearch);
         listMarkers = rootView.findViewById(R.id.listMarkers);
 
-        setHasOptionsMenu(true);                                           // activate menu map options
+        requireActivity().addMenuProvider(new MenuProvider() {
+            @Override
+            public void onCreateMenu(@NonNull Menu menu, @NonNull MenuInflater menuInflater) {
+                menuInflater.inflate(R.menu.main, menu);
+                MenuItem m1 = menu.findItem(R.id.addmenu);
+                MenuItem m2 = menu.findItem(R.id.savemenu);
+                MenuItem m3 = menu.findItem(R.id.filtermenu);
+                m1.setVisible(true);
+                m2.setVisible(false);
+                m3.setVisible(false);
+            }
+
+            @SuppressLint("NonConstantResourceId")
+            @Override
+            public boolean onMenuItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.hybrid_map:
+                        googleMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
+                        return true;
+                    case R.id.satellite_map:
+                        googleMap.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
+                        return true;
+                    case R.id.terrain_map:
+                        googleMap.setMapType(GoogleMap.MAP_TYPE_TERRAIN);
+                        return true;
+                    case R.id.normal_map:
+                        googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+                        return true;
+                    default:
+                        googleMap.setMapType(GoogleMap.MAP_TYPE_NONE);
+                        return true;
+                }
+            }
+        }, getViewLifecycleOwner(), Lifecycle.State.RESUMED);
+
         mMapView.onCreate(savedInstanceState);
 
         mMapView.getMapAsync(mMap -> {
             googleMap = mMap;
             if (ActivityCompat.checkSelfPermission(requireActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
                 ActivityCompat.checkSelfPermission(requireActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                String[] permissions = {Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION};
-                requestPermissions(permissions, REQUEST_PERMISSION);
+                requestPermissionLauncher.launch(Manifest.permission.ACCESS_FINE_LOCATION);
+                requestPermissionLauncher.launch(Manifest.permission.ACCESS_COARSE_LOCATION);
                 return;
             }
             googleMap.setMyLocationEnabled(true);
@@ -185,6 +222,17 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
         mMapView.onResume();
         return rootView;
     }
+
+    private final ActivityResultLauncher<String> requestPermissionLauncher = registerForActivityResult(
+            new ActivityResultContracts.RequestPermission(), isGranted -> {
+                String tag = new ActivityResultContracts.RequestPermission().toString();
+                if (isGranted) {
+                    Log.e(tag, "onActivityResult: PERMISSION GRANTED");
+                } else {
+                    Log.e(tag, "onActivityResult: PERMISSION DENIED");
+                }
+            }
+    );
 
     @SuppressLint("SetTextI18n")
     protected void showSearch(@NonNull List<Address> addresses) {
@@ -487,7 +535,7 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
                         }
                         if (!isSave[0]) {
                             Toast.makeText(requireContext(), R.string.Error_Saving_Data, Toast.LENGTH_LONG).show();
-                        } // TODO - Atualizar o listItinerary apos o ADDItinerary
+                        } // TODO - Update listItinerary after ADDItinerary
                     })
                     .setNegativeButton(R.string.Cancel, (dialog, id) -> dialog.cancel());
             AlertDialog alertDialog = alertDialogBuilder.create();
@@ -540,34 +588,6 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
     public void onLowMemory() {
         super.onLowMemory();
         mMapView.onLowMemory();
-    }
-
-    @Override
-    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
-        inflater.inflate(R.menu.map_menu_options, menu);
-        super.onCreateOptionsMenu(menu, inflater);  // TODO - ver porque nao aparece map_menu_options
-    }
-
-    @SuppressLint("NonConstantResourceId")
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.hybrid_map:
-                googleMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
-                return true;
-            case R.id.satellite_map:
-                googleMap.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
-                return true;
-            case R.id.terrain_map:
-                googleMap.setMapType(GoogleMap.MAP_TYPE_TERRAIN);
-                return true;
-            case R.id.normal_map:
-                googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
-                return true;
-            default:
-                googleMap.setMapType(GoogleMap.MAP_TYPE_NONE);
-                return super.onOptionsItemSelected(item);
-        }
     }
 
     @Override
@@ -657,7 +677,7 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
                         if (position!=RecyclerView.NO_POSITION){
                             nrItinerary_Id = !itinerary.getId().equals(nrItinerary_Id) ? itinerary.getId() : null;
                             lClick = true;
-                            // TODO - Atualizar o Mapa quando escolhe um itinerario (engrossar a linha por exemplo)
+                            // TODO - Update the Map when choosing an itinerary (thickening the line for example)
                             notifyDataSetChanged();
                         }
                     });

@@ -19,6 +19,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -94,8 +96,8 @@ public class FuelSupplyActivity extends AppCompatActivity implements PlacesAdapt
     private int vLastTravelledDistance;
     private double vAccumulatedNumberLitre = 0;
     private double vAccumulatedSupplyValue = 0;
-    private double vAccumNumberLitre = 0;
-    private double vAccumSupplyValue = 0;
+    private double vAccuNumberLitre = 0;
+    private double vAccuSupplyValue = 0;
     private float vStatAvgFuelConsumption = (float) 0;
     private float vStatCostPerLitre = (float) 0;
 
@@ -106,8 +108,6 @@ public class FuelSupplyActivity extends AppCompatActivity implements PlacesAdapt
     final Globals g = Globals.getInstance();
 
     public Geocoder mGeocoder;
-
-    private static final int REQUEST_PERMISSION = 1;        // TODO - testar quando não dá permissão de localização
 
     final Locale locale = new Locale(g.getLanguage(), g.getCountry());
     final NumberFormat numberFormat = NumberFormat.getNumberInstance(locale);
@@ -133,12 +133,6 @@ public class FuelSupplyActivity extends AppCompatActivity implements PlacesAdapt
 
         Places.initialize(getApplicationContext(), GOOGLE_API_KEY);
         PlacesClient placesClient = Places.createClient(this);
-
-        if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
-                ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_WIFI_STATE) != PackageManager.PERMISSION_GRANTED) {
-            String[] permissions = {android.Manifest.permission.ACCESS_FINE_LOCATION, android.Manifest.permission.ACCESS_WIFI_STATE};
-            requestPermissions(permissions, REQUEST_PERMISSION);
-        }
 
         Database mDb = new Database(getApplicationContext());
         mDb.open();
@@ -214,6 +208,12 @@ public class FuelSupplyActivity extends AppCompatActivity implements PlacesAdapt
         imVehicleType.setImageResource(vehicle.getVehicleTypeImage(vehicle.getVehicle_type()));
 
         btLocation.setOnClickListener(view -> {
+
+            if (ActivityCompat.checkSelfPermission(getBaseContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
+                ActivityCompat.checkSelfPermission(getBaseContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                requestPermissionLauncher.launch(Manifest.permission.ACCESS_FINE_LOCATION);
+                requestPermissionLauncher.launch(Manifest.permission.ACCESS_COARSE_LOCATION);
+            }
             FindCurrentPlaceRequest request = FindCurrentPlaceRequest.builder(placeFields).build();
             Task<FindCurrentPlaceResponse> placeResponse = placesClient.findCurrentPlace(request);
             ArrayList<PlaceLikelihood> arrayPlaces = new ArrayList<>();
@@ -266,7 +266,7 @@ public class FuelSupplyActivity extends AppCompatActivity implements PlacesAdapt
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long idx) {
                 nrSpCurrencyType = position;
-                // TODO - ver cotação correta da moeda para a data do abastecimento
+                // TODO - see correct currency quote for supply date
                 nrCurrencyQuoteId = null;
 //               CurrencyQuote c1 = Database.mCurrencyQuoteDao.findQuoteDay(nrSpCurrencyType, Utils.stringToDate(etSupplyDate.getText().toString()));
 //               etCurrencyValue.setText(String.valueOf(c1.getCurrency_value()));
@@ -282,7 +282,7 @@ public class FuelSupplyActivity extends AppCompatActivity implements PlacesAdapt
 
         /*View.OnFocusChangeListener listenerNumberLiters = (v, hasFocus) -> {
             if (!hasFocus) {
-                // TODO - Implementar o cálculo com o valor da moeda correta
+                // TODO - Implement the calculation with the correct currency value
                 String vFuelValue = etFuelValue.getText().toString();
                 String vNumberLiters = etNumberLiters.getText().toString();
                 double vSupplyValue = 0;
@@ -435,13 +435,13 @@ public class FuelSupplyActivity extends AppCompatActivity implements PlacesAdapt
                         txVehicleTravelledDistance.setText(String.valueOf(vLastTravelledDistance));
                     }
                     if (vLastTravelledDistance > 0) {
-                        // TODO - VERIFIAR AJUSTES NAS ESTATISICAS QUANDO FOR ALTERADOS O ODOMETRO E A DISTANCIA VIAJADA
+                        // TODO - CHECK STATISTICS ADJUSTMENTS WHEN CHANGING THE ODOMETER AND DISTANCE TRAVELED
                         vStatAvgFuelConsumption = vLastTravelledDistance / Float.parseFloat(Double.toString(Double.parseDouble(etNumberLiters.getText().toString()) + v1.getAccumulated_number_liters()));
                         vStatCostPerLitre = vLastTravelledDistance / Float.parseFloat(Double.toString(Double.parseDouble(etSupplyValue.getText().toString()) + v1.getAccumulated_supply_value()));
                         vAccumulatedNumberLitre = v1.getAccumulated_number_liters();
                         vAccumulatedSupplyValue = v1.getAccumulated_supply_value();
-                        vAccumNumberLitre = 0;
-                        vAccumSupplyValue = 0;
+                        vAccuNumberLitre = 0;
+                        vAccuSupplyValue = 0;
                         if (rbSupplyReasonType!=3 &&
                             v1.getLast_supply_reason_type()!=rbSupplyReasonType &&
                             v1.getAccumulated_number_liters()>0) {
@@ -455,15 +455,15 @@ public class FuelSupplyActivity extends AppCompatActivity implements PlacesAdapt
                 } else {
                     vAccumulatedNumberLitre = 0;
                     vAccumulatedSupplyValue = 0;
-                    vAccumNumberLitre = Double.parseDouble(etNumberLiters.getText().toString()) + v1.getAccumulated_number_liters();
-                    vAccumSupplyValue = Double.parseDouble(etSupplyValue.getText().toString()) + v1.getAccumulated_supply_value();
+                    vAccuNumberLitre = Double.parseDouble(etNumberLiters.getText().toString()) + v1.getAccumulated_number_liters();
+                    vAccuSupplyValue = Double.parseDouble(etSupplyValue.getText().toString()) + v1.getAccumulated_supply_value();
                 }
 
                 if (g.getIdCurrency() != nrSpCurrencyType ) {
                     final CurrencyQuote c1 = new CurrencyQuote();
                     c1.setId(nrCurrencyQuoteId);
                     c1.setCurrency_type(nrSpCurrencyType);
-                    // TODO - Definir um dialog para entrada do valor da cotação do dia
+                    // TODO - Define a dialog for entering the value of the quotation of the day
 //                    c1.setCurrency_value(Float.parseFloat(etCurrencyValue.getText().toString()));
                     c1.setQuote_date( Utils.stringToDate(etSupplyDate.getText().toString()));
                     if (nrCurrencyQuoteId > 0) {
@@ -483,7 +483,7 @@ public class FuelSupplyActivity extends AppCompatActivity implements PlacesAdapt
                 f1.setCombustible(nrSpCombustible);
                 f1.setFull_tank(vlFullTank);
                 f1.setCurrency_type(nrSpCurrencyType);
-                f1.setCurrency_quote_id(nrCurrencyQuoteId); // TODO - ver id correto da cotação da moeda
+                f1.setCurrency_quote_id(nrCurrencyQuoteId); // TODO - see correct currency quote id
                 f1.setSupply_value(Double.parseDouble(etSupplyValue.getText().toString()));
                 f1.setFuel_value(Double.parseDouble(etFuelValue.getText().toString().replace(",",".")));
                 f1.setSupply_reason_type(findViewById(rbSupplyReasonType).getId());
@@ -502,7 +502,7 @@ public class FuelSupplyActivity extends AppCompatActivity implements PlacesAdapt
                         if (Integer.parseInt(etVehicleOdometer.getText().toString()) != f1.getVehicle_odometer()) {
                             if (etVehicleOdometer.getText().toString().isEmpty()){
                                 final FuelSupply f2 = new FuelSupply();
-                                // TODO - popular f2 com proximo abastecimento a receber o acumulado
+                                // TODO - popular f2 with next supply to receive the accumulated
                                 f2.setAccumulated_Number_liters(f1.getNumber_liters());
                                 f2.setVehicle_travelled_distance(f2.getVehicle_travelled_distance()+f1.getVehicle_travelled_distance());
                                 vStatAvgFuelConsumption = (f2.getVehicle_travelled_distance()+f1.getVehicle_travelled_distance()) / Float.parseFloat(Double.toString(f2.getNumber_liters() + f1.getNumber_liters()));
@@ -525,14 +525,14 @@ public class FuelSupplyActivity extends AppCompatActivity implements PlacesAdapt
                                 v1.setAvg_cost_litre(vStat.get(0).getAvg_cost_litre());
                                 v1.setDt_last_fueling(Utils.stringToDate(etSupplyDate.getText().toString()));
                                 v1.setLast_supply_reason_type(findViewById(rbSupplyReasonType).getId());
-                                v1.setAccumulated_number_liters(vAccumNumberLitre);
-                                v1.setAccumulated_supply_value(vAccumSupplyValue);
+                                v1.setAccumulated_number_liters(vAccuNumberLitre);
+                                v1.setAccumulated_supply_value(vAccuSupplyValue);
                             }
                         } else {
                             v1.setDt_last_fueling(Utils.stringToDate(etSupplyDate.getText().toString()));
                             v1.setLast_supply_reason_type(findViewById(rbSupplyReasonType).getId());
-                            v1.setAccumulated_number_liters(vAccumNumberLitre);
-                            v1.setAccumulated_supply_value(vAccumSupplyValue);
+                            v1.setAccumulated_number_liters(vAccuNumberLitre);
+                            v1.setAccumulated_supply_value(vAccuSupplyValue);
                         }
                         isSave = Database.mVehicleDao.updateVehicle(v1);
                     }
@@ -546,6 +546,18 @@ public class FuelSupplyActivity extends AppCompatActivity implements PlacesAdapt
             }
         });
     }
+
+    private final ActivityResultLauncher<String> requestPermissionLauncher = registerForActivityResult(
+            new ActivityResultContracts.RequestPermission(), isGranted -> {
+                String tag = new ActivityResultContracts.RequestPermission().toString();
+                if (isGranted) {
+                    Log.e(tag, "onActivityResult: PERMISSION GRANTED");
+                } else {
+                    Log.e(tag, "onActivityResult: PERMISSION DENIED");
+                }
+            }
+    );
+
     private boolean validateData() {
         boolean isValid = false;
 

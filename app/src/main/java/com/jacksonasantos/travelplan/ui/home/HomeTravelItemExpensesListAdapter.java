@@ -1,23 +1,20 @@
 package com.jacksonasantos.travelplan.ui.home;
 
 import android.content.Context;
-import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.jacksonasantos.travelplan.R;
-import com.jacksonasantos.travelplan.dao.general.Database;
 import com.jacksonasantos.travelplan.dao.TravelItemExpenses;
+import com.jacksonasantos.travelplan.dao.general.Database;
 import com.jacksonasantos.travelplan.ui.utility.Globals;
 import com.jacksonasantos.travelplan.ui.utility.Utils;
 
@@ -44,7 +41,6 @@ public class HomeTravelItemExpensesListAdapter extends RecyclerView.Adapter<Home
 
     public static class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        private final LinearLayout llItemExpenses;
         private final TextView txtExpenseDate;
         private final TextView txtRealizedValue;
         private final TextView txtNote;
@@ -52,7 +48,6 @@ public class HomeTravelItemExpensesListAdapter extends RecyclerView.Adapter<Home
 
         public MyViewHolder(View v) {
             super(v);
-            llItemExpenses = v.findViewById(R.id.llItemExpenses);
             txtExpenseDate = v.findViewById(R.id.txtExpenseDate);
             txtRealizedValue = v.findViewById(R.id.txtRealizedValue);
             txtNote = v.findViewById(R.id.txtNote);
@@ -72,7 +67,6 @@ public class HomeTravelItemExpensesListAdapter extends RecyclerView.Adapter<Home
         return new MyViewHolder(expenseView);
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public void onBindViewHolder(@NonNull final MyViewHolder holder, final int position) {
         final TravelItemExpenses travelItemExpenses = mTravelItemExpenses.get(position);

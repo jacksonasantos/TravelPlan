@@ -14,13 +14,10 @@ import android.widget.SpinnerAdapter;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.io.File;
-import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Locale;
-import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
 public class Utils extends AppCompatActivity  {
@@ -121,8 +118,8 @@ public class Utils extends AppCompatActivity  {
     }
 
     public static int diffBetweenDate( Date firstDate, Date secondDate ) {
-            long diffInMillies = Math.abs(secondDate.getTime() - firstDate.getTime());
-        return (int) TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS);
+            long diffInMillis = Math.abs(secondDate.getTime() - firstDate.getTime());
+        return (int) TimeUnit.DAYS.convert(diffInMillis, TimeUnit.MILLISECONDS);
         }
 
     public static void createSpinnerResources(int resource_array, AutoCompleteTextView spin, Context context) {
@@ -150,21 +147,14 @@ public class Utils extends AppCompatActivity  {
         }
     }
 
-    public static double convertStrCurrencyToDouble(String arg) throws ParseException {
-        //obtem um NumberFormat para o Locale default (BR)
-        NumberFormat nf = NumberFormat.getNumberInstance(new Locale("pt", "BR"));
-        //converte um número com vírgulas ex: 2,56 para double
-        return Objects.requireNonNull(nf.parse(arg)).doubleValue();
-    }
-
     public static RadioButton createRadioButton(String txt, int i, Context context) {
         RadioButton nRadio = new RadioButton(context );
         LinearLayout.LayoutParams params = new RadioGroup.LayoutParams(
                 RadioGroup.LayoutParams.WRAP_CONTENT,
                 RadioGroup.LayoutParams.WRAP_CONTENT);
         nRadio.setLayoutParams(params);
-        nRadio.setText(txt); // define o texto
-        nRadio.setId(i);     // define o codigo - sequencia do for
+        nRadio.setText(txt); // define the text
+        nRadio.setId(i);     // define o code - sequence of FOR
         return nRadio;
     }
 }

@@ -34,8 +34,6 @@ public class AchievementActivity extends AppCompatActivity {
     private EditText etAchievement_Name;
     private EditText etAchievement_Short_Name;
     public ImageView imgAchievement_Image;
-    public ImageView imgEdit_Image;
-    public ImageView imgDelete_Image;
     Bitmap raw;
     private byte[] imgArray = null;
     private EditText etAchievement_City;
@@ -81,7 +79,7 @@ public class AchievementActivity extends AppCompatActivity {
         }
 
         addListenerOnButtonSave();
-        addListenerOnButtonAchievement();
+        addListenerOnButtonStatusAchievement();
         addListenerOnImageAchievement();
         addListenerOnDeleteImageAchievement();
         addListenerOnEditImageAchievement();
@@ -89,8 +87,6 @@ public class AchievementActivity extends AppCompatActivity {
         etAchievement_Name = findViewById(R.id.etAchievement_Name);
         etAchievement_Short_Name = findViewById(R.id.etAchievement_Short_Name);
         imgAchievement_Image = findViewById(R.id.imgAchievement_Image);
-        imgEdit_Image = findViewById(R.id.imgEdit_Image);
-        imgDelete_Image = findViewById(R.id.imgDelete_Image);
         etAchievement_City = findViewById(R.id.etAchievement_City);
         etAchievement_State = findViewById(R.id.etAchievement_State);
         etAchievement_City_End = findViewById(R.id.etAchievement_City_End);
@@ -149,25 +145,23 @@ public class AchievementActivity extends AppCompatActivity {
     }
 
     private void addListenerOnImageAchievement() {
-        ImageView imgAchievement = findViewById(R.id.imgAchievement_Image);
-        imgAchievement.setOnClickListener( view -> button());
+        imgAchievement_Image = findViewById(R.id.imgAchievement_Image);
+        imgAchievement_Image.setOnClickListener( view -> button());
     }
 
     private void addListenerOnEditImageAchievement() {
-        ImageView imgEditAchievement = findViewById(R.id.imgEdit_Image);
-        imgEditAchievement.setOnClickListener(view -> button());
+        ImageView imgEdit_Image = findViewById(R.id.imgEdit_Image);
+        imgEdit_Image.setOnClickListener(view -> button());
     }
 
     private void addListenerOnDeleteImageAchievement() {
-        ImageView imgDeleteAchievement = findViewById(R.id.imgDelete_Image);
-        imgDeleteAchievement.setOnClickListener(view -> {
-            imgAchievement_Image.setImageBitmap(null);
-            imgArray= achievement.getImage();
-        });
+        ImageView imgDelete_Image = findViewById(R.id.imgDelete_Image);
+        imgAchievement_Image = findViewById(R.id.imgAchievement_Image);
+        imgDelete_Image.setOnClickListener(view -> imgAchievement_Image.setImageResource(R.drawable.ic_menu_achievement));
     }
 
-    private void addListenerOnButtonAchievement() {
-        ImageButton imgStatusAchievement = findViewById(R.id.imgStatusAchievement);
+    private void addListenerOnButtonStatusAchievement() {
+        imgStatusAchievement = findViewById(R.id.imgStatusAchievement);
         imgStatusAchievement.setOnClickListener( view -> {
             if (nrStatusAchievement == 0) {
                 nrStatusAchievement = 1;
@@ -200,7 +194,7 @@ public class AchievementActivity extends AppCompatActivity {
                     bitmap.compress(Bitmap.CompressFormat.PNG, 100, saida);
                     byte[] img = saida.toByteArray();
                     a1.setImage(img);
-                }
+                } else
 
                 a1.setCity(etAchievement_City.getText().toString());
                 a1.setState(etAchievement_State.getText().toString());

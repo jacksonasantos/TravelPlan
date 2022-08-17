@@ -1,15 +1,13 @@
 package com.jacksonasantos.travelplan.ui.travel;
 
-import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.graphics.Color;
-import android.os.AsyncTask;
-import android.os.Build;
-import android.text.Html;
+import android.os.Handler;
+import android.os.Looper;
 import android.widget.Toast;
 
-import androidx.annotation.RequiresApi;
+import androidx.core.text.HtmlCompat;
 
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
@@ -30,6 +28,8 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class RouteClass {
     GoogleMap mMap;
@@ -38,20 +38,23 @@ public class RouteClass {
     Integer nrTravel_Id;
 
     private static final String GOOGLE_API_KEY =  MainActivity.getAppResources().getString(R.string.google_maps_key);
+    private final ExecutorService myExecutor = Executors.newSingleThreadExecutor();
+    private final Handler myHandler = new Handler(Looper.getMainLooper());
 
     public void drawRoute(GoogleMap map, Context c, ArrayList<LatLng> points, boolean withIndications, String language, boolean optimize, Integer travel_id, int sequence, Integer sequenceSelected) {
         mMap = map;
         context = c;
         lang = language;
         nrTravel_Id = travel_id;
+        String mode = "driving";
+        String url = null;
 
         if (points.size() == 2) {
-            String url = makeURL(points.get(0).latitude, points.get(0).longitude, points.get(1).latitude, points.get(1).longitude, "driving");
-            new connectAsyncTask(url, withIndications, sequence, sequenceSelected).execute();
+            url = makeURL(points.get(0).latitude, points.get(0).longitude, points.get(1).latitude, points.get(1).longitude, mode);
         } else if (points.size() > 2) {
-            String url = makeURL(points, "driving", optimize);
-            new connectAsyncTask(url, withIndications, sequence, sequenceSelected).execute();
+            url = makeURL(points, mode, optimize);
         }
+        connectAsyncTask(url, withIndications, sequence, sequenceSelected);
     }
 
     private String makeURL(ArrayList<LatLng> points, String mode, boolean optimize) {
@@ -107,116 +110,97 @@ public class RouteClass {
         return urlString.toString();
     }
 
-    @SuppressLint("StaticFieldLeak")
-    private class connectAsyncTask extends AsyncTask<Void, Void, String> {
-        private ProgressDialog progressDialog;
-        final String url;
-        final boolean steps;
-        final int nrSequence;
-        final Integer nrSequenceSelected;
+    private void connectAsyncTask(String urlPass, boolean withSteps,int sequence, Integer sequenceSelected ) {
 
-        connectAsyncTask(String urlPass, boolean withSteps,int sequence, Integer sequenceSelected ) {
-            url = urlPass;
-            steps = withSteps;
-            nrSequence = sequence;
-            nrSequenceSelected = sequenceSelected;
-        }
+        ProgressDialog progressDialog;
+        progressDialog = new ProgressDialog(context);
+        progressDialog.setMessage("Fetching route, Please wait...");
+        progressDialog.setIndeterminate(true);
+        progressDialog.show();
 
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            progressDialog = new ProgressDialog(context);
-            progressDialog.setMessage("Fetching route, Please wait...");
-            progressDialog.setIndeterminate(true);
-            progressDialog.show();
-        }
+        myExecutor.execute(() -> {
 
-        @Override
-        protected void onPostExecute(String r) {
-            super.onPostExecute(r);
-            progressDialog.dismiss();
-            if (r != null) {
-                drawPath(r, steps, nrSequence, nrSequenceSelected);
-            }
-        }
-
-        @RequiresApi(api = Build.VERSION_CODES.KITKAT)
-        @Override
-        protected String doInBackground(Void... params) {
             JSONParser jParser = new JSONParser();
-            return jParser.getJSONFromUrl(url);
-        }
+            String r = jParser.getJSONFromUrl(urlPass);
 
-        private void drawPath(String result, boolean withSteps, int nrSequence, Integer nrSequenceSelected) {
-            try {
-                final JSONObject json = new JSONObject(result);
-                JSONArray routeArray = json.getJSONArray("routes");
-                JSONObject routes = routeArray.getJSONObject(0);
-                JSONArray arrayLegs = routes.getJSONArray("legs");
-                Itinerary itinerary = Database.mItineraryDao.fetchItineraryByTravelId(nrTravel_Id, nrSequence);
-                int nrDuration = 0, nrDistance = 0;
-                for (int y =0; y < arrayLegs.length(); y++) {
-                    JSONObject legs = arrayLegs.getJSONObject(y);
-                    JSONArray stepsArray = legs.getJSONArray("steps");
+            myHandler.post(() -> {
+                progressDialog.dismiss();
+                if (r != null) {
+                    drawPath(r, withSteps, sequence, sequenceSelected);
+                }
+            });
+        });
+    }
 
-                    nrDuration += legs.getJSONObject("duration").getInt("value");
-                    nrDistance += legs.getJSONObject("distance").getInt("value");
+    private void drawPath(String result, boolean withSteps, int nrSequence, Integer nrSequenceSelected) {
+        try {
+            final JSONObject json = new JSONObject(result);
+            JSONArray routeArray = json.getJSONArray("routes");
+            JSONObject routes = routeArray.getJSONObject(0);
+            JSONArray arrayLegs = routes.getJSONArray("legs");
+            Itinerary itinerary = Database.mItineraryDao.fetchItineraryByTravelId(nrTravel_Id, nrSequence);
+            int nrDuration = 0, nrDistance = 0;
+            for (int y =0; y < arrayLegs.length(); y++) {
+                JSONObject legs = arrayLegs.getJSONObject(y);
+                JSONArray stepsArray = legs.getJSONArray("steps");
 
-                    for (int i = 0; i < stepsArray.length(); i++) {
-                        String polyline = (String) ((JSONObject) ((JSONObject) stepsArray.get(i)).get("polyline")).get("points");
-                        int vColor = nrSequence%2==0 ? Color.MAGENTA : Color.BLUE;
-                        int vWidth = 4;
-                        if (nrSequenceSelected != null) {
-                            vColor = nrSequence==nrSequenceSelected ? vColor : Color.RED;
-                            vWidth = nrSequence==nrSequenceSelected ? vWidth : 8;
-                        }
-                        mMap.addPolyline(new PolylineOptions()
-                                .addAll(decodePoly(polyline))
-                                .width(vWidth)
-                                .clickable(true)
-                                .color(vColor)
-                                .geodesic(true)
-                        );
-                        if (withSteps) {
-                            Step step = new Step(stepsArray.getJSONObject(i));
-                            mMap.addMarker(new MarkerOptions()
-                                    .position(step.location)
-                                    .title(step.distance + "/" + step.duration)
-                                    .snippet(step.instructions)
-                                    .draggable(true)
-                                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
-                        }
+                nrDuration += legs.getJSONObject("duration").getInt("value");
+                nrDistance += legs.getJSONObject("distance").getInt("value");
+
+                for (int i = 0; i < stepsArray.length(); i++) {
+                    String polyline = (String) ((JSONObject) ((JSONObject) stepsArray.get(i)).get("polyline")).get("points");
+                    int vColor = nrSequence%2==0 ? Color.MAGENTA : Color.BLUE;
+                    int vWidth = 4;
+                    if (nrSequenceSelected != null) {
+                        vColor = nrSequence==nrSequenceSelected ? vColor : Color.RED;
+                        vWidth = nrSequence==nrSequenceSelected ? vWidth : 8;
+                    }
+                    mMap.addPolyline(new PolylineOptions()
+                            .addAll(decodePoly(polyline))
+                            .width(vWidth)
+                            .clickable(true)
+                            .color(vColor)
+                            .geodesic(true)
+                    );
+                    if (withSteps) {
+                        Step step = new Step(stepsArray.getJSONObject(i));
+                        mMap.addMarker(new MarkerOptions()
+                                .position(step.location)
+                                .title(step.distance + "/" + step.duration)
+                                .snippet(step.instructions)
+                                .draggable(true)
+                                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
                     }
                 }
-                itinerary.setDistance(nrDistance);
-                itinerary.setTime(nrDuration);
-                Database.mItineraryDao.updateItinerary(itinerary);
-            } catch (JSONException e) {
-                Toast.makeText(context, "Draw Path \n"+e.getMessage(), Toast.LENGTH_LONG).show();
             }
+            itinerary.setDistance(nrDistance);
+            itinerary.setTime(nrDuration);
+            Database.mItineraryDao.updateItinerary(itinerary);
+        } catch (JSONException e) {
+            Toast.makeText(context, "Draw Path \n"+e.getMessage(), Toast.LENGTH_LONG).show();
         }
+    }
 
-        private class Step {
-            public String distance;
-            public String duration;
-            public LatLng location;
-            public String instructions;
+    private static class Step {
+        public String distance;
+        public String duration;
+        public LatLng location;
+        public String instructions;
 
-            Step(JSONObject stepJSON) {
-                JSONObject startLocation;
+        Step(JSONObject stepJSON) {
+            JSONObject startLocation;
+            try {
+                distance = stepJSON.getJSONObject("distance").getString("text");
+                duration = stepJSON.getJSONObject("duration").getString("text");
+                startLocation = stepJSON.getJSONObject("start_location");
+                location = new LatLng(startLocation.getDouble("lat"), startLocation.getDouble("lng"));
                 try {
-                    distance = stepJSON.getJSONObject("distance").getString("text");
-                    duration = stepJSON.getJSONObject("duration").getString("text");
-                    startLocation = stepJSON.getJSONObject("start_location");
-                    location = new LatLng(startLocation.getDouble("lat"), startLocation.getDouble("lng"));
-                    try {
-                        instructions = URLDecoder.decode(Html.fromHtml(stepJSON.getString("html_instructions")).toString(), "UTF-8");
-                    } catch (UnsupportedEncodingException e) {
-                        e.printStackTrace();
-                    }
-                } catch (JSONException e) {
+                    instructions = URLDecoder.decode(HtmlCompat.fromHtml(stepJSON.getString("html_instructions"), HtmlCompat.FROM_HTML_MODE_LEGACY).toString(), "UTF-8");
+                } catch (UnsupportedEncodingException e) {
                     e.printStackTrace();
                 }
+            } catch (JSONException e) {
+                e.printStackTrace();
             }
         }
     }

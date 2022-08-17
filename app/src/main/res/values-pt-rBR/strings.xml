@@ -213,7 +213,7 @@
     <string name="Reservation_Voucher_Number">Voucher</string>
     <string name="Reservation_Checkin_Date">Check In</string>
     <string name="Reservation_Checkout_Date">Check Out</string>
-    <string name="Reservation_Apto_Type">Tipo Apto</string>
+    <string name="Reservation_Apt_Type">Tipo Apto</string>
     <string name="Reservation_Daily_Rate">Valor Diária</string>
     <string name="Reservation_Other_Rate">Valor Outros</string>
     <string name="Reservation_Reservation_Amount">Valor Reserva</string>
@@ -343,4 +343,6 @@
     <string name="FuelSupply_Accumulated">Acumuladores</string>
     <string name="FuelSupply_Accumulated_Number_Liters">Qtde de Litros</string>
     <string name="FuelSupply_Accumulated_Supply_Value">Valor de Abastecimento</string>
+    <string name="tab_home_vehicle">Principal - Veículo</string>
+    <string name="tab_home_travel">Principal - Viagem</string>
 </resources>

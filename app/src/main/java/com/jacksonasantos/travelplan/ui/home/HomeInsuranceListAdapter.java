@@ -3,7 +3,6 @@ package com.jacksonasantos.travelplan.ui.home;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
-import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +12,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -32,7 +30,6 @@ public class HomeInsuranceListAdapter extends RecyclerView.Adapter<RecyclerView.
     private final List<Insurance> mInsurance;
     final Context context;
     final int show_header;
-    String[] insurance_typeArray;
 
     public HomeInsuranceListAdapter(List<Insurance> insurance, Context context, int show_header) {
         this.mInsurance = insurance;
@@ -48,13 +45,11 @@ public class HomeInsuranceListAdapter extends RecyclerView.Adapter<RecyclerView.
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View insuranceView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.fragment_home_item_insurance, parent, false);
-        insurance_typeArray = parent.getResources().getStringArray(R.array.insurance_type_array);
 
         if (viewType == TYPE_HEADER) return new HeaderViewHolder(insuranceView);
         else return new ItemViewHolder(insuranceView);
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public void onBindViewHolder(@NonNull final RecyclerView.ViewHolder holder, final int position) {
         if (holder instanceof HeaderViewHolder){
@@ -84,10 +79,6 @@ public class HomeInsuranceListAdapter extends RecyclerView.Adapter<RecyclerView.
             itemViewHolder.txtInsuranceBroker.setText(Database.mBrokerDao.fetchBrokerById(insurance.getBroker_id()).getName());
             itemViewHolder.txtInsurancePolicy.setText(String.valueOf(insurance.getInsurance_policy()));
             itemViewHolder.txtInsuranceFinalEffectiveDate.setText(Utils.dateToString(insurance.getFinal_effective_date()));
-
-            itemViewHolder.llInsuranceItem.setOnClickListener(v -> {
-                //Insurance x = InsuranceDialog.InsuranceClass(insurance, v);
-            });
 
             // btnDone - change Status for Service for completed and remove of list
             itemViewHolder.btnDoneInsurance.setOnClickListener(v -> {

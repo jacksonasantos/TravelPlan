@@ -39,7 +39,7 @@ public class VehicleActivity extends AppCompatActivity {
 
     private RadioGroup rgVehicleType;
     private int rbVehicleType;
-    public ImageView imgVehicle_Image;                   // TODO - Ajustar a pesquisa e conversão de imagens (diretorio ou internet)
+    public ImageView imgVehicle_Image;                   // TODO - Adjust image search and conversion (directory or internet)
     public ImageView imgEdit_Image;
     public ImageView imgDelete_Image;
     Bitmap raw;

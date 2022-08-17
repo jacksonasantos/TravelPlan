@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.viewpager.widget.ViewPager;
+import androidx.viewpager2.widget.ViewPager2;
 
 import com.jacksonasantos.travelplan.R;
 
@@ -17,8 +17,8 @@ public class HomeFragment extends Fragment {
                              ViewGroup container,
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_home, container, false);
-        ViewPager viewPager = v.findViewById(R.id.view_pager);
-        viewPager.setAdapter(new HomePagerAdapter(getChildFragmentManager()));
+        ViewPager2 viewPager = v.findViewById(R.id.view_pager);
+        viewPager.setAdapter(new HomePagerAdapter(getActivity()));
         return v;
     }
 }

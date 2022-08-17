@@ -10,7 +10,7 @@ public interface ReservationISchema {
     String RESERVATION_VOUCHER_NUMBER = "voucher_number";
     String RESERVATION_CHECKIN_DATE = "checkin_date";
     String RESERVATION_CHECKOUT_DATE = "checkout_date";
-    String RESERVATION_APTO_TYPE = "apto_type";
+    String RESERVATION_APT_TYPE = "apt_type";
     String RESERVATION_DAILY_RATE = "daily_rate";
     String RESERVATION_OTHER_RATE = "other_rate";
     String RESERVATION_RESERVATION_AMOUNT = "reservation_amount";
@@ -27,7 +27,7 @@ public interface ReservationISchema {
             + RESERVATION_VOUCHER_NUMBER + " TEXT, "
             + RESERVATION_CHECKIN_DATE + " DATE, "
             + RESERVATION_CHECKOUT_DATE + " DATE, "
-            + RESERVATION_APTO_TYPE + " TEXT, "
+            + RESERVATION_APT_TYPE + " TEXT, "
             + RESERVATION_DAILY_RATE + " DOUBLE, "
             + RESERVATION_OTHER_RATE + " DOUBLE, "
             + RESERVATION_RESERVATION_AMOUNT + " DOUBLE, "
@@ -43,7 +43,7 @@ public interface ReservationISchema {
             RESERVATION_VOUCHER_NUMBER,
             RESERVATION_CHECKIN_DATE,
             RESERVATION_CHECKOUT_DATE,
-            RESERVATION_APTO_TYPE,
+            RESERVATION_APT_TYPE,
             RESERVATION_DAILY_RATE,
             RESERVATION_OTHER_RATE,
             RESERVATION_RESERVATION_AMOUNT,

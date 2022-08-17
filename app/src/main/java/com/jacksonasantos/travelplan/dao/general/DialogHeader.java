@@ -4,7 +4,7 @@ public class DialogHeader implements ListItemDialog {
     String txt_header;
 
     public DialogHeader(String txt_header) {
-        this.txt_header = txt_header;
+        setTxt_header(txt_header);
     }
 
     public String getTxt_header() {

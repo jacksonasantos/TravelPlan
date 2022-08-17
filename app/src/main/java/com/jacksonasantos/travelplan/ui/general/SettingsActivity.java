@@ -5,6 +5,7 @@ import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.os.LocaleList;
 import android.util.DisplayMetrics;
 
 import androidx.appcompat.app.ActionBar;
@@ -106,10 +107,12 @@ public class SettingsActivity extends AppCompatActivity {
             Globals g = Globals.getInstance();
             Resources res = getResources();
             Configuration config = res.getConfiguration();
-            if (lang != null && !"".equals(lang) && !config.locale.getLanguage().equals(lang)) {
+            if (lang != null && !"".equals(lang) && !config.getLocales().get(0).getLanguage().equals(lang)) {
                 g.setLanguage(lang);
                 Locale myLocale = new Locale(lang);
-                config.locale = myLocale;
+                LocaleList localeList = new LocaleList(myLocale);
+                LocaleList.setDefault(localeList);
+                config.setLocales(localeList);
                 DisplayMetrics dm = res.getDisplayMetrics();
                 Locale.setDefault(myLocale);
                 res.updateConfiguration(config, dm);
