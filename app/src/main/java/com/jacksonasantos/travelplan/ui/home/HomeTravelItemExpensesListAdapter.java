@@ -27,16 +27,14 @@ public class HomeTravelItemExpensesListAdapter extends RecyclerView.Adapter<Home
 
     public final List<TravelItemExpenses> mTravelItemExpenses;
     final Context context;
-    final Integer travel_id;
 
     final Globals g = Globals.getInstance();
     final Locale locale = new Locale(g.getLanguage(), g.getCountry());
     final NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(locale);
 
-    public HomeTravelItemExpensesListAdapter(List<TravelItemExpenses> travelItemExpenses, Context context, Integer travel_id) {
+    public HomeTravelItemExpensesListAdapter(List<TravelItemExpenses> travelItemExpenses, Context context) {
         this.mTravelItemExpenses = travelItemExpenses;
         this.context = context;
-        this.travel_id = travel_id;
     }
 
     public static class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {

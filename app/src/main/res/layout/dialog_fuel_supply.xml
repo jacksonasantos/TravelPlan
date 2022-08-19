@@ -237,6 +237,15 @@
                         android:nextFocusDown="@+id/etSupplyValue"
                         android:gravity="end"
                         android:textSize="12sp" />
+
+                    <TextView
+                        android:id="@+id/txCurrencyValue"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2.5"
+                        android:textAlignment="textEnd"
+                        android:textSize="12sp" />
+
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"

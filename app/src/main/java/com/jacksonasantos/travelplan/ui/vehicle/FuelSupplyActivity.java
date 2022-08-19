@@ -1,7 +1,7 @@
 package com.jacksonasantos.travelplan.ui.vehicle;
 
 import android.Manifest;
-import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
@@ -19,6 +19,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.ActionBar;
@@ -44,6 +46,7 @@ import com.jacksonasantos.travelplan.dao.Travel;
 import com.jacksonasantos.travelplan.dao.Vehicle;
 import com.jacksonasantos.travelplan.dao.VehicleStatistics;
 import com.jacksonasantos.travelplan.dao.general.Database;
+import com.jacksonasantos.travelplan.ui.general.CurrencyQuoteActivity;
 import com.jacksonasantos.travelplan.ui.travel.PlacesAdapter;
 import com.jacksonasantos.travelplan.ui.utility.Abbreviations;
 import com.jacksonasantos.travelplan.ui.utility.DateInputMask;
@@ -77,6 +80,7 @@ public class FuelSupplyActivity extends AppCompatActivity implements PlacesAdapt
     private Spinner spCurrencyType;
     private int nrSpCurrencyType;
     private Integer nrCurrencyQuoteId;
+    private TextView txCurrencyValue;
     private EditText etSupplyValue;
     private EditText etFuelValue;
     private EditText etVehicleOdometer;
@@ -120,8 +124,6 @@ public class FuelSupplyActivity extends AppCompatActivity implements PlacesAdapt
             Place.Field.ADDRESS);
 
     private static final String GOOGLE_API_KEY =  MainActivity.getAppResources().getString(R.string.google_maps_key);
-
-    @SuppressLint("WrongViewCast")
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -187,6 +189,7 @@ public class FuelSupplyActivity extends AppCompatActivity implements PlacesAdapt
         etSupplyDate = findViewById(R.id.etSupplyDate);
         cbFullTank = findViewById(R.id.cbFullTank);
         spCurrencyType = findViewById(R.id.spCurrencyType);
+        txCurrencyValue = findViewById(R.id.txCurrencyValue);
         etNumberLiters = findViewById(R.id.etNumberLiters);
         etSupplyValue = findViewById(R.id.etSupplyValue);
         etFuelValue = findViewById(R.id.etFuelValue);
@@ -266,20 +269,39 @@ public class FuelSupplyActivity extends AppCompatActivity implements PlacesAdapt
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long idx) {
                 nrSpCurrencyType = position;
-                // TODO - see correct currency quote for supply date
                 nrCurrencyQuoteId = null;
-//               CurrencyQuote c1 = Database.mCurrencyQuoteDao.findQuoteDay(nrSpCurrencyType, Utils.stringToDate(etSupplyDate.getText().toString()));
-//               etCurrencyValue.setText(String.valueOf(c1.getCurrency_value()));
-               //nrSpCurrencyType = c1.getId();
-                //spCurrencyType.setSelection(nrSpCurrencyType);
+                CurrencyQuote c1 = Database.mCurrencyQuoteDao.findQuoteDay(nrSpCurrencyType, Utils.stringToDate(etSupplyDate.getText().toString()));
+                if (c1.getId()==null && nrSpCurrencyType!=0) {
+                    Intent intent = new Intent (getBaseContext(), CurrencyQuoteActivity.class);
+                    intent.putExtra("currency_type", nrSpCurrencyType);
+                    intent.putExtra("quote_date", etSupplyDate.getText().toString());
+                    myActivityResultLauncher.launch(intent);
+                }
+                txCurrencyValue.setText(numberFormat.format(c1.getCurrency_value()));
+                nrCurrencyQuoteId = c1.getId();
+                spCurrencyType.setSelection(nrSpCurrencyType);
             }
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
                 nrCurrencyQuoteId = null;
                 nrSpCurrencyType =0;
             }
-        });
 
+            final ActivityResultLauncher<Intent> myActivityResultLauncher = registerForActivityResult(
+                    new ActivityResultContracts.StartActivityForResult(),
+                    new ActivityResultCallback<ActivityResult>() {
+                        @Override
+                        public void onActivityResult(ActivityResult result) {
+                            if (result.getResultCode() == 123) {
+                                Intent data = result.getData();
+                                if (data != null) {
+                                    txCurrencyValue.setText(data.getStringExtra("resulted_value"));
+                                    etNumberLiters.requestFocus();
+                                }
+                            }
+                        }
+                    });
+        });
         /*View.OnFocusChangeListener listenerNumberLiters = (v, hasFocus) -> {
             if (!hasFocus) {
                 // TODO - Implement the calculation with the correct currency value
@@ -457,20 +479,6 @@ public class FuelSupplyActivity extends AppCompatActivity implements PlacesAdapt
                     vAccumulatedSupplyValue = 0;
                     vAccuNumberLitre = Double.parseDouble(etNumberLiters.getText().toString()) + v1.getAccumulated_number_liters();
                     vAccuSupplyValue = Double.parseDouble(etSupplyValue.getText().toString()) + v1.getAccumulated_supply_value();
-                }
-
-                if (g.getIdCurrency() != nrSpCurrencyType ) {
-                    final CurrencyQuote c1 = new CurrencyQuote();
-                    c1.setId(nrCurrencyQuoteId);
-                    c1.setCurrency_type(nrSpCurrencyType);
-                    // TODO - Define a dialog for entering the value of the quotation of the day
-//                    c1.setCurrency_value(Float.parseFloat(etCurrencyValue.getText().toString()));
-                    c1.setQuote_date( Utils.stringToDate(etSupplyDate.getText().toString()));
-                    if (nrCurrencyQuoteId > 0) {
-                        isSave = Database.mCurrencyQuoteDao.updateCurrencyQuote(c1);
-                    } else {
-                        isSave = Database.mCurrencyQuoteDao.addCurrencyQuote(c1);
-                    }
                 }
 
                 f1.setVehicle_id(nrVehicleId);

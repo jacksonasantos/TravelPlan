@@ -32,7 +32,6 @@ public class HomeVehicleNextMaintenanceListAdapter extends RecyclerView.Adapter<
     private static final int TYPE_ITEM = 1;
 
     private final List<NextMaintenanceItem> mNextMaintenanceItem;
-    final Context context;
     final int show_header;
     String[] measureArray;
 
@@ -40,7 +39,6 @@ public class HomeVehicleNextMaintenanceListAdapter extends RecyclerView.Adapter<
 
     public HomeVehicleNextMaintenanceListAdapter(List<NextMaintenanceItem> nextMaintenanceItem, Context context, int show_header) {
         this.mNextMaintenanceItem = nextMaintenanceItem;
-        this.context = context;
         this.show_header = show_header;
 
         Database mdb = new Database(context);
@@ -147,7 +145,6 @@ public class HomeVehicleNextMaintenanceListAdapter extends RecyclerView.Adapter<
 
     private static class HeaderViewHolder extends RecyclerView.ViewHolder {
         private final ConstraintLayout llNextMaintenanceItem;
-        private final ImageView imgServiceType;
         private final TextView txtDescription;
         private final TextView txtMeasure;
         private final TextView txtNextService;
@@ -155,7 +152,6 @@ public class HomeVehicleNextMaintenanceListAdapter extends RecyclerView.Adapter<
         public HeaderViewHolder(View v) {
             super(v);
             llNextMaintenanceItem = v.findViewById(R.id.llNextMaintenanceItem);
-            imgServiceType = v.findViewById(R.id.imgServiceType);
             txtDescription = v.findViewById(R.id.txtDescription);
             txtMeasure = v.findViewById(R.id.txtMeasure);
             txtNextService = v.findViewById(R.id.txtNextService);

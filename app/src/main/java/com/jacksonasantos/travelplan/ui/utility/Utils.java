@@ -117,6 +117,11 @@ public class Utils extends AppCompatActivity  {
         return (d==null?null:dateFormat.format(d));
     }
 
+    public static String dateToStringDate(Date d) {
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd 00:00:00");
+        return (d==null?null:dateFormat.format(d));
+    }
+
     public static int diffBetweenDate( Date firstDate, Date secondDate ) {
             long diffInMillis = Math.abs(secondDate.getTime() - firstDate.getTime());
         return (int) TimeUnit.DAYS.convert(diffInMillis, TimeUnit.MILLISECONDS);

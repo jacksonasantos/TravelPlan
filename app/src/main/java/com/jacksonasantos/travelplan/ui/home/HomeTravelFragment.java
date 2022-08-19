@@ -279,7 +279,7 @@ public class HomeTravelFragment extends Fragment implements View.OnClickListener
 
                 // Expenses - LayerExpense
                 final int Show_Header_SummaryExpense = 1; // 0 - NO SHOW HEADER | 1 - SHOW HEADER
-                HomeTravelSummaryExpenseListAdapter adapterTravelExpense = new HomeTravelSummaryExpenseListAdapter( Database.mSummaryTravelExpenseDao.findTravelExpense(travel[0].getId() ), getContext(), travel[0].getId(), Show_Header_SummaryExpense, 1);
+                HomeTravelSummaryExpenseListAdapter adapterTravelExpense = new HomeTravelSummaryExpenseListAdapter( Database.mSummaryTravelExpenseDao.findTravelExpense(travel[0].getId() ), getContext(), Show_Header_SummaryExpense, 1);
                 if ( adapterTravelExpense.getItemCount() > Show_Header_SummaryExpense){
                     layerExpense.setVisibility(View.VISIBLE);
                     listTravelExpenses.setAdapter(adapterTravelExpense);
@@ -344,7 +344,7 @@ public class HomeTravelFragment extends Fragment implements View.OnClickListener
 
                 etExpenseDate.addTextChangedListener(new DateInputMask(etExpenseDate));
 
-                adapterTravelItemExpenses[0] = new HomeTravelItemExpensesListAdapter(Database.mTravelItemExpensesDao.fetchTravelItemExpensesByExpenseType( travelExpensesList.get(0).getTravel_id(), travelExpensesList.get(0).getExpense_type()), requireContext(),travelExpensesList.get(0).getTravel_id());
+                adapterTravelItemExpenses[0] = new HomeTravelItemExpensesListAdapter(Database.mTravelItemExpensesDao.fetchTravelItemExpensesByExpenseType( travelExpensesList.get(0).getTravel_id(), travelExpensesList.get(0).getExpense_type()), requireContext());
                 rvTravelExpenseItem.setAdapter(adapterTravelItemExpenses[0]);
                 rvTravelExpenseItem.setLayoutManager(new LinearLayoutManager(requireContext()));
                 adapterTravelItemExpenses[0].notifyDataSetChanged();
@@ -377,7 +377,7 @@ public class HomeTravelFragment extends Fragment implements View.OnClickListener
                                 if (!isSave) {
                                     Toast.makeText(requireContext(), R.string.Error_Saving_Data, Toast.LENGTH_LONG).show();
                                 } else {
-                                    adapterTravelItemExpenses[0] = new HomeTravelItemExpensesListAdapter(Database.mTravelItemExpensesDao.fetchTravelItemExpensesByExpenseType(finalTravelExpensesList.get(0).getTravel_id(),finalTravelExpensesList.get(0).getExpense_type()), requireContext(), finalTravelExpensesList.get(0).getTravel_id());
+                                    adapterTravelItemExpenses[0] = new HomeTravelItemExpensesListAdapter(Database.mTravelItemExpensesDao.fetchTravelItemExpensesByExpenseType(finalTravelExpensesList.get(0).getTravel_id(),finalTravelExpensesList.get(0).getExpense_type()), requireContext());
                                     rvTravelExpenseItem.setAdapter(adapterTravelItemExpenses[0]);
                                     rvTravelExpenseItem.setLayoutManager(new LinearLayoutManager(requireContext()));
                                     adapterTravelItemExpenses[0].notifyDataSetChanged();

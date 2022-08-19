@@ -15,9 +15,6 @@ public class Globals {
     private String txMeasureCapacity;
     private String txMeasureConsumption;
     private String txDateFormat;
-    private String txTimeFormat;
-    private String txLatitudeHome;
-    private String txLongitudeHome;
     private int nrKMsPreviousAlert;
     private int nrDaysPreviousAlert;
     private Double vlExpectedValueRestaurant;
@@ -60,15 +57,6 @@ public class Globals {
 
     public String getDateFormat() { return this.txDateFormat; }
     public void setDateFormat(String df) { this.txDateFormat = df; }
-
-    public String getTimeFormat() { return this.txTimeFormat; }
-    public void setTimeFormat(String tf) { this.txTimeFormat = tf; }
-
-    public String getLatitudeHome() { return txLatitudeHome; }
-    public void setLatitudeHome(String txLatitudeHome) { this.txLatitudeHome = txLatitudeHome; }
-
-    public String getLongitudeHome() { return txLongitudeHome;}
-    public void setLongitudeHome(String txLongitudeHome) { this.txLongitudeHome = txLongitudeHome;}
 
     public int getKMsPreviousAlert() { return this.nrKMsPreviousAlert; }
     public void setKMsPreviousAlert(int nrKMsPreviousAlert) { this.nrKMsPreviousAlert = nrKMsPreviousAlert; }

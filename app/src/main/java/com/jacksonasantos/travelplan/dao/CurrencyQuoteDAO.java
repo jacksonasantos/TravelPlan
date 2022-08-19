@@ -28,14 +28,14 @@ public class CurrencyQuoteDAO extends DbContentProvider implements CurrencyQuote
         if (quote_date == null ) {
             return currencyQuote;
         }
-        cursor = super.rawQuery("SELECT rowid, * " +
+        cursor = super.rawQuery("SELECT * " +
                                      " FROM " + CURRENCY_QUOTE_TABLE +
                                     " WHERE " + CURRENCY_QUOTE_CURRENCY_TYPE + "=? " +
                                       " AND " + CURRENCY_QUOTE_QUOTE_DATE + "=?",
-                new String[] { String.valueOf(currency_type),  Utils.dateToString(quote_date)});
+                new String[] { String.valueOf(currency_type), Utils.dateToStringDate(quote_date)});
         if (null != cursor) {
             if (cursor.getCount() > 0) {
-                cursor.moveToFirst();
+                 cursor.moveToFirst();
                 currencyQuote = cursorToEntity(cursor);
             }
         cursor.close();

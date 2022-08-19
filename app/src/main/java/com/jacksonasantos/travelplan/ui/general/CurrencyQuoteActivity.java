@@ -1,22 +1,23 @@
 package com.jacksonasantos.travelplan.ui.general;
 
 import android.annotation.SuppressLint;
-import android.os.Build;
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.jacksonasantos.travelplan.R;
-import com.jacksonasantos.travelplan.dao.general.Database;
 import com.jacksonasantos.travelplan.dao.CurrencyQuote;
+import com.jacksonasantos.travelplan.dao.general.Database;
 import com.jacksonasantos.travelplan.ui.utility.DateInputMask;
 import com.jacksonasantos.travelplan.ui.utility.Utils;
+
+import java.util.Objects;
 
 public class CurrencyQuoteActivity extends AppCompatActivity {
 
@@ -25,10 +26,10 @@ public class CurrencyQuoteActivity extends AppCompatActivity {
     private EditText etCurrencyValue;
 
     private boolean opInsert = true;
+    private boolean opResult = false;
     private CurrencyQuote currencyQuote;
 
     @SuppressLint("WrongViewCast")
-    @RequiresApi(api = Build.VERSION_CODES.N)
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +48,17 @@ public class CurrencyQuoteActivity extends AppCompatActivity {
                 currencyQuote.setId(extras.getInt("currencyQuote_id"));
                 currencyQuote = Database.mCurrencyQuoteDao.fetchCurrencyQuoteById(currencyQuote.getId());
                 opInsert = false;
+            } else {
+                if (extras.getInt( "currency_type") > 0) {
+                    currencyQuote.setCurrency_type(extras.getInt("currency_type"));
+                    opInsert = true;
+                    opResult = true;
+                }
+                if (!Objects.equals(extras.getString("quote_date"), "")) {
+                    currencyQuote.setQuote_date(Utils.stringToDate(extras.getString("quote_date")));
+                    opInsert = true;
+                    opResult = true;
+                }
             }
         }
 
@@ -106,6 +118,11 @@ public class CurrencyQuoteActivity extends AppCompatActivity {
 
                 setResult(isSave ? 1 : 0);
                 if (isSave) {
+                    if (opResult) {
+                        Intent i = new Intent();
+                        i.putExtra("resulted_value", etCurrencyValue.getText().toString());
+                        setResult(123, i);
+                    }
                     finish();
                 } else {
                     Toast.makeText(getApplicationContext(), R.string.Error_Saving_Data, Toast.LENGTH_LONG).show();

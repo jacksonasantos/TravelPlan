@@ -2,7 +2,6 @@ package com.jacksonasantos.travelplan.ui.home;
 
 import android.content.Context;
 import android.graphics.Color;
-import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,7 +9,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -35,7 +33,6 @@ public class HomeTravelSummaryExpenseListAdapter extends RecyclerView.Adapter<Re
 
     public final List<SummaryTravelExpense> mSummaryTravelExpense;
     final Context context;
-    final Integer travel_id;
     final int show_header;
     final int show_footer;
 
@@ -43,10 +40,9 @@ public class HomeTravelSummaryExpenseListAdapter extends RecyclerView.Adapter<Re
     final Locale locale = new Locale(g.getLanguage(), g.getCountry());
     final NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(locale);
 
-    public HomeTravelSummaryExpenseListAdapter(List<SummaryTravelExpense> summaryTravelExpense, Context context, Integer travel_id, int show_header, int show_footer) {
+    public HomeTravelSummaryExpenseListAdapter(List<SummaryTravelExpense> summaryTravelExpense, Context context,  int show_header, int show_footer) {
         this.mSummaryTravelExpense = summaryTravelExpense;
         this.context = context;
-        this.travel_id = travel_id;
         this.show_header = show_header>=1?1:0;
         this.show_footer = show_footer>=1?1:0;
     }
@@ -67,7 +63,6 @@ public class HomeTravelSummaryExpenseListAdapter extends RecyclerView.Adapter<Re
         else return new ItemViewHolder(expenseView);
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public void onBindViewHolder(@NonNull final RecyclerView.ViewHolder holder, final int position) {
         if (holder instanceof HeaderViewHolder){
