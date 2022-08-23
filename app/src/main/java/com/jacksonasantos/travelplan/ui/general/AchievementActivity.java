@@ -194,7 +194,7 @@ public class AchievementActivity extends AppCompatActivity {
                     bitmap.compress(Bitmap.CompressFormat.PNG, 100, saida);
                     byte[] img = saida.toByteArray();
                     a1.setImage(img);
-                } else
+                }
 
                 a1.setCity(etAchievement_City.getText().toString());
                 a1.setState(etAchievement_State.getText().toString());
@@ -202,7 +202,7 @@ public class AchievementActivity extends AppCompatActivity {
                 a1.setState_end(etAchievement_State_End.getText().toString());
                 a1.setCountry(etAchievement_Country.getText().toString());
                 a1.setLatlng_achievement(etAchievement_Latlng_Achievement.getText().toString());
-                a1.setLength_achievement(Double.parseDouble(etAchievement_Length_Achievement.getText().toString()));
+                a1.setLength_achievement(Double.parseDouble(etAchievement_Length_Achievement.getText().toString().isEmpty()?"0":etAchievement_Length_Achievement.getText().toString()));
                 a1.setNote(etAchievement_Note.getText().toString());
                 a1.setStatus_achievement(nrStatusAchievement);
                 if (txTravelAchievement.getText().toString().equals("")) {

@@ -47,31 +47,33 @@ public class SettingsActivity extends AppCompatActivity {
             setPreferencesFromResource(R.xml.root_preferences, rootKey);
 
             ListPreference langPref = findPreference("language");
-            assert langPref != null;
-            langPref.setOnPreferenceChangeListener((preference, o) -> {
-                preference.setSummary(o.toString());
-                return true;
-            });
+            if (langPref != null) {
+                langPref.setOnPreferenceChangeListener((preference, o) -> {
+                    preference.setSummary(o.toString());
+                    return true;
+                });
+            }
             ListPreference langPreference = findPreference("language");
-            assert langPreference != null;
-            langPreference.setOnPreferenceChangeListener(languageChangeListener);
+            if (langPreference != null) {
+                langPreference.setOnPreferenceChangeListener(languageChangeListener);
+            }
 
             ListPreference vehicleList = findPreference("vehicle_default");
             Cursor v = Database.mVehicleDao.selectVehicles();
             List<String> vehicle_entries = new ArrayList<>();
             List<String> vehicle_entryValues = new ArrayList<>();
-            if(v != null && v.moveToFirst()){
+            if (v != null && v.moveToFirst()) {
                 do {vehicle_entries.add(v.getString(1));
                     vehicle_entryValues.add(Integer.toString(v.getInt(0)));
                 } while (v.moveToNext());
+                v.close();
             }
-            assert v != null;
-            v.close();
             final CharSequence[] entryCharSeq = vehicle_entries.toArray(new CharSequence[0]);
             final CharSequence[] entryValChar = vehicle_entryValues.toArray(new CharSequence[0]);
-            assert vehicleList != null;
-            vehicleList.setEntries(entryCharSeq);
-            vehicleList.setEntryValues(entryValChar);
+            if ( vehicleList != null) {
+                vehicleList.setEntries(entryCharSeq);
+                vehicleList.setEntryValues(entryValChar);
+            }
 
             ListPreference travelList = findPreference("travel_default");
             Cursor t = Database.mTravelDao.selectTravels();
@@ -81,14 +83,14 @@ public class SettingsActivity extends AppCompatActivity {
                 do {travel_entries.add(t.getString(1));
                     travel_entryValues.add(Integer.toString(t.getInt(0)));
                 } while (t.moveToNext());
+                t.close();
             }
-            assert t != null;
-            t.close();
             final CharSequence[] t_entryCharSeq = travel_entries.toArray(new CharSequence[0]);
             final CharSequence[] t_entryValChar = travel_entryValues.toArray(new CharSequence[0]);
-            assert travelList != null;
-            travelList.setEntries(t_entryCharSeq);
-            travelList.setEntryValues(t_entryValChar);
+            if (travelList != null) {
+                travelList.setEntries(t_entryCharSeq);
+                travelList.setEntryValues(t_entryValChar);
+            }
         }
 
         final Preference.OnPreferenceChangeListener languageChangeListener = (preference, newValue) -> {
