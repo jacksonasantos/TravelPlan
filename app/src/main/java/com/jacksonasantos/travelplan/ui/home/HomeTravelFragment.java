@@ -107,7 +107,7 @@ public class HomeTravelFragment extends Fragment implements View.OnClickListener
         btnExtra = v.findViewById(R.id.btnExtra);
         btnTour = v.findViewById(R.id.btnTour);
         btnTolls = v.findViewById(R.id.btnTolls);
-        btnInsurance = v.findViewById(R.id.btnInsurance); // TODO - Create Insurance of the TYPE Travel in form
+        btnInsurance = v.findViewById(R.id.btnInsurance);
 
         layerVehicle = v.findViewById(R.id.layerVehicle);
         listVehicle = v.findViewById(R.id.listVehicle);
@@ -131,6 +131,7 @@ public class HomeTravelFragment extends Fragment implements View.OnClickListener
         layerHomeTravel.setFocusableInTouchMode(true);
         layerHomeTravel.setDescendantFocusability(ViewGroup.FOCUS_BEFORE_DESCENDANTS);
 
+        onResume();
         return v;
     }
 
@@ -156,7 +157,7 @@ public class HomeTravelFragment extends Fragment implements View.OnClickListener
 
         final Travel[] travel = {new Travel()};
         spTravel.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @SuppressLint({"SetTextI18n", "DefaultLocale", "NotifyDataSetChanged"})
+            @SuppressLint({"SetTextI18n", "NotifyDataSetChanged"})
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
@@ -164,7 +165,6 @@ public class HomeTravelFragment extends Fragment implements View.OnClickListener
                 g.setIdTravel(travel[0].getId());
 
                 layerTravel.setVisibility(View.VISIBLE);
-                //travel[0] = (Travel) parent.getItemAtPosition(position);
                 imTravelStatus.setImageResource(R.drawable.ic_ball );
                 imTravelStatus.setColorFilter(travel[0].getColorStatus(), PorterDuff.Mode.MULTIPLY);
                 tvNote.setText(travel[0].getNote());
@@ -233,32 +233,33 @@ public class HomeTravelFragment extends Fragment implements View.OnClickListener
 
                 // Vehicles has Travel
                 final int Show_Header_VehicleTravel = 0 ;
-                TravelVehicleListAdapter adapterVehicle = new TravelVehicleListAdapter(Database.mVehicleHasTravelDao.fetchAllVehicleHasTravelByTravel(travel[0].getId() ), getContext(),"Home", Show_Header_VehicleTravel);
-                if ( adapterVehicle.getItemCount() > Show_Header_VehicleTravel){
+                TravelVehicleListAdapter adapterVehicleTravel = new TravelVehicleListAdapter(Database.mVehicleHasTravelDao.fetchAllVehicleHasTravelByTravel(travel[0].getId() ), getContext(),"Home", Show_Header_VehicleTravel);
+                if ( adapterVehicleTravel.getItemCount() > Show_Header_VehicleTravel){
                     layerVehicle.setVisibility(View.VISIBLE);
-                    listVehicle.setAdapter(adapterVehicle);
+                    listVehicle.setAdapter(adapterVehicleTravel);
                     listVehicle.setLayoutManager(new LinearLayoutManager(getContext()));
                 } else {
                     layerVehicle.setVisibility(View.GONE);
                 }
 
+                //TODO- Show all Refueling with average mileage, km traveled
+
                 // Achievement has Travel
                 final int Show_Header_AchievementTravel = 0 ;
-                TravelAchievementListAdapter adapterAchievement = new TravelAchievementListAdapter(Database.mAchievementDao.fetchAllAchievementByTravel(travel[0].getId() ), getContext(),"Home", Show_Header_AchievementTravel);
-                if ( adapterAchievement.getItemCount() > Show_Header_AchievementTravel){
+                TravelAchievementListAdapter adapterAchievementTravel = new TravelAchievementListAdapter(Database.mAchievementDao.fetchAllAchievementByTravel(travel[0].getId() ), getContext(),"Home", Show_Header_AchievementTravel);
+                if ( adapterAchievementTravel.getItemCount() > Show_Header_AchievementTravel){
                     layerAchievement.setVisibility(View.VISIBLE);
-                    listAchievement.setAdapter(adapterAchievement);
+                    listAchievement.setAdapter(adapterAchievementTravel);
                     listAchievement.setLayoutManager(new LinearLayoutManager(getContext()));
                 } else {
                     layerAchievement.setVisibility(View.GONE);
                 }
 
-                //TODO- Show all Refueling with average mileage, km traveled
-                
                 // Itinerary
                 final int Show_Header_Itinerary = 0;    // 0 - NO SHOW HEADER | 1 - SHOW HEADER
-                TravelRouteFragment.HomeTravelItineraryListAdapter adapterItinerary = new TravelRouteFragment.HomeTravelItineraryListAdapter(Database.mItineraryDao.fetchAllItineraryByTravel(travel[0].getId() ), getContext(), Show_Header_Itinerary,1, true);
-                if ( adapterItinerary.getItemCount() > Show_Header_Itinerary){
+                final int Show_Footer_Itinerary = 1;
+                TravelRouteFragment.HomeTravelItineraryListAdapter adapterItinerary = new TravelRouteFragment.HomeTravelItineraryListAdapter(Database.mItineraryDao.fetchAllItineraryByTravel(travel[0].getId() ), getContext(), Show_Header_Itinerary,Show_Footer_Itinerary, true);
+                if ( adapterItinerary.getItemCount() > Show_Header_Itinerary+Show_Footer_Itinerary){
                     layerItinerary.setVisibility(View.VISIBLE);
                     listItinerary.setAdapter(adapterItinerary);
                     listItinerary.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -279,8 +280,9 @@ public class HomeTravelFragment extends Fragment implements View.OnClickListener
 
                 // Expenses - LayerExpense
                 final int Show_Header_SummaryExpense = 1; // 0 - NO SHOW HEADER | 1 - SHOW HEADER
-                HomeTravelSummaryExpenseListAdapter adapterTravelExpense = new HomeTravelSummaryExpenseListAdapter( Database.mSummaryTravelExpenseDao.findTravelExpense(travel[0].getId() ), getContext(), Show_Header_SummaryExpense, 1);
-                if ( adapterTravelExpense.getItemCount() > Show_Header_SummaryExpense){
+                final int Show_Footer_SummaryExpense = 1; // 0 - NO SHOW FOOTER | 1 - SHOW FOOTER
+                HomeTravelSummaryExpenseListAdapter adapterTravelExpense = new HomeTravelSummaryExpenseListAdapter( Database.mSummaryTravelExpenseDao.findTravelExpense(travel[0].getId() ), getContext(), Show_Header_SummaryExpense, Show_Footer_SummaryExpense);
+                if ( adapterTravelExpense.getItemCount() > Show_Header_SummaryExpense+Show_Footer_SummaryExpense){
                     layerExpense.setVisibility(View.VISIBLE);
                     listTravelExpenses.setAdapter(adapterTravelExpense);
                     listTravelExpenses.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -299,14 +301,13 @@ public class HomeTravelFragment extends Fragment implements View.OnClickListener
                     layerInsurance.setVisibility(View.GONE);
                 }
 
-                adapterVehicle.notifyDataSetChanged();
-                adapterAchievement.notifyDataSetChanged();
+                adapterVehicleTravel.notifyDataSetChanged();
+                adapterAchievementTravel.notifyDataSetChanged();
                 adapterReservation.notifyDataSetChanged();
                 adapterTravelExpense.notifyDataSetChanged();
                 adapterInsurance.notifyDataSetChanged();
             }
 
-            @SuppressLint({"SetTextI18n", "NotifyDataSetChanged"})
             public void TravelItemExpenses(View v, int expense_type ) {
 
                 LayoutInflater li = LayoutInflater.from(v.getContext());
@@ -325,7 +326,7 @@ public class HomeTravelFragment extends Fragment implements View.OnClickListener
                 final EditText etExpenseItemNote = promptsView.findViewById(R.id.etExpenseItemNote);
 
                 final RecyclerView rvTravelExpenseItem = promptsView.findViewById(R.id.rvTravelExpenseItem);
-                List<TravelExpenses> travelExpensesList = Database.mTravelExpensesDao.fetchAllTravelExpensesByTravelType(travel[0].getId(), expense_type); // TODO - See usage of only the first (0) option of the return list
+                List<TravelExpenses> travelExpensesList = Database.mTravelExpensesDao.fetchAllTravelExpensesByTravelType(travel[0].getId(), expense_type);
 
                 if( travelExpensesList.size() == 0 ){
                     TravelExpenses te = new TravelExpenses();
@@ -347,7 +348,6 @@ public class HomeTravelFragment extends Fragment implements View.OnClickListener
                 adapterTravelItemExpenses[0] = new HomeTravelItemExpensesListAdapter(Database.mTravelItemExpensesDao.fetchTravelItemExpensesByExpenseType( travelExpensesList.get(0).getTravel_id(), travelExpensesList.get(0).getExpense_type()), requireContext());
                 rvTravelExpenseItem.setAdapter(adapterTravelItemExpenses[0]);
                 rvTravelExpenseItem.setLayoutManager(new LinearLayoutManager(requireContext()));
-                adapterTravelItemExpenses[0].notifyDataSetChanged();
 
                 final List<TravelExpenses> finalTravelExpensesList = travelExpensesList;
                 alertDialogBuilder
@@ -380,7 +380,6 @@ public class HomeTravelFragment extends Fragment implements View.OnClickListener
                                     adapterTravelItemExpenses[0] = new HomeTravelItemExpensesListAdapter(Database.mTravelItemExpensesDao.fetchTravelItemExpensesByExpenseType(finalTravelExpensesList.get(0).getTravel_id(),finalTravelExpensesList.get(0).getExpense_type()), requireContext());
                                     rvTravelExpenseItem.setAdapter(adapterTravelItemExpenses[0]);
                                     rvTravelExpenseItem.setLayoutManager(new LinearLayoutManager(requireContext()));
-                                    adapterTravelItemExpenses[0].notifyDataSetChanged();
                                 }
                             }
                         })

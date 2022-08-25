@@ -1,7 +1,6 @@
 package com.jacksonasantos.travelplan.ui.general;
 
 import android.annotation.SuppressLint;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -12,7 +11,6 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -66,7 +64,6 @@ public  class InsuranceActivity extends AppCompatActivity {
     private Insurance insurance;
 
     @SuppressLint({"WrongViewCast", "NotifyDataSetChanged"})
-    @RequiresApi(api = Build.VERSION_CODES.N)
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,6 +82,14 @@ public  class InsuranceActivity extends AppCompatActivity {
                 insurance.setId(extras.getInt("insurance_id"));
                 insurance = Database.mInsuranceDao.fetchInsuranceById(insurance.getId());
                 opInsert = false;
+            }
+            if (extras.getInt( "travel_id") > 0) {
+                insurance.setTravel_id(extras.getInt("travel_id"));
+                List<Insurance> i = Database.mInsuranceDao.findReminderInsurance("T", insurance.getTravel_id());
+                if (i.size() > 0) {
+                    insurance = i.get(0);
+                    opInsert = false;
+                }
             }
         }
 

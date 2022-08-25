@@ -87,7 +87,6 @@ public class InsuranceDialog {
         adapterInsuranceContact.notifyDataSetChanged();
 
         txtInsuranceVehicle.setText(Database.mVehicleDao.fetchVehicleById(insurance.getVehicle_id()).getName());
-        // TODO - Include details of the vehicle
         txtInsuranceTravel.setText((Database.mTravelDao.fetchTravelById(insurance.getTravel_id()).getDescription()));
 
         Insurance i1 = Database.mInsuranceDao.fetchInsuranceById(insurance.getId());

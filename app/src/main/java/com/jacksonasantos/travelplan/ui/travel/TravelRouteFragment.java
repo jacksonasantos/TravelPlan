@@ -671,58 +671,60 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
             }
             else if (holder instanceof ItemViewHolder) {
                 final ItemViewHolder itemViewHolder = (ItemViewHolder) holder;
-                final Itinerary itinerary = mItinerary.get(position-show_header);
-                if (!show_home) {
-                    itemViewHolder.itemView.setOnClickListener(view -> {
-                        if (position!=RecyclerView.NO_POSITION){
-                            nrItinerary_Id = !itinerary.getId().equals(nrItinerary_Id) ? itinerary.getId() : null;
-                            lClick = true;
-                            // TODO - Update the Map when choosing an itinerary (thickening the line for example)
-                            notifyDataSetChanged();
+                if (mItinerary.size()>0) {
+                    final Itinerary itinerary = mItinerary.get(position - show_header);
+                    if (!show_home) {
+                        itemViewHolder.itemView.setOnClickListener(view -> {
+                            if (position != RecyclerView.NO_POSITION) {
+                                nrItinerary_Id = !itinerary.getId().equals(nrItinerary_Id) ? itinerary.getId() : null;
+                                lClick = true;
+                                // TODO - Update the Map when choosing an itinerary (thickening the line for example)
+                                notifyDataSetChanged();
+                            }
+                        });
+                        itemViewHolder.itemView.setOnLongClickListener(view -> {
+                            new AlertDialog.Builder(view.getContext())
+                                    .setTitle(R.string.Itinerary_Deleting)
+                                    .setMessage(context.getResources().getString(R.string.Msg_Confirm) + "\n\n" +
+                                            context.getResources().getString(R.string.marker_itinerary) + ":\n" +
+                                            context.getResources().getString(R.string.from) + ": " +
+                                            itinerary.getOrig_location() + "\n" +
+                                            context.getResources().getString(R.string.to) + ": " +
+                                            itinerary.getDest_location())
+                                    .setPositiveButton(R.string.Yes, (dialogInterface, i) -> {
+                                        try {
+                                            Database.mItineraryDao.deleteItinerary(nrItinerary_Id);
+                                            mItinerary.remove(position);
+                                            notifyItemRemoved(position);
+                                            notifyItemRangeChanged(position, mItinerary.size());
+                                        } catch (Exception e) {
+                                            Toast.makeText(context, context.getString(R.string.Error_Deleting_Data) + "\n" + e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+                                        }
+                                    }).setNegativeButton(R.string.No, null)
+                                    .show();
+                            return true;
+                        });
+                        if (itinerary.getId().equals(nrItinerary_Id)) {
+                            itemViewHolder.llItineraryItem.setBackgroundColor(Color.GRAY);
+                        } else {
+                            itemViewHolder.llItineraryItem.setBackgroundColor(Color.WHITE);
                         }
-                    });
-                    itemViewHolder.itemView.setOnLongClickListener( view -> {
-                        new AlertDialog.Builder(view.getContext())
-                                .setTitle(R.string.Itinerary_Deleting)
-                                .setMessage(context.getResources().getString(R.string.Msg_Confirm) + "\n\n" +
-                                        context.getResources().getString(R.string.marker_itinerary) + ":\n" +
-                                        context.getResources().getString(R.string.from) + ": " +
-                                        itinerary.getOrig_location() + "\n" +
-                                        context.getResources().getString(R.string.to) + ": " +
-                                        itinerary.getDest_location())
-                                .setPositiveButton(R.string.Yes, (dialogInterface, i) -> {
-                                    try {
-                                        Database.mItineraryDao.deleteItinerary(nrItinerary_Id);
-                                        mItinerary.remove(position);
-                                        notifyItemRemoved(position);
-                                        notifyItemRangeChanged(position, mItinerary.size());
-                                    } catch (Exception e) {
-                                        Toast.makeText(context, context.getString(R.string.Error_Deleting_Data) + "\n" + e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
-                                    }
-                                }).setNegativeButton(R.string.No, null)
-                                .show();
-                        return true;
-                    });
-                    if (itinerary.getId().equals(nrItinerary_Id)) {
-                        itemViewHolder.llItineraryItem.setBackgroundColor(Color.GRAY);
-                    } else {
-                        itemViewHolder.llItineraryItem.setBackgroundColor(Color.WHITE);
                     }
-                }
-                itemViewHolder.txtSequence.setText(Integer.toString(itinerary.getSequence()));
-                itemViewHolder.txtSource.setText(itinerary.getOrig_location());
-                itemViewHolder.txtTarget.setText(itinerary.getDest_location());
-                itemViewHolder.txtDaily.setText(Integer.toString(itinerary.getDaily()));
-                itemViewHolder.txtDistance.setText(Integer.toString(itinerary.getDistance()));
-                itemViewHolder.txtTime.setText(itinerary.getDuration());
-                if (!lClick){
-                    vTotDaily += itinerary.getDaily();
-                    vTotDistance += itinerary.getDistance();
-                    if (itinerary.getTime() >0) {
-                        vTotTime += itinerary.getTime();
+                    itemViewHolder.txtSequence.setText(Integer.toString(itinerary.getSequence()));
+                    itemViewHolder.txtSource.setText(itinerary.getOrig_location());
+                    itemViewHolder.txtTarget.setText(itinerary.getDest_location());
+                    itemViewHolder.txtDaily.setText(Integer.toString(itinerary.getDaily()));
+                    itemViewHolder.txtDistance.setText(Integer.toString(itinerary.getDistance()));
+                    itemViewHolder.txtTime.setText(itinerary.getDuration());
+                    if (!lClick) {
+                        vTotDaily += itinerary.getDaily();
+                        vTotDistance += itinerary.getDistance();
+                        if (itinerary.getTime() > 0) {
+                            vTotTime += itinerary.getTime();
+                        }
+                        totalHr = vTotTime / 3600;
+                        totalMin = (vTotTime - (totalHr * 3600)) / 60;
                     }
-                    totalHr = vTotTime / 3600;
-                    totalMin = (vTotTime-(totalHr * 3600)) / 60;
                 }
             }
         }
@@ -730,7 +732,7 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
         @Override
         public int getItemViewType(int position) {
             if (position == 0 && show_header == 1) return TYPE_HEADER;
-            if (position == mItinerary.size()+show_header && show_footer == 1) return TYPE_FOOTER;
+            if (position == mItinerary.size()+show_header  && (show_footer == 1)) return TYPE_FOOTER;
             return TYPE_ITEM;
         }
 
