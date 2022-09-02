@@ -30,6 +30,7 @@ import com.jacksonasantos.travelplan.dao.TravelItemExpensesDAO;
 import com.jacksonasantos.travelplan.dao.VehicleDAO;
 import com.jacksonasantos.travelplan.dao.VehicleHasPlanDAO;
 import com.jacksonasantos.travelplan.dao.VehicleHasTravelDAO;
+import com.jacksonasantos.travelplan.dao.VehicleMaintenanceItemDAO;
 import com.jacksonasantos.travelplan.dao.VehicleStatisticsDAO;
 import com.jacksonasantos.travelplan.dao.VehicleStatisticsPeriodDAO;
 import com.jacksonasantos.travelplan.dao.interfaces.AccommodationISchema;
@@ -86,6 +87,7 @@ public class Database {
     public static VehicleStatisticsDAO mVehicleStatisticsDao;
     public static VehicleStatisticsPeriodDAO mVehicleStatisticsPeriodDao;
     public static NextMaintenanceItemDAO mNextMaintenanceItemDao;
+    public static VehicleMaintenanceItemDAO mVehicleMaintenanceItemDao;
 
     public Database(Context context) {
         this.mContext = context;
@@ -120,6 +122,7 @@ public class Database {
         mTravelItemExpensesDao = new TravelItemExpensesDAO(mDb);
         mInsuranceContactDao = new InsuranceContactDAO(mDb);
         mAchievementDao = new AchievementDAO(mDb);
+        mVehicleMaintenanceItemDao = new VehicleMaintenanceItemDAO(mDb);
     }
 
     public void close() {
