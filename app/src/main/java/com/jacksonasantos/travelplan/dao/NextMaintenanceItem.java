@@ -21,7 +21,7 @@ public class NextMaintenanceItem {
     public int getService_type() { return service_type; }
     public void setService_type(int service_type) { this.service_type = service_type; }
 
-    public int getServiceTypeImage( int service_type ) {
+    public static int getServiceTypeImage(int service_type) {
         int draw;
         switch(service_type) {
             case 0: draw = R.drawable.ic_service_alignment; break;

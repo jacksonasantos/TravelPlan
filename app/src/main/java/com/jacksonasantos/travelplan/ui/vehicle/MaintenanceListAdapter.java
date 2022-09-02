@@ -2,7 +2,6 @@ package com.jacksonasantos.travelplan.ui.vehicle;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,7 +10,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -82,7 +80,6 @@ public class MaintenanceListAdapter extends RecyclerView.Adapter<MaintenanceList
         return new MyViewHolder(maintenanceView);
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public void onBindViewHolder(@NonNull final MyViewHolder holder, final int position) {
         final Maintenance maintenance = mMaintenance.get(position);

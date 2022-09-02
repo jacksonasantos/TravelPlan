@@ -345,4 +345,6 @@
     <string name="FuelSupply_Accumulated_Supply_Value">Valor de Abastecimento</string>
     <string name="tab_home_vehicle">Principal - Veículo</string>
     <string name="tab_home_travel">Principal - Viagem</string>
+    <string name="bt_Maintenance_Item">Itens de Manutenção</string>
+    <string name="Vehicle_MaintenanceItem">Item de manutenção do veículo</string>
 </resources>
