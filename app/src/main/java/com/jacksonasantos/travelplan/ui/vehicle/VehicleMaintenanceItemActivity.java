@@ -92,6 +92,8 @@ public class VehicleMaintenanceItemActivity extends AppCompatActivity implements
         if (nrServiceType == position) nrServiceType = -1;
         else nrServiceType = position;
 
+        // TODO - Adjust second click in Icon ServiceType
+
         List<VehicleMaintenanceItem> mVehicle_maintenance_item = Database.mVehicleMaintenanceItemDao.findVehicleMaintenanceItems(nrVehicleId, nrServiceType);
         VehicleMaintenanceItemListAdapter adapterVehicleMaintenanceItem = new VehicleMaintenanceItemListAdapter(mVehicle_maintenance_item, this);
         listMaintenanceItem.setAdapter(adapterVehicleMaintenanceItem);

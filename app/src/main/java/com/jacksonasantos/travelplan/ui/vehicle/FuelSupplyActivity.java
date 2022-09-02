@@ -68,7 +68,7 @@ public class FuelSupplyActivity extends AppCompatActivity implements PlacesAdapt
     private TextView txVehicleLicencePlate;
     private Integer nrVehicleId = 0;
     private ImageButton btLocation;
-    public RecyclerView listPlaces;
+    private RecyclerView listPlaces;
     private EditText etGasStation;
     private EditText etGasStationLocation;
     private Spinner spCombustible;
@@ -106,9 +106,10 @@ public class FuelSupplyActivity extends AppCompatActivity implements PlacesAdapt
     private float vStatCostPerLitre = (float) 0;
 
     private boolean opInsert = true;
-    private FuelSupply fuelSupply;
 
+    private FuelSupply fuelSupply;
     private PlacesAdapter adapterPlaces;
+
     final Globals g = Globals.getInstance();
 
     public Geocoder mGeocoder;
@@ -140,7 +141,7 @@ public class FuelSupplyActivity extends AppCompatActivity implements PlacesAdapt
         mDb.open();
 
         setTitle(R.string.FuelSupply_Vehicle);
-        setContentView(R.layout.dialog_fuel_supply);
+        setContentView(R.layout.activity_fuel_supply);
 
         Bundle extras = getIntent().getExtras();
         fuelSupply = new FuelSupply();

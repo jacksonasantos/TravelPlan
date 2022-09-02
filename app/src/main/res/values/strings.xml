@@ -61,8 +61,8 @@
     <string name="Vehicle_Model">Model</string>
     <string name="Vehicle_Fuel_Type">Fuel Type</string>
 
-    <string name="Vehicle_Year_Mode">Year Model</string>
-    <string name="Vehicle_Year_Manufacture">Year Manufacture</string>
+    <string name="Vehicle_Year_Mode">Model</string>
+    <string name="Vehicle_Year_Manufacture">Manufacture</string>
     <string name="Vehicle_Licence_Plate">Licence Plate</string>
     <string name="Vehicle_Vin">VIN</string>
     <string name="Vehicle_Licence_Number">Licence Number</string>
@@ -72,6 +72,7 @@
     <string name="Vehicle_Color_Code">Color Code</string>
     <string name="Vehicle_DtAcquisition">Acquisition Data</string>
     <string name="Vehicle_DtSale">Sale Data</string>
+    <string name="Vehicle_DtAcquisitionSale">Acquisition/Sale Data</string>
 
     <string name="Vehicle_Doors">Doors</string>
     <string name="Vehicle_Capacity">Capacity</string>
