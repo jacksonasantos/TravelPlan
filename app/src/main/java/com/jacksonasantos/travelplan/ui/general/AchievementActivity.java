@@ -1,6 +1,5 @@
 package com.jacksonasantos.travelplan.ui.general;
 
-import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -51,7 +50,6 @@ public class AchievementActivity extends AppCompatActivity {
     private boolean opInsert = true;
     private Achievement achievement;
 
-    @SuppressLint("WrongViewCast")
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

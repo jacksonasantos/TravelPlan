@@ -75,7 +75,8 @@
         android:id="@+id/nav_broker"
         android:name="com.jacksonasantos.travelplan.ui.general.BrokerFragment"
         android:label="@string/menu_broker"
-        tools:layout="@layout/fragment_generic_list" />
+        tools:layout="@layout/fragment_generic_list" >
+    </fragment>
 
     <fragment
         android:id="@+id/nav_currency_quote"

@@ -1,7 +1,6 @@
 package com.jacksonasantos.travelplan.ui.vehicle;
 
 import android.annotation.SuppressLint;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,7 +14,6 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -55,7 +53,6 @@ public class MaintenanceActivity extends AppCompatActivity {
 
     private MaintenanceItemListAdapter adapterMaintenanceItem;
 
-    @RequiresApi(api = Build.VERSION_CODES.N)
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -136,6 +133,7 @@ public class MaintenanceActivity extends AppCompatActivity {
         }
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     public void addListenerOnButtonAdd() {
 
         final List<MaintenancePlan> maintenancePlan =  Database.mMaintenancePlanDao.fetchArrayMaintenancePlan();

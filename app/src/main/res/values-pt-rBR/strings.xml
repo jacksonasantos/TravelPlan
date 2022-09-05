@@ -53,7 +53,6 @@
     <string name="Vehicle_Travelled_Distance">Distância Percorrida</string>
     <string name="FuelSupply_Reason">Razão do Abastecimento</string>
     <string name="Vehicle_Stat_Cost_Per_Litre">Custo por Litro</string>
-    <string name="FuelSupply_Currency_Value">Valor da Moeda</string>
     <string name="menu_fuel_supply">Abastecimento</string>
     <string name="city">Cidade</string>
     <string name="road">Estrada</string>
@@ -187,10 +186,6 @@
     <string name="Insurance_Company_Authorization_Date">Data de Autorização</string>
     <string name="Travel_Expenses">Despesas de Viagem</string>
     <string name="Vehicle_Travel_Deleting">Excluindo Veículo da Viagem</string>
-    <string name="normal_map">Normal</string>
-    <string name="hybrid_map">Híbrido</string>
-    <string name="satellite_map">Satélite</string>
-    <string name="terrain_map">Terreno</string>
     <string name="search_location">Pesquisar Localização</string>
     <string name="location_not_found">Local não encontrado</string>
     <string name="mixed">Misto</string>
@@ -325,7 +320,6 @@
     <string name="Achievement_Travel_Deleting">Excluindo Conquista da Viagem</string>
     <string name="Achievement_not_Selected">Conquista não Selecionada</string>
     <string name="Vehicle_not_Selected">Veículo não Selecionado</string>
-    <string name="Achievement_Status">Situação</string>
     <string name="review">Revisão</string>
     <string name="plating_painting_polishing">Chapeação/Pintura/Polimento</string>
     <string name="Vehicle_Image">Imagem do Veículo</string>
@@ -343,8 +337,6 @@
     <string name="FuelSupply_Accumulated">Acumuladores</string>
     <string name="FuelSupply_Accumulated_Number_Liters">Qtde de Litros</string>
     <string name="FuelSupply_Accumulated_Supply_Value">Valor de Abastecimento</string>
-    <string name="tab_home_vehicle">Principal - Veículo</string>
-    <string name="tab_home_travel">Principal - Viagem</string>
     <string name="bt_Maintenance_Item">Itens de Manutenção</string>
     <string name="Vehicle_MaintenanceItem">Item de manutenção do veículo</string>
     <string name="Vehicle_DtAcquisitionSale">Aquisição/Venda</string>

@@ -1,6 +1,5 @@
 package com.jacksonasantos.travelplan.ui.general;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.AutoCompleteTextView;
@@ -28,8 +27,6 @@ public class CurrencyQuoteActivity extends AppCompatActivity {
     private boolean opInsert = true;
     private boolean opResult = false;
     private CurrencyQuote currencyQuote;
-
-    @SuppressLint("WrongViewCast")
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -8,12 +8,13 @@ import com.jacksonasantos.travelplan.dao.interfaces.MaintenanceISchema;
 import com.jacksonasantos.travelplan.dao.interfaces.MaintenanceItemISchema;
 import com.jacksonasantos.travelplan.dao.interfaces.MaintenancePlanISchema;
 import com.jacksonasantos.travelplan.dao.interfaces.VehicleMaintenanceItemISchema;
+import com.jacksonasantos.travelplan.dao.interfaces.VehicleMaintenanceItemlDAO;
 import com.jacksonasantos.travelplan.ui.utility.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class VehicleMaintenanceItemDAO extends DbContentProvider implements VehicleMaintenanceItemISchema {
+public class VehicleMaintenanceItemDAO extends DbContentProvider implements VehicleMaintenanceItemISchema, VehicleMaintenanceItemlDAO {
 
     private Cursor cursor;
 

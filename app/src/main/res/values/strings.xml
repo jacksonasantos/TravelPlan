@@ -2,8 +2,6 @@
     <string name="app_name" translatable="false">Travel PLAN</string>
     <string name="nav_header_title">Travel Planning and Control</string>
     <string name="nav_header_desc" translatable="false">Navigation header</string>
-    <string name="tab_home_vehicle">Home - Vehicle</string>
-    <string name="tab_home_travel">Home - Travel</string>
     <!-- Menu Options -->
     <string name="menu_home">Home</string>
     <string name="menu_vehicle">Vehicles</string>
@@ -156,7 +154,6 @@
     <string name="FuelSupply_Reason">Reason</string>
     <string name="Vehicle_Stat_Cost_Per_Litre">Cost Per Litre</string>
     <string name="FuelSupply_AssociatedTravel">Associated Travel</string>
-    <string name="FuelSupply_Currency_Value">Currency Value</string>
     <string name="FuelSupply_Accumulated">Accumulated</string>
     <string name="FuelSupply_Accumulated_Number_Liters">Accumulated Number Liters</string>
     <string name="FuelSupply_Accumulated_Supply_Value">Accumulated Supply Value</string>
@@ -362,12 +359,6 @@
     <string name="running">Running</string>
     <string name="executed">Executed</string>
 
-    <!-- Itinerary Fragment -->
-    <string name="normal_map">Normal</string>
-    <string name="hybrid_map">Hybrid</string>
-    <string name="satellite_map">Satellite</string>
-    <string name="terrain_map">Terrain</string>
-
     <string name="search_location">Search Location</string>
     <string name="location_not_found">Location not Found</string>
 
@@ -464,6 +455,5 @@
     <string name="Achievement_Note">Note</string>
     <string name="Achievement_Latlng_Achievement">Lat/Lng</string>
     <string name="Achievement_Length">Length</string>
-    <string name="Achievement_Status">Status</string>
 
 </resources>

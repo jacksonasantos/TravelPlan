@@ -114,7 +114,7 @@ public class HomeVehicleNextMaintenanceListAdapter extends RecyclerView.Adapter<
                     e.printStackTrace();
                 }
             }
-            itemViewHolder.imgServiceType.setImageResource(nextMaintenanceItem.getServiceTypeImage(nextMaintenanceItem.getService_type()));
+            itemViewHolder.imgServiceType.setImageResource(NextMaintenanceItem.getServiceTypeImage(nextMaintenanceItem.getService_type()));
             itemViewHolder.txtDescription.setText(nextMaintenanceItem.getDescription());
             itemViewHolder.txtMeasure.setText(measureArray[nextMaintenanceItem.getMeasure() - 1]);
             switch (vStatus) {

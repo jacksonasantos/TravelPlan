@@ -1,14 +1,12 @@
 package com.jacksonasantos.travelplan.ui.general;
 
 import android.annotation.SuppressLint;
-import android.os.Build;
 import android.os.Bundle;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -31,7 +29,6 @@ public class MaintenancePlanActivity extends AppCompatActivity {
     private MaintenancePlan maintenancePlan;
 
     @SuppressLint("WrongViewCast")
-    @RequiresApi(api = Build.VERSION_CODES.N)
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +44,6 @@ public class MaintenancePlanActivity extends AppCompatActivity {
         etRecommendation = findViewById(R.id.etRecommendation);
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
     protected void onResume() {
 
         super.onResume();

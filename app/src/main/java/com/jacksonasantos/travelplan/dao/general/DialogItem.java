@@ -12,11 +12,11 @@ public class DialogItem implements ListItemDialog {
     public String getTxt_description() {
         return txt_description;
     }
+    public void setTxt_description(String txt_description) { this.txt_description = txt_description; }
+
     public String getTxt_detail() {
         return txt_detail;
     }
-
-    public void setTxt_description(String txt_description) { this.txt_description = txt_description; }
     public void setTxt_detail(String txt_detail) { this.txt_detail = txt_detail; }
 
     @Override
