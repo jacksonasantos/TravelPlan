@@ -8,13 +8,12 @@ import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.AdapterView;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.RadioGroup;
-import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.appcompat.app.ActionBar;
@@ -49,7 +48,7 @@ public class VehicleActivity extends AppCompatActivity {
     private EditText etShortNameVehicle;
     private EditText etBrand;                            // TODO - Implement API of BRAND´s
     private EditText etModel;
-    private Spinner spinFuelType;
+    private AutoCompleteTextView spinFuelType;
     private int nrSpinFuelType;
 
     private EditText etYearModel;
@@ -161,19 +160,9 @@ public class VehicleActivity extends AppCompatActivity {
 
         Utils.addRadioButtonResources(R.array.vehicle_type_array, rgVehicleType, this);
         rgVehicleType.setOnCheckedChangeListener((group, checkedId) -> rbVehicleType = checkedId);
-
         Utils.createSpinnerResources(R.array.fuel_type_array, spinFuelType, this);
-        nrSpinFuelType = vehicle.getFuel_type();
-        spinFuelType.setSelection(nrSpinFuelType);
-        spinFuelType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long idx) {
-                nrSpinFuelType = position;  }
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-                nrSpinFuelType =0;
-            }
-        });
+        nrSpinFuelType = 0;
+        spinFuelType.setOnItemClickListener((adapterView, view, i, l) -> nrSpinFuelType = (int) adapterView.getItemIdAtPosition(i));
         etAcquisition.addTextChangedListener(new DateInputMask(etAcquisition));
         etSale.addTextChangedListener(new DateInputMask(etSale));
         etDtOdometer.addTextChangedListener(new DateInputMask(etDtOdometer));
@@ -196,8 +185,7 @@ public class VehicleActivity extends AppCompatActivity {
             etBrand.setText(vehicle.getBrand());
             etModel.setText(vehicle.getModel());
             nrSpinFuelType=vehicle.getFuel_type();
-            //spinFuelType.setText(getResources().getStringArray(R.array.fuel_type_array)[nrSpinFuelType],false);
-            spinFuelType.setSelection(nrSpinFuelType);
+            spinFuelType.setText(getResources().getStringArray(R.array.fuel_type_array)[nrSpinFuelType],false);
             etYearModel.setText(vehicle.getYear_model());
             etYearManufacture.setText(vehicle.getYear_manufacture());
             etLicencePlateVehicle.setText(vehicle.getLicense_plate());

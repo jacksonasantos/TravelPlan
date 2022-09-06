@@ -3,709 +3,746 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:orientation="vertical"
-    android:background="@color/colorBackgroundDialog"
-    android:padding="10dp"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     tools:context=".ui.vehicle.VehicleActivity">
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
-        <androidx.cardview.widget.CardView
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <RadioGroup
+                android:id="@+id/rgVehicleType"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="@dimen/labels_margin"
+                android:layout_marginLeft="@dimen/labels_margin"
+                android:layout_marginTop="@dimen/labels_space_top"
+                android:layout_marginEnd="@dimen/labels_margin"
+                android:layout_marginRight="@dimen/labels_margin"
+                android:orientation="horizontal"
+                android:gravity="center_horizontal"
+                android:hint="@string/Vehicle_Type">
+            </RadioGroup>
+        </com.google.android.material.textfield.TextInputLayout>
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/labels_space_top"
-            app:cardBackgroundColor="@color/colorBackgroundCard"
-            app:cardCornerRadius="@dimen/cardCornerRadius"
-            app:cardElevation="@dimen/cardElevation">
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="@dimen/labels_margin">
+            android:layout_marginStart="@dimen/labels_margin"
+            android:layout_marginLeft="@dimen/labels_margin"
+            android:layout_marginTop="@dimen/labels_space_top"
+            android:layout_marginEnd="@dimen/labels_margin"
+            android:layout_marginRight="@dimen/labels_margin">
 
-                <RadioGroup
-                    android:id="@+id/rgVehicleType"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:gravity="center_horizontal"
-                    android:hint="@string/Vehicle_Type"
-                    android:orientation="horizontal"
-                    android:textSize="12sp"
-                    app:layout_constraintEnd_toStartOf="@+id/imgVehicle_Image"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textInputLayout6"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toStartOf="@+id/imgVehicle_Image"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
                 <EditText
                     android:id="@+id/etNameVehicle"
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/labels_space_top"
+                    android:layout_marginEnd="@dimen/labels_margin"
                     android:autofillHints="no"
                     android:hint="@string/Vehicle_Name"
                     android:inputType="text|textCapWords"
-                    android:textSize="12sp"
-                    app:layout_constraintBottom_toTopOf="@+id/etShortNameVehicle"
-                    app:layout_constraintEnd_toStartOf="@+id/imgVehicle_Image"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/rgVehicleType" />
+                    android:textSize="14sp" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-                <ImageView
-                    android:id="@+id/imgEdit_Image"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:gravity="center"
-                    android:hint="@string/Vehicle_Image"
-                    android:nextFocusDown="@+id/imgDelete_Image"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/etNameVehicle"
-                    app:layout_constraintTop_toBottomOf="@+id/imgVehicle_Image"
-                    app:srcCompat="@drawable/ic_button_edit"
-                    tools:ignore="ContentDescription" />
+            <ImageView
+                android:id="@+id/imgEdit_Image"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:gravity="center"
+                android:hint="@string/Vehicle_Image"
+                android:nextFocusDown="@+id/imgDelete_Image"
+                app:layout_constraintStart_toEndOf="@+id/textInputLayout6"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_button_edit"
+                tools:ignore="ContentDescription" />
 
-                <ImageView
-                    android:id="@+id/imgDelete_Image"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:gravity="center"
-                    android:hint="@string/Vehicle_Image"
-                    android:nextFocusDown="@+id/imgVehicle_Image_Image"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/imgVehicle_Image"
-                    app:srcCompat="@drawable/ic_button_delete"
-                    tools:ignore="ContentDescription" />
+            <ImageView
+                android:id="@+id/imgDelete_Image"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:gravity="center"
+                android:hint="@string/Vehicle_Image"
+                android:nextFocusDown="@+id/imgVehicle_Image_Image"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_button_delete"
+                tools:ignore="ContentDescription" />
 
-                <ImageView
-                    android:id="@+id/imgVehicle_Image"
-                    android:layout_width="100dp"
-                    android:layout_height="90dp"
-                    android:gravity="center"
-                    android:hint="@string/Vehicle_Image"
-                    android:nextFocusDown="@+id/etShortNameVehicle"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/ic_menu_vehicle"
-                    tools:ignore="ContentDescription" />
+            <ImageView
+                android:id="@+id/imgVehicle_Image"
+                android:layout_width="110dp"
+                android:layout_height="90dp"
+                android:gravity="center"
+                android:hint="@string/Vehicle_Image"
+                android:nextFocusDown="@+id/etShortNameVehicle"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imgDelete_Image"
+                app:srcCompat="@drawable/ic_menu_vehicle"
+                tools:ignore="ContentDescription" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/imgVehicle_Image"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textInputLayout6">
 
                 <EditText
                     android:id="@+id/etShortNameVehicle"
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_marginTop="@dimen/labels_space_top"
+                    android:layout_marginEnd="@dimen/labels_margin"
                     android:autofillHints="no"
                     android:hint="@string/Vehicle_Short_Name"
                     android:inputType="text|textCapWords"
-                    android:textSize="12sp"
-                    app:layout_constraintBottom_toBottomOf="@+id/imgEdit_Image"
-                    app:layout_constraintEnd_toStartOf="@+id/imgVehicle_Image"
-                    app:layout_constraintStart_toStartOf="parent" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-        </androidx.cardview.widget.CardView>
-        <androidx.cardview.widget.CardView
+                    android:textSize="14sp" />
+            </com.google.android.material.textfield.TextInputLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/labels_space_top"
-            app:cardBackgroundColor="@color/colorBackgroundCard"
-            app:cardCornerRadius="@dimen/cardCornerRadius"
-            app:cardElevation="@dimen/cardElevation">
-            <LinearLayout
+            android:layout_height="wrap_content">
+            <EditText
+                android:id="@+id/etBrand"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="@dimen/labels_margin">
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:weightSum="10">
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="3.5"
-                        android:textSize="12sp"
-                        android:text="@string/Vehicle_Brand" />
-                    <EditText
-                        android:id="@+id/etBrand"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="6.5"
-                        android:autofillHints="no"
-                        android:textSize="12sp"
-                        android:inputType="text|textCapWords"
-                        android:nextFocusDown="@+id/etModel" />
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:weightSum="10">
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="3.5"
-                        android:textSize="12sp"
-                        android:text="@string/Vehicle_Model" />
-                    <EditText
-                        android:id="@+id/etModel"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="6.5"
-                        android:autofillHints="no"
-                        android:textSize="12sp"
-                        android:inputType="text|textCapWords"
-                        android:nextFocusDown="@+id/spinFuelType" />
-                </LinearLayout>
+                android:layout_marginStart="@dimen/labels_margin"
+                android:layout_marginLeft="@dimen/labels_margin"
+                android:layout_marginTop="@dimen/labels_space_top"
+                android:layout_marginEnd="@dimen/labels_margin"
+                android:layout_marginRight="@dimen/labels_margin"
+                android:autofillHints="no"
+                android:hint="@string/Vehicle_Brand"
+                android:inputType="text|textCapWords"
+                android:nextFocusDown="@+id/etModel"
+                android:textSize="14sp" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="43dp"
-                    android:orientation="horizontal"
-                    android:weightSum="10">
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="3.5"
-                        android:textSize="12sp"
-                        android:text="@string/Vehicle_Fuel_Type" />
-                    <Spinner
-                        android:id="@+id/spinFuelType"
-                        android:layout_width="0dp"
-                        android:layout_height="40dp"
-                        android:layout_weight="6.5"
-                        android:textSize="12sp"
-                        android:entries="@array/fuel_array"
-                        android:inputType="none"
-                        android:nextFocusDown="@+id/etLicencePlateVehicle" />
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:weightSum="10">
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="2.5"
-                        android:textSize="12sp"
-                        android:text="@string/Vehicle_Licence_Plate" />
-                    <EditText
-                        android:id="@+id/etLicencePlateVehicle"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="2.50"
-                        android:autofillHints="no"
-                        android:textSize="12sp"
-                        android:inputType="text|textCapCharacters"
-                        android:textAllCaps="true"
-                        android:nextFocusDown="@+id/etLicenceNumber"
-                        app:counterEnabled="true"
-                        app:counterMaxLength="8" />
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="2.5"
-                        android:textSize="12sp"
-                        android:text="@string/Vehicle_Licence_Number" />
-                    <EditText
-                        android:id="@+id/etLicenceNumber"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="2.50"
-                        android:autofillHints="no"
-                        android:textSize="12sp"
-                        android:inputType="text"
-                        android:nextFocusDown="@+id/etYearModel"
-                        tools:ignore="TextFields" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:weightSum="10">
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="2.5"
-                        android:textSize="12sp"
-                        android:text="@string/Vehicle_Year_Mode" />
-                    <EditText
-                        android:id="@+id/etYearModel"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="2.5"
-                        android:autofillHints="no"
-                        android:textSize="12sp"
-                        android:inputType="number"
-                        android:maxLength="4"
-                        android:nextFocusDown="@+id/etYearManufacture"/>
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="2.5"
-                        android:textSize="12sp"
-                        android:text="@string/Vehicle_Year_Manufacture" />
-                    <EditText
-                        android:id="@+id/etYearManufacture"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="2.5"
-                        android:autofillHints="no"
-                        android:textSize="12sp"
-                        android:cursorVisible="true"
-                        android:inputType="number"
-                        android:maxLength="4"
-                        android:nextFocusDown="@+id/etVin" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:weightSum="10">
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="3.5"
-                        android:textSize="12sp"
-                        android:text="@string/Vehicle_Vin" />
-                    <EditText
-                        android:id="@+id/etVin"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="6.5"
-                        android:autofillHints="no"
-                        android:textSize="12sp"
-                        android:inputType="text"
-                        android:nextFocusDown="@+id/etColor"/>
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:weightSum="10">
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="3.5"
-                        android:textSize="12sp"
-                        android:text="@string/Vehicle_Color" />
-                    <EditText
-                        android:id="@+id/etColor"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="3.5"
-                        android:autofillHints="no"
-                        android:textSize="12sp"
-                        android:inputType="text"
-                        android:nextFocusDown="@+id/etColorCode" />
-
-                    <Button
-                        android:id="@+id/btColorCode"
-                        android:layout_width="0dp"
-                        android:layout_height="37dp"
-                        android:layout_weight="3"
-                        android:autofillHints="no"
-                        android:hint="@string/Vehicle_Color_Code"
-                        android:nextFocusDown="@+id/etStateVehicle"
-                        android:textSize="9sp"
-                        tools:ignore="SmallSp" />
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:weightSum="10">
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="3.5"
-                        android:textSize="12sp"
-                        android:text="@string/Vehicle_State" />
-                    <EditText
-                        android:id="@+id/etStateVehicle"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="6.5"
-                        android:autofillHints="no"
-                        android:textSize="12sp"
-                        android:inputType="text|textCapCharacters"
-                        android:textAllCaps="true"
-                        android:nextFocusDown="@+id/etCityVehicle" />
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:weightSum="10">
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="3.5"
-                        android:textSize="12sp"
-                        android:text="@string/Vehicle_City" />
-                    <EditText
-                        android:id="@+id/etCityVehicle"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="6.5"
-                        android:autofillHints="no"
-                        android:textSize="12sp"
-                        android:inputType="text|textCapCharacters"
-                        android:nextFocusDown="@+id/etAcquisition" />
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:weightSum="10">
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="3.5"
-                        android:textSize="12sp"
-                        android:text="@string/Vehicle_DtAcquisitionSale" />
-                    <EditText
-                        android:id="@+id/etAcquisition"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="3.25"
-                        android:gravity="center"
-                        android:autofillHints="no"
-                        android:textSize="12sp"
-                        android:hint="@string/Vehicle_DtAcquisition"
-                        android:inputType="date"
-                        android:nextFocusDown="@+id/etSale" />
-                    <EditText
-                        android:id="@+id/etSale"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="3.25"
-                        android:gravity="center"
-                        android:autofillHints="no"
-                        android:textSize="12sp"
-                        android:hint="@string/Vehicle_DtSale"
-                        android:inputType="date"
-                        android:nextFocusDown="@+id/etDoors" />
-                </LinearLayout>
-            </LinearLayout>
-        </androidx.cardview.widget.CardView>
-        <androidx.cardview.widget.CardView
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/labels_space_top"
-            app:cardBackgroundColor="@color/colorBackgroundCard"
-            app:cardCornerRadius="@dimen/cardCornerRadius"
-            app:cardElevation="@dimen/cardElevation">
-            <LinearLayout
+            android:layout_height="wrap_content">
+            <EditText
+                android:id="@+id/etModel"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="@dimen/labels_margin">
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:weightSum="10">
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="2.5"
-                        android:textSize="12sp"
-                        android:text="@string/Vehicle_Doors" />
-                    <EditText
-                        android:id="@+id/etDoors"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="2.5"
-                        android:gravity="center"
-                        android:autofillHints="no"
-                        android:textSize="12sp"
-                        android:inputType="number"
-                        android:nextFocusDown="@+id/etCapacity"/>
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="2.5"
-                        android:textSize="12sp"
-                        android:text="@string/Vehicle_Capacity" />
-                    <EditText
-                        android:id="@+id/etCapacity"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="2.5"
-                        android:gravity="center"
-                        android:autofillHints="no"
-                        android:textSize="12sp"
-                        android:inputType="number"
-                        android:nextFocusDown="@+id/etPower" />
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:weightSum="10">
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="2.5"
-                        android:textSize="12sp"
-                        android:text="@string/Vehicle_Power" />
-                    <EditText
-                        android:id="@+id/etPower"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="2.5"
-                        android:gravity="center"
-                        android:autofillHints="no"
-                        android:textSize="12sp"
-                        android:inputType="number"
-                        android:nextFocusDown="@+id/etEstimatedValue" />
+                android:layout_marginStart="@dimen/labels_margin"
+                android:layout_marginLeft="@dimen/labels_margin"
+                android:layout_marginTop="@dimen/labels_space_top"
+                android:layout_marginEnd="@dimen/labels_margin"
+                android:layout_marginRight="@dimen/labels_margin"
+                android:autofillHints="no"
+                android:hint="@string/Vehicle_Model"
+                android:inputType="text|textCapWords"
+                android:nextFocusDown="@+id/spinFuelType"
+                android:textSize="14sp" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="2.5"
-                        android:textSize="12sp"
-                        android:text="@string/Vehicle_Estimated_Value" />
-                    <EditText
-                        android:id="@+id/etEstimatedValue"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="2.5"
-                        android:gravity="center"
-                        android:autofillHints="no"
-                        android:textSize="12sp"
-                        android:inputType="numberDecimal"
-                        android:nextFocusDown="@+id/etFullCapacity" />
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:weightSum="10">
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="5"
-                        android:textSize="12sp"
-                        android:text="@string/Vehicle_Full_Capacity" />
-                    <EditText
-                        android:id="@+id/etFullCapacity"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="5"
-                        android:gravity="center"
-                        android:autofillHints="no"
-                        android:textSize="12sp"
-                        android:inputType="number"
-                        android:nextFocusDown="@+id/etAVGConsumption" />
-                    </LinearLayout>
-            </LinearLayout>
-        </androidx.cardview.widget.CardView>
-        <androidx.cardview.widget.CardView
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/labels_space_top"
-            app:cardBackgroundColor="@color/colorBackgroundCard"
-            app:cardCornerRadius="@dimen/cardCornerRadius"
-            app:cardElevation="@dimen/cardElevation">
+            android:layout_marginStart="@dimen/labels_margin"
+            android:layout_marginLeft="@dimen/labels_margin"
+            android:layout_marginTop="@dimen/labels_space_top"
+            android:layout_marginEnd="@dimen/labels_margin"
+            android:layout_marginRight="@dimen/labels_margin"
+            style = "@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu">
 
-            <LinearLayout
+            <AutoCompleteTextView
+                android:id="@+id/spinFuelType"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="@dimen/labels_margin">
-                <TextView
+                android:autofillHints="no"
+                android:hint="@string/Vehicle_Fuel_Type"
+                android:inputType="none"
+                android:nextFocusDown="@+id/etYearModel"
+                android:textColorHint="#616161"
+                android:textSize="14sp" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="1"
+            android:baselineAligned="false">
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.50"
+                android:layout_marginStart="@dimen/labels_margin"
+                android:layout_marginLeft="@dimen/labels_margin"
+                android:layout_marginTop="@dimen/labels_space_top"
+                android:layout_marginEnd="@dimen/labels_margin"
+                android:layout_marginRight="@dimen/labels_margin">
+                <EditText
+                    android:id="@+id/etYearModel"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="10"
+                    android:autofillHints="no"
+                    android:hint="@string/Vehicle_Year_Mode"
+                    android:inputType="number"
+                    android:maxLength="4"
+                    android:nextFocusDown="@+id/etYearManufacture"
+                    android:textSize="14sp" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.50"
+                android:layout_marginStart="@dimen/labels_margin"
+                android:layout_marginLeft="@dimen/labels_margin"
+                android:layout_marginTop="@dimen/labels_space_top"
+                android:layout_marginEnd="@dimen/labels_margin"
+                android:layout_marginRight="@dimen/labels_margin">
+                <EditText
+                    android:id="@+id/etYearManufacture"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:autofillHints="no"
+                    android:cursorVisible="true"
+                    android:hint="@string/Vehicle_Year_Manufacture"
+                    android:inputType="number"
+                    android:maxLength="4"
+                    android:nextFocusDown="@+id/etLicencePlateVehicle"
+                    android:textSize="14sp" />
+            </com.google.android.material.textfield.TextInputLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="1"
+            android:baselineAligned="false">
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.51"
+                android:layout_marginStart="@dimen/labels_margin"
+                android:layout_marginLeft="@dimen/labels_margin"
+                android:layout_marginTop="@dimen/labels_space_top"
+                android:layout_marginEnd="@dimen/labels_margin"
+                android:layout_marginRight="@dimen/labels_margin"
+                app:counterEnabled="true"
+                app:counterMaxLength="8">
+                <EditText
+                    android:id="@+id/etLicencePlateVehicle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:autofillHints="no"
+                    android:hint="@string/Vehicle_Licence_Plate"
+                    android:inputType="text|textCapCharacters"
+                    android:textAllCaps="true"
+                    android:nextFocusDown="@+id/etColor"
+                    android:textSize="14sp" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.25"
+                android:layout_marginStart="@dimen/labels_margin"
+                android:layout_marginLeft="@dimen/labels_margin"
+                android:layout_marginTop="@dimen/labels_space_top"
+                android:layout_marginEnd="@dimen/labels_margin"
+                android:layout_marginRight="@dimen/labels_margin">
+                <EditText
+                    android:id="@+id/etColor"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:autofillHints="no"
+                    android:hint="@string/Vehicle_Color"
+                    android:inputType="text"
+                    android:nextFocusDown="@+id/etColorCode"
+                    android:textSize="14sp" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <Button
+                android:id="@+id/btColorCode"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.24"
+                android:layout_marginStart="@dimen/labels_margin"
+                android:layout_marginLeft="@dimen/labels_margin"
+                android:layout_marginTop="@dimen/labels_space_top"
+                android:layout_marginEnd="@dimen/labels_margin"
+                android:layout_marginRight="@dimen/labels_margin"
+                android:autofillHints="no"
+                android:hint="@string/Vehicle_Color_Code"
+                android:nextFocusDown="@+id/etVin"
+                android:textSize="10sp"
+                tools:ignore="SmallSp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="1"
+            android:baselineAligned="false">
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.50"
+                android:layout_marginStart="@dimen/labels_margin"
+                android:layout_marginLeft="@dimen/labels_margin"
+                android:layout_marginTop="@dimen/labels_space_top"
+                android:layout_marginEnd="@dimen/labels_margin"
+                android:layout_marginRight="@dimen/labels_margin">
+                <EditText
+                    android:id="@+id/etVin"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:autofillHints="no"
+                    android:hint="@string/Vehicle_Vin"
+                    android:inputType="text"
+                    android:nextFocusDown="@+id/etLicenceNumber"
+                    android:textSize="14sp" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.50"
+                android:layout_marginStart="@dimen/labels_margin"
+                android:layout_marginLeft="@dimen/labels_margin"
+                android:layout_marginTop="@dimen/labels_space_top"
+                android:layout_marginEnd="@dimen/labels_margin"
+                android:layout_marginRight="@dimen/labels_margin">
+                <EditText
+                    android:id="@+id/etLicenceNumber"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:autofillHints="no"
+                    android:hint="@string/Vehicle_Licence_Number"
+                    android:inputType="text"
+                    android:nextFocusDown="@+id/etStateVehicle"
                     android:textSize="14sp"
-                    android:fontFamily="sans-serif-black"
-                    android:gravity="center"
-                    android:background="@color/colorBackgroundSubjectDialog"
-                    android:text="@string/VehicleStatistics" />
-                <LinearLayout
+                    tools:ignore="TextFields" />
+            </com.google.android.material.textfield.TextInputLayout>
+        </LinearLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <EditText
+                android:id="@+id/etStateVehicle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/labels_margin"
+                android:layout_marginLeft="@dimen/labels_margin"
+                android:layout_marginTop="@dimen/labels_space_top"
+                android:layout_marginEnd="@dimen/labels_margin"
+                android:layout_marginRight="@dimen/labels_margin"
+                android:autofillHints="no"
+                android:hint="@string/Vehicle_State"
+                android:inputType="text|textCapCharacters"
+                android:textAllCaps="true"
+                android:nextFocusDown="@+id/etCityVehicle"
+                android:textSize="14sp" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <EditText
+                android:id="@+id/etCityVehicle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/labels_margin"
+                android:layout_marginLeft="@dimen/labels_margin"
+                android:layout_marginTop="@dimen/labels_space_top"
+                android:layout_marginEnd="@dimen/labels_margin"
+                android:layout_marginRight="@dimen/labels_margin"
+                android:autofillHints="no"
+                android:hint="@string/Vehicle_City"
+                android:inputType="text|textCapCharacters"
+                android:nextFocusDown="@+id/etAcquisition"
+                android:textSize="14sp" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="1"
+            android:baselineAligned="false">
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.50"
+                android:layout_marginStart="@dimen/labels_margin"
+                android:layout_marginLeft="@dimen/labels_margin"
+                android:layout_marginTop="@dimen/labels_space_top"
+                android:layout_marginEnd="@dimen/labels_margin"
+                android:layout_marginRight="@dimen/labels_margin">
+                <EditText
+                    android:id="@+id/etAcquisition"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:autofillHints="no"
+                    android:hint="@string/Vehicle_DtAcquisition"
+                    android:inputType="date"
+                    android:nextFocusDown="@+id/etSale"
+                    android:textSize="14sp" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.50"
+                android:layout_marginStart="@dimen/labels_margin"
+                android:layout_marginLeft="@dimen/labels_margin"
+                android:layout_marginTop="@dimen/labels_space_top"
+                android:layout_marginEnd="@dimen/labels_margin"
+                android:layout_marginRight="@dimen/labels_margin">
+                <EditText
+                    android:id="@+id/etSale"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:autofillHints="no"
+                    android:hint="@string/Vehicle_DtSale"
+                    android:inputType="date"
+                    android:nextFocusDown="@+id/etDoors"
+                    android:textSize="14sp" />
+            </com.google.android.material.textfield.TextInputLayout>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="1"
+            android:baselineAligned="false">
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.50"
+                android:layout_marginStart="@dimen/labels_margin"
+                android:layout_marginLeft="@dimen/labels_margin"
+                android:layout_marginTop="@dimen/labels_space_top"
+                android:layout_marginEnd="@dimen/labels_margin"
+                android:layout_marginRight="@dimen/labels_margin">
+                <EditText
+                    android:id="@+id/etDoors"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:autofillHints="no"
+                    android:hint="@string/Vehicle_Doors"
+                    android:inputType="number"
+                    android:nextFocusDown="@+id/etCapacity"
+                    android:textSize="14sp" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.50"
+                android:layout_marginStart="@dimen/labels_margin"
+                android:layout_marginLeft="@dimen/labels_margin"
+                android:layout_marginTop="@dimen/labels_space_top"
+                android:layout_marginEnd="@dimen/labels_margin"
+                android:layout_marginRight="@dimen/labels_margin">
+                <EditText
+                    android:id="@+id/etCapacity"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:autofillHints="no"
+                    android:hint="@string/Vehicle_Capacity"
+                    android:inputType="number"
+                    android:nextFocusDown="@+id/etPower"
+                    android:textSize="14sp" />
+            </com.google.android.material.textfield.TextInputLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="1"
+            android:baselineAligned="false">
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.50"
+                android:layout_marginStart="@dimen/labels_margin"
+                android:layout_marginLeft="@dimen/labels_margin"
+                android:layout_marginTop="@dimen/labels_space_top"
+                android:layout_marginEnd="@dimen/labels_margin"
+                android:layout_marginRight="@dimen/labels_margin">
+                <EditText
+                    android:id="@+id/etPower"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:autofillHints="no"
+                    android:hint="@string/Vehicle_Power"
+                    android:inputType="number"
+                    android:nextFocusDown="@+id/etEstimatedValue"
+                    android:textSize="14sp" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.50"
+                android:layout_marginStart="@dimen/labels_margin"
+                android:layout_marginLeft="@dimen/labels_margin"
+                android:layout_marginTop="@dimen/labels_space_top"
+                android:layout_marginEnd="@dimen/labels_margin"
+                android:layout_marginRight="@dimen/labels_margin">
+                <EditText
+                    android:id="@+id/etEstimatedValue"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:autofillHints="no"
+                    android:hint="@string/Vehicle_Estimated_Value"
+                    android:inputType="numberDecimal"
+                    android:nextFocusDown="@+id/etFullCapacity"
+                    android:textSize="14sp" />
+            </com.google.android.material.textfield.TextInputLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="1"
+            android:baselineAligned="false">
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.50"
+                android:layout_marginStart="@dimen/labels_margin"
+                android:layout_marginTop="@dimen/labels_space_top"
+                android:layout_marginEnd="20dp">
+                <EditText
+                    android:id="@+id/etFullCapacity"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:autofillHints="no"
+                    android:hint="@string/Vehicle_Full_Capacity"
+                    android:inputType="number"
+                    android:nextFocusDown="@+id/etAVGConsumption"
+                    android:textSize="14sp" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="1"
+            android:baselineAligned="false">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.50"
+                android:layout_marginStart="@dimen/labels_margin"
+                android:layout_marginLeft="@dimen/labels_margin"
+                android:layout_marginTop="@dimen/labels_space_top"
+                android:layout_marginEnd="@dimen/labels_margin"
+                android:layout_marginRight="@dimen/labels_margin">
+                <EditText
+                    android:id="@+id/etAVGConsumption"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:autofillHints="no"
+                    android:hint="@string/Vehicle_Avg_Consumption"
+                    android:inputType="numberDecimal"
+                    android:nextFocusDown="@+id/etAVGCostLitre"
+                    android:shadowRadius="1"
+                    android:textSize="14sp" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.50"
+                android:layout_marginStart="@dimen/labels_margin"
+                android:layout_marginLeft="@dimen/labels_margin"
+                android:layout_marginTop="@dimen/labels_space_top"
+                android:layout_marginEnd="@dimen/labels_margin"
+                android:layout_marginRight="@dimen/labels_margin">
+                <EditText
+                    android:id="@+id/etAVGCostLitre"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:autofillHints="no"
+                    android:hint="@string/Vehicle_Avg_Cost_Litre"
+                    android:inputType="number"
+                    android:nextFocusDown="@+id/etDtOdometer"
+                    android:textSize="14sp" />
+            </com.google.android.material.textfield.TextInputLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="1"
+            android:baselineAligned="false">
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.50"
+                android:layout_marginStart="@dimen/labels_margin"
+                android:layout_marginLeft="@dimen/labels_margin"
+                android:layout_marginTop="@dimen/labels_space_top"
+                android:layout_marginEnd="@dimen/labels_margin"
+                android:layout_marginRight="@dimen/labels_margin">
+                <EditText
+                    android:id="@+id/etDtOdometer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:autofillHints="no"
+                    android:hint="@string/Vehicle_DtOdometer"
+                    android:inputType="date"
+                    android:nextFocusDown="@+id/etOdometer"
+                    android:textSize="14sp" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.50"
+                android:layout_marginStart="@dimen/labels_margin"
+                android:layout_marginLeft="@dimen/labels_margin"
+                android:layout_marginTop="@dimen/labels_space_top"
+                android:layout_marginEnd="@dimen/labels_margin"
+                android:layout_marginRight="@dimen/labels_margin">
+                <EditText
+                    android:id="@+id/etOdometer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:autofillHints="no"
+                    android:hint="@string/Vehicle_Odometer"
+                    android:inputType="number"
+                    android:nextFocusDown="@+id/etDtLastFueling"
+                    android:textSize="14sp" />
+            </com.google.android.material.textfield.TextInputLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="1"
+            android:baselineAligned="false">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/labels_margin"
+                android:layout_marginLeft="@dimen/labels_margin"
+                android:layout_marginTop="@dimen/labels_space_top"
+                android:layout_marginEnd="@dimen/labels_margin"
+                android:layout_marginRight="@dimen/labels_margin">
+                <RadioGroup
+                    android:id="@+id/rgLastSupplyReasonType"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
                     android:orientation="horizontal"
-                    android:weightSum="10">
+                    android:gravity="center_horizontal"
+                    android:hint="@string/Vehicle_LastSupplyReasonType"
+                    android:nextFocusDown="@+id/etDtLastFueling">
+                </RadioGroup>
+            </com.google.android.material.textfield.TextInputLayout>
 
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="2.5"
-                        android:textSize="12sp"
-                        android:text="@string/Vehicle_Avg_Consumption" />
-                    <EditText
-                        android:id="@+id/etAVGConsumption"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="2.5"
-                        android:gravity="end"
-                        android:autofillHints="no"
-                        android:textSize="12sp"
-                        android:inputType="numberDecimal"
-                        android:nextFocusDown="@+id/etAVGCostLitre" />
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="2.5"
-                        android:textSize="12sp"
-                        android:text="@string/Vehicle_Avg_Cost_Litre" />
-                    <EditText
-                        android:id="@+id/etAVGCostLitre"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="2.5"
-                        android:gravity="end"
-                        android:autofillHints="no"
-                        android:textSize="12sp"
-                        android:inputType="number"
-                        android:nextFocusDown="@+id/etDtOdometer" />
-                </LinearLayout>
-                <TextView
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="1"
+            android:baselineAligned="false">
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.50"
+                android:layout_marginStart="@dimen/labels_margin"
+                android:layout_marginTop="@dimen/labels_space_top"
+                android:layout_marginEnd="20dp">
+                <EditText
+                    android:id="@+id/etDtLastFueling"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="10"
-                    android:textSize="14sp"
-                    android:layout_marginTop="@dimen/labels_margin"
-                    android:fontFamily="sans-serif-black"
-                    android:gravity="center"
-                    android:background="@color/colorBackgroundSubjectDialog"
-                    android:text="@string/Supply_Last" />
+                    android:autofillHints="no"
+                    android:hint="@string/Vehicle_DtLastFueling"
+                    android:inputType="date"
+                    android:nextFocusDown="@+id/etAccumulatedSupplyValue"
+                    android:textSize="14sp" />
+            </com.google.android.material.textfield.TextInputLayout>
+        </LinearLayout>
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="10"
-                        android:textSize="12sp"
-                        android:gravity="center"
-                        android:text="@string/Vehicle_LastSupplyReasonType" />
-
-                    <RadioGroup
-                        android:id="@+id/rgLastSupplyReasonType"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/labels_margin"
-                        android:orientation="horizontal"
-                        android:textSize="12sp"
-                        android:gravity="center_horizontal"
-                        android:hint="@string/Vehicle_LastSupplyReasonType"
-                        android:nextFocusDown="@+id/etDtLastFueling">
-                    </RadioGroup>
-
-                <LinearLayout
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="1"
+            android:baselineAligned="false">
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.50"
+                android:layout_marginStart="@dimen/labels_margin"
+                android:layout_marginLeft="@dimen/labels_margin"
+                android:layout_marginTop="@dimen/labels_space_top"
+                android:layout_marginEnd="@dimen/labels_margin"
+                android:layout_marginRight="@dimen/labels_margin">
+                <EditText
+                    android:id="@+id/etAccumulatedSupplyValue"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:weightSum="10">
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="5"
-                        android:textSize="12sp"
-                        android:text="@string/Vehicle_DtLastFueling" />
-                    <EditText
-                        android:id="@+id/etDtLastFueling"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="5"
-                        android:autofillHints="no"
-                        android:textSize="12sp"
-                        android:inputType="date"
-                        android:nextFocusDown="@+id/etAccumulatedSupplyValue" />
-                </LinearLayout><LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:weightSum="10">
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="2.5"
-                        android:textSize="12sp"
-                        android:text="@string/Vehicle_DtOdometer" />
-                    <EditText
-                        android:id="@+id/etDtOdometer"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="2.5"
-                        android:gravity="end"
-                        android:autofillHints="no"
-                        android:textSize="12sp"
-                        android:inputType="date"
-                        android:nextFocusDown="@+id/etOdometer"
-                        tools:ignore="TooManyViews" />
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="2.5"
-                        android:textSize="12sp"
-                        android:text="@string/Vehicle_Odometer" />
-                    <EditText
-                        android:id="@+id/etOdometer"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="2.5"
-                        android:gravity="end"
-                        android:autofillHints="no"
-                        android:textSize="12sp"
-                        android:inputType="number"
-                        android:nextFocusDown="@+id/etDtLastFueling" />
-                </LinearLayout>
+                    android:autofillHints="no"
+                    android:hint="@string/Vehicle_AccumulatedSupplyValue"
+                    android:inputType="numberDecimal"
+                    android:nextFocusDown="@+id/etAccumulatedNumberLiters"
+                    android:textSize="14sp" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-                <TextView
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.50"
+                android:layout_marginStart="@dimen/labels_margin"
+                android:layout_marginLeft="@dimen/labels_margin"
+                android:layout_marginTop="@dimen/labels_space_top"
+                android:layout_marginEnd="@dimen/labels_margin"
+                android:layout_marginRight="@dimen/labels_margin">
+                <EditText
+                    android:id="@+id/etAccumulatedNumberLiters"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="10"
-                    android:textSize="14sp"
-                    android:fontFamily="sans-serif-black"
-                    android:gravity="center"
-                    android:background="@color/colorBackgroundSubjectDialog"
-                    android:text="@string/FuelSupply_Accumulated" />
+                    android:autofillHints="no"
+                    android:hint="@string/Vehicle_AccumulatedNumberLiters"
+                    android:inputType="numberDecimal"
+                    android:nextFocusDown="@+id/btSaveVehicle"
+                    android:textSize="14sp" />
+            </com.google.android.material.textfield.TextInputLayout>
+        </LinearLayout>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:weightSum="10">
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="2.5"
-                        android:textSize="12sp"
-                        android:text="@string/Vehicle_AccumulatedSupplyValue" />
-                    <EditText
-                        android:id="@+id/etAccumulatedSupplyValue"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="2.50"
-                        android:gravity="end"
-                        android:autofillHints="no"
-                        android:textSize="12sp"
-                        android:inputType="numberDecimal"
-                        android:nextFocusDown="@+id/etAccumulatedNumberLiters" />
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="2.5"
-                        android:textSize="12sp"
-                        android:text="@string/Vehicle_AccumulatedNumberLiters" />
-                    <EditText
-                        android:id="@+id/etAccumulatedNumberLiters"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="2.50"
-                        android:gravity="end"
-                        android:autofillHints="no"
-                        android:textSize="12sp"
-                        android:inputType="numberDecimal"
-                        android:nextFocusDown="@+id/btSaveVehicle" />
-                </LinearLayout>
-            </LinearLayout>
-        </androidx.cardview.widget.CardView>
         <Button
             android:id="@+id/btSaveVehicle"
             android:layout_width="wrap_content"

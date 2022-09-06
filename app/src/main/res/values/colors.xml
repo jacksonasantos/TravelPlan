@@ -2,7 +2,6 @@
 <resources>
     <color name="colorBackgroundLogo">#18FFFF</color>
     <color name="colorBackgroundDialog">#C5CAE9</color>
-    <color name="colorBackgroundSubjectDialog">#E4E6F8</color>
     <color name="colorButtonDialog">#6B6E80</color>
     <color name="colorBackgroundCard">#FFFFFF</color>
     <color name="colorAccent">#34A6A6</color>

@@ -67,11 +67,10 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:weightSum="10">
-
                     <ImageButton
                         android:id="@+id/btLocation"
                         android:layout_width="60dp"
-                        android:layout_height="match_parent"
+                        android:layout_height="60dp"
                         android:contentDescription="@string/FuelSupply_Gas_Station"
                         app:srcCompat="@drawable/ic_menu_location" />
                     <LinearLayout

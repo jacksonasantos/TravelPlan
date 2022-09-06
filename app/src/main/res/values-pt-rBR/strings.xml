@@ -8,9 +8,9 @@
     <string name="personal_gender">Seu Gênero Sexual</string>
     <string name="personal_header">Dados Pessoais</string>
     <string name="Vehicle_Full_Capacity">Capacidade Combustível</string>
-    <string name="Vehicle_Avg_Consumption">Consumo</string>
+    <string name="Vehicle_Avg_Consumption">Consumo Médio</string>
     <string name="menu_travel">Viagens</string>
-    <string name="Vehicle_Licence_Plate">Placa</string>
+    <string name="Vehicle_Licence_Plate">Placa de Identificação</string>
     <string name="menu_vehicle">Veículos</string>
     <string name="bt_Save">Salvar</string>
     <string name="bt_Delete">Excluir</string>
@@ -29,7 +29,7 @@
     <string name="Yes">Sim</string>
     <string name="No">Não</string>
     <string name="Vehicle_Odometer">Odômetro</string>
-    <string name="Vehicle_DtOdometer">Dt Odômetro</string>
+    <string name="Vehicle_DtOdometer">Data Odômetro</string>
     <string name="Vehicle_Short_Name">Apelido</string>
     <string name="Vehicle_DtAcquisition">Data de Aquisição</string>
     <string name="Vehicle_DtSale">Data de Venda</string>
@@ -97,16 +97,16 @@
     <string name="bt_Done">Feito</string>
     <string name="Vehicle_Model">Modelo</string>
     <string name="Vehicle_Vin">Chassi</string>
-    <string name="Vehicle_Licence_Number">Renavan</string>
+    <string name="Vehicle_Licence_Number">Número Renavan</string>
     <string name="Vehicle_State">Estado</string>
     <string name="Vehicle_City">Cidade</string>
     <string name="Vehicle_Color">Cor</string>
     <string name="Vehicle_Doors">Portas</string>
     <string name="Vehicle_Capacity">Capacidade</string>
     <string name="Vehicle_Power">Potência</string>
-    <string name="Vehicle_Year_Mode">Modelo</string>
-    <string name="Vehicle_Year_Manufacture">Fabricação</string>
-    <string name="Vehicle_Estimated_Value">Vlr Estimado</string>
+    <string name="Vehicle_Year_Mode">Ano Modelo</string>
+    <string name="Vehicle_Year_Manufacture">Ano Fabricação</string>
+    <string name="Vehicle_Estimated_Value">Valor Estimado</string>
     <string name="menu_insurance_company">Seguradoras</string>
     <string name="Insurance_Company_Deleting">Excluindo Seguradora</string>
     <string name="Insurance_Company">Companhia de Seguros</string>
@@ -222,9 +222,9 @@
     <string name="menu_home">Principal</string>
     <string name="Vehicle_DtLastFueling">Data Último Abastecimento</string>
     <string name="Vehicle_LastSupplyReasonType">Tipo da Razão do Último Abastecimento</string>
-    <string name="Vehicle_AccumulatedNumberLiters">Litros Acum.</string>
-    <string name="Vehicle_Avg_Cost_Litre">Custo/Litro</string>
-    <string name="Vehicle_AccumulatedSupplyValue">Valor Acum.</string>
+    <string name="Vehicle_AccumulatedNumberLiters">Número de Litros Acumulado</string>
+    <string name="Vehicle_Avg_Cost_Litre">Custo por Litro Médio</string>
+    <string name="Vehicle_AccumulatedSupplyValue">Valor de Abastecimento Acumulado</string>
     <string name="overhaul">Revisão</string>
     <string name="MaintenanceItem_Deleting">Excluindo Item de Manutenção de Veículo</string>
     <string name="MaintenanceItem_Type">Tipo Serviço</string>
@@ -339,5 +339,4 @@
     <string name="FuelSupply_Accumulated_Supply_Value">Valor de Abastecimento</string>
     <string name="bt_Maintenance_Item">Itens de Manutenção</string>
     <string name="Vehicle_MaintenanceItem">Item de manutenção do veículo</string>
-    <string name="Vehicle_DtAcquisitionSale">Aquisição/Venda</string>
 </resources>
