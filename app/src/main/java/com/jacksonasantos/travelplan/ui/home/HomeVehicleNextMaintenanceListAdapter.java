@@ -49,7 +49,7 @@ public class HomeVehicleNextMaintenanceListAdapter extends RecyclerView.Adapter<
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View nextMaintenanceItemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.fragment_home_vehicle_next_maintenance, parent, false);
+                .inflate(R.layout.fragment_home_vehicle_item_next_maintenance, parent, false);
         measureArray = parent.getResources().getStringArray(R.array.measure_item);
 
         if (viewType == TYPE_HEADER) {

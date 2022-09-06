@@ -42,6 +42,7 @@
                         android:minLines="1"
                         android:textSize="10sp"
                         tools:ignore="LabelFor,SmallSp" />
+
                     <TextView
                         android:id="@+id/tvLng"
                         android:layout_width="0dp"
@@ -354,7 +355,8 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvListMarkers"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:textSize="12sp"/>
 
         </LinearLayout>
     </androidx.cardview.widget.CardView>
