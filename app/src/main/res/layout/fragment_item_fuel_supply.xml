@@ -6,80 +6,94 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     tools:context=".ui.vehicle.FuelSupplyFragment">
-
-    <TextView
-        android:id="@+id/txtSupplyDate"
-        android:layout_width="85dp"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_vertical"
-        app:autoSizeMaxTextSize="12sp"
-        app:autoSizeMinTextSize="4sp"
-        app:autoSizeStepGranularity="1sp"
-        app:autoSizeTextType="uniform"
-        app:layout_constraintEnd_toStartOf="@+id/txtVehicleName"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/txtVehicleName"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/labels_marginLeft"
-        android:gravity="center_vertical"
-        app:autoSizeMaxTextSize="12sp"
-        app:autoSizeMinTextSize="4sp"
-        app:autoSizeStepGranularity="1sp"
-        app:autoSizeTextType="uniform"
-        app:layout_constraintEnd_toStartOf="@+id/btnEdit"
-        app:layout_constraintStart_toEndOf="@+id/txtSupplyDate"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/txtNumberLiters"
-        android:layout_width="85dp"
-        android:layout_height="wrap_content"
-        android:gravity="end|center_vertical"
-        app:autoSizeMaxTextSize="12sp"
-        app:autoSizeMinTextSize="4sp"
-        app:autoSizeStepGranularity="1sp"
-        app:autoSizeTextType="uniform"
-        app:layout_constraintBaseline_toBaselineOf="@+id/txtSupplyValue"
-        app:layout_constraintStart_toStartOf="@+id/txtVehicleName"
-        app:layout_constraintTop_toBottomOf="@+id/txtVehicleName" />
-
-    <TextView
-        android:id="@+id/txtSupplyValue"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/labels_marginLeft"
-        android:gravity="end|center_vertical"
-        app:autoSizeMaxTextSize="12sp"
-        app:autoSizeMinTextSize="4sp"
-        app:autoSizeStepGranularity="1sp"
-        app:autoSizeTextType="uniform"
-        app:layout_constraintEnd_toEndOf="@+id/txtVehicleName"
-        app:layout_constraintStart_toEndOf="@+id/txtNumberLiters"
-        app:layout_constraintTop_toBottomOf="@+id/txtVehicleName" />
-
-    <ImageButton
-        android:id="@+id/btnEdit"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:contentDescription="@string/bt_Edit"
-        app:layout_constraintEnd_toStartOf="@+id/btnDelete"
-        app:layout_constraintStart_toEndOf="@+id/txtVehicleName"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_button_edit" />
-
-    <ImageButton
-        android:id="@+id/btnDelete"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:contentDescription="@string/bt_Delete"
+        android:orientation="horizontal"
+        android:weightSum="10"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/btnEdit"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_button_delete" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+        <TextView
+            android:id="@+id/txtSupplyDate"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2.5"
+            android:layout_gravity="center_vertical"
+            android:gravity="center_vertical"
+            app:autoSizeMaxTextSize="12sp"
+            app:autoSizeMinTextSize="4sp"
+            app:autoSizeStepGranularity="1sp"
+            app:autoSizeTextType="uniform"
+            app:layout_constraintEnd_toStartOf="@+id/txtVehicleShortName"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
+        <TextView
+            android:id="@+id/txtVehicleShortName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2.5"
+            android:layout_gravity="center_vertical"
+            android:gravity="center_vertical"
+            app:autoSizeMaxTextSize="12sp"
+            app:autoSizeMinTextSize="4sp"
+            app:autoSizeStepGranularity="1sp"
+            app:autoSizeTextType="uniform"
+            app:layout_constraintStart_toEndOf="@+id/txtSupplyDate"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/txtNumberLiters"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:layout_gravity="center_vertical"
+            android:gravity="end|center_vertical"
+            app:autoSizeMaxTextSize="12sp"
+            app:autoSizeMinTextSize="4sp"
+            app:autoSizeStepGranularity="1sp"
+            app:autoSizeTextType="uniform"
+            app:layout_constraintStart_toEndOf="@+id/txtVehicleShortName"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/txtSupplyValue"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:layout_gravity="center_vertical"
+            android:gravity="end|center_vertical"
+            app:autoSizeMaxTextSize="12sp"
+            app:autoSizeMinTextSize="4sp"
+            app:autoSizeStepGranularity="1sp"
+            app:autoSizeTextType="uniform"
+            app:layout_constraintStart_toEndOf="@+id/txtNumberLiters"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageButton
+            android:id="@+id/btnEdit"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="@dimen/labels_margin"
+            android:contentDescription="@string/bt_Edit"
+            android:scaleType="centerCrop"
+            app:layout_constraintEnd_toStartOf="@+id/btnDelete"
+            app:layout_constraintStart_toEndOf="@+id/txtSupplyValue"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_button_edit" />
+
+        <ImageButton
+            android:id="@+id/btnDelete"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:contentDescription="@string/bt_Delete"
+            android:scaleType="centerCrop"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/btnEdit"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_button_delete" />
+
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
 

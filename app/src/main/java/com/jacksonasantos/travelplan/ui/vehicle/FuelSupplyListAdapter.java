@@ -37,7 +37,7 @@ public class FuelSupplyListAdapter extends RecyclerView.Adapter<FuelSupplyListAd
     public static class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         public final TextView txtSupplyDate;
-        public final TextView txtVehicleName;
+        public final TextView txtVehicleShortName;
         public final TextView txtNumberLiters;
         public final TextView txtSupplyValue;
         public final ImageButton btnEdit;
@@ -46,7 +46,7 @@ public class FuelSupplyListAdapter extends RecyclerView.Adapter<FuelSupplyListAd
         public MyViewHolder(View v) {
             super(v);
             txtSupplyDate = v.findViewById(R.id.txtSupplyDate);
-            txtVehicleName = v.findViewById(R.id.txtVehicleName);
+            txtVehicleShortName = v.findViewById(R.id.txtVehicleShortName);
             txtNumberLiters = v.findViewById(R.id.txtNumberLiters);
             txtSupplyValue = v.findViewById(R.id.txtSupplyValue);
             btnEdit = v.findViewById(R.id.btnEdit);
@@ -84,7 +84,7 @@ public class FuelSupplyListAdapter extends RecyclerView.Adapter<FuelSupplyListAd
         Vehicle v = Database.mVehicleDao.fetchVehicleById(fuelSupply.getVehicle_id());
 
         holder.txtSupplyDate.setText(Utils.dateToString(fuelSupply.getSupply_date()));
-        holder.txtVehicleName.setText(v.getName());
+        holder.txtVehicleShortName.setText(v.getShort_name());
         holder.txtNumberLiters.setText(fuelSupply.getNumber_liters() +" "+g.getMeasureCapacity());
         NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(locale);
         holder.txtSupplyValue.setText(currencyFormatter.format(fuelSupply.getSupply_value()));
