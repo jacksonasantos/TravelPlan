@@ -68,6 +68,7 @@
     <string name="Vehicle_City">City</string>
     <string name="Vehicle_Color">Color</string>
     <string name="Vehicle_Color_Code">Color Code</string>
+    <string name="Vehicle_DtAcquisitionSale">Acquisition/Sale</string>
     <string name="Vehicle_DtAcquisition">Acquisition Data</string>
     <string name="Vehicle_DtSale">Sale Data</string>
 
@@ -76,15 +77,15 @@
     <string name="Vehicle_Power">Power</string>
     <string name="Vehicle_Full_Capacity">Full Capacity</string>
     <string name="Vehicle_Avg_Consumption">Average Consumption</string>
-    <string name="Vehicle_Avg_Cost_Litre">Average Cost Litre</string>
+    <string name="Vehicle_Avg_Cost_Litre">Average Cost</string>
     <string name="Vehicle_Odometer">Odometer</string>
     <string name="Vehicle_DtOdometer">Date Odometer</string>
     <string name="Vehicle_Estimated_Value">Estimated Value</string>
 
     <string name="Vehicle_DtLastFueling">Date Last Fueling</string>
     <string name="Vehicle_LastSupplyReasonType">Last Supply Reason Type</string>
-    <string name="Vehicle_AccumulatedNumberLiters">Accumulated Number Liters</string>
-    <string name="Vehicle_AccumulatedSupplyValue">Accumulated Supply Value</string>
+    <string name="Vehicle_AccumulatedNumberLiters">Number Liters</string>
+    <string name="Vehicle_AccumulatedSupplyValue">Supply Value</string>
 
     <!-- Vehicle MaintenanceItem Dialog -->
     <string name="Vehicle_MaintenanceItem">Vehicle Maintenance Item</string>

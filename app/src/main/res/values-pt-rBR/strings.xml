@@ -222,9 +222,9 @@
     <string name="menu_home">Principal</string>
     <string name="Vehicle_DtLastFueling">Data Último Abastecimento</string>
     <string name="Vehicle_LastSupplyReasonType">Tipo da Razão do Último Abastecimento</string>
-    <string name="Vehicle_AccumulatedNumberLiters">Número de Litros Acumulado</string>
-    <string name="Vehicle_Avg_Cost_Litre">Custo por Litro Médio</string>
-    <string name="Vehicle_AccumulatedSupplyValue">Valor de Abastecimento Acumulado</string>
+    <string name="Vehicle_AccumulatedNumberLiters">Número de Litros</string>
+    <string name="Vehicle_Avg_Cost_Litre">Custo Médio</string>
+    <string name="Vehicle_AccumulatedSupplyValue">Valor de Abastecimento</string>
     <string name="overhaul">Revisão</string>
     <string name="MaintenanceItem_Deleting">Excluindo Item de Manutenção de Veículo</string>
     <string name="MaintenanceItem_Type">Tipo Serviço</string>
@@ -339,4 +339,5 @@
     <string name="FuelSupply_Accumulated_Supply_Value">Valor de Abastecimento</string>
     <string name="bt_Maintenance_Item">Itens de Manutenção</string>
     <string name="Vehicle_MaintenanceItem">Item de manutenção do veículo</string>
+    <string name="Vehicle_DtAcquisitionSale">Aquisição/Venda</string>
 </resources>
