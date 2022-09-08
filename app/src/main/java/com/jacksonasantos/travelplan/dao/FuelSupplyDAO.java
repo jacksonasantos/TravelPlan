@@ -40,7 +40,7 @@ public class FuelSupplyDAO extends DbContentProvider implements FuelSupplyISchem
 
     public List<FuelSupply> fetchAllFuelSupplyHasTravelByTravel(Integer travel_id) {
         List<FuelSupply> fuelSupplyList = new ArrayList<>();
-        String order = FUEL_SUPPLY_SUPPLY_DATE + ", " + FUEL_SUPPLY_ID;
+        String order = FUEL_SUPPLY_VEHICLE_ID + ", " + FUEL_SUPPLY_SUPPLY_DATE + ", " + FUEL_SUPPLY_ID;
         String[] selectionArgs;
         String selection;
         if (Globals.getInstance().getFilterVehicle()) {
@@ -56,7 +56,6 @@ public class FuelSupplyDAO extends DbContentProvider implements FuelSupplyISchem
                 FuelSupply fuelSupply = cursorToEntity(cursor);
                 fuelSupplyList.add(fuelSupply);
             } while (cursor.moveToNext());
-
             cursor.close();
         }
         return fuelSupplyList;
@@ -102,26 +101,20 @@ public class FuelSupplyDAO extends DbContentProvider implements FuelSupplyISchem
 
     public List<FuelSupply> fetchAllFuelSupplies( boolean descOrder) {
         List<FuelSupply> fuelSupplyList = new ArrayList<>();
-
-
         String order = FUEL_SUPPLY_SUPPLY_DATE;
+        String[] selectionArgs = null;
+        String selection = null;
         if (descOrder) { order = order + " DESC"; }
-
         if (Globals.getInstance().getFilterVehicle()) {
-            final String[] selectionArgs = { String.valueOf(Globals.getInstance().getIdVehicle()) };
-            final String selection = FUEL_SUPPLY_VEHICLE_ID + " = ?";
-
-            cursor = super.query(FUEL_SUPPLY_TABLE, FUEL_SUPPLY_COLUMNS, selection, selectionArgs, order);
-        } else {
-            cursor = super.query(FUEL_SUPPLY_TABLE, FUEL_SUPPLY_COLUMNS, null, null, order);
+            selectionArgs = new String[]{String.valueOf(Globals.getInstance().getIdVehicle())};
+            selection = FUEL_SUPPLY_VEHICLE_ID + " = ?";
         }
-
+        cursor = super.query(FUEL_SUPPLY_TABLE, FUEL_SUPPLY_COLUMNS, selection, selectionArgs, order);
         if (cursor.moveToFirst()) {
             do {
                 FuelSupply fuelSupply = cursorToEntity(cursor);
                 fuelSupplyList.add(fuelSupply);
             } while (cursor.moveToNext());
-
             cursor.close();
         }
         return fuelSupplyList;
