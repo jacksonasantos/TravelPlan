@@ -20,22 +20,6 @@ public class MaintenanceItemDAO extends DbContentProvider implements Maintenance
         super(db);
     }
 
-    public MaintenanceItem fetchMaintenanceItemById(Integer maintenance_id, Integer id) {
-        final String[] selectionArgs = { String.valueOf(maintenance_id), String.valueOf(id) };
-        final String selection = MAINTENANCE_ITEM_MAINTENANCE_ID + " = ? AND " + MAINTENANCE_ITEM_ID + " = ?";
-        MaintenanceItem maintenanceItem = new MaintenanceItem();
-        cursor = super.query(MAINTENANCE_ITEM_TABLE, MAINTENANCE_ITEM_COLUMNS, selection, selectionArgs, MAINTENANCE_ITEM_ID);
-        if (cursor != null) {
-            cursor.moveToFirst();
-            while (!cursor.isAfterLast()) {
-                maintenanceItem = cursorToEntity(cursor);
-                cursor.moveToNext();
-            }
-            cursor.close();
-        }
-        return maintenanceItem;
-    }
-
     public List<MaintenanceItem> fetchMaintenanceItemByMaintenance(Integer maintenance_id) {
         final String[] selectionArgs = { String.valueOf(maintenance_id) };
         final String selection = MAINTENANCE_ITEM_MAINTENANCE_ID + " = ?";
@@ -53,33 +37,10 @@ public class MaintenanceItemDAO extends DbContentProvider implements Maintenance
         return maintenanceItemList;
     }
 
-    public List<MaintenanceItem> fetchAllMaintenanceItem() {
-        List<MaintenanceItem> maintenanceItemList = new ArrayList<>();
-
-        cursor = super.query(MAINTENANCE_ITEM_TABLE, MAINTENANCE_ITEM_COLUMNS, null, null, null);
-
-        if (cursor.moveToFirst()) {
-            do {
-                MaintenanceItem maintenanceItem = cursorToEntity(cursor);
-                maintenanceItemList.add(maintenanceItem);
-            } while (cursor.moveToNext());
-
-            cursor.close();
-        }
-        return maintenanceItemList;
-    }
-
     public void deleteMaintenanceItem(Integer maintenance_id, Integer id) {
         final String[] selectionArgs = { String.valueOf(maintenance_id), String.valueOf(id) };
         final String selection = MAINTENANCE_ITEM_MAINTENANCE_ID + " = ? AND " + MAINTENANCE_ITEM_ID + " = ?";
         super.delete(MAINTENANCE_ITEM_TABLE, selection, selectionArgs);
-    }
-
-    public boolean updateMaintenanceItem(MaintenanceItem maintenanceItem) {
-        setContentValue(maintenanceItem);
-        final String[] selectionArgs = { String.valueOf(maintenanceItem.getMaintenance_id()), String.valueOf(maintenanceItem.getId()) };
-        final String selection = MAINTENANCE_ITEM_MAINTENANCE_ID + " = ? AND " + MAINTENANCE_ITEM_ID + " = ?";
-        return (super.update(MAINTENANCE_ITEM_TABLE, getContentValue(), selection, selectionArgs) > 0);
     }
 
     public boolean addMaintenanceItem(MaintenanceItem maintenanceItem) {

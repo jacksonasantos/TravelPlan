@@ -46,31 +46,6 @@ public class VehicleStatisticsPeriodDAO extends DbContentProvider implements Veh
         return vehicleStatisticsPeriodList;
     }
 
-    public List<VehicleStatisticsPeriod> findVehicleStatisticsPeriod() {
-        List<VehicleStatisticsPeriod> vehicleStatisticsPeriodList = new ArrayList<>();
-        cursor = super.rawQuery("SELECT f." + FuelSupplyISchema.FUEL_SUPPLY_VEHICLE_ID + " " + VehicleStatisticsPeriodISchema.VEHICLE_STATISTICS_PERIOD_VEHICLE_ID+", " +
-                                            "v." + VehicleISchema.VEHICLE_SHORT_NAME + " " + VehicleStatisticsPeriodISchema.VEHICLE_STATISTICS_PERIOD_SHORT_NAME+ ", " +
-                                            "STRFTIME( '%Y-%m',f."+FuelSupplyISchema.FUEL_SUPPLY_SUPPLY_DATE+") " + VehicleStatisticsPeriodISchema.VEHICLE_STATISTICS_PERIOD_STATISTIC_PERIOD+ ", " +
-                                            "(SUM(f."+ FuelSupplyISchema.FUEL_SUPPLY_VEHICLE_TRAVELLED_DISTANCE+") / SUM(f." + FuelSupplyISchema.FUEL_SUPPLY_NUMBER_LITERS+"+f."+FuelSupplyISchema.FUEL_SUPPLY_ACCUMULATED_NUMBER_LITERS+") ) " + VehicleStatisticsPeriodISchema.VEHICLE_STATISTICS_PERIOD_AVG_CONSUMPTION+" " +
-                                   "FROM " + FuelSupplyISchema.FUEL_SUPPLY_TABLE + " f " +
-                                   "JOIN " + VehicleISchema.VEHICLE_TABLE + " v ON v." + VehicleISchema.VEHICLE_ID + " = f." + FuelSupplyISchema.FUEL_SUPPLY_VEHICLE_ID + " " +
-                                  "WHERE f." + FuelSupplyISchema.FUEL_SUPPLY_VEHICLE_TRAVELLED_DISTANCE + " > 0 " +
-                                  "GROUP BY f." + FuelSupplyISchema.FUEL_SUPPLY_VEHICLE_ID +
-                                         ", v." + VehicleISchema.VEHICLE_SHORT_NAME +
-                                         ", STRFTIME( '%Y-%m',f."+FuelSupplyISchema.FUEL_SUPPLY_SUPPLY_DATE+")",
-                new String[] { });
-        if (null != cursor) {
-            if (cursor.moveToFirst()) {
-                do {
-                    VehicleStatisticsPeriod vehicleStatisticsPeriod = cursorToEntity(cursor);
-                    vehicleStatisticsPeriodList.add(vehicleStatisticsPeriod);
-                } while (cursor.moveToNext());
-            }
-            cursor.close();
-        }
-        return vehicleStatisticsPeriodList;
-    }
-
     protected VehicleStatisticsPeriod cursorToEntity(Cursor c) {
         VehicleStatisticsPeriod vSP = new VehicleStatisticsPeriod();
         if (c != null) {

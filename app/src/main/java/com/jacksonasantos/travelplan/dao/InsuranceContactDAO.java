@@ -20,22 +20,6 @@ public class InsuranceContactDAO extends DbContentProvider implements InsuranceC
         super(db);
     }
 
-    public InsuranceContact fetchInsuranceContactById(Integer id) {
-        final String[] selectionArgs = { String.valueOf(id) };
-        final String selection = INSURANCE_CONTACT_ID + " = ?";
-        InsuranceContact insuranceContact = new InsuranceContact();
-        cursor = super.query(INSURANCE_CONTACT_TABLE, INSURANCE_CONTACT_COLUMNS, selection, selectionArgs, INSURANCE_CONTACT_ID);
-        if (cursor != null) {
-            cursor.moveToFirst();
-            while (!cursor.isAfterLast()) {
-                insuranceContact = cursorToEntity(cursor);
-                cursor.moveToNext();
-            }
-            cursor.close();
-        }
-        return insuranceContact;
-    }
-
     public List<InsuranceContact> fetchInsuranceContactByInsurance(Integer insurance_id) {
         final String[] selectionArgs = { String.valueOf(insurance_id) };
         final String selection = INSURANCE_CONTACT_INSURANCE_ID + " = ?";
@@ -52,31 +36,10 @@ public class InsuranceContactDAO extends DbContentProvider implements InsuranceC
         return insuranceContactList;
     }
 
-    public List<InsuranceContact> fetchAllInsuranceContacts() {
-        List<InsuranceContact> insuranceContactList = new ArrayList<>();
-        cursor = super.query(INSURANCE_CONTACT_TABLE, INSURANCE_CONTACT_COLUMNS, null, null, INSURANCE_CONTACT_INSURANCE_ID);
-        if (cursor.moveToFirst()) {
-            do {
-                InsuranceContact insuranceContact = cursorToEntity(cursor);
-                insuranceContactList.add(insuranceContact);
-            } while (cursor.moveToNext());
-
-            cursor.close();
-        }
-        return insuranceContactList;
-    }
-
     public void deleteInsuranceContact(Integer id) {
         final String[] selectionArgs = { String.valueOf(id) };
         final String selection = INSURANCE_CONTACT_ID + " = ?";
         super.delete(INSURANCE_CONTACT_TABLE, selection, selectionArgs);
-    }
-
-    public boolean updateInsuranceContact(InsuranceContact insuranceContact) {
-        setContentValue(insuranceContact);
-        final String[] selectionArgs = { String.valueOf(insuranceContact.getId()) };
-        final String selection = INSURANCE_CONTACT_ID + " = ?";
-        return (super.update(INSURANCE_CONTACT_TABLE, getContentValue(), selection, selectionArgs) > 0);
     }
 
     public boolean addInsuranceContact(InsuranceContact insuranceContact) {
@@ -108,5 +71,4 @@ public class InsuranceContactDAO extends DbContentProvider implements InsuranceC
     private ContentValues getContentValue() {
         return initialValues;
     }
-
 }

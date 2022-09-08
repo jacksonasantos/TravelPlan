@@ -21,22 +21,6 @@ public class TravelItemExpensesDAO extends DbContentProvider implements TravelIt
         super(db);
     }
 
-    public TravelItemExpenses fetchTravelItemExpensesById(Integer id) {
-        final String[] selectionArgs = { String.valueOf(id) };
-        final String selection = TRAVEL_ITEM_EXPENSES_ID + " = ?";
-        TravelItemExpenses travelItemExpenses = new TravelItemExpenses();
-        cursor = super.query(TRAVEL_ITEM_EXPENSES_TABLE, TRAVEL_ITEM_EXPENSES_COLUMNS, selection, selectionArgs, TRAVEL_ITEM_EXPENSES_ID);
-        if (cursor != null) {
-            cursor.moveToFirst();
-            while (!cursor.isAfterLast()) {
-                travelItemExpenses = cursorToEntity(cursor);
-                cursor.moveToNext();
-            }
-            cursor.close();
-        }
-        return travelItemExpenses;
-    }
-
     public List<TravelItemExpenses> fetchTravelItemExpensesByExpenseType(Integer travel_id, Integer expense_type) {
         final String[] selectionArgs = { String.valueOf(travel_id), String.valueOf(expense_type) };
         final String selection = TRAVEL_ITEM_EXPENSES_TRAVEL_ID + " = ? AND " + TRAVEL_ITEM_EXPENSES_EXPENSE_TYPE + " = ?";
@@ -52,31 +36,11 @@ public class TravelItemExpensesDAO extends DbContentProvider implements TravelIt
         return travelItemExpensesList;
     }
 
-    public List<TravelItemExpenses> fetchAllTravelItemExpenses() {
-        List<TravelItemExpenses> travelItemExpensesList = new ArrayList<>();
-
-        cursor = super.query(TRAVEL_ITEM_EXPENSES_TABLE, TRAVEL_ITEM_EXPENSES_COLUMNS, null, null, null);
-        if (cursor.moveToFirst()) {
-            do {
-                TravelItemExpenses travelItemExpenses = cursorToEntity(cursor);
-                travelItemExpensesList.add(travelItemExpenses);
-            } while (cursor.moveToNext());
-            cursor.close();
-        }
-        return travelItemExpensesList;
-    }
 
     public void deleteTravelItemExpenses(Integer id) {
         final String[] selectionArgs = { String.valueOf(id) };
         final String selection = TRAVEL_ITEM_EXPENSES_ID + " = ?";
         super.delete(TRAVEL_ITEM_EXPENSES_TABLE, selection, selectionArgs);
-    }
-
-    public boolean updateTravelItemExpenses(TravelItemExpenses travelItemExpenses) {
-        setContentValue(travelItemExpenses);
-        final String[] selectionArgs = { String.valueOf(travelItemExpenses.getId()) };
-        final String selection = TRAVEL_ITEM_EXPENSES_ID + " = ?";
-        return (super.update(TRAVEL_ITEM_EXPENSES_TABLE, getContentValue(), selection, selectionArgs) > 0);
     }
 
     public boolean addTravelItemExpenses(TravelItemExpenses travelItemExpenses) {

@@ -67,21 +67,6 @@ public class ItineraryDAO extends DbContentProvider implements ItineraryISchema,
         }
         return itineraryList;
     }
-    
-    public List<Itinerary> fetchAllItinerary( ) {
-        List<Itinerary> itineraryList = new ArrayList<>();
-
-        cursor = super.query(ITINERARY_TABLE, ITINERARY_COLUMNS, null, null, null);
-
-        if (cursor.moveToFirst()) {
-            do {
-                Itinerary itinerary = cursorToEntity(cursor);
-                itineraryList.add(itinerary);
-            } while (cursor.moveToNext());
-            cursor.close();
-        }
-        return itineraryList;
-    }
 
     public Cursor fetchArrayItinerary(Integer travel_id){
         final String[] selectionArgs = { String.valueOf(travel_id) };
@@ -92,17 +77,17 @@ public class ItineraryDAO extends DbContentProvider implements ItineraryISchema,
                                    "FROM "+ITINERARY_TABLE + " WHERE "+ selection, selectionArgs);
     }
 
-    public boolean deleteItinerary(Integer id) {
+    public void deleteItinerary(Integer id) {
         final String[] selectionArgs = { String.valueOf(id) };
         final String selection = ITINERARY_ID + " = ?";
-        return (super.delete(ITINERARY_TABLE, selection, selectionArgs) > 0);
+        super.delete(ITINERARY_TABLE, selection, selectionArgs);
     }
 
-    public boolean updateItinerary(Itinerary itinerary) {
+    public void updateItinerary(Itinerary itinerary) {
         setContentValue(itinerary);
         final String[] selectionArgs = { String.valueOf(itinerary.getId()) };
         final String selection = ITINERARY_ID + " = ?";
-        return (super.update(ITINERARY_TABLE, getContentValue(), selection, selectionArgs) > 0);
+        super.update(ITINERARY_TABLE, getContentValue(), selection, selectionArgs);
     }
 
     public boolean addItinerary(Itinerary itinerary) {

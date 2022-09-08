@@ -92,6 +92,9 @@
       </map>
     </option>
   </component>
+  <component name="EntryPointsManager">
+    <pattern value="com.jacksonasantos.travelplan.dao.interfaces.AccommodationIDAO" method="addAccommodation" />
+  </component>
   <component name="NullableNotNullManager">
     <option name="myDefaultNullable" value="androidx.annotation.Nullable" />
     <option name="myDefaultNotNull" value="androidx.annotation.NonNull" />

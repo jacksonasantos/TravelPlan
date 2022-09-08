@@ -61,25 +61,6 @@ public class MaintenanceDAO extends DbContentProvider implements MaintenanceISch
         return maintenanceList;
     }
 
-    public List<Maintenance> findReminderMaintenance( Integer vehicle_id) {
-        List<Maintenance> maintenanceList = new ArrayList<>();
-
-        final String[] selectionArgs = { String.valueOf(vehicle_id) };
-        final String selection = MAINTENANCE_VEHICLE_ID + " = ? ";
-
-        cursor = super.query(MAINTENANCE_TABLE, MAINTENANCE_COLUMNS, selection, selectionArgs, MAINTENANCE_DATE + " DESC");
-
-        if (cursor.moveToFirst()) {
-            do {
-                Maintenance maintenance = cursorToEntity(cursor);
-                maintenanceList.add(maintenance);
-            } while (cursor.moveToNext());
-
-            cursor.close();
-        }
-        return maintenanceList;
-    }
-
     public void deleteMaintenance(Integer id) {
         final String[] selectionArgs = { String.valueOf(id) };
         final String selection = MAINTENANCE_ID + " = ?";

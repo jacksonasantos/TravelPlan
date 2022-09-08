@@ -8,7 +8,6 @@ import java.util.List;
 public interface InsuranceCompanyIDAO {
     InsuranceCompany fetchInsuranceCompanyById(Integer id);
     InsuranceCompany fetchInsuranceCompanyByCNPJ(String cnpj);
-    Integer fetchInsuranceCompanyByName(String name);
     List<InsuranceCompany> fetchAllInsuranceCompanies();
     ArrayList<InsuranceCompany> fetchArrayInsuranceCompany();
     boolean addInsuranceCompany(InsuranceCompany insuranceCompany);

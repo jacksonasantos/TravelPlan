@@ -5,10 +5,7 @@ import com.jacksonasantos.travelplan.dao.TravelItemExpenses;
 import java.util.List;
 
 public interface TravelItemExpensesIDAO {
-    TravelItemExpenses fetchTravelItemExpensesById(Integer id);
     List<TravelItemExpenses> fetchTravelItemExpensesByExpenseType(Integer travel_id, Integer expense_type);
-    List<TravelItemExpenses> fetchAllTravelItemExpenses();
     boolean addTravelItemExpenses(TravelItemExpenses travel);
     void deleteTravelItemExpenses(Integer id);
-    boolean updateTravelItemExpenses(TravelItemExpenses travel);
 }

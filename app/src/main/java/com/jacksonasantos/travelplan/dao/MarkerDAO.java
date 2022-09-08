@@ -21,22 +21,6 @@ public class MarkerDAO extends DbContentProvider implements MarkerISchema, Marke
         super(db);
     }
 
-    public Marker fetchMarkerById(Integer id) {
-        final String[] selectionArgs = { String.valueOf(id) };
-        final String selection = MARKER_ID + " = ?";
-        Marker marker = new Marker();
-        cursor = super.query(MARKER_TABLE, MARKER_COLUMNS, selection, selectionArgs, MARKER_ID);
-        if (cursor != null) {
-            cursor.moveToFirst();
-            while (!cursor.isAfterLast()) {
-                marker = cursorToEntity(cursor);
-                cursor.moveToNext();
-            }
-            cursor.close();
-        }
-        return marker;
-    }
-
     public Marker fetchMarkerByPoint(Integer travel_id, LatLng point) {
         final String[] selectionArgs = { String.valueOf(travel_id), String.valueOf(point.latitude), String.valueOf(point.longitude)};
         final String selection = MARKER_TRAVEL_ID + " = ? AND " + MARKER_LATITUDE + " = ? AND " + MARKER_LONGITUDE + " = ?";
@@ -99,11 +83,11 @@ public class MarkerDAO extends DbContentProvider implements MarkerISchema, Marke
         return (super.delete(MARKER_TABLE, selection, selectionArgs) > 0);
     }
 
-    public boolean updateMarker(Marker marker) {
+    public void updateMarker(Marker marker) {
         setContentValue(marker);
         final String[] selectionArgs = { String.valueOf(marker.getId()) };
         final String selection = MARKER_ID + " = ?";
-        return (super.update(MARKER_TABLE, getContentValue(), selection, selectionArgs) > 0);
+        super.update(MARKER_TABLE, getContentValue(), selection, selectionArgs);
     }
 
     public boolean addMarker(Marker marker) {

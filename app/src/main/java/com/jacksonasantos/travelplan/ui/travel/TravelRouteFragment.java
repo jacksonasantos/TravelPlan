@@ -653,7 +653,6 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
                                     .setTitle(R.string.Itinerary_Deleting)
                                     .setMessage(context.getResources().getString(R.string.Msg_Confirm) + "\n\n" +
                                             context.getResources().getString(R.string.marker_itinerary) + ":\n" +
-                                            //nrItinerary_Id +"\n" +
                                             context.getResources().getString(R.string.from) + ": " +
                                             itinerary.getOrig_location() + "\n" +
                                             context.getResources().getString(R.string.to) + ": " +

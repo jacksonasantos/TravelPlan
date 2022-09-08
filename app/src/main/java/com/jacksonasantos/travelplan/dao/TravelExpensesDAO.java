@@ -20,22 +20,6 @@ public class TravelExpensesDAO extends DbContentProvider implements TravelExpens
         super(db);
     }
 
-    public TravelExpenses fetchTravelExpensesById(Integer id) {
-        final String[] selectionArgs = { String.valueOf(id) };
-        final String selection = TRAVEL_EXPENSES_ID + " = ?";
-        TravelExpenses travelExpenses = new TravelExpenses();
-        cursor = super.query(TRAVEL_EXPENSES_TABLE, TRAVEL_EXPENSES_COLUMNS, selection, selectionArgs, TRAVEL_EXPENSES_ID);
-        if (cursor != null) {
-            cursor.moveToFirst();
-            while (!cursor.isAfterLast()) {
-                travelExpenses = cursorToEntity(cursor);
-                cursor.moveToNext();
-            }
-            cursor.close();
-        }
-        return travelExpenses;
-    }
-
     public List<TravelExpenses> fetchAllTravelExpensesByTravel( Integer travel_id) {
         final String[] selectionArgs = { String.valueOf(travel_id) };
         final String selection = TRAVEL_EXPENSES_TRAVEL_ID + " = ?";
@@ -85,31 +69,10 @@ public class TravelExpensesDAO extends DbContentProvider implements TravelExpens
         return travelExpenses;
     }
 
-    public List<TravelExpenses> fetchAllTravelExpenses() {
-        List<TravelExpenses> travelExpensesList = new ArrayList<>();
-
-        cursor = super.query(TRAVEL_EXPENSES_TABLE, TRAVEL_EXPENSES_COLUMNS, null, null, TRAVEL_EXPENSES_EXPENSE_TYPE);
-        if (cursor.moveToFirst()) {
-            do {
-                TravelExpenses travelExpenses = cursorToEntity(cursor);
-                travelExpensesList.add(travelExpenses);
-            } while (cursor.moveToNext());
-            cursor.close();
-        }
-        return travelExpensesList;
-    }
-
     public void deleteTravelExpenses(Integer id) {
         final String[] selectionArgs = { String.valueOf(id) };
         final String selection = TRAVEL_EXPENSES_ID + " = ?";
         super.delete(TRAVEL_EXPENSES_TABLE, selection, selectionArgs);
-    }
-
-    public boolean updateTravelExpenses(TravelExpenses travelExpenses) {
-        setContentValue(travelExpenses);
-        final String[] selectionArgs = { String.valueOf(travelExpenses.getId()) };
-        final String selection = TRAVEL_EXPENSES_ID + " = ?";
-        return (super.update(TRAVEL_EXPENSES_TABLE, getContentValue(), selection, selectionArgs) > 0);
     }
 
     public boolean addTravelExpenses(TravelExpenses travelExpenses) {

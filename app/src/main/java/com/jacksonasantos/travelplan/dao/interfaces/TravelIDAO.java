@@ -9,7 +9,6 @@ import java.util.List;
 
 public interface TravelIDAO {
     Travel fetchTravelById(Integer id);
-    Travel fetchTravelByStatus(int status);
     List<Travel> fetchAllTravel();
     Cursor selectTravels();
     ArrayList<Travel> fetchArrayTravel();

@@ -53,22 +53,6 @@ public class InsuranceCompanyDAO extends DbContentProvider implements InsuranceC
         return insuranceCompany;
     }
 
-    public Integer fetchInsuranceCompanyByName(String name) {
-        final String[] selectionArgs = { String.valueOf(name) };
-        final String selection = INSURANCE_COMPANY_COMPANY_NAME + " = ?";
-        InsuranceCompany insuranceCompany = new InsuranceCompany();
-        cursor = super.query(INSURANCE_COMPANY_TABLE, INSURANCE_COMPANY_COLUMNS, selection, selectionArgs, INSURANCE_COMPANY_ID);
-        if (cursor != null) {
-            cursor.moveToFirst();
-            while (!cursor.isAfterLast()) {
-                insuranceCompany = cursorToEntity(cursor);
-                cursor.moveToNext();
-            }
-            cursor.close();
-        }
-        return insuranceCompany.getId();
-    }
-
     public List<InsuranceCompany> fetchAllInsuranceCompanies() {
         List<InsuranceCompany> insuranceCompanyList = new ArrayList<>();
         cursor = super.query(INSURANCE_COMPANY_TABLE, INSURANCE_COMPANY_COLUMNS, null, null, INSURANCE_COMPANY_COMPANY_NAME);
