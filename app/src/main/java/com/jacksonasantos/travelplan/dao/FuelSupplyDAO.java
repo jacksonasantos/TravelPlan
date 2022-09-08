@@ -38,18 +38,58 @@ public class FuelSupplyDAO extends DbContentProvider implements FuelSupplyISchem
         return fuelSupply;
     }
 
+    public List<FuelSupply> fetchAllFuelSupplyHasTravelByTravel(Integer travel_id) {
+        List<FuelSupply> fuelSupplyList = new ArrayList<>();
+        String order = FUEL_SUPPLY_SUPPLY_DATE + ", " + FUEL_SUPPLY_ID;
+        String[] selectionArgs;
+        String selection;
+        if (Globals.getInstance().getFilterVehicle()) {
+            selectionArgs = new String[]{String.valueOf(travel_id), String.valueOf(Globals.getInstance().getIdVehicle())};
+            selection = FUEL_SUPPLY_ASSOCIATED_TRAVEL_ID + " = ? AND " + FUEL_SUPPLY_VEHICLE_ID + " = ?";
+        } else {
+            selectionArgs = new String[]{String.valueOf(travel_id)};
+            selection = FUEL_SUPPLY_ASSOCIATED_TRAVEL_ID + " = ? ";
+        }
+        cursor = super.query(FUEL_SUPPLY_TABLE, FUEL_SUPPLY_COLUMNS, selection, selectionArgs, order);
+        if (cursor.moveToFirst()) {
+            do {
+                FuelSupply fuelSupply = cursorToEntity(cursor);
+                fuelSupplyList.add(fuelSupply);
+            } while (cursor.moveToNext());
+
+            cursor.close();
+        }
+        return fuelSupplyList;
+    }
+
     public FuelSupply findLastFuelSupply(Integer vehicle_id) {
         FuelSupply fuelSupply = new FuelSupply();
         cursor = super.rawQuery("SELECT " + FUEL_SUPPLY_ID + ", * " +
-                        " FROM " + FUEL_SUPPLY_TABLE +
-                        " WHERE " + FUEL_SUPPLY_VEHICLE_ID + "=? " +
-                        " AND " + FUEL_SUPPLY_SUPPLY_DATE +"||" + FUEL_SUPPLY_ID +
-                            "=(SELECT MAX( "+ FUEL_SUPPLY_SUPPLY_DATE +
-                            "||"+FUEL_SUPPLY_ID +
-                            ") FROM " + FUEL_SUPPLY_TABLE +
-                            " WHERE " + FUEL_SUPPLY_VEHICLE_ID + " =?) " +
-                        " ORDER BY "+FUEL_SUPPLY_SUPPLY_DATE,
+                                     " FROM " + FUEL_SUPPLY_TABLE +
+                                    " WHERE " + FUEL_SUPPLY_VEHICLE_ID + "=? " +
+                                      " AND " + FUEL_SUPPLY_SUPPLY_DATE +"||" + FUEL_SUPPLY_ID +
+                                           "= (SELECT MAX( "+ FUEL_SUPPLY_SUPPLY_DATE + "||"+FUEL_SUPPLY_ID + ") "+
+                                               " FROM " + FUEL_SUPPLY_TABLE +
+                                              " WHERE " + FUEL_SUPPLY_VEHICLE_ID + " =?) " +
+                                    " ORDER BY "+FUEL_SUPPLY_SUPPLY_DATE,
                 new String[] { String.valueOf(vehicle_id), String.valueOf(vehicle_id)});
+        if (null != cursor) {
+            if (cursor.getCount() > 0) {
+                cursor.moveToFirst();
+                fuelSupply = cursorToEntity(cursor);
+            }
+            cursor.close();
+        }
+        return fuelSupply;
+    }
+
+    public FuelSupply findAVGConsumptionTravel(Integer vehicle_id, Integer travel_id) {
+        FuelSupply fuelSupply = new FuelSupply();
+        cursor = super.rawQuery("SELECT SUM(" + FUEL_SUPPLY_VEHICLE_TRAVELLED_DISTANCE + ")/SUM(" + FUEL_SUPPLY_NUMBER_LITERS +") stat_avg_fuel_consumption " +
+                                     " FROM " + FUEL_SUPPLY_TABLE +
+                                    " WHERE " + FUEL_SUPPLY_VEHICLE_ID + "= ? " +
+                                      " AND " + FUEL_SUPPLY_ASSOCIATED_TRAVEL_ID + " = ? ",
+                new String[] { String.valueOf(vehicle_id), String.valueOf(travel_id)});
         if (null != cursor) {
             if (cursor.getCount() > 0) {
                 cursor.moveToFirst();

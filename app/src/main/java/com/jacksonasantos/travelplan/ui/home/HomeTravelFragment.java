@@ -33,6 +33,7 @@ import com.jacksonasantos.travelplan.ui.general.InsuranceActivity;
 import com.jacksonasantos.travelplan.ui.travel.ItineraryActivity;
 import com.jacksonasantos.travelplan.ui.travel.ReservationActivity;
 import com.jacksonasantos.travelplan.ui.travel.TravelAchievementListAdapter;
+import com.jacksonasantos.travelplan.ui.travel.TravelFuelSupplyListAdapter;
 import com.jacksonasantos.travelplan.ui.travel.TravelRouteFragment;
 import com.jacksonasantos.travelplan.ui.travel.TravelVehicleListAdapter;
 import com.jacksonasantos.travelplan.ui.utility.DateInputMask;
@@ -66,6 +67,9 @@ public class HomeTravelFragment extends Fragment implements View.OnClickListener
 
     private ConstraintLayout layerVehicle;
     private RecyclerView listVehicle;
+
+    private ConstraintLayout layerFuelSupply;
+    private RecyclerView listFuelSupply;
 
     private ConstraintLayout layerAchievement;
     private RecyclerView listAchievement;
@@ -111,6 +115,9 @@ public class HomeTravelFragment extends Fragment implements View.OnClickListener
 
         layerVehicle = v.findViewById(R.id.layerVehicle);
         listVehicle = v.findViewById(R.id.listVehicle);
+
+        layerFuelSupply = v.findViewById(R.id.layerFuelSupply);
+        listFuelSupply = v.findViewById(R.id.listFuelSupply);
 
         layerAchievement = v.findViewById(R.id.layerAchievement);
         listAchievement = v.findViewById(R.id.listAchievement);
@@ -232,7 +239,7 @@ public class HomeTravelFragment extends Fragment implements View.OnClickListener
                 });
 
                 // Vehicles has Travel
-                final int Show_Header_VehicleTravel = 0 ;
+                final int Show_Header_VehicleTravel = 1  ;
                 TravelVehicleListAdapter adapterVehicleTravel = new TravelVehicleListAdapter(Database.mVehicleHasTravelDao.fetchAllVehicleHasTravelByTravel(travel[0].getId() ), getContext(),"Home", Show_Header_VehicleTravel);
                 if ( adapterVehicleTravel.getItemCount() > Show_Header_VehicleTravel){
                     layerVehicle.setVisibility(View.VISIBLE);
@@ -242,7 +249,16 @@ public class HomeTravelFragment extends Fragment implements View.OnClickListener
                     layerVehicle.setVisibility(View.GONE);
                 }
 
-                //TODO- Show all Refueling with average mileage, km traveled
+                // Fuel Supply has Travel
+                final int Show_Header_FuelSupplyTravel = 1  ;
+                TravelFuelSupplyListAdapter adapterFuelSupplyTravel = new TravelFuelSupplyListAdapter(Database.mFuelSupplyDao.fetchAllFuelSupplyHasTravelByTravel(travel[0].getId() ), getContext(),"Home", Show_Header_FuelSupplyTravel);
+                if ( adapterFuelSupplyTravel.getItemCount() > Show_Header_FuelSupplyTravel){
+                    layerFuelSupply.setVisibility(View.VISIBLE);
+                    listFuelSupply.setAdapter(adapterFuelSupplyTravel);
+                    listFuelSupply.setLayoutManager(new LinearLayoutManager(getContext()));
+                } else {
+                    layerFuelSupply.setVisibility(View.GONE);
+                }
 
                 // Achievement has Travel
                 final int Show_Header_AchievementTravel = 0 ;

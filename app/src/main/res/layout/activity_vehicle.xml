@@ -537,7 +537,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="2.5"
                         android:textSize="12sp"
-                        android:text="@string/Vehicle_Avg_Consumption" />
+                        android:text="@string/Avg_Consumption" />
                     <EditText
                         android:id="@+id/etAVGConsumption"
                         android:layout_width="0dp"

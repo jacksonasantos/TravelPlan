@@ -76,7 +76,9 @@
     <string name="Vehicle_Capacity">Capacity</string>
     <string name="Vehicle_Power">Power</string>
     <string name="Vehicle_Full_Capacity">Full Capacity</string>
-    <string name="Vehicle_Avg_Consumption">Average Consumption</string>
+    <string name="Avg_Consumption">Average Consumption</string>
+    <string name="Vehicle_Avg_Consumption">Vehicle Consumption</string>
+    <string name="Travel_Avg_Consumption">Travel Consumption</string>
     <string name="Vehicle_Avg_Cost_Litre">Average Cost</string>
     <string name="Vehicle_Odometer">Odometer</string>
     <string name="Vehicle_DtOdometer">Date Odometer</string>
@@ -456,4 +458,8 @@
     <string name="Achievement_Latlng_Achievement">Lat/Lng</string>
     <string name="Achievement_Length">Length</string>
 
+    <string name="Home_Travel_Date">Date</string>
+    <string name="Home_Travel_Location">Location</string>
+    <string name="Home_Travel_Liters">Liters</string>
+    <string name="Home_Travel_Distance">Distance</string>
 </resources>

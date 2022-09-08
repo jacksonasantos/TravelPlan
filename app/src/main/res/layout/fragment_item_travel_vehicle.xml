@@ -14,7 +14,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
-        android:layout_weight="0.50"
+        android:layout_weight="0.24"
         android:gravity="start|center_vertical"
         app:autoSizeMaxTextSize="12sp"
         app:autoSizeMinTextSize="6sp"
@@ -26,8 +26,20 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
-        android:layout_weight="0.5"
-        android:gravity="start|center_vertical"
+        android:layout_weight="0.38"
+        android:gravity="end|center_vertical"
+        app:autoSizeMaxTextSize="12sp"
+        app:autoSizeMinTextSize="6sp"
+        app:autoSizeStepGranularity="1sp"
+        app:autoSizeTextType="uniform" />
+    <TextView
+        android:id="@+id/txtAvgConsumptionTravel"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_weight="0.38"
+        android:layout_marginEnd="@dimen/labels_margin"
+        android:gravity="end|center_vertical"
         app:autoSizeMaxTextSize="12sp"
         app:autoSizeMinTextSize="6sp"
         app:autoSizeStepGranularity="1sp"
@@ -57,4 +69,6 @@
         app:srcCompat="@drawable/ic_supply" />
 
 </LinearLayout>
+
+
 

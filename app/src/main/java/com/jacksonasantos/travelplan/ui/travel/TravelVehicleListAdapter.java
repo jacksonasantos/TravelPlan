@@ -17,6 +17,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.jacksonasantos.travelplan.R;
+import com.jacksonasantos.travelplan.dao.FuelSupply;
 import com.jacksonasantos.travelplan.dao.Vehicle;
 import com.jacksonasantos.travelplan.dao.VehicleHasTravel;
 import com.jacksonasantos.travelplan.dao.general.Database;
@@ -71,8 +72,9 @@ public class TravelVehicleListAdapter extends RecyclerView.Adapter<RecyclerView.
             HeaderViewHolder headerViewHolder = (HeaderViewHolder) holder;
 
             headerViewHolder.llVehicleTravelItem.setBackgroundColor(Color.LTGRAY);
-            headerViewHolder.txtVehicle.setText(R.string.Vehicle_Name);
+            headerViewHolder.txtVehicle.setText(R.string.Vehicle);
             headerViewHolder.txtAvgConsumption.setText(R.string.Vehicle_Avg_Consumption);
+            headerViewHolder.txtAvgConsumptionTravel.setText(R.string.Travel_Avg_Consumption);
             headerViewHolder.btnDelete.setVisibility(View.INVISIBLE);
             headerViewHolder.btnRefuel.setVisibility(View.INVISIBLE);
         }
@@ -80,10 +82,12 @@ public class TravelVehicleListAdapter extends RecyclerView.Adapter<RecyclerView.
             final ItemViewHolder itemViewHolder = (ItemViewHolder) holder;
             final VehicleHasTravel vehicleHasTravel = mVehicleHasTravel.get(position-show_header);
             final Vehicle vehicle = Database.mVehicleDao.fetchVehicleById(vehicleHasTravel.getVehicle_id());
+            final FuelSupply vehicleTravel = Database.mFuelSupplyDao.findAVGConsumptionTravel(vehicleHasTravel.getVehicle_id(), vehicleHasTravel.getTravel_id());
 
             itemViewHolder.llVehicleTravelItem.setBackgroundColor(Utils.getColorWithAlpha(R.color.colorItemList,0.1f));
             itemViewHolder.txtVehicle.setText(vehicle.getShort_name());
             itemViewHolder.txtAvgConsumption.setText(numberFormatter.format(vehicle.getAvg_consumption()) + " " + g.getMeasureConsumption());
+            itemViewHolder.txtAvgConsumptionTravel.setText(numberFormatter.format(vehicleTravel.getStat_avg_fuel_consumption()) + " " + g.getMeasureConsumption());
 
             if (form.equals("Home")) {
                 itemViewHolder.btnDelete.setVisibility(View.INVISIBLE);
@@ -136,6 +140,7 @@ public class TravelVehicleListAdapter extends RecyclerView.Adapter<RecyclerView.
         public final LinearLayout llVehicleTravelItem;
         public final TextView txtVehicle;
         public final TextView txtAvgConsumption;
+        public final TextView txtAvgConsumptionTravel;
         public final ImageButton btnDelete;
         public final ImageButton btnRefuel;
 
@@ -144,6 +149,7 @@ public class TravelVehicleListAdapter extends RecyclerView.Adapter<RecyclerView.
             llVehicleTravelItem = v.findViewById(R.id.llVehicleTravelItem);
             txtVehicle = v.findViewById(R.id.txtVehicle);
             txtAvgConsumption = v.findViewById(R.id.txtAvgConsumption);
+            txtAvgConsumptionTravel = v.findViewById(R.id.txtAvgConsumptionTravel);
             btnDelete = v.findViewById(R.id.btnDelete);
             btnRefuel = v.findViewById(R.id.btnRefuel);
         }
@@ -153,6 +159,7 @@ public class TravelVehicleListAdapter extends RecyclerView.Adapter<RecyclerView.
         public final LinearLayout llVehicleTravelItem;
         public final TextView txtVehicle;
         public final TextView txtAvgConsumption;
+        public final TextView txtAvgConsumptionTravel;
         public final ImageButton btnDelete;
         public final ImageButton btnRefuel;
 
@@ -161,6 +168,7 @@ public class TravelVehicleListAdapter extends RecyclerView.Adapter<RecyclerView.
             llVehicleTravelItem = v.findViewById(R.id.llVehicleTravelItem);
             txtVehicle = v.findViewById(R.id.txtVehicle);
             txtAvgConsumption = v.findViewById(R.id.txtAvgConsumption);
+            txtAvgConsumptionTravel = v.findViewById(R.id.txtAvgConsumptionTravel);
             btnDelete = v.findViewById(R.id.btnDelete);
             btnRefuel = v.findViewById(R.id.btnRefuel);
         }

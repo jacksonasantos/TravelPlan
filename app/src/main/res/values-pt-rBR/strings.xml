@@ -8,7 +8,7 @@
     <string name="personal_gender">Seu Gênero Sexual</string>
     <string name="personal_header">Dados Pessoais</string>
     <string name="Vehicle_Full_Capacity">Capacidade Combustível</string>
-    <string name="Vehicle_Avg_Consumption">Consumo Médio</string>
+    <string name="Vehicle_Avg_Consumption">Consumo Veículo</string>
     <string name="menu_travel">Viagens</string>
     <string name="Vehicle_Licence_Plate">Placa de Identificação</string>
     <string name="menu_vehicle">Veículos</string>
@@ -340,4 +340,10 @@
     <string name="bt_Maintenance_Item">Itens de Manutenção</string>
     <string name="Vehicle_MaintenanceItem">Item de manutenção do veículo</string>
     <string name="Vehicle_DtAcquisitionSale">Aquisição/Venda</string>
+    <string name="Travel_Avg_Consumption">Consumo Viagem</string>
+    <string name="Avg_Consumption">Consumo Médio</string>
+    <string name="Home_Travel_Date">Data</string>
+    <string name="Home_Travel_Location">Local</string>
+    <string name="Home_Travel_Liters">Litros</string>
+    <string name="Home_Travel_Distance">Distância</string>
 </resources>
