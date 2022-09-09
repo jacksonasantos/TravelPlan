@@ -176,6 +176,28 @@
                         android:textSize="12sp"
                         android:entries="@array/fuel_array"
                         android:inputType="none"
+                        android:nextFocusDown="@+id/spinOwnerDriver" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="43dp"
+                    android:orientation="horizontal"
+                    android:weightSum="10">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="3.5"
+                        android:gravity="center_vertical"
+                        android:text="@string/Vehicle_Owner_Driver"
+                        android:textSize="12sp" />
+                    <Spinner
+                        android:id="@+id/spinOwnerDriver"
+                        android:layout_width="0dp"
+                        android:layout_height="40dp"
+                        android:layout_weight="6.5"
+                        android:textSize="12sp"
+                        android:inputType="none"
                         android:nextFocusDown="@+id/etLicencePlateVehicle" />
                 </LinearLayout>
                 <LinearLayout

@@ -63,6 +63,7 @@
     <string name="Vehicle_Year_Mode">Year Model</string>
     <string name="Vehicle_Year_Manufacture">Year Manufacture</string>
     <string name="Vehicle_Licence_Plate">Licence Plate</string>
+    <string name="Vehicle_Owner_Driver">Owner Driver</string>
     <string name="Vehicle_Vin">VIN</string>
     <string name="Vehicle_Licence_Number">Licence Number</string>
     <string name="Vehicle_State">State</string>

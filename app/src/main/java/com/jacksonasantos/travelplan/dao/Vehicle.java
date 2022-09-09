@@ -19,6 +19,7 @@ public class Vehicle {
     public String model;
     public int fuel_type;
 
+    public Integer owner_driver_id;
     public String year_model;
     public String year_manufacture;
     public String license_plate;
@@ -101,6 +102,11 @@ public class Vehicle {
         return license_plate;
     }
     public void setLicense_plate(String license_plate) { this.license_plate = license_plate; }
+
+    public Integer getOwner_driver_id() {
+        return owner_driver_id;
+    }
+    public void setOwner_driver_id(Integer owner_driver_id) { this.owner_driver_id = owner_driver_id; }
 
     public String getBrand() {
         return brand;

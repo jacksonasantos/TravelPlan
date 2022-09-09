@@ -356,4 +356,5 @@
     <string name="Driver">Condutor</string>
     <string name="Driver_Deleting">Excluindo Condutor</string>
     <string name="menu_driver">Condutor</string>
+    <string name="Vehicle_Owner_Driver">Proprietário</string>
 </resources>

@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridView;
@@ -24,6 +25,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.flask.colorpicker.ColorPickerView;
 import com.flask.colorpicker.builder.ColorPickerDialogBuilder;
 import com.jacksonasantos.travelplan.R;
+import com.jacksonasantos.travelplan.dao.Driver;
 import com.jacksonasantos.travelplan.dao.Vehicle;
 import com.jacksonasantos.travelplan.dao.general.Database;
 import com.jacksonasantos.travelplan.ui.general.MyGalleryImageAdapter;
@@ -33,6 +35,7 @@ import com.jacksonasantos.travelplan.ui.utility.Utils;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -55,6 +58,8 @@ public class VehicleActivity extends AppCompatActivity {
     private EditText etYearModel;
     private EditText etYearManufacture;
     private EditText etLicencePlateVehicle;
+    private Spinner spinOwnerDriver;
+    private Integer nrSpinOwnerDriver=0;
     private EditText etColor;
     private Button btColorCode;
     private EditText etVin;
@@ -123,6 +128,7 @@ public class VehicleActivity extends AppCompatActivity {
         etYearModel = findViewById(R.id.etYearModel);
         etYearManufacture = findViewById(R.id.etYearManufacture);
         etLicencePlateVehicle = findViewById(R.id.etLicencePlateVehicle);
+        spinOwnerDriver = findViewById(R.id.spinOwnerDriver);
         etColor = findViewById(R.id.etColor);
         btColorCode = findViewById(R.id.btColorCode);
         etVin = findViewById(R.id.etVin);
@@ -173,6 +179,36 @@ public class VehicleActivity extends AppCompatActivity {
                 nrSpinFuelType =0;
             }
         });
+
+        final List<Driver> drivers =  Database.mDriverDao.fetchArrayDriver();
+        drivers.add(0, new Driver());
+        ArrayAdapter<Driver> adapterD = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, drivers);
+        adapterD.setDropDownViewResource( android.R.layout.simple_spinner_dropdown_item);
+        spinOwnerDriver.setAdapter(adapterD);
+        if (nrSpinOwnerDriver != null && nrSpinOwnerDriver > 0) {
+            Driver d1 = Database.mDriverDao.fetchDriverById(nrSpinOwnerDriver);
+            for (int x = 1; x <= spinOwnerDriver.getAdapter().getCount(); x++) {
+                if (spinOwnerDriver.getAdapter().getItem(x).toString().equals(d1.getName())) {
+                    spinOwnerDriver.setSelection(x);
+                    nrSpinOwnerDriver = d1.getId();
+                    break;
+                }
+            }
+        }
+        final Driver[] d1 = {new Driver()};
+        spinOwnerDriver.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long idx) {
+                d1[0] = (Driver) parent.getItemAtPosition(position);
+                nrSpinOwnerDriver = d1[0].getId();
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                nrSpinOwnerDriver = null;
+            }
+        });
+        adapterD.notifyDataSetChanged();
+
         etAcquisition.addTextChangedListener(new DateInputMask(etAcquisition));
         etSale.addTextChangedListener(new DateInputMask(etSale));
         etDtOdometer.addTextChangedListener(new DateInputMask(etDtOdometer));
@@ -199,6 +235,8 @@ public class VehicleActivity extends AppCompatActivity {
             etYearModel.setText(vehicle.getYear_model());
             etYearManufacture.setText(vehicle.getYear_manufacture());
             etLicencePlateVehicle.setText(vehicle.getLicense_plate());
+            nrSpinOwnerDriver=vehicle.getOwner_driver_id();
+            spinOwnerDriver.setSelection(nrSpinOwnerDriver);
             etColor.setText(vehicle.getColor());
             btColorCode.setText(String.valueOf(vehicle.getColor_code()));
             btColorCode.setBackgroundColor(vehicle.getColor_code());
@@ -291,6 +329,7 @@ public class VehicleActivity extends AppCompatActivity {
                 v1.setYear_model(etYearModel.getText().toString());
                 v1.setYear_manufacture(etYearManufacture.getText().toString());
                 v1.setLicense_plate(etLicencePlateVehicle.getText().toString());
+                v1.setOwner_driver_id(nrSpinOwnerDriver);
                 v1.setColor(etColor.getText().toString());
                 if (!btColorCode.getText().toString().isEmpty()) {
                     v1.setColor_code(Integer.parseInt(btColorCode.getText().toString()));
@@ -374,6 +413,7 @@ public class VehicleActivity extends AppCompatActivity {
                 etYearModel.getText().toString().isEmpty() ||
                 etYearManufacture.getText().toString().isEmpty() ||
                 etLicencePlateVehicle.getText().toString().isEmpty() ||
+                //String.valueOf(nrSpinOwnerDriver).isEmpty() ||
                 etColor.getText().toString().isEmpty() ||
                 //etColorCode.getText().toString().isEmpty() ||
                 etVin.getText().toString().isEmpty() ||
