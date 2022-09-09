@@ -49,6 +49,7 @@ public class Utils extends AppCompatActivity  {
             // get a NumberFormat for the default Locale
             NumberFormat nf = NumberFormat.getNumberInstance(new Locale(g.getLanguage(), g.getCountry()));
             // convert a number with comma ex: 2,56 for double
+            arg = arg.replace(".",",");
             numberDouble = Objects.requireNonNull(nf.parse(arg)).doubleValue();
         } catch (ParseException e) {
             e.printStackTrace();

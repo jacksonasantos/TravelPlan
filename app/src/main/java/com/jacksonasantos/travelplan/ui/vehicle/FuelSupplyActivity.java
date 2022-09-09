@@ -305,15 +305,15 @@ public class FuelSupplyActivity extends AppCompatActivity implements PlacesAdapt
 
         View.OnFocusChangeListener listenerNumberLiters = (v, hasFocus) -> {
             if (!hasFocus) {
-                String vFuelValue = etFuelValue.getText().toString();
-                String vNumberLiters = etNumberLiters.getText().toString();
-                double vCurrencyValue = Utils.convertStrCurrencyToDouble((String) txCurrencyValue.getText());
-                if (vCurrencyValue == 0) vCurrencyValue = 1;
+                double vFuelValue = Utils.convertStrCurrencyToDouble(etFuelValue.getText().toString());
+                double vNumberLiters = Utils.convertStrCurrencyToDouble(etNumberLiters.getText().toString());
+                double vCurrencyValue = Utils.convertStrCurrencyToDouble(txCurrencyValue.getText().toString());
                 double vSupplyValue = 0;
-                if (!vFuelValue.equals("") && !vNumberLiters.equals("")) {
-                    vSupplyValue = (Utils.convertStrCurrencyToDouble(vFuelValue) * vCurrencyValue) * Utils.convertStrCurrencyToDouble(vNumberLiters);
+                if (vCurrencyValue == 0) vCurrencyValue = 1;
+                if (vFuelValue>0 && vNumberLiters>0) {
+                    vSupplyValue = (vFuelValue * vCurrencyValue * vNumberLiters);
                 }
-                etSupplyValue.setText( numberFormat.format(Double.isNaN(vSupplyValue)?0:vSupplyValue));
+                etSupplyValue.setText( numberFormat.format(Double.isNaN(vSupplyValue)?0:vSupplyValue).replace(",","."));
             }
         };
         etNumberLiters.setOnFocusChangeListener(listenerNumberLiters);
@@ -459,7 +459,7 @@ public class FuelSupplyActivity extends AppCompatActivity implements PlacesAdapt
                     vAccumulatedNumberLitre = 0;
                     vAccumulatedSupplyValue = 0;
                     vAccuNumberLitre = Double.parseDouble(etNumberLiters.getText().toString()) + v1.getAccumulated_number_liters();
-                    vAccuSupplyValue = Double.parseDouble(etSupplyValue.getText().toString()) + v1.getAccumulated_supply_value();
+                    vAccuSupplyValue = Double.parseDouble(etSupplyValue.getText().toString().replace(",",".")) + v1.getAccumulated_supply_value();
                 }
 
                 f1.setVehicle_id(nrVehicleId);
@@ -473,7 +473,7 @@ public class FuelSupplyActivity extends AppCompatActivity implements PlacesAdapt
                 f1.setFull_tank(vlFullTank);
                 f1.setCurrency_type(nrSpCurrencyType);
                 f1.setCurrency_quote_id(nrCurrencyQuoteId);
-                f1.setSupply_value(Double.parseDouble(etSupplyValue.getText().toString()));
+                f1.setSupply_value(Double.parseDouble(etSupplyValue.getText().toString().replace(",",".")));
                 f1.setFuel_value(Double.parseDouble(etFuelValue.getText().toString().replace(",",".")));
                 f1.setSupply_reason_type(findViewById(rbSupplyReasonType).getId());
                 f1.setSupply_reason(etSupplyReason.getText().toString());

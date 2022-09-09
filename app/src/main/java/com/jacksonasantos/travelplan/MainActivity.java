@@ -91,7 +91,7 @@ public class MainActivity extends AppCompatActivity {
         mDb = new Database( ctx );
         mDb.open();
 
-        // Load of Insurers
+        // Load of InsuranceCompany
         // TODO - Load files in directory in install app
         try {
             AssetManager assetManager = ctx.getAssets();

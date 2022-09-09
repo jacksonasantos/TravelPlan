@@ -67,10 +67,11 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:weightSum="10">
+
                     <ImageButton
                         android:id="@+id/btLocation"
                         android:layout_width="60dp"
-                        android:layout_height="60dp"
+                        android:layout_height="match_parent"
                         android:contentDescription="@string/FuelSupply_Gas_Station"
                         app:srcCompat="@drawable/ic_menu_location" />
                     <LinearLayout
@@ -233,9 +234,9 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="3"
                         android:autofillHints="no"
+                        android:gravity="end"
                         android:inputType="numberDecimal"
                         android:nextFocusDown="@+id/etSupplyValue"
-                        android:gravity="end"
                         android:textSize="12sp" />
 
                     <TextView
