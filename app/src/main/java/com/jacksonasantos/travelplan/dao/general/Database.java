@@ -12,6 +12,7 @@ import com.jacksonasantos.travelplan.dao.AccommodationDAO;
 import com.jacksonasantos.travelplan.dao.AchievementDAO;
 import com.jacksonasantos.travelplan.dao.BrokerDAO;
 import com.jacksonasantos.travelplan.dao.CurrencyQuoteDAO;
+import com.jacksonasantos.travelplan.dao.DriverDAO;
 import com.jacksonasantos.travelplan.dao.FuelSupplyDAO;
 import com.jacksonasantos.travelplan.dao.InsuranceCompanyDAO;
 import com.jacksonasantos.travelplan.dao.InsuranceContactDAO;
@@ -37,6 +38,7 @@ import com.jacksonasantos.travelplan.dao.interfaces.AccommodationISchema;
 import com.jacksonasantos.travelplan.dao.interfaces.AchievementISchema;
 import com.jacksonasantos.travelplan.dao.interfaces.BrokerISchema;
 import com.jacksonasantos.travelplan.dao.interfaces.CurrencyQuoteISchema;
+import com.jacksonasantos.travelplan.dao.interfaces.DriverISchema;
 import com.jacksonasantos.travelplan.dao.interfaces.FuelSupplyISchema;
 import com.jacksonasantos.travelplan.dao.interfaces.InsuranceCompanyISchema;
 import com.jacksonasantos.travelplan.dao.interfaces.InsuranceContactISchema;
@@ -60,12 +62,13 @@ public class Database {
     private final Context mContext;
 
     private static final String DATABASE_NAME = "TravelPlan.db";
-    private static final int DATABASE_VERSION = 46;
+    private static final int DATABASE_VERSION = 47;
 
     public static AccommodationDAO mAccommodationDao;
     public static AchievementDAO mAchievementDao;
     public static BrokerDAO mBrokerDao;
     public static CurrencyQuoteDAO mCurrencyQuoteDao;
+    public static DriverDAO mDriverDao;
     public static FuelSupplyDAO mFuelSupplyDao;
     public static InsuranceCompanyDAO mInsuranceCompanyDao;
     public static InsuranceContactDAO mInsuranceContactDao;
@@ -123,6 +126,7 @@ public class Database {
         mInsuranceContactDao = new InsuranceContactDAO(mDb);
         mAchievementDao = new AchievementDAO(mDb);
         mVehicleMaintenanceItemDao = new VehicleMaintenanceItemDAO(mDb);
+        mDriverDao = new DriverDAO(mDb);
     }
 
     public void close() {
@@ -208,6 +212,7 @@ public class Database {
             db.execSQL(AchievementISchema.ALTER_TABLE_ACHIEVEMENT_V46_1); Log.w("Table "+AchievementISchema.ACHIEVEMENT_TABLE,"V461 - Alter Table...");
             db.execSQL(AchievementISchema.ALTER_TABLE_ACHIEVEMENT_V46_2); Log.w("Table "+AchievementISchema.ACHIEVEMENT_TABLE,"V462 - Alter Table...");
             db.execSQL(AchievementISchema.ALTER_TABLE_ACHIEVEMENT_V46_3); Log.w("Table "+AchievementISchema.ACHIEVEMENT_TABLE,"V463 - Alter Table...");
+            db.execSQL(DriverISchema.CREATE_TABLE_DRIVER_V47); Log.w("Table "+DriverISchema.DRIVER_TABLE,"V47 - Create Table...");
         }
 
         @SuppressLint("SQLiteString")
@@ -360,6 +365,9 @@ public class Database {
                         db.execSQL(AchievementISchema.ALTER_TABLE_ACHIEVEMENT_V46_1);
                         db.execSQL(AchievementISchema.ALTER_TABLE_ACHIEVEMENT_V46_2);
                         db.execSQL(AchievementISchema.ALTER_TABLE_ACHIEVEMENT_V46_3);
+                        break;
+                    case 47:
+                        db.execSQL(DriverISchema.CREATE_TABLE_DRIVER_V47);
                         break;
                     default:
                         break;

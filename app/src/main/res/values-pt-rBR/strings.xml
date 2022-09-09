@@ -346,4 +346,14 @@
     <string name="Home_Travel_Location">Local</string>
     <string name="Home_Travel_Liters">Litros</string>
     <string name="Home_Travel_Distance">Distância</string>
+    <string name="Driver_Gender">Gênero</string>
+    <string name="Driver_Driving_Record">Registro Habilitação</string>
+    <string name="Driver_Licence_Expiration_Date">Vencimento</string>
+    <string name="Driver_First_Licence_Date">1a Habilitação</string>
+    <string name="Driver_Licence_Issue_Date">Emissão Habilitação</string>
+    <string name="Driver_Category">Categoria</string>
+    <string name="Driver_Name">Nome</string>
+    <string name="Driver">Condutor</string>
+    <string name="Driver_Deleting">Excluindo Condutor</string>
+    <string name="menu_driver">Condutor</string>
 </resources>

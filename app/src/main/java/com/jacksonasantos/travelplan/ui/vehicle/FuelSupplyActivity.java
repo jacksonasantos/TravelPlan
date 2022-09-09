@@ -140,7 +140,7 @@ public class FuelSupplyActivity extends AppCompatActivity implements PlacesAdapt
         mDb.open();
 
         setTitle(R.string.FuelSupply_Vehicle);
-        setContentView(R.layout.dialog_fuel_supply);
+        setContentView(R.layout.activity_fuel_supply);
 
         Bundle extras = getIntent().getExtras();
         fuelSupply = new FuelSupply();

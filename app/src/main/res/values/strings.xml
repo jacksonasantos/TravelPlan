@@ -9,6 +9,7 @@
     <string name="menu_accommodation">Accommodation</string>
     <string name="menu_achievement">Achievement</string>
     <string name="menu_fuel_supply">Fuel Supply</string>
+    <string name="menu_driver">Driver</string>
     <string name="menu_maintenance_plan">Maintenance Plan</string>
     <string name="menu_maintenance">Maintenance Service</string>
     <string name="action_settings">Settings</string>
@@ -443,7 +444,7 @@
     <string name="pay">Pay</string>
 
     <!-- Achievement Fragment -->
-    <string name="Achievement"> Achievement</string>
+    <string name="Achievement">Achievement</string>
     <string name="Achievement_Deleting">Deleting Achievement</string>
 
     <string name="Achievement_Short_Name">Short Name</string>
@@ -462,4 +463,16 @@
     <string name="Home_Travel_Location">Location</string>
     <string name="Home_Travel_Liters">Liters</string>
     <string name="Home_Travel_Distance">Distance</string>
+
+    <!-- Driver -->
+    <string name="Driver">Name</string>
+    <string name="Driver_Deleting">Deleting Driver</string>
+
+    <string name="Driver_Name">Name</string>
+    <string name="Driver_Gender">Gender</string>
+    <string name="Driver_Driving_Record">Driving Record</string>
+    <string name="Driver_Licence_Expiration_Date">Licence Expiration Date</string>
+    <string name="Driver_First_Licence_Date">First Licence Date</string>
+    <string name="Driver_Licence_Issue_Date">Licence Issue Date</string>
+    <string name="Driver_Category">Category</string>
 </resources>

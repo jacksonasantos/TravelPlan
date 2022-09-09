@@ -41,6 +41,10 @@
                 android:title="@string/action_settings"
                 app:showAsAction="ifRoom" />
             <item
+                android:id="@+id/nav_driver"
+                android:icon="@drawable/ic_driver"
+                android:title="@string/menu_driver" />
+            <item
                 android:id="@+id/nav_maintenance_plan"
                 android:icon="@drawable/ic_menu_maintenance_plan"
                 android:title="@string/menu_maintenance_plan" />
