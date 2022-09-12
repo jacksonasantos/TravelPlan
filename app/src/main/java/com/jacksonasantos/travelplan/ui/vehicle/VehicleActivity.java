@@ -151,17 +151,15 @@ public class VehicleActivity extends AppCompatActivity {
         etAccumulatedNumberLiters = findViewById(R.id.etAccumulatedNumberLiters);
         etAccumulatedSupplyValue= findViewById(R.id.etAccumulatedSupplyValue);
 
-        // TODO - Adjust palette colors
         btColorCode.setOnClickListener(view -> ColorPickerDialogBuilder
                 .with(VehicleActivity.this)
-                .setTitle("Choose color")
+                .setTitle(R.string.choose_color)
                 .showAlphaSlider(false)
-                //.initialColor(vehicle.getColor_code())
                 .wheelType(ColorPickerView.WHEEL_TYPE.CIRCLE)
                 .density(6)
                 .setOnColorSelectedListener(selectedColor -> btColorCode.setText(String.valueOf(selectedColor)))
-                .setPositiveButton("ok", (dialog, selectedColor, allColors) -> btColorCode.setBackgroundColor(selectedColor))
-                .setNegativeButton("cancel", (dialog, which) -> { })
+                .setPositiveButton("Ok", (dialog, selectedColor, allColors) -> btColorCode.setBackgroundColor(selectedColor))
+                .setNegativeButton(R.string.cancel, (dialog, which) -> { })
                 .build()
                 .show());
 
@@ -212,8 +210,8 @@ public class VehicleActivity extends AppCompatActivity {
         etAcquisition.addTextChangedListener(new DateInputMask(etAcquisition));
         etSale.addTextChangedListener(new DateInputMask(etSale));
         etDtOdometer.addTextChangedListener(new DateInputMask(etDtOdometer));
-
         etDtLastFueling.addTextChangedListener(new DateInputMask(etDtLastFueling));
+
         Utils.addRadioButtonResources(R.array.supply_reason_type_array, rgLastSupplyReasonType, this);
         rgLastSupplyReasonType.setOnCheckedChangeListener((group, checkedId) -> rbLastSupplyReasonType = checkedId);
 
@@ -235,7 +233,7 @@ public class VehicleActivity extends AppCompatActivity {
             etYearModel.setText(vehicle.getYear_model());
             etYearManufacture.setText(vehicle.getYear_manufacture());
             etLicencePlateVehicle.setText(vehicle.getLicense_plate());
-            nrSpinOwnerDriver=vehicle.getOwner_driver_id();
+            nrSpinOwnerDriver=vehicle.getOwner_driver_id()==null?0:vehicle.getOwner_driver_id();
             spinOwnerDriver.setSelection(nrSpinOwnerDriver);
             etColor.setText(vehicle.getColor());
             btColorCode.setText(String.valueOf(vehicle.getColor_code()));

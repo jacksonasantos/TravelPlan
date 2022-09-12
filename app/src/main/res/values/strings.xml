@@ -51,6 +51,9 @@
     <string name="motorcycle">Motorcycle</string>
     <string name="suv">SUV</string>
 
+    <string name="choose_color">Choose Color</string>
+    <string name="cancel">Cancel</string>
+
     <string name="Vehicle_Id">Identification Vehicle</string>
     <string name="Vehicle_Image">Vehicle Image</string>
     <string name="Vehicle_Type">Vehicle Type</string>
