@@ -1,15 +1,12 @@
 package com.jacksonasantos.travelplan.dao;
 
-import android.annotation.SuppressLint;
 import android.graphics.Color;
 
 import com.jacksonasantos.travelplan.R;
-import com.jacksonasantos.travelplan.ui.utility.Utils;
+import com.jacksonasantos.travelplan.ui.utility.Globals;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
-import java.util.Objects;
 
 public class Insurance {
     public Integer id;
@@ -56,25 +53,25 @@ public class Insurance {
     }
 
     public int getColorInsuranceStatus() {
-        try {
-            @SuppressLint("SimpleDateFormat") SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-            int color = 0;
-            if (status == 1) {  // Closed
-                color = Color.BLUE;
-            } else {
-                if (!(final_effective_date == null)) {
-                    if (System.currentTimeMillis() < Objects.requireNonNull(sdf.parse(Objects.requireNonNull(Utils.dateToString(final_effective_date)))).getTime()) {
-                        color = Color.GREEN;         // 0 - Registered
-                    } else {
-                        color = Color.RED;
-                    }
-                }
+        Globals g = Globals.getInstance();
+        int color = 0;
+        if (status == 1) {  // Closed
+            color = Color.BLUE;
+        } else {
+            if (!(final_effective_date == null)) {
+                Date alertMin = new Date(System.currentTimeMillis());
+                Calendar cal = Calendar.getInstance();
+                cal.setTime(alertMin);
+                cal.add(Calendar.DAY_OF_MONTH, g.getDaysPreviousAlert());
+                Date alertMax = cal.getTime();
+                Date dtValid = (final_effective_date);
+
+                if (dtValid.before(alertMin) ) color = Color.RED;  // Expired
+                else if (dtValid.before(alertMax)) color = -30464; // on the Expire limit
+                else color = Color.GREEN; // ok
             }
-            return color;
-        } catch (ParseException e) {
-          e.printStackTrace();
-          return 0;
         }
+        return color;
     }
 
     public int getInsurance_type() { return insurance_type; }
