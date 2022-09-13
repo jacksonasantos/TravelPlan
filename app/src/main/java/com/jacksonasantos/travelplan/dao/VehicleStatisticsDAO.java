@@ -1,10 +1,14 @@
 package com.jacksonasantos.travelplan.dao;
 
+import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import com.jacksonasantos.travelplan.R;
 import com.jacksonasantos.travelplan.dao.general.DbContentProvider;
+import com.jacksonasantos.travelplan.dao.interfaces.DriverISchema;
 import com.jacksonasantos.travelplan.dao.interfaces.FuelSupplyISchema;
+import com.jacksonasantos.travelplan.dao.interfaces.InsuranceISchema;
 import com.jacksonasantos.travelplan.dao.interfaces.VehicleStatisticsIDAO;
 import com.jacksonasantos.travelplan.dao.interfaces.VehicleStatisticsISchema;
 import com.jacksonasantos.travelplan.ui.utility.Utils;
@@ -18,6 +22,46 @@ public class VehicleStatisticsDAO extends DbContentProvider implements VehicleSt
 
     public VehicleStatisticsDAO(SQLiteDatabase db) {
         super(db);
+    }
+
+    public List<String> findMessages (Context context) {
+        List<String> messagesList = new ArrayList<>();
+        // driver registration expiration
+        cursor = super.rawQuery("SELECT '"+context.getString(R.string.Driver_Driving_Record)+" ' ||" +
+                                            "d." + DriverISchema.DRIVER_NAME + " ||"+
+                                            "IIF(d." + DriverISchema.DRIVER_LICENSE_EXPIRATION_DATE + " < DATE('now'),' "+context.getString(R.string.expired)+" ',' "+context.getString(R.string.expiring)+" ') || " +
+                                            "' "+context.getString(R.string.in)+" ' || " +
+                                            "strftime('%d/%m/%Y',d." + DriverISchema.DRIVER_LICENSE_EXPIRATION_DATE + ") message " +
+                                      "FROM "+DriverISchema.DRIVER_TABLE+" d "+
+                                     "WHERE d."+DriverISchema.DRIVER_LICENSE_EXPIRATION_DATE+" <= date('now','+30 day') " ,
+                new String[] { });
+        if (null != cursor) {
+            if (cursor.moveToFirst()) {
+                do {
+                    messagesList.add(cursor.getString(0));
+                } while (cursor.moveToNext());
+            }
+            cursor.close();
+        }
+        // insurance expiration
+        cursor = super.rawQuery("SELECT '"+context.getString(R.string.insurance)+" ' || " +
+                                            "s." + InsuranceISchema.INSURANCE_DESCRIPTION + " || " +
+                                            "IIF(s."+InsuranceISchema.INSURANCE_FINAL_EFFECTIVE_DATE+"<DATE('now'),' "+context.getString(R.string.expired)+" ',' "+context.getString(R.string.expiring)+" ') || " +
+                                            "' "+context.getString(R.string.in)+" ' || " +
+                                            "strftime('%d/%m/%Y',s."+InsuranceISchema.INSURANCE_FINAL_EFFECTIVE_DATE+") " +
+                                      "FROM "+InsuranceISchema.INSURANCE_TABLE +" s " +
+                                     "WHERE "+InsuranceISchema.INSURANCE_FINAL_EFFECTIVE_DATE +" <= date('now','+30 day') " +
+                                       "AND s." + InsuranceISchema.INSURANCE_STATUS + " = 0",
+                new String[] { });
+        if (null != cursor) {
+            if (cursor.moveToFirst()) {
+                do {
+                    messagesList.add(cursor.getString(0));
+                } while (cursor.moveToNext());
+            }
+            cursor.close();
+        }
+        return messagesList;
     }
 
     public List<VehicleStatistics> findTotalFuelingVehicleStatistics(Integer vehicle_id) {

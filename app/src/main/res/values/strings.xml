@@ -469,8 +469,12 @@
     <string name="Home_Travel_Distance">Distance</string>
 
     <!-- Driver -->
-    <string name="Driver">Name</string>
+    <string name="Driver">Driver</string>
     <string name="Driver_Deleting">Deleting Driver</string>
+
+    <string name="in">in</string>
+    <string name="expiring">expiring</string>
+    <string name="expired">expired</string>
 
     <string name="Driver_Name">Name</string>
     <string name="Driver_Gender">Gender</string>

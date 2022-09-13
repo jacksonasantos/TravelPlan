@@ -347,7 +347,7 @@
     <string name="Home_Travel_Liters">Litros</string>
     <string name="Home_Travel_Distance">Distância</string>
     <string name="Driver_Gender">Gênero</string>
-    <string name="Driver_Driving_Record">Registro Habilitação</string>
+    <string name="Driver_Driving_Record">Registro de Habilitação</string>
     <string name="Driver_Licence_Expiration_Date">Vencimento</string>
     <string name="Driver_First_Licence_Date">1a Habilitação</string>
     <string name="Driver_Licence_Issue_Date">Emissão Habilitação</string>
@@ -359,4 +359,7 @@
     <string name="Vehicle_Owner_Driver">Proprietário</string>
     <string name="choose_color">Escolha a Cor</string>
     <string name="cancel">Cancelar</string>
+    <string name="in">em</string>
+    <string name="expired">vencida</string>
+    <string name="expiring">vencendo</string>
 </resources>

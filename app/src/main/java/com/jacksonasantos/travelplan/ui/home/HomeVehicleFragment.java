@@ -20,6 +20,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -53,6 +54,9 @@ import java.util.Locale;
 public class HomeVehicleFragment extends Fragment implements View.OnClickListener {
 
     private ScrollView layerHomeVehicle;
+    private CardView layerMessage;
+    private RecyclerView listMessage;
+
     private Spinner spVehicle;
     private TextView tvLicencePlate;
     private ImageView imVehicleType;
@@ -96,6 +100,10 @@ public class HomeVehicleFragment extends Fragment implements View.OnClickListene
 
         View v=inflater.inflate(R.layout.fragment_home_vehicle, container, false);
         layerHomeVehicle = v.findViewById((R.id.layerHomeVehicle));
+
+        layerMessage = v.findViewById((R.id.layerMessage));
+        listMessage = v.findViewById((R.id.listMessage));
+
         imVehicleType = v.findViewById(R.id.imVehicleType);
         spVehicle =v.findViewById(R.id.spVehicle);
         tvLicencePlate = v.findViewById(R.id.tvLicencePlate);
@@ -139,6 +147,15 @@ public class HomeVehicleFragment extends Fragment implements View.OnClickListene
 
         final Database mDb = new Database(getActivity());
         mDb.open();
+
+        HomeMessageListAdapter adapterMessage = new HomeMessageListAdapter(Database.mVehicleStatisticsDao.findMessages(requireContext()), getContext());
+        if (adapterMessage.getItemCount() > 0) {
+            layerMessage.setVisibility(View.VISIBLE);
+            listMessage.setAdapter(adapterMessage);
+            listMessage.setLayoutManager(new LinearLayoutManager(getContext()));
+        } else {
+            layerMessage.setVisibility(View.GONE);
+        }
 
         final List<Vehicle> vehicles =  Database.mVehicleDao.fetchArrayVehicles();
         ArrayAdapter<Vehicle> adapter = new ArrayAdapter<>(requireActivity(), android.R.layout.simple_spinner_item, vehicles);
