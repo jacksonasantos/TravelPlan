@@ -30,6 +30,26 @@
                     android:autofillHints="no"
                     android:hint="@string/Driver_Name"
                     android:inputType="text"
+                    android:nextFocusDown="@+id/etShortName"
+                    android:textSize="12sp" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/labels_margin"
+                android:layout_marginLeft="@dimen/labels_margin"
+                android:layout_marginTop="@dimen/labels_space_top"
+                android:layout_marginEnd="@dimen/labels_margin"
+                android:layout_marginRight="@dimen/labels_margin">
+
+                <EditText
+                    android:id="@+id/etShortName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:autofillHints="no"
+                    android:hint="@string/Driver_Short_Name"
+                    android:inputType="text"
                     android:nextFocusDown="@+id/rgGender"
                     android:textSize="12sp" />
             </com.google.android.material.textfield.TextInputLayout>

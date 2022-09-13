@@ -38,7 +38,7 @@ public class VehicleHasTravelDAO extends DbContentProvider implements VehicleHas
     public void deleteVehicleHasTravel(Integer vehicle_id, Integer travel_id) {
         final String[] selectionArgs = { String.valueOf(vehicle_id),String.valueOf(travel_id) };
         final String selection = VEHICLE_HAS_TRAVEL_VEHICLE_ID + " = ? AND " +
-                VEHICLE_HAS_TRAVEL_TRAVEL_ID + " = ? ";
+                                 VEHICLE_HAS_TRAVEL_TRAVEL_ID + " = ? ";
         super.delete(VEHICLE_HAS_TRAVEL_TABLE, selection, selectionArgs);
     }
 
@@ -52,6 +52,7 @@ public class VehicleHasTravelDAO extends DbContentProvider implements VehicleHas
         if (c != null) {
             if (c.getColumnIndex(VEHICLE_HAS_TRAVEL_VEHICLE_ID) != -1) {vHT.setVehicle_id(c.getInt(c.getColumnIndexOrThrow(VEHICLE_HAS_TRAVEL_VEHICLE_ID))); }
             if (c.getColumnIndex(VEHICLE_HAS_TRAVEL_TRAVEL_ID) != -1)  {vHT.setTravel_id(c.getInt(c.getColumnIndexOrThrow(VEHICLE_HAS_TRAVEL_TRAVEL_ID))); }
+            if (c.getColumnIndex(VEHICLE_HAS_TRAVEL_DRIVER_ID) != -1)  {vHT.setDriver_id(c.getInt(c.getColumnIndexOrThrow(VEHICLE_HAS_TRAVEL_DRIVER_ID))); }
         }
         return vHT;
     }
@@ -60,6 +61,7 @@ public class VehicleHasTravelDAO extends DbContentProvider implements VehicleHas
         initialValues = new ContentValues();
         initialValues.put(VEHICLE_HAS_TRAVEL_VEHICLE_ID, vHT.vehicle_id);
         initialValues.put(VEHICLE_HAS_TRAVEL_TRAVEL_ID, vHT.travel_id);
+        initialValues.put(VEHICLE_HAS_TRAVEL_DRIVER_ID, vHT.driver_id);
     }
 
     private ContentValues getContentValue() {

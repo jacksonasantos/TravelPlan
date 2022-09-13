@@ -19,6 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.jacksonasantos.travelplan.R;
 import com.jacksonasantos.travelplan.dao.Achievement;
+import com.jacksonasantos.travelplan.dao.Driver;
 import com.jacksonasantos.travelplan.dao.Travel;
 import com.jacksonasantos.travelplan.dao.Vehicle;
 import com.jacksonasantos.travelplan.dao.VehicleHasTravel;
@@ -39,6 +40,8 @@ public class TravelActivity extends AppCompatActivity {
     private ConstraintLayout clVehicleTravel;
     private AutoCompleteTextView spinVehicle;
     private int nrSpinVehicle;
+    private AutoCompleteTextView spinDriver;
+    private int nrSpinDriver;
     private ImageButton btnAdd;
     private RecyclerView rvVehicleTravel;
 
@@ -80,6 +83,7 @@ public class TravelActivity extends AppCompatActivity {
 
         clVehicleTravel = findViewById(R.id.clVehicleTravel);
         spinVehicle = findViewById(R.id.spinVehicle);
+        spinDriver = findViewById(R.id.spinDriver);
         rvVehicleTravel = findViewById(R.id.rvVehicleTravel);
         btnAdd = findViewById(R.id.btnAdd);
 
@@ -120,13 +124,23 @@ public class TravelActivity extends AppCompatActivity {
         ArrayAdapter<Vehicle> adapterVehicle = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, vehicles);
         adapterVehicle.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinVehicle.setAdapter(adapterVehicle);
-
         final Vehicle[] v1 = {new Vehicle()};
         spinVehicle.setOnItemClickListener((parent, view, position, id) -> {
             v1[0] = (Vehicle) parent.getItemAtPosition(position);
             nrSpinVehicle = v1[0].getId();
         });
         adapterVehicle.notifyDataSetChanged();
+
+        final List<Driver> drivers = Database.mDriverDao.fetchArrayDriver();
+        ArrayAdapter<Driver> adapterDriver = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, drivers);
+        adapterDriver.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinDriver.setAdapter(adapterDriver);
+        final Driver[] d1 = {new Driver()};
+        spinDriver.setOnItemClickListener((parent, view, position, id) -> {
+            d1[0] = (Driver) parent.getItemAtPosition(position);
+            nrSpinDriver = d1[0].getId();
+        });
+        adapterDriver.notifyDataSetChanged();
 
         final List<Achievement> achievements = Database.mAchievementDao.fetchArrayAchievement();
         ArrayAdapter<Achievement> adapterAchievement = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, achievements);
@@ -174,6 +188,7 @@ public class TravelActivity extends AppCompatActivity {
 
                 vt1.setTravel_id(travel.getId());
                 vt1.setVehicle_id(nrSpinVehicle);
+                vt1.setDriver_id(nrSpinDriver);
                 try {
                     isSave = Database.mVehicleHasTravelDao.addVehicleHasTravel(vt1);
                 } catch (Exception e) {

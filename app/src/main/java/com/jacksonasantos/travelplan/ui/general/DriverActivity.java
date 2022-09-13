@@ -17,6 +17,7 @@ import com.jacksonasantos.travelplan.ui.utility.Utils;
 
 public class DriverActivity extends AppCompatActivity {
     private EditText etName;
+    private EditText etShortName;
     private RadioGroup rgGender;
     private int rbGender;
     private EditText etDrivingRecord;
@@ -56,6 +57,7 @@ public class DriverActivity extends AppCompatActivity {
         addListenerOnButtonSave();
 
         etName = findViewById(R.id.etName);
+        etShortName = findViewById(R.id.etShortName);
         rgGender = findViewById(R.id.rgGender);
         etDrivingRecord = findViewById(R.id.etDrivingRecord);
         etLicenceExpirationDate = findViewById(R.id.etLicenceExpirationDate);
@@ -74,6 +76,7 @@ public class DriverActivity extends AppCompatActivity {
 
         if (driver != null) {
             etName.setText(driver.getName());
+            etShortName.setText(driver.getShort_Name());
             rgGender.check(driver.getGender());
             etDrivingRecord.setText(driver.getDriving_record());
             etLicenceExpirationDate.setText(Utils.dateToString(driver.getLicense_expiration_date()));
@@ -95,6 +98,7 @@ public class DriverActivity extends AppCompatActivity {
                 final Driver d1 = new Driver();
 
                 d1.setName(etName.getText().toString());
+                d1.setShort_Name(etShortName.getText().toString());
                 d1.setGender(rbGender);
                 d1.setDriving_record(etDrivingRecord.getText().toString());
                 d1.setLicense_expiration_date(Utils.stringToDate(etLicenceExpirationDate.getText().toString()));
@@ -131,6 +135,7 @@ public class DriverActivity extends AppCompatActivity {
 
         try {
             if (!etName.getText().toString().trim().isEmpty() &&
+                !etShortName.getText().toString().trim().isEmpty() &&
                 rbGender != 0 &&
                 !etDrivingRecord.getText().toString().trim().isEmpty() &&
                 !etLicenceIssueDate.getText().toString().trim().isEmpty() &&

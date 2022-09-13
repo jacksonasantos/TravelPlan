@@ -101,6 +101,7 @@ public class DriverDAO extends DbContentProvider implements DriverISchema, Drive
         if (c != null) {
             if (c.getColumnIndex(DRIVER_ID) != -1)                      {b.id = c.getInt(c.getColumnIndexOrThrow(DRIVER_ID)); }
             if (c.getColumnIndex(DRIVER_NAME) != -1)                    {b.name = c.getString(c.getColumnIndexOrThrow(DRIVER_NAME)); }
+            if (c.getColumnIndex(DRIVER_SHORT_NAME) != -1)              {b.short_name = c.getString(c.getColumnIndexOrThrow(DRIVER_SHORT_NAME)); }
             if (c.getColumnIndex(DRIVER_GENDER) != -1)                  {b.gender = c.getInt(c.getColumnIndexOrThrow(DRIVER_GENDER)); }
             if (c.getColumnIndex(DRIVER_DRIVING_RECORD) != -1)          {b.driving_record = c.getString(c.getColumnIndexOrThrow(DRIVER_DRIVING_RECORD)); }
             if (c.getColumnIndex(DRIVER_LICENSE_EXPIRATION_DATE) != -1) {b.license_expiration_date = Utils.dateParse(c.getString(c.getColumnIndexOrThrow(DRIVER_LICENSE_EXPIRATION_DATE))); }
@@ -116,6 +117,7 @@ public class DriverDAO extends DbContentProvider implements DriverISchema, Drive
         initialValues = new ContentValues();
         initialValues.put(DRIVER_ID, b.id);
         initialValues.put(DRIVER_NAME, b.name);
+        initialValues.put(DRIVER_SHORT_NAME, b.short_name);
         initialValues.put(DRIVER_GENDER, b.gender);
         initialValues.put(DRIVER_DRIVING_RECORD, b.driving_record);
         initialValues.put(DRIVER_LICENSE_EXPIRATION_DATE, Utils.dateFormat(b.license_expiration_date));

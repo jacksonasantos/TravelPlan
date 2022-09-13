@@ -169,13 +169,38 @@
                         app:autoSizeTextType="uniform" />
                 </com.google.android.material.textfield.TextInputLayout>
 
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/textInputLayout21"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toStartOf="@+id/btnAdd"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textInputLayout2">
+
+                    <AutoCompleteTextView
+                        android:id="@+id/spinDriver"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="@dimen/labels_margin"
+                        android:layout_marginLeft="@dimen/labels_margin"
+                        android:layout_marginEnd="@dimen/labels_margin"
+                        android:layout_marginRight="@dimen/labels_margin"
+                        android:hint="@string/Driver"
+                        android:inputType="none"
+                        app:autoSizeMaxTextSize="12sp"
+                        app:autoSizeMinTextSize="6sp"
+                        app:autoSizeStepGranularity="1sp"
+                        app:autoSizeTextType="uniform" />
+                </com.google.android.material.textfield.TextInputLayout>
+
                 <ImageButton
                     android:id="@+id/btnAdd"
                     android:layout_width="42dp"
                     android:layout_height="42dp"
                     android:layout_marginEnd="@dimen/labels_margin"
                     android:contentDescription="@string/bt_Add"
-                    app:layout_constraintBottom_toBottomOf="@+id/textInputLayout2"
+                    app:layout_constraintBottom_toBottomOf="@+id/textInputLayout21"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:srcCompat="@drawable/ic_button_add" />
@@ -184,7 +209,7 @@
                     android:id="@+id/rvVehicleTravel"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textInputLayout2"
+                    app:layout_constraintTop_toBottomOf="@+id/textInputLayout21"
                     tools:itemCount="4" />
 
                 <Button

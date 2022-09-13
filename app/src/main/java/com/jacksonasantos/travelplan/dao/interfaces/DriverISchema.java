@@ -6,6 +6,7 @@ public interface DriverISchema {
 
     String DRIVER_ID = "id";
     String DRIVER_NAME = "name";
+    String DRIVER_SHORT_NAME = "short_name";
     String DRIVER_GENDER = "gender";
     String DRIVER_DRIVING_RECORD = "driving_record";
     String DRIVER_LICENSE_EXPIRATION_DATE = "licence_expiration_date";
@@ -18,6 +19,7 @@ public interface DriverISchema {
             + DRIVER_TABLE + " ("
             + DRIVER_ID + " INTEGER PRIMARY KEY, "
             + DRIVER_NAME + " TEXT, "
+            + DRIVER_SHORT_NAME + " TEXT, "
             + DRIVER_GENDER + " INT, "
             + DRIVER_DRIVING_RECORD + " TEXT, "
             + DRIVER_LICENSE_EXPIRATION_DATE + " DATE, "
@@ -29,6 +31,7 @@ public interface DriverISchema {
     String[] DRIVER_COLUMNS = new String[] {
             DRIVER_ID,
             DRIVER_NAME,
+            DRIVER_SHORT_NAME,
             DRIVER_GENDER,
             DRIVER_DRIVING_RECORD,
             DRIVER_LICENSE_EXPIRATION_DATE,

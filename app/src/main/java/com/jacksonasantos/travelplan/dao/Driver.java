@@ -7,6 +7,7 @@ import java.util.Date;
 public class Driver {
     public Integer id;
     public String name;
+    public String short_name;
     public int gender;
     public String driving_record;
     public Date license_expiration_date;
@@ -25,6 +26,9 @@ public class Driver {
 
     public String getName() { return name; }
     public void setName(String name) { this.name = name; }
+
+    public String getShort_Name() { return short_name; }
+    public void setShort_Name(String short_name) { this.short_name = short_name; }
 
     public int getGender() { return gender; }
     public void setGender(int gender) { this.gender = gender; }

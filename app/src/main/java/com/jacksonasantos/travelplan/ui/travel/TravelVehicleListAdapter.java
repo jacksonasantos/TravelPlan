@@ -17,6 +17,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.jacksonasantos.travelplan.R;
+import com.jacksonasantos.travelplan.dao.Driver;
 import com.jacksonasantos.travelplan.dao.FuelSupply;
 import com.jacksonasantos.travelplan.dao.Vehicle;
 import com.jacksonasantos.travelplan.dao.VehicleHasTravel;
@@ -73,6 +74,7 @@ public class TravelVehicleListAdapter extends RecyclerView.Adapter<RecyclerView.
 
             headerViewHolder.llVehicleTravelItem.setBackgroundColor(Color.LTGRAY);
             headerViewHolder.txtVehicle.setText(R.string.Vehicle);
+            headerViewHolder.txtDriver.setText(R.string.Driver);
             headerViewHolder.txtAvgConsumption.setText(R.string.Vehicle_Avg_Consumption);
             headerViewHolder.txtAvgConsumptionTravel.setText(R.string.Travel_Avg_Consumption);
             headerViewHolder.btnDelete.setVisibility(View.INVISIBLE);
@@ -81,11 +83,13 @@ public class TravelVehicleListAdapter extends RecyclerView.Adapter<RecyclerView.
         else if (holder instanceof ItemViewHolder) {
             final ItemViewHolder itemViewHolder = (ItemViewHolder) holder;
             final VehicleHasTravel vehicleHasTravel = mVehicleHasTravel.get(position-show_header);
+            final Driver driver = Database.mDriverDao.fetchDriverById(vehicleHasTravel.getDriver_id());
             final Vehicle vehicle = Database.mVehicleDao.fetchVehicleById(vehicleHasTravel.getVehicle_id());
             final FuelSupply vehicleTravel = Database.mFuelSupplyDao.findAVGConsumptionTravel(vehicleHasTravel.getVehicle_id(), vehicleHasTravel.getTravel_id());
 
             itemViewHolder.llVehicleTravelItem.setBackgroundColor(Utils.getColorWithAlpha(R.color.colorItemList,0.1f));
             itemViewHolder.txtVehicle.setText(vehicle.getShort_name());
+            itemViewHolder.txtDriver.setText(driver.getShort_Name());
             itemViewHolder.txtAvgConsumption.setText(numberFormatter.format(vehicle.getAvg_consumption()) + " " + g.getMeasureConsumption());
             itemViewHolder.txtAvgConsumptionTravel.setText(numberFormatter.format(vehicleTravel.getStat_avg_fuel_consumption()) + " " + g.getMeasureConsumption());
 
@@ -139,6 +143,7 @@ public class TravelVehicleListAdapter extends RecyclerView.Adapter<RecyclerView.
     private static class HeaderViewHolder extends RecyclerView.ViewHolder {
         public final LinearLayout llVehicleTravelItem;
         public final TextView txtVehicle;
+        public final TextView txtDriver;
         public final TextView txtAvgConsumption;
         public final TextView txtAvgConsumptionTravel;
         public final ImageButton btnDelete;
@@ -148,6 +153,7 @@ public class TravelVehicleListAdapter extends RecyclerView.Adapter<RecyclerView.
             super(v);
             llVehicleTravelItem = v.findViewById(R.id.llVehicleTravelItem);
             txtVehicle = v.findViewById(R.id.txtVehicle);
+            txtDriver = v.findViewById(R.id.txtDriver);
             txtAvgConsumption = v.findViewById(R.id.txtAvgConsumption);
             txtAvgConsumptionTravel = v.findViewById(R.id.txtAvgConsumptionTravel);
             btnDelete = v.findViewById(R.id.btnDelete);
@@ -158,6 +164,7 @@ public class TravelVehicleListAdapter extends RecyclerView.Adapter<RecyclerView.
     public static class ItemViewHolder extends RecyclerView.ViewHolder {
         public final LinearLayout llVehicleTravelItem;
         public final TextView txtVehicle;
+        public final TextView txtDriver;
         public final TextView txtAvgConsumption;
         public final TextView txtAvgConsumptionTravel;
         public final ImageButton btnDelete;
@@ -167,6 +174,7 @@ public class TravelVehicleListAdapter extends RecyclerView.Adapter<RecyclerView.
             super(v);
             llVehicleTravelItem = v.findViewById(R.id.llVehicleTravelItem);
             txtVehicle = v.findViewById(R.id.txtVehicle);
+            txtDriver = v.findViewById(R.id.txtDriver);
             txtAvgConsumption = v.findViewById(R.id.txtAvgConsumption);
             txtAvgConsumptionTravel = v.findViewById(R.id.txtAvgConsumptionTravel);
             btnDelete = v.findViewById(R.id.btnDelete);

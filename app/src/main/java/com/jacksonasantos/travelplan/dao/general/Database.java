@@ -62,7 +62,7 @@ public class Database {
     private final Context mContext;
 
     private static final String DATABASE_NAME = "TravelPlan.db";
-    private static final int DATABASE_VERSION = 48;
+    private static final int DATABASE_VERSION = 49;
 
     public static AccommodationDAO mAccommodationDao;
     public static AchievementDAO mAchievementDao;
@@ -214,6 +214,7 @@ public class Database {
             db.execSQL(AchievementISchema.ALTER_TABLE_ACHIEVEMENT_V46_3); Log.w("Table "+AchievementISchema.ACHIEVEMENT_TABLE,"V463 - Alter Table...");
             db.execSQL(DriverISchema.CREATE_TABLE_DRIVER_V47); Log.w("Table "+DriverISchema.DRIVER_TABLE,"V47 - Create Table...");
             db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V48); Log.w("Table "+VehicleISchema.VEHICLE_TABLE,"V48 - Create Table...");
+            db.execSQL(VehicleHasTravelISchema.ALTER_TABLE_VEHICLE_HAS_TRAVEL_V49);Log.w("Table "+VehicleHasTravelISchema.VEHICLE_HAS_TRAVEL_TABLE,"V49 - Alter Table...");
         }
 
         @SuppressLint("SQLiteString")
@@ -372,6 +373,9 @@ public class Database {
                         break;
                     case 48:
                         db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V48);
+                        break;
+                    case 49:
+                        db.execSQL(VehicleHasTravelISchema.ALTER_TABLE_VEHICLE_HAS_TRAVEL_V49);
                         break;
                     default:
                         break;

@@ -362,4 +362,5 @@
     <string name="in">em</string>
     <string name="expired">vencida</string>
     <string name="expiring">vencendo</string>
+    <string name="Driver_Short_Name">Apelido</string>
 </resources>
