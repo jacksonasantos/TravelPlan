@@ -11,6 +11,10 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -47,6 +51,9 @@ public class ReservationActivity extends AppCompatActivity {
     private boolean opInsert = true;
     private Reservation reservation;
 
+    private ArrayAdapter<Accommodation> adapterA = null;
+    private List<Accommodation> accommodations;
+
     @SuppressLint("WrongViewCast")
 
     @Override
@@ -59,9 +66,11 @@ public class ReservationActivity extends AppCompatActivity {
         setTitle(R.string.Reservation);
         setContentView(R.layout.activity_reservation);
 
+       accommodations =  Database.mAccommodationDao.fetchArrayAccommodation();
+
         Bundle extras = getIntent().getExtras();
+        reservation = new Reservation();
         if (extras != null) {
-            reservation = new Reservation();
             if (extras.getInt( "reservation_id") > 0) {
                 reservation.setId(extras.getInt("reservation_id"));
                 reservation = Database.mReservationDao.fetchReservationById(reservation.getId());
@@ -105,8 +114,7 @@ public class ReservationActivity extends AppCompatActivity {
         });
         adapterT.notifyDataSetChanged();
 
-        final List<Accommodation> accommodations =  Database.mAccommodationDao.fetchArrayAccommodation();
-        ArrayAdapter<Accommodation> adapterA = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, accommodations);
+        adapterA = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, accommodations);
         adapterA.setDropDownViewResource( android.R.layout.simple_spinner_dropdown_item);
         spinAccommodation.setAdapter(adapterA);
         final Accommodation[] accommodation = {new Accommodation()};
@@ -160,9 +168,21 @@ public class ReservationActivity extends AppCompatActivity {
 
         btAddAccommodation.setOnClickListener(v -> {
             Intent intent = new Intent (v.getContext(), AccommodationActivity.class);
-            getApplicationContext().startActivity(intent);
+            myActivityResultLauncher.launch(intent);
+            // TODO - atualizar o adapter do spinAccommodation
         });
     }
+
+    final ActivityResultLauncher<Intent> myActivityResultLauncher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            new ActivityResultCallback<ActivityResult>() {
+                @Override
+                public void onActivityResult(ActivityResult result) {
+                    adapterA.notifyDataSetChanged() ;
+                    spinAccommodation.requestFocus();
+                }
+            }
+    );
 
     public void addListenerOnButtonSave() {
         Button btSaveReservation = findViewById(R.id.btSaveReservation);

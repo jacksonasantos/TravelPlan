@@ -150,8 +150,8 @@ public class AccommodationActivity extends AppCompatActivity {
                 etAccommodation_City.getText().toString().trim().isEmpty() ||
                 etAccommodation_State.getText().toString().trim().isEmpty() ||
                 etAccommodation_Country.getText().toString().trim().isEmpty() ||
-                etAccommodation_Latlng_Accommodation.getText().toString().trim().isEmpty() ||
-                etAccommodation_Contact_Name.getText().toString().trim().isEmpty() ||
+                //etAccommodation_Latlng_Accommodation.getText().toString().trim().isEmpty() ||
+                //etAccommodation_Contact_Name.getText().toString().trim().isEmpty() ||
                 etAccommodation_Phone.getText().toString().trim().isEmpty() ||
                 //etAccommodation_Email.getText().toString().trim().isEmpty() ||
                 //etAccommodation_Site.getText().toString().trim().isEmpty() ||

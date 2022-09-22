@@ -80,7 +80,6 @@ public class HomeInsuranceListAdapter extends RecyclerView.Adapter<RecyclerView.
             itemViewHolder.txtInsurancePolicy.setText(String.valueOf(insurance.getInsurance_policy()));
             itemViewHolder.txtInsuranceFinalEffectiveDate.setText(Utils.dateToString(insurance.getFinal_effective_date()));
 
-            // btnDone - change Status for Service for completed and remove of list
             itemViewHolder.btnDoneInsurance.setOnClickListener(v -> {
                 try {
                     Insurance i1 = Database.mInsuranceDao.fetchInsuranceById(insurance.getId());

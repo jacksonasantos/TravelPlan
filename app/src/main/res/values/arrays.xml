@@ -85,6 +85,7 @@
         <item>@string/tours</item>
         <item>@string/landmark</item>
         <item>@string/waypoints</item>
+        <item>@string/Achievement</item>
     </string-array>
     <!-- Expenses Type  -->
     <string-array name="expenses_type_array">

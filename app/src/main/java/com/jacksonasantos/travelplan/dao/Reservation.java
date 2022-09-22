@@ -11,10 +11,10 @@ public class Reservation {
     public Date checkin_date;
     public Date checkout_date;
     public String apt_type;
-    public Double daily_rate;
-    public Double other_rate;
-    public Double reservation_amount;
-    public Double amount_paid;
+    public double daily_rate;
+    public double other_rate;
+    public double reservation_amount;
+    public double amount_paid;
     public String note;
     public int status_reservation;
 
@@ -42,17 +42,17 @@ public class Reservation {
     public String getApt_type() {return apt_type;}
     public void setApt_type(String apt_type) {this.apt_type = apt_type;}
 
-    public Double getDaily_rate() {return daily_rate;}
-    public void setDaily_rate(Double daily_rate) {this.daily_rate = daily_rate; }
+    public double getDaily_rate() {return daily_rate;}
+    public void setDaily_rate(double daily_rate) {this.daily_rate = daily_rate; }
 
-    public Double getOther_rate() {return other_rate; }
-    public void setOther_rate(Double other_rate) { this.other_rate = other_rate;}
+    public double getOther_rate() {return other_rate; }
+    public void setOther_rate(double other_rate) { this.other_rate = other_rate;}
 
-    public Double getReservation_amount() {return reservation_amount; }
-    public void setReservation_amount(Double reservation_amount) { this.reservation_amount = reservation_amount;}
+    public double getReservation_amount() {return reservation_amount; }
+    public void setReservation_amount(double reservation_amount) { this.reservation_amount = reservation_amount;}
 
-    public Double getAmount_paid() {return amount_paid; }
-    public void setAmount_paid(Double amount_paid) { this.amount_paid = amount_paid;}
+    public double getAmount_paid() {return amount_paid; }
+    public void setAmount_paid(double amount_paid) { this.amount_paid = amount_paid;}
 
     public String getNote() {return note;}
     public void setNote(String note) {this.note = note;}

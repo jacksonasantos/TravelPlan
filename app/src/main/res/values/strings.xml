@@ -190,6 +190,7 @@
     <string name="insurance">Insurance</string>
     <string name="Insurance_Deleting">Deleting Insurance</string>
     <string name="bt_Closed_Insurance">Closed Insurance</string>
+    <string name="bt_Renew_Insurance">Renew Insurance</string>
 
     <string name="Insurance_Type">Insurance Type</string>
     <string name="Insurance_Description">Description</string>
@@ -401,6 +402,7 @@
     <string name="Itinerary_Deleting">Deleting Itinerary</string>
     <string name="add_new_itinerary">Add new Itinerary</string>
     <string name="unregistered_bookmark">Unregistered bookmark</string>
+    <string name="loaded_coordinates">Coordinates Loaded into Memory</string>
 
     <!-- Marker Fragment -->
 
@@ -408,6 +410,7 @@
     <string name="marker_sequence">Seq</string>
     <string name="marker_itinerary">Itinerary</string>
     <string name="marker_type">Type</string>
+    <string name="marker_achievement">Achievement</string>
     <string name="marker_description">Description</string>
     <string name="marker_expected_value">Expected Value</string>
     <string name="marker_latlng" translatable="false">Lat/Lng</string>

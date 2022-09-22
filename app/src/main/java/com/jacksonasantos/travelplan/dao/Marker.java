@@ -7,6 +7,7 @@ public class Marker {
     public Integer id;
     public Integer travel_id;
     public Integer itinerary_id;
+    public Integer achievement_id;
     public int marker_type;
     public Integer sequence;
     public String name;
@@ -33,6 +34,9 @@ public class Marker {
     public Integer getItinerary_id() { return itinerary_id; }
     public void setItinerary_id(Integer itinerary_id) { this.itinerary_id = itinerary_id; }
 
+    public Integer getAchievement_id() { return achievement_id; }
+    public void setAchievement_id(Integer achievement_id) { this.achievement_id = achievement_id; }
+
     public int getMarker_type() { return marker_type; }
     public void setMarker_type(int marker_type) { this.marker_type = marker_type; }
 
@@ -48,6 +52,7 @@ public class Marker {
             case 6: draw = R.drawable.ic_tour; break;
             case 7: draw = R.drawable.ic_landmark; break;
             case 8: draw = R.drawable.ic_waypoints; break;
+            case 9: draw = R.drawable.ic_menu_achievement; break;
             default: draw = R.drawable.ic_error; break;
         }
         return draw;

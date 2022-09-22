@@ -262,7 +262,7 @@ public class HomeTravelFragment extends Fragment implements View.OnClickListener
 
                 // Achievement has Travel
                 final int Show_Header_AchievementTravel = 0 ;
-                TravelAchievementListAdapter adapterAchievementTravel = new TravelAchievementListAdapter(Database.mAchievementDao.fetchAllAchievementByTravel(travel[0].getId() ), getContext(),"Home", Show_Header_AchievementTravel);
+                TravelAchievementListAdapter adapterAchievementTravel = new TravelAchievementListAdapter(Database.mAchievementDao.fetchAllAchievementByTravel(travel[0].getId()), getContext(),"Home", Show_Header_AchievementTravel);
                 if ( adapterAchievementTravel.getItemCount() > Show_Header_AchievementTravel){
                     layerAchievement.setVisibility(View.VISIBLE);
                     listAchievement.setAdapter(adapterAchievementTravel);

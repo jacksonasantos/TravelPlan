@@ -24,7 +24,7 @@ public class Itinerary {
 
     @NonNull
     @Override
-    public String toString() { return sequence+"-"+orig_location+" p/ "+dest_location; }
+    public String toString() { return sequence==0?"":sequence+"-"+orig_location+" p/ "+dest_location; }
 
     public int getColorItinerary( int sequence){
         int color;

@@ -1,9 +1,13 @@
 package com.jacksonasantos.travelplan.ui.general;
 
+import android.Manifest;
+import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -14,13 +18,19 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
 import com.jacksonasantos.travelplan.R;
 import com.jacksonasantos.travelplan.dao.Achievement;
 import com.jacksonasantos.travelplan.dao.general.Database;
+import com.jacksonasantos.travelplan.ui.travel.ItineraryActivity;
 import com.jacksonasantos.travelplan.ui.utility.Utils;
 
 import java.io.ByteArrayOutputStream;
@@ -40,16 +50,17 @@ public class AchievementActivity extends AppCompatActivity {
     private EditText etAchievement_City_End;
     private EditText etAchievement_State_End;
     private EditText etAchievement_Country;
-    private EditText etAchievement_Latlng_Achievement;
+    private ImageButton btLocation;
+    private EditText etAchievement_Latlng_Achievement;  // TODO - Conquest coordinates locator
     private EditText etAchievement_Length_Achievement;
     private EditText etAchievement_Note;
     private TextView txTravelAchievement;
+    private TextView txItineraryAchievement;
     private ImageButton imgStatusAchievement;
     private Integer nrStatusAchievement = 0;
 
     private boolean opInsert = true;
     private Achievement achievement;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,11 +101,24 @@ public class AchievementActivity extends AppCompatActivity {
         etAchievement_City_End = findViewById(R.id.etAchievement_City_End);
         etAchievement_State_End = findViewById(R.id.etAchievement_State_End);
         etAchievement_Country = findViewById(R.id.etAchievement_Country);
+        btLocation = findViewById(R.id.btLocation);
         etAchievement_Latlng_Achievement = findViewById(R.id.etAchievement_Latlng_Achievement);
         etAchievement_Length_Achievement = findViewById(R.id.etAchievement_Length_Achievement);
         etAchievement_Note = findViewById(R.id.etAchievement_Note);
         txTravelAchievement = findViewById(R.id.txTravelAchievement);
+        txItineraryAchievement = findViewById(R.id.txItineraryAchievement);
         imgStatusAchievement = findViewById(R.id.imgStatusAchievement);
+
+        btLocation.setOnClickListener(view -> {
+            if (ActivityCompat.checkSelfPermission(getBaseContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
+                    ActivityCompat.checkSelfPermission(getBaseContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                requestPermissionLauncher.launch(Manifest.permission.ACCESS_FINE_LOCATION);
+                requestPermissionLauncher.launch(Manifest.permission.ACCESS_COARSE_LOCATION);
+            }
+            Intent intent = new Intent (getBaseContext(), ItineraryActivity.class);
+            intent.putExtra("local_search", etAchievement_Name.getText().toString()+","+etAchievement_Short_Name.getText().toString());
+            myActivityResultLauncher.launch(intent);
+        });
 
         if (achievement != null) {
             etAchievement_Name.setText(achievement.getName());
@@ -113,6 +137,7 @@ public class AchievementActivity extends AppCompatActivity {
             etAchievement_Length_Achievement.setText(String.valueOf(achievement.getLength_achievement()));
             etAchievement_Note.setText(achievement.getNote());
             txTravelAchievement.setText(Database.mTravelDao.fetchTravelById(achievement.getTravel_id()).getDescription());
+            txItineraryAchievement.setText(Database.mItineraryDao.fetchItineraryById(achievement.getItinerary_id()).toString());
             nrStatusAchievement = achievement.getStatus_achievement();
             if (nrStatusAchievement == 1){
                 imgStatusAchievement.setBackgroundColor(Color.GREEN);
@@ -121,6 +146,20 @@ public class AchievementActivity extends AppCompatActivity {
             }
         }
     }
+
+    ActivityResultLauncher<Intent> myActivityResultLauncher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            new ActivityResultCallback<ActivityResult>() {
+                @Override
+                public void onActivityResult(ActivityResult result) {
+                    if (result.getResultCode() == 124) {
+                        Intent data = result.getData();
+                        if (data != null) {
+                            etAchievement_Latlng_Achievement.setText(data.getStringExtra("resulted_value"));
+                        }
+                    }
+                }
+            });
 
     private void button() {
         AtomicInteger imgPos = new AtomicInteger();
@@ -208,6 +247,11 @@ public class AchievementActivity extends AppCompatActivity {
                 } else {
                     a1.setTravel_id(achievement.getTravel_id());
                 }
+                if (txItineraryAchievement.getText().toString().equals("")) {
+                    a1.setItinerary_id(null);
+                } else {
+                    a1.setItinerary_id(achievement.getItinerary_id());
+                }
                 if (!opInsert) {
                      try {
                         a1.setId(achievement.getId());
@@ -232,6 +276,18 @@ public class AchievementActivity extends AppCompatActivity {
             }
         });
     }
+
+    private final ActivityResultLauncher<String> requestPermissionLauncher = registerForActivityResult(
+            new ActivityResultContracts.RequestPermission(), isGranted -> {
+                String tag = new ActivityResultContracts.RequestPermission().toString();
+                if (isGranted) {
+                    Log.e(tag, "onActivityResult: PERMISSION GRANTED");
+                } else {
+                    Log.e(tag, "onActivityResult: PERMISSION DENIED");
+                }
+            }
+    );
+
     private boolean validateData() {
         boolean isValid = true;
 

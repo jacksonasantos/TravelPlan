@@ -230,6 +230,7 @@
                     android:text="@string/marker_itinerary"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:textSize="10sp"
+                    android:layout_gravity="center"
                     tools:ignore="SmallSp" />
                 <Spinner
                     android:id="@+id/spinItinerary"
@@ -253,6 +254,7 @@
                     android:text="@string/marker_type"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:textSize="10sp"
+                    android:layout_gravity="center"
                     tools:ignore="SmallSp" />
 
                 <Spinner
@@ -262,6 +264,32 @@
                     android:layout_weight="7"
                     android:entries="@array/marker_type_array"
                     android:text="@string/marker_type"
+                    android:textSize="10sp"
+                    tools:ignore="SmallSp">
+
+                </Spinner>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="10">
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
+                    android:text="@string/marker_achievement"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textSize="10sp"
+                    android:layout_gravity="center"
+                    tools:ignore="SmallSp" />
+
+                <Spinner
+                    android:id="@+id/spinMarkerAchievement"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="7"
+                    android:text="@string/marker_achievement"
                     android:textSize="10sp"
                     tools:ignore="SmallSp">
 

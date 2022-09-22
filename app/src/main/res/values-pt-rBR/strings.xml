@@ -363,4 +363,7 @@
     <string name="expired">vencida</string>
     <string name="expiring">vencendo</string>
     <string name="Driver_Short_Name">Apelido</string>
+    <string name="marker_achievement">Conquista</string>
+    <string name="loaded_coordinates">Coordenadas carregadas para Memória</string>
+    <string name="bt_Renew_Insurance">Renovar Seguro</string>
 </resources>

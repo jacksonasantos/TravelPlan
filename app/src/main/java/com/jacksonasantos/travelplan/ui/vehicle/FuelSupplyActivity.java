@@ -123,7 +123,7 @@ public class FuelSupplyActivity extends AppCompatActivity implements PlacesAdapt
             Place.Field.LAT_LNG,
             Place.Field.ADDRESS);
 
-    private static final String GOOGLE_API_KEY =  MainActivity.getAppResources().getString(R.string.google_maps_key);
+    private static final String GOOGLE_API_KEY =  MainActivity.getAppResources().getString(R.string.google_maps_key); // TODO - Ajustar a localização da chave
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -217,6 +217,7 @@ public class FuelSupplyActivity extends AppCompatActivity implements PlacesAdapt
                 requestPermissionLauncher.launch(Manifest.permission.ACCESS_FINE_LOCATION);
                 requestPermissionLauncher.launch(Manifest.permission.ACCESS_COARSE_LOCATION);
             }
+
             FindCurrentPlaceRequest request = FindCurrentPlaceRequest.builder(placeFields).build();
             Task<FindCurrentPlaceResponse> placeResponse = placesClient.findCurrentPlace(request);
             ArrayList<PlaceLikelihood> arrayPlaces = new ArrayList<>();
@@ -300,7 +301,8 @@ public class FuelSupplyActivity extends AppCompatActivity implements PlacesAdapt
                                 }
                             }
                         }
-                    });
+                    }
+            );
         });
 
         View.OnFocusChangeListener listenerNumberLiters = (v, hasFocus) -> {

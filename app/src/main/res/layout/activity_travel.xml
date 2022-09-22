@@ -219,26 +219,19 @@
                     android:clickable="false"
                     app:layout_constraintTop_toBottomOf="@+id/rvVehicleTravel" />
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/textInputLayout3"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
+                <Spinner
+                    android:id="@+id/spinAchievement"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
+                    android:hint="@string/Achievement"
+                    android:inputType="none"
+                    app:autoSizeMaxTextSize="12sp"
+                    app:autoSizeMinTextSize="6sp"
+                    app:autoSizeStepGranularity="1sp"
+                    app:autoSizeTextType="uniform"
                     app:layout_constraintEnd_toStartOf="@+id/btnAddAchievement"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/buttonSeparator2">
-
-                    <AutoCompleteTextView
-                        android:id="@+id/spinAchievement"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:hint="@string/Achievement"
-                        android:inputType="none"
-                        app:autoSizeMaxTextSize="12sp"
-                        app:autoSizeMinTextSize="6sp"
-                        app:autoSizeStepGranularity="1sp"
-                        app:autoSizeTextType="uniform" />
-                </com.google.android.material.textfield.TextInputLayout>
+                    app:layout_constraintTop_toBottomOf="@+id/buttonSeparator2" />
 
                 <ImageButton
                     android:id="@+id/btnAddAchievement"
@@ -246,7 +239,7 @@
                     android:layout_height="42dp"
                     android:layout_marginEnd="@dimen/labels_margin"
                     android:contentDescription="@string/bt_Add"
-                    app:layout_constraintBottom_toBottomOf="@+id/textInputLayout3"
+                    app:layout_constraintBottom_toBottomOf="@+id/spinAchievement"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/buttonSeparator2"
                     app:srcCompat="@drawable/ic_button_add" />
@@ -255,7 +248,7 @@
                     android:id="@+id/rvAchievementTravel"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textInputLayout3"
+                    app:layout_constraintTop_toBottomOf="@+id/btnAddAchievement"
                     tools:itemCount="4" />
 
                 <Button

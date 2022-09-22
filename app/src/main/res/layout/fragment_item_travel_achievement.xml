@@ -11,18 +11,30 @@
 
     <ImageView
         android:id="@+id/imgAchievement"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
         android:layout_marginEnd="@dimen/labels_margin"
         android:layout_gravity="center"
         android:contentDescription="@string/Achievement_Image" />
+
+    <TextView
+        android:id="@+id/txtSequenceAchievement"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_weight="0.10"
+        android:gravity="center"
+        app:autoSizeMaxTextSize="12sp"
+        app:autoSizeMinTextSize="6sp"
+        app:autoSizeStepGranularity="1sp"
+        app:autoSizeTextType="uniform" />
 
     <TextView
         android:id="@+id/txtNameAchievement"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
-        android:layout_weight="0.50"
+        android:layout_weight="0.90"
         android:gravity="start|center_vertical"
         app:autoSizeMaxTextSize="12sp"
         app:autoSizeMinTextSize="6sp"
@@ -31,8 +43,8 @@
 
     <ImageButton
         android:id="@+id/btnDelete"
-        android:layout_width="22dp"
-        android:layout_height="22dp"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
         android:contentDescription="@string/bt_Delete"
         android:padding="7dp"
         android:scaleType="fitCenter"

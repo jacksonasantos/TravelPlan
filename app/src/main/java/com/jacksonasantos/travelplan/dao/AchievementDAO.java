@@ -56,7 +56,7 @@ public class AchievementDAO extends DbContentProvider implements AchievementISch
         final String[] selectionArgs = { String.valueOf(travel_id) };
         final String selection = ACHIEVEMENT_TRAVEL_ID + " = ?";
         List<Achievement> achievementList = new ArrayList<>();
-        cursor = super.query(ACHIEVEMENT_TABLE, ACHIEVEMENT_COLUMNS, selection,selectionArgs, ACHIEVEMENT_NAME);
+        cursor = super.query(ACHIEVEMENT_TABLE, ACHIEVEMENT_COLUMNS, selection,selectionArgs, ACHIEVEMENT_ITINERARY_ID);
         if (cursor.moveToFirst()) {
             do {
                 Achievement achievement = cursorToEntity(cursor);
@@ -67,16 +67,12 @@ public class AchievementDAO extends DbContentProvider implements AchievementISch
         return achievementList;
     }
 
-    public ArrayList<Achievement> fetchArrayAchievement(){
-        ArrayList<Achievement> achievementList = new ArrayList<>();
-        Cursor cursor = super.query(ACHIEVEMENT_TABLE, ACHIEVEMENT_COLUMNS, null,null, ACHIEVEMENT_NAME);
-        if(cursor != null && cursor.moveToFirst()){
-            do {
-                Achievement achievement = cursorToEntity(cursor);
-                achievementList.add(achievement);
-            } while(cursor.moveToNext());
-        }
-        return achievementList;
+    public Cursor fetchArrayAchievement() {
+        return super.rawQuery( "SELECT '' _id, '' text1 UNION " +
+                                   "SELECT " + ACHIEVEMENT_ID + ", " +
+                                              ACHIEVEMENT_NAME + " " +
+                                    "FROM " + ACHIEVEMENT_TABLE + " " +
+                                "ORDER BY " + ACHIEVEMENT_NAME, null);
     }
 
     public void deleteAchievement(Integer id) {
@@ -112,6 +108,7 @@ public class AchievementDAO extends DbContentProvider implements AchievementISch
         if (c != null) {
             if (c.getColumnIndex(ACHIEVEMENT_ID) != -1)                   {a.setId(c.getInt(c.getColumnIndexOrThrow(ACHIEVEMENT_ID))); }
             if (c.getColumnIndex(ACHIEVEMENT_TRAVEL_ID) != -1)            {a.setTravel_id(c.getInt(c.getColumnIndexOrThrow(ACHIEVEMENT_TRAVEL_ID))); }
+            if (c.getColumnIndex(ACHIEVEMENT_ITINERARY_ID) != -1)         {a.setItinerary_id(c.getInt(c.getColumnIndexOrThrow(ACHIEVEMENT_ITINERARY_ID))); }
             if (c.getColumnIndex(ACHIEVEMENT_SHORT_NAME) != -1)           {a.setShort_name(c.getString(c.getColumnIndexOrThrow(ACHIEVEMENT_SHORT_NAME))); }
             if (c.getColumnIndex(ACHIEVEMENT_NAME) != -1)                 {a.setName(c.getString(c.getColumnIndexOrThrow(ACHIEVEMENT_NAME))); }
             if (c.getColumnIndex(ACHIEVEMENT_IMAGE) != -1)                {a.setImage(c.getBlob(c.getColumnIndexOrThrow(ACHIEVEMENT_IMAGE))); }
@@ -132,6 +129,7 @@ public class AchievementDAO extends DbContentProvider implements AchievementISch
         initialValues = new ContentValues();
         initialValues.put(ACHIEVEMENT_ID, a.id);
         initialValues.put(ACHIEVEMENT_TRAVEL_ID, a.travel_id);
+        initialValues.put(ACHIEVEMENT_ITINERARY_ID, a.itinerary_id);
         initialValues.put(ACHIEVEMENT_SHORT_NAME, a.short_name);
         initialValues.put(ACHIEVEMENT_NAME, a.name);
         initialValues.put(ACHIEVEMENT_IMAGE, a.image);

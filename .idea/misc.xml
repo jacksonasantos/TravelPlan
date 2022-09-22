@@ -25,7 +25,7 @@
         <entry key="..\:/Users/JacksonAlessandrodos/Documents/GitHub/TravelPlan/app/src/main/res/layout/activity_accommodation.xml" value="0.4" />
         <entry key="..\:/Users/JacksonAlessandrodos/Documents/GitHub/TravelPlan/app/src/main/res/layout/activity_accommodation_new.xml" value="0.2421875" />
         <entry key="..\:/Users/JacksonAlessandrodos/Documents/GitHub/TravelPlan/app/src/main/res/layout/activity_accomodation_new.xml" value="0.2421875" />
-        <entry key="..\:/Users/JacksonAlessandrodos/Documents/GitHub/TravelPlan/app/src/main/res/layout/activity_achievement.xml" value="0.264" />
+        <entry key="..\:/Users/JacksonAlessandrodos/Documents/GitHub/TravelPlan/app/src/main/res/layout/activity_achievement.xml" value="0.4" />
         <entry key="..\:/Users/JacksonAlessandrodos/Documents/GitHub/TravelPlan/app/src/main/res/layout/activity_broker.xml" value="0.264" />
         <entry key="..\:/Users/JacksonAlessandrodos/Documents/GitHub/TravelPlan/app/src/main/res/layout/activity_currency_quote.xml" value="0.536" />
         <entry key="..\:/Users/JacksonAlessandrodos/Documents/GitHub/TravelPlan/app/src/main/res/layout/activity_driver.xml" value="0.2421875" />
@@ -39,7 +39,7 @@
         <entry key="..\:/Users/JacksonAlessandrodos/Documents/GitHub/TravelPlan/app/src/main/res/layout/activity_maintenance_plan.xml" value="0.19537037037037036" />
         <entry key="..\:/Users/JacksonAlessandrodos/Documents/GitHub/TravelPlan/app/src/main/res/layout/activity_reservation.xml" value="0.264" />
         <entry key="..\:/Users/JacksonAlessandrodos/Documents/GitHub/TravelPlan/app/src/main/res/layout/activity_settings.xml" value="0.2421875" />
-        <entry key="..\:/Users/JacksonAlessandrodos/Documents/GitHub/TravelPlan/app/src/main/res/layout/activity_travel.xml" value="0.4" />
+        <entry key="..\:/Users/JacksonAlessandrodos/Documents/GitHub/TravelPlan/app/src/main/res/layout/activity_travel.xml" value="0.2" />
         <entry key="..\:/Users/JacksonAlessandrodos/Documents/GitHub/TravelPlan/app/src/main/res/layout/activity_vehicle.xml" value="0.4" />
         <entry key="..\:/Users/JacksonAlessandrodos/Documents/GitHub/TravelPlan/app/src/main/res/layout/dialog_fuel_supply.xml" value="0.4" />
         <entry key="..\:/Users/JacksonAlessandrodos/Documents/GitHub/TravelPlan/app/src/main/res/layout/dialog_home_insurance.xml" value="0.264" />
@@ -80,7 +80,7 @@
         <entry key="..\:/Users/JacksonAlessandrodos/Documents/GitHub/TravelPlan/app/src/main/res/layout/fragment_item_place.xml" value="0.2421875" />
         <entry key="..\:/Users/JacksonAlessandrodos/Documents/GitHub/TravelPlan/app/src/main/res/layout/fragment_item_service_type.xml" value="0.4" />
         <entry key="..\:/Users/JacksonAlessandrodos/Documents/GitHub/TravelPlan/app/src/main/res/layout/fragment_item_travel.xml" value="0.2421875" />
-        <entry key="..\:/Users/JacksonAlessandrodos/Documents/GitHub/TravelPlan/app/src/main/res/layout/fragment_item_travel_achievement.xml" value="0.264" />
+        <entry key="..\:/Users/JacksonAlessandrodos/Documents/GitHub/TravelPlan/app/src/main/res/layout/fragment_item_travel_achievement.xml" value="0.6" />
         <entry key="..\:/Users/JacksonAlessandrodos/Documents/GitHub/TravelPlan/app/src/main/res/layout/fragment_item_travel_fuel_supply.xml" value="0.72" />
         <entry key="..\:/Users/JacksonAlessandrodos/Documents/GitHub/TravelPlan/app/src/main/res/layout/fragment_item_travel_vehicle.xml" value="0.536" />
         <entry key="..\:/Users/JacksonAlessandrodos/Documents/GitHub/TravelPlan/app/src/main/res/layout/fragment_item_vehicle.xml" value="0.4" />

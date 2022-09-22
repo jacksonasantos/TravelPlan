@@ -37,6 +37,22 @@ public class InsuranceDAO extends DbContentProvider implements InsuranceISchema,
         return insurance;
     }
 
+    public Insurance fetchInsuranceByPolicy(String insurance_policy) {
+        final String[] selectionArgs = { insurance_policy };
+        final String selection = INSURANCE_INSURANCE_POLICY + " = ?";
+        Insurance insurance = new Insurance();
+        cursor = super.query(INSURANCE_TABLE, INSURANCE_COLUMNS, selection, selectionArgs, null);
+        if (cursor != null) {
+            cursor.moveToFirst();
+            while (!cursor.isAfterLast()) {
+                insurance = cursorToEntity(cursor);
+                cursor.moveToNext();
+            }
+            cursor.close();
+        }
+        return insurance;
+    }
+
     public List<Insurance> findReminderInsurance( String type,  Integer id) {
         List<Insurance> insuranceList = new ArrayList<>();
 

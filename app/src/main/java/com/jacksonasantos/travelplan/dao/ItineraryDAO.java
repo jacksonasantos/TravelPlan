@@ -67,6 +67,18 @@ public class ItineraryDAO extends DbContentProvider implements ItineraryISchema,
         }
         return itineraryList;
     }
+    public Itinerary fetchLastItineraryByTravel(Integer travel_id) {
+        Itinerary itinerary = new Itinerary();
+        final String[] selectionArgs = { String.valueOf(travel_id) };
+        final String selection = ITINERARY_TRAVEL_ID + " = ?";
+
+        cursor = super.query(ITINERARY_TABLE, ITINERARY_COLUMNS, selection, selectionArgs, ITINERARY_SEQUENCE + " DESC ");
+        if (cursor.moveToFirst()) {
+            itinerary = cursorToEntity(cursor);
+            cursor.close();
+        }
+        return itinerary;
+    }
 
     public Cursor fetchArrayItinerary(Integer travel_id){
         final String[] selectionArgs = { String.valueOf(travel_id) };

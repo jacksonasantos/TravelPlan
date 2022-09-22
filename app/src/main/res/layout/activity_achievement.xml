@@ -210,7 +210,7 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <com.google.android.material.textfield.TextInputLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/labels_margin"
@@ -219,16 +219,35 @@
                 android:layout_marginEnd="@dimen/labels_margin"
                 android:layout_marginRight="@dimen/labels_margin">
 
-                <EditText
-                    android:id="@+id/etAchievement_Latlng_Achievement"
-                    android:layout_width="match_parent"
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:autofillHints="no"
-                    android:hint="@string/Achievement_Latlng_Achievement"
-                    android:inputType="text"
-                    android:nextFocusDown="@+id/etAchievement_Length"
-                    android:textSize="12sp" />
-            </com.google.android.material.textfield.TextInputLayout>
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/btLocation"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <EditText
+                        android:id="@+id/etAchievement_Latlng_Achievement"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:autofillHints="no"
+                        android:hint="@string/Achievement_Latlng_Achievement"
+                        android:inputType="text"
+                        android:nextFocusDown="@+id/etAchievement_Length"
+                        android:textSize="12sp" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <ImageButton
+                    android:id="@+id/btLocation"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:contentDescription="@string/Achievement_Latlng_Achievement"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/ic_menu_location" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
@@ -283,12 +302,21 @@
                 <TextView
                     android:id="@+id/txTravelAchievement"
                     android:layout_width="0dp"
-                    android:layout_height="40dp"
+                    android:layout_height="20dp"
+                    android:gravity="center_vertical"
+                    app:layout_constraintEnd_toStartOf="@+id/imgStatusAchievement"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/txItineraryAchievement"
+                    android:layout_width="0dp"
+                    android:layout_height="20dp"
                     android:gravity="center_vertical"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/imgStatusAchievement"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toBottomOf="@+id/txTravelAchievement" />
 
                 <ImageButton
                     android:id="@+id/imgStatusAchievement"

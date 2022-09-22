@@ -122,7 +122,6 @@ public class MaintenanceItemListAdapter extends RecyclerView.Adapter<RecyclerVie
         return mMaintenanceItem.size()+show_header;
     }
 
-
     private static class HeaderViewHolder extends RecyclerView.ViewHolder {
         private final ConstraintLayout llMaintenanceItem;
         private final ImageView imgServiceType;

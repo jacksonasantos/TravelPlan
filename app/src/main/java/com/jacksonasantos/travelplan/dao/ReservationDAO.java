@@ -41,7 +41,7 @@ public class ReservationDAO extends DbContentProvider implements ReservationISch
         final String[] selectionArgs = { String.valueOf(travel_id) };
         final String selection = RESERVATION_TRAVEL_ID + " = ?";
         List<Reservation> reservationList = new ArrayList<>();
-        cursor = super.query(RESERVATION_TABLE, RESERVATION_COLUMNS, selection, selectionArgs, RESERVATION_TRAVEL_ID);
+        cursor = super.query(RESERVATION_TABLE, RESERVATION_COLUMNS, selection, selectionArgs, RESERVATION_CHECKIN_DATE);
         if (cursor.moveToFirst()) {
             do {
                 Reservation reservation = cursorToEntity(cursor);

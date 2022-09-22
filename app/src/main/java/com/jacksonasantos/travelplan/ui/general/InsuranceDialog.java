@@ -1,6 +1,8 @@
 package com.jacksonasantos.travelplan.ui.general;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -31,6 +33,8 @@ public class InsuranceDialog {
     public static Insurance InsuranceClass(Insurance insurance, View v) {
         LayoutInflater li = LayoutInflater.from(v.getContext());
         View promptsView = li.inflate(R.layout.dialog_home_insurance, null);
+
+        Context context = v.getContext();
 
         TextView txtBrokerName = promptsView.findViewById(R.id.txtBrokerName);
         TextView txtContactName = promptsView.findViewById(R.id.txtContactName);
@@ -95,11 +99,49 @@ public class InsuranceDialog {
         alertDialogBuilder.setCancelable(false)
                 .setPositiveButton(R.string.OK, (dialog, id) -> {
                 })
+                .setNegativeButton(R.string.bt_Renew_Insurance, (dialog,id) -> {
+                     try {
+                         boolean isSave = false;
+                         Insurance newInsurance = i1.clone();
+                         newInsurance.setId(null);
+                         newInsurance.setInitial_effective_date(i1.getFinal_effective_date());
+                         newInsurance.setInsurance_policy("99999");
+                         newInsurance.setIssuance_date(i1.getFinal_effective_date());
+                         newInsurance.setVehicle_id(newInsurance.getVehicle_id() == 0 ? null : newInsurance.getVehicle_id());
+                         newInsurance.setTravel_id(newInsurance.getTravel_id() == 0 ? null : newInsurance.getTravel_id());
+                         try {
+                             isSave = Database.mInsuranceDao.addInsurance(newInsurance);
+                         } catch (Exception e) {
+                             Toast.makeText(context, context.getString(R.string.Error_Including_Data)+ "\n" + e.getMessage(), Toast.LENGTH_LONG).show();
+                         }
+                         if (isSave) {
+                             newInsurance = Database.mInsuranceDao.fetchInsuranceByPolicy("99999");
+
+                             List<InsuranceContact> newInsuranceContact = Database.mInsuranceContactDao.fetchInsuranceContactByInsurance(i1.getId());
+                             for (InsuranceContact contact : newInsuranceContact) {
+                                 contact.setInsurance_id(newInsurance.getId());
+                                 contact.setId(null);
+                                 Database.mInsuranceContactDao.addInsuranceContact(contact);
+                             }
+
+                             i1.setStatus(insurance.getStatus() == 0 ? 1 : 0);
+                             i1.setVehicle_id(insurance.getVehicle_id() == 0 ? null : insurance.getVehicle_id());
+                             i1.setTravel_id(insurance.getTravel_id() == 0 ? null : insurance.getTravel_id());
+                             Database.mInsuranceDao.updateInsurance(i1);
+
+                             Intent intent = new Intent(context, InsuranceActivity.class);
+                             intent.putExtra("insurance_id", newInsurance.getId());
+                             context.startActivity(intent);
+                         }
+                     } catch (Exception e) {
+                         Toast.makeText(v.getContext(), v.getContext().getString(R.string.Error_Including_Data) + "\n" + e.getMessage(), Toast.LENGTH_LONG).show();
+                     }
+                })
                 .setNeutralButton(R.string.bt_Closed_Insurance, (dialog, id) -> {
                     try {
                         i1.setStatus(insurance.getStatus() == 0 ? 1 : 0);
-                        i1.setTravel_id(insurance.getTravel_id() == 0 ? null : insurance.getTravel_id());
                         i1.setVehicle_id(insurance.getVehicle_id() == 0 ? null : insurance.getVehicle_id());
+                        i1.setTravel_id(insurance.getTravel_id() == 0 ? null : insurance.getTravel_id());
                         Database.mInsuranceDao.updateInsurance(i1);
                     } catch (Exception e) {
                         Toast.makeText(v.getContext(), v.getContext().getString(R.string.Error_Changing_Data) + "\n" + e.getMessage(), Toast.LENGTH_LONG).show();

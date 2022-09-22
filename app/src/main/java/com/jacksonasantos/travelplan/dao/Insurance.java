@@ -2,13 +2,15 @@ package com.jacksonasantos.travelplan.dao;
 
 import android.graphics.Color;
 
+import androidx.annotation.NonNull;
+
 import com.jacksonasantos.travelplan.R;
 import com.jacksonasantos.travelplan.ui.utility.Globals;
 
 import java.util.Calendar;
 import java.util.Date;
 
-public class Insurance {
+public class Insurance implements Cloneable {
     public Integer id;
     public Integer insurance_company_id;
     public Integer broker_id;
@@ -29,6 +31,12 @@ public class Insurance {
     public Integer vehicle_id;
 
     public Insurance() {
+    }
+
+    @NonNull
+    @Override
+    public Insurance clone() throws CloneNotSupportedException {
+        return (Insurance) super.clone();
     }
 
     public Integer getId() {return id;}
