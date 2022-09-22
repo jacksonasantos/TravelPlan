@@ -226,12 +226,7 @@ public class FuelSupplyActivity extends AppCompatActivity implements PlacesAdapt
                 if (task.isSuccessful()) {
                     FindCurrentPlaceResponse response = task.getResult();
 
-                    for (PlaceLikelihood placeLikelihood : response.getPlaceLikelihoods()) {
-                        arrayPlaces.add(placeLikelihood);
-                        Log.i("FuelSupply", String.format("Place '%s' in '%s' - '%s' has likelihood: %f",
-                                placeLikelihood.getPlace().getName(), placeLikelihood.getPlace().getLatLng(),
-                                placeLikelihood.getPlace().getAddress(), placeLikelihood.getLikelihood()));
-                    }
+                    arrayPlaces.addAll(response.getPlaceLikelihoods());
                     adapterPlaces = new PlacesAdapter(arrayPlaces);
                     listPlaces.setVisibility(View.VISIBLE);
                     listPlaces.setAdapter(adapterPlaces);
@@ -593,8 +588,8 @@ public class FuelSupplyActivity extends AppCompatActivity implements PlacesAdapt
 
     @Override
     public void onItemClick(PlaceLikelihood position) {
-        etGasStation.setText(position.getPlace().getName());
         try {
+            etGasStation.setText(position.getPlace().getName());
             etGasStationLocation.setText(getCityNameByCoordinates(Objects.requireNonNull(position.getPlace().getLatLng()).latitude, Objects.requireNonNull(position.getPlace().getLatLng()).longitude));
         } catch (IOException e) {
             e.printStackTrace();
