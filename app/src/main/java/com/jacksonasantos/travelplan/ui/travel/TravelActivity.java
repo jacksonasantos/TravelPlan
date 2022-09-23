@@ -226,6 +226,7 @@ public class TravelActivity extends AppCompatActivity {
                 Achievement ac1 = Database.mAchievementDao.fetchAchievementById(nrSpinAchievement);
 
                 ac1.setTravel_id(travel.getId());
+                ac1.setItinerary_id(ac1.getItinerary_id()==0?null:ac1.getItinerary_id());
                 try {
                     isSave = Database.mAchievementDao.updateAchievement(ac1);
                 } catch (Exception e) {

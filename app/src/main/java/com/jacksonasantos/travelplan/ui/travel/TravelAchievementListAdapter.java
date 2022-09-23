@@ -125,9 +125,9 @@ public class TravelAchievementListAdapter extends RecyclerView.Adapter<RecyclerV
                                                 }
                                             }
                                         }
-                                        mAchievementNew.setItinerary_id(null);
                                     }
                                     mAchievementNew.setTravel_id(null);
+                                    mAchievementNew.setItinerary_id(null);
                                     Database.mAchievementDao.updateAchievement(mAchievementNew);
                                     mAchievement.remove(position);
                                     notifyItemRemoved(position);
