@@ -214,7 +214,6 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
             }
     );
 
-    @SuppressLint("SetTextI18n")
     protected void showSearch(@NonNull List<Address> addresses) {
         Address address = addresses.get(0);
         LatLng latLng = new LatLng(address.getLatitude(), address.getLongitude());
@@ -226,17 +225,17 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
     }
 
     private boolean removeMarker(LatLng point ) {
-        boolean result = true;
+        boolean result;
         try {
             Marker m = Database.mMarkerDao.fetchMarkerByPoint(nrTravel_Id, point);
-            TravelExpenses te = Database.mTravelExpensesDao.fetchTravelExpensesByTravelMarker(nrTravel_Id, m.getId() );
-            Achievement a = Database.mAchievementDao.fetchAchievementById(m.getAchievement_id());
-            if (a!=null){
+            if (m.getAchievement_id()!=null && m.getAchievement_id()>0){
+                Achievement a = Database.mAchievementDao.fetchAchievementById(m.getAchievement_id());
                 a.setItinerary_id(null);
                 a.setTravel_id(null);
-                result = Database.mAchievementDao.updateAchievement(a);
+                Database.mAchievementDao.updateAchievement(a);
             }
-            Database.mTravelExpensesDao.deleteTravelExpenses(te.getId());
+            TravelExpenses te = Database.mTravelExpensesDao.fetchTravelExpensesByTravelMarker(nrTravel_Id, m.getId() );
+            result = Database.mTravelExpensesDao.deleteTravelExpenses(te.getId());
             if ( Database.mMarkerDao.deleteMarker(nrTravel_Id, String.valueOf(point.latitude), String.valueOf(point.longitude)) ) {
                 result = adjustMarker(nrTravel_Id, m.getItinerary_id(), m.getSequence(), false);
             }
@@ -398,13 +397,11 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
                                LatLng latlng = new LatLng(Double.parseDouble(tvLat.getText().toString()), Double.parseDouble(tvLng.getText().toString()));
                                m = Database.mMarkerDao.fetchMarkerByPoint(nrTravel_Id, latlng);
                                TravelExpenses te = new TravelExpenses();
-                               te.setMarker_id(m.getId());
                                te.setTravel_id(m.getTravel_id());
-                               te.setNote(getResources().getString(R.string.marker) + " - " + getResources().getString(R.string.marker_itinerary) + ": " + nrItinerary_Id);
+                               te.setExpense_type(m.getMarker_typeExpenseType(spinMarkerType.getSelectedItemPosition()));
                                te.setExpected_value(Double.parseDouble(etExpectedValue.getText().toString()));
-                               if (Double.parseDouble(etExpectedValue.getText().toString()) > 0.0) {
-                                   te.setExpense_type(m.getMarker_typeExpenseType(spinMarkerType.getSelectedItemPosition()));
-                               }
+                               te.setNote(getResources().getString(R.string.marker)+" " + m.getId() + " - " + getResources().getString(R.string.marker_itinerary) + ": " + nrItinerary_Id);
+                               te.setMarker_id(m.getId());
                                isSave.set(Database.mTravelExpensesDao.addTravelExpenses(te));
                            }
                            drawItinerary(nrTravel_Id);
@@ -539,10 +536,10 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
 
             final boolean[] isSave = {false};
 
-            Itinerary iLast = Database.mItineraryDao.fetchLastItineraryByTravel(nrTravel_Id);
-            if (iLast != null) {
-                etSequence.setText(String.valueOf(iLast.getSequence() + 1));
-                etOrig_location.setText(iLast.getDest_location());
+            Itinerary itineraryLast = Database.mItineraryDao.fetchLastItineraryByTravel(nrTravel_Id);
+            if (itineraryLast != null) {
+                etSequence.setText(String.valueOf(itineraryLast.getSequence() + 1));
+                etOrig_location.setText(itineraryLast.getDest_location());
             } else {
                 etSequence.setText(String.valueOf(1));
             }

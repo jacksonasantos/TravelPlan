@@ -52,6 +52,23 @@ public class TravelExpensesDAO extends DbContentProvider implements TravelExpens
         return travelExpensesList;
     }
 
+    public TravelExpenses fetchTravelExpensesById( Integer id) {
+        final String[] selectionArgs = { String.valueOf(id) };
+        final String selection = TRAVEL_EXPENSES_ID + " = ? ";
+        TravelExpenses travelExpenses = new TravelExpenses();
+
+        cursor = super.query(TRAVEL_EXPENSES_TABLE, TRAVEL_EXPENSES_COLUMNS, selection, selectionArgs, null);
+        if (cursor != null) {
+            cursor.moveToFirst();
+            while (!cursor.isAfterLast()) {
+                travelExpenses = cursorToEntity(cursor);
+                cursor.moveToNext();
+            }
+            cursor.close();
+        }
+        return travelExpenses;
+    }
+
     public TravelExpenses fetchTravelExpensesByTravelMarker( Integer travel_id, Integer marker_id) {
         final String[] selectionArgs = { String.valueOf(travel_id), String.valueOf(marker_id) };
         final String selection = TRAVEL_EXPENSES_TRAVEL_ID + " = ? AND " + TRAVEL_EXPENSES_MARKER_ID + " = ? ";
@@ -69,10 +86,18 @@ public class TravelExpensesDAO extends DbContentProvider implements TravelExpens
         return travelExpenses;
     }
 
-    public void deleteTravelExpenses(Integer id) {
+    public boolean deleteTravelExpenses(Integer id) {
         final String[] selectionArgs = { String.valueOf(id) };
         final String selection = TRAVEL_EXPENSES_ID + " = ?";
-        super.delete(TRAVEL_EXPENSES_TABLE, selection, selectionArgs);
+        return (super.delete(TRAVEL_EXPENSES_TABLE, selection, selectionArgs) > 0);
+    }
+
+
+    public boolean updateTravelExpenses(TravelExpenses travelExpenses) {
+        setContentValue(travelExpenses);
+        final String[] selectionArgs = { String.valueOf(travelExpenses.getId()) };
+        final String selection = TRAVEL_EXPENSES_ID + " = ?";
+        return (super.update(TRAVEL_EXPENSES_TABLE, getContentValue(), selection, selectionArgs) >0);
     }
 
     public boolean addTravelExpenses(TravelExpenses travelExpenses) {

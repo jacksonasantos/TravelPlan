@@ -20,9 +20,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.jacksonasantos.travelplan.R;
 import com.jacksonasantos.travelplan.dao.Achievement;
+import com.jacksonasantos.travelplan.dao.Marker;
 import com.jacksonasantos.travelplan.dao.general.Database;
 
 import java.util.List;
+import java.util.Objects;
 
 public class TravelAchievementListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
@@ -52,8 +54,6 @@ public class TravelAchievementListAdapter extends RecyclerView.Adapter<RecyclerV
         } else return new ItemViewHolder(achievementView);
     }
 
-    // Replace the contents of a view (invoked by the layout manager)
-    @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull final RecyclerView.ViewHolder holder, @SuppressLint("RecyclerView") final int position) {
         if (holder instanceof HeaderViewHolder){
@@ -115,6 +115,18 @@ public class TravelAchievementListAdapter extends RecyclerView.Adapter<RecyclerV
                             .setPositiveButton(R.string.Yes, (dialogInterface, i) -> {
                                 try {
                                     Achievement mAchievementNew = mAchievement.get(position-show_header);
+                                    if ((mAchievementNew.getItinerary_id()!=null) && (mAchievementNew.getItinerary_id()>0)) {
+                                        List<Marker> markers = Database.mMarkerDao.fetchMarkerByTravelItineraryId(mAchievementNew.getTravel_id(), mAchievementNew.getItinerary_id());
+                                        if (markers.size() > 0) {
+                                            for (int x = 0; x < markers.size(); x++) {
+                                                Marker marker = markers.get(x);
+                                                if (Objects.equals(marker.getAchievement_id(), mAchievementNew.getId())) {
+                                                    Database.mMarkerDao.deleteMarker(marker.getId());
+                                                }
+                                            }
+                                        }
+                                        mAchievementNew.setItinerary_id(null);
+                                    }
                                     mAchievementNew.setTravel_id(null);
                                     Database.mAchievementDao.updateAchievement(mAchievementNew);
                                     mAchievement.remove(position);

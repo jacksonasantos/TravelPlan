@@ -17,7 +17,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/labels_margin"
         android:gravity="start|center_vertical"
-        android:layout_weight="0.35"
+        android:layout_weight="0.3"
         app:autoSizeMaxTextSize="12sp"
         app:autoSizeMinTextSize="6sp"
         app:autoSizeStepGranularity="1sp"
@@ -29,7 +29,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/labels_margin"
         android:gravity="end|center_vertical"
-        android:layout_weight="0.25"
+        android:layout_weight="0.2"
         app:autoSizeMaxTextSize="12sp"
         app:autoSizeMinTextSize="6sp"
         app:autoSizeStepGranularity="1sp"
@@ -41,16 +41,27 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/labels_margin"
         android:gravity="start|center_vertical"
-        android:layout_weight="0.4"
+        android:layout_weight="0.5"
         app:autoSizeMaxTextSize="12sp"
         app:autoSizeMinTextSize="6sp"
         app:autoSizeStepGranularity="1sp"
         app:autoSizeTextType="uniform" />
 
     <ImageButton
+        android:id="@+id/btnEdit"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:contentDescription="@string/bt_Edit"
+        android:padding="7dp"
+        android:scaleType="fitCenter"
+        android:scaleX="1.5"
+        android:scaleY="1.5"
+        app:srcCompat="@drawable/ic_button_edit" />
+
+    <ImageButton
         android:id="@+id/btnDelete"
-        android:layout_width="22dp"
-        android:layout_height="22dp"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
         android:contentDescription="@string/bt_Delete"
         android:padding="7dp"
         android:scaleType="fitCenter"

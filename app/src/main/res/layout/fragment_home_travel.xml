@@ -102,7 +102,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/tvDeparture" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/layerBtnMenu"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -116,67 +116,83 @@
                 android:id="@+id/btnItinerary"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:layout_marginStart="@dimen/labels_marginLeft"
                 android:contentDescription="@string/Itinerary"
+                app:layout_constraintEnd_toStartOf="@+id/btnAccommodation"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/ic_itinerary" />
 
             <ImageButton
                 android:id="@+id/btnAccommodation"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:layout_marginStart="@dimen/labels_margin"
                 android:contentDescription="@string/accommodation"
+                app:layout_constraintEnd_toStartOf="@+id/btnFood"
+                app:layout_constraintStart_toEndOf="@+id/btnItinerary"
+                app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/ic_menu_accommodation" />
 
             <ImageButton
                 android:id="@+id/btnFood"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:layout_marginStart="@dimen/labels_margin"
                 android:contentDescription="@string/food"
+                app:layout_constraintEnd_toStartOf="@+id/btnFuel"
+                app:layout_constraintStart_toEndOf="@+id/btnAccommodation"
+                app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/ic_food" />
 
             <ImageButton
                 android:id="@+id/btnFuel"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:layout_marginStart="@dimen/labels_margin"
                 android:contentDescription="@string/combustible"
+                app:layout_constraintEnd_toStartOf="@+id/btnExtra"
+                app:layout_constraintStart_toEndOf="@+id/btnFood"
+                app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/ic_supply" />
 
             <ImageButton
                 android:id="@+id/btnExtra"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:layout_marginStart="@dimen/labels_margin"
                 android:contentDescription="@string/extras"
+                app:layout_constraintEnd_toStartOf="@+id/btnTour"
+                app:layout_constraintStart_toEndOf="@+id/btnFuel"
+                app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/ic_money_extra" />
 
             <ImageButton
                 android:id="@+id/btnTour"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:layout_marginStart="@dimen/labels_margin"
                 android:contentDescription="@string/tours"
+                app:layout_constraintEnd_toStartOf="@+id/btnTolls"
+                app:layout_constraintStart_toEndOf="@+id/btnExtra"
+                app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/ic_tour" />
 
             <ImageButton
                 android:id="@+id/btnTolls"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:layout_marginStart="@dimen/labels_margin"
                 android:contentDescription="@string/toll"
+                app:layout_constraintEnd_toStartOf="@+id/btnInsurance"
+                app:layout_constraintStart_toEndOf="@+id/btnTour"
+                app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/ic_toll" />
 
             <ImageButton
                 android:id="@+id/btnInsurance"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:layout_marginStart="@dimen/labels_margin"
                 android:contentDescription="@string/insurance"
+                app:layout_constraintStart_toEndOf="@+id/btnTolls"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/ic_menu_insurance" />
 
-        </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/layerVehicle"
