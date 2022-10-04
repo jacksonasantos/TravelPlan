@@ -1,5 +1,7 @@
 package com.jacksonasantos.travelplan.dao;
 
+import com.jacksonasantos.travelplan.R;
+
 import java.util.Date;
 
 public class Reservation {
@@ -60,4 +62,15 @@ public class Reservation {
     public int getStatus_reservation() {return status_reservation;}
     public void setStatus_reservation(int status_reservation) {this.status_reservation = status_reservation;}
 
+    public int getImage_Status_reservation( int status_reservation ) {
+        int draw;
+        switch(status_reservation) {
+            case 0: draw = R.drawable.ic_send; break;
+            case 1: draw = R.drawable.ic_executed; break;
+            case 2: draw = R.drawable.ic_pay; break;
+            case 3: draw = R.drawable.ic_done_all; break;
+            default: draw = R.drawable.ic_error; break;
+        }
+        return draw;
+    }
 }

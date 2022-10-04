@@ -8,6 +8,17 @@
     android:layout_height="wrap_content"
     tools:context=".ui.home.HomeTravelFragment">
 
+    <ImageView
+        android:id="@+id/imgStatus"
+        android:layout_width="22dp"
+        android:layout_height="22dp"
+        android:layout_gravity="center"
+        android:contentDescription="@string/Reservation_Status_Reservation"
+        android:padding="7dp"
+        android:scaleType="fitCenter"
+        android:scaleX="1.5"
+        android:scaleY="1.5" />
+
     <TextView
         android:id="@+id/txtAccommodation"
         android:layout_width="0dp"

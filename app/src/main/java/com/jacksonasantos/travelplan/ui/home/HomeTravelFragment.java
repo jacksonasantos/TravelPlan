@@ -229,7 +229,7 @@ public class HomeTravelFragment extends Fragment implements View.OnClickListener
                 });
                 btnFuel.setOnClickListener (v -> {
                     Intent intent = new Intent(v.getContext(), FuelSupplyActivity.class);
-                    // TODO - Escolher o veículo relacionado com a viagem
+                    // TODO - Escolher o veículo relacionado com a viagem para abastecimento
                     intent.putExtra("travel_id", travel[0].id);
                     startActivity(intent);
                 });

@@ -7,8 +7,11 @@ import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -63,6 +66,7 @@ public class HomeTravelReservationListAdapter extends RecyclerView.Adapter<Recyc
             HeaderViewHolder headerViewHolder = (HeaderViewHolder) holder;
 
             headerViewHolder.llReservationItem.setBackgroundColor(Color.LTGRAY);
+            headerViewHolder.imgStatus.setVisibility(View.VISIBLE);
             headerViewHolder.txtAccommodation.setText(R.string.Accommodation_Name);
             headerViewHolder.txtVoucher.setText(R.string.Reservation_Voucher_Number);
             headerViewHolder.txtCheckin.setText(R.string.Reservation_Checkin_Date);
@@ -71,7 +75,6 @@ public class HomeTravelReservationListAdapter extends RecyclerView.Adapter<Recyc
             headerViewHolder.btnDelete.setVisibility(View.INVISIBLE);
         }
         else if (holder instanceof ItemViewHolder) {
-// TODO - Marcar hospedagem como paga e efetuada
             final ItemViewHolder itemViewHolder = (ItemViewHolder) holder;
             final Reservation reservation = mReservation.get(position-show_header);
 
@@ -85,6 +88,47 @@ public class HomeTravelReservationListAdapter extends RecyclerView.Adapter<Recyc
             itemViewHolder.txtVoucher.setText(reservation.getVoucher_number());
             itemViewHolder.txtCheckin.setText(Utils.dateToString(reservation.getCheckin_date()));
             itemViewHolder.txtDaily.setText(Integer.toString(Utils.diffBetweenDate(reservation.getCheckout_date(), reservation.getCheckin_date())));
+
+            // imgStatus
+            itemViewHolder.imgStatus.setImageResource(reservation.getImage_Status_reservation(reservation.getStatus_reservation()));
+            itemViewHolder.imgStatus.setOnClickListener( v -> {
+                LayoutInflater li = LayoutInflater.from(v.getContext());
+                View promptsView = li.inflate(R.layout.dialog_travel_item_reservation, null);
+
+                final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(v.getContext());
+                alertDialogBuilder.setView(promptsView);
+
+                final Spinner spinStatusReservation = promptsView.findViewById(R.id.spinStatusReservation);
+                final EditText etAmountPaid = promptsView.findViewById(R.id.etAmountPaid);
+
+                spinStatusReservation.setSelection(reservation.getStatus_reservation());
+                etAmountPaid.setText(String.valueOf(reservation.getAmount_paid()));
+
+                alertDialogBuilder
+                        .setCancelable(false)
+                        .setPositiveButton(R.string.OK, (dialog, id) -> {
+                            boolean isSave = false;
+
+                            if (!etAmountPaid.getText().toString().isEmpty()) {
+                                reservation.setAmount_paid(Double.parseDouble(etAmountPaid.getText().toString()));
+                            }
+                            reservation.setStatus_reservation(spinStatusReservation.getSelectedItemPosition());
+
+                            try {
+                                isSave = Database.mReservationDao.updateReservation(reservation);
+                                notifyItemChanged(position);
+                            } catch (Exception e) {
+                                Toast.makeText(context, R.string.Error_Changing_Data + e.getMessage(), Toast.LENGTH_LONG).show();
+                            }
+
+                            if (!isSave) {
+                                Toast.makeText(context, R.string.Error_Saving_Data, Toast.LENGTH_LONG).show();
+                            }
+                        })
+                        .setNegativeButton(R.string.Cancel, (dialog, id) -> dialog.cancel());
+                AlertDialog alertDialog = alertDialogBuilder.create();
+                alertDialog.show();
+            });
 
             // btnEdit
             itemViewHolder.btnEdit.setOnClickListener (v -> {
@@ -127,6 +171,7 @@ public class HomeTravelReservationListAdapter extends RecyclerView.Adapter<Recyc
 
     private static class HeaderViewHolder extends RecyclerView.ViewHolder {
         private final LinearLayout llReservationItem;
+        private final ImageView imgStatus;
         private final TextView txtAccommodation;
         private final TextView txtVoucher;
         private final TextView txtCheckin;
@@ -137,6 +182,7 @@ public class HomeTravelReservationListAdapter extends RecyclerView.Adapter<Recyc
         public HeaderViewHolder(View v) {
             super(v);
             llReservationItem = v.findViewById(R.id.llReservationItem);
+            imgStatus = v.findViewById(R.id.imgStatus);
             txtAccommodation = v.findViewById(R.id.txtAccommodation);
             txtVoucher = v.findViewById(R.id.txtVoucher);
             txtCheckin = v.findViewById(R.id.txtCheckin);
@@ -148,6 +194,7 @@ public class HomeTravelReservationListAdapter extends RecyclerView.Adapter<Recyc
 
     public static class ItemViewHolder extends RecyclerView.ViewHolder {
         private final LinearLayout llReservationItem;
+        private final ImageView imgStatus;
         private final TextView txtAccommodation;
         private final TextView txtVoucher;
         private final TextView txtCheckin;
@@ -158,6 +205,7 @@ public class HomeTravelReservationListAdapter extends RecyclerView.Adapter<Recyc
         public ItemViewHolder(View v) {
             super(v);
             llReservationItem = v.findViewById(R.id.llReservationItem);
+            imgStatus = v.findViewById(R.id.imgStatus);
             txtAccommodation = v.findViewById(R.id.txtAccommodation);
             txtVoucher = v.findViewById(R.id.txtVoucher);
             txtCheckin = v.findViewById(R.id.txtCheckin);

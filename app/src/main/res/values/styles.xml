@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme.-->
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
@@ -6,7 +6,7 @@
     <style name="MyDialogStyle" parent="Theme.AppCompat.Light.Dialog.Alert">
         <item name="android:buttonBarButtonStyle">@style/MyButtonsStyle</item>
         <item name="android:colorBackground">@color/colorBackgroundDialog</item>
-        <item name="android:textSize">14sp</item>
+        <item name="android:textSize">12sp</item>
     </style>
     <style name="MyButtonsStyle" parent="Widget.AppCompat.Button.ButtonBar.AlertDialog">
         <item name="android:textColor">@color/colorButtonDialog</item>
