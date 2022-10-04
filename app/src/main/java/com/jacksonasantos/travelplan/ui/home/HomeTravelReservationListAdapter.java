@@ -71,7 +71,7 @@ public class HomeTravelReservationListAdapter extends RecyclerView.Adapter<Recyc
             headerViewHolder.btnDelete.setVisibility(View.INVISIBLE);
         }
         else if (holder instanceof ItemViewHolder) {
-
+// TODO - Marcar hospedagem como paga e efetuada
             final ItemViewHolder itemViewHolder = (ItemViewHolder) holder;
             final Reservation reservation = mReservation.get(position-show_header);
 

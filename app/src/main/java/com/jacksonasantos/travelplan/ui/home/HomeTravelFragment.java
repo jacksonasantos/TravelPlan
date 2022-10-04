@@ -49,7 +49,7 @@ public class HomeTravelFragment extends Fragment implements View.OnClickListener
 
     private ScrollView layerHomeTravel;
     private ConstraintLayout layerTravel;
-    private ImageView imTravelStatus;
+    private ImageView imTravelStatus;  // TODO - Ao Iniciar viagem guardar valor odometro dos veículos
     private Spinner spTravel;
     private TextView tvNote;
     private TextView tvDeparture;
@@ -229,6 +229,7 @@ public class HomeTravelFragment extends Fragment implements View.OnClickListener
                 });
                 btnFuel.setOnClickListener (v -> {
                     Intent intent = new Intent(v.getContext(), FuelSupplyActivity.class);
+                    // TODO - Escolher o veículo relacionado com a viagem
                     intent.putExtra("travel_id", travel[0].id);
                     startActivity(intent);
                 });
@@ -253,6 +254,7 @@ public class HomeTravelFragment extends Fragment implements View.OnClickListener
                 final int Show_Header_FuelSupplyTravel = 1  ;
                 TravelFuelSupplyListAdapter adapterFuelSupplyTravel = new TravelFuelSupplyListAdapter(Database.mFuelSupplyDao.fetchAllFuelSupplyHasTravelByTravel(travel[0].getId() ), getContext(),"Home", Show_Header_FuelSupplyTravel);
                 if ( adapterFuelSupplyTravel.getItemCount() > Show_Header_FuelSupplyTravel){
+                    // TODO - Ajustar a média da viagem quando não tem média do abastecimento
                     layerFuelSupply.setVisibility(View.VISIBLE);
                     listFuelSupply.setAdapter(adapterFuelSupplyTravel);
                     listFuelSupply.setLayoutManager(new LinearLayoutManager(getContext()));

@@ -85,6 +85,8 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
     private Button btnSearch;
     private RecyclerView listMarkers;
 
+    // TODO - Botão para iniciar e encerrar a execução do itinerario com dados do Odometro
+
     private final MarkerOptions markerOptions = new MarkerOptions();
     private LatLngBounds.Builder builder = new LatLngBounds.Builder();
 
