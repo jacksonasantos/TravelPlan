@@ -370,6 +370,7 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
                         m.setZoom_level(tvZoom.getText().toString());
 
                        try {
+                           // TODO - ver ajuste da sequencia
                            isSave.set(adjustMarker(nrTravel_Id, nrItinerary_Id, m.getSequence(), true));
                            isSave.set(Database.mMarkerDao.addMarker(m));
 
@@ -494,7 +495,13 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
                     zoomMarkers();
                 }
             }
-            MarkerListAdapter adapterTmp = new MarkerListAdapter(Database.mMarkerDao.fetchMarkerByTravelId(nrTravel_Id), requireContext(), 0, 0);
+            MarkerListAdapter adapterTmp;
+            if (nrItinerary_Id == null) {
+                adapterTmp = new MarkerListAdapter(Database.mMarkerDao.fetchMarkerByTravelId(nrTravel_Id), requireContext(), 0, 0);
+            } else {
+                adapterTmp = new MarkerListAdapter(Database.mMarkerDao.fetchMarkerByTravelItineraryId(nrTravel_Id, nrItinerary_Id), requireContext(), 0, 0);
+            }
+
             if (adapterTmp.getItemCount() > 0) {
                 listMarkers.setAdapter(adapterTmp);
                 listMarkers.setLayoutManager(new LinearLayoutManager(requireContext()));
@@ -720,6 +727,7 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
                             if (position != RecyclerView.NO_POSITION) {
                                 nrItinerary_Id = !itinerary.getId().equals(nrItinerary_Id) ? itinerary.getId() : null;
                                 lClick = true;
+
                                 // TODO - Update the Map when choosing an itinerary (thickening the line for example)
                                 notifyDataSetChanged();
                             }

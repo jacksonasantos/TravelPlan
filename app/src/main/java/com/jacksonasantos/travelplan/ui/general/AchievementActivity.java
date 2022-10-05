@@ -51,7 +51,7 @@ public class AchievementActivity extends AppCompatActivity {
     private EditText etAchievement_State_End;
     private EditText etAchievement_Country;
     private ImageButton btLocation;
-    private EditText etAchievement_Latlng_Achievement;  // TODO - Conquest coordinates locator
+    private EditText etAchievement_Latlng_Achievement;
     private EditText etAchievement_Length_Achievement;
     private EditText etAchievement_Note;
     private TextView txTravelAchievement;

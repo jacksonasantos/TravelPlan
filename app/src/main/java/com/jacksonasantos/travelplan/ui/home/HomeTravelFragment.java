@@ -52,7 +52,7 @@ public class HomeTravelFragment extends Fragment implements View.OnClickListener
 
     private ScrollView layerHomeTravel;
     private ConstraintLayout layerTravel;
-    private ImageView imTravelStatus;  // TODO - Ao Iniciar viagem guardar valor odometro dos veículos
+    private ImageView imTravelStatus;
     private int rbTravelStatus;
     private Spinner spTravel;
     private TextView tvNote;
