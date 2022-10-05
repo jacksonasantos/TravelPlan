@@ -52,6 +52,7 @@
     <string name="suv">SUV</string>
 
     <string name="choose_color">Choose Color</string>
+    <string name="choose">Choose</string>
     <string name="cancel">Cancel</string>
 
     <string name="Vehicle_Id">Identification Vehicle</string>
