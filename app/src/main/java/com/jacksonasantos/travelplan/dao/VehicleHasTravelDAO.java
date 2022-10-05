@@ -38,8 +38,16 @@ public class VehicleHasTravelDAO extends DbContentProvider implements VehicleHas
     public void deleteVehicleHasTravel(Integer vehicle_id, Integer travel_id) {
         final String[] selectionArgs = { String.valueOf(vehicle_id),String.valueOf(travel_id) };
         final String selection = VEHICLE_HAS_TRAVEL_VEHICLE_ID + " = ? AND " +
-                                 VEHICLE_HAS_TRAVEL_TRAVEL_ID + " = ? ";
+                VEHICLE_HAS_TRAVEL_TRAVEL_ID + " = ? ";
         super.delete(VEHICLE_HAS_TRAVEL_TABLE, selection, selectionArgs);
+    }
+
+    public boolean updateVehicleHasTravel(VehicleHasTravel vehicleHasTravel) {
+        setContentValue(vehicleHasTravel);
+        final String[] selectionArgs = { String.valueOf(vehicleHasTravel.getVehicle_id()),String.valueOf(vehicleHasTravel.getTravel_id()) };
+        final String selection = VEHICLE_HAS_TRAVEL_VEHICLE_ID + " = ? AND " +
+                                 VEHICLE_HAS_TRAVEL_TRAVEL_ID + " = ? ";
+        return (super.update(VEHICLE_HAS_TRAVEL_TABLE, getContentValue(), selection, selectionArgs) > 0);
     }
 
     public boolean addVehicleHasTravel(VehicleHasTravel vehicleHasTravel) {
@@ -50,9 +58,11 @@ public class VehicleHasTravelDAO extends DbContentProvider implements VehicleHas
     protected VehicleHasTravel cursorToEntity(Cursor c) {
         VehicleHasTravel vHT = new VehicleHasTravel();
         if (c != null) {
-            if (c.getColumnIndex(VEHICLE_HAS_TRAVEL_VEHICLE_ID) != -1) {vHT.setVehicle_id(c.getInt(c.getColumnIndexOrThrow(VEHICLE_HAS_TRAVEL_VEHICLE_ID))); }
-            if (c.getColumnIndex(VEHICLE_HAS_TRAVEL_TRAVEL_ID) != -1)  {vHT.setTravel_id(c.getInt(c.getColumnIndexOrThrow(VEHICLE_HAS_TRAVEL_TRAVEL_ID))); }
-            if (c.getColumnIndex(VEHICLE_HAS_TRAVEL_DRIVER_ID) != -1)  {vHT.setDriver_id(c.getInt(c.getColumnIndexOrThrow(VEHICLE_HAS_TRAVEL_DRIVER_ID))); }
+            if (c.getColumnIndex(VEHICLE_HAS_TRAVEL_VEHICLE_ID) != -1)      {vHT.setVehicle_id(c.getInt(c.getColumnIndexOrThrow(VEHICLE_HAS_TRAVEL_VEHICLE_ID))); }
+            if (c.getColumnIndex(VEHICLE_HAS_TRAVEL_TRAVEL_ID) != -1)       {vHT.setTravel_id(c.getInt(c.getColumnIndexOrThrow(VEHICLE_HAS_TRAVEL_TRAVEL_ID))); }
+            if (c.getColumnIndex(VEHICLE_HAS_TRAVEL_DRIVER_ID) != -1)       {vHT.setDriver_id(c.getInt(c.getColumnIndexOrThrow(VEHICLE_HAS_TRAVEL_DRIVER_ID))); }
+            if (c.getColumnIndex(VEHICLE_HAS_TRAVEL_START_ODOMETER) != -1)  {vHT.setStart_odometer(c.getInt(c.getColumnIndexOrThrow(VEHICLE_HAS_TRAVEL_START_ODOMETER))); }
+            if (c.getColumnIndex(VEHICLE_HAS_TRAVEL_FINAL_ODOMETER) != -1)  {vHT.setFinal_odometer(c.getInt(c.getColumnIndexOrThrow(VEHICLE_HAS_TRAVEL_FINAL_ODOMETER))); }
         }
         return vHT;
     }
@@ -62,6 +72,8 @@ public class VehicleHasTravelDAO extends DbContentProvider implements VehicleHas
         initialValues.put(VEHICLE_HAS_TRAVEL_VEHICLE_ID, vHT.vehicle_id);
         initialValues.put(VEHICLE_HAS_TRAVEL_TRAVEL_ID, vHT.travel_id);
         initialValues.put(VEHICLE_HAS_TRAVEL_DRIVER_ID, vHT.driver_id);
+        initialValues.put(VEHICLE_HAS_TRAVEL_START_ODOMETER, vHT.start_odometer);
+        initialValues.put(VEHICLE_HAS_TRAVEL_FINAL_ODOMETER, vHT.final_odometer);
     }
 
     private ContentValues getContentValue() {

@@ -185,6 +185,8 @@
     <string name="Supply_Last">Last Supply</string>
     <string name="VehicleStatistics">Vehicle Statistics</string>
     <string name="InsuranceExpiration">Insurance Expiration</string>
+    <string name="StartOdometer">Start Odometer</string>
+    <string name="FinalOdometer">Final Odometer</string>
 
     <!-- Insurance Activity -->
     <string name="insurance">Insurance</string>

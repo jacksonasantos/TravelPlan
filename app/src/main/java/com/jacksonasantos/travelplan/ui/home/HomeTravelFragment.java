@@ -12,6 +12,7 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.RadioGroup;
 import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -36,6 +37,7 @@ import com.jacksonasantos.travelplan.ui.travel.TravelAchievementListAdapter;
 import com.jacksonasantos.travelplan.ui.travel.TravelFuelSupplyListAdapter;
 import com.jacksonasantos.travelplan.ui.travel.TravelRouteFragment;
 import com.jacksonasantos.travelplan.ui.travel.TravelVehicleListAdapter;
+import com.jacksonasantos.travelplan.ui.travel.TravelVehicleStatusListAdapter;
 import com.jacksonasantos.travelplan.ui.utility.DateInputMask;
 import com.jacksonasantos.travelplan.ui.utility.Globals;
 import com.jacksonasantos.travelplan.ui.utility.Utils;
@@ -50,6 +52,7 @@ public class HomeTravelFragment extends Fragment implements View.OnClickListener
     private ScrollView layerHomeTravel;
     private ConstraintLayout layerTravel;
     private ImageView imTravelStatus;  // TODO - Ao Iniciar viagem guardar valor odometro dos veículos
+    private int rbTravelStatus;
     private Spinner spTravel;
     private TextView tvNote;
     private TextView tvDeparture;
@@ -192,26 +195,48 @@ public class HomeTravelFragment extends Fragment implements View.OnClickListener
                 btnInsurance.setEnabled(true);
 
                 imTravelStatus.setOnClickListener(v -> {
-                    final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(v.getContext(),R.style.MyDialogStyle);
-                    int checkedItem = travel[0].getStatus();
-                    alertDialogBuilder.setTitle(getString(R.string.change)+ " "+getString(R.string.Travel_Status))
-                          .setSingleChoiceItems(R.array.travel_status_array, checkedItem, (dialog, id13) -> travel[0].setStatus(id13))
-                          .setPositiveButton(R.string.OK, (dialog, id12) -> {
-                              boolean isSave = false;
-                              try {
-                                  isSave = Database.mTravelDao.updateTravel(travel[0]);
-                                  imTravelStatus.setColorFilter(travel[0].getColorStatus(), PorterDuff.Mode.MULTIPLY);
-                              } catch (Exception e) {
-                                  Toast.makeText(getContext(), R.string.Error_Including_Data + e.getMessage(), Toast.LENGTH_LONG).show();
-                              }
-                              if (!isSave) {
-                                  Toast.makeText(getContext(), R.string.Error_Saving_Data, Toast.LENGTH_LONG).show();
-                              }
-                          })
-                          .setNegativeButton(R.string.Cancel, (dialog, id1) -> dialog.cancel());
+                    LayoutInflater li = LayoutInflater.from(v.getContext());
+                    View promptsView = li.inflate(R.layout.fragment_home_travel_status, null);
+
+                    final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(v.getContext());
+                    alertDialogBuilder.setView(promptsView);
+
+                    final RadioGroup rgTravelStatus = promptsView.findViewById(R.id.rgTravelStatus);
+                    final RecyclerView rvVehicles = promptsView.findViewById(R.id.rvVehicles);
+
+                    Utils.addRadioButtonResources(R.array.travel_status_array, rgTravelStatus, requireContext());
+                    rgTravelStatus.setOnCheckedChangeListener((group, checkedId) -> rbTravelStatus = checkedId);
+                    rgTravelStatus.check(travel[0].getStatus()+1);
+
+                    final int Show_Header_VehicleTravelStatus = 1  ;
+                    TravelVehicleStatusListAdapter adapterTravelVehicleStatus = new TravelVehicleStatusListAdapter(Database.mVehicleHasTravelDao.fetchAllVehicleHasTravelByTravel(travel[0].getId() ), getContext(), "Home", Show_Header_VehicleTravelStatus);
+                    if ( adapterTravelVehicleStatus.getItemCount() > Show_Header_VehicleTravelStatus){
+                        rvVehicles.setAdapter(adapterTravelVehicleStatus);
+                        rvVehicles.setLayoutManager(new LinearLayoutManager(getContext()));
+                    }
+
+                    alertDialogBuilder
+                            .setCancelable(false)
+                            .setPositiveButton(R.string.OK, (dialog, id1) -> {
+                                boolean isSave = false;
+
+                                travel[0].setStatus(rbTravelStatus-1);
+
+                                try {
+                                    isSave = Database.mTravelDao.updateTravel(travel[0]);
+                                } catch (Exception e) {
+                                    Toast.makeText(requireContext(), R.string.Error_Changing_Data + e.getMessage(), Toast.LENGTH_LONG).show();
+                                }
+
+                                if (!isSave) {
+                                    Toast.makeText(requireContext(), R.string.Error_Saving_Data, Toast.LENGTH_LONG).show();
+                                }
+                            })
+                            .setNegativeButton(R.string.Cancel, (dialog, id1) -> dialog.cancel());
                     AlertDialog alertDialog = alertDialogBuilder.create();
                     alertDialog.show();
                 });
+
                 //TODO - Update Travel Expense Adapter values
                 btnFood.setOnClickListener (v -> TravelItemExpenses(v,1));
                 btnTolls.setOnClickListener (v -> TravelItemExpenses(v,2));
@@ -263,6 +288,7 @@ public class HomeTravelFragment extends Fragment implements View.OnClickListener
                 }
 
                 // Achievement has Travel
+                // TODO - Apresentar coluna com sigla da conquista
                 final int Show_Header_AchievementTravel = 0 ;
                 TravelAchievementListAdapter adapterAchievementTravel = new TravelAchievementListAdapter(Database.mAchievementDao.fetchAllAchievementByTravel(travel[0].getId()), getContext(),"Home", Show_Header_AchievementTravel);
                 if ( adapterAchievementTravel.getItemCount() > Show_Header_AchievementTravel){

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/llItemVehicle"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:context=".ui.home.HomeTravelFragment">
+
+    <TextView
+        android:id="@+id/txtVehicle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="3"
+        android:layout_gravity="center"
+        android:gravity="start|center_vertical"
+        android:textStyle="bold"
+        android:textSize="12sp"
+        tools:ignore="SmallSp" />
+
+    <TextView
+        android:id="@+id/txtStartOdometer"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="3.5"
+        android:layout_gravity="center"
+        android:gravity="end"
+        android:textSize="12sp"
+        tools:ignore="SmallSp" />
+
+    <TextView
+        android:id="@+id/txtFinalOdometer"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="3.5"
+        android:layout_gravity="center"
+        android:gravity="end"
+        android:textSize="12sp"
+        tools:ignore="SmallSp" />
+
+    <ImageButton
+        android:id="@+id/btnEdit"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:contentDescription="@string/bt_Edit"
+        android:padding="7dp"
+        android:scaleType="fitCenter"
+        android:scaleX="1.5"
+        android:scaleY="1.5"
+        app:srcCompat="@drawable/ic_button_edit" />
+</LinearLayout>
+

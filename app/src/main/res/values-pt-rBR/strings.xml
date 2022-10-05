@@ -366,4 +366,6 @@
     <string name="marker_achievement">Conquista</string>
     <string name="loaded_coordinates">Coordenadas carregadas para Memória</string>
     <string name="bt_Renew_Insurance">Renovar Seguro</string>
+    <string name="FinalOdometer">Odometro Final</string>
+    <string name="StartOdometer">Odometro Inicial</string>
 </resources>
