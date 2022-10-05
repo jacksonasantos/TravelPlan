@@ -292,7 +292,7 @@
 
         </androidx.cardview.widget.CardView>
 
-        <!-->TODO - Implement Warranties -->
+        <!--TODO - Implement Warranties -->
 
     </LinearLayout>
 </ScrollView>

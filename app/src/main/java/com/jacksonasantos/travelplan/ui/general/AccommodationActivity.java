@@ -1,6 +1,7 @@
 package com.jacksonasantos.travelplan.ui.general;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
@@ -30,6 +31,7 @@ public class AccommodationActivity extends AppCompatActivity {
     private int nrSpinAccommodation_Accommodation_Type;
 
     private boolean opInsert = true;
+    private boolean opResult = false;
     private Accommodation accommodation;
 
     @SuppressLint("WrongViewCast")
@@ -51,6 +53,9 @@ public class AccommodationActivity extends AppCompatActivity {
                 accommodation.setId(extras.getInt("accommodation_id"));
                 accommodation = Database.mAccommodationDao.fetchAccommodationById(accommodation.getId());
                 opInsert = false;
+            }
+            if (extras.getBoolean("op_result")) {
+                opResult = true;
             }
         }
 
@@ -134,6 +139,11 @@ public class AccommodationActivity extends AppCompatActivity {
 
                 setResult(isSave ? 1 : 0);
                 if (isSave) {
+                    if (opResult) {
+                        Intent i = new Intent();
+                        i.putExtra("resulted_value", a1.getName());
+                        setResult(123, i);
+                    }
                     finish();
                 } else {
                     Toast.makeText(getApplicationContext(), R.string.Error_Saving_Data, Toast.LENGTH_LONG).show();

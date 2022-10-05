@@ -66,8 +66,6 @@ public class ReservationActivity extends AppCompatActivity {
         setTitle(R.string.Reservation);
         setContentView(R.layout.activity_reservation);
 
-       accommodations =  Database.mAccommodationDao.fetchArrayAccommodation();
-
         Bundle extras = getIntent().getExtras();
         reservation = new Reservation();
         if (extras != null) {
@@ -114,6 +112,7 @@ public class ReservationActivity extends AppCompatActivity {
         });
         adapterT.notifyDataSetChanged();
 
+        accommodations =  Database.mAccommodationDao.fetchArrayAccommodation();
         adapterA = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, accommodations);
         adapterA.setDropDownViewResource( android.R.layout.simple_spinner_dropdown_item);
         spinAccommodation.setAdapter(adapterA);
@@ -168,8 +167,8 @@ public class ReservationActivity extends AppCompatActivity {
 
         btAddAccommodation.setOnClickListener(v -> {
             Intent intent = new Intent (v.getContext(), AccommodationActivity.class);
+            intent.putExtra("op_result", true);
             myActivityResultLauncher.launch(intent);
-            // TODO - atualizar o adapter do spinAccommodation
         });
     }
 
@@ -178,8 +177,16 @@ public class ReservationActivity extends AppCompatActivity {
             new ActivityResultCallback<ActivityResult>() {
                 @Override
                 public void onActivityResult(ActivityResult result) {
-                    adapterA.notifyDataSetChanged() ;
-                    spinAccommodation.requestFocus();
+                    if (result.getResultCode() == 123) {
+                        Intent data = result.getData();
+                        if (data != null) {
+                            accommodations =  Database.mAccommodationDao.fetchArrayAccommodation();
+                            adapterA.clear();
+                            adapterA.addAll(accommodations);
+                            adapterA.notifyDataSetChanged() ;
+                            spinAccommodation.requestFocus();
+                        }
+                    }
                 }
             }
     );
