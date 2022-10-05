@@ -279,7 +279,6 @@ public class HomeTravelFragment extends Fragment implements View.OnClickListener
                 final int Show_Header_FuelSupplyTravel = 1  ;
                 TravelFuelSupplyListAdapter adapterFuelSupplyTravel = new TravelFuelSupplyListAdapter(Database.mFuelSupplyDao.fetchAllFuelSupplyHasTravelByTravel(travel[0].getId() ), getContext(),"Home", Show_Header_FuelSupplyTravel);
                 if ( adapterFuelSupplyTravel.getItemCount() > Show_Header_FuelSupplyTravel){
-                    // TODO - Ajustar a média da viagem quando não tem média do abastecimento
                     layerFuelSupply.setVisibility(View.VISIBLE);
                     listFuelSupply.setAdapter(adapterFuelSupplyTravel);
                     listFuelSupply.setLayoutManager(new LinearLayoutManager(getContext()));

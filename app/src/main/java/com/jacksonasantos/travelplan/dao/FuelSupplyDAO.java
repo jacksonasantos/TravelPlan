@@ -84,10 +84,11 @@ public class FuelSupplyDAO extends DbContentProvider implements FuelSupplyISchem
 
     public FuelSupply findAVGConsumptionTravel(Integer vehicle_id, Integer travel_id) {
         FuelSupply fuelSupply = new FuelSupply();
-        cursor = super.rawQuery("SELECT SUM(" + FUEL_SUPPLY_VEHICLE_TRAVELLED_DISTANCE + ")/SUM(" + FUEL_SUPPLY_NUMBER_LITERS +") stat_avg_fuel_consumption " +
+        cursor = super.rawQuery("SELECT SUM(" + FUEL_SUPPLY_VEHICLE_TRAVELLED_DISTANCE + ")/SUM(" + FUEL_SUPPLY_NUMBER_LITERS +"+"+FUEL_SUPPLY_ACCUMULATED_NUMBER_LITERS+") stat_avg_fuel_consumption " +
                                      " FROM " + FUEL_SUPPLY_TABLE +
                                     " WHERE " + FUEL_SUPPLY_VEHICLE_ID + "= ? " +
-                                      " AND " + FUEL_SUPPLY_ASSOCIATED_TRAVEL_ID + " = ? ",
+                                      " AND " + FUEL_SUPPLY_ASSOCIATED_TRAVEL_ID + " = ? " +
+                                      " AND " + FUEL_SUPPLY_VEHICLE_TRAVELLED_DISTANCE + " > 0 ",
                 new String[] { String.valueOf(vehicle_id), String.valueOf(travel_id)});
         if (null != cursor) {
             if (cursor.getCount() > 0) {
