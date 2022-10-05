@@ -288,7 +288,6 @@ public class HomeTravelFragment extends Fragment implements View.OnClickListener
                 }
 
                 // Achievement has Travel
-                // TODO - Apresentar coluna com sigla da conquista
                 final int Show_Header_AchievementTravel = 0 ;
                 TravelAchievementListAdapter adapterAchievementTravel = new TravelAchievementListAdapter(Database.mAchievementDao.fetchAllAchievementByTravel(travel[0].getId()), getContext(),"Home", Show_Header_AchievementTravel);
                 if ( adapterAchievementTravel.getItemCount() > Show_Header_AchievementTravel){

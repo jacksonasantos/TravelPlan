@@ -62,6 +62,7 @@ public class TravelAchievementListAdapter extends RecyclerView.Adapter<RecyclerV
             headerViewHolder.llAchievementTravelItem.setBackgroundColor(Color.LTGRAY);
             headerViewHolder.imgAchievement.setImageBitmap(null);
             headerViewHolder.txtNameAchievement.setText(R.string.Achievement);
+            headerViewHolder.txtShortNameAchievement.setText(R.string.Achievement_Short_Name);
             headerViewHolder.txtSequenceAchievement.setText(R.string.Itinerary_Sequence);
             headerViewHolder.btnDelete.setVisibility(View.INVISIBLE);
         }
@@ -79,6 +80,7 @@ public class TravelAchievementListAdapter extends RecyclerView.Adapter<RecyclerV
             }
             itemViewHolder.txtSequenceAchievement.setText(String.valueOf(Database.mItineraryDao.fetchItineraryById(mAchievement.get(position-show_header).getItinerary_id()).getSequence()));
             itemViewHolder.txtNameAchievement.setText(mAchievement.get(position-show_header).getName());
+            itemViewHolder.txtShortNameAchievement.setText(mAchievement.get(position-show_header).getShort_name());
 
             if (form.equals("Home")) {
                 itemViewHolder.btnDelete.setVisibility(View.INVISIBLE);
@@ -159,6 +161,7 @@ public class TravelAchievementListAdapter extends RecyclerView.Adapter<RecyclerV
         public final LinearLayout llAchievementTravelItem;
         public final ImageView imgAchievement;
         public final TextView txtNameAchievement;
+        public final TextView txtShortNameAchievement;
         public final TextView txtSequenceAchievement;
         public final ImageButton btnDelete;
 
@@ -167,6 +170,7 @@ public class TravelAchievementListAdapter extends RecyclerView.Adapter<RecyclerV
             llAchievementTravelItem = v.findViewById(R.id.llAchievementTravelItem);
             imgAchievement = v.findViewById(R.id.imgAchievement);
             txtNameAchievement = v.findViewById(R.id.txtNameAchievement);
+            txtShortNameAchievement = v.findViewById(R.id.txtShortNameAchievement);
             txtSequenceAchievement = v.findViewById(R.id.txtSequenceAchievement);
             btnDelete = v.findViewById(R.id.btnDelete);
         }
@@ -176,6 +180,7 @@ public class TravelAchievementListAdapter extends RecyclerView.Adapter<RecyclerV
         public final LinearLayout llAchievementTravelItem;
         public final ImageView imgAchievement;
         public final TextView txtNameAchievement;
+        public final TextView txtShortNameAchievement;
         public final TextView txtSequenceAchievement;
         public final ImageButton btnDelete;
 
@@ -184,6 +189,7 @@ public class TravelAchievementListAdapter extends RecyclerView.Adapter<RecyclerV
             llAchievementTravelItem = v.findViewById(R.id.llAchievementTravelItem);
             imgAchievement = v.findViewById(R.id.imgAchievement);
             txtNameAchievement = v.findViewById(R.id.txtNameAchievement);
+            txtShortNameAchievement = v.findViewById(R.id.txtShortNameAchievement);
             txtSequenceAchievement = v.findViewById(R.id.txtSequenceAchievement);
             btnDelete = v.findViewById(R.id.btnDelete);
         }
