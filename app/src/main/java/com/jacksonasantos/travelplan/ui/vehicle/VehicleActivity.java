@@ -1,6 +1,5 @@
 package com.jacksonasantos.travelplan.ui.vehicle;
 
-import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -50,7 +49,7 @@ public class VehicleActivity extends AppCompatActivity {
     private byte[] imgArray;
     private EditText etNameVehicle;
     private EditText etShortNameVehicle;
-    private EditText etBrand;                            // TODO - Implement API of BRAND´s
+    private EditText etBrand;
     private EditText etModel;
     private Spinner spinFuelType;
     private int nrSpinFuelType;
@@ -89,7 +88,6 @@ public class VehicleActivity extends AppCompatActivity {
     private Vehicle vehicle;
     private boolean opInsert = true;
 
-    @SuppressLint({"SetTextI18n", "ResourceType"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -159,7 +157,7 @@ public class VehicleActivity extends AppCompatActivity {
                 .density(6)
                 .setOnColorSelectedListener(selectedColor -> btColorCode.setText(String.valueOf(selectedColor)))
                 .setPositiveButton("Ok", (dialog, selectedColor, allColors) -> btColorCode.setBackgroundColor(selectedColor))
-                .setNegativeButton(R.string.cancel, (dialog, which) -> { })
+                .setNegativeButton(R.string.Cancel, (dialog, which) -> { })
                 .build()
                 .show());
 

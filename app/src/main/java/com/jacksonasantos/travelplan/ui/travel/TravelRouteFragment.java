@@ -275,8 +275,8 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
         final Spinner spinMarkerAchievement = promptsView.findViewById(R.id.spinMarkerAchievement);
         final EditText etSeq = promptsView.findViewById(R.id.etSeq);
         final EditText etDescription = promptsView.findViewById(R.id.etDescription);
-        final RecyclerView rvListMarkers = promptsView.findViewById(R.id.rvListMarkers);
         final EditText etExpectedValue = promptsView.findViewById(R.id.etExpectedValue);
+        final RecyclerView rvListMarkers = promptsView.findViewById(R.id.rvListMarkers);
 
         tvLat.setText(String.valueOf(point.latitude));
         tvLng.setText(String.valueOf(point.longitude));
@@ -348,6 +348,10 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
         alertDialogBuilder
                 .setCancelable(false)
                 .setPositiveButton(R.string.OK, (dialog, id) -> {
+                    if (nrItinerary_Id==null || nrItinerary_Id==0) {
+                        Toast.makeText(requireContext(), R.string.itinerary_not_selected, Toast.LENGTH_LONG).show();
+                        dialog.dismiss();
+                    }
                     if (!etSeq.getText().toString().isEmpty() ) {
 
                         Marker m = new Marker();
@@ -370,7 +374,6 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
                         m.setZoom_level(tvZoom.getText().toString());
 
                        try {
-                           // TODO - ver ajuste da sequencia
                            isSave.set(adjustMarker(nrTravel_Id, nrItinerary_Id, m.getSequence(), true));
                            isSave.set(Database.mMarkerDao.addMarker(m));
 
@@ -409,11 +412,12 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
                            }
                            drawItinerary(nrTravel_Id);
 
-                        } catch (Exception e) {
-                            Toast.makeText(requireContext(), R.string.Error_Including_Data + e.getMessage(), Toast.LENGTH_LONG).show();
-                        }
+                       } catch (Exception e) {
+                           Toast.makeText(requireContext(), R.string.Error_Including_Data + e.getMessage(), Toast.LENGTH_LONG).show();
+                       }
+                    } else {
+                        Toast.makeText(requireContext(), R.string.marker_sequence_not_informed, Toast.LENGTH_LONG).show();
                     }
-
                 })
                 .setNegativeButton(R.string.Cancel, (dialog, id) -> dialog.cancel());
         AlertDialog alertDialog = alertDialogBuilder.create();

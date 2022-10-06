@@ -255,8 +255,8 @@ public class HomeTravelFragment extends Fragment implements View.OnClickListener
                 });
                 btnFuel.setOnClickListener (v -> {
                     Intent intent = new Intent(v.getContext(), FuelSupplyActivity.class);
-                    List<VehicleHasTravel> vehicleHasTravel = Database.mVehicleHasTravelDao.fetchAllVehicleHasTravelByTravel(travel[0].getId());
                     intent.putExtra("travel_id", travel[0].id);
+                    List<VehicleHasTravel> vehicleHasTravel = Database.mVehicleHasTravelDao.fetchAllVehicleHasTravelByTravel(travel[0].getId());
                     if (vehicleHasTravel.size() > 0) {
                         if (vehicleHasTravel.size() == 1) {
                             intent.putExtra("vehicle_id", vehicleHasTravel.get(0).getVehicle_id());
@@ -264,7 +264,7 @@ public class HomeTravelFragment extends Fragment implements View.OnClickListener
                         } else {
                             AlertDialog.Builder alertDialog = new AlertDialog.Builder(requireContext());
                             alertDialog.setIcon(R.drawable.ic_menu_vehicle);
-                            alertDialog.setTitle(getString(R.string.choose)+" "+getString(R.string.vehicle));
+                            alertDialog.setTitle(getString(R.string.choose)+" "+getString(R.string.of)+" "+getString(R.string.vehicle));
 
                             String[] listItems = new String[vehicleHasTravel.size()];
                             for (int i = 0; i<vehicleHasTravel.size(); i++){
@@ -273,7 +273,6 @@ public class HomeTravelFragment extends Fragment implements View.OnClickListener
 
                             final int[] checkedItem = {-1};
                             alertDialog.setSingleChoiceItems(listItems, checkedItem[0], (dialog, which) -> {
-                                checkedItem[0] = which;
                                 intent.putExtra("vehicle_id", vehicleHasTravel.get(which).getVehicle_id());
                                 dialog.dismiss();
                                 startActivity(intent);

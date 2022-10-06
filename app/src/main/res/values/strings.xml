@@ -2,6 +2,37 @@
     <string name="app_name" translatable="false">Travel PLAN</string>
     <string name="nav_header_title">Travel Planning and Control</string>
     <string name="nav_header_desc" translatable="false">Navigation header</string>
+
+    <!-- Generic -->
+    <string name="Yes">Yes</string>
+    <string name="No">No</string>
+    <string name="from">from</string>
+    <string name="to">to</string>
+    <string name="of">of</string>
+    <string name="OK" translatable="false">OK</string>
+    <string name="Cancel">Cancel</string>
+    <string name="choose_color">Choose Color</string>
+    <string name="choose">Choose</string>
+
+    <string name="bt_Save">Save</string>
+    <string name="bt_Delete">Delete</string>
+    <string name="bt_Edit">Edit</string>
+    <string name="bt_Refuel">Refuel</string>
+    <string name="bt_Done">Done</string>
+    <string name="bt_Maintenance_Plan">Maintenance Plan</string>
+    <string name="bt_Maintenance_Item">Maintenance Item</string>
+    <string name="bt_Add">Add</string>
+    <string name="bt_Filter">Vehicle Filter</string>
+
+    <!-- Messages -->
+    <string name="Msg_Confirm">Are you sure you want to perform the operation?</string>
+    <string name="Data_Validator_Error">Data Validator Error</string>
+    <string name="Error_Saving_Data">Error Saving Data</string>
+    <string name="Error_Including_Data">Error Including Data</string>
+    <string name="Error_Changing_Data">Error Changing Data</string>
+    <string name="Error_Deleting_Data">Error Deleting Data</string>
+    <string name="Error_Data_Validation">Error in data validation</string>
+
     <!-- Menu Options -->
     <string name="menu_home">Home</string>
     <string name="menu_vehicle">Vehicles</string>
@@ -50,10 +81,6 @@
     <string name="car">Car</string>
     <string name="motorcycle">Motorcycle</string>
     <string name="suv">SUV</string>
-
-    <string name="choose_color">Choose Color</string>
-    <string name="choose">Choose</string>
-    <string name="cancel">Cancel</string>
 
     <string name="Vehicle_Id">Identification Vehicle</string>
     <string name="Vehicle_Image">Vehicle Image</string>
@@ -260,32 +287,6 @@
     <string name="Currency_Quote_Date">Date</string>
     <string name="Currency_Quote_Value">Quote Value</string>
 
-    <!-- Generic -->
-    <string name="Yes">Yes</string>
-    <string name="No">No</string>
-    <string name="from">from</string>
-    <string name="to">to</string>
-    <string name="OK" translatable="false">OK</string>
-    <string name="Cancel">Cancel</string>
-    <string name="bt_Save">Save</string>
-    <string name="bt_Delete">Delete</string>
-    <string name="bt_Edit">Edit</string>
-    <string name="bt_Refuel">Refuel</string>
-    <string name="bt_Done">Done</string>
-    <string name="bt_Maintenance_Plan">Maintenance Plan</string>
-    <string name="bt_Maintenance_Item">Maintenance Item</string>
-    <string name="bt_Add">Add</string>
-    <string name="bt_Filter">Vehicle Filter</string>
-
-    <!-- Messages -->
-    <string name="Msg_Confirm">Are you sure you want to perform the operation?</string>
-    <string name="Data_Validator_Error">Data Validator Error</string>
-    <string name="Error_Saving_Data">Error Saving Data</string>
-    <string name="Error_Including_Data">Error Including Data</string>
-    <string name="Error_Changing_Data">Error Changing Data</string>
-    <string name="Error_Deleting_Data">Error Deleting Data</string>
-    <string name="Error_Data_Validation">Error in data validation</string>
-
     <!-- Arrays Currency -->
     <string name="real" translatable="false">R$</string>
     <string name="dollar" translatable="false">US$</string>
@@ -406,6 +407,7 @@
     <string name="add_new_itinerary">Add new Itinerary</string>
     <string name="unregistered_bookmark">Unregistered bookmark</string>
     <string name="loaded_coordinates">Coordinates Loaded into Memory</string>
+    <string name="itinerary_not_selected">Itinerary not Selected</string>
 
     <!-- Marker Fragment -->
 
@@ -423,6 +425,7 @@
     <string name="marker_state">State</string>
     <string name="marker_country">Country</string>
     <string name="marker_category">Category</string>
+    <string name="marker_sequence_not_informed">Marker Sequence not Informed</string>
 
     <!-- Marker Type -->
     <string name="source">Source</string>
