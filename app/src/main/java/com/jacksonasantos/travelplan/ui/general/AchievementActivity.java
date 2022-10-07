@@ -42,7 +42,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class AchievementActivity extends AppCompatActivity {
     private EditText etAchievement_Name;
     private EditText etAchievement_Short_Name;
-    public ImageView imgAchievement_Image;
+    public ImageView imgAchievement_Image;      // TODO - Adjust image search and conversion (directory or internet)
     Bitmap raw;
     private byte[] imgArray = null;
     private EditText etAchievement_City;
