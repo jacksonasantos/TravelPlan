@@ -18,33 +18,55 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/btnAddItinerary"
-        android:layout_width="32dp"
-        android:layout_height="33dp"
-        android:background="@drawable/ic_button_add"
-        android:contentDescription="@string/add_new_itinerary"
-        app:layout_constraintBottom_toTopOf="@+id/buttonSeparator"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spTravel" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/listItinerary"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layerButtons"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/labels_margin"
-        android:scrollbars="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/buttonSeparator"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/btnAddItinerary"
-        app:layout_constraintTop_toBottomOf="@+id/spTravel"
-        tools:itemCount="5" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spTravel">
+
+        <Button
+            android:id="@+id/btnAddItinerary"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:background="@drawable/ic_button_add"
+            android:contentDescription="@string/add_new_itinerary"
+            app:layout_constraintBottom_toTopOf="@+id/btnEditItinerary"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/btnEditItinerary"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:background="@drawable/ic_button_edit"
+            android:contentDescription="@string/edit_itinerary"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btnAddItinerary" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/listItinerary"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:scrollbars="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/btnAddItinerary"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:itemCount="7" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <Button
         android:id="@+id/buttonSeparator"
         android:layout_width="match_parent"
         android:layout_height="16dp"
         android:clickable="false"
-        app:layout_constraintTop_toBottomOf="@+id/listItinerary" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/layerButtons" />
 
     <com.google.android.gms.maps.MapView
         android:id="@+id/mapView"

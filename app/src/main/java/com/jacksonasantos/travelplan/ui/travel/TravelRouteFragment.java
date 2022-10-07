@@ -78,6 +78,7 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
     public static Integer nrAchievement_Id;
     private Spinner spTravel;
     private Button btnAddItinerary;
+    private Button btnEditItinerary;
     private RecyclerView listItinerary;
     private MapView mMapView;
     private GoogleMap googleMap;
@@ -114,6 +115,7 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
 
         spTravel = rootView.findViewById(R.id.spTravel);
         btnAddItinerary = rootView.findViewById(R.id.btnAddItinerary);
+        btnEditItinerary = rootView.findViewById(R.id.btnEditItinerary);
         listItinerary = rootView.findViewById(R.id.listItinerary);
         mMapView = rootView.findViewById(R.id.mapView);
         etSearch = rootView.findViewById(R.id.etSearch);
@@ -539,56 +541,17 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
         }
 
         btnAddItinerary.setOnClickListener(view -> {
-            LayoutInflater li = LayoutInflater.from(requireContext());
-            View promptsView = li.inflate(R.layout.dialog_itinerary, null);
+            Itinerary itinerary=new Itinerary();
+            MaintenItinerary( itinerary, true );
+        });
 
-            final EditText etSequence = promptsView.findViewById(R.id.etSequence);
-            final EditText etOrig_location = promptsView.findViewById(R.id.etOrig_location);
-            final EditText etDest_location = promptsView.findViewById(R.id.etDest_location);
-            final EditText etDaily = promptsView.findViewById(R.id.etDaily);
-
-            final boolean[] isSave = {false};
-
-            Itinerary itineraryLast = Database.mItineraryDao.fetchLastItineraryByTravel(nrTravel_Id);
-            if (itineraryLast != null) {
-                etSequence.setText(String.valueOf(itineraryLast.getSequence() + 1));
-                etOrig_location.setText(itineraryLast.getDest_location());
+        btnEditItinerary.setOnClickListener(view -> {
+            if (nrItinerary_Id != null) {
+                Itinerary itinerary = Database.mItineraryDao.fetchItineraryById(nrItinerary_Id);
+                MaintenItinerary( itinerary, false );
             } else {
-                etSequence.setText(String.valueOf(1));
+                Toast.makeText(requireContext(), R.string.select_itinerary_to_edit, Toast.LENGTH_LONG).show();
             }
-
-            final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(requireContext());
-            alertDialogBuilder.setView(promptsView);
-            alertDialogBuilder
-                    .setCancelable(false)
-                    .setPositiveButton(R.string.OK, (dialog, id) -> {
-                        if (!etSequence.getText().toString().isEmpty() &&
-                            !etOrig_location.getText().toString().isEmpty() &&
-                            !etDest_location.getText().toString().isEmpty() &&
-                            !etDaily.getText().toString().isEmpty()) {
-
-                            Itinerary itinerary = new Itinerary();
-                            itinerary.setTravel_id(nrTravel_Id);
-                            itinerary.setSequence(Integer.parseInt(etSequence.getText().toString()));
-                            itinerary.setOrig_location(etOrig_location.getText().toString());
-                            itinerary.setDest_location(etDest_location.getText().toString());
-                            itinerary.setDaily(Integer.parseInt(etDaily.getText().toString()));
-
-                            try {
-                                isSave[0] = Database.mItineraryDao.addItinerary(itinerary);
-                                clearMap = updateListItinerary();
-
-                            } catch (Exception e) {
-                                Toast.makeText(requireContext(), R.string.Error_Including_Data + e.getMessage(), Toast.LENGTH_LONG).show();
-                            }
-                        }
-                        if (!isSave[0]) {
-                            Toast.makeText(requireContext(), R.string.Error_Saving_Data, Toast.LENGTH_LONG).show();
-                        }
-                    })
-                    .setNegativeButton(R.string.Cancel, (dialog, id) -> dialog.cancel());
-            AlertDialog alertDialog = alertDialogBuilder.create();
-            alertDialog.show();
         });
 
         final Travel[] travel = {new Travel()};
@@ -610,6 +573,73 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
             }
         });
         mMapView.onResume();
+    }
+
+    void MaintenItinerary(Itinerary i, boolean add){
+
+        LayoutInflater li = LayoutInflater.from(requireContext());
+        View promptsView = li.inflate(R.layout.dialog_itinerary, null);
+
+        final EditText etSequence = promptsView.findViewById(R.id.etSequence);
+        final EditText etOrig_location = promptsView.findViewById(R.id.etOrig_location);
+        final EditText etDest_location = promptsView.findViewById(R.id.etDest_location);
+        final EditText etDaily = promptsView.findViewById(R.id.etDaily);
+
+        final boolean[] isSave = {false};
+
+        if (add) {
+            Itinerary itineraryLast = Database.mItineraryDao.fetchLastItineraryByTravel(nrTravel_Id);
+            if (itineraryLast != null) {
+                etSequence.setText(String.valueOf(itineraryLast.getSequence() + 1));
+                etOrig_location.setText(itineraryLast.getDest_location());
+            } else {
+                etSequence.setText(String.valueOf(1));
+            }
+        } else {
+            nrTravel_Id = i.getTravel_id();
+            etSequence.setText(String.valueOf(i.getSequence()));
+            etDest_location.setText(i.getDest_location());
+            etOrig_location.setText(i.getOrig_location());
+            etDaily.setText(String.valueOf(i.getDaily()));
+        }
+
+        final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(requireContext());
+        alertDialogBuilder.setView(promptsView);
+        alertDialogBuilder
+                .setCancelable(false)
+                .setPositiveButton(R.string.OK, (dialog, id) -> {
+                    if (!etSequence.getText().toString().isEmpty() &&
+                            !etOrig_location.getText().toString().isEmpty() &&
+                            !etDest_location.getText().toString().isEmpty() &&
+                            !etDaily.getText().toString().isEmpty()) {
+
+                        Itinerary itinerary = new Itinerary();
+                        if (!add) itinerary.setId(i.getId());
+                        itinerary.setTravel_id(nrTravel_Id);
+                        itinerary.setSequence(Integer.parseInt(etSequence.getText().toString()));
+                        itinerary.setOrig_location(etOrig_location.getText().toString());
+                        itinerary.setDest_location(etDest_location.getText().toString());
+                        itinerary.setDaily(Integer.parseInt(etDaily.getText().toString()));
+
+                        try {
+                            if (add) isSave[0] = Database.mItineraryDao.addItinerary(itinerary);
+                            else {
+                                Database.mItineraryDao.updateItinerary(itinerary);
+                                isSave[0] = true;
+                            }
+                            clearMap = updateListItinerary();
+
+                        } catch (Exception e) {
+                            Toast.makeText(requireContext(), (add?R.string.Error_Including_Data:R.string.Error_Changing_Data) + e.getMessage(), Toast.LENGTH_LONG).show();
+                        }
+                    }
+                    if (!isSave[0]) {
+                        Toast.makeText(requireContext(), R.string.Error_Saving_Data, Toast.LENGTH_LONG).show();
+                    }
+                })
+                .setNegativeButton(R.string.Cancel, (dialog, id) -> dialog.cancel());
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        alertDialog.show();
     }
 
     public boolean updateListItinerary() {

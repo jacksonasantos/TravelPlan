@@ -371,4 +371,6 @@
     <string name="of">do</string>
     <string name="marker_sequence_not_informed">"Sequência do marcador não informada "</string>
     <string name="itinerary_not_selected">Itinerário não Selecionado</string>
+    <string name="edit_itinerary">Editar Itinerário</string>
+    <string name="select_itinerary_to_edit">Selecione um Itinerário para Editar</string>
 </resources>

@@ -405,10 +405,11 @@
 
     <string name="Itinerary_Deleting">Deleting Itinerary</string>
     <string name="add_new_itinerary">Add new Itinerary</string>
+    <string name="edit_itinerary">Edit Itinerary</string>
     <string name="unregistered_bookmark">Unregistered bookmark</string>
     <string name="loaded_coordinates">Coordinates Loaded into Memory</string>
     <string name="itinerary_not_selected">Itinerary not Selected</string>
-
+    <string name="select_itinerary_to_edit">Select an Itinerary to Edit</string>
     <!-- Marker Fragment -->
 
     <string name="marker">Marker</string>
