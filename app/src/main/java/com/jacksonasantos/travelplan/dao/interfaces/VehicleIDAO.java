@@ -10,6 +10,7 @@ import java.util.List;
 public interface VehicleIDAO {
     Vehicle fetchVehicleById(Integer id);
     List<Vehicle> fetchAllVehicles();
+    Cursor fetchCursorVehicle();
     ArrayList<Vehicle> fetchArrayVehicles();
     Cursor selectVehicles();
     boolean addVehicle(Vehicle vehicle);

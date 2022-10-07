@@ -81,6 +81,14 @@ public class VehicleDAO extends DbContentProvider implements VehicleISchema, Veh
         return vehicleList;
     }
 
+    public Cursor fetchCursorVehicle() {
+        return super.rawQuery( "SELECT '' _id, '' text1 UNION " +
+                "SELECT " + VEHICLE_ID + ", " +
+                VEHICLE_NAME + " " +
+                "FROM " + VEHICLE_TABLE + " " +
+                "ORDER BY " + VEHICLE_NAME, null);
+    }
+
     public Cursor selectVehicles(){
         String[] VEHICLE_COLUMNS = new String[] {
                 VEHICLE_ID,

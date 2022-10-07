@@ -5,8 +5,6 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -23,15 +21,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.jacksonasantos.travelplan.R;
 import com.jacksonasantos.travelplan.dao.Achievement;
-import com.jacksonasantos.travelplan.dao.Driver;
 import com.jacksonasantos.travelplan.dao.Travel;
-import com.jacksonasantos.travelplan.dao.Vehicle;
 import com.jacksonasantos.travelplan.dao.VehicleHasTravel;
 import com.jacksonasantos.travelplan.dao.general.Database;
 import com.jacksonasantos.travelplan.ui.utility.DateInputMask;
 import com.jacksonasantos.travelplan.ui.utility.Utils;
-
-import java.util.List;
 
 public class TravelActivity extends AppCompatActivity {
     private EditText etDescription;
@@ -42,9 +36,9 @@ public class TravelActivity extends AppCompatActivity {
     private TextView tvStatus;
 
     private ConstraintLayout clVehicleTravel;
-    private AutoCompleteTextView spinVehicle;
+    private Spinner spinVehicle;
     private int nrSpinVehicle;
-    private AutoCompleteTextView spinDriver;
+    private Spinner spinDriver;
     private int nrSpinDriver;
     private ImageButton btnAdd;
     private RecyclerView rvVehicleTravel;
@@ -123,34 +117,44 @@ public class TravelActivity extends AppCompatActivity {
 
         etDeparture_date.addTextChangedListener(new DateInputMask(etDeparture_date));
         etReturn_date.addTextChangedListener(new DateInputMask(etReturn_date));
+        String[] adapterCols = new String[]{"text1"};
+        int[] adapterRowViews = new int[]{android.R.id.text1};
 
-        final List<Vehicle> vehicles = Database.mVehicleDao.fetchArrayVehicles();
-        ArrayAdapter<Vehicle> adapterVehicle = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, vehicles);
-        adapterVehicle.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinVehicle.setAdapter(adapterVehicle);
-        final Vehicle[] v1 = {new Vehicle()};
-        spinVehicle.setOnItemClickListener((parent, view, position, id) -> {
-            v1[0] = (Vehicle) parent.getItemAtPosition(position);
-            nrSpinVehicle = v1[0].getId();
+        Cursor vehicles = Database.mVehicleDao.fetchCursorVehicle();
+        SimpleCursorAdapter cursorAdapterV = new SimpleCursorAdapter( this,
+                android.R.layout.simple_spinner_item, vehicles, adapterCols, adapterRowViews, 0);
+        cursorAdapterV.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinVehicle.setAdapter(cursorAdapterV);
+        Utils.setSpinnerToValue(spinVehicle, nrSpinVehicle); // Selected Value of Spinner with value marked maps
+        spinVehicle.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                nrSpinVehicle = Math.toIntExact(spinVehicle.getSelectedItemId());
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+            }
         });
-        adapterVehicle.notifyDataSetChanged();
 
-        final List<Driver> drivers = Database.mDriverDao.fetchArrayDriver();
-        ArrayAdapter<Driver> adapterDriver = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, drivers);
-        adapterDriver.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinDriver.setAdapter(adapterDriver);
-        final Driver[] d1 = {new Driver()};
-        spinDriver.setOnItemClickListener((parent, view, position, id) -> {
-            d1[0] = (Driver) parent.getItemAtPosition(position);
-            nrSpinDriver = d1[0].getId();
+        Cursor drivers = Database.mDriverDao.fetchCursorDriver();
+        SimpleCursorAdapter cursorAdapterD = new SimpleCursorAdapter( this,
+                android.R.layout.simple_spinner_item, drivers, adapterCols, adapterRowViews, 0);
+        cursorAdapterV.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinDriver.setAdapter(cursorAdapterD);
+        Utils.setSpinnerToValue(spinDriver, nrSpinDriver); // Selected Value of Spinner with value marked maps
+        spinDriver.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                nrSpinDriver = Math.toIntExact(spinDriver.getSelectedItemId());
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+            }
         });
-        adapterDriver.notifyDataSetChanged();
 
         Cursor cAchievement = Database.mAchievementDao.fetchArrayAchievement();
-        String[] adapterColsA = new String[]{"text1"};
-        int[] adapterRowViewsA = new int[]{android.R.id.text1};
         SimpleCursorAdapter cursorAdapterA = new SimpleCursorAdapter( this,
-                android.R.layout.simple_spinner_item, cAchievement, adapterColsA, adapterRowViewsA, 0);
+                android.R.layout.simple_spinner_item, cAchievement, adapterCols, adapterRowViews, 0);
         cursorAdapterA.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinAchievement.setAdapter(cursorAdapterA);
         Utils.setSpinnerToValue(spinAchievement, nrSpinAchievement); // Selected Value of Spinner with value marked maps
@@ -159,7 +163,6 @@ public class TravelActivity extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 nrSpinAchievement = Math.toIntExact(spinAchievement.getSelectedItemId());
             }
-
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
             }
@@ -168,12 +171,12 @@ public class TravelActivity extends AppCompatActivity {
         if (travel != null) {
             addListenerOnButtonAdd();
             clVehicleTravel.setVisibility(View.VISIBLE);
-            adapterVehicleTravel = new TravelVehicleListAdapter(Database.mVehicleHasTravelDao.fetchAllVehicleHasTravelByTravel(travel.getId()), getApplicationContext(),"Travel",0);
+            adapterVehicleTravel = new TravelVehicleListAdapter(Database.mVehicleHasTravelDao.fetchAllVehicleHasTravelByTravel(travel.getId()), getApplicationContext(),"Travel",1);
             rvVehicleTravel.setAdapter(adapterVehicleTravel);
             rvVehicleTravel.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
             adapterVehicleTravel.notifyDataSetChanged();
 
-            adapterAchievementTravel = new TravelAchievementListAdapter(Database.mAchievementDao.fetchAllAchievementByTravel(travel.getId()), getApplicationContext(),"Travel",0);
+            adapterAchievementTravel = new TravelAchievementListAdapter(Database.mAchievementDao.fetchAllAchievementByTravel(travel.getId()), getApplicationContext(),"Travel",1);
             rvAchievementTravel.setAdapter(adapterAchievementTravel);
             rvAchievementTravel.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
             adapterAchievementTravel.notifyDataSetChanged();

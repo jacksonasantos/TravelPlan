@@ -144,55 +144,41 @@
                 android:baselineAligned="false"
                 android:orientation="horizontal">
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/textInputLayout2"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
+                <Spinner
+                    android:id="@+id/spinVehicle"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="@dimen/labels_margin"
+                    android:layout_marginLeft="@dimen/labels_margin"
+                    android:layout_marginEnd="@dimen/labels_margin"
+                    android:layout_marginRight="@dimen/labels_margin"
+                    android:hint="@string/Vehicle"
+                    android:inputType="none"
+                    app:autoSizeMaxTextSize="12sp"
+                    app:autoSizeMinTextSize="6sp"
+                    app:autoSizeStepGranularity="1sp"
+                    app:autoSizeTextType="uniform"
                     app:layout_constraintEnd_toStartOf="@+id/btnAdd"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
+                    app:layout_constraintTop_toTopOf="parent" />
 
-                    <AutoCompleteTextView
-                        android:id="@+id/spinVehicle"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginStart="@dimen/labels_margin"
-                        android:layout_marginLeft="@dimen/labels_margin"
-                        android:layout_marginEnd="@dimen/labels_margin"
-                        android:layout_marginRight="@dimen/labels_margin"
-                        android:hint="@string/Vehicle"
-                        android:inputType="none"
-                        app:autoSizeMaxTextSize="12sp"
-                        app:autoSizeMinTextSize="6sp"
-                        app:autoSizeStepGranularity="1sp"
-                        app:autoSizeTextType="uniform" />
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/textInputLayout21"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
+                <Spinner
+                    android:id="@+id/spinDriver"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="@dimen/labels_margin"
+                    android:layout_marginLeft="@dimen/labels_margin"
+                    android:layout_marginEnd="@dimen/labels_margin"
+                    android:layout_marginRight="@dimen/labels_margin"
+                    android:hint="@string/Driver"
+                    android:inputType="none"
+                    app:autoSizeMaxTextSize="12sp"
+                    app:autoSizeMinTextSize="6sp"
+                    app:autoSizeStepGranularity="1sp"
+                    app:autoSizeTextType="uniform"
                     app:layout_constraintEnd_toStartOf="@+id/btnAdd"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textInputLayout2">
-
-                    <AutoCompleteTextView
-                        android:id="@+id/spinDriver"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginStart="@dimen/labels_margin"
-                        android:layout_marginLeft="@dimen/labels_margin"
-                        android:layout_marginEnd="@dimen/labels_margin"
-                        android:layout_marginRight="@dimen/labels_margin"
-                        android:hint="@string/Driver"
-                        android:inputType="none"
-                        app:autoSizeMaxTextSize="12sp"
-                        app:autoSizeMinTextSize="6sp"
-                        app:autoSizeStepGranularity="1sp"
-                        app:autoSizeTextType="uniform" />
-                </com.google.android.material.textfield.TextInputLayout>
+                    app:layout_constraintTop_toBottomOf="@+id/spinVehicle" />
 
                 <ImageButton
                     android:id="@+id/btnAdd"
@@ -200,7 +186,7 @@
                     android:layout_height="42dp"
                     android:layout_marginEnd="@dimen/labels_margin"
                     android:contentDescription="@string/bt_Add"
-                    app:layout_constraintBottom_toBottomOf="@+id/textInputLayout21"
+                    app:layout_constraintBottom_toBottomOf="@+id/spinDriver"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:srcCompat="@drawable/ic_button_add" />
@@ -209,8 +195,8 @@
                     android:id="@+id/rvVehicleTravel"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textInputLayout21"
-                    tools:itemCount="4" />
+                    app:layout_constraintTop_toBottomOf="@+id/spinDriver"
+                    tools:itemCount="2" />
 
                 <Button
                     android:id="@+id/buttonSeparator2"
@@ -249,7 +235,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     app:layout_constraintTop_toBottomOf="@+id/btnAddAchievement"
-                    tools:itemCount="4" />
+                    tools:itemCount="2" />
 
                 <Button
                     android:id="@+id/buttonSeparator3"
@@ -262,7 +248,8 @@
                     android:id="@+id/rvTravelExpenses"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:layout_constraintTop_toBottomOf="@+id/buttonSeparator3" />
+                    app:layout_constraintTop_toBottomOf="@+id/buttonSeparator3"
+                    tools:itemCount="2"/>
             </androidx.constraintlayout.widget.ConstraintLayout>
         </LinearLayout>
     </LinearLayout>

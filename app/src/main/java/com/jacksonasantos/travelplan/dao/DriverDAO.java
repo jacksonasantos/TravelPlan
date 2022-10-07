@@ -68,6 +68,14 @@ public class DriverDAO extends DbContentProvider implements DriverISchema, Drive
         return driverList;
     }
 
+    public Cursor fetchCursorDriver() {
+        return super.rawQuery( "SELECT '' _id, '' text1 UNION " +
+                "SELECT " + DRIVER_ID + ", " +
+                DRIVER_NAME + " " +
+                "FROM " + DRIVER_TABLE + " " +
+                "ORDER BY " + DRIVER_NAME, null);
+    }
+
     public void deleteDriver(Integer id) {
         final String[] selectionArgs = { String.valueOf(id) };
         final String selection = DRIVER_ID + " = ?";
