@@ -620,9 +620,13 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
                         itinerary.setOrig_location(etOrig_location.getText().toString());
                         itinerary.setDest_location(etDest_location.getText().toString());
                         itinerary.setDaily(Integer.parseInt(etDaily.getText().toString()));
+                        if (!add) itinerary.setDistance(i.getDistance());
+                        if (!add) itinerary.setTime(i.getTime());
 
                         try {
-                            if (add) isSave[0] = Database.mItineraryDao.addItinerary(itinerary);
+                            if (add) {
+                                isSave[0] = Database.mItineraryDao.addItinerary(itinerary);
+                            }
                             else {
                                 Database.mItineraryDao.updateItinerary(itinerary);
                                 isSave[0] = true;
