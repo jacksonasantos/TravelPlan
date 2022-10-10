@@ -66,9 +66,7 @@ public class DriverActivity extends AppCompatActivity {
         etCategory = findViewById(R.id.etCategory);
 
         Utils.addRadioButtonResources(R.array.gender, rgGender, this);
-        rgGender.setOnCheckedChangeListener((group, checkedId) -> {
-            rbGender = checkedId;
-        });
+        rgGender.setOnCheckedChangeListener((group, checkedId) -> rbGender = checkedId);
 
         etLicenceExpirationDate.addTextChangedListener(new DateInputMask(etLicenceExpirationDate));
         etFirstLicenceDate.addTextChangedListener(new DateInputMask(etFirstLicenceDate));

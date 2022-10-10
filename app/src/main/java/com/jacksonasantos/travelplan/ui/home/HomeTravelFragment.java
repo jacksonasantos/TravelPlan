@@ -219,12 +219,29 @@ public class HomeTravelFragment extends Fragment implements View.OnClickListener
                     alertDialogBuilder
                             .setCancelable(false)
                             .setPositiveButton(R.string.OK, (dialog, id1) -> {
-                                boolean isSave = false;
-
-                                travel[0].setStatus(rbTravelStatus-1);
+                                boolean isSave = true;
 
                                 try {
-                                    isSave = Database.mTravelDao.updateTravel(travel[0]);
+                                    boolean temOdometerStart = true;
+                                    boolean temOdometerFinal = true;
+                                    boolean goRun = true;
+                                    List<VehicleHasTravel> list = Database.mVehicleHasTravelDao.fetchAllVehicleHasTravelByTravel(travel[0].getId());
+                                    for (int i = 0; i < list.size(); i++) {
+                                        if (list.get(i).getStart_odometer() == 0) temOdometerStart = false;
+                                        if (list.get(i).getFinal_odometer() == 0) temOdometerFinal = false;
+                                    }
+                                    if ((rbTravelStatus-1)==2 && !temOdometerStart){
+                                        Toast.makeText(requireContext(), R.string.Home_Travel_Change_Status_Running, Toast.LENGTH_LONG).show();
+                                        goRun = false;
+                                    }
+                                    if ((rbTravelStatus-1)==3 && !temOdometerFinal){
+                                        Toast.makeText(requireContext(), R.string.Home_Travel_Change_Status_Executed, Toast.LENGTH_LONG).show();
+                                        goRun = false;
+                                    }
+                                    if (goRun) {
+                                        travel[0].setStatus(rbTravelStatus-1 );
+                                        isSave = Database.mTravelDao.updateTravel(travel[0]);
+                                    }
                                 } catch (Exception e) {
                                     Toast.makeText(requireContext(), R.string.Error_Changing_Data + e.getMessage(), Toast.LENGTH_LONG).show();
                                 }

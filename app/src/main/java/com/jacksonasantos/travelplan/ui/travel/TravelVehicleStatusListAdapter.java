@@ -104,7 +104,8 @@ public class TravelVehicleStatusListAdapter extends RecyclerView.Adapter<Recycle
 
                             if (!etStartOdometer.getText().toString().isEmpty()) {
                                 vehicleHasTravel.setStart_odometer(Integer.parseInt(etStartOdometer.getText().toString()));
-                            }if (!etFinalOdometer.getText().toString().isEmpty()) {
+                            }
+                            if (!etFinalOdometer.getText().toString().isEmpty()) {
                                 vehicleHasTravel.setFinal_odometer(Integer.parseInt(etFinalOdometer.getText().toString()));
                             }
 

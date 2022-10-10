@@ -43,7 +43,7 @@
     <string name="gasoline_additives">Gasolina Aditivada</string>
     <string name="gasoline_premium">Gasolina Premium</string>
     <string name="FuelSupply_Combustible">Combustível</string>
-    <string name="bt_Refuel">Reabastecer</string>
+    <string name="bt_Refuel">Abastecimento</string>
     <string name="FuelSupply_Supply_Date">Data</string>
     <string name="FuelSupply_Number_Liters">Qtde de Litros</string>
     <string name="FuelSupply_Currency_Type">Tipo de Moeda</string>
@@ -349,7 +349,7 @@
     <string name="Driver_Gender">Gênero</string>
     <string name="Driver_Driving_Record">Registro de Habilitação</string>
     <string name="Driver_Licence_Expiration_Date">Vencimento</string>
-    <string name="Driver_First_Licence_Date">1a Habilitação</string>
+    <string name="Driver_First_Licence_Date">Data Primeira Habilitação</string>
     <string name="Driver_Licence_Issue_Date">Emissão Habilitação</string>
     <string name="Driver_Category">Categoria</string>
     <string name="Driver_Name">Nome</string>
@@ -373,4 +373,6 @@
     <string name="itinerary_not_selected">Itinerário não Selecionado</string>
     <string name="edit_itinerary">Editar Itinerário</string>
     <string name="select_itinerary_to_edit">Selecione um Itinerário para Editar</string>
+    <string name="Home_Travel_Change_Status_Running">Falta registro do Odometro Inicial p/ trocar status para Em Execução</string>
+    <string name="Home_Travel_Change_Status_Executed">Falta de registro do Odometro Final p/ trocar status para Executada</string>
 </resources>

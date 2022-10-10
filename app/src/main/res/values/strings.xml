@@ -477,6 +477,8 @@
     <string name="Home_Travel_Location">Location</string>
     <string name="Home_Travel_Liters">Liters</string>
     <string name="Home_Travel_Distance">Distance</string>
+    <string name="Home_Travel_Change_Status_Running">Initial odometer record is missing to change status to Running</string>
+    <string name="Home_Travel_Change_Status_Executed">Final odometer record is missing to change status to Executed</string>
 
     <!-- Driver -->
     <string name="Driver">Driver</string>
