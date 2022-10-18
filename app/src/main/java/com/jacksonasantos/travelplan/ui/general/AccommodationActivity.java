@@ -1,6 +1,5 @@
 package com.jacksonasantos.travelplan.ui.general;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.AutoCompleteTextView;
@@ -33,8 +32,6 @@ public class AccommodationActivity extends AppCompatActivity {
     private boolean opInsert = true;
     private boolean opResult = false;
     private Accommodation accommodation;
-
-    @SuppressLint("WrongViewCast")
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,7 +95,6 @@ public class AccommodationActivity extends AppCompatActivity {
         }
     }
 
-    @SuppressLint("NewApi")
     public void addListenerOnButtonSave() {
         Button btSaveAccommodation = findViewById(R.id.btSaveAccommodation);
 

@@ -95,8 +95,8 @@ public class MainActivity extends AppCompatActivity {
         // TODO - Load files in directory in install app
         try {
             AssetManager assetManager = ctx.getAssets();
-            InputStreamReader is = new InputStreamReader(assetManager.open("seguradoras.csv"), StandardCharsets.UTF_8);
-            BufferedReader reader = new BufferedReader(is);
+            InputStreamReader isr = new InputStreamReader(assetManager.open("seguradoras.csv"), StandardCharsets.UTF_8);
+            BufferedReader reader = new BufferedReader(isr);
             String lineStr;
 
             while ((lineStr = reader.readLine()) != null) {
@@ -123,7 +123,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
             }
-            is.close();
+            isr.close();
         } catch (IOException ex) {
             Log.i("debug", "Error load 'Seguradoras': " + ex.getMessage());
         }

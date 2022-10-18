@@ -33,6 +33,7 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+    namespace 'com.jacksonasantos.travelplan'
 }
 
 dependencies {
@@ -55,4 +56,6 @@ dependencies {
     implementation 'com.jjoe64:graphview:4.2.2'
     implementation 'org.jetbrains:annotations:23.0.0'
     implementation 'com.github.QuadFlask:colorpicker:0.0.15'
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+    testImplementation 'org.junit.jupiter:junit-jupiter'
 }
