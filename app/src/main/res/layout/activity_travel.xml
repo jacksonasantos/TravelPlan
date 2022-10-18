@@ -131,7 +131,6 @@
                 android:text="@string/bt_Save" />
 
             <Button
-                android:id="@+id/buttonSeparator1"
                 android:layout_width="match_parent"
                 android:layout_height="15dp"
                 android:clickable="false" />

@@ -45,7 +45,6 @@
                 android:layout_marginRight="@dimen/labels_margin">
 
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/textInputLayout7"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     app:layout_constraintEnd_toStartOf="@+id/textInputLayout"
@@ -169,7 +168,6 @@
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/textInputLayout4"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="@dimen/labels_margin"

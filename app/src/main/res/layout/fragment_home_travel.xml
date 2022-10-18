@@ -226,7 +226,6 @@
                 tools:itemCount="2" />
 
             <Button
-                android:id="@+id/buttonSeparator1"
                 android:layout_width="match_parent"
                 android:layout_height="16dp"
                 android:clickable="false"
@@ -259,7 +258,6 @@
                 tools:itemCount="2" />
 
             <Button
-                android:id="@+id/buttonSeparator8"
                 android:layout_width="match_parent"
                 android:layout_height="16dp"
                 android:clickable="false"
@@ -352,7 +350,6 @@
                 tools:itemCount="2" />
 
             <Button
-                android:id="@+id/buttonSeparator4"
                 android:layout_width="match_parent"
                 android:layout_height="16dp"
                 android:clickable="false"

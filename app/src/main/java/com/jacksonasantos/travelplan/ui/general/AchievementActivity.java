@@ -147,7 +147,7 @@ public class AchievementActivity extends AppCompatActivity {
         }
     }
 
-    ActivityResultLauncher<Intent> myActivityResultLauncher = registerForActivityResult(
+    final ActivityResultLauncher<Intent> myActivityResultLauncher = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
             new ActivityResultCallback<ActivityResult>() {
                 @Override

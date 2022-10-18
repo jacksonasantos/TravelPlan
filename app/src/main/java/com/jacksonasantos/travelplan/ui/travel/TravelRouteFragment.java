@@ -73,7 +73,7 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
 
     public boolean clearMap;
     public Integer nrTravel_Id;
-    public String txt_Search;
+    public final String txt_Search;
     public static Integer nrItinerary_Id;
     public static Integer nrAchievement_Id;
     private Spinner spTravel;

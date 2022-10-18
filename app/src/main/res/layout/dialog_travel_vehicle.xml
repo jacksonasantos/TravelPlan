@@ -23,7 +23,6 @@
                 android:orientation="horizontal"
                 android:padding="@dimen/labels_margin">
                 <TextView
-                    android:id="@+id/lblVehicle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.50"
@@ -41,13 +40,11 @@
                 android:orientation="horizontal"
                 android:padding="@dimen/labels_margin">
                 <TextView
-                    android:id="@+id/lblStartOdometer"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.50"
                     android:text="@string/StartOdometer" />
                 <TextView
-                    android:id="@+id/lblFinalOdometer"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.50"
