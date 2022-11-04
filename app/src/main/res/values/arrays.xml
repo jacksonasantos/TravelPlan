@@ -33,6 +33,11 @@
         <item>@string/motorcycle</item>
         <item>@string/suv</item>
     </string-array>
+    <!-- Status Pending Vehicle -->
+    <string-array name="status_pending_vehicle_array">
+        <item>@string/pending</item>
+        <item>@string/concluded</item>
+    </string-array>
     <!-- Fuel Type-->
     <string-array name="fuel_type_array">
         <item>@string/ethanol</item>

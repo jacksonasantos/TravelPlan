@@ -20,7 +20,9 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar">
+        android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        tools:targetApi="s">
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
@@ -70,13 +72,16 @@
             android:label="@string/Vehicle" />
         <activity
             android:name=".ui.vehicle.VehiclePlanActivity"
-            android:label="@string/Vehicle" />
+            android:label="@string/Vehicle_Plan" />
+        <activity
+            android:name=".ui.vehicle.PendingVehicleActivity"
+            android:label="@string/PendingVehicle" />
         <activity
             android:name=".ui.travel.TravelActivity"
             android:label="@string/Travel" />
         <activity
             android:name=".ui.travel.ItineraryActivity"
-            android:label="@string/Travel" />
+            android:label="@string/Itinerary" />
         <activity
             android:name=".ui.travel.ReservationActivity"
             android:label="@string/Reservation" />

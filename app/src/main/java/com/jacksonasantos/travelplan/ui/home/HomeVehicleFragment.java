@@ -36,6 +36,7 @@ import com.jacksonasantos.travelplan.ui.general.InsuranceDialog;
 import com.jacksonasantos.travelplan.ui.utility.Globals;
 import com.jacksonasantos.travelplan.ui.utility.Utils;
 import com.jacksonasantos.travelplan.ui.vehicle.FuelSupplyActivity;
+import com.jacksonasantos.travelplan.ui.vehicle.PendingVehicleActivity;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.GridLabelRenderer;
 import com.jjoe64.graphview.helper.DateAsXAxisLabelFormatter;
@@ -77,6 +78,10 @@ public class HomeVehicleFragment extends Fragment implements View.OnClickListene
     private TextView tvAVGType2;
     private TextView tvAVGType3;
     private GraphView graphStatistics;
+
+    private ConstraintLayout layerPendingVehicle;
+    private ImageView imgAddPendingVehicle;
+    private RecyclerView pendingVehicleList;
 
     private ConstraintLayout layerMaintenanceItemVehicle;
     private RecyclerView nextVehicleMaintenanceList;
@@ -124,6 +129,10 @@ public class HomeVehicleFragment extends Fragment implements View.OnClickListene
         tvAVGType2 = v.findViewById(R.id.tvAVGType2);
         tvAVGType3 = v.findViewById(R.id.tvAVGType3);
         graphStatistics = v.findViewById(R.id.graphStatistics);
+
+        layerPendingVehicle = v.findViewById(R.id.layerPendingVehicle);
+        imgAddPendingVehicle = v.findViewById(R.id.imgAddPendingVehicle);
+        pendingVehicleList = v.findViewById(R.id.pendingVehicleList);
 
         layerMaintenanceItemVehicle = v.findViewById(R.id.layerMaintenanceItemVehicle);
         nextVehicleMaintenanceList = v.findViewById(R.id.listNextVehicleMaintenance);
@@ -260,6 +269,23 @@ public class HomeVehicleFragment extends Fragment implements View.OnClickListene
                     layerStatisticsVehicle.setVisibility(View.GONE);
                 }
                 adapterLastVehicleStatistics.notifyDataSetChanged();
+
+                 // Pending Vehicle - layerPendingVehicle
+                HomeVehiclePendingVehicleListAdapter adapterPendingVehicle = new HomeVehiclePendingVehicleListAdapter(Database.mPendingVehicleDao.fetchAllPendingVehicle( g.getIdVehicle(), 0 ), getContext(),0);
+                if (adapterPendingVehicle.getItemCount() > 0) {
+                    layerPendingVehicle.setVisibility(View.VISIBLE);
+                    pendingVehicleList.setAdapter(adapterPendingVehicle);
+                    pendingVehicleList.setLayoutManager(new LinearLayoutManager(getContext()));
+
+                    imgAddPendingVehicle.setOnClickListener (v -> {
+                        Intent intent = new Intent(v.getContext(), PendingVehicleActivity.class);
+                        intent.putExtra("vehicle_id", g.getIdVehicle());
+                        startActivity(intent);
+                    });
+                } else {
+                    layerPendingVehicle.setVisibility(View.GONE);
+                }
+                adapterPendingVehicle.notifyDataSetChanged();
 
                 // Next Vehicle Maintenance - layerMaintenanceItemVehicle
                 HomeVehicleNextMaintenanceListAdapter adapterNextMaintenance = new HomeVehicleNextMaintenanceListAdapter(Database.mNextMaintenanceItemDao.findNextMaintenanceItem( g.getIdVehicle() ), getContext(),0);

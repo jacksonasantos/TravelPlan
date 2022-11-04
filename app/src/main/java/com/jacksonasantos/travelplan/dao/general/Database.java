@@ -23,6 +23,7 @@ import com.jacksonasantos.travelplan.dao.MaintenanceItemDAO;
 import com.jacksonasantos.travelplan.dao.MaintenancePlanDAO;
 import com.jacksonasantos.travelplan.dao.MarkerDAO;
 import com.jacksonasantos.travelplan.dao.NextMaintenanceItemDAO;
+import com.jacksonasantos.travelplan.dao.PendingVehicleDAO;
 import com.jacksonasantos.travelplan.dao.ReservationDAO;
 import com.jacksonasantos.travelplan.dao.SummaryTravelExpenseDAO;
 import com.jacksonasantos.travelplan.dao.TravelDAO;
@@ -48,6 +49,7 @@ import com.jacksonasantos.travelplan.dao.interfaces.MaintenanceISchema;
 import com.jacksonasantos.travelplan.dao.interfaces.MaintenanceItemISchema;
 import com.jacksonasantos.travelplan.dao.interfaces.MaintenancePlanISchema;
 import com.jacksonasantos.travelplan.dao.interfaces.MarkerISchema;
+import com.jacksonasantos.travelplan.dao.interfaces.PendingVehicleISchema;
 import com.jacksonasantos.travelplan.dao.interfaces.ReservationISchema;
 import com.jacksonasantos.travelplan.dao.interfaces.TravelExpensesISchema;
 import com.jacksonasantos.travelplan.dao.interfaces.TravelISchema;
@@ -62,7 +64,7 @@ public class Database {
     private final Context mContext;
 
     private static final String DATABASE_NAME = "TravelPlan.db";
-    private static final int DATABASE_VERSION = 52;
+    private static final int DATABASE_VERSION = 53;
 
     public static AccommodationDAO mAccommodationDao;
     public static AchievementDAO mAchievementDao;
@@ -78,6 +80,7 @@ public class Database {
     public static MaintenanceItemDAO mMaintenanceItemDao;
     public static MaintenancePlanDAO mMaintenancePlanDao;
     public static MarkerDAO mMarkerDao;
+    public static PendingVehicleDAO mPendingVehicleDao;
     public static ReservationDAO mReservationDao;
     public static TravelDAO mTravelDao;
     public static TravelExpensesDAO mTravelExpensesDao;
@@ -127,6 +130,7 @@ public class Database {
         mAchievementDao = new AchievementDAO(mDb);
         mVehicleMaintenanceItemDao = new VehicleMaintenanceItemDAO(mDb);
         mDriverDao = new DriverDAO(mDb);
+        mPendingVehicleDao = new PendingVehicleDAO(mDb);
     }
 
     public void close() {
@@ -219,6 +223,7 @@ public class Database {
             db.execSQL(AchievementISchema.ALTER_TABLE_ACHIEVEMENT_V51);Log.w("Table "+AchievementISchema.ACHIEVEMENT_TABLE,"V51 - Alter Table...");
             db.execSQL(VehicleHasTravelISchema.ALTER_TABLE_VEHICLE_HAS_TRAVEL_V52_1);Log.w("Table "+VehicleHasTravelISchema.VEHICLE_HAS_TRAVEL_TABLE,"V52_1 - Alter Table...");
             db.execSQL(VehicleHasTravelISchema.ALTER_TABLE_VEHICLE_HAS_TRAVEL_V52_2);Log.w("Table "+VehicleHasTravelISchema.VEHICLE_HAS_TRAVEL_TABLE,"V52_2 - Alter Table...");
+            db.execSQL(PendingVehicleISchema.CREATE_TABLE_PENDING_VEHICLE_V53); Log.w("Table "+PendingVehicleISchema.PENDING_VEHICLE_TABLE,"V53 - Create Table...");
         }
 
         @SuppressLint("SQLiteString")
@@ -390,6 +395,9 @@ public class Database {
                     case 52:
                         db.execSQL(VehicleHasTravelISchema.ALTER_TABLE_VEHICLE_HAS_TRAVEL_V52_1);
                         db.execSQL(VehicleHasTravelISchema.ALTER_TABLE_VEHICLE_HAS_TRAVEL_V52_2);
+                        break;
+                    case 53:
+                        db.execSQL(PendingVehicleISchema.CREATE_TABLE_PENDING_VEHICLE_V53);
                         break;
                     default:
                         break;

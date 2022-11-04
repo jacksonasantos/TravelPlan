@@ -56,5 +56,7 @@ dependencies {
     implementation 'com.jjoe64:graphview:4.2.2'
     implementation 'org.jetbrains:annotations:23.0.0'
     implementation 'com.github.QuadFlask:colorpicker:0.0.15'
+    implementation 'junit:junit:4.12'
+    implementation 'junit:junit:4.12'
     testImplementation 'org.junit.jupiter:junit-jupiter'
 }

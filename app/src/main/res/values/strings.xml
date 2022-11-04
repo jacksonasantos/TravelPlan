@@ -155,6 +155,17 @@
     <string name="NextMaintenance_Measure">Measure</string>
     <string name="NextMaintenance_Service">Service</string>
 
+    <!-- Pending Vehicle -->
+    <string name="PendingVehicle">Pending Vehicle</string>
+    <string name="PendingVehicle_Deleting">Deleting Pending Vehicle</string>
+
+    <string name="PendingVehicle_ServiceType">Service Type</string>
+    <string name="PendingVehicle_Note">Note</string>
+    <string name="PendingVehicle_ExpectedValue">Expected Value</string>
+    <string name="PendingVehicle_StatusPending">Status Pending</string>
+
+    <string name="pending">pending</string>
+    <string name="concluded">concluded</string>
 
     <!-- Maintenance Plan Fragment -->
     <string name="Maintenance_Plan">Maintenance Plan</string>
@@ -204,7 +215,7 @@
     <string name="food">Food</string>
     <string name="tours">Tours</string>
     <string name="accommodation">Accommodation</string>
-    <string name="extras" translatable="false">Extras</string>
+    <string name="extras">Extras</string>
     <string name="expected">Expected</string>
     <string name="realized">Realized</string>
     <string name="HomeTravelTotal" translatable="false">Total</string>

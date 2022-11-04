@@ -356,7 +356,7 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/layerMaintenanceItemVehicle"
+            android:id="@+id/layerPendingVehicle"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginStart="@dimen/labels_margin"
@@ -366,6 +366,65 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/layerStatisticsVehicle">
+
+            <TextView
+                android:id="@+id/tvPendingVehicle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/PendingVehicle"
+                android:textAlignment="center"
+                android:textColor="@color/design_default_color_secondary_variant"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/imgAddPendingVehicle"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:contentDescription="@string/PendingVehicle"
+                app:layout_constraintBottom_toTopOf="@+id/pendingVehicleList"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_button_add" />
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/pendingVehicleList"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:scrollbars="vertical"
+                app:autoSizeMaxTextSize="12sp"
+                app:autoSizeMinTextSize="6sp"
+                app:autoSizeStepGranularity="1sp"
+                app:autoSizeTextType="uniform"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvPendingVehicle"
+                tools:itemCount="4" />
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="16dp"
+                android:clickable="false"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/pendingVehicleList" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layerMaintenanceItemVehicle"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="@dimen/labels_margin"
+            android:layout_marginLeft="@dimen/labels_margin"
+            android:layout_marginEnd="@dimen/labels_margin"
+            android:layout_marginRight="@dimen/labels_margin"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/layerPendingVehicle">
 
             <TextView
                 android:id="@+id/tvNextVehicleMaintenance"

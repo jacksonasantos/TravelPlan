@@ -374,4 +374,13 @@
     <string name="select_itinerary_to_edit">Selecione um Itinerário para Editar</string>
     <string name="Home_Travel_Change_Status_Running">Falta registro do Odometro Inicial p/ trocar status para Em Execução</string>
     <string name="Home_Travel_Change_Status_Executed">Falta de registro do Odometro Final p/ trocar status para Executada</string>
+    <string name="PendingVehicle">Pendências do Veículo</string>
+    <string name="PendingVehicle_Deleting">Excluindo Pendência do Veículo</string>
+    <string name="PendingVehicle_ServiceType">Tipo de Serviço</string>
+    <string name="PendingVehicle_Note">Observação</string>
+    <string name="PendingVehicle_ExpectedValue">Valor Previsto</string>
+    <string name="PendingVehicle_StatusPending">Situação</string>
+    <string name="extras">Extras</string>
+    <string name="pending">Pendente</string>
+    <string name="concluded">Concluído</string>
 </resources>
