@@ -272,19 +272,15 @@ public class HomeVehicleFragment extends Fragment implements View.OnClickListene
 
                  // Pending Vehicle - layerPendingVehicle
                 HomeVehiclePendingVehicleListAdapter adapterPendingVehicle = new HomeVehiclePendingVehicleListAdapter(Database.mPendingVehicleDao.fetchAllPendingVehicle( g.getIdVehicle(), 0 ), getContext(),0);
-                if (adapterPendingVehicle.getItemCount() > 0) {
-                    layerPendingVehicle.setVisibility(View.VISIBLE);
-                    pendingVehicleList.setAdapter(adapterPendingVehicle);
-                    pendingVehicleList.setLayoutManager(new LinearLayoutManager(getContext()));
+                layerPendingVehicle.setVisibility(View.VISIBLE);
+                pendingVehicleList.setAdapter(adapterPendingVehicle);
+                pendingVehicleList.setLayoutManager(new LinearLayoutManager(getContext()));
 
-                    imgAddPendingVehicle.setOnClickListener (v -> {
-                        Intent intent = new Intent(v.getContext(), PendingVehicleActivity.class);
-                        intent.putExtra("vehicle_id", g.getIdVehicle());
-                        startActivity(intent);
-                    });
-                } else {
-                    layerPendingVehicle.setVisibility(View.GONE);
-                }
+                imgAddPendingVehicle.setOnClickListener (v -> {
+                    Intent intent = new Intent(v.getContext(), PendingVehicleActivity.class);
+                    intent.putExtra("vehicle_id", g.getIdVehicle());
+                    startActivity(intent);
+                });
                 adapterPendingVehicle.notifyDataSetChanged();
 
                 // Next Vehicle Maintenance - layerMaintenanceItemVehicle
