@@ -64,7 +64,7 @@ public class Database {
     private final Context mContext;
 
     private static final String DATABASE_NAME = "TravelPlan.db";
-    private static final int DATABASE_VERSION = 53;
+    private static final int DATABASE_VERSION = 54;
 
     public static AccommodationDAO mAccommodationDao;
     public static AchievementDAO mAchievementDao;
@@ -224,6 +224,7 @@ public class Database {
             db.execSQL(VehicleHasTravelISchema.ALTER_TABLE_VEHICLE_HAS_TRAVEL_V52_1);Log.w("Table "+VehicleHasTravelISchema.VEHICLE_HAS_TRAVEL_TABLE,"V52_1 - Alter Table...");
             db.execSQL(VehicleHasTravelISchema.ALTER_TABLE_VEHICLE_HAS_TRAVEL_V52_2);Log.w("Table "+VehicleHasTravelISchema.VEHICLE_HAS_TRAVEL_TABLE,"V52_2 - Alter Table...");
             db.execSQL(PendingVehicleISchema.CREATE_TABLE_PENDING_VEHICLE_V53); Log.w("Table "+PendingVehicleISchema.PENDING_VEHICLE_TABLE,"V53 - Create Table...");
+            db.execSQL(MaintenanceItemISchema.ALTER_TABLE_MAINTENANCE_ITEM_V54);Log.w("Table "+MaintenanceItemISchema.MAINTENANCE_ITEM_TABLE,"V54 - Alter Table...");
         }
 
         @SuppressLint("SQLiteString")
@@ -398,6 +399,9 @@ public class Database {
                         break;
                     case 53:
                         db.execSQL(PendingVehicleISchema.CREATE_TABLE_PENDING_VEHICLE_V53);
+                        break;
+                    case 54:
+                        db.execSQL(MaintenanceItemISchema.ALTER_TABLE_MAINTENANCE_ITEM_V54);
                         break;
                     default:
                         break;

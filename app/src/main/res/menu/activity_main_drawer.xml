@@ -23,6 +23,10 @@
                 android:id="@+id/nav_maintenance"
                 android:icon="@drawable/ic_menu_maintenance"
                 android:title="@string/menu_maintenance" />
+            <item
+                android:id="@+id/nav_pending_vehicle"
+                android:icon="@drawable/ic_menu_pending"
+                android:title="@string/menu_pending" />
         </menu>
     </item>
     <item android:title="@string/menu_travel">

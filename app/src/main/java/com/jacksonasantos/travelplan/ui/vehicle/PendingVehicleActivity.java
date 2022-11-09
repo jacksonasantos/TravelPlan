@@ -51,12 +51,12 @@ public class PendingVehicleActivity extends AppCompatActivity {
         Bundle extras = getIntent().getExtras();
         pendingVehicle = new PendingVehicle();
         statusArray = getResources().getStringArray(R.array.status_pending_vehicle_array);
+        pendingVehicle.setExpected_value((double) 0);
 
         if (extras != null) {
             if (extras.getInt( "vehicle_id") > 0) {
                 nrVehicleId = extras.getInt("vehicle_id");
                 pendingVehicle.setVehicle_id(nrVehicleId);
-                pendingVehicle.setExpected_value((double) 0);
             }
             if (extras.getInt( "pending_vehicle_id") > 0) {
                 pendingVehicle.setId(extras.getInt("pending_vehicle_id"));

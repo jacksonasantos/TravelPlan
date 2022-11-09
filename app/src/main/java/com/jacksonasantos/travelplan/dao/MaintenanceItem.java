@@ -6,6 +6,7 @@ public class MaintenanceItem {
     public Integer id;
     public Integer maintenance_plan_id;
     public Integer maintenance_id;
+    public Integer pending_vehicle_id;
     public int service_type;
     public int measure_type;
     public int expiration_value;
@@ -20,6 +21,9 @@ public class MaintenanceItem {
 
     public Integer getMaintenance_plan_id() { return maintenance_plan_id; }
     public void setMaintenance_plan_id(Integer maintenance_plan_id) { this.maintenance_plan_id = maintenance_plan_id; }
+
+    public Integer getPending_vehicle_id() { return pending_vehicle_id; }
+    public void setPending_vehicle_id(Integer pending_vehicle_id) { this.pending_vehicle_id = pending_vehicle_id; }
 
     public Integer getMaintenance_id() { return maintenance_id; }
     public void setMaintenance_id(Integer maintenance_id) { this.maintenance_id = maintenance_id; }

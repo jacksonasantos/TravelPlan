@@ -54,6 +54,7 @@ public class MaintenanceItemDAO extends DbContentProvider implements Maintenance
             if (c.getColumnIndex(MAINTENANCE_ITEM_ID) != -1)                  {m.setId(c.getInt(c.getColumnIndexOrThrow(MAINTENANCE_ITEM_ID))); }
             if (c.getColumnIndex(MAINTENANCE_ITEM_MAINTENANCE_PLAN_ID) != -1) {m.setMaintenance_plan_id(c.getInt(c.getColumnIndexOrThrow(MAINTENANCE_ITEM_MAINTENANCE_PLAN_ID))); }
             if (c.getColumnIndex(MAINTENANCE_ITEM_MAINTENANCE_ID) != -1)      {m.setMaintenance_id(c.getInt(c.getColumnIndexOrThrow(MAINTENANCE_ITEM_MAINTENANCE_ID))); }
+            if (c.getColumnIndex(MAINTENANCE_ITEM_PENDING_VEHICLE_ID) != -1)  {m.setPending_vehicle_id(c.getInt(c.getColumnIndexOrThrow(MAINTENANCE_ITEM_PENDING_VEHICLE_ID))); }
             if (c.getColumnIndex(MAINTENANCE_ITEM_SERVICE_TYPE) != -1)        {m.setService_type(c.getInt(c.getColumnIndexOrThrow(MAINTENANCE_ITEM_SERVICE_TYPE))); }
             if (c.getColumnIndex(MAINTENANCE_ITEM_MEASURE_TYPE) != -1)        {m.setMeasure_type(c.getInt(c.getColumnIndexOrThrow(MAINTENANCE_ITEM_MEASURE_TYPE))); }
             if (c.getColumnIndex(MAINTENANCE_ITEM_EXPIRATION_VALUE) != -1)    {m.setExpiration_value(c.getInt(c.getColumnIndexOrThrow(MAINTENANCE_ITEM_EXPIRATION_VALUE))); }
@@ -68,6 +69,7 @@ public class MaintenanceItemDAO extends DbContentProvider implements Maintenance
         initialValues.put(MAINTENANCE_ITEM_ID, m.id);
         initialValues.put(MAINTENANCE_ITEM_MAINTENANCE_PLAN_ID, m.maintenance_plan_id);
         initialValues.put(MAINTENANCE_ITEM_MAINTENANCE_ID, m.maintenance_id);
+        initialValues.put(MAINTENANCE_ITEM_PENDING_VEHICLE_ID, m.pending_vehicle_id);
         initialValues.put(MAINTENANCE_ITEM_SERVICE_TYPE, m.service_type);
         initialValues.put(MAINTENANCE_ITEM_MEASURE_TYPE, m.measure_type);
         initialValues.put(MAINTENANCE_ITEM_EXPIRATION_VALUE, m.expiration_value);

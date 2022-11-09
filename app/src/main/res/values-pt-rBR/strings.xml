@@ -383,4 +383,5 @@
     <string name="extras">Extras</string>
     <string name="pending">Pendente</string>
     <string name="concluded">Concluído</string>
+    <string name="menu_pending">Pendências</string>
 </resources>

@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public interface PendingVehicleIDAO {
-    ArrayList<PendingVehicle> fetchArrayPendingVehicle();
+    ArrayList<PendingVehicle> fetchArrayPendingVehicle(Integer vehicle_id);
     PendingVehicle fetchPendingVehicleById(Integer id);
     PendingVehicle fetchPendingVehicleByService(int type);
     List<PendingVehicle> fetchAllPendingVehicle();

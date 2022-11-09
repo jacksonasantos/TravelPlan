@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import com.jacksonasantos.travelplan.dao.general.DbContentProvider;
 import com.jacksonasantos.travelplan.dao.interfaces.PendingVehicleIDAO;
 import com.jacksonasantos.travelplan.dao.interfaces.PendingVehicleISchema;
+import com.jacksonasantos.travelplan.ui.utility.Globals;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,9 +21,11 @@ public class PendingVehicleDAO extends DbContentProvider implements PendingVehic
         super(db);
     }
 
-    public ArrayList<PendingVehicle> fetchArrayPendingVehicle(){
+    public ArrayList<PendingVehicle> fetchArrayPendingVehicle(Integer vehicle_id){
+        final String[] selectionArgs = { String.valueOf(vehicle_id) };
+        final String selection = PENDING_VEHICLE_VEHICLE_ID + " = ?";
         ArrayList<PendingVehicle> pendingVehicle = new ArrayList<>();
-        Cursor cursor = super.query(PENDING_VEHICLE_TABLE, PENDING_VEHICLE_COLUMNS, null,null, PENDING_VEHICLE_SERVICE_TYPE);
+        Cursor cursor = super.query(PENDING_VEHICLE_TABLE, PENDING_VEHICLE_COLUMNS, selection,selectionArgs, PENDING_VEHICLE_SERVICE_TYPE);
         if(cursor != null && cursor.moveToFirst()){
             do{
                 PendingVehicle pV = cursorToEntity(cursor);
@@ -66,7 +69,16 @@ public class PendingVehicleDAO extends DbContentProvider implements PendingVehic
 
     public List<PendingVehicle> fetchAllPendingVehicle() {
         List<PendingVehicle> pendingVehicleList = new ArrayList<>();
-        cursor = super.query(PENDING_VEHICLE_TABLE, PENDING_VEHICLE_COLUMNS, null, null, PENDING_VEHICLE_SERVICE_TYPE);
+
+        if (Globals.getInstance().getFilterVehicle()) {
+            final String[] selectionArgs = { String.valueOf(Globals.getInstance().getIdVehicle()) };
+            final String selection = PENDING_VEHICLE_VEHICLE_ID + " = ?";
+
+            cursor = super.query(PENDING_VEHICLE_TABLE, PENDING_VEHICLE_COLUMNS, selection, selectionArgs, PENDING_VEHICLE_SERVICE_TYPE);
+        } else {
+            cursor = super.query(PENDING_VEHICLE_TABLE, PENDING_VEHICLE_COLUMNS, null, null, PENDING_VEHICLE_SERVICE_TYPE);
+        }
+
         if (cursor.moveToFirst()) {
             do {
                 PendingVehicle pendingVehicle = cursorToEntity(cursor);

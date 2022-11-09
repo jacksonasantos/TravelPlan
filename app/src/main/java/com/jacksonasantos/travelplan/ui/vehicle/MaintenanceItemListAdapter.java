@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.jacksonasantos.travelplan.R;
 import com.jacksonasantos.travelplan.dao.MaintenanceItem;
+import com.jacksonasantos.travelplan.dao.PendingVehicle;
 import com.jacksonasantos.travelplan.dao.general.Database;
 import com.jacksonasantos.travelplan.ui.utility.Globals;
 
@@ -97,8 +98,13 @@ public class MaintenanceItemListAdapter extends RecyclerView.Adapter<RecyclerVie
                     .setMessage(R.string.Msg_Confirm)
                     .setPositiveButton(R.string.Yes, (dialogInterface, i) -> {
                         try {
+                            if (maintenanceItem.getPending_vehicle_id()>0) {
+                                PendingVehicle pendingVehicle = Database.mPendingVehicleDao.fetchPendingVehicleById(maintenanceItem.getPending_vehicle_id());
+                                pendingVehicle.setStatus_pending(0);
+                                Database.mPendingVehicleDao.updatePendingVehicle(pendingVehicle);
+                            }
                             Database.mMaintenanceItemDao.deleteMaintenanceItem(maintenanceItem.getMaintenance_id(), maintenanceItem.getId());
-                            mMaintenanceItem.remove(position);
+                            mMaintenanceItem.remove(position-1);
                             notifyItemRemoved(position);
                             notifyItemRangeChanged(position, mMaintenanceItem.size());
                         } catch (Exception e) {

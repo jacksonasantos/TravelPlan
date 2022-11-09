@@ -30,6 +30,12 @@
         tools:layout="@layout/fragment_generic_list" />
 
     <fragment
+        android:id="@+id/nav_pending_vehicle"
+        android:name="com.jacksonasantos.travelplan.ui.vehicle.PendingVehicleFragment"
+        android:label="@string/menu_pending"
+        tools:layout="@layout/fragment_generic_list" />
+
+    <fragment
         android:id="@+id/nav_maintenance_plan"
         android:name="com.jacksonasantos.travelplan.ui.general.MaintenancePlanFragment"
         android:label="@string/menu_maintenance_plan"

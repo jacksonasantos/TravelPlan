@@ -1,5 +1,7 @@
 package com.jacksonasantos.travelplan.dao;
 
+import androidx.annotation.NonNull;
+
 public class PendingVehicle {
     public Integer id;
     public Integer vehicle_id;
@@ -10,6 +12,10 @@ public class PendingVehicle {
 
     public PendingVehicle() {
     }
+
+    @NonNull
+    @Override
+    public String toString() { return note; }
 
     public Integer getId() { return id; }
     public void setId(Integer id) { this.id = id; }

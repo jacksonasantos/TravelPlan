@@ -25,6 +25,7 @@ import com.jacksonasantos.travelplan.R;
 import com.jacksonasantos.travelplan.dao.Maintenance;
 import com.jacksonasantos.travelplan.dao.MaintenanceItem;
 import com.jacksonasantos.travelplan.dao.MaintenancePlan;
+import com.jacksonasantos.travelplan.dao.PendingVehicle;
 import com.jacksonasantos.travelplan.dao.Vehicle;
 import com.jacksonasantos.travelplan.dao.VehicleHasPlan;
 import com.jacksonasantos.travelplan.dao.general.Database;
@@ -137,8 +138,13 @@ public class MaintenanceActivity extends AppCompatActivity {
     public void addListenerOnButtonAdd() {
 
         final List<MaintenancePlan> maintenancePlan =  Database.mMaintenancePlanDao.fetchArrayMaintenancePlan();
-        final ArrayAdapter<MaintenancePlan> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, maintenancePlan);
-        adapter.setDropDownViewResource( android.R.layout.simple_spinner_dropdown_item);
+        final ArrayAdapter<MaintenancePlan> adapterMP = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, maintenancePlan);
+        adapterMP.setDropDownViewResource( android.R.layout.simple_spinner_dropdown_item);
+
+        final List<PendingVehicle> pendingVehicle =  Database.mPendingVehicleDao.fetchArrayPendingVehicle(nrVehicle_id);
+        pendingVehicle.add(0, new PendingVehicle());
+        final ArrayAdapter<PendingVehicle> adapterPV = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, pendingVehicle);
+        adapterPV.setDropDownViewResource( android.R.layout.simple_spinner_dropdown_item);
 
         btAddMaintenanceItem.setOnClickListener(v -> {
             LayoutInflater li = LayoutInflater.from(v.getContext());
@@ -152,8 +158,10 @@ public class MaintenanceActivity extends AppCompatActivity {
             final EditText etExpiration_value = promptsView.findViewById(R.id.etExpiration_value);
             final EditText etValue = promptsView.findViewById(R.id.etValue);
             final EditText etNote = promptsView.findViewById(R.id.etNote);
+            final Spinner spinPendingNote = promptsView.findViewById(R.id.spinPendingNote);
 
-            spinMaintenancePlan.setAdapter(adapter);
+            spinMaintenancePlan.setAdapter(adapterMP);
+            spinPendingNote.setAdapter(adapterPV);
             final MaintenancePlan[] maintenancePlan1 = new MaintenancePlan[1];
 
             spinMaintenancePlan.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -174,7 +182,20 @@ public class MaintenanceActivity extends AppCompatActivity {
                 public void onNothingSelected(AdapterView<?> parent) {
                 }
             });
-            adapter.notifyDataSetChanged();
+            adapterPV.notifyDataSetChanged();
+
+            final PendingVehicle[] pendingVehicle1 = new PendingVehicle[1];
+            spinPendingNote.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @SuppressLint("SetTextI18n")
+                @Override
+                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                    pendingVehicle1[0] = (PendingVehicle) parent.getItemAtPosition(position);
+                }
+                @Override
+                public void onNothingSelected(AdapterView<?> parent) {
+                }
+            });
+            adapterMP.notifyDataSetChanged();
 
             alertDialogBuilder
             .setCancelable(false)
@@ -185,6 +206,7 @@ public class MaintenanceActivity extends AppCompatActivity {
 
                 mI.setMaintenance_id(maintenance.getId());
                 mI.setMaintenance_plan_id(maintenancePlan1[0].getId());
+                mI.setPending_vehicle_id(pendingVehicle1[0].getId());
                 mI.setService_type(maintenancePlan1[0].getService_type());
                 mI.setMeasure_type(spinMeasureType.getSelectedItemPosition());
                 if (!etExpiration_value.getText().toString().isEmpty()) {
@@ -197,6 +219,10 @@ public class MaintenanceActivity extends AppCompatActivity {
 
                 try {
                     isSave = Database.mMaintenanceItemDao.addMaintenanceItem(mI);
+                    if (isSave && mI.getPending_vehicle_id()!=null) {
+                        pendingVehicle1[0].setStatus_pending(1);
+                        isSave = Database.mPendingVehicleDao.updatePendingVehicle(pendingVehicle1[0]);
+                    }
                 } catch (Exception e) {
                     Toast.makeText(getApplicationContext(), R.string.Error_Including_Data + e.getMessage(), Toast.LENGTH_LONG).show();
                 }
