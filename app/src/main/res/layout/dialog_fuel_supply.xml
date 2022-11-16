@@ -478,13 +478,11 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:weightSum="10">
-
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="4"
-                        android:fontFamily="sans-serif-black"
                         android:text="@string/FuelSupply_Accumulated"
+                        android:layout_weight="4"
                         android:textAppearance="?android:attr/textAppearanceMedium"
                         android:textSize="12sp" />
 
@@ -506,7 +504,6 @@
                         android:id="@+id/txAccumulatedNumberLiters"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginEnd="@dimen/labels_marginLeft"
                         android:layout_weight="3"
                         android:autofillHints="no"
                         android:textAlignment="textEnd"
@@ -530,7 +527,6 @@
                         android:id="@+id/txAccumulatedSupplyValue"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginEnd="@dimen/labels_marginLeft"
                         android:layout_weight="3"
                         android:autofillHints="no"
                         android:textAlignment="textEnd"

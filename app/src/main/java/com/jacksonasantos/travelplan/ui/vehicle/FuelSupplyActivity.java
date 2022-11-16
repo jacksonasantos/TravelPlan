@@ -302,22 +302,41 @@ public class FuelSupplyActivity extends AppCompatActivity implements PlacesAdapt
                         }
                     });
         });
-
-        View.OnFocusChangeListener listenerNumberLiters = (v, hasFocus) -> {
+        /*View.OnFocusChangeListener listenerNumberLiters = (v, hasFocus) -> {
             if (!hasFocus) {
+                // TODO - Implement the calculation with the correct currency value
                 String vFuelValue = etFuelValue.getText().toString();
                 String vNumberLiters = etNumberLiters.getText().toString();
-                double vCurrencyValue = Utils.convertStrCurrencyToDouble((String) txCurrencyValue.getText());
-                if (vCurrencyValue == 0) vCurrencyValue = 1;
                 double vSupplyValue = 0;
                 if (!vFuelValue.equals("") && !vNumberLiters.equals("")) {
-                    vSupplyValue = (Utils.convertStrCurrencyToDouble(vFuelValue) * vCurrencyValue) * Utils.convertStrCurrencyToDouble(vNumberLiters);
+                    try {
+                        vSupplyValue = Utils.convertStrCurrencyToDouble(vFuelValue) * Utils.convertStrCurrencyToDouble(vNumberLiters);
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
                 }
                 etSupplyValue.setText( numberFormat.format(Double.isNaN(vSupplyValue)?0:vSupplyValue));
             }
         };
         etNumberLiters.setOnFocusChangeListener(listenerNumberLiters);
 
+        View.OnFocusChangeListener listenerSupplyValue = (v, hasFocus) -> {
+            if (!hasFocus) {
+                String vSupplyValue = etSupplyValue.getText().toString();
+                String vNumberLiters = etNumberLiters.getText().toString();
+                double vFuelValue = 0;
+                if (!vSupplyValue.equals("") && !vNumberLiters.equals("") ) {
+                    try {
+                        vFuelValue = Utils.convertStrCurrencyToDouble(vSupplyValue ) / Utils.convertStrCurrencyToDouble(vNumberLiters);
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                }
+                etFuelValue.setText( numberFormat.format(Double.isNaN(vFuelValue)?0:vFuelValue) );
+            }
+        };
+        etSupplyValue.setOnFocusChangeListener(listenerSupplyValue);
+        */
         vLastOdometer = vehicle.getOdometer();
         View.OnFocusChangeListener listenerOdometer = (v, hasFocus) -> {
             if (!hasFocus) {
@@ -381,7 +400,7 @@ public class FuelSupplyActivity extends AppCompatActivity implements PlacesAdapt
 
             if (g.getIdCurrency() != nrSpCurrencyType ) {
                 nrCurrencyQuoteId = fuelSupply.getCurrency_quote_id();
-                CurrencyQuote c1 = Database.mCurrencyQuoteDao.findQuoteDay(nrSpCurrencyType,fuelSupply.getSupply_date());
+                CurrencyQuote c1 = Database.mCurrencyQuoteDao.fetchCurrencyQuoteById(nrSpCurrencyType);
                 nrCurrencyQuoteId = c1.getId();
             } else {
                 nrCurrencyQuoteId = null;
@@ -472,7 +491,7 @@ public class FuelSupplyActivity extends AppCompatActivity implements PlacesAdapt
                 f1.setCombustible(nrSpCombustible);
                 f1.setFull_tank(vlFullTank);
                 f1.setCurrency_type(nrSpCurrencyType);
-                f1.setCurrency_quote_id(nrCurrencyQuoteId);
+                f1.setCurrency_quote_id(nrCurrencyQuoteId); // TODO - see correct currency quote id
                 f1.setSupply_value(Double.parseDouble(etSupplyValue.getText().toString()));
                 f1.setFuel_value(Double.parseDouble(etFuelValue.getText().toString().replace(",",".")));
                 f1.setSupply_reason_type(findViewById(rbSupplyReasonType).getId());
@@ -483,17 +502,6 @@ public class FuelSupplyActivity extends AppCompatActivity implements PlacesAdapt
                     f1.setVehicle_travelled_distance(Integer.parseInt(txVehicleTravelledDistance.getText().toString()));
                     f1.setStat_avg_fuel_consumption(vStatAvgFuelConsumption);
                     f1.setStat_cost_per_litre(vStatCostPerLitre);
-                } else {
-                    /*
-                    final FuelSupply f2 = new FuelSupply();
-                    // TODO - popular f2 with next supply to receive the accumulated
-                    f2.setAccumulated_Number_liters(f1.getNumber_liters());
-                    f2.setVehicle_travelled_distance(f2.getVehicle_travelled_distance()+f1.getVehicle_travelled_distance());
-                    vStatAvgFuelConsumption = (f2.getVehicle_travelled_distance()+f1.getVehicle_travelled_distance()) / Float.parseFloat(Double.toString(f2.getNumber_liters() + f1.getNumber_liters()));
-                    vStatCostPerLitre = (f2.getVehicle_travelled_distance()+f1.getVehicle_travelled_distance()) / Float.parseFloat(Double.toString(f2.getSupply_value() + f1.getSupply_value()));
-                    f2.setStat_avg_fuel_consumption(vStatAvgFuelConsumption);
-                    f2.setStat_cost_per_litre(vStatCostPerLitre);
-                     */
                 }
                 try {
                     if (!opInsert) {
@@ -501,6 +509,14 @@ public class FuelSupplyActivity extends AppCompatActivity implements PlacesAdapt
                         /*
                         if (Integer.parseInt(etVehicleOdometer.getText().toString()) != f1.getVehicle_odometer()) {
                             if (etVehicleOdometer.getText().toString().isEmpty()){
+                                final FuelSupply f2 = new FuelSupply();
+                                // TODO - popular f2 with next supply to receive the accumulated
+                                f2.setAccumulated_Number_liters(f1.getNumber_liters());
+                                f2.setVehicle_travelled_distance(f2.getVehicle_travelled_distance()+f1.getVehicle_travelled_distance());
+                                vStatAvgFuelConsumption = (f2.getVehicle_travelled_distance()+f1.getVehicle_travelled_distance()) / Float.parseFloat(Double.toString(f2.getNumber_liters() + f1.getNumber_liters()));
+                                vStatCostPerLitre = (f2.getVehicle_travelled_distance()+f1.getVehicle_travelled_distance()) / Float.parseFloat(Double.toString(f2.getSupply_value() + f1.getSupply_value()));
+                                f2.setStat_avg_fuel_consumption(vStatAvgFuelConsumption);
+                                f2.setStat_cost_per_litre(vStatCostPerLitre);
                                 isSave = Database.mFuelSupplyDao.updateFuelSupply(f2);
                             }
                         }

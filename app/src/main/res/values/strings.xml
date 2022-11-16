@@ -88,9 +88,6 @@
     <string name="Vehicle_AccumulatedNumberLiters">Accumulated Number Liters</string>
     <string name="Vehicle_AccumulatedSupplyValue">Accumulated Supply Value</string>
 
-    <!-- Vehicle MaintenanceItem Dialog -->
-    <string name="Vehicle_MaintenanceItem">Vehicle Maintenance Item</string>
-
     <!-- Vehicle Plan Fragment -->
     <string name="Vehicle_Plan">Vehicle Maintenance Plan</string>
     <string name="Vehicle_Plan_Deleting">Deleting Vehicle has Plan</string>
@@ -264,7 +261,6 @@
     <string name="bt_Refuel">Refuel</string>
     <string name="bt_Done">Done</string>
     <string name="bt_Maintenance_Plan">Maintenance Plan</string>
-    <string name="bt_Maintenance_Item">Maintenance Item</string>
     <string name="bt_Add">Add</string>
     <string name="bt_Filter">Vehicle Filter</string>
 

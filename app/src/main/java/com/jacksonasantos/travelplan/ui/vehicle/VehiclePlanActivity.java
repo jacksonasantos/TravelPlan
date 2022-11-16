@@ -1,6 +1,7 @@
 package com.jacksonasantos.travelplan.ui.vehicle;
 
 import android.annotation.SuppressLint;
+import android.os.Build;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -10,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -45,6 +47,7 @@ public class VehiclePlanActivity extends AppCompatActivity {
     private VehicleHasPlan vehicleHasPlan;
 
     @SuppressLint("WrongViewCast")
+    @RequiresApi(api = Build.VERSION_CODES.N)
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,7 +72,7 @@ public class VehiclePlanActivity extends AppCompatActivity {
         rvVehiclePlan = findViewById(R.id.rvVehiclePlan);
     }
 
-    @SuppressLint("NotifyDataSetChanged")
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
     protected void onResume() {
         super.onResume();
 
@@ -79,11 +82,6 @@ public class VehiclePlanActivity extends AppCompatActivity {
             if (extras.getInt("id") > 0) {
                 vehicleHasPlan.setId(extras.getInt("id"));
                 vehicleHasPlan = Database.mVehicleHasPlanDao.fetchVehicleHasPlanById(vehicleHasPlan.getId());
-                nrVehicle_id = vehicleHasPlan.getVehicle_id();
-                opInsert = false;
-            }
-            if (extras.getInt("vehicle_id") > 0) {
-                vehicleHasPlan.setVehicle_id(extras.getInt("vehicle_id"));
                 nrVehicle_id = vehicleHasPlan.getVehicle_id();
                 opInsert = false;
             }

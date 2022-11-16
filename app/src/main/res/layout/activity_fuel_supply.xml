@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/imVehicleType"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:contentDescription="@string/Vehicle_Type"
+            android:hint="@string/Vehicle_Type"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:id="@+id/txVehicleName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/txVehicleLicencePlate"
+            android:layout_alignParentTop="true"
+            android:layout_toEndOf="@+id/imVehicleType"
+            android:gravity="bottom|center_horizontal"
+            android:hint="@string/Vehicle_Name" />
+
+        <TextView
+            android:id="@+id/txVehicleLicencePlate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/etGasStation"
+            android:layout_toEndOf="@+id/imVehicleType"
+            android:gravity="bottom|center_horizontal"
+            android:hint="@string/Vehicle_Licence_Plate" />
+
+        <ImageButton
+            android:id="@+id/btLocation"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_above="@+id/listPlaces"
+            android:layout_below="@+id/imVehicleType"
+            android:contentDescription="@string/FuelSupply_Gas_Station"
+            app:srcCompat="@drawable/ic_menu_location" />
+
+        <EditText
+            android:id="@+id/etGasStation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/imVehicleType"
+            android:layout_toEndOf="@+id/btLocation"
+            android:autofillHints="no"
+            android:hint="@string/FuelSupply_Gas_Station"
+            android:inputType="text|textCapSentences"
+            android:nextFocusDown="@+id/etGasStationLocation"
+            android:textSize="12sp" />
+
+        <EditText
+            android:id="@+id/etGasStationLocation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/etGasStation"
+            android:layout_toEndOf="@+id/btLocation"
+            android:autofillHints="no"
+            android:hint="@string/FuelSupply_Gas_Station_Location"
+            android:textSize="12sp"
+            android:inputType="text|textCapSentences"
+            android:nextFocusDown="@+id/etSupplyDate"
+            tools:ignore="TextContrastCheck" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/listPlaces"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/etGasStationLocation"
+            android:visibility="invisible"
+            tools:itemCount="1" />
+
+        <EditText
+            android:id="@+id/etSupplyDate"
+            android:layout_width="@dimen/editTextLength"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/listPlaces"
+            android:autofillHints="no"
+            android:gravity="center"
+            android:hint="@string/FuelSupply_Supply_Date"
+            android:inputType="datetime"
+            android:nextFocusDown="@+id/spinCombustible"
+            android:textSize="12sp" />
+
+        <com.google.android.material.switchmaterial.SwitchMaterial
+            android:id="@+id/cbFullTank"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_below="@+id/listPlaces"
+            android:layout_alignBottom="@+id/etSupplyDate"
+            android:layout_gravity="center_vertical"
+            android:layout_toEndOf="@+id/etSupplyDate"
+            android:hint="@string/FuelSupply_Full_Tank"
+            android:nextFocusDown="@+id/spinCombustible" />
+
+        <Spinner
+            android:id="@+id/spCombustible"
+            android:layout_width="@dimen/editTextLength"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/etSupplyDate"
+            android:layout_alignBottom="@+id/etFuelValue"
+            android:entries="@array/fuel_array"
+            android:hint="@string/FuelSupply_Combustible"
+            android:inputType="none"
+            android:nextFocusDown="@+id/etFuelValue"
+            android:textSize="12sp" />
+
+        <EditText
+            android:id="@+id/etFuelValue"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/cbFullTank"
+            android:layout_toEndOf="@+id/spCombustible"
+            android:autofillHints="no"
+            android:gravity="end"
+            android:hint="@string/FuelSupply_Fuel_value"
+            android:inputType="numberDecimal"
+            android:nextFocusDown="@+id/spCurrencyType"
+            android:textSize="12sp" />
+
+        <Spinner
+            android:id="@+id/spCurrencyType"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/cbFullTank"
+            android:layout_alignBottom="@+id/etFuelValue"
+            android:layout_toEndOf="@+id/etFuelValue"
+            android:entries="@array/currency_array"
+            android:fadingEdge="none"
+            android:hint="@string/FuelSupply_Currency_Type"
+            android:nextFocusDown="@+id/etNumberLiters"
+            android:textSize="12sp" />
+
+        <EditText
+            android:id="@+id/etNumberLiters"
+            android:layout_width="@dimen/editTextLength"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/spCombustible"
+            android:autofillHints="no"
+            android:hint="@string/FuelSupply_Number_Liters"
+            android:inputType="numberDecimal"
+            android:nextFocusDown="@+id/spinCurrencyType"
+            android:textAlignment="center"
+            android:textSize="12sp" />
+
+        <EditText
+            android:id="@+id/etSupplyValue"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/spCurrencyType"
+            android:layout_toEndOf="@+id/etVehicleOdometer"
+            android:hint="@string/FuelSupply_Supply_Value"
+            android:importantForAutofill="no"
+            android:inputType="numberDecimal"
+            android:nextFocusDown="@+id/etVehicleOdometer"
+            android:textAlignment="center"
+            android:textSize="12sp" />
+
+        <EditText
+            android:id="@+id/etVehicleOdometer"
+            android:layout_width="@dimen/editTextLength"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/etNumberLiters"
+            android:autofillHints="no"
+            android:hint="@string/Vehicle_Odometer"
+            android:textSize="12sp"
+            android:textAlignment="center"
+            android:inputType="number"
+            android:nextFocusDown="@+id/etVehicleTravelledDistance" />
+
+        <EditText
+            android:id="@+id/etVehicleTravelledDistance"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/etSupplyValue"
+            android:layout_toEndOf="@+id/etVehicleOdometer"
+            android:autofillHints="no"
+            android:hint="@string/Vehicle_Travelled_Distance"
+            android:inputType="number"
+            android:nextFocusDown="@+id/etSupplyReason"
+            android:textAlignment="center"
+            android:textSize="12sp" />
+
+        <EditText
+            android:id="@+id/txStatAvgFuelConsumption"
+            android:layout_width="@dimen/editTextLength"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/etVehicleOdometer"
+            android:autofillHints="no"
+            android:enabled="false"
+            android:hint="@string/Vehicle_Avg_Consumption"
+            android:inputType="none"
+            android:textAlignment="center"
+            android:textSize="12sp" />
+
+        <EditText
+            android:id="@+id/txStatCostPerLitre"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/etVehicleTravelledDistance"
+            android:layout_toEndOf="@+id/txStatAvgFuelConsumption"
+            android:autofillHints="no"
+            android:enabled="false"
+            android:hint="@string/Vehicle_Stat_Cost_Per_Litre"
+            android:textSize="12sp"
+            android:textAlignment="center"
+            android:inputType="none" />
+
+        <RadioGroup
+            android:id="@+id/rgSupplyReasonType"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/txStatCostPerLitre"
+            android:gravity="center_horizontal"
+            android:hint="@string/FuelSupply_Reason_Type"
+            android:nextFocusDown="@+id/etSupplyReason"
+            android:orientation="horizontal"
+            android:textSize="12sp" />
+
+        <EditText
+            android:id="@+id/etSupplyReason"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/rgSupplyReasonType"
+            android:autofillHints="no"
+            android:hint="@string/FuelSupply_Reason"
+            android:inputType="textMultiLine|textCapCharacters"
+            android:nextFocusDown="@+id/spinAssociatedTrip"
+            android:overScrollMode="always"
+            android:textSize="12sp" />
+
+        <Spinner
+            android:id="@+id/spAssociatedTravelId"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/etSupplyReason"
+            android:focusable="auto"
+            android:hint="@string/FuelSupply_AssociatedTravel"
+            android:textSize="12sp" />
+
+        <Button
+            android:id="@+id/btSaveFuelSupply"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/spAssociatedTravelId"
+            android:layout_centerInParent="true"
+            android:layout_gravity="center_horizontal"
+            android:text="@string/bt_Save" />
+    </RelativeLayout>
+</ScrollView>

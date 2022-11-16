@@ -11,17 +11,21 @@
 
     <ImageView
         android:id="@+id/imVehicleType"
-        android:layout_width="35sp"
-        android:layout_height="35sp"
+        android:layout_width="40sp"
+        android:layout_height="40sp"
+        android:layout_marginEnd="@dimen/labels_margin"
         android:contentDescription="@string/Vehicle_Type" />
 
     <TextView
         android:id="@+id/txtPlate"
-        android:layout_width="25dp"
+        android:layout_width="30dp"
         android:layout_height="match_parent"
-        android:layout_weight="0.25"
+        android:layout_weight="0.3"
         android:gravity="center_vertical"
+        android:layout_marginLeft="@dimen/labels_margin"
+        android:layout_marginRight="@dimen/labels_margin"
         android:layout_marginStart="@dimen/labels_margin"
+        android:layout_marginEnd="@dimen/labels_margin"
         app:autoSizeMaxTextSize="12sp"
         app:autoSizeMinTextSize="4sp"
         app:autoSizeStepGranularity="1sp"
@@ -29,11 +33,11 @@
 
     <TextView
         android:id="@+id/txtShortName"
-        android:layout_width="25dp"
+        android:layout_width="30dp"
         android:layout_height="match_parent"
-        android:layout_marginStart="@dimen/labels_margin"
-        android:layout_marginEnd="@dimen/labels_margin"
-        android:layout_weight="0.35"
+        android:layout_marginLeft="@dimen/labels_margin"
+        android:layout_marginRight="@dimen/labels_margin"
+        android:layout_weight="0.4"
         android:gravity="center_vertical"
         app:autoSizeMaxTextSize="12sp"
         app:autoSizeMinTextSize="4sp"
@@ -41,37 +45,30 @@
         app:autoSizeTextType="uniform" />
 
     <ImageButton
-        android:id="@+id/btnMaintenance"
-        android:layout_width="35dp"
-        android:layout_height="35dp"
-        android:contentDescription="@string/bt_Maintenance_Item"
-        app:srcCompat="@drawable/ic_menu_maintenance" />
-
-    <ImageButton
         android:id="@+id/btnPlan"
-        android:layout_width="35dp"
-        android:layout_height="35dp"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
         android:contentDescription="@string/bt_Maintenance_Plan"
         app:srcCompat="@drawable/ic_menu_maintenance_plan" />
 
     <ImageButton
         android:id="@+id/btnRefuel"
-        android:layout_width="35dp"
-        android:layout_height="35dp"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
         android:contentDescription="@string/bt_Refuel"
         app:srcCompat="@drawable/ic_supply" />
 
     <ImageButton
         android:id="@+id/btnEdit"
-        android:layout_width="35dp"
-        android:layout_height="35dp"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
         android:contentDescription="@string/bt_Edit"
         app:srcCompat="@drawable/ic_button_edit" />
 
     <ImageButton
         android:id="@+id/btnDelete"
-        android:layout_width="35dp"
-        android:layout_height="35dp"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
         android:contentDescription="@string/bt_Delete"
         app:srcCompat="@drawable/ic_button_delete" />
 

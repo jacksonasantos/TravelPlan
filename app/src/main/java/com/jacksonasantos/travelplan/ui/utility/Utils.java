@@ -14,18 +14,13 @@ import android.widget.SpinnerAdapter;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.io.File;
-import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Locale;
-import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
 public class Utils extends AppCompatActivity  {
-
-    private static final Globals g = Globals.getInstance();
 
     public static ArrayList<File> imageReader(File root)
     {
@@ -43,19 +38,6 @@ public class Utils extends AppCompatActivity  {
         return a;
     }
 
-    public static double convertStrCurrencyToDouble(String arg){
-        double numberDouble = 0;
-        try {
-            // get a NumberFormat for the default Locale
-            NumberFormat nf = NumberFormat.getNumberInstance(new Locale(g.getLanguage(), g.getCountry()));
-            // convert a number with comma ex: 2,56 for double
-            numberDouble = Objects.requireNonNull(nf.parse(arg)).doubleValue();
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        return numberDouble;
-    }
-    
     public static int[] getRGB(final String rgb)
     {
         final int[] ret = new int[3];

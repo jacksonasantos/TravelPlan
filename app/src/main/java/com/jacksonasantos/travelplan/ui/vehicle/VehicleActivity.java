@@ -144,7 +144,6 @@ public class VehicleActivity extends AppCompatActivity {
         etAccumulatedNumberLiters = findViewById(R.id.etAccumulatedNumberLiters);
         etAccumulatedSupplyValue= findViewById(R.id.etAccumulatedSupplyValue);
 
-        // TODO - Adjust palette colors
         btColorCode.setOnClickListener(view -> ColorPickerDialogBuilder
                 .with(VehicleActivity.this)
                 .setTitle("Choose color")

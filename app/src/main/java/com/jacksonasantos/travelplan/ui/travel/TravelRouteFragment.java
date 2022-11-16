@@ -16,6 +16,9 @@ import android.location.LocationListener;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -36,7 +39,9 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.core.graphics.drawable.DrawableCompat;
+import androidx.core.view.MenuProvider;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Lifecycle;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -71,7 +76,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 public class TravelRouteFragment extends Fragment implements LocationListener {
 
     public boolean clearMap;
-    public Integer nrTravel_Id;
+    public static Integer nrTravel_Id;
     public static Integer nrItinerary_Id;
     private Spinner spTravel;
     private Button btnAddItinerary;
@@ -82,11 +87,10 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
     private Button btnSearch;
     private RecyclerView listMarkers;
 
-    private final MarkerOptions markerOptions = new MarkerOptions();
+    private final MarkerOptions markerOptions = new MarkerOptions();       // Creating an instance of MarkerOptions
     private LatLngBounds.Builder builder = new LatLngBounds.Builder();
 
-    final Globals g = Globals.getInstance();
-    final String lang = g.getCountry()+"/"+g.getLanguage();
+    final String lang = "portuguese"; // TODO - ver language
 
     final RouteClass routeClass = new RouteClass();
     final ArrayList<LatLng> pointsRoute = new ArrayList<>(1);
@@ -96,7 +100,7 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
         nrTravel_Id = travel_id;
 
         try {
-            MapsInitializer.initialize(requireContext());
+            MapsInitializer.initialize(requireActivity().getApplicationContext());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -113,6 +117,41 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
         etSearch = rootView.findViewById(R.id.etSearch);
         btnSearch = rootView.findViewById(R.id.btnSearch);
         listMarkers = rootView.findViewById(R.id.listMarkers);
+
+        requireActivity().addMenuProvider(new MenuProvider() {
+            @Override
+            public void onCreateMenu(@NonNull Menu menu, @NonNull MenuInflater menuInflater) {
+                menuInflater.inflate(R.menu.main, menu);
+                MenuItem m1 = menu.findItem(R.id.addmenu);
+                MenuItem m2 = menu.findItem(R.id.savemenu);
+                MenuItem m3 = menu.findItem(R.id.filtermenu);
+                m1.setVisible(true);
+                m2.setVisible(false);
+                m3.setVisible(false);
+            }
+
+            @SuppressLint("NonConstantResourceId")
+            @Override
+            public boolean onMenuItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.hybrid_map:
+                        googleMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
+                        return true;
+                    case R.id.satellite_map:
+                        googleMap.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
+                        return true;
+                    case R.id.terrain_map:
+                        googleMap.setMapType(GoogleMap.MAP_TYPE_TERRAIN);
+                        return true;
+                    case R.id.normal_map:
+                        googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+                        return true;
+                    default:
+                        googleMap.setMapType(GoogleMap.MAP_TYPE_NONE);
+                        return true;
+                }
+            }
+        }, getViewLifecycleOwner(), Lifecycle.State.RESUMED);
 
         mMapView.onCreate(savedInstanceState);
 
@@ -490,15 +529,13 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
 
                             try {
                                 isSave[0] = Database.mItineraryDao.addItinerary(itinerary);
-                                clearMap = updateListItinerary();
-
                             } catch (Exception e) {
                                 Toast.makeText(requireContext(), R.string.Error_Including_Data + e.getMessage(), Toast.LENGTH_LONG).show();
                             }
                         }
                         if (!isSave[0]) {
                             Toast.makeText(requireContext(), R.string.Error_Saving_Data, Toast.LENGTH_LONG).show();
-                        }
+                        } // TODO - Update listItinerary after ADDItinerary
                     })
                     .setNegativeButton(R.string.Cancel, (dialog, id) -> dialog.cancel());
             AlertDialog alertDialog = alertDialogBuilder.create();
@@ -512,7 +549,17 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
                 travel[0] = (Travel) parent.getItemAtPosition(position);
                 nrTravel_Id = travel[0].getId();
                 nrItinerary_Id = null;
-                clearMap = updateListItinerary();
+
+                final int Show_Header_Itinerary = 0; // 0 - NO SHOW HEADER | 1 - SHOW HEADER
+                final int Show_Footer_Itinerary = 1; // 0 - NO SHOW Footer | 1 - SHOW Footer
+                HomeTravelItineraryListAdapter adapterItinerary = new HomeTravelItineraryListAdapter(Database.mItineraryDao.fetchAllItineraryByTravel(nrTravel_Id), requireContext(), Show_Header_Itinerary, Show_Footer_Itinerary, false);
+                if ( adapterItinerary.getItemCount() > 0){
+                    listItinerary.setAdapter(adapterItinerary);
+                    listItinerary.setLayoutManager(new LinearLayoutManager(requireContext()));
+                    clearMap = false;
+                } else {
+                    clearMap = true;
+                }
                 drawItinerary(nrTravel_Id);
             }
 
@@ -523,19 +570,6 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
             }
         });
         mMapView.onResume();
-    }
-
-    public boolean updateListItinerary() {
-        final int Show_Header_Itinerary = 0; // 0 - NO SHOW HEADER | 1 - SHOW HEADER
-        final int Show_Footer_Itinerary = 1; // 0 - NO SHOW Footer | 1 - SHOW Footer
-        HomeTravelItineraryListAdapter adapterItinerary = new HomeTravelItineraryListAdapter(Database.mItineraryDao.fetchAllItineraryByTravel(nrTravel_Id), requireContext(), Show_Header_Itinerary, Show_Footer_Itinerary, false);
-        if ( adapterItinerary.getItemCount() > 0){
-            listItinerary.setAdapter(adapterItinerary);
-            listItinerary.setLayoutManager(new LinearLayoutManager(requireContext()));
-            return false;
-        } else {
-            return true;
-        }
     }
 
     @Override
@@ -653,7 +687,6 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
                                     .setTitle(R.string.Itinerary_Deleting)
                                     .setMessage(context.getResources().getString(R.string.Msg_Confirm) + "\n\n" +
                                             context.getResources().getString(R.string.marker_itinerary) + ":\n" +
-                                            //nrItinerary_Id +"\n" +
                                             context.getResources().getString(R.string.from) + ": " +
                                             itinerary.getOrig_location() + "\n" +
                                             context.getResources().getString(R.string.to) + ": " +

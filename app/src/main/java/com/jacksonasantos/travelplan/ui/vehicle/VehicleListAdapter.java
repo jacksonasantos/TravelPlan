@@ -38,7 +38,6 @@ public class VehicleListAdapter extends RecyclerView.Adapter<VehicleListAdapter.
         public final ImageButton btnDelete;
         public final ImageButton btnRefuel;
         public final ImageButton btnPlan;
-        public final ImageButton btnMaintenance;
 
         public MyViewHolder(View v) {
             super(v);
@@ -49,12 +48,10 @@ public class VehicleListAdapter extends RecyclerView.Adapter<VehicleListAdapter.
             btnDelete = v.findViewById(R.id.btnDelete);
             btnRefuel = v.findViewById(R.id.btnRefuel);
             btnPlan = v.findViewById(R.id.btnPlan);
-            btnMaintenance = v.findViewById(R.id.btnMaintenance);
             btnEdit.setOnClickListener(this);
             btnDelete.setOnClickListener(this);
             btnRefuel.setOnClickListener(this);
             btnPlan.setOnClickListener(this);
-            btnMaintenance.setOnClickListener(this);
         }
 
         @Override
@@ -79,6 +76,7 @@ public class VehicleListAdapter extends RecyclerView.Adapter<VehicleListAdapter.
         return new MyViewHolder(vehicleView);
     }
 
+    // Replace the contents of a view (invoked by the layout manager)
     @RequiresApi(api = Build.VERSION_CODES.Q)
     @Override
     public void onBindViewHolder(@NonNull final MyViewHolder holder, final int position) {
@@ -92,13 +90,6 @@ public class VehicleListAdapter extends RecyclerView.Adapter<VehicleListAdapter.
         }
         holder.txtPlate.setText(vehicle.getLicense_plate());
         holder.txtShortName.setText(vehicle.getShort_name());
-
-        // btnMaintenance
-        holder.btnMaintenance.setOnClickListener (v -> {
-            Intent intent = new Intent (v.getContext(), VehicleMaintenanceItemActivity.class);
-            intent.putExtra("vehicle_id", vehicle.getId());
-            context.startActivity(intent);
-        });
 
         // btnPlan
         holder.btnPlan.setOnClickListener (v -> {

@@ -92,7 +92,6 @@ public class MainActivity extends AppCompatActivity {
         mDb.open();
 
         // Load of Insurers
-        // TODO - Load files in directory in install app
         try {
             AssetManager assetManager = ctx.getAssets();
             InputStreamReader is = new InputStreamReader(assetManager.open("seguradoras.csv"), StandardCharsets.UTF_8);
