@@ -18,7 +18,6 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
@@ -95,7 +94,7 @@ public class HomeTravelFragment extends Fragment implements View.OnClickListener
     final NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(locale);
 
     @Override
-    public View onCreateView(@NonNull final LayoutInflater inflater,
+    public View onCreateView(final LayoutInflater inflater,
                              final ViewGroup container, Bundle savedInstanceState) {
 
         View v=inflater.inflate(R.layout.fragment_home_travel, container, false);

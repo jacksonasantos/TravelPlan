@@ -148,7 +148,7 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
                 Geocoder geocoder = new Geocoder(requireContext());
                 try {
                     List<Address> addresses = geocoder.getFromLocation(point.latitude, point.longitude, 1);
-                    Address address = addresses.get(0);
+                    Address address = Objects.requireNonNull(addresses).get(0);
                     String addressText = String.format("%s,\n%s, %s, %s",
                             address.getFeatureName(),
                             address.getAddressLine(0),
@@ -253,7 +253,7 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
         final Locale locale = new Locale(g.getLanguage(), g.getCountry());
         final DecimalFormat decimalFormatter = (DecimalFormat) DecimalFormat.getNumberInstance(locale);
 
-        Geocoder geocoder = new Geocoder(getContext(), Locale.getDefault());
+        Geocoder geocoder = new Geocoder(requireContext(), Locale.getDefault());
         final List<Address> addresses = geocoder.getFromLocation(point.latitude, point.longitude, 1);
 
         LayoutInflater li = LayoutInflater.from(requireContext());
@@ -281,7 +281,7 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
         tvLat.setText(String.valueOf(point.latitude));
         tvLng.setText(String.valueOf(point.longitude));
         tvZoom.setText(String.valueOf(googleMap.getCameraPosition().zoom));
-        tvName.setText(addresses.get(0).getFeatureName());
+        tvName.setText(Objects.requireNonNull(addresses).get(0).getFeatureName());
         tvAddress.setText(addresses.get(0).getAddressLine(0));
         tvCity.setText(addresses.get(0).getSubAdminArea());
         tvState.setText(addresses.get(0).getAdminArea());
@@ -540,13 +540,13 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
 
         btnAddItinerary.setOnClickListener(view -> {
             Itinerary itinerary=new Itinerary();
-            MaintenItinerary( itinerary, true );
+            MaintenanceItinerary( itinerary, true );
         });
 
         btnEditItinerary.setOnClickListener(view -> {
             if (nrItinerary_Id != null) {
                 Itinerary itinerary = Database.mItineraryDao.fetchItineraryById(nrItinerary_Id);
-                MaintenItinerary( itinerary, false );
+                MaintenanceItinerary( itinerary, false );
             } else {
                 Toast.makeText(requireContext(), R.string.select_itinerary_to_edit, Toast.LENGTH_LONG).show();
             }
@@ -573,7 +573,7 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
         mMapView.onResume();
     }
 
-    void MaintenItinerary(Itinerary i, boolean add){
+    void MaintenanceItinerary(Itinerary i, boolean add){
 
         LayoutInflater li = LayoutInflater.from(requireContext());
         View promptsView = li.inflate(R.layout.dialog_itinerary, null);

@@ -19,7 +19,6 @@ import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
@@ -100,7 +99,7 @@ public class HomeVehicleFragment extends Fragment implements View.OnClickListene
     final NumberFormat numberFormatter = NumberFormat.getNumberInstance(locale);
 
     @Override
-    public View onCreateView(@NonNull final LayoutInflater inflater,
+    public View onCreateView(final LayoutInflater inflater,
                              final ViewGroup container, Bundle savedInstanceState) {
 
         View v=inflater.inflate(R.layout.fragment_home_vehicle, container, false);

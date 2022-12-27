@@ -20,25 +20,21 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
+                android:orientation="vertical"
                 android:padding="@dimen/labels_margin">
-                <LinearLayout
+                <TextView
+                    android:id="@+id/txVehicleName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
-                    <TextView
-                        android:id="@+id/txVehicleName"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="bottom|center_horizontal"
-                        android:hint="@string/Vehicle_Name" />
-                    <TextView
-                        android:id="@+id/txVehicleLicencePlate"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="bottom|center_horizontal"
-                        android:hint="@string/Vehicle_Licence_Plate" />
-                </LinearLayout>
+                    android:gravity="bottom|center_horizontal"
+                    android:hint="@string/Vehicle_Name" />
+                <TextView
+                    android:id="@+id/txVehicleLicencePlate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="bottom|center_horizontal"
+                    android:hint="@string/Vehicle_Licence_Plate" />
+
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 

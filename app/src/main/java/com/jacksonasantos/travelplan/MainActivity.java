@@ -89,7 +89,7 @@ public class MainActivity extends AppCompatActivity {
     public void InitialLoadCSV(Context ctx) {
 
         mDb = new Database( ctx );
-        mDb.open();
+        mDb.open(); // TODO - Test if unable to open database
 
         // Load of InsuranceCompany
         // TODO - Load files in directory in install app
@@ -177,7 +177,7 @@ public class MainActivity extends AppCompatActivity {
         Configuration config = res.getConfiguration();
 
         String vehicle_pref = settings.getString("vehicle_default", String.valueOf(0));
-        if (vehicle_pref != null && !vehicle_pref.equals("0")) {
+        if (!vehicle_pref.equals("0")) {
             g.setIdVehicle(Integer.valueOf(vehicle_pref));
         }
         else {
@@ -185,7 +185,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         String travel_pref = settings.getString("travel_default", String.valueOf(0));
-        if (travel_pref != null && !travel_pref.equals("0")) {
+        if (!travel_pref.equals("0")) {
             g.setIdTravel(Integer.valueOf(travel_pref));
         }
         else {
@@ -193,7 +193,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         String lang = settings.getString("language", "");
-        if (lang != null && !"".equals(lang) && !config.getLocales().get(0).getLanguage().equals(lang)) {
+        if (!"".equals(lang) && !config.getLocales().get(0).getLanguage().equals(lang)) {
             g.setLanguage(lang);
             Locale myLocale = new Locale(lang);
             LocaleList localeList = new LocaleList(myLocale);
