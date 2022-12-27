@@ -98,10 +98,10 @@ public class FuelSupplyActivity extends AppCompatActivity implements PlacesAdapt
     private TextView txAccumulatedSupplyValue;
     private int vLastOdometer;
     private int vLastTravelledDistance;
-    private double vAccumulatedNumberLitre = 0;
+    private double vAccumulatedNumberLiter = 0;
     private double vAccumulatedSupplyValue = 0;
-    private double vAccuNumberLitre = 0;
-    private double vAccuSupplyValue = 0;
+    private double vAccumulatedLiterNumber = 0;
+    private double vAccumulatedValueSupply = 0;
     private float vStatAvgFuelConsumption = (float) 0;
     private float vStatCostPerLitre = (float) 0;
 
@@ -123,7 +123,7 @@ public class FuelSupplyActivity extends AppCompatActivity implements PlacesAdapt
             Place.Field.LAT_LNG,
             Place.Field.ADDRESS);
 
-    private static final String GOOGLE_API_KEY =  MainActivity.getAppResources().getString(R.string.google_maps_key); // TODO - Ajustar a localização da chave
+    private static final String GOOGLE_API_KEY =  MainActivity.getAppResources().getString(R.string.google_maps_key); 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -438,10 +438,10 @@ public class FuelSupplyActivity extends AppCompatActivity implements PlacesAdapt
                         // TODO - CHECK STATISTICS ADJUSTMENTS WHEN CHANGING THE ODOMETER AND DISTANCE TRAVELED
                         vStatAvgFuelConsumption = vLastTravelledDistance / Float.parseFloat(Double.toString(Double.parseDouble(etNumberLiters.getText().toString()) + v1.getAccumulated_number_liters()));
                         vStatCostPerLitre = vLastTravelledDistance / Float.parseFloat(Double.toString(Double.parseDouble(etSupplyValue.getText().toString()) + v1.getAccumulated_supply_value()));
-                        vAccumulatedNumberLitre = v1.getAccumulated_number_liters();
+                        vAccumulatedNumberLiter = v1.getAccumulated_number_liters();
                         vAccumulatedSupplyValue = v1.getAccumulated_supply_value();
-                        vAccuNumberLitre = 0;
-                        vAccuSupplyValue = 0;
+                        vAccumulatedLiterNumber = 0;
+                        vAccumulatedValueSupply = 0;
                         if (rbSupplyReasonType!=3 &&
                             v1.getLast_supply_reason_type()!=rbSupplyReasonType &&
                             v1.getAccumulated_number_liters()>0) {
@@ -449,14 +449,14 @@ public class FuelSupplyActivity extends AppCompatActivity implements PlacesAdapt
                         }
                         txStatAvgFuelConsumption.setText(numberFormat.format(vStatAvgFuelConsumption));
                         txStatCostPerLitre.setText(currencyFormatter.format(vStatCostPerLitre));
-                        txAccumulatedNumberLiters.setText(numberFormat.format(vAccumulatedNumberLitre));
+                        txAccumulatedNumberLiters.setText(numberFormat.format(vAccumulatedNumberLiter));
                         txAccumulatedSupplyValue.setText(currencyFormatter.format(vAccumulatedSupplyValue));
                     }
                 } else {
-                    vAccumulatedNumberLitre = 0;
+                    vAccumulatedNumberLiter = 0;
                     vAccumulatedSupplyValue = 0;
-                    vAccuNumberLitre = Double.parseDouble(etNumberLiters.getText().toString()) + v1.getAccumulated_number_liters();
-                    vAccuSupplyValue = Double.parseDouble(etSupplyValue.getText().toString().replace(",",".")) + v1.getAccumulated_supply_value();
+                    vAccumulatedLiterNumber = Double.parseDouble(etNumberLiters.getText().toString()) + v1.getAccumulated_number_liters();
+                    vAccumulatedValueSupply = Double.parseDouble(etSupplyValue.getText().toString().replace(",",".")) + v1.getAccumulated_supply_value();
                 }
 
                 f1.setVehicle_id(nrVehicleId);
@@ -464,7 +464,7 @@ public class FuelSupplyActivity extends AppCompatActivity implements PlacesAdapt
                 f1.setGas_station_location(etGasStationLocation.getText().toString());
                 f1.setSupply_date( Utils.stringToDate(etSupplyDate.getText().toString()));
                 f1.setNumber_liters(Double.parseDouble(etNumberLiters.getText().toString()));
-                f1.setAccumulated_Number_liters(vAccumulatedNumberLitre);
+                f1.setAccumulated_Number_liters(vAccumulatedNumberLiter);
                 f1.setAccumulated_supply_value(vAccumulatedSupplyValue);
                 f1.setCombustible(nrSpCombustible);
                 f1.setFull_tank(vlFullTank);
@@ -514,14 +514,14 @@ public class FuelSupplyActivity extends AppCompatActivity implements PlacesAdapt
                                 v1.setAvg_cost_litre(vStat.get(0).getAvg_cost_litre());
                                 v1.setDt_last_fueling(Utils.stringToDate(etSupplyDate.getText().toString()));
                                 v1.setLast_supply_reason_type(findViewById(rbSupplyReasonType).getId());
-                                v1.setAccumulated_number_liters(vAccuNumberLitre);
-                                v1.setAccumulated_supply_value(vAccuSupplyValue);
+                                v1.setAccumulated_number_liters(vAccumulatedLiterNumber);
+                                v1.setAccumulated_supply_value(vAccumulatedValueSupply);
                             }
                         } else {
                             v1.setDt_last_fueling(Utils.stringToDate(etSupplyDate.getText().toString()));
                             v1.setLast_supply_reason_type(findViewById(rbSupplyReasonType).getId());
-                            v1.setAccumulated_number_liters(vAccuNumberLitre);
-                            v1.setAccumulated_supply_value(vAccuSupplyValue);
+                            v1.setAccumulated_number_liters(vAccumulatedLiterNumber);
+                            v1.setAccumulated_supply_value(vAccumulatedValueSupply);
                         }
                         isSave = Database.mVehicleDao.updateVehicle(v1);
                     }

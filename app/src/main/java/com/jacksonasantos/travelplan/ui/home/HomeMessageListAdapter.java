@@ -19,11 +19,9 @@ import java.util.List;
 public class HomeMessageListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private final List<String> mMessage;
-    final Context context;
 
     public HomeMessageListAdapter(List<String> message, Context context) {
         this.mMessage = message;
-        this.context = context;
 
         Database mdb = new Database(context);
         mdb.open();

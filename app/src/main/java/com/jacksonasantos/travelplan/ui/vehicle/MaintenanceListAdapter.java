@@ -26,7 +26,6 @@ import java.util.Locale;
 
 public class MaintenanceListAdapter extends RecyclerView.Adapter<MaintenanceListAdapter.MyViewHolder> {
 
-    // TODO - Fazer o registro de manutenções/melhorias pendentes nos veículos
     private final List<Maintenance> mMaintenance;
     final Context context;
 

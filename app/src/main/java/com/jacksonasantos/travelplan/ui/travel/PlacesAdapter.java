@@ -6,7 +6,6 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.libraries.places.api.model.PlaceLikelihood;
@@ -57,11 +56,9 @@ public class PlacesAdapter extends RecyclerView.Adapter <PlacesAdapter.PlaceView
     public static class PlaceViewHolder extends RecyclerView.ViewHolder{
         final TextView tv_place_name;
         final TextView tv_place_address;
-        final CardView cardPlace;
 
         public PlaceViewHolder(View itemView) {
             super(itemView);
-            cardPlace = itemView.findViewById(R.id.cardPlace);
             tv_place_name = itemView.findViewById(R.id.tv_place_name);
             tv_place_address = itemView.findViewById(R.id.tv_place_address);
         }
