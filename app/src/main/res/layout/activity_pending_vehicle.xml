@@ -98,7 +98,8 @@
                         android:gravity="start"
                         android:inputType="text"
                         android:nextFocusDown="@+id/etExpectedValue"
-                        android:textSize="12sp" />
+                        android:textSize="12sp"
+                        tools:ignore="LabelFor" />
 
                 </LinearLayout>
                 <LinearLayout
@@ -123,7 +124,8 @@
                         android:gravity="end"
                         android:inputType="numberDecimal"
                         android:nextFocusDown="@+id/btSavePendingVehicle"
-                        android:textSize="12sp" />
+                        android:textSize="12sp"
+                        tools:ignore="LabelFor" />
 
                 </LinearLayout>
                 <LinearLayout
