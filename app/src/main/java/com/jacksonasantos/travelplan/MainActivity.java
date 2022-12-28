@@ -89,7 +89,7 @@ public class MainActivity extends AppCompatActivity {
     public void InitialLoadCSV(Context ctx) {
 
         mDb = new Database( ctx );
-        mDb.open(); // TODO - Test if unable to open database
+        mDb.open();
 
         // Load of InsuranceCompany
         // TODO - Load files in directory in install app
