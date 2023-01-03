@@ -1,0 +1,370 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    android:background="@color/colorBackgroundDialog"
+    android:padding="10dp"
+    tools:context=".ui.general.AchievementActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/labels_space_top"
+            app:cardBackgroundColor="@color/colorBackgroundCard"
+            app:cardCornerRadius="@dimen/cardCornerRadius"
+            app:cardElevation="@dimen/cardElevation">
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/labels_margin">
+
+                <EditText
+                    android:id="@+id/etAchievement_Name"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:autofillHints="no"
+                    android:hint="@string/Achievement_Name"
+                    android:inputType="text|textCapWords"
+                    android:textSize="12sp"
+                    app:layout_constraintEnd_toStartOf="@+id/imgAchievement_Image"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <EditText
+                    android:id="@+id/etAchievement_Short_Name"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:autofillHints="no"
+                    android:hint="@string/Achievement_Short_Name"
+                    android:inputType="text|textCapWords"
+                    android:textSize="12sp"
+                    app:layout_constraintEnd_toStartOf="@+id/imgAchievement_Image"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/etAchievement_Name" />
+
+                <ImageView
+                    android:id="@+id/imgEdit_Image"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:gravity="center"
+                    android:hint="@string/Vehicle_Image"
+                    app:layout_constraintBottom_toTopOf="@+id/etAchievement_Note"
+                    app:layout_constraintStart_toEndOf="@+id/etAchievement_Name"
+                    app:layout_constraintTop_toBottomOf="@+id/imgAchievement_Image"
+                    app:srcCompat="@drawable/ic_button_edit"
+                    tools:ignore="ContentDescription" />
+
+                <ImageView
+                    android:id="@+id/imgDelete_Image"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:gravity="center"
+                    android:hint="@string/Vehicle_Image"
+                    app:layout_constraintBottom_toTopOf="@+id/etAchievement_Note"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/imgAchievement_Image"
+                    app:srcCompat="@drawable/ic_button_delete"
+                    tools:ignore="ContentDescription" />
+
+                <ImageView
+                    android:id="@+id/imgAchievement_Image"
+                    android:layout_width="100dp"
+                    android:layout_height="90dp"
+                    android:gravity="center"
+                    android:hint="@string/Vehicle_Image"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/ic_menu_achievement"
+                    tools:ignore="ContentDescription" />
+
+                <ImageButton
+                    android:id="@+id/btLocation"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:contentDescription="@string/Achievement_Latlng_Achievement"
+                    android:scaleType="centerCrop"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/etAchievement_Short_Name"
+                    app:srcCompat="@drawable/ic_menu_location" />
+
+                <EditText
+                    android:id="@+id/etAchievement_Latlng_Achievement"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:autofillHints="no"
+                    android:hint="@string/Achievement_Latlng_Achievement"
+                    android:inputType="text|textCapWords"
+                    android:textSize="12sp"
+                    app:layout_constraintBottom_toTopOf="@+id/etAchievement_Note"
+                    app:layout_constraintEnd_toStartOf="@+id/imgAchievement_Image"
+                    app:layout_constraintStart_toEndOf="@+id/btLocation"
+                    app:layout_constraintTop_toBottomOf="@+id/etAchievement_Short_Name" />
+
+                <EditText
+                    android:id="@+id/etAchievement_Note"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:autofillHints="no"
+                    android:hint="@string/Achievement_Note"
+                    android:inputType="text"
+                    android:nextFocusDown="@+id/btSaveAchievement"
+                    android:textSize="12sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/btLocation"
+                    tools:layout_editor_absoluteX="4dp" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/labels_space_top"
+            app:cardBackgroundColor="@color/colorBackgroundCard"
+            app:cardCornerRadius="@dimen/cardCornerRadius"
+            app:cardElevation="@dimen/cardElevation">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/labels_margin">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="10">
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:textSize="12sp"
+                        android:text="@string/Accommodation_Country" />
+                    <EditText
+                        android:id="@+id/etAchievement_Country"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="8"
+                        android:autofillHints="no"
+                        android:textSize="12sp"
+                        android:inputType="text|textCapWords" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="10">
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:textSize="12sp"
+                        android:text="@string/Achievement_City_Start" />
+                    <EditText
+                        android:id="@+id/etAchievement_City"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="4"
+                        android:autofillHints="no"
+                        android:textSize="12sp"
+                        android:inputType="text|textCapCharacters"
+                        android:textAllCaps="true"
+                        app:counterEnabled="true"
+                        app:counterMaxLength="8" />
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2.5"
+                        android:textSize="12sp"
+                        android:text="@string/Achievement_State_Start" />
+                    <EditText
+                        android:id="@+id/etAchievement_State"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1.50"
+                        android:autofillHints="no"
+                        android:textSize="12sp"
+                        android:inputType="text"
+                        tools:ignore="TextFields" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="10">
+                    <ImageButton
+                        android:id="@+id/btLocationSource"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_marginStart="14dp"
+                        android:layout_marginEnd="14dp"
+                        android:contentDescription="@string/Achievement_Latlng_Source"
+                        android:scaleType="centerCrop"
+                        app:srcCompat="@drawable/ic_menu_location" />
+                    <EditText
+                        android:id="@+id/etAchievement_Latlng_Source"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="10"
+                        android:autofillHints="no"
+                        android:textSize="12sp"
+                        android:hint="@string/Achievement_Latlng_Source"
+                        android:inputType="text|textCapCharacters"
+                        android:textAllCaps="true"
+                        app:counterEnabled="true"
+                        app:counterMaxLength="8" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="10">
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:textSize="12sp"
+                        android:text="@string/Achievement_City_End" />
+                    <EditText
+                        android:id="@+id/etAchievement_City_End"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="4"
+                        android:autofillHints="no"
+                        android:textSize="12sp"
+                        android:inputType="text|textCapCharacters"
+                        android:textAllCaps="true"
+                        app:counterEnabled="true"
+                        app:counterMaxLength="8" />
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2.5"
+                        android:textSize="12sp"
+                        android:text="@string/Achievement_State_End" />
+                    <EditText
+                        android:id="@+id/etAchievement_State_End"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1.50"
+                        android:autofillHints="no"
+                        android:textSize="12sp"
+                        android:inputType="text"
+                        tools:ignore="TextFields" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="10">
+                    <ImageButton
+                        android:id="@+id/btLocationTarget"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_marginStart="14dp"
+                        android:layout_marginEnd="14dp"
+                        android:contentDescription="@string/Achievement_Latlng_Target"
+                        android:scaleType="centerCrop"
+                        app:srcCompat="@drawable/ic_menu_location" />
+                    <EditText
+                        android:id="@+id/etAchievement_Latlng_Target"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="10"
+                        android:autofillHints="no"
+                        android:textSize="12sp"
+                        android:hint="@string/Achievement_Latlng_Target"
+                        android:inputType="text|textCapCharacters"
+                        android:textAllCaps="true"
+                        app:counterEnabled="true"
+                        app:counterMaxLength="8" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="10">
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:textSize="12sp"
+                        android:text="@string/Achievement_Length" />
+                    <EditText
+                        android:id="@+id/etAchievement_Length_Achievement"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="8"
+                        android:autofillHints="no"
+                        android:textSize="12sp"
+                        android:inputType="numberDecimal"/>
+                </LinearLayout>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/labels_space_top"
+            app:cardBackgroundColor="@color/colorBackgroundCard"
+            app:cardCornerRadius="@dimen/cardCornerRadius"
+            app:cardElevation="@dimen/cardElevation">
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/labels_margin"
+                android:layout_marginLeft="@dimen/labels_margin"
+                android:layout_marginTop="@dimen/labels_space_top"
+                android:layout_marginEnd="@dimen/labels_margin"
+                android:layout_marginRight="@dimen/labels_margin"
+                android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/txTravelAchievement"
+                    android:layout_width="0dp"
+                    android:layout_height="20dp"
+                    android:gravity="center_vertical"
+                    app:layout_constraintEnd_toStartOf="@+id/imgStatusAchievement"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/txItineraryAchievement"
+                    android:layout_width="0dp"
+                    android:layout_height="20dp"
+                    android:gravity="center_vertical"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/imgStatusAchievement"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/txTravelAchievement" />
+
+                <ImageButton
+                    android:id="@+id/imgStatusAchievement"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:contentDescription="@string/Achievement"
+                    app:srcCompat="@drawable/ic_menu_achievement"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.cardview.widget.CardView>
+
+        <Button
+            android:id="@+id/btSaveAchievement"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="8dp"
+            android:text="@string/bt_Save" />
+    </LinearLayout>
+</ScrollView>
