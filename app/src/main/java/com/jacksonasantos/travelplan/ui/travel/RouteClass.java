@@ -177,7 +177,7 @@ public class RouteClass {
             itinerary.setTime(nrDuration);
             Database.mItineraryDao.updateItinerary(itinerary);
         } catch (JSONException e) {
-            Toast.makeText(context, "Draw Path \n"+e.getMessage(), Toast.LENGTH_LONG).show();
+            Toast.makeText(context, e.getMessage(), Toast.LENGTH_LONG).show();
         }
     }
 

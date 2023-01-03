@@ -52,6 +52,14 @@
             app:title="@string/travel_default"
             app:useSimpleSummaryProvider="true" />
 
+        <ListPreference
+            app:defaultValue="achievement_view_mode"
+            app:entries="@array/achievement_view_mode"
+            app:entryValues="@array/achievement_view_modeValues"
+            app:key="achievement_view_mode"
+            app:title="@string/achievement_view_mode"
+            app:useSimpleSummaryProvider="true" />
+
     </PreferenceCategory>
 
  </PreferenceScreen>

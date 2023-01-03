@@ -29,9 +29,9 @@ public class InsuranceCompanyFragment extends Fragment  {
             @Override
             public void onCreateMenu(@NonNull Menu menu, @NonNull MenuInflater menuInflater) {
                 menuInflater.inflate(R.menu.main, menu);
-                MenuItem m1 = menu.findItem(R.id.addmenu);
-                MenuItem m2 = menu.findItem(R.id.savemenu);
-                MenuItem m3 = menu.findItem(R.id.filtermenu);
+                MenuItem m1 = menu.findItem(R.id.add_menu);
+                MenuItem m2 = menu.findItem(R.id.save_menu);
+                MenuItem m3 = menu.findItem(R.id.filter_menu);
                 m1.setVisible(true);
                 m2.setVisible(false);
                 m3.setVisible(false);
@@ -40,7 +40,7 @@ public class InsuranceCompanyFragment extends Fragment  {
             @Override
             public boolean onMenuItemSelected(@NonNull MenuItem item) {
                 Intent intent;
-                if (item.getItemId() == R.id.addmenu) {
+                if (item.getItemId() == R.id.add_menu) {
                     intent = new Intent(getContext(), InsuranceCompanyActivity.class);
                     startActivity(intent);
                 }

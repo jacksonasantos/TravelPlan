@@ -6,26 +6,27 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <Spinner
-        android:id="@+id/spTravel"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:clickable="false"
-        android:gravity="center_horizontal"
-        android:spinnerMode="dialog"
-        android:textAlignment="center"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/layerButtons"
+        android:id="@+id/layerItinerary"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toTopOf="@+id/buttonSeparator"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spTravel">
+        app:layout_constraintTop_toTopOf="parent">
+
+        <Spinner
+            android:id="@+id/spTravel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="false"
+            android:gravity="center_horizontal"
+            android:spinnerMode="dialog"
+            android:textAlignment="center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <Button
             android:id="@+id/btnAddItinerary"
@@ -55,7 +56,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/btnAddItinerary"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/spTravel"
             tools:itemCount="7" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -66,7 +67,7 @@
         android:clickable="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/layerButtons" />
+        app:layout_constraintTop_toBottomOf="@+id/layerItinerary" />
 
     <com.google.android.gms.maps.MapView
         android:id="@+id/mapView"
@@ -99,7 +100,7 @@
         android:layout_alignEnd="@+id/etSearch"
         android:layout_alignBottom="@+id/etSearch"
         android:background="@drawable/ic_button_search"
-        app:layout_constraintEnd_toEndOf="@+id/etSearch"
+        app:layout_constraintStart_toEndOf="@+id/etSearch"
         app:layout_constraintTop_toTopOf="@+id/etSearch" />
 
     <androidx.cardview.widget.CardView

@@ -3,19 +3,19 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
     <group>
         <item
-            android:id="@+id/filtermenu"
+            android:id="@+id/filter_menu"
             android:icon="@drawable/ic_button_filter_no"
             android:title="@string/bt_Filter"
             android:visible="true"
             app:showAsAction="ifRoom|withText" />
         <item
-            android:id="@+id/savemenu"
+            android:id="@+id/save_menu"
             android:icon="@drawable/ic_button_save"
             android:title="@string/bt_Save"
             android:visible="true"
             app:showAsAction="ifRoom|withText" />
         <item
-            android:id="@+id/addmenu"
+            android:id="@+id/add_menu"
             android:icon="@drawable/ic_button_add_circle"
             android:title="@string/bt_Add"
             android:visible="true"

@@ -16,6 +16,8 @@ public class ItineraryActivity extends AppCompatActivity {
 
     private Travel travel;
     private String txtSearch;
+    private int idSearch;
+    private boolean flgAchievement = false;
     FragmentManager fragmentManager;
     FragmentTransaction fragmentTransaction;
     String result;
@@ -30,11 +32,26 @@ public class ItineraryActivity extends AppCompatActivity {
         travel = new Travel();
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
+            if (extras.getBoolean("flg_achievement")){
+                flgAchievement = true;
+                setTitle(R.string.Achievement);
+            }
             if (extras.getInt( "travel_id") > 0) {
                 travel.setId(extras.getInt("travel_id"));
+            } else {
+                travel.setId(null);
             }
-            if (!Objects.equals(extras.getString("local_search"), "")){
+            if (!Objects.equals(extras.getString("local_search"), "") && extras.getString("local_search")!=null){
                 txtSearch = extras.getString("local_search");
+                idSearch = 0;
+            }
+            if (!Objects.equals(extras.getString("local_search_source"), "") && extras.getString("local_search_source")!=null){
+                txtSearch = extras.getString("local_search_source");
+                idSearch = 1;
+            }
+            if (!Objects.equals(extras.getString("local_search_target"), "") && extras.getString("local_search_target")!=null){
+                txtSearch = extras.getString("local_search_target");
+                idSearch = 2;
             }
         }
     }
@@ -47,7 +64,8 @@ public class ItineraryActivity extends AppCompatActivity {
                                              .replace( R.id.container,
                                                        new TravelRouteFragment(true,
                                                                                travel.getId(),
-                                                                               txtSearch),
+                                                                               txtSearch,
+                                                                               flgAchievement),
                                                      "Tag");
         fragmentTransaction.commit();
     }
@@ -59,9 +77,28 @@ public class ItineraryActivity extends AppCompatActivity {
         result = mArg != null ? mArg.getString("point_marker", "") : null;
 
         Intent i = new Intent();
-        i.putExtra("resulted_value", result);
-        setResult(124, i);
-
+        if (result != null) {
+            switch (idSearch) {
+                case 0:
+                    i.putExtra("resulted_value", result);
+                    setResult(124, i);
+                    break;
+                case 1:
+                    i.putExtra("resulted_value_source", result);
+                    setResult(125, i);
+                    break;
+                case 2:
+                    i.putExtra("resulted_value_target", result);
+                    setResult(126, i);
+                    break;
+                default:
+                    break;
+            }
+        }
+        if (flgAchievement) {
+            i.putExtra("resulted_return", "");
+            setResult(120, i);
+        }
         super.finish();
     }
 }

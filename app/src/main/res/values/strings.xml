@@ -23,6 +23,8 @@
     <string name="bt_Maintenance_Item">Maintenance Item</string>
     <string name="bt_Add">Add</string>
     <string name="bt_Filter">Vehicle Filter</string>
+    <string name="bt_List">List</string>
+    <string name="bt_Map">Map</string>
 
     <!-- Messages -->
     <string name="Msg_Confirm">Are you sure you want to perform the operation?</string>
@@ -74,6 +76,7 @@
 
     <string name="vehicle_default">Vehicle Default</string>
     <string name="travel_default">Travel Default</string>
+    <string name="achievement_view_mode">Achievement View Mode</string>
 
     <!-- Vehicle Fragment -->
     <string name="Vehicle">Vehicle</string>
@@ -477,8 +480,10 @@
     <string name="Achievement_Image">Image</string>
     <string name="Achievement_City_Start">City Start</string>
     <string name="Achievement_State_Start">State Start</string>
+    <string name="Achievement_Latlng_Source">Lat/Lng Source</string>
     <string name="Achievement_City_End">City End</string>
     <string name="Achievement_State_End">State End</string>
+    <string name="Achievement_Latlng_Target">Lat/Lng Target</string>
     <string name="Achievement_Country">Country</string>
     <string name="Achievement_Note">Note</string>
     <string name="Achievement_Latlng_Achievement">Lat/Lng</string>

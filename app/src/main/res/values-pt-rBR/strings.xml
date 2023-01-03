@@ -384,4 +384,9 @@
     <string name="pending">Pendente</string>
     <string name="concluded">Concluído</string>
     <string name="menu_pending">Pendências</string>
+    <string name="bt_Map">Mapa</string>
+    <string name="bt_List">Lista</string>
+    <string name="achievement_view_mode">Modo Vizualização Conquistas</string>
+    <string name="Achievement_Latlng_Source">Lat/Lng Origem</string>
+    <string name="Achievement_Latlng_Target">Lat/Lng Destino</string>
 </resources>

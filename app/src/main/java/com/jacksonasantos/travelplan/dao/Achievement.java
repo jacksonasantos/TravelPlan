@@ -11,8 +11,10 @@ public class Achievement {
     public byte[] image;
     public String city;
     public String state;
+    public String latlng_source;
     public String city_end;
     public String state_end;
+    public String latlng_target;
     public String country;
     public String note;
     public String latlng_achievement;
@@ -25,7 +27,6 @@ public class Achievement {
     @NonNull
     @Override
     public String toString() { return name; }
-
 
 
     public Integer getId() {return id;}
@@ -52,11 +53,17 @@ public class Achievement {
     public String getState() {return state;}
     public void setState(String state) {this.state = state;}
 
+    public String getLatlng_source() {return latlng_source;}
+    public void setLatlng_source(String latlng_source) {this.latlng_source = latlng_source;}
+
     public String getCity_end() {return city_end;}
     public void setCity_end(String city_end) {this.city_end = city_end; }
 
     public String getState_end() {return state_end;}
     public void setState_end(String state_end) {this.state_end = state_end;}
+
+    public String getLatlng_target() {return latlng_target;}
+    public void setLatlng_target(String latlng_target) {this.latlng_target = latlng_target;}
 
     public String getCountry() { return country;    }
     public void setCountry(String country) { this.country = country; }

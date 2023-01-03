@@ -47,8 +47,12 @@ public class AchievementActivity extends AppCompatActivity {
     private byte[] imgArray = null;
     private EditText etAchievement_City;
     private EditText etAchievement_State;
+    private ImageButton btLocationSource;
+    private EditText etAchievement_Latlng_Source;
     private EditText etAchievement_City_End;
     private EditText etAchievement_State_End;
+    private ImageButton btLocationTarget;
+    private EditText etAchievement_Latlng_Target;
     private EditText etAchievement_Country;
     private ImageButton btLocation;
     private EditText etAchievement_Latlng_Achievement;
@@ -98,8 +102,12 @@ public class AchievementActivity extends AppCompatActivity {
         imgAchievement_Image = findViewById(R.id.imgAchievement_Image);
         etAchievement_City = findViewById(R.id.etAchievement_City);
         etAchievement_State = findViewById(R.id.etAchievement_State);
+        btLocationSource = findViewById(R.id.btLocationSource);
+        etAchievement_Latlng_Source = findViewById(R.id.etAchievement_Latlng_Source);
         etAchievement_City_End = findViewById(R.id.etAchievement_City_End);
         etAchievement_State_End = findViewById(R.id.etAchievement_State_End);
+        btLocationTarget = findViewById(R.id.btLocationTarget);
+        etAchievement_Latlng_Target = findViewById(R.id.etAchievement_Latlng_Target);
         etAchievement_Country = findViewById(R.id.etAchievement_Country);
         btLocation = findViewById(R.id.btLocation);
         etAchievement_Latlng_Achievement = findViewById(R.id.etAchievement_Latlng_Achievement);
@@ -117,6 +125,29 @@ public class AchievementActivity extends AppCompatActivity {
             }
             Intent intent = new Intent (getBaseContext(), ItineraryActivity.class);
             intent.putExtra("local_search", etAchievement_Name.getText().toString()+","+etAchievement_Short_Name.getText().toString());
+            //intent.putExtra("flg_achievement", true);
+            myActivityResultLauncher.launch(intent);
+        });
+
+        btLocationSource.setOnClickListener(view -> {
+            if (ActivityCompat.checkSelfPermission(getBaseContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
+                    ActivityCompat.checkSelfPermission(getBaseContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                requestPermissionLauncher.launch(Manifest.permission.ACCESS_FINE_LOCATION);
+                requestPermissionLauncher.launch(Manifest.permission.ACCESS_COARSE_LOCATION);
+            }
+            Intent intent = new Intent (getBaseContext(), ItineraryActivity.class);
+            intent.putExtra("local_search_source", etAchievement_City.getText().toString()+","+etAchievement_State.getText().toString());
+            myActivityResultLauncher.launch(intent);
+        });
+
+        btLocationTarget.setOnClickListener(view -> {
+            if (ActivityCompat.checkSelfPermission(getBaseContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
+                    ActivityCompat.checkSelfPermission(getBaseContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                requestPermissionLauncher.launch(Manifest.permission.ACCESS_FINE_LOCATION);
+                requestPermissionLauncher.launch(Manifest.permission.ACCESS_COARSE_LOCATION);
+            }
+            Intent intent = new Intent (getBaseContext(), ItineraryActivity.class);
+            intent.putExtra("local_search_target", etAchievement_City_End.getText().toString()+","+etAchievement_State_End.getText().toString());
             myActivityResultLauncher.launch(intent);
         });
 
@@ -130,8 +161,10 @@ public class AchievementActivity extends AppCompatActivity {
             }
             etAchievement_City.setText(achievement.getCity());
             etAchievement_State.setText(achievement.getState());
+            etAchievement_Latlng_Source.setText(achievement.getLatlng_source());
             etAchievement_City_End.setText(achievement.getCity_end());
             etAchievement_State_End.setText(achievement.getState_end());
+            etAchievement_Latlng_Target.setText(achievement.getLatlng_target());
             etAchievement_Country.setText(achievement.getCountry());
             etAchievement_Latlng_Achievement.setText(achievement.getLatlng_achievement());
             etAchievement_Length_Achievement.setText(String.valueOf(achievement.getLength_achievement()));
@@ -156,6 +189,18 @@ public class AchievementActivity extends AppCompatActivity {
                         Intent data = result.getData();
                         if (data != null) {
                             etAchievement_Latlng_Achievement.setText(data.getStringExtra("resulted_value"));
+                        }
+                    }
+                    if (result.getResultCode() == 125) {
+                        Intent data = result.getData();
+                        if (data != null) {
+                            etAchievement_Latlng_Source.setText(data.getStringExtra("resulted_value_source"));
+                        }
+                    }
+                    if (result.getResultCode() == 126) {
+                        Intent data = result.getData();
+                        if (data != null) {
+                            etAchievement_Latlng_Target.setText(data.getStringExtra("resulted_value_target"));
                         }
                     }
                 }
@@ -235,8 +280,10 @@ public class AchievementActivity extends AppCompatActivity {
 
                 a1.setCity(etAchievement_City.getText().toString());
                 a1.setState(etAchievement_State.getText().toString());
+                a1.setLatlng_source(etAchievement_Latlng_Source.getText().toString());
                 a1.setCity_end(etAchievement_City_End.getText().toString());
                 a1.setState_end(etAchievement_State_End.getText().toString());
+                a1.setLatlng_target(etAchievement_Latlng_Target.getText().toString());
                 a1.setCountry(etAchievement_Country.getText().toString());
                 a1.setLatlng_achievement(etAchievement_Latlng_Achievement.getText().toString());
                 a1.setLength_achievement(Double.parseDouble(etAchievement_Length_Achievement.getText().toString().isEmpty()?"0":etAchievement_Length_Achievement.getText().toString()));
@@ -297,10 +344,12 @@ public class AchievementActivity extends AppCompatActivity {
                 //imgAchievement_Image.getImageMatrix().toString().trim().isEmpty() ||
                     //etAchievement_City.getText().toString().trim().isEmpty() ||
                     //etAchievement_State.getText().toString().trim().isEmpty() ||
+                    //etAchievement_Latlng_Source.getText().toString().trim().isEmpty() ||
                     //etAchievement_City_End.getText().toString().trim().isEmpty() ||
                     //etAchievement_State_End.getText().toString().trim().isEmpty() ||
-                etAchievement_Country.getText().toString().trim().isEmpty() //||
-                //etAchievement_Latlng_Achievement.getText().toString().trim().isEmpty() ||
+                    //etAchievement_Latlng_Target.getText().toString().trim().isEmpty() ||
+                etAchievement_Country.getText().toString().trim().isEmpty() ||
+                etAchievement_Latlng_Achievement.getText().toString().trim().isEmpty() //||
                 //etAchievement_Length.getText().toString().trim().isEmpty() ||
                 //etAchievement_Note.getText().toString().trim().isEmpty()
             ){

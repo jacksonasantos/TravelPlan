@@ -17,6 +17,16 @@
         <item>@string/male</item>
         <item>@string/female</item>
     </string-array>
+    <!-- Achievement View Mode Preference -->
+    <string-array name="achievement_view_mode">
+        <item name="list">@string/bt_List</item>
+        <item name="map">@string/bt_Map</item>
+    </string-array>
+    <!-- Achievement View Mode values Preference -->
+    <string-array name="achievement_view_modeValues">
+        <item name="list">list</item>
+        <item name="map">map</item>
+    </string-array>
     <!-- Vehicle Array-->
     <string-array name="vehicle_array">
     </string-array>

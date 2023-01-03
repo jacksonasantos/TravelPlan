@@ -12,8 +12,10 @@ public interface AchievementISchema {
     String ACHIEVEMENT_IMAGE = "image";
     String ACHIEVEMENT_CITY = "city";
     String ACHIEVEMENT_STATE = "state";
+    String ACHIEVEMENT_LATLNG_SOURCE = "latlng_source";
     String ACHIEVEMENT_CITY_END = "city_end";
     String ACHIEVEMENT_STATE_END = "state_end";
+    String ACHIEVEMENT_LATLNG_TARGET = "latlng_target";
     String ACHIEVEMENT_COUNTRY = "country";
     String ACHIEVEMENT_NOTE = "note";
     String ACHIEVEMENT_LATLNG_ACHIEVEMENT = "latlng_achievement";
@@ -50,6 +52,11 @@ public interface AchievementISchema {
     // Version 51
     String ALTER_TABLE_ACHIEVEMENT_V51 = "ALTER TABLE " + ACHIEVEMENT_TABLE
             + " ADD COLUMN " + ACHIEVEMENT_ITINERARY_ID + " INTEGER REFERENCES " + ItineraryISchema.ITINERARY_TABLE + " ("+ItineraryISchema.ITINERARY_ID+") ";
+    // Version 52
+    String ALTER_TABLE_ACHIEVEMENT_V55_1 = "ALTER TABLE " + ACHIEVEMENT_TABLE
+            + " ADD COLUMN " + ACHIEVEMENT_LATLNG_SOURCE + " TEXT ";
+    String ALTER_TABLE_ACHIEVEMENT_V55_2 = "ALTER TABLE " + ACHIEVEMENT_TABLE
+            + " ADD COLUMN " + ACHIEVEMENT_LATLNG_TARGET + " TEXT ";
 
     String[] ACHIEVEMENT_COLUMNS = new String[] {
             ACHIEVEMENT_ID,
@@ -60,8 +67,10 @@ public interface AchievementISchema {
             ACHIEVEMENT_IMAGE,
             ACHIEVEMENT_CITY,
             ACHIEVEMENT_STATE,
+            ACHIEVEMENT_LATLNG_SOURCE,
             ACHIEVEMENT_CITY_END,
             ACHIEVEMENT_STATE_END,
+            ACHIEVEMENT_LATLNG_TARGET,
             ACHIEVEMENT_COUNTRY,
             ACHIEVEMENT_NOTE,
             ACHIEVEMENT_LATLNG_ACHIEVEMENT,

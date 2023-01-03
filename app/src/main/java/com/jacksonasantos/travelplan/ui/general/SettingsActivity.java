@@ -45,6 +45,8 @@ public class SettingsActivity extends AppCompatActivity {
         @Override
         public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
             setPreferencesFromResource(R.xml.root_preferences, rootKey);
+            Database mDb = new Database(getContext());
+            mDb.open();
 
             ListPreference langPref = findPreference("language");
             if (langPref != null) {

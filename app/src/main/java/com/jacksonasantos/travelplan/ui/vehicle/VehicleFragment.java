@@ -63,9 +63,9 @@ public class VehicleFragment extends Fragment  {
                 menuInflater.inflate(R.menu.main, menu);
 
                 this.mMenu = menu;
-                MenuItem m1 = menu.findItem(R.id.addmenu);
-                MenuItem m2 = menu.findItem(R.id.savemenu);
-                MenuItem m3 = menu.findItem(R.id.filtermenu);
+                MenuItem m1 = menu.findItem(R.id.add_menu);
+                MenuItem m2 = menu.findItem(R.id.save_menu);
+                MenuItem m3 = menu.findItem(R.id.filter_menu);
                 m1.setVisible(true);
                 m2.setVisible(false);
                 m3.setVisible(true);
@@ -76,12 +76,12 @@ public class VehicleFragment extends Fragment  {
             public boolean onMenuItemSelected(@NonNull MenuItem item) {
                 Intent intent;
                 switch(item.getItemId()) {
-                    case R.id.addmenu:
+                    case R.id.add_menu:
                         intent = new Intent( getContext(), VehicleActivity.class );
                         startActivity( intent );
                         break;
 
-                    case R.id.filtermenu:
+                    case R.id.filter_menu:
                         Globals.getInstance().setFilterVehicle(!Globals.getInstance().getFilterVehicle());
                         if ( Globals.getInstance().getFilterVehicle() ) {
                             this.mMenu.getItem(0).setIcon(R.drawable.ic_button_filter);

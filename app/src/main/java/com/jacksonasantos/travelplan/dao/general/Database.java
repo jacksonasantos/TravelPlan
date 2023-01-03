@@ -63,7 +63,7 @@ public class Database {
     private final Context mContext;
 
     private static final String DATABASE_NAME = "TravelPlan.db";
-    private static final int DATABASE_VERSION = 54;
+    private static final int DATABASE_VERSION = 55;
 
     public static AccommodationDAO mAccommodationDao;
     public static AchievementDAO mAchievementDao;
@@ -168,6 +168,8 @@ public class Database {
             {"52", "2" , "VehicleHasTravelISchema"  , "ALTER_TABLE_VEHICLE_HAS_TRAVEL_V52_2"  , "VEHICLE_HAS_TRAVEL_TABLE"   , "V52.2 - Alter Table..."  },
             {"54", ""  , "MaintenanceItemISchema"   , "ALTER_TABLE_MAINTENANCE_ITEM_V54"      , "MAINTENANCE_ITEM_TABLE"     , "V54 - Alter Table..."    },
             {"53", ""  , "PendingVehicleISchema"    , "CREATE_TABLE_PENDING_VEHICLE_V53"      , "PENDING_VEHICLE_TABLE"      , "V53 - Create Table..."   },
+            {"55", "1" , "AchievementISchema"       , "ALTER_TABLE_ACHIEVEMENT_V55_1"         , "ACHIEVEMENT_TABLE"          , "V55.1 - Alter Table..."  },
+            {"55", "2" , "AchievementISchema"       , "ALTER_TABLE_ACHIEVEMENT_V55_2"         , "ACHIEVEMENT_TABLE"          , "V54.2 - Alter Table..."  },
     };
 
     public Database(Context context) {
@@ -305,11 +307,11 @@ public class Database {
             db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V40); Log.w("Table "+VehicleISchema.VEHICLE_TABLE,"V40 - Alter Table...");
             db.execSQL(TravelExpensesISchema.ALTER_TABLE_TRAVEL_EXPENSES_V43); Log.w("Table "+TravelExpensesISchema.TRAVEL_EXPENSES_TABLE,"V43 - Alter Table...");
             db.execSQL(TravelItemExpensesISchema.ALTER_TABLE_TRAVEL_ITEM_EXPENSES_V44); Log.w("Ta "+TravelItemExpensesISchema.TRAVEL_ITEM_EXPENSES_TABLE,"V44 - Alter Table...");
-            db.execSQL(TravelItemExpensesISchema.ALTER_TABLE_TRAVEL_ITEM_EXPENSES_V44_1); Log.w("Ta "+TravelItemExpensesISchema.TRAVEL_ITEM_EXPENSES_TABLE,"V441 - Alter Table...");
+            db.execSQL(TravelItemExpensesISchema.ALTER_TABLE_TRAVEL_ITEM_EXPENSES_V44_1); Log.w("Ta "+TravelItemExpensesISchema.TRAVEL_ITEM_EXPENSES_TABLE,"V44_1 - Alter Table...");
             db.execSQL(FuelSupplyISchema.ALTER_TABLE_FUEL_SUPPLY_V45); Log.w("Table "+FuelSupplyISchema.FUEL_SUPPLY_TABLE,"V45 - Alter Table...");
-            db.execSQL(AchievementISchema.ALTER_TABLE_ACHIEVEMENT_V46_1); Log.w("Table "+AchievementISchema.ACHIEVEMENT_TABLE,"V461 - Alter Table...");
-            db.execSQL(AchievementISchema.ALTER_TABLE_ACHIEVEMENT_V46_2); Log.w("Table "+AchievementISchema.ACHIEVEMENT_TABLE,"V462 - Alter Table...");
-            db.execSQL(AchievementISchema.ALTER_TABLE_ACHIEVEMENT_V46_3); Log.w("Table "+AchievementISchema.ACHIEVEMENT_TABLE,"V463 - Alter Table...");
+            db.execSQL(AchievementISchema.ALTER_TABLE_ACHIEVEMENT_V46_1); Log.w("Table "+AchievementISchema.ACHIEVEMENT_TABLE,"V46_1 - Alter Table...");
+            db.execSQL(AchievementISchema.ALTER_TABLE_ACHIEVEMENT_V46_2); Log.w("Table "+AchievementISchema.ACHIEVEMENT_TABLE,"V46_2 - Alter Table...");
+            db.execSQL(AchievementISchema.ALTER_TABLE_ACHIEVEMENT_V46_3); Log.w("Table "+AchievementISchema.ACHIEVEMENT_TABLE,"V46_3 - Alter Table...");
             db.execSQL(DriverISchema.CREATE_TABLE_DRIVER_V47); Log.w("Table "+DriverISchema.DRIVER_TABLE,"V47 - Create Table...");
             db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V48); Log.w("Table "+VehicleISchema.VEHICLE_TABLE,"V48 - Create Table...");
             db.execSQL(VehicleHasTravelISchema.ALTER_TABLE_VEHICLE_HAS_TRAVEL_V49);Log.w("Table "+VehicleHasTravelISchema.VEHICLE_HAS_TRAVEL_TABLE,"V49 - Alter Table...");
@@ -319,6 +321,8 @@ public class Database {
             db.execSQL(VehicleHasTravelISchema.ALTER_TABLE_VEHICLE_HAS_TRAVEL_V52_2);Log.w("Table "+VehicleHasTravelISchema.VEHICLE_HAS_TRAVEL_TABLE,"V52_2 - Alter Table...");
             db.execSQL(PendingVehicleISchema.CREATE_TABLE_PENDING_VEHICLE_V53); Log.w("Table "+PendingVehicleISchema.PENDING_VEHICLE_TABLE,"V53 - Create Table...");
             db.execSQL(MaintenanceItemISchema.ALTER_TABLE_MAINTENANCE_ITEM_V54);Log.w("Table "+MaintenanceItemISchema.MAINTENANCE_ITEM_TABLE,"V54 - Alter Table...");
+            db.execSQL(AchievementISchema.ALTER_TABLE_ACHIEVEMENT_V55_1);Log.w("Table "+AchievementISchema.ACHIEVEMENT_TABLE,"V55_1 - Alter Table...");
+            db.execSQL(AchievementISchema.ALTER_TABLE_ACHIEVEMENT_V55_2);Log.w("Table "+AchievementISchema.ACHIEVEMENT_TABLE,"V55_2 - Alter Table...");
         }
 
         @SuppressLint("SQLiteString")
@@ -496,6 +500,10 @@ public class Database {
                         break;
                     case 54:
                         db.execSQL(MaintenanceItemISchema.ALTER_TABLE_MAINTENANCE_ITEM_V54);
+                        break;
+                    case 55:
+                        db.execSQL(AchievementISchema.ALTER_TABLE_ACHIEVEMENT_V55_1);
+                        db.execSQL(AchievementISchema.ALTER_TABLE_ACHIEVEMENT_V55_2);
                         break;
                     default:
                         break;
