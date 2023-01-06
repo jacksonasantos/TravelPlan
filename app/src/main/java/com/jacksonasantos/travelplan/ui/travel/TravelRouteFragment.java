@@ -1,8 +1,11 @@
 package com.jacksonasantos.travelplan.ui.travel;
 
+import static com.jacksonasantos.travelplan.ui.utility.Abbreviations.getAbbreviationFromState;
+
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -29,6 +32,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
@@ -58,6 +63,7 @@ import com.jacksonasantos.travelplan.dao.Marker;
 import com.jacksonasantos.travelplan.dao.Travel;
 import com.jacksonasantos.travelplan.dao.TravelExpenses;
 import com.jacksonasantos.travelplan.dao.general.Database;
+import com.jacksonasantos.travelplan.ui.general.AchievementActivity;
 import com.jacksonasantos.travelplan.ui.utility.Globals;
 import com.jacksonasantos.travelplan.ui.utility.Utils;
 
@@ -73,7 +79,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 public class TravelRouteFragment extends Fragment implements LocationListener {
 
     public boolean clearMap;
-    public boolean flgModeAchievement;
+    public final boolean flgModeAchievement;
     public Integer nrTravel_Id;
     public final String txt_Search;
     public static Integer nrItinerary_Id;
@@ -128,6 +134,7 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
 
         if (flgModeAchievement) {
             // TODO - Limpar spTravel do mapa para as conquistas
+            //spTravel.setVisibility(View.GONE);
             btnAddItinerary.setVisibility(View.GONE);
             btnEditItinerary.setVisibility(View.GONE);
             listItinerary.setVisibility(View.GONE);
@@ -179,13 +186,30 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
             googleMap.setOnMapLongClickListener(point -> {
                 try {
                     if (txt_Search == null) {
-                        if (registryMarker(point)) {
-                            drawMarker(point, "", Color.RED, 0);
+                        if (!flgModeAchievement) {
+                            if (registryMarker(point)) {
+                                drawMarker(point, "", Color.RED, 0);
+                            }
+                        } else {
+                            Intent intent = new Intent(getContext(), AchievementActivity.class);
+                            intent.putExtra("Latlng_Achievement", point.latitude+","+point.longitude);
+                            myActivityResultLauncher.launch(intent);
                         }
                     } else {
                         Bundle mArgs = new Bundle();
                         mArgs.putString("point_marker", point.latitude + "," + point.longitude);
                         this.setArguments(mArgs);
+
+                        Geocoder geocoder = new Geocoder(requireContext());
+                        List<Address> addresses = geocoder.getFromLocation(point.latitude, point.longitude, 1);
+                        Address address = Objects.requireNonNull(addresses).get(0);
+                        mArgs.putString("state_marker", getAbbreviationFromState(address.getAdminArea()));
+                        this.setArguments(mArgs);
+                        mArgs.putString("city_marker", address.getSubAdminArea());
+                        this.setArguments(mArgs);
+                        mArgs.putString("country_marker", address.getCountryName());
+                        this.setArguments(mArgs);
+
                         Toast.makeText(getActivity(), getResources().getString(R.string.loaded_coordinates), Toast.LENGTH_LONG).show();
                     }
                 } catch (Exception e) {
@@ -194,9 +218,16 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
             });
 
             googleMap.setOnMarkerClickListener(marker -> {
-                if (removeMarker(marker.getPosition())) {
-                    marker.remove();
-                    drawItinerary(nrTravel_Id);
+                if (!flgModeAchievement) {
+                    if (removeMarker(marker.getPosition())) {
+                        marker.remove();
+                        drawItinerary(nrTravel_Id);
+                    }
+                } else {
+                    Intent intent = new Intent(getContext(), AchievementActivity.class);
+                    Integer nrMarkerAchievement = (Integer) marker.getTag();
+                    intent.putExtra("achievement_id", nrMarkerAchievement);
+                    myActivityResultLauncher.launch(intent);
                 }
                 return true;
             });
@@ -214,11 +245,27 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
                     Toast.makeText(getActivity(), getResources().getString(R.string.location_not_found) + " \n" + e.getMessage(), Toast.LENGTH_LONG).show();
                 }
             });
+
         });
 
         mMapView.onResume();
         return rootView;
     }
+
+    final ActivityResultLauncher<Intent> myActivityResultLauncher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            new ActivityResultCallback<ActivityResult>() {
+                @Override
+                public void onActivityResult(ActivityResult result) {
+                    if (result.getResultCode() == 120) {
+                        Intent data = result.getData();
+                        if (data != null) {
+
+                        }
+                    }
+                }
+            }
+    );
 
     private final ActivityResultLauncher<String> requestPermissionLauncher = registerForActivityResult(
             new ActivityResultContracts.RequestPermission(), isGranted -> {
@@ -237,6 +284,9 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
         String addressText = String.format("%s, %s", address.getSubAdminArea(), address.getCountryCode());
         markerOptions.position(latLng);
         markerOptions.title(addressText);
+
+        builder = new LatLngBounds.Builder();
+
         drawMarker(latLng, addressText, Color.MAGENTA, 0);
         zoomMarkers();
     }
@@ -458,7 +508,7 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
         return result;
     }
 
-    private void drawMarker(LatLng point, String title, Bitmap drawableIcon, boolean isAlpha) {
+    private void drawMarker(LatLng point, String title, Bitmap drawableIcon, boolean isAlpha, Integer id) {
         int height = 100;
         int width = 100;
         Bitmap markerIcon = Bitmap.createScaledBitmap(drawableIcon, width, height, false);
@@ -467,8 +517,8 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
         markerOptions.draggable(true);
         markerOptions.icon(BitmapDescriptorFactory.fromBitmap(markerIcon));
         if (isAlpha) markerOptions.alpha(0.6f); else markerOptions.alpha(1f);
-
-        googleMap.addMarker(markerOptions);                      // add the marker to Map
+        Objects.requireNonNull(googleMap.addMarker(markerOptions)).setTag(id);                      // add the marker to Map
+        markerOptions.alpha(1f);
         builder.include(point);
         pointsRoute.add(point);
     }
@@ -512,7 +562,7 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
 
     private void drawAchievement() {
         List<Achievement> cAchievement = Database.mAchievementDao.fetchAllAchievement();
-        // TODO - Permitira edição/exclusão de conquistas no modo MAP
+        // TODO - Permitir a exclusão de conquistas no modo MAP
         builder = new LatLngBounds.Builder();
 
         for (int i = 0; i < cAchievement.size(); i++) {
@@ -522,7 +572,7 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
             LatLng latlngSource = null;
             LatLng latlngTarget = null;
             LatLng latlngIcon = null;
-            Bitmap raw = null;
+            Bitmap rawIcon = null;
 
             if (   (achievement.getLatlng_source()!=null && !achievement.getLatlng_source().equals(""))
                 && (achievement.getLatlng_target()!=null && !achievement.getLatlng_target().equals(""))) {
@@ -539,18 +589,18 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
                 if (imgArray != null) {
                     BitmapFactory.Options options = new BitmapFactory.Options();
                     options.inPreferredConfig = Bitmap.Config.ARGB_8888;
-                    raw = BitmapFactory.decodeByteArray(imgArray, 0, imgArray.length, options);
+                    rawIcon = BitmapFactory.decodeByteArray(imgArray, 0, imgArray.length, options);
                 }
             }
 
             if (latlngSource != null)
                drawMarker(latlngSource, null, ContextCompat.getColor(requireContext(), R.color.colorMarker), 0);
-            if (raw != null)
-               drawMarker(latlngIcon, achievement.getName(), raw, !(achievement.getStatus_achievement() == 1));
+            if (rawIcon != null)
+               drawMarker(latlngIcon  , achievement.getName(), rawIcon, !(achievement.getStatus_achievement() == 1), achievement.getId());
             if (latlngTarget != null)
                drawMarker(latlngTarget, null, ContextCompat.getColor(requireContext(), R.color.colorMarker), 0);
 
-            routeClass.drawRoute(googleMap, getContext(), pointsRoute, false, lang, false, 0, 0, 0);
+            routeClass.drawRoute(googleMap, getContext(), pointsRoute, false, lang, false, 0, i, null, !(achievement.getStatus_achievement() == 1));
 
         }
         zoomMarkers();
@@ -572,7 +622,7 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
                         LatLng latlng = new LatLng(Double.parseDouble(marker.getLatitude()), Double.parseDouble(marker.getLongitude()));
                         drawMarker(latlng, marker.getName(), ContextCompat.getColor(requireContext(), R.color.colorMarker), marker.getMarker_typeImage(marker.getMarker_type()));
                     }
-                    routeClass.drawRoute(googleMap, getContext(), pointsRoute, false, lang, false, nrTravel_Id, itinerary.getSequence(), nrItinerary_Id);
+                    routeClass.drawRoute(googleMap, getContext(), pointsRoute, false, lang, false, nrTravel_Id, itinerary.getSequence(), nrItinerary_Id, false);
                     zoomMarkers();
                 }
             }

@@ -67,6 +67,21 @@ public class AchievementDAO extends DbContentProvider implements AchievementISch
         return achievementList;
     }
 
+    public List<Achievement> fetchAllAchievementByStatusAchievement( Integer status ) {
+        final String[] selectionArgs = status==null ? null : new String[]{String.valueOf(status)};
+        final String selection = status==null ? null : ACHIEVEMENT_STATUS_ACHIEVEMENT + " = ?";
+        List<Achievement> achievementList = new ArrayList<>();
+        cursor = super.query(ACHIEVEMENT_TABLE, ACHIEVEMENT_COLUMNS, selection, selectionArgs, ACHIEVEMENT_NAME);
+        if (cursor.moveToFirst()) {
+            do {
+                Achievement achievement = cursorToEntity(cursor);
+                achievementList.add(achievement);
+            } while (cursor.moveToNext());
+            cursor.close();
+        }
+        return achievementList;
+    }
+
     public Cursor fetchArrayAchievement() {
         return super.rawQuery( "SELECT '' _id, '' text1 UNION " +
                                    "SELECT " + ACHIEVEMENT_ID + ", " +

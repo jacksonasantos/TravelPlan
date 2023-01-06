@@ -9,6 +9,7 @@ import java.util.List;
 public interface AchievementIDAO {
     Achievement fetchAchievementById(Integer id);
     List<Achievement> fetchAllAchievement();
+    List<Achievement> fetchAllAchievementByStatusAchievement( Integer status );
     Cursor fetchArrayAchievement();
     boolean addAchievement(Achievement achievement);
     void deleteAchievement(Integer id);

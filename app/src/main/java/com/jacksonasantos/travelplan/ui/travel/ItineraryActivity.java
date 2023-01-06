@@ -20,7 +20,7 @@ public class ItineraryActivity extends AppCompatActivity {
     private boolean flgAchievement = false;
     FragmentManager fragmentManager;
     FragmentTransaction fragmentTransaction;
-    String result;
+    String result, resultState, resultCity, resultCountry;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,20 +75,24 @@ public class ItineraryActivity extends AppCompatActivity {
         TravelRouteFragment fragment = (TravelRouteFragment) fragmentManager.findFragmentByTag("Tag");
         Bundle mArg = fragment != null ? fragment.getArguments() : null;
         result = mArg != null ? mArg.getString("point_marker", "") : null;
+        resultState = mArg != null ? mArg.getString("state_marker", "") : null;
+        resultCity = mArg != null ? mArg.getString("city_marker", "") : null;
+        resultCountry = mArg != null ? mArg.getString("country_marker", "") : null;
 
         Intent i = new Intent();
         if (result != null) {
+            i.putExtra("resulted_value", result);
+            i.putExtra("resulted_city", resultCity);
+            i.putExtra("resulted_state", resultState);
+            i.putExtra("resulted_country", resultCountry);
             switch (idSearch) {
                 case 0:
-                    i.putExtra("resulted_value", result);
                     setResult(124, i);
                     break;
                 case 1:
-                    i.putExtra("resulted_value_source", result);
                     setResult(125, i);
                     break;
                 case 2:
-                    i.putExtra("resulted_value_target", result);
                     setResult(126, i);
                     break;
                 default:

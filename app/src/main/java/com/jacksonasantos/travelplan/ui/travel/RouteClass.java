@@ -36,16 +36,18 @@ public class RouteClass {
     Context context;
     String lang;
     Integer nrTravel_Id;
+    boolean isAlpha;
 
     private static final String GOOGLE_API_KEY =  MainActivity.getAppResources().getString(R.string.google_maps_key);
     private final ExecutorService myExecutor = Executors.newSingleThreadExecutor();
     private final Handler myHandler = new Handler(Looper.getMainLooper());
 
-    public void drawRoute(GoogleMap map, Context c, ArrayList<LatLng> points, boolean withIndications, String language, boolean optimize, Integer travel_id, int sequence, Integer sequenceSelected) {
+    public void drawRoute(GoogleMap map, Context c, ArrayList<LatLng> points, boolean withIndications, String language, boolean optimize, Integer travel_id, int sequence, Integer sequenceSelected, boolean isAlpha) {
         mMap = map;
         context = c;
         lang = language;
         nrTravel_Id = travel_id;
+        this.isAlpha = isAlpha;
         String mode = "driving";
         String url = null;
 
@@ -125,7 +127,7 @@ public class RouteClass {
 
             myHandler.post(() -> {
                 progressDialog.dismiss();
-                if (r != null) {
+                if (r != null && !r.equals("")) {
                     drawPath(r, withSteps, sequence, sequenceSelected);
                 }
             });
@@ -155,6 +157,8 @@ public class RouteClass {
                         vColor = nrSequence==nrSequenceSelected ? vColor : Color.RED;
                         vWidth = nrSequence==nrSequenceSelected ? vWidth : 8;
                     }
+                    if (isAlpha) vColor = (vColor & 0x00FFFFFF) | (0x40 << 24);
+
                     mMap.addPolyline(new PolylineOptions()
                             .addAll(decodePoly(polyline))
                             .width(vWidth)
