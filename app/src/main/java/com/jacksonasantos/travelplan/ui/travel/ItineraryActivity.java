@@ -59,6 +59,7 @@ public class ItineraryActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+
         fragmentManager = getSupportFragmentManager();
         fragmentTransaction = fragmentManager.beginTransaction()
                                              .replace( R.id.container,
@@ -67,6 +68,7 @@ public class ItineraryActivity extends AppCompatActivity {
                                                                                txtSearch,
                                                                                flgAchievement),
                                                      "Tag");
+
         fragmentTransaction.commit();
     }
 

@@ -32,8 +32,6 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.activity.result.ActivityResult;
-import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
@@ -133,7 +131,7 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
         listMarkers = rootView.findViewById(R.id.listMarkers);
 
         if (flgModeAchievement) {
-            // TODO - Limpar spTravel do mapa para as conquistas
+            // TODO - Clean spTravel of the map for achievement
             //spTravel.setVisibility(View.GONE);
             btnAddItinerary.setVisibility(View.GONE);
             btnEditItinerary.setVisibility(View.GONE);
@@ -254,16 +252,7 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
 
     final ActivityResultLauncher<Intent> myActivityResultLauncher = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
-            new ActivityResultCallback<ActivityResult>() {
-                @Override
-                public void onActivityResult(ActivityResult result) {
-                    if (result.getResultCode() == 120) {
-                        Intent data = result.getData();
-                        if (data != null) {
-
-                        }
-                    }
-                }
+            result -> {
             }
     );
 
@@ -562,7 +551,7 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
 
     private void drawAchievement() {
         List<Achievement> cAchievement = Database.mAchievementDao.fetchAllAchievement();
-        // TODO - Permitir a exclusão de conquistas no modo MAP
+        // TODO - Implement erasure of achievements in MAP mode
         builder = new LatLngBounds.Builder();
 
         for (int i = 0; i < cAchievement.size(); i++) {

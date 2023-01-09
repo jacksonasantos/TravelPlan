@@ -3,6 +3,7 @@ package com.jacksonasantos.travelplan.ui.utility;
 import java.util.HashMap;
 import java.util.Map;
 
+@SuppressWarnings("ALL")
 public class Abbreviations {
 
     public static final Map<String, String> STATE_MAP;
