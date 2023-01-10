@@ -12,6 +12,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
 import android.location.Address;
 import android.location.Geocoder;
@@ -23,7 +24,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -84,7 +84,7 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
     public static Integer nrAchievement_Id;
 
     private Button buttonSeparator;
-    private Spinner spTravel;
+    private TextView tvTravel;
     private Button btnAddItinerary;
     private Button btnEditItinerary;
     private RecyclerView listItinerary;
@@ -120,7 +120,7 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_travel_route, container, false);
 
-        spTravel = rootView.findViewById(R.id.spTravel);
+        tvTravel = rootView.findViewById(R.id.tvTravel);
         btnAddItinerary = rootView.findViewById(R.id.btnAddItinerary);
         btnEditItinerary = rootView.findViewById(R.id.btnEditItinerary);
         listItinerary = rootView.findViewById(R.id.listItinerary);
@@ -131,8 +131,7 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
         listMarkers = rootView.findViewById(R.id.listMarkers);
 
         if (flgModeAchievement) {
-            // TODO - Clean spTravel of the map for achievement
-            //spTravel.setVisibility(View.GONE);
+            tvTravel.setVisibility(View.GONE);
             btnAddItinerary.setVisibility(View.GONE);
             btnEditItinerary.setVisibility(View.GONE);
             listItinerary.setVisibility(View.GONE);
@@ -141,7 +140,7 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
         }
 
         if (txt_Search!=null) {
-            spTravel.setVisibility(View.GONE);
+            tvTravel.setVisibility(View.GONE);
             btnAddItinerary.setVisibility(View.GONE);
             listItinerary.setVisibility(View.GONE);
             listMarkers.setVisibility(View.GONE);
@@ -244,6 +243,18 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
                 }
             });
 
+            if (txt_Search==null) {
+                if (nrTravel_Id != null && nrTravel_Id > 0) {
+                    Travel trip1 = Database.mTravelDao.fetchTravelById(nrTravel_Id);
+                    tvTravel.setText(trip1.getDescription());
+                    nrItinerary_Id = null;
+                    clearMap = updateListItinerary();
+                    drawItinerary(nrTravel_Id);
+                } else {
+                    nrTravel_Id = 0;
+                    drawAchievement();
+                }
+            }
         });
 
         mMapView.onResume();
@@ -497,10 +508,11 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
         return result;
     }
 
-    private void drawMarker(LatLng point, String title, Bitmap drawableIcon, boolean isAlpha, Integer id) {
+    private void drawMarker(LatLng point, String title, Bitmap drawableIcon, boolean isAlpha, Integer id, boolean drawRoute) {
         int height = 100;
         int width = 100;
         Bitmap markerIcon = Bitmap.createScaledBitmap(drawableIcon, width, height, false);
+        if (!drawRoute) markerIcon = addBorder(markerIcon,5);
         markerOptions.position(point);
         markerOptions.title(title);
         markerOptions.draggable(true);
@@ -510,6 +522,28 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
         markerOptions.alpha(1f);
         builder.include(point);
         pointsRoute.add(point);
+    }
+
+    private Bitmap addBorder(Bitmap bmp, int borderSize) {
+        int width = bmp.getWidth();
+        int height = bmp.getHeight();
+        int length = Math.max(width, height);
+        float radius = width > height ? (((float) width)+(borderSize * 2)) / 2f : (((float) height)+(borderSize * 2)) / 2f;
+        Bitmap bmpWithBorder = Bitmap.createBitmap(width + (borderSize * 2), height + (borderSize * 2), bmp.getConfig());
+        Canvas canvas = new Canvas(bmpWithBorder);
+        Paint paint = new Paint();
+
+        paint.setAntiAlias(true);
+        paint.setDither(true);
+        paint.setColor(Color.RED);
+        paint.setStyle(Paint.Style.STROKE);
+        paint.setStrokeWidth(borderSize);
+        paint.setStrokeJoin(Paint.Join.ROUND);
+        paint.setStrokeCap(Paint.Cap.ROUND);
+
+        canvas.drawCircle(((float) (length+(borderSize*2)) / 2), ((float)(length+(borderSize*2)) / 2), radius - ((float)borderSize/2), paint);
+        canvas.drawBitmap(bmp, borderSize, borderSize, null);
+        return bmpWithBorder;
     }
 
     private void drawMarker(LatLng point, String title, int color, int drawableIcon) {
@@ -560,6 +594,7 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
             pointsRoute.clear();
             LatLng latlngSource = null;
             LatLng latlngTarget = null;
+            boolean achievementRoute = false;
             LatLng latlngIcon = null;
             Bitmap rawIcon = null;
 
@@ -569,6 +604,7 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
                 String[] aLatLngTarget = achievement.getLatlng_target().split(",");
                 latlngSource = new LatLng(Double.parseDouble(aLatLngSource[0]), Double.parseDouble(aLatLngSource[1]));
                 latlngTarget = new LatLng(Double.parseDouble(aLatLngTarget[0]), Double.parseDouble(aLatLngTarget[1]));
+                achievementRoute=true;
             }
             if (achievement.getLatlng_achievement() != null && !achievement.getLatlng_achievement().equals("")) {
                 String[] aLatLng = achievement.getLatlng_achievement().split(",");
@@ -585,7 +621,7 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
             if (latlngSource != null)
                drawMarker(latlngSource, null, ContextCompat.getColor(requireContext(), R.color.colorMarker), 0);
             if (rawIcon != null)
-               drawMarker(latlngIcon  , achievement.getName(), rawIcon, !(achievement.getStatus_achievement() == 1), achievement.getId());
+               drawMarker(latlngIcon  , achievement.getName(), rawIcon, !(achievement.getStatus_achievement() == 1), achievement.getId(), achievementRoute);
             if (latlngTarget != null)
                drawMarker(latlngTarget, null, ContextCompat.getColor(requireContext(), R.color.colorMarker), 0);
 
@@ -639,55 +675,19 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
         Database mDb = new Database(getContext());
         mDb.open();
 
-        final List<Travel> travels = Database.mTravelDao.fetchArrayTravel();
-        ArrayAdapter<Travel> adapter = new ArrayAdapter<>(requireActivity(), android.R.layout.simple_spinner_item, travels);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spTravel.setAdapter(adapter);
-
-        if (nrTravel_Id != null && nrTravel_Id > 0) {
-            Travel trip1 = Database.mTravelDao.fetchTravelById(nrTravel_Id);
-            for (int x = 0; x < spTravel.getAdapter().getCount(); x++) {
-                if (spTravel.getAdapter().getItem(x).toString().equals(trip1.getDescription())) {
-                    spTravel.setSelection(x);
-                    break;
-                }
-            }
-        }
-
         btnAddItinerary.setOnClickListener(view -> {
             Itinerary itinerary = new Itinerary();
             MaintenanceItinerary(itinerary, true);
+            drawItinerary(nrTravel_Id);
         });
 
         btnEditItinerary.setOnClickListener(view -> {
             if (nrItinerary_Id != null) {
                 Itinerary itinerary = Database.mItineraryDao.fetchItineraryById(nrItinerary_Id);
                 MaintenanceItinerary(itinerary, false);
+                drawItinerary(nrTravel_Id);
             } else {
                 Toast.makeText(requireContext(), R.string.select_itinerary_to_edit, Toast.LENGTH_LONG).show();
-            }
-        });
-
-        final Travel[] travel = {new Travel()};
-        spTravel.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @SuppressLint("SetTextI18n")
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                travel[0] = (Travel) parent.getItemAtPosition(position);
-                nrTravel_Id = travel[0].getId();
-                nrItinerary_Id = null;
-                clearMap = updateListItinerary();
-                if (flgModeAchievement) {
-                    drawAchievement();
-                } else {
-                    drawItinerary(nrTravel_Id);
-                }
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-                travel[0] = null;
-                nrTravel_Id = 0;
             }
         });
 

@@ -17,13 +17,11 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <Spinner
-            android:id="@+id/spTravel"
+        <TextView
+            android:id="@+id/tvTravel"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:clickable="false"
             android:gravity="center_horizontal"
-            android:spinnerMode="dialog"
             android:textAlignment="center"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -57,7 +55,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/btnAddItinerary"
-            app:layout_constraintTop_toBottomOf="@+id/spTravel"
+            app:layout_constraintTop_toBottomOf="@+id/tvTravel"
             tools:itemCount="7" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
