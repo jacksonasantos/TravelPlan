@@ -16,6 +16,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
 import com.jacksonasantos.travelplan.MainActivity;
 import com.jacksonasantos.travelplan.R;
+import com.jacksonasantos.travelplan.dao.Achievement;
 import com.jacksonasantos.travelplan.dao.Itinerary;
 import com.jacksonasantos.travelplan.dao.general.Database;
 import com.jacksonasantos.travelplan.ui.utility.JSONParser;
@@ -35,28 +36,37 @@ public class RouteClass {
     GoogleMap mMap;
     Context context;
     String lang;
-    Integer nrTravel_Id;
-    boolean isAlpha;
+    char typeUpdate;
+    Integer nrTravel_Id, nrAchievement_Id;
+    boolean isAlpha = false;
 
     private static final String GOOGLE_API_KEY =  MainActivity.getAppResources().getString(R.string.google_maps_key);
     private final ExecutorService myExecutor = Executors.newSingleThreadExecutor();
     private final Handler myHandler = new Handler(Looper.getMainLooper());
 
-    public void drawRoute(GoogleMap map, Context c, ArrayList<LatLng> points, boolean withIndications, String language, boolean optimize, Integer travel_id, int sequence, Integer sequenceSelected, boolean isAlpha) {
-        mMap = map;
-        context = c;
-        lang = language;
-        nrTravel_Id = travel_id;
-        this.isAlpha = isAlpha;
+    public void drawRoute(GoogleMap map, Context c, ArrayList<LatLng> points, boolean withIndications, String language, boolean optimize, char type, Integer id, int sequence, Integer sequenceSelected, boolean alpha) {
+        this.mMap = map;
+        this.context = c;
+        this.lang = language;
+        this.typeUpdate = type;
+        this.nrTravel_Id = null;
+        this.nrAchievement_Id = null;
+        this.isAlpha = alpha;
+
         String mode = "driving";
         String url = null;
 
+        if (typeUpdate == 'T') {
+            nrTravel_Id = id;
+        } else if (typeUpdate == 'A') {
+            nrAchievement_Id = id;
+        }
         if (points.size() == 2) {
             url = makeURL(points.get(0).latitude, points.get(0).longitude, points.get(1).latitude, points.get(1).longitude, mode);
         } else if (points.size() > 2) {
             url = makeURL(points, mode, optimize);
         }
-        connectAsyncTask(url, withIndications, sequence, sequenceSelected);
+        connectAsyncTask(url, withIndications, sequence, sequenceSelected, nrAchievement_Id);
     }
 
     private String makeURL(ArrayList<LatLng> points, String mode, boolean optimize) {
@@ -112,7 +122,7 @@ public class RouteClass {
         return urlString.toString();
     }
 
-    private void connectAsyncTask(String urlPass, boolean withSteps,int sequence, Integer sequenceSelected ) {
+    private void connectAsyncTask(String urlPass, boolean withSteps,int sequence, Integer sequenceSelected, Integer nrAchievement_Id ) {
 
         ProgressDialog progressDialog;
         progressDialog = new ProgressDialog(context);
@@ -128,19 +138,18 @@ public class RouteClass {
             myHandler.post(() -> {
                 progressDialog.dismiss();
                 if (r != null && !r.equals("")) {
-                    drawPath(r, withSteps, sequence, sequenceSelected);
+                    drawPath(r, withSteps, sequence, sequenceSelected, nrAchievement_Id);
                 }
             });
         });
     }
 
-    private void drawPath(String result, boolean withSteps, int nrSequence, Integer nrSequenceSelected) {
+    private void drawPath(String result, boolean withSteps, int nrSequence, Integer nrSequenceSelected, Integer nrAchievement_Id) {
         try {
             final JSONObject json = new JSONObject(result);
             JSONArray routeArray = json.getJSONArray("routes");
             JSONObject routes = routeArray.getJSONObject(0);
             JSONArray arrayLegs = routes.getJSONArray("legs");
-            Itinerary itinerary = Database.mItineraryDao.fetchItineraryByTravelId(nrTravel_Id, nrSequence);
             int nrDuration = 0, nrDistance = 0;
             for (int y =0; y < arrayLegs.length(); y++) {
                 JSONObject legs = arrayLegs.getJSONObject(y);
@@ -151,13 +160,23 @@ public class RouteClass {
 
                 for (int i = 0; i < stepsArray.length(); i++) {
                     String polyline = (String) ((JSONObject) ((JSONObject) stepsArray.get(i)).get("polyline")).get("points");
-                    int vColor = nrSequence%2==0 ? Color.MAGENTA : Color.BLUE;
-                    int vWidth = 4;
+                    int vColor;
+                    switch (nrSequence%4){
+                        case 0: vColor = Color.MAGENTA;
+                                break;
+                        case 1: vColor = Color.DKGRAY;
+                                break;
+                        case 2: vColor = Color.BLUE;
+                                break;
+                        default: vColor = Color.RED;
+                    }
+
+                    int vWidth = 8;
                     if (nrSequenceSelected != null) {
                         vColor = nrSequence==nrSequenceSelected ? vColor : Color.RED;
-                        vWidth = nrSequence==nrSequenceSelected ? vWidth : 8;
+                        vWidth = nrSequence==nrSequenceSelected ? vWidth : 14;
                     }
-                    if (isAlpha) vColor = (vColor & 0x00FFFFFF) | (0x40 << 24);
+                    //if (isAlpha) vColor = (vColor & 0x00FFFFFF) | (0x40 << 24);
 
                     mMap.addPolyline(new PolylineOptions()
                             .addAll(decodePoly(polyline))
@@ -175,12 +194,22 @@ public class RouteClass {
                                 .draggable(true)
                                 .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
                     }
+
                 }
             }
-            itinerary.setDistance(nrDistance);
-            itinerary.setTime(nrDuration);
-            Database.mItineraryDao.updateItinerary(itinerary);
-        } catch (JSONException e) {
+            if ( typeUpdate == 'T' ) {
+                Itinerary itinerary = Database.mItineraryDao.fetchItineraryByTravelId(nrTravel_Id, nrSequence);
+                itinerary.setDistance(nrDistance);
+                itinerary.setTime(nrDuration);
+                Database.mItineraryDao.updateItinerary(itinerary);
+            } else if (typeUpdate == 'A') {
+                Achievement achievement = Database.mAchievementDao.fetchAchievementById(nrAchievement_Id);
+                achievement.setLength_achievement(nrDistance);
+                if (!Database.mAchievementDao.updateAchievement(achievement)){
+                    Toast.makeText(context, R.string.Error_Changing_Data + "-" + R.string.Achievement, Toast.LENGTH_LONG).show();
+                }
+            }
+        } catch (Exception e) {
             Toast.makeText(context, e.getMessage(), Toast.LENGTH_LONG).show();
         }
     }

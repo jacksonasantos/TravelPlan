@@ -33,10 +33,10 @@ public class Achievement {
     public void setId(Integer id) {this.id = id;}
 
     public Integer getTravel_id() { return travel_id; }
-    public void setTravel_id(Integer travel_id) { this.travel_id = travel_id; }
+    public void setTravel_id(Integer travel_id) { this.travel_id = (travel_id==null||travel_id==0)?null:travel_id; }
 
     public Integer getItinerary_id() { return itinerary_id; }
-    public void setItinerary_id(Integer itinerary_id) { this.itinerary_id = itinerary_id; }
+    public void setItinerary_id(Integer itinerary_id) { this.itinerary_id = (itinerary_id==null||itinerary_id==0)?null:itinerary_id; }
 
     public String getShort_name() {return short_name;}
     public void setShort_name(String short_name) {this.short_name = short_name;}

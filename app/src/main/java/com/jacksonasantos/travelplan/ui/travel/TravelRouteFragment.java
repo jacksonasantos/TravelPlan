@@ -159,8 +159,8 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
             }
             googleMap.setMyLocationEnabled(true);
             googleMap.getUiSettings().setMyLocationButtonEnabled(true);            // Show Detect location button
-            googleMap.setIndoorEnabled(true);                                      // Enables indoor maps
-            googleMap.setBuildingsEnabled(true);                                   // Turns on 3D buildings
+            //googleMap.setIndoorEnabled(false);                                     // Enables indoor maps
+            //googleMap.setBuildingsEnabled(false);                                  // Turns on 3D buildings
             googleMap.getUiSettings().setZoomControlsEnabled(true);                // Show Zoom buttons
 
             googleMap.setOnMapClickListener(point -> {
@@ -508,22 +508,6 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
         return result;
     }
 
-    private void drawMarker(LatLng point, String title, Bitmap drawableIcon, boolean isAlpha, Integer id, boolean drawRoute) {
-        int height = 100;
-        int width = 100;
-        Bitmap markerIcon = Bitmap.createScaledBitmap(drawableIcon, width, height, false);
-        if (!drawRoute) markerIcon = addBorder(markerIcon,5);
-        markerOptions.position(point);
-        markerOptions.title(title);
-        markerOptions.draggable(true);
-        markerOptions.icon(BitmapDescriptorFactory.fromBitmap(markerIcon));
-        if (isAlpha) markerOptions.alpha(0.6f); else markerOptions.alpha(1f);
-        Objects.requireNonNull(googleMap.addMarker(markerOptions)).setTag(id);                      // add the marker to Map
-        markerOptions.alpha(1f);
-        builder.include(point);
-        pointsRoute.add(point);
-    }
-
     private Bitmap addBorder(Bitmap bmp, int borderSize) {
         int width = bmp.getWidth();
         int height = bmp.getHeight();
@@ -544,6 +528,22 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
         canvas.drawCircle(((float) (length+(borderSize*2)) / 2), ((float)(length+(borderSize*2)) / 2), radius - ((float)borderSize/2), paint);
         canvas.drawBitmap(bmp, borderSize, borderSize, null);
         return bmpWithBorder;
+    }
+    private void drawMarker(LatLng point, String title, Bitmap drawableIcon, boolean isAlpha, Integer id, boolean drawRoute) {
+        int height = 100;
+        int width = 100;
+        int borderSize = 5;
+        Bitmap markerIcon = Bitmap.createScaledBitmap(drawableIcon, width, height, false);
+        if (!drawRoute) markerIcon = addBorder(markerIcon, borderSize);
+        markerOptions.position(point);
+        markerOptions.title(title);
+        markerOptions.draggable(true);
+        markerOptions.icon(BitmapDescriptorFactory.fromBitmap(markerIcon));
+        if (isAlpha) markerOptions.alpha(0.6f); else markerOptions.alpha(1f);
+        Objects.requireNonNull(googleMap.addMarker(markerOptions)).setTag(id);                      // add the marker to Map
+        markerOptions.alpha(1f);
+        builder.include(point);
+        pointsRoute.add(point);
     }
 
     private void drawMarker(LatLng point, String title, int color, int drawableIcon) {
@@ -597,6 +597,7 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
             boolean achievementRoute = false;
             LatLng latlngIcon = null;
             Bitmap rawIcon = null;
+            boolean isAlpha  = (achievement.getStatus_achievement() != 1);
 
             if (   (achievement.getLatlng_source()!=null && !achievement.getLatlng_source().equals(""))
                 && (achievement.getLatlng_target()!=null && !achievement.getLatlng_target().equals(""))) {
@@ -621,11 +622,13 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
             if (latlngSource != null)
                drawMarker(latlngSource, null, ContextCompat.getColor(requireContext(), R.color.colorMarker), 0);
             if (rawIcon != null)
-               drawMarker(latlngIcon  , achievement.getName(), rawIcon, !(achievement.getStatus_achievement() == 1), achievement.getId(), achievementRoute);
+               drawMarker(latlngIcon  , achievement.getName(), rawIcon, isAlpha, achievement.getId(), achievementRoute);
             if (latlngTarget != null)
                drawMarker(latlngTarget, null, ContextCompat.getColor(requireContext(), R.color.colorMarker), 0);
 
-            routeClass.drawRoute(googleMap, getContext(), pointsRoute, false, lang, false, 0, i, null, !(achievement.getStatus_achievement() == 1));
+            if (achievementRoute) {
+                routeClass.drawRoute(googleMap, getContext(), pointsRoute, false, lang, false, 'A', achievement.getId(), i, null, isAlpha);
+            }
 
         }
         zoomMarkers();
@@ -647,7 +650,7 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
                         LatLng latlng = new LatLng(Double.parseDouble(marker.getLatitude()), Double.parseDouble(marker.getLongitude()));
                         drawMarker(latlng, marker.getName(), ContextCompat.getColor(requireContext(), R.color.colorMarker), marker.getMarker_typeImage(marker.getMarker_type()));
                     }
-                    routeClass.drawRoute(googleMap, getContext(), pointsRoute, false, lang, false, nrTravel_Id, itinerary.getSequence(), nrItinerary_Id, false);
+                    routeClass.drawRoute(googleMap, getContext(), pointsRoute, false, lang, false, 'T', nrTravel_Id, itinerary.getSequence(), nrItinerary_Id, false);
                     zoomMarkers();
                 }
             }
