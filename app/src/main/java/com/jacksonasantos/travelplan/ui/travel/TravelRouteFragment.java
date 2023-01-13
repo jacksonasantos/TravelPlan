@@ -118,6 +118,7 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
         View rootView = inflater.inflate(R.layout.fragment_travel_route, container, false);
 
         tvTravel = rootView.findViewById(R.id.tvTravel);
@@ -159,8 +160,6 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
             }
             googleMap.setMyLocationEnabled(true);
             googleMap.getUiSettings().setMyLocationButtonEnabled(true);            // Show Detect location button
-            //googleMap.setIndoorEnabled(false);                                     // Enables indoor maps
-            //googleMap.setBuildingsEnabled(false);                                  // Turns on 3D buildings
             googleMap.getUiSettings().setZoomControlsEnabled(true);                // Show Zoom buttons
 
             googleMap.setOnMapClickListener(point -> {
