@@ -28,8 +28,21 @@
         app:autoSizeStepGranularity="1sp"
         app:autoSizeTextType="uniform"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/txtExpectedValue"
+        app:layout_constraintEnd_toStartOf="@+id/txtVehicleShortName"
         app:layout_constraintStart_toEndOf="@+id/imgServiceType"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/txtVehicleShortName"
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:gravity="end|center_vertical"
+        app:autoSizeMaxTextSize="12sp"
+        app:autoSizeMinTextSize="6sp"
+        app:autoSizeStepGranularity="1sp"
+        app:autoSizeTextType="uniform"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/txtExpectedValue"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView

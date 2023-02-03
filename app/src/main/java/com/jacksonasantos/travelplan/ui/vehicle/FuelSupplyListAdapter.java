@@ -40,6 +40,7 @@ public class FuelSupplyListAdapter extends RecyclerView.Adapter<FuelSupplyListAd
         public final TextView txtVehicleShortName;
         public final TextView txtNumberLiters;
         public final TextView txtSupplyValue;
+        public final TextView txStatAvgFuelConsumption;
         public final ImageButton btnEdit;
         public final ImageButton btnDelete;
 
@@ -49,6 +50,7 @@ public class FuelSupplyListAdapter extends RecyclerView.Adapter<FuelSupplyListAd
             txtVehicleShortName = v.findViewById(R.id.txtVehicleShortName);
             txtNumberLiters = v.findViewById(R.id.txtNumberLiters);
             txtSupplyValue = v.findViewById(R.id.txtSupplyValue);
+            txStatAvgFuelConsumption = v.findViewById(R.id.txStatAvgFuelConsumption);
             btnEdit = v.findViewById(R.id.btnEdit);
             btnDelete = v.findViewById(R.id.btnDelete);
             btnEdit.setOnClickListener(this);
@@ -88,6 +90,10 @@ public class FuelSupplyListAdapter extends RecyclerView.Adapter<FuelSupplyListAd
         holder.txtNumberLiters.setText(fuelSupply.getNumber_liters() +" "+g.getMeasureCapacity());
         NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(locale);
         holder.txtSupplyValue.setText(currencyFormatter.format(fuelSupply.getSupply_value()));
+        NumberFormat numberFormat = NumberFormat.getNumberInstance(locale);
+        numberFormat.setMaximumFractionDigits(2);
+        numberFormat.setMinimumFractionDigits(2);
+        holder.txStatAvgFuelConsumption.setText(numberFormat.format(fuelSupply.getStat_avg_fuel_consumption())+" "+g.getMeasureConsumption());
         // btnEdit
         holder.btnEdit.setOnClickListener (v13 -> {
             Intent intent = new Intent (v13.getContext(), FuelSupplyActivity.class);

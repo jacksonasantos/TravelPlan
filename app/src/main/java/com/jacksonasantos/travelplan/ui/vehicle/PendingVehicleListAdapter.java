@@ -2,6 +2,7 @@ package com.jacksonasantos.travelplan.ui.vehicle;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Paint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,6 +42,7 @@ public class PendingVehicleListAdapter extends RecyclerView.Adapter<PendingVehic
         public final ImageView imgServiceType;
         public final TextView txtNote;
         public final TextView txtExpectedValue;
+        public final TextView txtVehicleShortName;
         public final ImageButton btnDelete;
 
         public MyViewHolder(View v) {
@@ -49,6 +51,7 @@ public class PendingVehicleListAdapter extends RecyclerView.Adapter<PendingVehic
             imgServiceType = v.findViewById(R.id.imgServiceType);
             txtNote = v.findViewById(R.id.txtNote);
             txtExpectedValue = v.findViewById(R.id.txtExpectedValue);
+            txtVehicleShortName = v.findViewById(R.id.txtVehicleShortName);
             btnDelete = v.findViewById(R.id.btnDelete);
             btnDelete.setOnClickListener(this);
         }
@@ -82,6 +85,14 @@ public class PendingVehicleListAdapter extends RecyclerView.Adapter<PendingVehic
         holder.imgServiceType.setImageResource(NextMaintenanceItem.getServiceTypeImage(pendingVehicle.getService_type()));
         holder.txtNote.setText(pendingVehicle.getNote());
         holder.txtExpectedValue.setText(currencyFormatter.format(pendingVehicle.getExpected_value()));
+        holder.txtVehicleShortName.setText(Database.mVehicleDao.fetchVehicleById(pendingVehicle.getVehicle_id()).getShort_name());
+
+        if ( pendingVehicle.getStatus_pending() > 0 ) {
+            holder.txtNote.setPaintFlags(Paint.STRIKE_THRU_TEXT_FLAG);
+            holder.txtExpectedValue.setPaintFlags(Paint.STRIKE_THRU_TEXT_FLAG);
+            holder.txtVehicleShortName.setPaintFlags(Paint.STRIKE_THRU_TEXT_FLAG);
+        }
+
         holder.llPendingVehicle.setOnClickListener(v -> {
             Intent intent = new Intent (v.getContext(), PendingVehicleActivity.class);
             intent.putExtra("pending_vehicle_id", pendingVehicle.getId());

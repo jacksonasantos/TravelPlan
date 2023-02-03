@@ -137,6 +137,7 @@ public class HomeVehiclePendingVehicleListAdapter extends RecyclerView.Adapter<R
         private final ImageView imgServiceType;
         private final TextView txtNote;
         private final TextView txtExpectedValue;
+        private final TextView txtVehicleShortName;
         private final ImageButton btnDelete;
 
         public ItemViewHolder(View v) {
@@ -145,7 +146,9 @@ public class HomeVehiclePendingVehicleListAdapter extends RecyclerView.Adapter<R
             imgServiceType = v.findViewById(R.id.imgServiceType);
             txtNote = v.findViewById(R.id.txtNote);
             txtExpectedValue = v.findViewById(R.id.txtExpectedValue);
+            txtVehicleShortName = v.findViewById(R.id.txtVehicleShortName);
             btnDelete = v.findViewById(R.id.btnDelete);
+            txtVehicleShortName.setVisibility(View.GONE);
         }
     }
 }

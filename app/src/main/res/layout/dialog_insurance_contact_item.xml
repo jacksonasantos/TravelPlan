@@ -12,11 +12,12 @@
         android:gravity="center"
         android:textSize="12sp"
         android:textStyle="bold" />
+
     <TextView
         android:id="@+id/tvDetailContact"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/labels_space_top"
         android:gravity="center"
-        android:textSize="12sp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:textSize="12sp" />
 </LinearLayout>

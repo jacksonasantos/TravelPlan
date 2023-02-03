@@ -74,9 +74,9 @@ public class PendingVehicleDAO extends DbContentProvider implements PendingVehic
             final String[] selectionArgs = { String.valueOf(Globals.getInstance().getIdVehicle()) };
             final String selection = PENDING_VEHICLE_VEHICLE_ID + " = ?";
 
-            cursor = super.query(PENDING_VEHICLE_TABLE, PENDING_VEHICLE_COLUMNS, selection, selectionArgs, PENDING_VEHICLE_SERVICE_TYPE);
+            cursor = super.query(PENDING_VEHICLE_TABLE, PENDING_VEHICLE_COLUMNS, selection, selectionArgs, PENDING_VEHICLE_VEHICLE_ID+","+PENDING_VEHICLE_SERVICE_TYPE);
         } else {
-            cursor = super.query(PENDING_VEHICLE_TABLE, PENDING_VEHICLE_COLUMNS, null, null, PENDING_VEHICLE_SERVICE_TYPE);
+            cursor = super.query(PENDING_VEHICLE_TABLE, PENDING_VEHICLE_COLUMNS, null, null, PENDING_VEHICLE_VEHICLE_ID+","+PENDING_VEHICLE_SERVICE_TYPE);
         }
 
         if (cursor.moveToFirst()) {
