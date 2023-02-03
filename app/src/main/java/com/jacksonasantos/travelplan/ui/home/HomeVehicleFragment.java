@@ -66,6 +66,7 @@ public class HomeVehicleFragment extends Fragment implements View.OnClickListene
     private TextView tvFuelSupplyLastOdometer;
     private TextView tvFuelSupplyNumberLiters;
     private TextView tvFuelSupplyValue;
+    private TextView tvConsumption;
 
     private ConstraintLayout layerInsuranceVehicle;
     private ImageView imInsuranceType;
@@ -117,6 +118,7 @@ public class HomeVehicleFragment extends Fragment implements View.OnClickListene
         tvFuelSupplyLastOdometer = v.findViewById(R.id.tvFuelSupplyLastOdometer);
         tvFuelSupplyNumberLiters = v.findViewById(R.id.tvFuelSupplyNumberLiters);
         tvFuelSupplyValue = v.findViewById(R.id.tvFuelSupplyValue);
+        tvConsumption = v.findViewById(R.id.tvConsumption);
 
         layerInsuranceVehicle = v.findViewById(R.id.layerInsuranceVehicle);
         imInsuranceType = v.findViewById(R.id.imInsuranceType);
@@ -207,6 +209,7 @@ public class HomeVehicleFragment extends Fragment implements View.OnClickListene
                 tvFuelSupplyLastOdometer.setText(numberFormatter.format(fuelSupply.getVehicle_odometer()));
                 tvFuelSupplyNumberLiters.setText(fuelSupply.getNumber_liters()==0? "0 "+g.getMeasureCapacity() :fuelSupply.getNumber_liters() +" "+g.getMeasureCapacity());
                 tvFuelSupplyValue.setText(currencyFormatter.format(fuelSupply.getSupply_value()==0?BigDecimal.ZERO:fuelSupply.getSupply_value()));
+                tvConsumption.setText(numberFormatter.format(fuelSupply.getStat_avg_fuel_consumption()) + " " + g.getMeasureConsumption());
 
                 // Insurance - layerInsuranceVehicle
                 List<Insurance> insurance = Database.mInsuranceDao.findReminderInsurance("V", g.getIdVehicle() );

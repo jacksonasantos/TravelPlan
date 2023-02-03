@@ -103,9 +103,11 @@ public class FuelSupplyDAO extends DbContentProvider implements FuelSupplyISchem
     public List<FuelSupply> fetchAllFuelSupplies( boolean descOrder) {
         List<FuelSupply> fuelSupplyList = new ArrayList<>();
         String order = FUEL_SUPPLY_SUPPLY_DATE;
+        if (descOrder) { order = order + " DESC"; }
+        order = order + "," + FUEL_SUPPLY_ID;
+        if (descOrder) { order = order + " DESC"; }
         String[] selectionArgs = null;
         String selection = null;
-        if (descOrder) { order = order + " DESC"; }
         if (Globals.getInstance().getFilterVehicle()) {
             selectionArgs = new String[]{String.valueOf(Globals.getInstance().getIdVehicle())};
             selection = FUEL_SUPPLY_VEHICLE_ID + " = ?";

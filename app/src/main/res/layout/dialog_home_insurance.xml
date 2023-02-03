@@ -12,6 +12,7 @@
         android:padding="@dimen/labels_marginLeft">
 
         <androidx.cardview.widget.CardView
+            android:id="@+id/cvBroker"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/labels_space_top"
@@ -56,22 +57,29 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="4"
+                        android:contentDescription="@string/Broker_Phone"
                         android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:textSize="12sp" />
+                        android:textIsSelectable="true"
+                        android:textSize="12sp"
+                        tools:ignore="TouchTargetSizeCheck" />
 
                     <TextView
                         android:id="@+id/txtBrokerEmail"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="6"
+                        android:contentDescription="@string/Broker_Email"
                         android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:textSize="12sp" />
+                        android:textIsSelectable="true"
+                        android:textSize="12sp"
+                        tools:ignore="TouchTargetSizeCheck,TouchTargetSizeCheck" />
                 </LinearLayout>
             </LinearLayout>
 
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
+            android:id="@+id/cvPolicy"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/labels_space_top"
@@ -224,6 +232,7 @@
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
+            android:id="@+id/cvContact"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/labels_space_top"
@@ -255,6 +264,7 @@
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
+            android:id="@+id/cvWellInsured"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/labels_space_top"

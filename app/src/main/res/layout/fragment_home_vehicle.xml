@@ -64,9 +64,10 @@
             <ImageView
                 android:id="@+id/imVehicleType"
                 android:layout_width="120dp"
-                android:layout_height="85dp"
+                android:layout_height="105dp"
                 android:contentDescription="@string/Vehicle_Type"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.498"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/spVehicle" />
 
@@ -163,6 +164,16 @@
                     app:layout_constraintTop_toBottomOf="@+id/imgFuelSupplyLastOdometer"
                     app:srcCompat="@drawable/ic_money" />
 
+
+                <ImageView
+                    android:id="@+id/imgConsumption"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:contentDescription="@string/FuelSupply_Combustible"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/imgFuelSupplyValue"
+                    app:srcCompat="@drawable/ic_consumption" />
+
                 <TextView
                     android:id="@+id/tvFuelSupplyDate"
                     android:layout_width="0dp"
@@ -218,6 +229,20 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/imgFuelSupplyValue"
                     app:layout_constraintTop_toBottomOf="@+id/tvFuelSupplyLastOdometer" />
+
+                <TextView
+                    android:id="@+id/tvConsumption"
+                    android:layout_width="0dp"
+                    android:layout_height="20dp"
+                    android:ems="10"
+                    android:gravity="center_horizontal|center_vertical"
+                    app:autoSizeMaxTextSize="12sp"
+                    app:autoSizeMinTextSize="6sp"
+                    app:autoSizeStepGranularity="1sp"
+                    app:autoSizeTextType="uniform"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/imgConsumption"
+                    app:layout_constraintTop_toBottomOf="@+id/tvFuelSupplyValue" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
