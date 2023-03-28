@@ -1,180 +1,231 @@
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    android:background="@color/colorBackgroundDialog"
+    android:padding="10dp"
     tools:context=".ui.travel.TravelActivity">
 
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
-
-        <LinearLayout
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="7"
-                android:text="@string/Travel_Description" />
-            <EditText
-                android:id="@+id/etDescription"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="3"
-                android:autofillHints="no"
-                android:nextFocusDown="@+id/etDeparture_date"
-                android:textSize="12sp"
-                android:inputType="text"
-                tools:ignore="LabelFor" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_marginBottom="@dimen/labels_space_top"
+            app:cardBackgroundColor="@color/colorBackgroundCard"
+            app:cardCornerRadius="@dimen/cardCornerRadius"
+            app:cardElevation="@dimen/cardElevation">
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
-                <TextView
+                android:orientation="vertical"
+                android:padding="@dimen/labels_margin">
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="5"
-                    android:text="@string/Travel_Departure_Date" />
-                <TextView
+                    android:orientation="horizontal">
+                    <EditText
+                        android:id="@+id/etDescription"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="10"
+                        android:autofillHints="no"
+                        android:hint="@string/Travel_Description"
+                        android:nextFocusDown="@+id/etDeparture_date"
+                        android:textAlignment="center"
+                        android:textSize="12sp"
+                        android:inputType="text"
+                        tools:ignore="LabelFor" />
+                </LinearLayout>
+
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="5"
-                    android:text="@string/Travel_Return_Date" />
+                    android:orientation="vertical">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="5"
+                            android:text="@string/Travel_Departure_Date" />
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="5"
+                            android:text="@string/Travel_Return_Date" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <EditText
+                            android:id="@+id/etDeparture_date"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="5"
+                            android:autofillHints="no"
+                            android:inputType="date"
+                            android:nextFocusDown="@+id/etReturn_date"
+                            android:textSize="12sp"
+                            tools:ignore="LabelFor" />
+                        <EditText
+                            android:id="@+id/etReturn_date"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="5"
+                            android:autofillHints="no"
+                            android:inputType="date"
+                            android:nextFocusDown="@+id/etNote"
+                            android:textSize="12sp"
+                            tools:ignore="LabelFor" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/Travel_Note" />
+                    <EditText
+                        android:id="@+id/etNote"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="text"
+                        android:nextFocusDown="@+id/btSaveTravel"
+                        android:textSize="12sp"
+                        android:autofillHints="no"
+                        tools:ignore="LabelFor" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="6"
+                        android:text="@string/Travel_Status" />
+                    <EditText
+                        android:id="@+id/tvStatus"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="4"
+                        android:autofillHints="no"
+                        android:clickable="false"
+                        android:enabled="false"
+                        android:nextFocusDown="@+id/btSaveTravel"
+                        android:textSize="12sp"
+                        android:inputType="none"
+                        tools:ignore="LabelFor" />
+                </LinearLayout>
             </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-                <EditText
-                    android:id="@+id/etDeparture_date"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="5"
-                    android:autofillHints="no"
-                    android:inputType="date"
-                    android:nextFocusDown="@+id/etReturn_date"
-                    android:textSize="12sp"
-                    tools:ignore="LabelFor" />
-                <EditText
-                    android:id="@+id/etReturn_date"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="5"
-                    android:autofillHints="no"
-                    android:inputType="date"
-                    android:nextFocusDown="@+id/etNote"
-                    android:textSize="12sp"
-                    tools:ignore="LabelFor" />
-            </LinearLayout>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/Travel_Note" />
-            <EditText
-                android:id="@+id/etNote"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="text"
-                android:nextFocusDown="@+id/btSaveTravel"
-                android:textSize="12sp"
-                android:autofillHints="no"
-                tools:ignore="LabelFor" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="7"
-                android:text="@string/Travel_Status" />
-            <EditText
-                android:id="@+id/tvStatus"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="3"
-                android:autofillHints="no"
-                android:clickable="false"
-                android:enabled="false"
-                android:nextFocusDown="@+id/btSaveTravel"
-                android:textSize="12sp"
-                android:inputType="none"
-                tools:ignore="LabelFor" />
-        </LinearLayout>
-
-         <Button
+        </androidx.cardview.widget.CardView>
+        <Button
             android:id="@+id/btSaveTravel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="@dimen/labels_space_top"
             android:text="@string/bt_Save" />
-
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="15dp"
-            android:clickable="false" />
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/clVehicleTravel"
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:baselineAligned="false"
-            android:orientation="horizontal">
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rvVehicleTravel"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:itemCount="2" />
-
-            <Button
-                android:id="@+id/buttonSeparator2"
-                android:layout_width="match_parent"
-                android:layout_height="15dp"
-                android:clickable="false"
-                app:layout_constraintTop_toBottomOf="@+id/rvVehicleTravel"
-                tools:layout_editor_absoluteX="29dp" />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rvAchievementTravel"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:layout_constraintTop_toBottomOf="@+id/buttonSeparator2"
-                tools:itemCount="2" />
-
-            <Button
-                android:id="@+id/buttonSeparator3"
-                android:layout_width="match_parent"
-                android:layout_height="15dp"
-                android:clickable="false"
-                app:layout_constraintTop_toBottomOf="@+id/rvAchievementTravel" />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rvTravelExpenses"
+            android:layout_marginTop="@dimen/labels_space_top"
+            android:layout_marginBottom="@dimen/labels_space_top"
+            app:cardBackgroundColor="@color/colorBackgroundCard"
+            app:cardCornerRadius="@dimen/cardCornerRadius"
+            app:cardElevation="@dimen/cardElevation">
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@+id/buttonSeparator3"
-                tools:itemCount="2"/>
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="10"
+                    android:textSize="14sp"
+                    android:fontFamily="sans-serif-black"
+                    android:gravity="center"
+                    android:background="@color/colorBackgroundSubjectDialog"
+                    android:text="@string/Vehicle" />
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvVehicleTravel"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:itemCount="2" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/labels_space_top"
+            android:layout_marginBottom="@dimen/labels_space_top"
+            app:cardBackgroundColor="@color/colorBackgroundCard"
+            app:cardCornerRadius="@dimen/cardCornerRadius"
+            app:cardElevation="@dimen/cardElevation">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="10"
+                    android:textSize="14sp"
+                    android:fontFamily="sans-serif-black"
+                    android:gravity="center"
+                    android:background="@color/colorBackgroundSubjectDialog"
+                    android:text="@string/Achievement" />
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvAchievementTravel"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:layout_constraintTop_toBottomOf="@+id/buttonSeparator2"
+                    tools:itemCount="2" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/labels_space_top"
+            android:layout_marginBottom="@dimen/labels_space_top"
+            app:cardBackgroundColor="@color/colorBackgroundCard"
+            app:cardCornerRadius="@dimen/cardCornerRadius"
+            app:cardElevation="@dimen/cardElevation">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="10"
+                    android:textSize="14sp"
+                    android:fontFamily="sans-serif-black"
+                    android:gravity="center"
+                    android:background="@color/colorBackgroundSubjectDialog"
+                    android:text="@string/Travel_Expenses" />
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvTravelExpenses"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@+id/buttonSeparator3"
+                    tools:itemCount="2"/>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
     </LinearLayout>
 </ScrollView>

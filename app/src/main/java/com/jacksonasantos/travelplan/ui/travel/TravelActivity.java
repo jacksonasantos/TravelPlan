@@ -2,7 +2,6 @@ package com.jacksonasantos.travelplan.ui.travel;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -10,7 +9,6 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -28,11 +26,8 @@ public class TravelActivity extends AppCompatActivity {
     private int nrStatus;
     private TextView tvStatus;
 
-    private ConstraintLayout clVehicleTravel;
     private RecyclerView rvVehicleTravel;
-
     private RecyclerView rvAchievementTravel;
-
     private RecyclerView rvTravelExpenses;
 
     private TravelVehicleListAdapter adapterVehicleTravel;
@@ -64,11 +59,8 @@ public class TravelActivity extends AppCompatActivity {
         etNote = findViewById(R.id.etNote);
         tvStatus = findViewById(R.id.tvStatus);
 
-        clVehicleTravel = findViewById(R.id.clVehicleTravel);
         rvVehicleTravel = findViewById(R.id.rvVehicleTravel);
-
         rvAchievementTravel = findViewById(R.id.rvAchievementTravel);
-
         rvTravelExpenses = findViewById(R.id.rvTravelExpenses);
     }
 
@@ -99,7 +91,6 @@ public class TravelActivity extends AppCompatActivity {
         etReturn_date.addTextChangedListener(new DateInputMask(etReturn_date));
 
         if (travel != null) {
-            clVehicleTravel.setVisibility(View.VISIBLE);
             adapterVehicleTravel = new TravelVehicleListAdapter(Database.mVehicleHasTravelDao.fetchAllVehicleHasTravelByTravel(travel.getId()), getApplicationContext(),"Travel",1, travel.getId());
             rvVehicleTravel.setAdapter(adapterVehicleTravel);
             rvVehicleTravel.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
@@ -114,8 +105,6 @@ public class TravelActivity extends AppCompatActivity {
             rvTravelExpenses.setAdapter(adapterTravelExpenses);
             rvTravelExpenses.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
             adapterTravelExpenses.notifyDataSetChanged();
-        } else {
-            clVehicleTravel.setVisibility(View.INVISIBLE);
         }
     }
 
