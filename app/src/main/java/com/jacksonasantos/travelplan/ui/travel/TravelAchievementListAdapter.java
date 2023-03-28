@@ -2,15 +2,19 @@ package com.jacksonasantos.travelplan.ui.travel;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.SimpleCursorAdapter;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,6 +26,7 @@ import com.jacksonasantos.travelplan.R;
 import com.jacksonasantos.travelplan.dao.Achievement;
 import com.jacksonasantos.travelplan.dao.Marker;
 import com.jacksonasantos.travelplan.dao.general.Database;
+import com.jacksonasantos.travelplan.ui.utility.Utils;
 
 import java.util.List;
 import java.util.Objects;
@@ -34,10 +39,12 @@ public class TravelAchievementListAdapter extends RecyclerView.Adapter<RecyclerV
     private final List<Achievement> mAchievement;
     final Context context;
     final int show_header;
+    final Integer mTravel_id;
     public final String form;
 
-    public TravelAchievementListAdapter(List<Achievement> achievements, Context context, String form, int show_header) {
+    public TravelAchievementListAdapter(List<Achievement> achievements, Context context, String form, int show_header, Integer travel_id) {
         this.mAchievement = achievements;
+        this.mTravel_id = travel_id;
         this.context = context;
         this.form = form;
         this.show_header = show_header; // 0 - NO SHOW HEADER | 1 - SHOW HEADER
@@ -59,12 +66,83 @@ public class TravelAchievementListAdapter extends RecyclerView.Adapter<RecyclerV
         if (holder instanceof HeaderViewHolder){
             HeaderViewHolder headerViewHolder = (HeaderViewHolder) holder;
 
+            final int[] nrSpinAchievement = {0};
+            final int[] nrSpinItinerary = {0};
             headerViewHolder.llAchievementTravelItem.setBackgroundColor(Color.LTGRAY);
             headerViewHolder.imgAchievement.setImageBitmap(null);
             headerViewHolder.txtNameAchievement.setText(R.string.Achievement);
             headerViewHolder.txtShortNameAchievement.setText(R.string.Achievement_Short_Name);
             headerViewHolder.txtSequenceAchievement.setText(R.string.Itinerary_Sequence);
-            headerViewHolder.btnDelete.setVisibility(View.INVISIBLE);
+            headerViewHolder.btnAddAchievement.setImageResource(R.drawable.ic_button_add);
+            headerViewHolder.btnAddAchievement.setOnClickListener(v -> {
+                LayoutInflater li = LayoutInflater.from(v.getContext());
+                View promptsView = li.inflate(R.layout.dialog_travel_achievement, null);
+
+                String[] adapterCols = new String[]{"text1"};
+                int[] adapterRowViews = new int[]{android.R.id.text1};
+                final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(v.getContext());
+                alertDialogBuilder.setView(promptsView);
+                final Spinner spinAchievement = promptsView.findViewById(R.id.spinAchievement);
+                final Spinner spinItinerary = promptsView.findViewById(R.id.spinItinerary);
+
+                Cursor cAchievement = Database.mAchievementDao.fetchArrayAchievement();
+                SimpleCursorAdapter cursorAdapterA = new SimpleCursorAdapter(li.getContext(),
+                        android.R.layout.simple_spinner_item, cAchievement, adapterCols, adapterRowViews, 0);
+                cursorAdapterA.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                spinAchievement.setAdapter(cursorAdapterA);
+                Utils.setSpinnerToValue(spinAchievement, nrSpinAchievement[0]);
+                spinAchievement.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                        nrSpinAchievement[0] = Math.toIntExact(spinAchievement.getSelectedItemId());
+                    }
+                    @Override
+                    public void onNothingSelected(AdapterView<?> adapterView) {
+                    }
+                });
+
+                Cursor cItinerary = Database.mItineraryDao.fetchArrayItinerary(mTravel_id);
+                SimpleCursorAdapter cursorAdapterI = new SimpleCursorAdapter(li.getContext(),
+                        android.R.layout.simple_spinner_item, cItinerary, adapterCols, adapterRowViews, 0);
+                cursorAdapterI.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                spinItinerary.setAdapter(cursorAdapterI);
+                Utils.setSpinnerToValue(spinItinerary, nrSpinItinerary[0]);
+                spinItinerary.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                        nrSpinItinerary[0] = Math.toIntExact(spinItinerary.getSelectedItemId());
+                    }
+                    @Override
+                    public void onNothingSelected(AdapterView<?> adapterView) {
+                    }
+                });
+
+                alertDialogBuilder
+                        .setCancelable(false)
+                        .setPositiveButton(R.string.OK, (dialog, id) -> {
+                            boolean isSave = false;
+
+                            Achievement ac1 = Database.mAchievementDao.fetchAchievementById(nrSpinAchievement[0]);
+
+                            ac1.setTravel_id(mTravel_id);
+                            ac1.setItinerary_id(nrSpinItinerary[0]);
+                            try {
+                                isSave = Database.mAchievementDao.updateAchievement(ac1);
+                            } catch (Exception e) {
+                                Toast.makeText(context, R.string.Error_Changing_Data + e.getMessage(), Toast.LENGTH_LONG).show();
+                            }
+
+                            if (!isSave) {
+                                Toast.makeText(context, R.string.Error_Saving_Data, Toast.LENGTH_LONG).show();
+                            } else {
+                                mAchievement.add(ac1);
+                                notifyItemInserted(mAchievement.size());
+                            }
+                        })
+                        .setNegativeButton(R.string.Cancel, (dialog, id) -> dialog.cancel());
+                AlertDialog alertDialog = alertDialogBuilder.create();
+                alertDialog.show();
+            });
         }
         else if (holder instanceof ItemViewHolder) {
             final ItemViewHolder itemViewHolder = (ItemViewHolder) holder;
@@ -131,7 +209,7 @@ public class TravelAchievementListAdapter extends RecyclerView.Adapter<RecyclerV
                                     mAchievementNew.setTravel_id(null);
                                     mAchievementNew.setItinerary_id(null);
                                     Database.mAchievementDao.updateAchievement(mAchievementNew);
-                                    mAchievement.remove(position);
+                                    mAchievement.remove(position-show_header);
                                     notifyItemRemoved(position);
                                     notifyItemRangeChanged(position, mAchievement.size());
                                 } catch (Exception e) {
@@ -163,7 +241,7 @@ public class TravelAchievementListAdapter extends RecyclerView.Adapter<RecyclerV
         public final TextView txtNameAchievement;
         public final TextView txtShortNameAchievement;
         public final TextView txtSequenceAchievement;
-        public final ImageButton btnDelete;
+        public final ImageButton btnAddAchievement;
 
         public HeaderViewHolder(View v) {
             super(v);
@@ -172,7 +250,7 @@ public class TravelAchievementListAdapter extends RecyclerView.Adapter<RecyclerV
             txtNameAchievement = v.findViewById(R.id.txtNameAchievement);
             txtShortNameAchievement = v.findViewById(R.id.txtShortNameAchievement);
             txtSequenceAchievement = v.findViewById(R.id.txtSequenceAchievement);
-            btnDelete = v.findViewById(R.id.btnDelete);
+            btnAddAchievement = v.findViewById(R.id.btnDelete);
         }
     }
 

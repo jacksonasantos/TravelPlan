@@ -308,7 +308,7 @@ public class HomeTravelFragment extends Fragment implements View.OnClickListener
 
                 // Vehicles has Travel
                 final int Show_Header_VehicleTravel = 1  ;
-                TravelVehicleListAdapter adapterVehicleTravel = new TravelVehicleListAdapter(Database.mVehicleHasTravelDao.fetchAllVehicleHasTravelByTravel(travel[0].getId() ), getContext(),"Home", Show_Header_VehicleTravel);
+                TravelVehicleListAdapter adapterVehicleTravel = new TravelVehicleListAdapter(Database.mVehicleHasTravelDao.fetchAllVehicleHasTravelByTravel(travel[0].getId() ), getContext(),"Home", Show_Header_VehicleTravel,travel[0].id);
                 if ( adapterVehicleTravel.getItemCount() > Show_Header_VehicleTravel){
                     layerVehicle.setVisibility(View.VISIBLE);
                     listVehicle.setAdapter(adapterVehicleTravel);
@@ -330,7 +330,7 @@ public class HomeTravelFragment extends Fragment implements View.OnClickListener
 
                 // Achievement has Travel
                 final int Show_Header_AchievementTravel = 0 ;
-                TravelAchievementListAdapter adapterAchievementTravel = new TravelAchievementListAdapter(Database.mAchievementDao.fetchAllAchievementByTravel(travel[0].getId()), getContext(),"Home", Show_Header_AchievementTravel);
+                TravelAchievementListAdapter adapterAchievementTravel = new TravelAchievementListAdapter(Database.mAchievementDao.fetchAllAchievementByTravel(travel[0].getId()), getContext(),"Home", Show_Header_AchievementTravel, travel[0].getId());
                 if ( adapterAchievementTravel.getItemCount() > Show_Header_AchievementTravel){
                     layerAchievement.setVisibility(View.VISIBLE);
                     listAchievement.setAdapter(adapterAchievementTravel);

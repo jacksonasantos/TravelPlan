@@ -1,116 +1,130 @@
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    android:background="@color/colorBackgroundDialog"
+    android:padding="10dp"
     tools:context=".ui.general.BrokerActivity">
 
-    <LinearLayout
-        android:layout_width="fill_parent"
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        app:cardBackgroundColor="@color/colorBackgroundCard"
+        app:cardCornerRadius="@dimen/cardCornerRadius"
+        app:cardElevation="@dimen/cardElevation">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <com.google.android.material.textfield.TextInputLayout
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/labels_margin"
-                android:layout_marginLeft="@dimen/labels_margin"
-                android:layout_marginTop="@dimen/labels_space_top"
-                android:layout_marginEnd="@dimen/labels_margin"
-                android:layout_marginRight="@dimen/labels_margin">
+                android:orientation="horizontal"
+                android:padding="@dimen/labels_margin">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="6"
+                    android:text="@string/Broker_Name" />
 
                 <EditText
                     android:id="@+id/etName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_weight="4"
                     android:autofillHints="no"
-                    android:hint="@string/Broker_Name"
                     android:inputType="text"
                     android:nextFocusDown="@+id/etPhone"
-                    android:textSize="12sp" />
-            </com.google.android.material.textfield.TextInputLayout>
+                    android:textSize="12sp"
+                    tools:ignore="LabelFor" />
+            </LinearLayout>
 
-            <com.google.android.material.textfield.TextInputLayout
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/labels_margin"
-                android:layout_marginLeft="@dimen/labels_margin"
-                android:layout_marginTop="@dimen/labels_space_top"
-                android:layout_marginEnd="@dimen/labels_margin"
-                android:layout_marginRight="@dimen/labels_margin">
+                android:orientation="horizontal"
+                android:padding="@dimen/labels_margin">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="6"
+                    android:text="@string/Broker_Phone" />
 
                 <EditText
                     android:id="@+id/etPhone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_weight="4"
                     android:autofillHints="no"
-                    android:hint="@string/Broker_Phone"
                     android:inputType="phone"
                     android:nextFocusDown="@+id/etEmail"
-                    android:textSize="12sp" />
-            </com.google.android.material.textfield.TextInputLayout>
+                    android:textSize="12sp"
+                    tools:ignore="LabelFor" />
+            </LinearLayout>
 
-            <com.google.android.material.textfield.TextInputLayout
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/labels_margin"
-                android:layout_marginLeft="@dimen/labels_margin"
-                android:layout_marginTop="@dimen/labels_space_top"
-                android:layout_marginEnd="@dimen/labels_margin"
-                android:layout_marginRight="@dimen/labels_margin">
-
+                android:orientation="horizontal"
+                android:padding="@dimen/labels_margin">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="6"
+                    android:text="@string/Broker_Email" />
                 <EditText
                     android:id="@+id/etEmail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/Broker_Email"
+                    android:layout_weight="4"
                     android:inputType="textEmailAddress"
                     android:nextFocusDown="@+id/etContact_name"
                     android:textSize="12sp"
-                    android:autofillHints="no" />
-            </com.google.android.material.textfield.TextInputLayout>
+                    android:autofillHints="no"
+                    tools:ignore="LabelFor" />
+            </LinearLayout>
 
-            <com.google.android.material.textfield.TextInputLayout
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/labels_margin"
-                android:layout_marginLeft="@dimen/labels_margin"
-                android:layout_marginTop="@dimen/labels_space_top"
-                android:layout_marginEnd="@dimen/labels_margin"
-                android:layout_marginRight="@dimen/labels_margin">
-
+                android:orientation="horizontal"
+                android:padding="@dimen/labels_margin">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="6"
+                    android:text="@string/Broker_Contact_Name" />
                 <EditText
                     android:id="@+id/etContact_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_weight="4"
                     android:autofillHints="no"
-                    android:hint="@string/Broker_Contact_Name"
                     android:inputType="text"
                     android:nextFocusDown="@+id/btSaveBroker"
-                    android:textSize="12sp" />
-            </com.google.android.material.textfield.TextInputLayout>
+                    android:textSize="12sp"
+                    tools:ignore="LabelFor" />
+            </LinearLayout>
 
+            <Button
+                android:id="@+id/buttonSeparator3"
+                android:layout_width="match_parent"
+                android:layout_height="15dp"
+                android:clickable="false" />
 
+            <Button
+                android:id="@+id/btSaveBroker"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="8dp"
+                android:text="@string/bt_Save" />
 
         </LinearLayout>
-
-        <Button
-            android:id="@+id/buttonSeparator3"
-            android:layout_width="match_parent"
-            android:layout_height="15dp"
-            android:clickable="false" />
-
-        <Button
-            android:id="@+id/btSaveBroker"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="8dp"
-            android:text="@string/bt_Save" />
-
-    </LinearLayout>
-</ScrollView>
+    </androidx.cardview.widget.CardView>
+</LinearLayout>

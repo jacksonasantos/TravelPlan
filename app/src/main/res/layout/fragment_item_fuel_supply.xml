@@ -18,7 +18,7 @@
             android:id="@+id/txtSupplyDate"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="2.5"
+            android:layout_weight="1.8"
             android:layout_gravity="center_vertical"
             android:gravity="center_vertical"
             app:autoSizeMaxTextSize="10sp"
@@ -33,14 +33,28 @@
             android:id="@+id/txtVehicleShortName"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="2"
+            android:layout_weight="1.7"
             android:layout_gravity="center_vertical"
-            android:gravity="center_vertical"
+            android:gravity="center"
             app:autoSizeMaxTextSize="10sp"
             app:autoSizeMinTextSize="4sp"
             app:autoSizeStepGranularity="1sp"
             app:autoSizeTextType="uniform"
             app:layout_constraintStart_toEndOf="@+id/txtSupplyDate"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/txtVehicleOdometer"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.2"
+            android:layout_gravity="center_vertical"
+            android:gravity="end|center_vertical"
+            app:autoSizeMaxTextSize="10sp"
+            app:autoSizeMinTextSize="4sp"
+            app:autoSizeStepGranularity="1sp"
+            app:autoSizeTextType="uniform"
+            app:layout_constraintStart_toEndOf="@+id/txtVehicleShortName"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
@@ -54,14 +68,14 @@
             app:autoSizeMinTextSize="4sp"
             app:autoSizeStepGranularity="1sp"
             app:autoSizeTextType="uniform"
-            app:layout_constraintStart_toEndOf="@+id/txtVehicleShortName"
+            app:layout_constraintStart_toEndOf="@+id/txtVehicleOdometer"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/txtSupplyValue"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="2"
+            android:layout_weight="1.8"
             android:layout_gravity="center_vertical"
             android:gravity="end|center_vertical"
             app:autoSizeMaxTextSize="10sp"

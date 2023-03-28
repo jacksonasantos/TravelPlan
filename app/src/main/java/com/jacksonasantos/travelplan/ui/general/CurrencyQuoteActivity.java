@@ -2,9 +2,11 @@ package com.jacksonasantos.travelplan.ui.general;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.AutoCompleteTextView;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.appcompat.app.ActionBar;
@@ -66,18 +68,27 @@ public class CurrencyQuoteActivity extends AppCompatActivity {
 
         addListenerOnButtonSave();
 
-        AutoCompleteTextView spinCurrencyType = findViewById(R.id.spinCurrencyType);
+        Spinner spinCurrencyType = findViewById(R.id.spinCurrencyType);
         etQuoteDate = findViewById(R.id.etQuoteDate);
         etCurrencyValue = findViewById(R.id.etCurrencyValue);
 
         Utils.createSpinnerResources(R.array.currency_array, spinCurrencyType, this);
         nrSpinCurrencyType = 0;
-        spinCurrencyType.setOnItemClickListener((adapterView, view, i, l) -> nrSpinCurrencyType = (int) adapterView.getItemIdAtPosition(i));
+        spinCurrencyType.setSelection(nrSpinCurrencyType);
+        spinCurrencyType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long idx) {
+                nrSpinCurrencyType = position;  }
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                nrSpinCurrencyType =0;
+            }
+        });
         etQuoteDate.addTextChangedListener(new DateInputMask(etQuoteDate));
 
         if (currencyQuote != null) {
             nrSpinCurrencyType=currencyQuote.getCurrency_type();
-            spinCurrencyType.setText(getResources().getStringArray(R.array.currency_array)[nrSpinCurrencyType],false);
+            spinCurrencyType.setSelection(nrSpinCurrencyType);
             etQuoteDate.setText(Utils.dateToString(currencyQuote.getQuote_date()));
             etCurrencyValue.setText(String.valueOf(currencyQuote.getCurrency_value()));
         }

@@ -1,193 +1,204 @@
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.general.BrokerActivity">
-
-    <LinearLayout
-        android:layout_width="fill_parent"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    android:background="@color/colorBackgroundDialog"
+    android:padding="10dp"
+    tools:context=".ui.general.DriverActivity">
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
-
+        app:cardBackgroundColor="@color/colorBackgroundCard"
+        app:cardCornerRadius="@dimen/cardCornerRadius"
+        app:cardElevation="@dimen/cardElevation">
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <com.google.android.material.textfield.TextInputLayout
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/labels_margin">
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/labels_margin"
-                android:layout_marginLeft="@dimen/labels_margin"
-                android:layout_marginTop="@dimen/labels_space_top"
-                android:layout_marginEnd="@dimen/labels_margin"
-                android:layout_marginRight="@dimen/labels_margin">
-
+                android:orientation="horizontal"
+                android:padding="@dimen/labels_margin">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.70"
+                    android:text="@string/Driver_Name" />
                 <EditText
                     android:id="@+id/etName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_weight="0.30"
                     android:autofillHints="no"
-                    android:hint="@string/Driver_Name"
                     android:inputType="text"
                     android:nextFocusDown="@+id/etShortName"
-                    android:textSize="12sp" />
-            </com.google.android.material.textfield.TextInputLayout>
+                    android:textSize="12sp"
+                    tools:ignore="LabelFor" />
+            </LinearLayout>
 
-            <com.google.android.material.textfield.TextInputLayout
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/labels_margin"
-                android:layout_marginLeft="@dimen/labels_margin"
-                android:layout_marginTop="@dimen/labels_space_top"
-                android:layout_marginEnd="@dimen/labels_margin"
-                android:layout_marginRight="@dimen/labels_margin">
-
+                android:orientation="horizontal"
+                android:padding="@dimen/labels_margin">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.70"
+                    android:text="@string/Driver_Short_Name" />
                 <EditText
                     android:id="@+id/etShortName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_weight="0.30"
                     android:autofillHints="no"
-                    android:hint="@string/Driver_Short_Name"
                     android:inputType="text"
                     android:nextFocusDown="@+id/rgGender"
-                    android:textSize="12sp" />
-            </com.google.android.material.textfield.TextInputLayout>
+                    android:textSize="12sp"
+                    tools:ignore="LabelFor" />
+            </LinearLayout>
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <RadioGroup
-                    android:id="@+id/rgGender"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/labels_margin"
-                    android:layout_marginLeft="@dimen/labels_margin"
-                    android:layout_marginTop="@dimen/labels_space_top"
-                    android:layout_marginEnd="@dimen/labels_margin"
-                    android:layout_marginRight="@dimen/labels_margin"
-                    android:orientation="horizontal"
-                    android:gravity="center_horizontal"
-                    android:hint="@string/Driver_Gender"
-                    android:nextFocusDown="@+id/etDrivingRecord">
-                </RadioGroup>
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
+            <RadioGroup
+                android:id="@+id/rgGender"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/labels_margin"
                 android:layout_marginLeft="@dimen/labels_margin"
                 android:layout_marginTop="@dimen/labels_space_top"
                 android:layout_marginEnd="@dimen/labels_margin"
-                android:layout_marginRight="@dimen/labels_margin">
+                android:layout_marginRight="@dimen/labels_margin"
+                android:orientation="horizontal"
+                android:gravity="center_horizontal"
+                android:hint="@string/Driver_Gender"
+                android:nextFocusDown="@+id/etDrivingRecord">
+            </RadioGroup>
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="@dimen/labels_margin">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.50"
+                    android:text="@string/Driver_Driving_Record" />
                 <EditText
                     android:id="@+id/etDrivingRecord"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_weight="0.50"
                     android:autofillHints="no"
-                    android:hint="@string/Driver_Driving_Record"
                     android:inputType="number"
-                    android:nextFocusDown="@+id/etLicenceExpirationDate"
-                    android:textSize="12sp" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/labels_margin"
-                android:layout_marginLeft="@dimen/labels_margin"
-                android:layout_marginTop="@dimen/labels_space_top"
-                android:layout_marginEnd="@dimen/labels_margin"
-                android:layout_marginRight="@dimen/labels_margin">
-
-                <EditText
-                    android:id="@+id/etLicenceExpirationDate"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/Driver_Licence_Expiration_Date"
-                    android:inputType="date"
-                    android:nextFocusDown="@+id/etFirstLicenceDate"
-                    android:textSize="12sp"
-                    android:autofillHints="no" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/labels_margin"
-                android:layout_marginLeft="@dimen/labels_margin"
-                android:layout_marginTop="@dimen/labels_space_top"
-                android:layout_marginEnd="@dimen/labels_margin"
-                android:layout_marginRight="@dimen/labels_margin">
-
-                <EditText
-                    android:id="@+id/etFirstLicenceDate"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:autofillHints="no"
-                    android:hint="@string/Driver_First_Licence_Date"
-                    android:inputType="date"
-                    android:nextFocusDown="@+id/etLicenceIssueDate"
-                    android:textSize="12sp" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/labels_margin"
-                android:layout_marginLeft="@dimen/labels_margin"
-                android:layout_marginTop="@dimen/labels_space_top"
-                android:layout_marginEnd="@dimen/labels_margin"
-                android:layout_marginRight="@dimen/labels_margin">
-
-                <EditText
-                    android:id="@+id/etLicenceIssueDate"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:autofillHints="no"
-                    android:hint="@string/Driver_Licence_Issue_Date"
-                    android:inputType="date"
                     android:nextFocusDown="@+id/etCategory"
-                    android:textSize="12sp" />
-            </com.google.android.material.textfield.TextInputLayout>
+                    android:textSize="12sp"
+                    tools:ignore="LabelFor" />
+            </LinearLayout>
 
-            <com.google.android.material.textfield.TextInputLayout
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/labels_margin"
-                android:layout_marginLeft="@dimen/labels_margin"
-                android:layout_marginTop="@dimen/labels_space_top"
-                android:layout_marginEnd="@dimen/labels_margin"
-                android:layout_marginRight="@dimen/labels_margin">
-
+                android:orientation="horizontal"
+                android:padding="@dimen/labels_margin">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.50"
+                    android:text="@string/Driver_Category" />
                 <EditText
                     android:id="@+id/etCategory"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_weight="0.50"
                     android:autofillHints="no"
-                    android:hint="@string/Driver_Category"
                     android:inputType="text"
+                    android:nextFocusDown="@+id/etLicenceExpirationDate"
+                    android:textSize="12sp"
+                    tools:ignore="LabelFor" />
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="@dimen/labels_margin">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.50"
+                    android:text="@string/Driver_Licence_Expiration_Date" />
+                <EditText
+                    android:id="@+id/etLicenceExpirationDate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.50"
+                    android:inputType="date"
+                    android:nextFocusDown="@+id/etFirstLicenceDate"
+                    android:textSize="12sp"
+                    android:autofillHints="no"
+                    tools:ignore="LabelFor" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="@dimen/labels_margin">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.50"
+                    android:text="@string/Driver_First_Licence_Date" />
+                <EditText
+                    android:id="@+id/etFirstLicenceDate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.50"
+                    android:autofillHints="no"
+                    android:inputType="date"
+                    android:nextFocusDown="@+id/etLicenceIssueDate"
+                    android:textSize="12sp"
+                    tools:ignore="LabelFor" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="@dimen/labels_margin">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.50"
+                    android:text="@string/Driver_Licence_Issue_Date" />
+                <EditText
+                    android:id="@+id/etLicenceIssueDate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.50"
+                    android:autofillHints="no"
+                    android:inputType="date"
                     android:nextFocusDown="@+id/btSaveDriver"
-                    android:textSize="12sp" />
-            </com.google.android.material.textfield.TextInputLayout>
-
+                    android:textSize="12sp"
+                    tools:ignore="LabelFor" />
+            </LinearLayout>
+            <Button
+                android:id="@+id/buttonSeparator3"
+                android:layout_width="match_parent"
+                android:layout_height="15dp"
+                android:clickable="false" />
+            <Button
+                android:id="@+id/btSaveDriver"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="8dp"
+                android:text="@string/bt_Save" />
         </LinearLayout>
-
-        <Button
-            android:id="@+id/buttonSeparator3"
-            android:layout_width="match_parent"
-            android:layout_height="15dp"
-            android:clickable="false" />
-
-        <Button
-            android:id="@+id/btSaveDriver"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="8dp"
-            android:text="@string/bt_Save" />
-
-    </LinearLayout>
-</ScrollView>
+    </androidx.cardview.widget.CardView>
+</LinearLayout>

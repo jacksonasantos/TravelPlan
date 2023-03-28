@@ -2,9 +2,11 @@ package com.jacksonasantos.travelplan.ui.general;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.AutoCompleteTextView;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.appcompat.app.ActionBar;
@@ -26,7 +28,7 @@ public class AccommodationActivity extends AppCompatActivity {
     private EditText etAccommodation_Phone;
     private EditText etAccommodation_Email;
     private EditText etAccommodation_Site;
-    private AutoCompleteTextView spinAccommodation_Accommodation_Type;
+    private Spinner spinAccommodation_Accommodation_Type;
     private int nrSpinAccommodation_Accommodation_Type;
 
     private boolean opInsert = true;
@@ -77,7 +79,16 @@ public class AccommodationActivity extends AppCompatActivity {
 
         Utils.createSpinnerResources(R.array.accommodation_type_array, spinAccommodation_Accommodation_Type, this);
         nrSpinAccommodation_Accommodation_Type = 0;
-        spinAccommodation_Accommodation_Type.setOnItemClickListener((adapterView, view, i, l) -> nrSpinAccommodation_Accommodation_Type = (int) adapterView.getItemIdAtPosition(i));
+        spinAccommodation_Accommodation_Type.setSelection(nrSpinAccommodation_Accommodation_Type);
+        spinAccommodation_Accommodation_Type.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long idx) {
+                nrSpinAccommodation_Accommodation_Type = position;  }
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                nrSpinAccommodation_Accommodation_Type =0;
+            }
+        });
 
         if (accommodation != null) {
             etAccommodationName.setText(accommodation.getName());
@@ -91,7 +102,8 @@ public class AccommodationActivity extends AppCompatActivity {
             etAccommodation_Email.setText(accommodation.getEmail());
             etAccommodation_Site.setText(accommodation.getSite());
             nrSpinAccommodation_Accommodation_Type = accommodation.getAccommodation_type();
-            spinAccommodation_Accommodation_Type.setText(getResources().getStringArray(R.array.accommodation_type_array)[nrSpinAccommodation_Accommodation_Type], false);
+            //spinAccommodation_Accommodation_Type.setText(getResources().getStringArray(R.array.accommodation_type_array)[nrSpinAccommodation_Accommodation_Type], false);
+            spinAccommodation_Accommodation_Type.setSelection(nrSpinAccommodation_Accommodation_Type);
         }
     }
 

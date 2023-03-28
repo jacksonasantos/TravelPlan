@@ -1,213 +1,245 @@
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    android:background="@color/colorBackgroundDialog"
+    android:padding="10dp"
     tools:context=".ui.general.InsuranceCompanyActivity">
 
-    <LinearLayout
-        android:layout_width="fill_parent"
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        app:cardBackgroundColor="@color/colorBackgroundCard"
+        app:cardCornerRadius="@dimen/cardCornerRadius"
+        app:cardElevation="@dimen/cardElevation">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <com.google.android.material.textfield.TextInputLayout
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/labels_margin"
-                android:layout_marginLeft="@dimen/labels_margin"
-                android:layout_marginTop="@dimen/labels_space_top"
-                android:layout_marginEnd="@dimen/labels_margin"
-                android:layout_marginRight="@dimen/labels_margin">
+                android:orientation="vertical"
+                android:padding="@dimen/labels_margin">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/Insurance_Company_Name" />
                 <EditText
                     android:id="@+id/etCompanyName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/Insurance_Company_Name"
+                    android:layout_weight="1"
                     android:nextFocusDown="@+id/etCnpj"
                     android:textSize="12sp"
                     android:inputType="text"
-                    android:autofillHints="no" />
-            </com.google.android.material.textfield.TextInputLayout>
+                    android:autofillHints="no"
+                    tools:ignore="LabelFor" />
+            </LinearLayout>
 
-            <com.google.android.material.textfield.TextInputLayout
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/labels_margin"
-                android:layout_marginLeft="@dimen/labels_margin"
-                android:layout_marginTop="@dimen/labels_space_top"
-                android:layout_marginEnd="@dimen/labels_margin"
-                android:layout_marginRight="@dimen/labels_margin">
+                android:orientation="horizontal"
+                android:padding="@dimen/labels_margin">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="7"
+                    android:text="@string/Insurance_Company_Cnpj" />
                 <EditText
                     android:id="@+id/etCnpj"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_weight="3"
                     android:autofillHints="no"
-                    android:hint="@string/Insurance_Company_Cnpj"
                     android:nextFocusDown="@+id/etFip_code"
                     android:textSize="12sp"
-                    android:inputType="text" />
-            </com.google.android.material.textfield.TextInputLayout>
+                    android:inputType="text"
+                    tools:ignore="LabelFor" />
+            </LinearLayout>
 
-            <com.google.android.material.textfield.TextInputLayout
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/labels_margin"
-                android:layout_marginLeft="@dimen/labels_margin"
-                android:layout_marginTop="@dimen/labels_space_top"
-                android:layout_marginEnd="@dimen/labels_margin"
-                android:layout_marginRight="@dimen/labels_margin">
-
+                android:orientation="horizontal"
+                android:padding="@dimen/labels_margin">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="7"
+                    android:text="@string/Insurance_Company_Fip_Code" />
                 <EditText
                     android:id="@+id/etFip_code"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_weight="3"
                     android:autofillHints="no"
-                    android:hint="@string/Insurance_Company_Fip_Code"
                     android:inputType="number"
                     android:nextFocusDown="@+id/etAddress"
                     android:textSize="12sp"
-                    tools:ignore="SpeakableTextPresentCheck,SpeakableTextPresentCheck" />
-            </com.google.android.material.textfield.TextInputLayout>
+                    tools:ignore="SpeakableTextPresentCheck,SpeakableTextPresentCheck,LabelFor" />
+            </LinearLayout>
 
-            <com.google.android.material.textfield.TextInputLayout
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/labels_margin"
-                android:layout_marginLeft="@dimen/labels_margin"
-                android:layout_marginTop="@dimen/labels_space_top"
-                android:layout_marginEnd="@dimen/labels_margin"
-                android:layout_marginRight="@dimen/labels_margin">
+                android:orientation="horizontal"
+                android:padding="@dimen/labels_margin">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="7"
+                    android:text="@string/Insurance_Company_Address" />
 
                 <EditText
                     android:id="@+id/etAddress"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:hint="@string/Insurance_Company_Address"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
                     android:inputType="text"
                     android:nextFocusDown="@+id/etCity"
                     android:textSize="12sp"
-                    android:importantForAutofill="no" />
-            </com.google.android.material.textfield.TextInputLayout>
+                    android:importantForAutofill="no"
+                    tools:ignore="LabelFor"/>
+            </LinearLayout>
 
-            <com.google.android.material.textfield.TextInputLayout
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/labels_margin"
-                android:layout_marginLeft="@dimen/labels_margin"
-                android:layout_marginTop="@dimen/labels_space_top"
-                android:layout_marginEnd="@dimen/labels_margin"
-                android:layout_marginRight="@dimen/labels_margin">
+                android:orientation="horizontal"
+                android:padding="@dimen/labels_margin">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="7"
+                    android:text="@string/Insurance_Company_City" />
+
                 <EditText
                     android:id="@+id/etCity"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:hint="@string/Insurance_Company_City"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
                     android:nextFocusDown="@+id/etState"
                     android:textSize="12sp"
                     android:autofillHints="no"
-                    android:inputType="text" />
-            </com.google.android.material.textfield.TextInputLayout>
+                    android:inputType="text"
+                    tools:ignore="LabelFor"/>
+            </LinearLayout>
 
-            <com.google.android.material.textfield.TextInputLayout
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/labels_margin"
-                android:layout_marginLeft="@dimen/labels_margin"
-                android:layout_marginTop="@dimen/labels_space_top"
-                android:layout_marginEnd="@dimen/labels_margin"
-                android:layout_marginRight="@dimen/labels_margin">
+                android:orientation="horizontal"
+                android:padding="@dimen/labels_margin">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="7"
+                    android:text="@string/Insurance_Company_State" />
+
                 <EditText
                     android:id="@+id/etState"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
                     android:autofillHints="no"
                     android:fadingEdge="none"
                     android:focusable="auto"
-                    android:hint="@string/Insurance_Company_State"
                     android:inputType="text"
                     android:nextFocusDown="@+id/etZipCode"
-                    android:textSize="12sp" />
-            </com.google.android.material.textfield.TextInputLayout>
+                    android:textSize="12sp"
+                    tools:ignore="LabelFor" />
+            </LinearLayout>
 
-            <com.google.android.material.textfield.TextInputLayout
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/labels_margin"
-                android:layout_marginLeft="@dimen/labels_margin"
-                android:layout_marginTop="@dimen/labels_space_top"
-                android:layout_marginEnd="@dimen/labels_margin"
-                android:layout_marginRight="@dimen/labels_margin">
+                android:orientation="horizontal"
+                android:padding="@dimen/labels_margin">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="7"
+                    android:text="@string/Insurance_Company_ZipCode" />
 
                 <EditText
                     android:id="@+id/etZipCode"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
                     android:autofillHints="no"
-                    android:hint="@string/Insurance_Company_ZipCode"
                     android:inputType="number"
                     android:nextFocusDown="@+id/etTelephone"
-                    android:textSize="12sp" />
-            </com.google.android.material.textfield.TextInputLayout>
+                    android:textSize="12sp"
+                    tools:ignore="LabelFor" />
+            </LinearLayout>
 
-            <com.google.android.material.textfield.TextInputLayout
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/labels_margin"
-                android:layout_marginLeft="@dimen/labels_margin"
-                android:layout_marginTop="@dimen/labels_space_top"
-                android:layout_marginEnd="@dimen/labels_margin"
-                android:layout_marginRight="@dimen/labels_margin">
+                android:orientation="horizontal"
+                android:padding="@dimen/labels_margin">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="7"
+                    android:text="@string/Insurance_Company_Telephone" />
 
                 <EditText
                     android:id="@+id/etTelephone"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
                     android:autofillHints="no"
-                    android:hint="@string/Insurance_Company_Telephone"
                     android:inputType="phone"
                     android:nextFocusDown="@+id/etAuthorization_Date"
-                    android:textSize="12sp" />
-            </com.google.android.material.textfield.TextInputLayout>
+                    android:textSize="12sp"
+                    tools:ignore="LabelFor" />
+            </LinearLayout>
 
-            <com.google.android.material.textfield.TextInputLayout
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/labels_margin"
-                android:layout_marginLeft="@dimen/labels_margin"
-                android:layout_marginTop="@dimen/labels_space_top"
-                android:layout_marginEnd="@dimen/labels_margin"
-                android:layout_marginRight="@dimen/labels_margin">
-
+                android:orientation="horizontal"
+                android:padding="@dimen/labels_margin">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="6"
+                    android:text="@string/Insurance_Company_Authorization_Date" />
                 <EditText
                     android:id="@+id/etAuthorization_Date"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="4"
                     android:autofillHints="no"
-                    android:hint="@string/Insurance_Company_Authorization_Date"
                     android:inputType="date"
                     android:nextFocusDown="@+id/btSaveMaintenance"
-                    android:textSize="12sp" />
-            </com.google.android.material.textfield.TextInputLayout>
+                    android:textSize="12sp"
+                    tools:ignore="LabelFor" />
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/buttonSeparator3"
+                android:layout_width="match_parent"
+                android:layout_height="15dp"
+                android:clickable="false" />
+
+            <Button
+                android:id="@+id/btSaveInsuranceCompany"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="8dp"
+                android:text="@string/bt_Save" />
 
         </LinearLayout>
-
-        <Button
-            android:id="@+id/buttonSeparator3"
-            android:layout_width="match_parent"
-            android:layout_height="15dp"
-            android:clickable="false" />
-
-        <Button
-            android:id="@+id/btSaveInsuranceCompany"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="8dp"
-            android:text="@string/bt_Save" />
-
-    </LinearLayout>
-</ScrollView>
+    </androidx.cardview.widget.CardView>
+</LinearLayout>

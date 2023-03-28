@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.jacksonasantos.travelplan.R;
 import com.jacksonasantos.travelplan.dao.FuelSupply;
 import com.jacksonasantos.travelplan.dao.Vehicle;
+import com.jacksonasantos.travelplan.dao.VehicleStatistics;
 import com.jacksonasantos.travelplan.dao.general.Database;
 import com.jacksonasantos.travelplan.ui.utility.Globals;
 import com.jacksonasantos.travelplan.ui.utility.Utils;
@@ -38,6 +39,7 @@ public class FuelSupplyListAdapter extends RecyclerView.Adapter<FuelSupplyListAd
 
         public final TextView txtSupplyDate;
         public final TextView txtVehicleShortName;
+        public final TextView txtVehicleOdometer;
         public final TextView txtNumberLiters;
         public final TextView txtSupplyValue;
         public final TextView txStatAvgFuelConsumption;
@@ -48,6 +50,7 @@ public class FuelSupplyListAdapter extends RecyclerView.Adapter<FuelSupplyListAd
             super(v);
             txtSupplyDate = v.findViewById(R.id.txtSupplyDate);
             txtVehicleShortName = v.findViewById(R.id.txtVehicleShortName);
+            txtVehicleOdometer = v.findViewById(R.id.txtVehicleOdometer);
             txtNumberLiters = v.findViewById(R.id.txtNumberLiters);
             txtSupplyValue = v.findViewById(R.id.txtSupplyValue);
             txStatAvgFuelConsumption = v.findViewById(R.id.txStatAvgFuelConsumption);
@@ -87,12 +90,14 @@ public class FuelSupplyListAdapter extends RecyclerView.Adapter<FuelSupplyListAd
 
         holder.txtSupplyDate.setText(Utils.dateToString(fuelSupply.getSupply_date()));
         holder.txtVehicleShortName.setText(v.getShort_name());
+        holder.txtVehicleOdometer.setText(String.valueOf(fuelSupply.getVehicle_odometer()));
         holder.txtNumberLiters.setText(fuelSupply.getNumber_liters() +" "+g.getMeasureCapacity());
         NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(locale);
         holder.txtSupplyValue.setText(currencyFormatter.format(fuelSupply.getSupply_value()));
         NumberFormat numberFormat = NumberFormat.getNumberInstance(locale);
         numberFormat.setMaximumFractionDigits(2);
         numberFormat.setMinimumFractionDigits(2);
+        holder.txStatAvgFuelConsumption.setTextColor(VehicleStatistics.getSupply_reason_type_color(fuelSupply.getSupply_reason_type()));
         holder.txStatAvgFuelConsumption.setText(numberFormat.format(fuelSupply.getStat_avg_fuel_consumption())+" "+g.getMeasureConsumption());
         // btnEdit
         holder.btnEdit.setOnClickListener (v13 -> {
@@ -115,7 +120,7 @@ public class FuelSupplyListAdapter extends RecyclerView.Adapter<FuelSupplyListAd
                         v1 = Database.mVehicleDao.fetchVehicleById(fuelSupply.getVehicle_id());
                         v1.setDt_odometer(f1.getSupply_date());
                         v1.setOdometer(f1.getVehicle_odometer());
-                        if (f1.getVehicle_odometer() == 0 && f1.getFull_tank() == 1) {
+                        if (f1.getVehicle_odometer() == 0 || f1.getFull_tank() == 1) {
                             v1.setDt_last_fueling(f1.getSupply_date());
                             v1.setLast_supply_reason_type(f1.getSupply_reason_type());
                             v1.setAccumulated_supply_value(f1.getSupply_value());

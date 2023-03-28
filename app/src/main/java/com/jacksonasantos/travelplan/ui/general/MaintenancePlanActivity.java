@@ -2,9 +2,11 @@ package com.jacksonasantos.travelplan.ui.general;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
-import android.widget.AutoCompleteTextView;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.appcompat.app.ActionBar;
@@ -17,11 +19,11 @@ import com.jacksonasantos.travelplan.ui.utility.Utils;
 
 public class MaintenancePlanActivity extends AppCompatActivity {
 
-    private AutoCompleteTextView spinService_type;
+    private Spinner spinService_type;
     private int nrSpinService_type;
     private EditText etDescription;
     private EditText etRecommendation;
-    private AutoCompleteTextView spinMeasure;
+    private Spinner spinMeasure;
     private int nrSpinMeasure;
     private EditText etExpiration_default;
 
@@ -67,17 +69,35 @@ public class MaintenancePlanActivity extends AppCompatActivity {
 
         Utils.createSpinnerResources(R.array.vehicle_services, spinService_type, this);
         nrSpinService_type = 0;
-        spinService_type.setOnItemClickListener((adapterView, view, i, l) -> nrSpinService_type = (int) adapterView.getItemIdAtPosition(i));
+        spinService_type.setSelection(nrSpinService_type);
+        spinService_type.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long idx) {
+                nrSpinService_type = position;  }
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                nrSpinService_type =0;
+            }
+        });
+
         Utils.createSpinnerResources(R.array.measure_plan, spinMeasure, this);
         nrSpinMeasure = 0;
-        spinMeasure.setOnItemClickListener((adapterView, view, i, l) -> nrSpinMeasure = (int) adapterView.getItemIdAtPosition(i));
-
+        spinMeasure.setSelection(nrSpinMeasure);
+        spinMeasure.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long idx) {
+                nrSpinMeasure = position;  }
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                nrSpinMeasure =0;
+            }
+        });
         if (maintenancePlan != null) {
             nrSpinService_type = maintenancePlan.getService_type();
-            spinService_type.setText(getResources().getStringArray(R.array.vehicle_services)[nrSpinService_type], false);
+            spinService_type.setSelection(nrSpinService_type);
             etDescription.setText(maintenancePlan.getDescription());
             nrSpinMeasure = maintenancePlan.getMeasure();
-            spinMeasure.setText(getResources().getStringArray(R.array.measure_plan)[nrSpinMeasure], false);
+            spinMeasure.setSelection(nrSpinMeasure);
             etExpiration_default.setText(String.valueOf(maintenancePlan.getExpiration_default()));
             etRecommendation.setText(maintenancePlan.getRecommendation());
         }

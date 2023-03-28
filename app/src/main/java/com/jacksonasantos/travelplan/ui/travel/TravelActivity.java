@@ -1,15 +1,10 @@
 package com.jacksonasantos.travelplan.ui.travel;
 
 import android.annotation.SuppressLint;
-import android.database.Cursor;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
-import android.widget.SimpleCursorAdapter;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,9 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.jacksonasantos.travelplan.R;
-import com.jacksonasantos.travelplan.dao.Achievement;
 import com.jacksonasantos.travelplan.dao.Travel;
-import com.jacksonasantos.travelplan.dao.VehicleHasTravel;
 import com.jacksonasantos.travelplan.dao.general.Database;
 import com.jacksonasantos.travelplan.ui.utility.DateInputMask;
 import com.jacksonasantos.travelplan.ui.utility.Utils;
@@ -36,16 +29,8 @@ public class TravelActivity extends AppCompatActivity {
     private TextView tvStatus;
 
     private ConstraintLayout clVehicleTravel;
-    private Spinner spinVehicle;
-    private int nrSpinVehicle;
-    private Spinner spinDriver;
-    private int nrSpinDriver;
-    private ImageButton btnAdd;
     private RecyclerView rvVehicleTravel;
 
-    private Spinner spinAchievement;
-    private int nrSpinAchievement;
-    private ImageButton btnAddAchievement;
     private RecyclerView rvAchievementTravel;
 
     private RecyclerView rvTravelExpenses;
@@ -80,14 +65,9 @@ public class TravelActivity extends AppCompatActivity {
         tvStatus = findViewById(R.id.tvStatus);
 
         clVehicleTravel = findViewById(R.id.clVehicleTravel);
-        spinVehicle = findViewById(R.id.spinVehicle);
-        spinDriver = findViewById(R.id.spinDriver);
         rvVehicleTravel = findViewById(R.id.rvVehicleTravel);
-        btnAdd = findViewById(R.id.btnAdd);
 
-        spinAchievement = findViewById(R.id.spinAchievement);
         rvAchievementTravel = findViewById(R.id.rvAchievementTravel);
-        btnAddAchievement = findViewById(R.id.btnAddAchievement);
 
         rvTravelExpenses = findViewById(R.id.rvTravelExpenses);
     }
@@ -117,66 +97,15 @@ public class TravelActivity extends AppCompatActivity {
 
         etDeparture_date.addTextChangedListener(new DateInputMask(etDeparture_date));
         etReturn_date.addTextChangedListener(new DateInputMask(etReturn_date));
-        String[] adapterCols = new String[]{"text1"};
-        int[] adapterRowViews = new int[]{android.R.id.text1};
-
-        Cursor vehicles = Database.mVehicleDao.fetchCursorVehicle();
-        SimpleCursorAdapter cursorAdapterV = new SimpleCursorAdapter( this,
-                android.R.layout.simple_spinner_item, vehicles, adapterCols, adapterRowViews, 0);
-        cursorAdapterV.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinVehicle.setAdapter(cursorAdapterV);
-        Utils.setSpinnerToValue(spinVehicle, nrSpinVehicle); // Selected Value of Spinner with value marked maps
-        spinVehicle.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                nrSpinVehicle = Math.toIntExact(spinVehicle.getSelectedItemId());
-            }
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-            }
-        });
-
-        Cursor drivers = Database.mDriverDao.fetchCursorDriver();
-        SimpleCursorAdapter cursorAdapterD = new SimpleCursorAdapter( this,
-                android.R.layout.simple_spinner_item, drivers, adapterCols, adapterRowViews, 0);
-        cursorAdapterV.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinDriver.setAdapter(cursorAdapterD);
-        Utils.setSpinnerToValue(spinDriver, nrSpinDriver); // Selected Value of Spinner with value marked maps
-        spinDriver.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                nrSpinDriver = Math.toIntExact(spinDriver.getSelectedItemId());
-            }
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-            }
-        });
-
-        Cursor cAchievement = Database.mAchievementDao.fetchArrayAchievement();
-        SimpleCursorAdapter cursorAdapterA = new SimpleCursorAdapter( this,
-                android.R.layout.simple_spinner_item, cAchievement, adapterCols, adapterRowViews, 0);
-        cursorAdapterA.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinAchievement.setAdapter(cursorAdapterA);
-        Utils.setSpinnerToValue(spinAchievement, nrSpinAchievement); // Selected Value of Spinner with value marked maps
-        spinAchievement.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                nrSpinAchievement = Math.toIntExact(spinAchievement.getSelectedItemId());
-            }
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-            }
-        });
 
         if (travel != null) {
-            addListenerOnButtonAdd();
             clVehicleTravel.setVisibility(View.VISIBLE);
-            adapterVehicleTravel = new TravelVehicleListAdapter(Database.mVehicleHasTravelDao.fetchAllVehicleHasTravelByTravel(travel.getId()), getApplicationContext(),"Travel",1);
+            adapterVehicleTravel = new TravelVehicleListAdapter(Database.mVehicleHasTravelDao.fetchAllVehicleHasTravelByTravel(travel.getId()), getApplicationContext(),"Travel",1, travel.getId());
             rvVehicleTravel.setAdapter(adapterVehicleTravel);
             rvVehicleTravel.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
             adapterVehicleTravel.notifyDataSetChanged();
 
-            adapterAchievementTravel = new TravelAchievementListAdapter(Database.mAchievementDao.fetchAllAchievementByTravel(travel.getId()), getApplicationContext(),"Travel",1);
+            adapterAchievementTravel = new TravelAchievementListAdapter(Database.mAchievementDao.fetchAllAchievementByTravel(travel.getId()), getApplicationContext(),"Travel",1, travel.getId());
             rvAchievementTravel.setAdapter(adapterAchievementTravel);
             rvAchievementTravel.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
             adapterAchievementTravel.notifyDataSetChanged();
@@ -188,65 +117,6 @@ public class TravelActivity extends AppCompatActivity {
         } else {
             clVehicleTravel.setVisibility(View.INVISIBLE);
         }
-    }
-
-    @SuppressLint("NotifyDataSetChanged")
-    public void addListenerOnButtonAdd() {
-        btnAdd.setOnClickListener(v -> {
-            boolean isSave = false;
-
-            if (nrSpinVehicle==0) {
-                Toast.makeText(getApplicationContext(), R.string.Vehicle_not_Selected, Toast.LENGTH_LONG).show();
-            } else {
-                final VehicleHasTravel vt1 = new VehicleHasTravel();
-
-                vt1.setTravel_id(travel.getId());
-                vt1.setVehicle_id(nrSpinVehicle);
-                vt1.setDriver_id(nrSpinDriver);
-                try {
-                    isSave = Database.mVehicleHasTravelDao.addVehicleHasTravel(vt1);
-                } catch (Exception e) {
-                    Toast.makeText(getApplicationContext(), R.string.Error_Including_Data + e.getMessage(), Toast.LENGTH_LONG).show();
-                }
-
-                setResult(isSave ? 1 : 0);
-                if (!isSave) {
-                    Toast.makeText(getApplicationContext(), R.string.Error_Saving_Data, Toast.LENGTH_LONG).show();
-                } else {
-                    adapterVehicleTravel = new TravelVehicleListAdapter(Database.mVehicleHasTravelDao.fetchAllVehicleHasTravelByTravel(travel.getId()), getApplicationContext(),"travel",0);
-                    rvVehicleTravel.setAdapter(adapterVehicleTravel);
-                    rvVehicleTravel.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-                    adapterVehicleTravel.notifyDataSetChanged();
-                }
-            }
-        });
-        btnAddAchievement.setOnClickListener(v -> {
-            boolean isSave = false;
-
-            if (nrSpinAchievement==0) {
-                Toast.makeText(getApplicationContext(), R.string.Achievement_not_Selected, Toast.LENGTH_LONG).show();
-            } else {
-                Achievement ac1 = Database.mAchievementDao.fetchAchievementById(nrSpinAchievement);
-
-                ac1.setTravel_id(travel.getId());
-                ac1.setItinerary_id(ac1.getItinerary_id()==0?null:ac1.getItinerary_id());
-                try {
-                    isSave = Database.mAchievementDao.updateAchievement(ac1);
-                } catch (Exception e) {
-                    Toast.makeText(getApplicationContext(), R.string.Error_Including_Data + e.getMessage(), Toast.LENGTH_LONG).show();
-                }
-
-                setResult(isSave ? 1 : 0);
-                if (!isSave) {
-                    Toast.makeText(getApplicationContext(), R.string.Error_Saving_Data, Toast.LENGTH_LONG).show();
-                } else {
-                    adapterAchievementTravel = new TravelAchievementListAdapter(Database.mAchievementDao.fetchAllAchievementByTravel(travel.getId()), getApplicationContext(),"travel",0);
-                    rvAchievementTravel.setAdapter(adapterAchievementTravel);
-                    rvAchievementTravel.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-                    adapterAchievementTravel.notifyDataSetChanged();
-                }
-            }
-        });
     }
 
     public void addListenerOnButtonSave() {
