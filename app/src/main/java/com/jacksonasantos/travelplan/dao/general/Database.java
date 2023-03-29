@@ -63,7 +63,7 @@ public class Database {
     private final Context mContext;
 
     private static final String DATABASE_NAME = "TravelPlan.db";
-    private static final int DATABASE_VERSION = 55;
+    private static final int DATABASE_VERSION = 56;
 
     public static AccommodationDAO mAccommodationDao;
     public static AchievementDAO mAchievementDao;
@@ -169,7 +169,8 @@ public class Database {
             {"54", ""  , "MaintenanceItemISchema"   , "ALTER_TABLE_MAINTENANCE_ITEM_V54"      , "MAINTENANCE_ITEM_TABLE"     , "V54 - Alter Table..."    },
             {"53", ""  , "PendingVehicleISchema"    , "CREATE_TABLE_PENDING_VEHICLE_V53"      , "PENDING_VEHICLE_TABLE"      , "V53 - Create Table..."   },
             {"55", "1" , "AchievementISchema"       , "ALTER_TABLE_ACHIEVEMENT_V55_1"         , "ACHIEVEMENT_TABLE"          , "V55.1 - Alter Table..."  },
-            {"55", "2" , "AchievementISchema"       , "ALTER_TABLE_ACHIEVEMENT_V55_2"         , "ACHIEVEMENT_TABLE"          , "V54.2 - Alter Table..."  },
+            {"55", "2" , "AchievementISchema"       , "ALTER_TABLE_ACHIEVEMENT_V55_2"         , "ACHIEVEMENT_TABLE"          , "V55.2 - Alter Table..."  },
+            {"56", ""  , "MaintenancePlanISchema"   , "ALTER_TABLE_MAINTENANCE_PLAN_V56"      , "MAINTENANCE_PLAN_TABLE"     , "V56 - Alter Table..."    }
     };
 
     public Database(Context context) {
@@ -323,6 +324,7 @@ public class Database {
             db.execSQL(MaintenanceItemISchema.ALTER_TABLE_MAINTENANCE_ITEM_V54);Log.w("Table "+MaintenanceItemISchema.MAINTENANCE_ITEM_TABLE,"V54 - Alter Table...");
             db.execSQL(AchievementISchema.ALTER_TABLE_ACHIEVEMENT_V55_1);Log.w("Table "+AchievementISchema.ACHIEVEMENT_TABLE,"V55_1 - Alter Table...");
             db.execSQL(AchievementISchema.ALTER_TABLE_ACHIEVEMENT_V55_2);Log.w("Table "+AchievementISchema.ACHIEVEMENT_TABLE,"V55_2 - Alter Table...");
+            db.execSQL(MaintenancePlanISchema.ALTER_TABLE_MAINTENANCE_PLAN_V56);Log.w("Table "+MaintenancePlanISchema.MAINTENANCE_PLAN_TABLE,"V56 - Alter Table...");
         }
 
         @SuppressLint("SQLiteString")
@@ -504,6 +506,9 @@ public class Database {
                     case 55:
                         db.execSQL(AchievementISchema.ALTER_TABLE_ACHIEVEMENT_V55_1);
                         db.execSQL(AchievementISchema.ALTER_TABLE_ACHIEVEMENT_V55_2);
+                        break;
+                    case 56:
+                        db.execSQL(MaintenancePlanISchema.ALTER_TABLE_MAINTENANCE_PLAN_V56);
                         break;
                     default:
                         break;

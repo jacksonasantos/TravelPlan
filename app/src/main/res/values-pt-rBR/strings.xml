@@ -389,4 +389,5 @@
     <string name="achievement_view_mode">Modo Vizualização Conquistas</string>
     <string name="Achievement_Latlng_Source">Lat/Lng Origem</string>
     <string name="Achievement_Latlng_Target">Lat/Lng Destino</string>
+    <string name="Maintenance_Plan_Recurring_Service">Serviço Recorrente</string>
 </resources>

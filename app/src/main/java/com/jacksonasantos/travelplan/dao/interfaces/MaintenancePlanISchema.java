@@ -10,6 +10,7 @@ public interface MaintenancePlanISchema {
     String MAINTENANCE_PLAN_MEASURE = "measure";
     String MAINTENANCE_PLAN_EXPIRATION_DEFAULT = "expiration_default";
     String MAINTENANCE_PLAN_RECOMMENDATION = "recommendation";
+    String MAINTENANCE_PLAN_RECURRING_SERVICE = "recurring_service";
 
     // Version 22
     String CREATE_TABLE_MAINTENANCE_PLAN_V22 = "CREATE TABLE IF NOT EXISTS "
@@ -22,12 +23,17 @@ public interface MaintenancePlanISchema {
             + MAINTENANCE_PLAN_RECOMMENDATION + " STRING "
             + ")";
 
+    // Version 56
+    String ALTER_TABLE_MAINTENANCE_PLAN_V56 = "ALTER TABLE " + MAINTENANCE_PLAN_TABLE
+            + " ADD COLUMN " + MAINTENANCE_PLAN_RECURRING_SERVICE + " INT ";
+
     String[] MAINTENANCE_PLAN_COLUMNS = new String[] {
              MAINTENANCE_PLAN_ID,
              MAINTENANCE_PLAN_SERVICE_TYPE,
              MAINTENANCE_PLAN_DESCRIPTION,
              MAINTENANCE_PLAN_MEASURE,
              MAINTENANCE_PLAN_EXPIRATION_DEFAULT,
-             MAINTENANCE_PLAN_RECOMMENDATION
+             MAINTENANCE_PLAN_RECOMMENDATION,
+             MAINTENANCE_PLAN_RECURRING_SERVICE
     };
 }

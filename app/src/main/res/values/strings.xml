@@ -179,6 +179,7 @@
     <string name="Maintenance_Plan_Measure">Measure</string>
     <string name="Maintenance_Plan_Expiration">Expiration</string>
     <string name="Maintenance_Plan_Recommendation">Recommendation</string>
+    <string name="Maintenance_Plan_Recurring_Service">Recurring Service</string>
 
     <!-- Array Type Measure -->
     <string name="indeterminate">Indeterminate</string>

@@ -22,15 +22,12 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/labels_margin"
-        android:layout_marginLeft="@dimen/labels_margin"
-        android:layout_marginEnd="@dimen/labels_margin"
-        android:layout_marginRight="@dimen/labels_margin"
         android:gravity="start|center_vertical"
         app:autoSizeMaxTextSize="12sp"
         app:autoSizeMinTextSize="4sp"
         app:autoSizeStepGranularity="1sp"
         app:autoSizeTextType="uniform"
-        app:layout_constraintEnd_toStartOf="@+id/btnEdit"
+        app:layout_constraintEnd_toEndOf="@+id/txtExpiration_default"
         app:layout_constraintStart_toEndOf="@+id/imServiceType"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -39,9 +36,6 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/labels_margin"
-        android:layout_marginLeft="@dimen/labels_margin"
-        android:layout_marginEnd="@dimen/labels_margin"
-        android:layout_marginRight="@dimen/labels_margin"
         android:contentDescription="@string/Maintenance_Plan_Expiration"
         android:gravity="center"
         app:autoSizeMaxTextSize="12sp"
@@ -49,15 +43,27 @@
         app:autoSizeStepGranularity="1sp"
         app:autoSizeTextType="uniform"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/btnEdit"
+        app:layout_constraintEnd_toStartOf="@+id/cbRecurringService"
         app:layout_constraintStart_toEndOf="@+id/imServiceType"
         app:layout_constraintTop_toBottomOf="@+id/txtDescription" />
+
+    <com.google.android.material.switchmaterial.SwitchMaterial
+        android:id="@+id/cbRecurringService"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_marginEnd="@dimen/labels_margin"
+        android:clickable="false"
+        android:contentDescription="@string/Maintenance_Plan_Expiration"
+        android:gravity="center"
+        app:layout_constraintEnd_toStartOf="@+id/btnEdit"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
         android:id="@+id/btnEdit"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:contentDescription="@string/bt_Edit"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/btnDelete"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_button_edit" />

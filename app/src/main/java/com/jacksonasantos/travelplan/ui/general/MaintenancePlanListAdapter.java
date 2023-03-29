@@ -14,6 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.switchmaterial.SwitchMaterial;
 import com.jacksonasantos.travelplan.R;
 import com.jacksonasantos.travelplan.dao.MaintenanceItem;
 import com.jacksonasantos.travelplan.dao.MaintenancePlan;
@@ -33,6 +34,7 @@ public class MaintenancePlanListAdapter extends RecyclerView.Adapter<Maintenance
         public final ImageView imServiceType;
         public final TextView txtDescription;
         public final TextView txtExpiration_default;
+        public final SwitchMaterial cbRecurringService;
         public final ImageButton btnEdit;
         public final ImageButton btnDelete;
 
@@ -41,6 +43,7 @@ public class MaintenancePlanListAdapter extends RecyclerView.Adapter<Maintenance
             imServiceType = v.findViewById(R.id.imServiceType);
             txtDescription = v.findViewById(R.id.txtDescription);
             txtExpiration_default = v.findViewById(R.id.txtExpiration_default);
+            cbRecurringService = v.findViewById(R.id.cbRecurringService);
             btnEdit = v.findViewById(R.id.btnEdit);
             btnDelete = v.findViewById(R.id.btnDelete);
             btnEdit.setOnClickListener(this);
@@ -78,6 +81,17 @@ public class MaintenancePlanListAdapter extends RecyclerView.Adapter<Maintenance
         holder.imServiceType.setImageResource(maintenanceItem.getServiceTypeImage(maintenancePlan.getService_type()));
         holder.txtDescription.setText(maintenancePlan.getDescription());
         holder.txtExpiration_default.setText(maintenancePlan.getExpiration_default()==0?measureArray[maintenancePlan.getMeasure()]:maintenancePlan.getExpiration_default()+" "+measureArray[maintenancePlan.getMeasure()]);
+        holder.cbRecurringService.setChecked(maintenancePlan.getRecurring_service()==1);
+
+        // cbRecurringService
+        holder.cbRecurringService.setOnClickListener(v -> {
+            try {
+                maintenancePlan.setRecurring_service(!holder.cbRecurringService.isChecked()?0:1);
+                Database.mMaintenancePlanDao.updateMaintenancePlan(maintenancePlan);
+            } catch (Exception e) {
+                Toast.makeText(context, context.getString(R.string.Error_Changing_Data) + "\n" + e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+            }
+        });
 
         // btnEdit
         holder.btnEdit.setOnClickListener (v -> {

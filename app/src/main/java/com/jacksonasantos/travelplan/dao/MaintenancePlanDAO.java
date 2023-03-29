@@ -104,6 +104,7 @@ public class MaintenancePlanDAO extends DbContentProvider implements Maintenance
             if (c.getColumnIndex(MAINTENANCE_PLAN_MEASURE) != -1)            {mP.setMeasure(c.getInt(c.getColumnIndexOrThrow(MAINTENANCE_PLAN_MEASURE))); }
             if (c.getColumnIndex(MAINTENANCE_PLAN_EXPIRATION_DEFAULT) != -1) {mP.setExpiration_default(c.getInt(c.getColumnIndexOrThrow(MAINTENANCE_PLAN_EXPIRATION_DEFAULT))); }
             if (c.getColumnIndex(MAINTENANCE_PLAN_RECOMMENDATION) != -1)     {mP.setRecommendation(c.getString(c.getColumnIndexOrThrow(MAINTENANCE_PLAN_RECOMMENDATION))); }
+            if (c.getColumnIndex(MAINTENANCE_PLAN_RECURRING_SERVICE) != -1)  {mP.setRecurring_service(c.getInt(c.getColumnIndexOrThrow(MAINTENANCE_PLAN_RECURRING_SERVICE))); }
         }
         return mP;
     }
@@ -116,6 +117,7 @@ public class MaintenancePlanDAO extends DbContentProvider implements Maintenance
         initialValues.put(MAINTENANCE_PLAN_MEASURE, mP.measure);
         initialValues.put(MAINTENANCE_PLAN_EXPIRATION_DEFAULT, mP.expiration_default);
         initialValues.put(MAINTENANCE_PLAN_RECOMMENDATION, mP.recommendation);
+        initialValues.put(MAINTENANCE_PLAN_RECURRING_SERVICE, mP.recurring_service);
     }
 
     private ContentValues getContentValue() {

@@ -1,6 +1,5 @@
 package com.jacksonasantos.travelplan.ui.general;
 
-import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -12,6 +11,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.material.switchmaterial.SwitchMaterial;
 import com.jacksonasantos.travelplan.R;
 import com.jacksonasantos.travelplan.dao.MaintenancePlan;
 import com.jacksonasantos.travelplan.dao.general.Database;
@@ -26,11 +26,11 @@ public class MaintenancePlanActivity extends AppCompatActivity {
     private Spinner spinMeasure;
     private int nrSpinMeasure;
     private EditText etExpiration_default;
+    private SwitchMaterial cbRecurringService;
+    private int vlRecurringService = 0;
 
     private boolean opInsert = true;
     private MaintenancePlan maintenancePlan;
-
-    @SuppressLint("WrongViewCast")
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +44,7 @@ public class MaintenancePlanActivity extends AppCompatActivity {
         spinMeasure = findViewById(R.id.spinMeasure);
         etExpiration_default = findViewById(R.id.etExpiration_default);
         etRecommendation = findViewById(R.id.etRecommendation);
+        cbRecurringService = findViewById(R.id.cbRecurringService);
     }
 
     protected void onResume() {
@@ -92,6 +93,8 @@ public class MaintenancePlanActivity extends AppCompatActivity {
                 nrSpinMeasure =0;
             }
         });
+        cbRecurringService.setOnClickListener(v -> vlRecurringService = !cbRecurringService.isChecked()?0:1);
+
         if (maintenancePlan != null) {
             nrSpinService_type = maintenancePlan.getService_type();
             spinService_type.setSelection(nrSpinService_type);
@@ -100,6 +103,8 @@ public class MaintenancePlanActivity extends AppCompatActivity {
             spinMeasure.setSelection(nrSpinMeasure);
             etExpiration_default.setText(String.valueOf(maintenancePlan.getExpiration_default()));
             etRecommendation.setText(maintenancePlan.getRecommendation());
+            cbRecurringService.setChecked(maintenancePlan.getRecurring_service()==1);
+            vlRecurringService = maintenancePlan.getRecurring_service();
         }
     }
 
@@ -119,6 +124,7 @@ public class MaintenancePlanActivity extends AppCompatActivity {
                 mp1.setMeasure(nrSpinMeasure);
                 mp1.setExpiration_default((Integer.parseInt(etExpiration_default.getText().toString().isEmpty() ? "0": etExpiration_default.getText().toString())));
                 mp1.setRecommendation(etRecommendation.getText().toString());
+                mp1.setRecurring_service(vlRecurringService);
 
                 if (!opInsert) {
                     try {
@@ -146,13 +152,13 @@ public class MaintenancePlanActivity extends AppCompatActivity {
     }
     private boolean validateData() {
         boolean isValid = false;
-
         try {
             if (!String.valueOf(nrSpinService_type).trim().isEmpty()
                 && !etDescription.getText().toString().trim().isEmpty()
                 && !String.valueOf(nrSpinMeasure).trim().isEmpty()
                 //&& !etExpiration_default.getText().toString().trim().isEmpty()
                 && !etRecommendation.getText().toString().trim().isEmpty()
+                //&& vlRecurringService != null
                )
             {
                 isValid = true;
