@@ -155,7 +155,7 @@ public class MainActivity extends AppCompatActivity {
                         Toast.makeText(ctx, R.string.Error_Changing_Data + Arrays.toString(dataLine), Toast.LENGTH_LONG).show();
                     }
                 } else {
-                    if (!Database.mMaintenancePlanDao.addMaintenancePlan(maintenancePlan)) {
+                    if (Database.mMaintenancePlanDao.addMaintenancePlan(maintenancePlan)==null) {
                         Toast.makeText(ctx, R.string.Error_Including_Data + Arrays.toString(dataLine), Toast.LENGTH_LONG).show();
                     }
                 }

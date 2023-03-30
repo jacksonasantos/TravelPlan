@@ -20,6 +20,7 @@ import com.jacksonasantos.travelplan.dao.ItineraryDAO;
 import com.jacksonasantos.travelplan.dao.MaintenanceDAO;
 import com.jacksonasantos.travelplan.dao.MaintenanceItemDAO;
 import com.jacksonasantos.travelplan.dao.MaintenancePlanDAO;
+import com.jacksonasantos.travelplan.dao.MaintenancePlanHasVehicleTypeDAO;
 import com.jacksonasantos.travelplan.dao.MarkerDAO;
 import com.jacksonasantos.travelplan.dao.NextMaintenanceItemDAO;
 import com.jacksonasantos.travelplan.dao.PendingVehicleDAO;
@@ -63,7 +64,7 @@ public class Database {
     private final Context mContext;
 
     private static final String DATABASE_NAME = "TravelPlan.db";
-    private static final int DATABASE_VERSION = 56;
+    private static final int DATABASE_VERSION = 57;
 
     public static AccommodationDAO mAccommodationDao;
     public static AchievementDAO mAchievementDao;
@@ -93,6 +94,7 @@ public class Database {
     public static VehicleStatisticsPeriodDAO mVehicleStatisticsPeriodDao;
     public static NextMaintenanceItemDAO mNextMaintenanceItemDao;
     public static VehicleMaintenanceItemDAO mVehicleMaintenanceItemDao;
+    public static MaintenancePlanHasVehicleTypeDAO mMaintenancePlanHasVehicleTypeDAO;
 
     public String[][] matrix = {
             {"1" , ""  , "VehicleISchema"           , "CREATE_TABLE_VEHICLE_V1"               , "VEHICLE_TABLE"              , "V1 - Create Table..."    },
@@ -170,7 +172,7 @@ public class Database {
             {"53", ""  , "PendingVehicleISchema"    , "CREATE_TABLE_PENDING_VEHICLE_V53"      , "PENDING_VEHICLE_TABLE"      , "V53 - Create Table..."   },
             {"55", "1" , "AchievementISchema"       , "ALTER_TABLE_ACHIEVEMENT_V55_1"         , "ACHIEVEMENT_TABLE"          , "V55.1 - Alter Table..."  },
             {"55", "2" , "AchievementISchema"       , "ALTER_TABLE_ACHIEVEMENT_V55_2"         , "ACHIEVEMENT_TABLE"          , "V55.2 - Alter Table..."  },
-            {"56", ""  , "MaintenancePlanISchema"   , "ALTER_TABLE_MAINTENANCE_PLAN_V56"      , "MAINTENANCE_PLAN_TABLE"     , "V56 - Alter Table..."    }
+            {"57", ""  , "MaintenancePlanHasVehicleTypeISchema", "ALTER_TABLE_MAINTENANCE_PLAN_HAS_VEHICLE_TYPE_V57", "MAINTENANCE_PLAN_HAS_VEHICLE_TYPE_TABLE", "V57 - Create Table..."   }
     };
 
     public Database(Context context) {
@@ -210,6 +212,7 @@ public class Database {
             mVehicleMaintenanceItemDao = new VehicleMaintenanceItemDAO(mDb);
             mDriverDao = new DriverDAO(mDb);
             mPendingVehicleDao = new PendingVehicleDAO(mDb);
+            mMaintenancePlanHasVehicleTypeDAO = new MaintenancePlanHasVehicleTypeDAO(mDb);
         } catch (Exception e) {
             Log.i("Open Database ", "Error : " + e.getMessage());
             Toast.makeText(mContext, "Error Open Database : " + e.getMessage(), Toast.LENGTH_LONG).show();
@@ -324,7 +327,7 @@ public class Database {
             db.execSQL(MaintenanceItemISchema.ALTER_TABLE_MAINTENANCE_ITEM_V54);Log.w("Table "+MaintenanceItemISchema.MAINTENANCE_ITEM_TABLE,"V54 - Alter Table...");
             db.execSQL(AchievementISchema.ALTER_TABLE_ACHIEVEMENT_V55_1);Log.w("Table "+AchievementISchema.ACHIEVEMENT_TABLE,"V55_1 - Alter Table...");
             db.execSQL(AchievementISchema.ALTER_TABLE_ACHIEVEMENT_V55_2);Log.w("Table "+AchievementISchema.ACHIEVEMENT_TABLE,"V55_2 - Alter Table...");
-            db.execSQL(MaintenancePlanISchema.ALTER_TABLE_MAINTENANCE_PLAN_V56);Log.w("Table "+MaintenancePlanISchema.MAINTENANCE_PLAN_TABLE,"V56 - Alter Table...");
+            db.execSQL(MaintenancePlanHasVehicleTypeDAO.CREATE_TABLE_MAINTENANCE_PLAN_HAS_VEHICLE_TYPE_V57); Log.w("Table "+MaintenancePlanHasVehicleTypeDAO.MAINTENANCE_PLAN_HAS_VEHICLE_TYPE_TABLE,"V57 - Create Table...");
         }
 
         @SuppressLint("SQLiteString")
@@ -507,8 +510,8 @@ public class Database {
                         db.execSQL(AchievementISchema.ALTER_TABLE_ACHIEVEMENT_V55_1);
                         db.execSQL(AchievementISchema.ALTER_TABLE_ACHIEVEMENT_V55_2);
                         break;
-                    case 56:
-                        db.execSQL(MaintenancePlanISchema.ALTER_TABLE_MAINTENANCE_PLAN_V56);
+                    case 57:
+                        db.execSQL(MaintenancePlanHasVehicleTypeDAO.CREATE_TABLE_MAINTENANCE_PLAN_HAS_VEHICLE_TYPE_V57);
                         break;
                     default:
                         break;

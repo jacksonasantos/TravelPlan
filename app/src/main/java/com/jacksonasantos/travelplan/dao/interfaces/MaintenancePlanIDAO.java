@@ -10,7 +10,7 @@ public interface MaintenancePlanIDAO {
     MaintenancePlan fetchMaintenancePlanById(Integer id);
     MaintenancePlan fetchMaintenancePlanByService(int type, String description);
     List<MaintenancePlan> fetchAllMaintenancePlan();
-    boolean addMaintenancePlan(MaintenancePlan maintenancePlan);
+    Integer addMaintenancePlan(MaintenancePlan maintenancePlan);
     void deleteMaintenancePlan(Integer id);
     boolean updateMaintenancePlan(MaintenancePlan maintenancePlan);
 }

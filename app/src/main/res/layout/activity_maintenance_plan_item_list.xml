@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:id="@+id/llMaintenancePlanItemRecurringService"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    tools:context=".ui.general.MaintenancePlanActivity">
+
+    <TextView
+        android:id="@+id/txtVehicleType"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="2"
+        android:layout_gravity="center"
+        android:gravity="start|center_vertical" />
+
+    <com.google.android.material.switchmaterial.SwitchMaterial
+        android:id="@+id/cbRecurringService"
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:layout_gravity="center"
+        android:layout_weight="8"
+        android:gravity="start"
+        android:nextFocusDown="@+id/btSaveMaintenancePlan" />
+
+</LinearLayout>

@@ -125,20 +125,25 @@
                     android:layout_weight="4"
                     android:autofillHints="no"
                     android:inputType="text"
-                    android:nextFocusDown="@+id/cbRecurringService"
+                    android:nextFocusDown="@+id/rvRecurringService"
                     android:textSize="12sp"
                     tools:ignore="LabelFor" />
             </LinearLayout>
 
-            <com.google.android.material.switchmaterial.SwitchMaterial
-                android:id="@+id/cbRecurringService"
-                android:layout_width="200dp"
+            <TextView
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:hint="@string/Maintenance_Plan_Recurring_Service"
-                android:nextFocusDown="@+id/btSaveMaintenancePlan"
-                android:padding="@dimen/labels_margin"
-                android:textSize="14sp" />
+                android:gravity="center"
+                android:paddingTop="@dimen/default_margin_top"
+                android:text="@string/Maintenance_Plan_Recurring_Service" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvRecurringService"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingLeft="40dp"
+                android:paddingRight="40dp"
+                tools:itemCount="5" />
 
             <Button
                 android:id="@+id/buttonSeparator3"

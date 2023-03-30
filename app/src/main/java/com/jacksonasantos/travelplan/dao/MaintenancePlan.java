@@ -9,7 +9,6 @@ public class MaintenancePlan {
     public int measure;
     public int expiration_default;
     public String recommendation;
-    public int recurring_service;
 
     public MaintenancePlan() {
     }
@@ -35,7 +34,4 @@ public class MaintenancePlan {
 
     public String getRecommendation() { return recommendation; }
     public void setRecommendation(String recommendation) { this.recommendation = recommendation; }
-
-    public int getRecurring_service() { return recurring_service; }
-    public void setRecurring_service(int recurring_service) { this.recurring_service = recurring_service; }
 }

@@ -47,6 +47,7 @@ public class NextMaintenanceItemDAO extends DbContentProvider implements NextMai
                              "ON vp."+ VehicleHasPlanISchema.VEHICLE_HAS_PLAN_MAINTENANCE_PLAN_ID + " = mp." + MaintenancePlanISchema.MAINTENANCE_PLAN_ID + " " +
                             "AND vp."+ VehicleHasPlanISchema.VEHICLE_HAS_PLAN_VEHICLE_ID + " = mi."+  MaintenanceISchema.MAINTENANCE_VEHICLE_ID + " " +
                      "WHERE mp." + MaintenancePlanISchema.MAINTENANCE_PLAN_MEASURE + " > 0 " +
+                       "AND mp." + MaintenancePlanISchema.MAINTENANCE_PLAN_RECURRING_SERVICE + " = 1 " +
                      "ORDER BY next_service",
                 new String[] { String.valueOf(vehicle_id)});
         if (null != cursor) {
