@@ -64,7 +64,7 @@ public class Database {
     private final Context mContext;
 
     private static final String DATABASE_NAME = "TravelPlan.db";
-    private static final int DATABASE_VERSION = 57;
+    private static final int DATABASE_VERSION = 58;
 
     public static AccommodationDAO mAccommodationDao;
     public static AchievementDAO mAchievementDao;
@@ -172,7 +172,8 @@ public class Database {
             {"53", ""  , "PendingVehicleISchema"    , "CREATE_TABLE_PENDING_VEHICLE_V53"      , "PENDING_VEHICLE_TABLE"      , "V53 - Create Table..."   },
             {"55", "1" , "AchievementISchema"       , "ALTER_TABLE_ACHIEVEMENT_V55_1"         , "ACHIEVEMENT_TABLE"          , "V55.1 - Alter Table..."  },
             {"55", "2" , "AchievementISchema"       , "ALTER_TABLE_ACHIEVEMENT_V55_2"         , "ACHIEVEMENT_TABLE"          , "V55.2 - Alter Table..."  },
-            {"57", ""  , "MaintenancePlanHasVehicleTypeISchema", "ALTER_TABLE_MAINTENANCE_PLAN_HAS_VEHICLE_TYPE_V57", "MAINTENANCE_PLAN_HAS_VEHICLE_TYPE_TABLE", "V57 - Create Table..."   }
+            {"57", ""  , "MaintenancePlanHasVehicleTypeISchema", "ALTER_TABLE_MAINTENANCE_PLAN_HAS_VEHICLE_TYPE_V57", "MAINTENANCE_PLAN_HAS_VEHICLE_TYPE_TABLE", "V57 - Create Table..."   },
+            {"58", ""  , "VehicleISchema"           , "ALTER_TABLE_VEHICLE_V58"               , "VEHICLE_TABLE"              , "V58 - Alter Table..."    }
     };
 
     public Database(Context context) {
@@ -328,6 +329,7 @@ public class Database {
             db.execSQL(AchievementISchema.ALTER_TABLE_ACHIEVEMENT_V55_1);Log.w("Table "+AchievementISchema.ACHIEVEMENT_TABLE,"V55_1 - Alter Table...");
             db.execSQL(AchievementISchema.ALTER_TABLE_ACHIEVEMENT_V55_2);Log.w("Table "+AchievementISchema.ACHIEVEMENT_TABLE,"V55_2 - Alter Table...");
             db.execSQL(MaintenancePlanHasVehicleTypeDAO.CREATE_TABLE_MAINTENANCE_PLAN_HAS_VEHICLE_TYPE_V57); Log.w("Table "+MaintenancePlanHasVehicleTypeDAO.MAINTENANCE_PLAN_HAS_VEHICLE_TYPE_TABLE,"V57 - Create Table...");
+            db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V58);Log.w("Table "+VehicleISchema.VEHICLE_TABLE,"V58 - Alter Table...");
         }
 
         @SuppressLint("SQLiteString")
@@ -512,6 +514,9 @@ public class Database {
                         break;
                     case 57:
                         db.execSQL(MaintenancePlanHasVehicleTypeDAO.CREATE_TABLE_MAINTENANCE_PLAN_HAS_VEHICLE_TYPE_V57);
+                        break;
+                    case 58:
+                        db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V58);
                         break;
                     default:
                         break;

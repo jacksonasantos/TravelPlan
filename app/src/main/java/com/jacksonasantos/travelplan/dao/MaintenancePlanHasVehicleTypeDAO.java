@@ -20,40 +20,11 @@ public class MaintenancePlanHasVehicleTypeDAO extends DbContentProvider implemen
         super(db);
     }
 
-    public MaintenancePlanHasVehicleType fetchMaintenancePlanHasVehicleTypeById(Integer id) {
-        final String[] selectionArgs = { String.valueOf(id) };
-        final String selection = MAINTENANCE_PLAN_HAS_VEHICLE_TYPE_ID + " = ?";
-        MaintenancePlanHasVehicleType maintenancePlanHasVehicleType = new MaintenancePlanHasVehicleType();
-        cursor = super.query(MAINTENANCE_PLAN_HAS_VEHICLE_TYPE_TABLE, MAINTENANCE_PLAN_HAS_VEHICLE_TYPE_COLUMNS, selection, selectionArgs, MAINTENANCE_PLAN_HAS_VEHICLE_TYPE_ID);
-        if (cursor != null) {
-            cursor.moveToFirst();
-            while (!cursor.isAfterLast()) {
-                maintenancePlanHasVehicleType = cursorToEntity(cursor);
-                cursor.moveToNext();
-            }
-            cursor.close();
-        }
-        return maintenancePlanHasVehicleType;
-    }
-
     public List<MaintenancePlanHasVehicleType> fetchMaintenancePlanHasVehicleTypeByPlan(Integer maintenance_plan_id) {
         final String[] selectionArgs = { String.valueOf(maintenance_plan_id) };
         final String selection = MAINTENANCE_PLAN_HAS_VEHICLE_TYPE_MAINTENANCE_PLAN_ID + " = ?";
         List<MaintenancePlanHasVehicleType> maintenancePlanHasVehicleTypeList = new ArrayList<>();
         cursor = super.query(MAINTENANCE_PLAN_HAS_VEHICLE_TYPE_TABLE, MAINTENANCE_PLAN_HAS_VEHICLE_TYPE_COLUMNS, selection, selectionArgs, MAINTENANCE_PLAN_HAS_VEHICLE_TYPE_MAINTENANCE_PLAN_ID);
-        if (cursor.moveToFirst()) {
-            do {
-                MaintenancePlanHasVehicleType maintenancePlanHasVehicleType = cursorToEntity(cursor);
-                maintenancePlanHasVehicleTypeList.add(maintenancePlanHasVehicleType);
-            } while (cursor.moveToNext());
-            cursor.close();
-        }
-        return maintenancePlanHasVehicleTypeList;
-    }
-
-    public List<MaintenancePlanHasVehicleType> fetchAllMaintenancePlanHasVehicleType() {
-        List<MaintenancePlanHasVehicleType> maintenancePlanHasVehicleTypeList = new ArrayList<>();
-        cursor = super.query(MAINTENANCE_PLAN_HAS_VEHICLE_TYPE_TABLE, MAINTENANCE_PLAN_HAS_VEHICLE_TYPE_COLUMNS, null, null, MAINTENANCE_PLAN_HAS_VEHICLE_TYPE_SERVICE_TYPE);
         if (cursor.moveToFirst()) {
             do {
                 MaintenancePlanHasVehicleType maintenancePlanHasVehicleType = cursorToEntity(cursor);
@@ -87,7 +58,7 @@ public class MaintenancePlanHasVehicleTypeDAO extends DbContentProvider implemen
         if (c != null) {
             if (c.getColumnIndex(MAINTENANCE_PLAN_HAS_VEHICLE_TYPE_ID) != -1)                  {mPVT.setId(c.getInt(c.getColumnIndexOrThrow(MAINTENANCE_PLAN_HAS_VEHICLE_TYPE_ID))); }
             if (c.getColumnIndex(MAINTENANCE_PLAN_HAS_VEHICLE_TYPE_MAINTENANCE_PLAN_ID) != -1) {mPVT.setMaintenance_plan_id(c.getInt(c.getColumnIndexOrThrow(MAINTENANCE_PLAN_HAS_VEHICLE_TYPE_MAINTENANCE_PLAN_ID))); }
-            if (c.getColumnIndex(MAINTENANCE_PLAN_HAS_VEHICLE_TYPE_SERVICE_TYPE) != -1)        {mPVT.setService_type(c.getInt(c.getColumnIndexOrThrow(MAINTENANCE_PLAN_HAS_VEHICLE_TYPE_SERVICE_TYPE))); }
+            if (c.getColumnIndex(MAINTENANCE_PLAN_HAS_VEHICLE_TYPE_VEHICLE_TYPE) != -1)        {mPVT.setVehicle_type(c.getInt(c.getColumnIndexOrThrow(MAINTENANCE_PLAN_HAS_VEHICLE_TYPE_VEHICLE_TYPE))); }
             if (c.getColumnIndex(MAINTENANCE_PLAN_HAS_VEHICLE_TYPE_RECURRING_SERVICE) != -1)   {mPVT.setRecurring_service(c.getInt(c.getColumnIndexOrThrow(MAINTENANCE_PLAN_HAS_VEHICLE_TYPE_RECURRING_SERVICE))); }
         }
         return mPVT;
@@ -97,7 +68,7 @@ public class MaintenancePlanHasVehicleTypeDAO extends DbContentProvider implemen
         initialValues = new ContentValues();
         initialValues.put(MAINTENANCE_PLAN_HAS_VEHICLE_TYPE_ID, mPVT.id);
         initialValues.put(MAINTENANCE_PLAN_HAS_VEHICLE_TYPE_MAINTENANCE_PLAN_ID, mPVT.maintenance_plan_id);
-        initialValues.put(MAINTENANCE_PLAN_HAS_VEHICLE_TYPE_SERVICE_TYPE, mPVT.service_type);
+        initialValues.put(MAINTENANCE_PLAN_HAS_VEHICLE_TYPE_VEHICLE_TYPE, mPVT.vehicle_type);
         initialValues.put(MAINTENANCE_PLAN_HAS_VEHICLE_TYPE_RECURRING_SERVICE, mPVT.recurring_service);
 
     }

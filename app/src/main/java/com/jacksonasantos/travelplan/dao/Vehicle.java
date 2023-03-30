@@ -30,6 +30,7 @@ public class Vehicle {
     public String state;
     public String city;
     public Date dt_acquisition;
+    public int odometer_acquisition;
     public Date dt_sale;
 
     public int doors;
@@ -140,6 +141,9 @@ public class Vehicle {
 
     public Date getDt_acquisition() {return dt_acquisition;}
     public void setDt_acquisition(Date acquisition) {this.dt_acquisition = acquisition;}
+
+    public int getOdometer_acquisition() {return odometer_acquisition;}
+    public void setOdometer_acquisition(int odometer_acquisition) {this.odometer_acquisition = odometer_acquisition;}
 
     public Date getDt_sale() {return dt_sale;}
     public void setDt_sale(Date sale) {this.dt_sale = sale;}

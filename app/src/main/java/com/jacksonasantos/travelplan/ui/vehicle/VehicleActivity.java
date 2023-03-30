@@ -66,6 +66,7 @@ public class VehicleActivity extends AppCompatActivity {
     private EditText etStateVehicle;
     private EditText etCityVehicle;
     private EditText etAcquisition;
+    private EditText etOdometer_Acquisition;
     private EditText etSale;
 
     private EditText etDoors;
@@ -134,6 +135,7 @@ public class VehicleActivity extends AppCompatActivity {
         etStateVehicle = findViewById(R.id.etStateVehicle);
         etCityVehicle = findViewById(R.id.etCityVehicle);
         etAcquisition = findViewById(R.id.etAcquisition);
+        etOdometer_Acquisition = findViewById(R.id.etOdometer_Acquisition);
         etSale = findViewById(R.id.etSale);
         etDoors = findViewById(R.id.etDoors);
         etCapacity = findViewById(R.id.etCapacity);
@@ -241,6 +243,7 @@ public class VehicleActivity extends AppCompatActivity {
             etStateVehicle.setText(vehicle.getState());
             etCityVehicle.setText(vehicle.getCity());
             etAcquisition.setText(Utils.dateToString(vehicle.getDt_acquisition()));
+            etOdometer_Acquisition.setText(vehicle.getOdometer_acquisition()==0?null:String.valueOf(vehicle.getOdometer_acquisition()));
             etSale.setText(Utils.dateToString(vehicle.getDt_sale()));
             etDoors.setText(String.valueOf(vehicle.getDoors()));
             etCapacity.setText(String.valueOf(vehicle.getCapacity()));
@@ -335,6 +338,9 @@ public class VehicleActivity extends AppCompatActivity {
                 v1.setState(etStateVehicle.getText().toString());
                 v1.setCity(etCityVehicle.getText().toString());
                 v1.setDt_acquisition(Utils.stringToDate(etAcquisition.getText().toString()));
+                if (!etOdometer_Acquisition.getText().toString().isEmpty()) {
+                    v1.setOdometer_acquisition(Integer.parseInt(etOdometer_Acquisition.getText().toString()));
+                } else { v1.setOdometer_acquisition(0); }
                 v1.setDt_sale(Utils.stringToDate(etSale.getText().toString()));
                 if (!etDoors.getText().toString().isEmpty()) {
                     v1.setDoors(Integer.parseInt(etDoors.getText().toString()));
@@ -417,6 +423,7 @@ public class VehicleActivity extends AppCompatActivity {
                 etStateVehicle.getText().toString().isEmpty() ||
                 etCityVehicle.getText().toString().isEmpty() ||
                 etAcquisition.getText().toString().isEmpty() ||
+                etOdometer_Acquisition.getText().toString().isEmpty() ||
                 //etSale.getText().toString().isEmpty() ||
                 etDoors.getText().toString().isEmpty() ||
                 etCapacity.getText().toString().isEmpty() ||

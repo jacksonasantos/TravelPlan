@@ -390,4 +390,5 @@
     <string name="Achievement_Latlng_Source">Lat/Lng Origem</string>
     <string name="Achievement_Latlng_Target">Lat/Lng Destino</string>
     <string name="Maintenance_Plan_Recurring_Service">Serviço Recorrente</string>
+    <string name="Vehicle_Odometer_Acquisition">Odometro Aquisição</string>
 </resources>

@@ -81,37 +81,39 @@ public class HomeVehicleNextMaintenanceListAdapter extends RecyclerView.Adapter<
             }
 
             int vStatus = 0;
-            if (nextMaintenanceItem.getMeasure() == 1) {         // KMs
-                if (v1.getOdometer() > Integer.parseInt(nextMaintenanceItem.getNext_service())) {
-                    vStatus = 2;
-                } else if (v1.getOdometer() > Integer.parseInt(nextMaintenanceItem.getNext_service()) - g.getKMsPreviousAlert() ||
-                        v1.getOdometer() == Integer.parseInt(nextMaintenanceItem.getNext_service())) {
-                    vStatus = 1;
-                }
-            } else {                                            // Date
-                Date vData;
-                Date vDataNow = new Date();
-
-                @SuppressLint("SimpleDateFormat") SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-
-                try {
-                    vData = dateFormat.parse(nextMaintenanceItem.getNext_service());
-                    Date vDataLim = vData;
-
-                    Calendar c = Calendar.getInstance();
-                    if (vDataLim != null) {
-                        c.setTime(vDataLim);
-                    }
-                    c.add(Calendar.DATE, g.getDaysPreviousAlert() * -1);
-                    vDataLim = c.getTime();
-                    nextMaintenanceItem.setNext_service(Utils.dateToString(vData));
-                    if (vDataNow.compareTo(vData) > 0) {
+            if (nextMaintenanceItem.getNext_service()!=null) {
+                if (nextMaintenanceItem.getMeasure() == 1) {         // KMs
+                    if (v1.getOdometer() > Integer.parseInt(nextMaintenanceItem.getNext_service())) {
                         vStatus = 2;
-                    } else if (vDataNow.compareTo(vData) <= 0 && vDataNow.compareTo(vDataLim) > 0) {
+                    } else if (v1.getOdometer() > Integer.parseInt(nextMaintenanceItem.getNext_service()) - g.getKMsPreviousAlert() ||
+                            v1.getOdometer() == Integer.parseInt(nextMaintenanceItem.getNext_service())) {
                         vStatus = 1;
                     }
-                } catch (ParseException e) {
-                    e.printStackTrace();
+                } else {                                            // Date
+                    Date vData;
+                    Date vDataNow = new Date();
+
+                    @SuppressLint("SimpleDateFormat") SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
+                    try {
+                        vData = dateFormat.parse(nextMaintenanceItem.getNext_service());
+                        Date vDataLim = vData;
+
+                        Calendar c = Calendar.getInstance();
+                        if (vDataLim != null) {
+                            c.setTime(vDataLim);
+                        }
+                        c.add(Calendar.DATE, g.getDaysPreviousAlert() * -1);
+                        vDataLim = c.getTime();
+                        nextMaintenanceItem.setNext_service(Utils.dateToString(vData));
+                        if (vDataNow.compareTo(vData) > 0) {
+                            vStatus = 2;
+                        } else if (vDataNow.compareTo(vData) <= 0 && vDataNow.compareTo(vDataLim) > 0) {
+                            vStatus = 1;
+                        }
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
             itemViewHolder.imgServiceType.setImageResource(NextMaintenanceItem.getServiceTypeImage(nextMaintenanceItem.getService_type()));

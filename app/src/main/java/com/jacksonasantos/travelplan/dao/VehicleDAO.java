@@ -131,6 +131,7 @@ public class VehicleDAO extends DbContentProvider implements VehicleISchema, Veh
             if (c.getColumnIndex(VEHICLE_BRAND) != -1)                      {v.setBrand(c.getString(c.getColumnIndexOrThrow(VEHICLE_BRAND))); }
             if (c.getColumnIndex(VEHICLE_FUEL_TYPE) != -1)                  {v.setFuel_type(c.getInt(c.getColumnIndexOrThrow(VEHICLE_FUEL_TYPE))); }
             if (c.getColumnIndex(VEHICLE_DT_ACQUISITION) != -1)             {v.setDt_acquisition(Utils.dateParse(c.getString(c.getColumnIndexOrThrow(VEHICLE_DT_ACQUISITION)))); }
+            if (c.getColumnIndex(VEHICLE_ODOMETER_ACQUISITION) != -1)       {v.setOdometer_acquisition(c.getInt(c.getColumnIndexOrThrow(VEHICLE_ODOMETER_ACQUISITION))); }
             if (c.getColumnIndex(VEHICLE_DT_SALE) != -1)                    {v.setDt_sale(Utils.dateParse(c.getString(c.getColumnIndexOrThrow(VEHICLE_DT_SALE)))); }
             if (c.getColumnIndex(VEHICLE_DT_ODOMETER) != -1)                {v.setDt_odometer(Utils.dateParse(c.getString(c.getColumnIndexOrThrow(VEHICLE_DT_ODOMETER)))); }
             if (c.getColumnIndex(VEHICLE_ODOMETER) != -1)                   {v.setOdometer(c.getInt(c.getColumnIndexOrThrow(VEHICLE_ODOMETER))); }
@@ -169,6 +170,7 @@ public class VehicleDAO extends DbContentProvider implements VehicleISchema, Veh
         initialValues.put(VEHICLE_FUEL_TYPE, v.fuel_type);
         initialValues.put(VEHICLE_SHORT_NAME, v.short_name);
         initialValues.put(VEHICLE_DT_ACQUISITION, Utils.dateFormat(v.dt_acquisition));
+        initialValues.put(VEHICLE_ODOMETER_ACQUISITION, v.odometer_acquisition);
         initialValues.put(VEHICLE_DT_SALE, Utils.dateFormat(v.dt_sale));
         initialValues.put(VEHICLE_DT_ODOMETER, Utils.dateFormat(v.dt_odometer));
         initialValues.put(VEHICLE_ODOMETER, v.odometer);

@@ -58,7 +58,7 @@ public class MaintenancePlanHasVehicleTypeListAdapter extends RecyclerView.Adapt
     public void onBindViewHolder(@NonNull final MyViewHolder holder, final int position) {
         final MaintenancePlanHasVehicleType maintenancePlanHasVehicleType = mMaintenancePlanHasVehicleType.get(position);
 
-        holder.txtVehicleType.setText(context.getResources().getStringArray(R.array.vehicle_type_array)[maintenancePlanHasVehicleType.getService_type()]);
+        holder.txtVehicleType.setText(context.getResources().getStringArray(R.array.vehicle_type_array)[maintenancePlanHasVehicleType.getVehicle_type()-1]);
         holder.cbRecurringService.setChecked(maintenancePlanHasVehicleType.getRecurring_service()==1);
         holder.cbRecurringService.setOnClickListener (v -> mMaintenancePlanHasVehicleType.get(position).setRecurring_service(!holder.cbRecurringService.isChecked()?0:1));
     }

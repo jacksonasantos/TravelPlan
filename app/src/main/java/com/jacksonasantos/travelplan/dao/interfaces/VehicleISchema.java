@@ -17,6 +17,7 @@ public interface VehicleISchema {
     String VEHICLE_AVG_COST_LITRE = "avg_cost_litre";
     String VEHICLE_SHORT_NAME = "short_name";
     String VEHICLE_DT_ACQUISITION = "dt_acquisition";
+    String VEHICLE_ODOMETER_ACQUISITION = "odometer_acquisition";
     String VEHICLE_DT_SALE = "dt_sale";
     String VEHICLE_DT_ODOMETER = "dt_odometer";
     String VEHICLE_ODOMETER = "odometer";
@@ -96,6 +97,9 @@ public interface VehicleISchema {
     // Version 48
     String ALTER_TABLE_VEHICLE_V48 = "ALTER TABLE " + VEHICLE_TABLE + " ADD COLUMN " + VEHICLE_OWNER_DRIVER_ID + " INTEGER REFERENCES " + DriverISchema.DRIVER_TABLE + " ("+DriverISchema.DRIVER_ID+") ";
 
+    // Version 58
+    String ALTER_TABLE_VEHICLE_V58 = "ALTER TABLE " + VEHICLE_TABLE + " ADD COLUMN " + VEHICLE_ODOMETER_ACQUISITION + " INT";
+
     String[] VEHICLE_COLUMNS = new String[] {
             VEHICLE_ID,
             VEHICLE_IMAGE,
@@ -110,6 +114,7 @@ public interface VehicleISchema {
             VEHICLE_FUEL_TYPE,
             VEHICLE_SHORT_NAME,
             VEHICLE_DT_ACQUISITION,
+            VEHICLE_ODOMETER_ACQUISITION,
             VEHICLE_DT_SALE,
             VEHICLE_DT_ODOMETER,
             VEHICLE_ODOMETER,

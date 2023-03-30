@@ -110,11 +110,11 @@ public class MaintenancePlanActivity extends AppCompatActivity {
             etRecommendation.setText(maintenancePlan.getRecommendation());
             mMaintenancePlanHasVehicleType = Database.mMaintenancePlanHasVehicleTypeDAO.fetchMaintenancePlanHasVehicleTypeByPlan(maintenancePlan.getId());
         } else {
-            for (int i = 0; i < getApplicationContext().getResources().getStringArray(R.array.vehicle_type_array).length; i++) {
+            for (int i = 1; i <= getApplicationContext().getResources().getStringArray(R.array.vehicle_type_array).length; i++) {
                 MaintenancePlanHasVehicleType v1 = new MaintenancePlanHasVehicleType();
                 v1.setId(null);
                 v1.setMaintenance_plan_id(null);
-                v1.setService_type(i);
+                v1.setVehicle_type(i);
                 v1.setRecurring_service(0);
                 mMaintenancePlanHasVehicleType.add(v1);
             }
