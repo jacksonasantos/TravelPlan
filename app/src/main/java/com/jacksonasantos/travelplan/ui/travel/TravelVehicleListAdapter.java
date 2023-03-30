@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
-import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -78,7 +77,8 @@ public class TravelVehicleListAdapter extends RecyclerView.Adapter<RecyclerView.
 
             final int[] nrSpinVehicle = {0};
             final int[] nrSpinDriver = {0};
-            headerViewHolder.llVehicleTravelItem.setBackgroundColor(Color.LTGRAY);
+
+            headerViewHolder.llVehicleTravelItem.setBackgroundColor(Utils.getColorWithAlpha(R.color.colorItemList,0.1f));
             headerViewHolder.txtVehicle.setText(R.string.Vehicle);
             headerViewHolder.txtDriver.setText(R.string.Driver);
             headerViewHolder.txtAvgConsumption.setText(R.string.Vehicle_Avg_Consumption);
@@ -171,11 +171,11 @@ public class TravelVehicleListAdapter extends RecyclerView.Adapter<RecyclerView.
             final Vehicle vehicle = Database.mVehicleDao.fetchVehicleById(vehicleHasTravel.getVehicle_id());
             final FuelSupply vehicleTravel = Database.mFuelSupplyDao.findAVGConsumptionTravel(vehicleHasTravel.getVehicle_id(), vehicleHasTravel.getTravel_id());
 
-            itemViewHolder.llVehicleTravelItem.setBackgroundColor(Utils.getColorWithAlpha(R.color.colorItemList,0.1f));
+            //itemViewHolder.llVehicleTravelItem.setBackgroundColor(Utils.getColorWithAlpha(R.color.colorItemList,0.1f));
             itemViewHolder.txtVehicle.setText(vehicle.getShort_name());
             itemViewHolder.txtDriver.setText(driver.getShort_Name());
-            itemViewHolder.txtAvgConsumption.setText(numberFormatter.format(vehicle.getAvg_consumption()) + " " + g.getMeasureConsumption());
-            itemViewHolder.txtAvgConsumptionTravel.setText(numberFormatter.format(vehicleTravel.getStat_avg_fuel_consumption()) + " " + g.getMeasureConsumption());
+            itemViewHolder.txtAvgConsumption.setText(String.format("%s %s", numberFormatter.format(vehicle.getAvg_consumption()), g.getMeasureConsumption()));
+            itemViewHolder.txtAvgConsumptionTravel.setText(String.format("%s %s", numberFormatter.format(vehicleTravel.getStat_avg_fuel_consumption()), g.getMeasureConsumption()));
 
             if (form.equals("Home")) {
                 itemViewHolder.btnDelete.setVisibility(View.INVISIBLE);

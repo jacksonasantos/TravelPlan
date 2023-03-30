@@ -5,7 +5,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -68,7 +67,8 @@ public class TravelAchievementListAdapter extends RecyclerView.Adapter<RecyclerV
 
             final int[] nrSpinAchievement = {0};
             final int[] nrSpinItinerary = {0};
-            headerViewHolder.llAchievementTravelItem.setBackgroundColor(Color.LTGRAY);
+
+            headerViewHolder.llAchievementTravelItem.setBackgroundColor(Utils.getColorWithAlpha(R.color.colorItemList,0.1f));
             headerViewHolder.imgAchievement.setImageBitmap(null);
             headerViewHolder.txtNameAchievement.setText(R.string.Achievement);
             headerViewHolder.txtShortNameAchievement.setText(R.string.Achievement_Short_Name);

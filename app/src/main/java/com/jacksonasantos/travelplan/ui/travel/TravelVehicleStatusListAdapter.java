@@ -2,7 +2,6 @@ package com.jacksonasantos.travelplan.ui.travel;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +20,7 @@ import com.jacksonasantos.travelplan.dao.Vehicle;
 import com.jacksonasantos.travelplan.dao.VehicleHasTravel;
 import com.jacksonasantos.travelplan.dao.general.Database;
 import com.jacksonasantos.travelplan.ui.utility.Globals;
+import com.jacksonasantos.travelplan.ui.utility.Utils;
 
 import java.text.NumberFormat;
 import java.util.List;
@@ -65,7 +65,7 @@ public class TravelVehicleStatusListAdapter extends RecyclerView.Adapter<Recycle
         if (holder instanceof HeaderViewHolder){
             HeaderViewHolder headerViewHolder = (HeaderViewHolder) holder;
 
-            headerViewHolder.llItemVehicle.setBackgroundColor(Color.LTGRAY);
+            headerViewHolder.llItemVehicle.setBackgroundColor(Utils.getColorWithAlpha(R.color.colorItemList,0.1f));
             headerViewHolder.txtVehicle.setText(R.string.Vehicle);
             headerViewHolder.txtStartOdometer.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
             headerViewHolder.txtStartOdometer.setText(R.string.StartOdometer);

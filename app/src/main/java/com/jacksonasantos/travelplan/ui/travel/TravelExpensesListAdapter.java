@@ -2,7 +2,6 @@ package com.jacksonasantos.travelplan.ui.travel;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +20,7 @@ import com.jacksonasantos.travelplan.R;
 import com.jacksonasantos.travelplan.dao.TravelExpenses;
 import com.jacksonasantos.travelplan.dao.general.Database;
 import com.jacksonasantos.travelplan.ui.utility.Globals;
+import com.jacksonasantos.travelplan.ui.utility.Utils;
 
 import java.text.NumberFormat;
 import java.util.List;
@@ -70,7 +70,7 @@ public class TravelExpensesListAdapter extends RecyclerView.Adapter<RecyclerView
         if (holder instanceof HeaderViewHolder) {
             HeaderViewHolder headerViewHolder = (HeaderViewHolder) holder;
 
-            headerViewHolder.llItemTravelExpense.setBackgroundColor(Color.LTGRAY);
+            headerViewHolder.llItemTravelExpense.setBackgroundColor(Utils.getColorWithAlpha(R.color.colorItemList,0.1f));
             headerViewHolder.txtExpenseType.setText(R.string.TravelExpenses_ExpenseType);
             headerViewHolder.txtExpectedValue.setText(R.string.TravelExpenses_ExpectedValue);
             headerViewHolder.txtNote.setText(R.string.TravelExpenses_Note);

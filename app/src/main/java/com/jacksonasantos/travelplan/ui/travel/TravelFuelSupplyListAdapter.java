@@ -2,7 +2,6 @@ package com.jacksonasantos.travelplan.ui.travel;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -65,7 +64,7 @@ public class TravelFuelSupplyListAdapter extends RecyclerView.Adapter<RecyclerVi
         if (holder instanceof HeaderViewHolder){
             HeaderViewHolder headerViewHolder = (HeaderViewHolder) holder;
 
-            headerViewHolder.llVehicleTravelItem.setBackgroundColor(Color.LTGRAY);
+            headerViewHolder.llVehicleTravelItem.setBackgroundColor(Utils.getColorWithAlpha(R.color.colorItemList,0.1f));
             headerViewHolder.txtVehicle.setText(R.string.Vehicle);
             headerViewHolder.txtSupplyDate.setText(R.string.Home_Travel_Date);
             headerViewHolder.txtLocation.setText(R.string.Home_Travel_Location);
