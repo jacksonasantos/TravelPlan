@@ -77,7 +77,6 @@ public class TravelFuelSupplyListAdapter extends RecyclerView.Adapter<RecyclerVi
             final FuelSupply fuelSupplyHasTravel = mFuelSupplyHasTravel.get(position-show_header);
             final Vehicle vehicle = Database.mVehicleDao.fetchVehicleById(fuelSupplyHasTravel.getVehicle_id());
 
-            itemViewHolder.llVehicleTravelItem.setBackgroundColor(Utils.getColorWithAlpha(R.color.colorItemList,0.1f));
             itemViewHolder.txtVehicle.setText(vehicle.getShort_name());
             itemViewHolder.txtSupplyDate.setText(Utils.dateToString(fuelSupplyHasTravel.getSupply_date()));
             itemViewHolder.txtLocation.setText(fuelSupplyHasTravel.getGas_station_location());

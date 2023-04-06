@@ -91,14 +91,14 @@ public class FuelSupplyListAdapter extends RecyclerView.Adapter<FuelSupplyListAd
         holder.txtSupplyDate.setText(Utils.dateToString(fuelSupply.getSupply_date()));
         holder.txtVehicleShortName.setText(v.getShort_name());
         holder.txtVehicleOdometer.setText(String.valueOf(fuelSupply.getVehicle_odometer()));
-        holder.txtNumberLiters.setText(fuelSupply.getNumber_liters() +" "+g.getMeasureCapacity());
+        holder.txtNumberLiters.setText(String.format("%s %s", fuelSupply.getNumber_liters(), g.getMeasureCapacity()));
         NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(locale);
         holder.txtSupplyValue.setText(currencyFormatter.format(fuelSupply.getSupply_value()));
         NumberFormat numberFormat = NumberFormat.getNumberInstance(locale);
         numberFormat.setMaximumFractionDigits(2);
         numberFormat.setMinimumFractionDigits(2);
         holder.txStatAvgFuelConsumption.setTextColor(VehicleStatistics.getSupply_reason_type_color(fuelSupply.getSupply_reason_type()));
-        holder.txStatAvgFuelConsumption.setText(numberFormat.format(fuelSupply.getStat_avg_fuel_consumption())+" "+g.getMeasureConsumption());
+        holder.txStatAvgFuelConsumption.setText(String.format("%s %s", numberFormat.format(fuelSupply.getStat_avg_fuel_consumption()), g.getMeasureConsumption()));
         // btnEdit
         holder.btnEdit.setOnClickListener (v13 -> {
             Intent intent = new Intent (v13.getContext(), FuelSupplyActivity.class);

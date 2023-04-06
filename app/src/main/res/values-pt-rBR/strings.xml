@@ -162,6 +162,7 @@
     <string name="Maintenance_Plan_Description">Descrição</string>
     <string name="Maintenance_Plan_Measure">Medida</string>
     <string name="Maintenance_Plan_Expiration">Expiração</string>
+    <string name="Maintenance_Plan_New_Expiration">Nova Expiração</string>
     <string name="Maintenance_Plan_Recommendation">Recomendação</string>
     <string name="Maintenance_Plan">Plano de Manutenção</string>
     <string name="menu_maintenance_plan">Plano de Manutenção</string>
