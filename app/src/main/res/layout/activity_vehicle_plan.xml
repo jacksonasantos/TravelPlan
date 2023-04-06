@@ -28,7 +28,7 @@
 
                 <TextView
                     android:id="@+id/txVehicleName"
-                    android:layout_width="330dp"
+                    android:layout_width="0dp"
                     android:layout_height="20dp"
                     android:layout_marginStart="@dimen/labels_margin"
                     android:layout_marginTop="@dimen/labels_space_top"
@@ -53,7 +53,7 @@
 
                 <TextView
                     android:id="@+id/txVehicleLicencePlate"
-                    android:layout_width="330dp"
+                    android:layout_width="0dp"
                     android:layout_height="25dp"
                     android:layout_marginStart="@dimen/labels_margin"
                     android:layout_marginTop="@dimen/labels_space_top"
@@ -61,15 +61,32 @@
                     android:hint="@string/Vehicle_Licence_Plate"
                     android:textSize="14sp"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/btnAdd"
                     app:layout_constraintStart_toEndOf="@+id/imVehicleType"
                     app:layout_constraintTop_toBottomOf="@+id/txVehicleName" />
+
+                <ImageButton
+                    android:id="@+id/btnAdd"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:adjustViewBounds="true"
+                    android:contentDescription="@string/bt_Add"
+                    android:padding="7dp"
+                    android:scaleType="fitCenter"
+                    android:scaleX="1.5"
+                    android:scaleY="1.5"
+                    app:layout_constraintBottom_toBottomOf="@+id/txVehicleLicencePlate"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/txVehicleLicencePlate"
+                    app:srcCompat="@drawable/ic_button_add" />
+
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/labels_space_top"
             android:layout_marginBottom="@dimen/labels_space_top"
             app:cardBackgroundColor="@color/colorBackgroundCard"
             app:cardCornerRadius="@dimen/cardCornerRadius"

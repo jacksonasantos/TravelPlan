@@ -1,8 +1,10 @@
 package com.jacksonasantos.travelplan.ui.vehicle;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -24,6 +26,7 @@ public class VehiclePlanActivity extends AppCompatActivity {
     private ImageView imVehicleType;
     private TextView txVehicleLicencePlate;
     private RecyclerView rvVehiclePlan;
+    private ImageButton btnAdd;
 
     private boolean opInsert = true;
 
@@ -46,6 +49,7 @@ public class VehiclePlanActivity extends AppCompatActivity {
         txVehicleName = findViewById(R.id.txVehicleName);
         imVehicleType = findViewById(R.id.imVehicleType);
         txVehicleLicencePlate = findViewById(R.id.txVehicleLicencePlate);
+        btnAdd = findViewById(R.id.btnAdd);
         rvVehiclePlan = findViewById(R.id.rvVehiclePlan);
     }
 
@@ -81,23 +85,11 @@ public class VehiclePlanActivity extends AppCompatActivity {
         txVehicleName.setText(vehicle.getName());
         txVehicleLicencePlate.setText(vehicle.getLicense_plate());
         imVehicleType.setImageResource(vehicle.getVehicleTypeImage(vehicle.getVehicle_type()));
-
-/*        if (vehicleHasPlan != null) {
-            nrSpinService_description = vehicleHasPlan.getMaintenance_plan_id();
-            if (nrSpinService_description != null && nrSpinService_description > 0) {
-                MaintenancePlan mp3 = Database.mMaintenancePlanDao.fetchMaintenancePlanById(nrSpinService_description);
-                for (int x = 1; x <= spinService_description.getAdapter().getCount(); x++) {
-                    if (spinService_description.getAdapter().getItem(x).toString().equals(mp3.getDescription())) {
-                        spinService_description.setSelection(x);
-                        etRecommendation.setText(mp3.getRecommendation());
-                        nrMeasure = mp3.getMeasure();
-                        break;
-                    }
-                }
-            }
-            tvMeasure.setText(getResources().getStringArray(R.array.measure_plan)[nrMeasure]);
-            etExpirationNumber.setText(String.valueOf(vehicleHasPlan.getExpiration()));
-        }*/
+        btnAdd.setOnClickListener(v->{
+            Intent intent = new Intent(v.getContext(), VehicleHasPlanActivity.class);
+            intent.putExtra("vehicle_id", nrVehicle_id);
+            startActivity(intent);
+        });
 
         adapter = new VehiclePlanListAdapter(Database.mVehicleHasPlanDao.fetchAllVehicleHasPlanByVehicle(nrVehicle_id), getApplicationContext());
         rvVehiclePlan.setAdapter(adapter);

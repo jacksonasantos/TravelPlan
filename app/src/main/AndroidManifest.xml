@@ -77,6 +77,9 @@
             android:name=".ui.vehicle.PendingVehicleActivity"
             android:label="@string/PendingVehicle" />
         <activity
+            android:name=".ui.vehicle.VehicleHasPlanActivity"
+            android:label="@string/Vehicle_Plan" />
+        <activity
             android:name=".ui.travel.TravelActivity"
             android:label="@string/Travel" />
         <activity
