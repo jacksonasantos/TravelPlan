@@ -53,7 +53,6 @@ public  class VehicleHasPlanActivity extends AppCompatActivity {
             if (extras.getInt( "vehicle_has_plan_maintenance_plan_id") >0 ) {
                 vehicleHasPlan.setMaintenance_plan_id(extras.getInt("vehicle_has_plan_maintenance_plan_id"));
                 nrSpinService_description = vehicleHasPlan.getMaintenance_plan_id();
-                opInsert = true;
             }
             if (extras.getInt( "vehicle_has_plan_vehicle_id") > 0) {
                 vehicleHasPlan.setVehicle_id(extras.getInt("vehicle_has_plan_vehicle_id"));

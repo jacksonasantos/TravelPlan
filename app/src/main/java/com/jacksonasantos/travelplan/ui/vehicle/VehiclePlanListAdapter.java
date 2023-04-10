@@ -43,12 +43,12 @@ public class VehiclePlanListAdapter extends RecyclerView.Adapter<VehiclePlanList
         public MyViewHolder(View v) {
             super(v);
             llService = v.findViewById(R.id.llService);
+            llService.setOnClickListener(this);
             imServiceType = v.findViewById(R.id.imServiceType);
             txtDescription = v.findViewById(R.id.txtDescription);
             txtExpirationDefault = v.findViewById(R.id.txtExpirationDefault);
             txtExpiration = v.findViewById(R.id.txtExpiration);
             btnDelete = v.findViewById(R.id.btnDelete);
-            llService.setOnClickListener(this);
             btnDelete.setOnClickListener(this);
         }
 
