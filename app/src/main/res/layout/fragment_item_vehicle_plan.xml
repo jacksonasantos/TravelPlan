@@ -3,6 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/llService"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
@@ -11,7 +12,7 @@
 
     <ImageView
         android:id="@+id/imServiceType"
-        android:layout_width="35dp"
+        android:layout_width="31dp"
         android:layout_height="31dp"
         android:contentDescription="@string/Maintenance_Type"
         android:scaleType="fitCenter" />
@@ -28,6 +29,17 @@
         app:autoSizeTextType="uniform" />
 
     <TextView
+        android:id="@+id/txtExpirationDefault"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="30"
+        android:gravity="end|center_vertical"
+        app:autoSizeMaxTextSize="12sp"
+        app:autoSizeMinTextSize="4sp"
+        app:autoSizeStepGranularity="1sp"
+        app:autoSizeTextType="uniform" />
+
+    <TextView
         android:id="@+id/txtExpiration"
         android:layout_width="0dp"
         android:layout_height="match_parent"
@@ -40,17 +52,14 @@
         app:autoSizeTextType="uniform" />
 
     <ImageButton
-        android:id="@+id/btnEdit"
-        android:layout_width="35dp"
-        android:layout_height="match_parent"
-        android:contentDescription="@string/bt_Edit"
-        app:srcCompat="@drawable/ic_button_edit" />
-
-    <ImageButton
         android:id="@+id/btnDelete"
-        android:layout_width="35dp"
+        android:layout_width="30dp"
         android:layout_height="match_parent"
         android:contentDescription="@string/bt_Delete"
+        android:padding="7dp"
+        android:scaleType="fitCenter"
+        android:scaleX="1.5"
+        android:scaleY="1.5"
         app:srcCompat="@drawable/ic_button_delete" />
 
 </LinearLayout>

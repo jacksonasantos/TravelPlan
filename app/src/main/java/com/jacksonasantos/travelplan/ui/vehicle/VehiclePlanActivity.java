@@ -87,11 +87,11 @@ public class VehiclePlanActivity extends AppCompatActivity {
         imVehicleType.setImageResource(vehicle.getVehicleTypeImage(vehicle.getVehicle_type()));
         btnAdd.setOnClickListener(v->{
             Intent intent = new Intent(v.getContext(), VehicleHasPlanActivity.class);
-            intent.putExtra("vehicle_id", nrVehicle_id);
+            intent.putExtra("vehicle_has_plan_vehicle_id", nrVehicle_id);
             startActivity(intent);
         });
 
-        adapter = new VehiclePlanListAdapter(Database.mVehicleHasPlanDao.fetchAllVehicleHasPlanByVehicle(nrVehicle_id), getApplicationContext());
+        adapter = new VehiclePlanListAdapter(Database.mVehicleHasPlanDao.fetchAllVehicleHasPlanByVehicleWithDefault(nrVehicle_id), getApplicationContext());
         rvVehiclePlan.setAdapter(adapter);
         rvVehiclePlan.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         adapter.notifyDataSetChanged();
