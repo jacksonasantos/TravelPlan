@@ -8,7 +8,7 @@ public interface VehicleHasPlanISchema {
     String VEHICLE_HAS_PLAN_VEHICLE_ID = "vehicle_id";
     String VEHICLE_HAS_PLAN_MAINTENANCE_PLAN_ID = "maintenance_plan_id";
     String VEHICLE_HAS_PLAN_EXPIRATION = "expiration";
-
+    // defined for using with "Query"
     String VEHICLE_HAS_PLAN_EXPIRATION_DEFAULT = "expiration_default";
     String VEHICLE_HAS_PLAN_RECURRING_SERVICE = "recurring_service";
     String VEHICLE_HAS_PLAN_MEASURE = "measure";
