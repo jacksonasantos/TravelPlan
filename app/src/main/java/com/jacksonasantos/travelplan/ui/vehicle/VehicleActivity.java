@@ -24,7 +24,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.flask.colorpicker.ColorPickerView;
 import com.flask.colorpicker.builder.ColorPickerDialogBuilder;
 import com.jacksonasantos.travelplan.R;
-import com.jacksonasantos.travelplan.dao.Driver;
+import com.jacksonasantos.travelplan.dao.Person;
 import com.jacksonasantos.travelplan.dao.Vehicle;
 import com.jacksonasantos.travelplan.dao.general.Database;
 import com.jacksonasantos.travelplan.ui.general.MyGalleryImageAdapter;
@@ -57,8 +57,8 @@ public class VehicleActivity extends AppCompatActivity {
     private EditText etYearModel;
     private EditText etYearManufacture;
     private EditText etLicencePlateVehicle;
-    private Spinner spinOwnerDriver;
-    private Integer nrSpinOwnerDriver=0;
+    private Spinner spinVehicleOwner;
+    private Integer nrSpinVehicleOwner=0;
     private EditText etColor;
     private Button btColorCode;
     private EditText etVin;
@@ -127,7 +127,7 @@ public class VehicleActivity extends AppCompatActivity {
         etYearModel = findViewById(R.id.etYearModel);
         etYearManufacture = findViewById(R.id.etYearManufacture);
         etLicencePlateVehicle = findViewById(R.id.etLicencePlateVehicle);
-        spinOwnerDriver = findViewById(R.id.spinOwnerDriver);
+        spinVehicleOwner = findViewById(R.id.spinVehicleOwner);
         etColor = findViewById(R.id.etColor);
         btColorCode = findViewById(R.id.btColorCode);
         etVin = findViewById(R.id.etVin);
@@ -178,31 +178,31 @@ public class VehicleActivity extends AppCompatActivity {
             }
         });
 
-        final List<Driver> drivers =  Database.mDriverDao.fetchArrayDriver();
-        drivers.add(0, new Driver());
-        ArrayAdapter<Driver> adapterD = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, drivers);
+        final List<Person> persons =  Database.mPersonDao.fetchArrayPerson();
+        persons.add(0, new Person());
+        ArrayAdapter<Person> adapterD = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, persons);
         adapterD.setDropDownViewResource( android.R.layout.simple_spinner_dropdown_item);
-        spinOwnerDriver.setAdapter(adapterD);
-        if (nrSpinOwnerDriver != null && nrSpinOwnerDriver > 0) {
-            Driver d1 = Database.mDriverDao.fetchDriverById(nrSpinOwnerDriver);
-            for (int x = 1; x <= spinOwnerDriver.getAdapter().getCount(); x++) {
-                if (spinOwnerDriver.getAdapter().getItem(x).toString().equals(d1.getName())) {
-                    spinOwnerDriver.setSelection(x);
-                    nrSpinOwnerDriver = d1.getId();
+        spinVehicleOwner.setAdapter(adapterD);
+        if (nrSpinVehicleOwner != null && nrSpinVehicleOwner > 0) {
+            Person p1 = Database.mPersonDao.fetchPersonById(nrSpinVehicleOwner);
+            for (int x = 1; x <= spinVehicleOwner.getAdapter().getCount(); x++) {
+                if (spinVehicleOwner.getAdapter().getItem(x).toString().equals(p1.getName())) {
+                    spinVehicleOwner.setSelection(x);
+                    nrSpinVehicleOwner = p1.getId();
                     break;
                 }
             }
         }
-        final Driver[] d1 = {new Driver()};
-        spinOwnerDriver.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        final Person[] p1 = {new Person()};
+        spinVehicleOwner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long idx) {
-                d1[0] = (Driver) parent.getItemAtPosition(position);
-                nrSpinOwnerDriver = d1[0].getId();
+                p1[0] = (Person) parent.getItemAtPosition(position);
+                nrSpinVehicleOwner = p1[0].getId();
             }
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
-                nrSpinOwnerDriver = null;
+                nrSpinVehicleOwner = null;
             }
         });
         adapterD.notifyDataSetChanged();
@@ -233,8 +233,8 @@ public class VehicleActivity extends AppCompatActivity {
             etYearModel.setText(vehicle.getYear_model());
             etYearManufacture.setText(vehicle.getYear_manufacture());
             etLicencePlateVehicle.setText(vehicle.getLicense_plate());
-            nrSpinOwnerDriver=vehicle.getOwner_driver_id()==null?0:vehicle.getOwner_driver_id();
-            spinOwnerDriver.setSelection(nrSpinOwnerDriver);
+            nrSpinVehicleOwner=vehicle.getVehicle_owner_id()==null?0:vehicle.getVehicle_owner_id();
+            spinVehicleOwner.setSelection(nrSpinVehicleOwner);
             etColor.setText(vehicle.getColor());
             btColorCode.setText(String.valueOf(vehicle.getColor_code()));
             btColorCode.setBackgroundColor(vehicle.getColor_code());
@@ -328,7 +328,7 @@ public class VehicleActivity extends AppCompatActivity {
                 v1.setYear_model(etYearModel.getText().toString());
                 v1.setYear_manufacture(etYearManufacture.getText().toString());
                 v1.setLicense_plate(etLicencePlateVehicle.getText().toString());
-                v1.setOwner_driver_id(nrSpinOwnerDriver);
+                v1.setVehicle_owner_id(nrSpinVehicleOwner);
                 v1.setColor(etColor.getText().toString());
                 if (!btColorCode.getText().toString().isEmpty()) {
                     v1.setColor_code(Integer.parseInt(btColorCode.getText().toString()));
@@ -415,7 +415,7 @@ public class VehicleActivity extends AppCompatActivity {
                 etYearModel.getText().toString().isEmpty() ||
                 etYearManufacture.getText().toString().isEmpty() ||
                 etLicencePlateVehicle.getText().toString().isEmpty() ||
-                //String.valueOf(nrSpinOwnerDriver).isEmpty() ||
+                //String.valueOf(nrSpinVehicleOwner).isEmpty() ||
                 etColor.getText().toString().isEmpty() ||
                 //etColorCode.getText().toString().isEmpty() ||
                 etVin.getText().toString().isEmpty() ||
@@ -423,7 +423,7 @@ public class VehicleActivity extends AppCompatActivity {
                 etStateVehicle.getText().toString().isEmpty() ||
                 etCityVehicle.getText().toString().isEmpty() ||
                 etAcquisition.getText().toString().isEmpty() ||
-                etOdometer_Acquisition.getText().toString().isEmpty() ||
+                //etOdometer_Acquisition.getText().toString().isEmpty() ||
                 //etSale.getText().toString().isEmpty() ||
                 etDoors.getText().toString().isEmpty() ||
                 etCapacity.getText().toString().isEmpty() ||

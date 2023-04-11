@@ -10,6 +10,7 @@ public interface VehicleISchema {
     String VEHICLE_NAME = "name";
     String VEHICLE_LICENCE_PLATE = "license_plate";
     String VEHICLE_OWNER_DRIVER_ID = "owner_driver_id";
+    String VEHICLE_VEHICLE_OWNER_ID = "vehicle_owner_id";
     String VEHICLE_BRAND = "brand";
     String VEHICLE_FUEL_TYPE = "fuel_type";
     String VEHICLE_FULL_CAPACITY = "full_capacity";
@@ -100,13 +101,16 @@ public interface VehicleISchema {
     // Version 58
     String ALTER_TABLE_VEHICLE_V58 = "ALTER TABLE " + VEHICLE_TABLE + " ADD COLUMN " + VEHICLE_ODOMETER_ACQUISITION + " INT";
 
+    // Version 60
+    String ALTER_TABLE_VEHICLE_V60_1 = "ALTER TABLE " + VEHICLE_TABLE + " RENAME COLUMN " + VEHICLE_OWNER_DRIVER_ID + " TO " + VEHICLE_VEHICLE_OWNER_ID + "  ";
+
     String[] VEHICLE_COLUMNS = new String[] {
             VEHICLE_ID,
             VEHICLE_IMAGE,
             VEHICLE_VEHICLE_TYPE,
             VEHICLE_NAME,
             VEHICLE_LICENCE_PLATE,
-            VEHICLE_OWNER_DRIVER_ID,
+            VEHICLE_VEHICLE_OWNER_ID,
             VEHICLE_FULL_CAPACITY,
             VEHICLE_AVG_CONSUMPTION,
             VEHICLE_AVG_COST_LITRE,

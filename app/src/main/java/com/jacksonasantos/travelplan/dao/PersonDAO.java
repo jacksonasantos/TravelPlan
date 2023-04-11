@@ -58,7 +58,7 @@ public class PersonDAO extends DbContentProvider implements PersonISchema, Perso
 
     public ArrayList<Person> fetchArrayPerson(){
         ArrayList<Person> personList = new ArrayList<>();
-        Cursor cursor = super.query(PERSON_TABLE, PERSON_COLUMNS, null,null, PERSON_NAME);
+        Cursor cursor = super.query(PERSON_TABLE, PERSON_COLUMNS, null,null, PERSON_ID);
         if(cursor != null && cursor.moveToFirst()){
             do{
                 Person person = cursorToEntity(cursor);
