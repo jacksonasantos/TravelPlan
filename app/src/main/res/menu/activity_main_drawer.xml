@@ -45,10 +45,6 @@
                 android:title="@string/action_settings"
                 app:showAsAction="ifRoom" />
             <item
-                android:id="@+id/nav_driver"
-                android:icon="@drawable/ic_driver"
-                android:title="@string/menu_driver" />
-            <item
                 android:id="@+id/nav_person"
                 android:icon="@drawable/ic_person"
                 android:title="@string/menu_person" />

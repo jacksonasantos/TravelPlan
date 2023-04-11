@@ -20,7 +20,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.jacksonasantos.travelplan.R;
-import com.jacksonasantos.travelplan.dao.Driver;
+import com.jacksonasantos.travelplan.dao.Person;
 import com.jacksonasantos.travelplan.dao.FuelSupply;
 import com.jacksonasantos.travelplan.dao.Vehicle;
 import com.jacksonasantos.travelplan.dao.VehicleHasTravel;
@@ -76,11 +76,11 @@ public class TravelVehicleListAdapter extends RecyclerView.Adapter<RecyclerView.
             HeaderViewHolder headerViewHolder = (HeaderViewHolder) holder;
 
             final int[] nrSpinVehicle = {0};
-            final int[] nrSpinDriver = {0};
+            final int[] nrSpinPerson = {0};
 
             headerViewHolder.llVehicleTravelItem.setBackgroundColor(Utils.getColorWithAlpha(R.color.colorItemList,0.1f));
             headerViewHolder.txtVehicle.setText(R.string.Vehicle);
-            headerViewHolder.txtDriver.setText(R.string.Driver);
+            headerViewHolder.txtPerson.setText(R.string.Person);
             headerViewHolder.txtAvgConsumption.setText(R.string.Vehicle_Avg_Consumption);
             headerViewHolder.txtAvgConsumptionTravel.setText(R.string.Travel_Avg_Consumption);
             headerViewHolder.btnDelete.setVisibility(View.INVISIBLE);
@@ -98,7 +98,7 @@ public class TravelVehicleListAdapter extends RecyclerView.Adapter<RecyclerView.
                     final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(v.getContext());
                     alertDialogBuilder.setView(promptsView);
                     final Spinner spinVehicle = promptsView.findViewById(R.id.spinVehicle);
-                    final Spinner spinDriver = promptsView.findViewById(R.id.spinDriver);
+                    final Spinner spinPerson = promptsView.findViewById(R.id.spinPerson);
 
                     Cursor cVehicle = Database.mVehicleDao.fetchCursorVehicle();
                     SimpleCursorAdapter cursorAdapterV = new SimpleCursorAdapter(li.getContext(),
@@ -117,16 +117,16 @@ public class TravelVehicleListAdapter extends RecyclerView.Adapter<RecyclerView.
                         }
                     });
 
-                    Cursor cDriver = Database.mDriverDao.fetchCursorDriver();
+                    Cursor cPerson = Database.mPersonDao.fetchCursorPerson();
                     SimpleCursorAdapter cursorAdapterC = new SimpleCursorAdapter(li.getContext(),
-                            android.R.layout.simple_spinner_item, cDriver, adapterCols, adapterRowViews, 0);
+                            android.R.layout.simple_spinner_item, cPerson, adapterCols, adapterRowViews, 0);
                     cursorAdapterC.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                    spinDriver.setAdapter(cursorAdapterC);
-                    Utils.setSpinnerToValue(spinDriver, nrSpinDriver[0]);
-                    spinDriver.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    spinPerson.setAdapter(cursorAdapterC);
+                    Utils.setSpinnerToValue(spinPerson, nrSpinPerson[0]);
+                    spinPerson.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                         @Override
                         public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                            nrSpinDriver[0] = Math.toIntExact(spinDriver.getSelectedItemId());
+                            nrSpinPerson[0] = Math.toIntExact(spinPerson.getSelectedItemId());
                         }
 
                         @Override
@@ -143,7 +143,7 @@ public class TravelVehicleListAdapter extends RecyclerView.Adapter<RecyclerView.
 
                                 vt1.setTravel_id(mTravel_id);
                                 vt1.setVehicle_id(nrSpinVehicle[0]);
-                                vt1.setDriver_id(nrSpinDriver[0]);
+                                vt1.setPerson_id(nrSpinPerson[0]);
                                 try {
                                     isSave = Database.mVehicleHasTravelDao.addVehicleHasTravel(vt1);
                                 } catch (Exception e) {
@@ -167,13 +167,13 @@ public class TravelVehicleListAdapter extends RecyclerView.Adapter<RecyclerView.
         else if (holder instanceof ItemViewHolder) {
             final ItemViewHolder itemViewHolder = (ItemViewHolder) holder;
             final VehicleHasTravel vehicleHasTravel = mVehicleHasTravel.get(position-show_header);
-            final Driver driver = Database.mDriverDao.fetchDriverById(vehicleHasTravel.getDriver_id());
+            final Person driver = Database.mPersonDao.fetchPersonById(vehicleHasTravel.getPerson_id());
             final Vehicle vehicle = Database.mVehicleDao.fetchVehicleById(vehicleHasTravel.getVehicle_id());
             final FuelSupply vehicleTravel = Database.mFuelSupplyDao.findAVGConsumptionTravel(vehicleHasTravel.getVehicle_id(), vehicleHasTravel.getTravel_id());
 
             //itemViewHolder.llVehicleTravelItem.setBackgroundColor(Utils.getColorWithAlpha(R.color.colorItemList,0.1f));
             itemViewHolder.txtVehicle.setText(vehicle.getShort_name());
-            itemViewHolder.txtDriver.setText(driver.getShort_Name());
+            itemViewHolder.txtPerson.setText(driver.getShort_Name());
             itemViewHolder.txtAvgConsumption.setText(String.format("%s %s", numberFormatter.format(vehicle.getAvg_consumption()), g.getMeasureConsumption()));
             itemViewHolder.txtAvgConsumptionTravel.setText(String.format("%s %s", numberFormatter.format(vehicleTravel.getStat_avg_fuel_consumption()), g.getMeasureConsumption()));
 
@@ -227,7 +227,7 @@ public class TravelVehicleListAdapter extends RecyclerView.Adapter<RecyclerView.
     private static class HeaderViewHolder extends RecyclerView.ViewHolder {
         public final LinearLayout llVehicleTravelItem;
         public final TextView txtVehicle;
-        public final TextView txtDriver;
+        public final TextView txtPerson;
         public final TextView txtAvgConsumption;
         public final TextView txtAvgConsumptionTravel;
         public final ImageButton btnAddVehicelHasTravel;
@@ -237,7 +237,7 @@ public class TravelVehicleListAdapter extends RecyclerView.Adapter<RecyclerView.
             super(v);
             llVehicleTravelItem = v.findViewById(R.id.llVehicleTravelItem);
             txtVehicle = v.findViewById(R.id.txtVehicle);
-            txtDriver = v.findViewById(R.id.txtDriver);
+            txtPerson = v.findViewById(R.id.txtPerson);
             txtAvgConsumption = v.findViewById(R.id.txtAvgConsumption);
             txtAvgConsumptionTravel = v.findViewById(R.id.txtAvgConsumptionTravel);
             btnAddVehicelHasTravel = v.findViewById(R.id.btnRefuel);
@@ -248,7 +248,7 @@ public class TravelVehicleListAdapter extends RecyclerView.Adapter<RecyclerView.
     public static class ItemViewHolder extends RecyclerView.ViewHolder {
         public final LinearLayout llVehicleTravelItem;
         public final TextView txtVehicle;
-        public final TextView txtDriver;
+        public final TextView txtPerson;
         public final TextView txtAvgConsumption;
         public final TextView txtAvgConsumptionTravel;
         public final ImageButton btnDelete;
@@ -258,7 +258,7 @@ public class TravelVehicleListAdapter extends RecyclerView.Adapter<RecyclerView.
             super(v);
             llVehicleTravelItem = v.findViewById(R.id.llVehicleTravelItem);
             txtVehicle = v.findViewById(R.id.txtVehicle);
-            txtDriver = v.findViewById(R.id.txtDriver);
+            txtPerson = v.findViewById(R.id.txtPerson);
             txtAvgConsumption = v.findViewById(R.id.txtAvgConsumption);
             txtAvgConsumptionTravel = v.findViewById(R.id.txtAvgConsumptionTravel);
             btnDelete = v.findViewById(R.id.btnDelete);

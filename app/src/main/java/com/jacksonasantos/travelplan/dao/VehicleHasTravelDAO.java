@@ -60,7 +60,7 @@ public class VehicleHasTravelDAO extends DbContentProvider implements VehicleHas
         if (c != null) {
             if (c.getColumnIndex(VEHICLE_HAS_TRAVEL_VEHICLE_ID) != -1)      {vHT.setVehicle_id(c.getInt(c.getColumnIndexOrThrow(VEHICLE_HAS_TRAVEL_VEHICLE_ID))); }
             if (c.getColumnIndex(VEHICLE_HAS_TRAVEL_TRAVEL_ID) != -1)       {vHT.setTravel_id(c.getInt(c.getColumnIndexOrThrow(VEHICLE_HAS_TRAVEL_TRAVEL_ID))); }
-            if (c.getColumnIndex(VEHICLE_HAS_TRAVEL_DRIVER_ID) != -1)       {vHT.setDriver_id(c.getInt(c.getColumnIndexOrThrow(VEHICLE_HAS_TRAVEL_DRIVER_ID))); }
+            if (c.getColumnIndex(VEHICLE_HAS_TRAVEL_PERSON_ID) != -1)       {vHT.setPerson_id(c.getInt(c.getColumnIndexOrThrow(VEHICLE_HAS_TRAVEL_PERSON_ID))); }
             if (c.getColumnIndex(VEHICLE_HAS_TRAVEL_START_ODOMETER) != -1)  {vHT.setStart_odometer(c.getInt(c.getColumnIndexOrThrow(VEHICLE_HAS_TRAVEL_START_ODOMETER))); }
             if (c.getColumnIndex(VEHICLE_HAS_TRAVEL_FINAL_ODOMETER) != -1)  {vHT.setFinal_odometer(c.getInt(c.getColumnIndexOrThrow(VEHICLE_HAS_TRAVEL_FINAL_ODOMETER))); }
         }
@@ -71,7 +71,7 @@ public class VehicleHasTravelDAO extends DbContentProvider implements VehicleHas
         initialValues = new ContentValues();
         initialValues.put(VEHICLE_HAS_TRAVEL_VEHICLE_ID, vHT.vehicle_id);
         initialValues.put(VEHICLE_HAS_TRAVEL_TRAVEL_ID, vHT.travel_id);
-        initialValues.put(VEHICLE_HAS_TRAVEL_DRIVER_ID, vHT.driver_id);
+        initialValues.put(VEHICLE_HAS_TRAVEL_PERSON_ID, vHT.person_id);
         initialValues.put(VEHICLE_HAS_TRAVEL_START_ODOMETER, vHT.start_odometer);
         initialValues.put(VEHICLE_HAS_TRAVEL_FINAL_ODOMETER, vHT.final_odometer);
     }

@@ -500,23 +500,6 @@
     <string name="Home_Travel_Change_Status_Running">Initial odometer record is missing to change status to Running</string>
     <string name="Home_Travel_Change_Status_Executed">Final odometer record is missing to change status to Executed</string>
 
-    <!-- Driver -->
-    <string name="Driver">Driver</string>
-    <string name="Driver_Deleting">Deleting Driver</string>
-
-    <string name="in">in</string>
-    <string name="expiring">expiring</string>
-    <string name="expired">expired</string>
-
-    <string name="Driver_Name">Name</string>
-    <string name="Driver_Short_Name">Short Name</string>
-    <string name="Driver_Gender">Gender</string>
-    <string name="Driver_Driving_Record">Driving Record</string>
-    <string name="Driver_Licence_Expiration_Date">Licence Expiration Date</string>
-    <string name="Driver_First_Licence_Date">First Licence Date</string>
-    <string name="Driver_Licence_Issue_Date">Licence Issue Date</string>
-    <string name="Driver_Category">Category</string>
-
     <!-- Person -->
     <string name="Person">Person</string>
     <string name="Person_Deleting">Deleting Person</string>
@@ -530,4 +513,8 @@
     <string name="Person_First_License_Date">First License Date</string>
     <string name="Person_License_Issue_Date">License Issue Date</string>
     <string name="Person_License_Category">License Category</string>
+
+    <string name="in">in</string>
+    <string name="expiring">expiring</string>
+    <string name="expired">expired</string>
 </resources>

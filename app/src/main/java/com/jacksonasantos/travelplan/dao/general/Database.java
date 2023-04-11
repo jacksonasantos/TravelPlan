@@ -11,7 +11,6 @@ import com.jacksonasantos.travelplan.dao.AccommodationDAO;
 import com.jacksonasantos.travelplan.dao.AchievementDAO;
 import com.jacksonasantos.travelplan.dao.BrokerDAO;
 import com.jacksonasantos.travelplan.dao.CurrencyQuoteDAO;
-import com.jacksonasantos.travelplan.dao.DriverDAO;
 import com.jacksonasantos.travelplan.dao.FuelSupplyDAO;
 import com.jacksonasantos.travelplan.dao.InsuranceCompanyDAO;
 import com.jacksonasantos.travelplan.dao.InsuranceContactDAO;
@@ -40,7 +39,6 @@ import com.jacksonasantos.travelplan.dao.interfaces.AccommodationISchema;
 import com.jacksonasantos.travelplan.dao.interfaces.AchievementISchema;
 import com.jacksonasantos.travelplan.dao.interfaces.BrokerISchema;
 import com.jacksonasantos.travelplan.dao.interfaces.CurrencyQuoteISchema;
-import com.jacksonasantos.travelplan.dao.interfaces.DriverISchema;
 import com.jacksonasantos.travelplan.dao.interfaces.FuelSupplyISchema;
 import com.jacksonasantos.travelplan.dao.interfaces.InsuranceCompanyISchema;
 import com.jacksonasantos.travelplan.dao.interfaces.InsuranceContactISchema;
@@ -72,7 +70,6 @@ public class Database {
     public static AchievementDAO mAchievementDao;
     public static BrokerDAO mBrokerDao;
     public static CurrencyQuoteDAO mCurrencyQuoteDao;
-    public static DriverDAO mDriverDao;
     public static FuelSupplyDAO mFuelSupplyDao;
     public static InsuranceCompanyDAO mInsuranceCompanyDao;
     public static InsuranceContactDAO mInsuranceContactDao;
@@ -164,7 +161,6 @@ public class Database {
             {"46", "1" , "AchievementISchema"       , "ALTER_TABLE_ACHIEVEMENT_V46_1"         , "ACHIEVEMENT_TABLE"          , "V46.1 - Alter Table..."  },
             {"46", "2" , "AchievementISchema"       , "ALTER_TABLE_ACHIEVEMENT_V46_2"         , "ACHIEVEMENT_TABLE"          , "V46.2 - Alter Table..."  },
             {"46", "3" , "AchievementISchema"       , "ALTER_TABLE_ACHIEVEMENT_V46_3"         , "ACHIEVEMENT_TABLE"          , "V46.3 - Alter Table..."  },
-            {"47", ""  , "DriverISchema"            , "CREATE_TABLE_DRIVER_V47"               , "DRIVER_TABLE"               , "V47 - Create Table..."   },
             {"48", ""  , "VehicleISchema"           , "ALTER_TABLE_VEHICLE_V48"               , "VEHICLE_TABLE"              , "V48 - Create Table..."   },
             {"49", ""  , "VehicleHasTravelISchema"  , "ALTER_TABLE_VEHICLE_HAS_TRAVEL_V49"    , "VEHICLE_HAS_TRAVEL_TABLE"   , "V49 - Alter Table..."    },
             {"50", ""  , "MarkerISchema"            , "ALTER_TABLE_MARKER_V50"                , "MARKER_TABLE"               , "V50 - Create Table..."   },
@@ -216,7 +212,6 @@ public class Database {
             mInsuranceContactDao = new InsuranceContactDAO(mDb);
             mAchievementDao = new AchievementDAO(mDb);
             mVehicleMaintenanceItemDao = new VehicleMaintenanceItemDAO(mDb);
-            mDriverDao = new DriverDAO(mDb);
             mPendingVehicleDao = new PendingVehicleDAO(mDb);
             mMaintenancePlanHasVehicleTypeDAO = new MaintenancePlanHasVehicleTypeDAO(mDb);
             mPersonDao = new PersonDAO(mDb);
@@ -323,7 +318,6 @@ public class Database {
             db.execSQL(AchievementISchema.ALTER_TABLE_ACHIEVEMENT_V46_1); Log.w("Table "+AchievementISchema.ACHIEVEMENT_TABLE,"V46_1 - Alter Table...");
             db.execSQL(AchievementISchema.ALTER_TABLE_ACHIEVEMENT_V46_2); Log.w("Table "+AchievementISchema.ACHIEVEMENT_TABLE,"V46_2 - Alter Table...");
             db.execSQL(AchievementISchema.ALTER_TABLE_ACHIEVEMENT_V46_3); Log.w("Table "+AchievementISchema.ACHIEVEMENT_TABLE,"V46_3 - Alter Table...");
-            db.execSQL(DriverISchema.CREATE_TABLE_DRIVER_V47); Log.w("Table "+DriverISchema.DRIVER_TABLE,"V47 - Create Table...");
             db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V48); Log.w("Table "+VehicleISchema.VEHICLE_TABLE,"V48 - Alter Table...");
             db.execSQL(VehicleHasTravelISchema.ALTER_TABLE_VEHICLE_HAS_TRAVEL_V49);Log.w("Table "+VehicleHasTravelISchema.VEHICLE_HAS_TRAVEL_TABLE,"V49 - Alter Table...");
             db.execSQL(MarkerISchema.ALTER_TABLE_MARKER_V50);Log.w("Table "+MarkerISchema.MARKER_TABLE,"V50 - Create Table...");
@@ -491,9 +485,6 @@ public class Database {
                         db.execSQL(AchievementISchema.ALTER_TABLE_ACHIEVEMENT_V46_1);
                         db.execSQL(AchievementISchema.ALTER_TABLE_ACHIEVEMENT_V46_2);
                         db.execSQL(AchievementISchema.ALTER_TABLE_ACHIEVEMENT_V46_3);
-                        break;
-                    case 47:
-                        db.execSQL(DriverISchema.CREATE_TABLE_DRIVER_V47);
                         break;
                     case 48:
                         db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V48);

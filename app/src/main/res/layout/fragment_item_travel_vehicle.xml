@@ -22,7 +22,7 @@
         app:autoSizeTextType="uniform" />
 
     <TextView
-        android:id="@+id/txtDriver"
+        android:id="@+id/txtPerson"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"

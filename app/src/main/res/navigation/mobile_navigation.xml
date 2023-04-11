@@ -42,12 +42,6 @@
         tools:layout="@layout/fragment_generic_list" />
 
     <fragment
-        android:id="@+id/nav_driver"
-        android:name="com.jacksonasantos.travelplan.ui.general.DriverFragment"
-        android:label="@string/menu_driver"
-        tools:layout="@layout/fragment_generic_list" />
-
-    <fragment
         android:id="@+id/nav_person"
         android:name="com.jacksonasantos.travelplan.ui.general.PersonFragment"
         android:label="@string/menu_person"

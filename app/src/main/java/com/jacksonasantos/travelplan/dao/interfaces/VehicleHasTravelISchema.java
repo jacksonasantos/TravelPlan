@@ -6,7 +6,7 @@ public interface VehicleHasTravelISchema {
 
     String VEHICLE_HAS_TRAVEL_VEHICLE_ID = "vehicle_id";
     String VEHICLE_HAS_TRAVEL_TRAVEL_ID = "travel_id";
-    String VEHICLE_HAS_TRAVEL_DRIVER_ID = "driver_id";
+    String VEHICLE_HAS_TRAVEL_PERSON_ID = "person_id";
     String VEHICLE_HAS_TRAVEL_START_ODOMETER = "start_odometer";
     String VEHICLE_HAS_TRAVEL_FINAL_ODOMETER = "final_odometer";
 
@@ -19,7 +19,7 @@ public interface VehicleHasTravelISchema {
             + ")";
 
     // Version 49
-    String ALTER_TABLE_VEHICLE_HAS_TRAVEL_V49 = "ALTER TABLE " + VEHICLE_HAS_TRAVEL_TABLE + " ADD COLUMN " + VEHICLE_HAS_TRAVEL_DRIVER_ID + " INTEGER REFERENCES " + DriverISchema.DRIVER_TABLE + " ("+DriverISchema.DRIVER_ID+") ";
+    String ALTER_TABLE_VEHICLE_HAS_TRAVEL_V49 = "ALTER TABLE " + VEHICLE_HAS_TRAVEL_TABLE + " ADD COLUMN " + VEHICLE_HAS_TRAVEL_PERSON_ID + " INTEGER REFERENCES " + PersonISchema.PERSON_TABLE + " ("+ PersonISchema.PERSON_ID+") ";
 
     // Version 52
     String ALTER_TABLE_VEHICLE_HAS_TRAVEL_V52_1 = "ALTER TABLE " + VEHICLE_HAS_TRAVEL_TABLE + " ADD COLUMN " + VEHICLE_HAS_TRAVEL_START_ODOMETER + " INTEGER ";
@@ -28,7 +28,7 @@ public interface VehicleHasTravelISchema {
     String[] VEHICLE_HAS_TRAVEL_COLUMNS = new String[] {
             VEHICLE_HAS_TRAVEL_VEHICLE_ID,
             VEHICLE_HAS_TRAVEL_TRAVEL_ID,
-            VEHICLE_HAS_TRAVEL_DRIVER_ID,
+            VEHICLE_HAS_TRAVEL_PERSON_ID,
             VEHICLE_HAS_TRAVEL_START_ODOMETER,
             VEHICLE_HAS_TRAVEL_FINAL_ODOMETER
     };
