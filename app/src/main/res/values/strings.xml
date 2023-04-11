@@ -43,6 +43,7 @@
     <string name="menu_achievement">Achievement</string>
     <string name="menu_fuel_supply">Fuel Supply</string>
     <string name="menu_driver">Driver</string>
+    <string name="menu_person">Person</string>
     <string name="menu_maintenance_plan">Maintenance Plan</string>
     <string name="menu_maintenance">Maintenance Service</string>
     <string name="menu_pending">Pending Vehicle</string>
@@ -515,4 +516,18 @@
     <string name="Driver_First_Licence_Date">First Licence Date</string>
     <string name="Driver_Licence_Issue_Date">Licence Issue Date</string>
     <string name="Driver_Category">Category</string>
+
+    <!-- Person -->
+    <string name="Person">Person</string>
+    <string name="Person_Deleting">Deleting Person</string>
+
+    <string name="Person_Name">Name</string>
+    <string name="Person_Short_Name">Short Name</string>
+    <string name="Person_Gender">Gender</string>
+    <string name="Person_Date_Birth">Birth</string>
+    <string name="Person_Driving_Record">Driving Record</string>
+    <string name="Person_License_Expiration_Date">License Expiration Date</string>
+    <string name="Person_First_License_Date">First License Date</string>
+    <string name="Person_License_Issue_Date">License Issue Date</string>
+    <string name="Person_License_Category">License Category</string>
 </resources>

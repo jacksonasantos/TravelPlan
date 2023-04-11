@@ -1,0 +1,239 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    android:background="@color/colorBackgroundDialog"
+    android:padding="10dp"
+    tools:context=".ui.general.PersonActivity">
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardBackgroundColor="@color/colorBackgroundCard"
+        app:cardCornerRadius="@dimen/cardCornerRadius"
+        app:cardElevation="@dimen/cardElevation">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/labels_margin">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="@dimen/labels_margin">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.70"
+                    android:text="@string/Person_Name" />
+                <EditText
+                    android:id="@+id/etName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.30"
+                    android:autofillHints="no"
+                    android:inputType="text"
+                    android:nextFocusDown="@+id/etShortName"
+                    android:textSize="12sp"
+                    tools:ignore="LabelFor" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="@dimen/labels_margin">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.70"
+                    android:text="@string/Person_Short_Name" />
+                <EditText
+                    android:id="@+id/etShortName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.30"
+                    android:autofillHints="no"
+                    android:inputType="text"
+                    android:nextFocusDown="@+id/etDateBirth"
+                    android:textSize="12sp"
+                    tools:ignore="LabelFor" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="@dimen/labels_margin">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="0.34"
+                    android:text="@string/Person_Date_Birth" />
+                <EditText
+                    android:id="@+id/etDateBirth"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="0.30"
+                    android:autofillHints="no"
+                    android:inputType="date"
+                    android:nextFocusDown="@+id/rgGender"
+                    android:textSize="12sp"
+                    tools:ignore="LabelFor" />
+                <RadioGroup
+                    android:id="@+id/rgGender"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.33"
+                    android:layout_marginStart="@dimen/labels_margin"
+                    android:layout_marginLeft="@dimen/labels_margin"
+                    android:layout_marginTop="@dimen/labels_space_top"
+                    android:layout_marginEnd="@dimen/labels_margin"
+                    android:layout_marginRight="@dimen/labels_margin"
+                    android:orientation="vertical"
+                    android:gravity="start"
+                    android:hint="@string/Person_Gender"
+                    android:nextFocusDown="@+id/etDrivingRecord">
+                </RadioGroup>
+            </LinearLayout>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/labels_space_top"
+        app:cardBackgroundColor="@color/colorBackgroundCard"
+        app:cardCornerRadius="@dimen/cardCornerRadius"
+        app:cardElevation="@dimen/cardElevation">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/labels_margin">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="@dimen/labels_margin">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.50"
+                    android:text="@string/Person_Driving_Record" />
+                <EditText
+                    android:id="@+id/etDrivingRecord"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.50"
+                    android:autofillHints="no"
+                    android:inputType="number"
+                    android:nextFocusDown="@+id/etLicenseCategory"
+                    android:textSize="12sp"
+                    tools:ignore="LabelFor" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="@dimen/labels_margin">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.50"
+                    android:text="@string/Person_License_Category" />
+                <EditText
+                    android:id="@+id/etLicenseCategory"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.50"
+                    android:autofillHints="no"
+                    android:inputType="text"
+                    android:nextFocusDown="@+id/etLicenseExpirationDate"
+                    android:textSize="12sp"
+                    tools:ignore="LabelFor" />
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="@dimen/labels_margin">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.50"
+                    android:text="@string/Person_License_Expiration_Date" />
+                <EditText
+                    android:id="@+id/etLicenseExpirationDate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.50"
+                    android:inputType="date"
+                    android:nextFocusDown="@+id/etFirstLicenseDate"
+                    android:textSize="12sp"
+                    android:autofillHints="no"
+                    tools:ignore="LabelFor" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="@dimen/labels_margin">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.50"
+                    android:text="@string/Person_First_License_Date" />
+                <EditText
+                    android:id="@+id/etFirstLicenseDate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.50"
+                    android:autofillHints="no"
+                    android:inputType="date"
+                    android:nextFocusDown="@+id/etLicenseIssueDate"
+                    android:textSize="12sp"
+                    tools:ignore="LabelFor" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="@dimen/labels_margin">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.50"
+                    android:text="@string/Person_License_Issue_Date" />
+                <EditText
+                    android:id="@+id/etLicenseIssueDate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.50"
+                    android:autofillHints="no"
+                    android:inputType="date"
+                    android:nextFocusDown="@+id/btSavePerson"
+                    android:textSize="12sp"
+                    tools:ignore="LabelFor" />
+            </LinearLayout>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+    <Button
+        android:id="@+id/btSavePerson"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/labels_space_top"
+        android:text="@string/bt_Save" />
+</LinearLayout>

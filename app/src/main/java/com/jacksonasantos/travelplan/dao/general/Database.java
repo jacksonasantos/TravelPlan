@@ -24,6 +24,7 @@ import com.jacksonasantos.travelplan.dao.MaintenancePlanHasVehicleTypeDAO;
 import com.jacksonasantos.travelplan.dao.MarkerDAO;
 import com.jacksonasantos.travelplan.dao.NextMaintenanceItemDAO;
 import com.jacksonasantos.travelplan.dao.PendingVehicleDAO;
+import com.jacksonasantos.travelplan.dao.PersonDAO;
 import com.jacksonasantos.travelplan.dao.ReservationDAO;
 import com.jacksonasantos.travelplan.dao.SummaryTravelExpenseDAO;
 import com.jacksonasantos.travelplan.dao.TravelDAO;
@@ -50,6 +51,7 @@ import com.jacksonasantos.travelplan.dao.interfaces.MaintenanceItemISchema;
 import com.jacksonasantos.travelplan.dao.interfaces.MaintenancePlanISchema;
 import com.jacksonasantos.travelplan.dao.interfaces.MarkerISchema;
 import com.jacksonasantos.travelplan.dao.interfaces.PendingVehicleISchema;
+import com.jacksonasantos.travelplan.dao.interfaces.PersonISchema;
 import com.jacksonasantos.travelplan.dao.interfaces.ReservationISchema;
 import com.jacksonasantos.travelplan.dao.interfaces.TravelExpensesISchema;
 import com.jacksonasantos.travelplan.dao.interfaces.TravelISchema;
@@ -64,7 +66,7 @@ public class Database {
     private final Context mContext;
 
     private static final String DATABASE_NAME = "TravelPlan.db";
-    private static final int DATABASE_VERSION = 58;
+    private static final int DATABASE_VERSION = 59;
 
     public static AccommodationDAO mAccommodationDao;
     public static AchievementDAO mAchievementDao;
@@ -81,6 +83,7 @@ public class Database {
     public static MaintenancePlanDAO mMaintenancePlanDao;
     public static MarkerDAO mMarkerDao;
     public static PendingVehicleDAO mPendingVehicleDao;
+    public static PersonDAO mPersonDao;
     public static ReservationDAO mReservationDao;
     public static TravelDAO mTravelDao;
     public static TravelExpensesDAO mTravelExpensesDao;
@@ -173,7 +176,8 @@ public class Database {
             {"55", "1" , "AchievementISchema"       , "ALTER_TABLE_ACHIEVEMENT_V55_1"         , "ACHIEVEMENT_TABLE"          , "V55.1 - Alter Table..."  },
             {"55", "2" , "AchievementISchema"       , "ALTER_TABLE_ACHIEVEMENT_V55_2"         , "ACHIEVEMENT_TABLE"          , "V55.2 - Alter Table..."  },
             {"57", ""  , "MaintenancePlanHasVehicleTypeISchema", "ALTER_TABLE_MAINTENANCE_PLAN_HAS_VEHICLE_TYPE_V57", "MAINTENANCE_PLAN_HAS_VEHICLE_TYPE_TABLE", "V57 - Create Table..."   },
-            {"58", ""  , "VehicleISchema"           , "ALTER_TABLE_VEHICLE_V58"               , "VEHICLE_TABLE"              , "V58 - Alter Table..."    }
+            {"58", ""  , "VehicleISchema"           , "ALTER_TABLE_VEHICLE_V58"               , "VEHICLE_TABLE"              , "V58 - Alter Table..."    },
+            {"59", ""  , "Person"                   , "CREATE_TABLE_PERSON_V59"               , "PERSON_TABLE"               , "V59 - Create Table..."   }
     };
 
     public Database(Context context) {
@@ -214,6 +218,7 @@ public class Database {
             mDriverDao = new DriverDAO(mDb);
             mPendingVehicleDao = new PendingVehicleDAO(mDb);
             mMaintenancePlanHasVehicleTypeDAO = new MaintenancePlanHasVehicleTypeDAO(mDb);
+            mPersonDao = new PersonDAO(mDb);
         } catch (Exception e) {
             Log.i("Open Database ", "Error : " + e.getMessage());
             Toast.makeText(mContext, "Error Open Database : " + e.getMessage(), Toast.LENGTH_LONG).show();
@@ -329,7 +334,8 @@ public class Database {
             db.execSQL(AchievementISchema.ALTER_TABLE_ACHIEVEMENT_V55_1);Log.w("Table "+AchievementISchema.ACHIEVEMENT_TABLE,"V55_1 - Alter Table...");
             db.execSQL(AchievementISchema.ALTER_TABLE_ACHIEVEMENT_V55_2);Log.w("Table "+AchievementISchema.ACHIEVEMENT_TABLE,"V55_2 - Alter Table...");
             db.execSQL(MaintenancePlanHasVehicleTypeDAO.CREATE_TABLE_MAINTENANCE_PLAN_HAS_VEHICLE_TYPE_V57); Log.w("Table "+MaintenancePlanHasVehicleTypeDAO.MAINTENANCE_PLAN_HAS_VEHICLE_TYPE_TABLE,"V57 - Create Table...");
-            db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V58);Log.w("Table "+VehicleISchema.VEHICLE_TABLE,"V58 - Alter Table...");
+            db.execSQL(MaintenancePlanHasVehicleTypeDAO.CREATE_TABLE_MAINTENANCE_PLAN_HAS_VEHICLE_TYPE_V57); Log.w("Table "+MaintenancePlanHasVehicleTypeDAO.MAINTENANCE_PLAN_HAS_VEHICLE_TYPE_TABLE,"V57 - Create Table...");
+            db.execSQL(PersonISchema.CREATE_TABLE_PERSON_V59);Log.w("Table "+PersonISchema.PERSON_TABLE,"V59 - Create Table...");
         }
 
         @SuppressLint("SQLiteString")
@@ -517,6 +523,9 @@ public class Database {
                         break;
                     case 58:
                         db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V58);
+                        break;
+                    case 59:
+                        db.execSQL(PersonDAO.CREATE_TABLE_PERSON_V59);
                         break;
                     default:
                         break;

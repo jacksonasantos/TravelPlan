@@ -49,6 +49,10 @@
                 android:icon="@drawable/ic_driver"
                 android:title="@string/menu_driver" />
             <item
+                android:id="@+id/nav_person"
+                android:icon="@drawable/ic_person"
+                android:title="@string/menu_person" />
+            <item
                 android:id="@+id/nav_maintenance_plan"
                 android:icon="@drawable/ic_menu_maintenance_plan"
                 android:title="@string/menu_maintenance_plan" />

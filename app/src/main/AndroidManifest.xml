@@ -65,6 +65,9 @@
             android:name=".ui.general.DriverActivity"
             android:label="@string/Driver" />
         <activity
+            android:name=".ui.general.PersonActivity"
+            android:label="@string/Person" />
+        <activity
             android:name=".ui.general.MaintenancePlanActivity"
             android:label="@string/Maintenance_Plan" />
         <activity
