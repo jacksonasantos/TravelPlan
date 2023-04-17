@@ -436,6 +436,7 @@ public class FuelSupplyActivity extends AppCompatActivity implements PlacesAdapt
                     }
                     if (vLastTravelledDistance > 0) {
                         // TODO - CHECK STATISTICS ADJUSTMENTS WHEN CHANGING THE ODOMETER AND DISTANCE TRAVELED
+                        // TODO - recalcular a distancia e o novo consumo quando alterado o odometro pegando o abastecimento imediatamente anterior
                         vStatAvgFuelConsumption = vLastTravelledDistance / Float.parseFloat(Double.toString(Double.parseDouble(etNumberLiters.getText().toString()) + v1.getAccumulated_number_liters()));
                         vStatCostPerLitre = vLastTravelledDistance / Float.parseFloat(Double.toString(Double.parseDouble(etSupplyValue.getText().toString()) + v1.getAccumulated_supply_value()));
                         vAccumulatedNumberLiter = v1.getAccumulated_number_liters();

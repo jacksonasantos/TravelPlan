@@ -394,4 +394,25 @@
     <string name="Person_License_Issue_Date">Emissão Habilitação</string>
     <string name="menu_person">Pessoa</string>
     <string name="Vehicle_Vehicle_Owner">Proprietário</string>
+    <string name="Tour">Passeio</string>
+    <string name="Tour_Deleting">Excluindo Passeio</string>
+    <string name="Tour_Marker">Itinerário</string>
+    <string name="Tour_Tour_Type">Tipo Passeio</string>
+    <string name="Tour_Currency_Type">Tipo Moeda</string>
+    <string name="Tour_Value_Adult">Valor Adulto</string>
+    <string name="Tour_Value_Child">Valor Criança</string>
+    <string name="Tour_Date">Data</string>
+    <string name="Tour_Distance">Distância</string>
+    <string name="Tour_Visitation_Time">Tempo Visita</string>
+    <string name="Tour_Note">Observação</string>
+    <string name="Museum">Museu</string>
+    <string name="Panoramic_view">Vista Panorâmica</string>
+    <string name="Square">Praça</string>
+    <string name="Monument">Monumento</string>
+    <string name="Restaurant">Restaurante</string>
+    <string name="Church">Igreja</string>
+    <string name="Tour_Opening_Hours">Funcionamento</string>
+    <string name="Tour_Travel">Viagem</string>
+    <string name="Tour_Value">Valores</string>
+    <string name="Tour_Local_Tour">Local</string>
 </resources>

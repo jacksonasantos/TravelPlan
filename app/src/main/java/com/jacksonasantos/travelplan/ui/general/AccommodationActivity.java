@@ -24,6 +24,7 @@ public class AccommodationActivity extends AppCompatActivity {
     private EditText etAccommodation_State;
     private EditText etAccommodation_Country;
     private EditText etAccommodation_Latlng_Accommodation;
+    // TODO - incluir botão para recuperar a LATLNG do endereço a Accommodation
     private EditText etAccommodation_Contact_Name;
     private EditText etAccommodation_Phone;
     private EditText etAccommodation_Email;

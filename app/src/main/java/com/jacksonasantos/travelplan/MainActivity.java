@@ -46,6 +46,8 @@ public class MainActivity extends AppCompatActivity {
     final Globals g = Globals.getInstance();
 
     // TODO - Authenticate ao APP
+    // TODO - Campos de data incluir botão de calendário
+    // TODO - botão de filtro do veiculo verificar a variavel geral e mostrar o icone certo
 
     @SuppressLint("ResourceType")
     @Override

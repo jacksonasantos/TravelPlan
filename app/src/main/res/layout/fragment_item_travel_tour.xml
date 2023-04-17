@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/llTourTravelItem"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:context=".ui.travel.TravelActivity">
+
+    <ImageView
+        android:id="@+id/imgTourType"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_gravity="center"
+        android:layout_marginEnd="@dimen/labels_margin"
+        android:contentDescription="@string/Tour_Tour_Type" />
+
+    <TextView
+        android:id="@+id/txtTourDate"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_weight="0.20"
+        android:gravity="start|center_vertical"
+        app:autoSizeMaxTextSize="12sp"
+        app:autoSizeMinTextSize="6sp"
+        app:autoSizeStepGranularity="1sp"
+        app:autoSizeTextType="uniform" />
+
+    <TextView
+        android:id="@+id/txtLocalTour"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_weight="0.60"
+        android:gravity="start|center_vertical"
+        app:autoSizeMaxTextSize="12sp"
+        app:autoSizeMinTextSize="6sp"
+        app:autoSizeStepGranularity="1sp"
+        app:autoSizeTextType="uniform" />
+
+    <ImageButton
+        android:id="@+id/btnDelete"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:contentDescription="@string/bt_Delete"
+        android:padding="7dp"
+        android:scaleType="fitCenter"
+        android:scaleX="1.5"
+        android:scaleY="1.5"
+        app:srcCompat="@drawable/ic_button_delete" />
+
+</LinearLayout>
+

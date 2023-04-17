@@ -189,12 +189,39 @@
                     android:fontFamily="sans-serif-black"
                     android:gravity="center"
                     android:background="@color/colorBackgroundSubjectDialog"
+                    android:text="@string/Tour" />
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvTourTravel"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    tools:itemCount="2" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/labels_space_top"
+            android:layout_marginBottom="@dimen/labels_space_top"
+            app:cardBackgroundColor="@color/colorBackgroundCard"
+            app:cardCornerRadius="@dimen/cardCornerRadius"
+            app:cardElevation="@dimen/cardElevation">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="10"
+                    android:textSize="14sp"
+                    android:fontFamily="sans-serif-black"
+                    android:gravity="center"
+                    android:background="@color/colorBackgroundSubjectDialog"
                     android:text="@string/Achievement" />
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rvAchievementTravel"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    app:layout_constraintTop_toBottomOf="@+id/buttonSeparator2"
                     tools:itemCount="2" />
             </LinearLayout>
         </androidx.cardview.widget.CardView>
@@ -223,7 +250,6 @@
                     android:id="@+id/rvTravelExpenses"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:layout_constraintTop_toBottomOf="@+id/buttonSeparator3"
                     tools:itemCount="2"/>
             </LinearLayout>
         </androidx.cardview.widget.CardView>

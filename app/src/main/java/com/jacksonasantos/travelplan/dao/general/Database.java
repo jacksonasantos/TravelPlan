@@ -26,6 +26,7 @@ import com.jacksonasantos.travelplan.dao.PendingVehicleDAO;
 import com.jacksonasantos.travelplan.dao.PersonDAO;
 import com.jacksonasantos.travelplan.dao.ReservationDAO;
 import com.jacksonasantos.travelplan.dao.SummaryTravelExpenseDAO;
+import com.jacksonasantos.travelplan.dao.TourDAO;
 import com.jacksonasantos.travelplan.dao.TravelDAO;
 import com.jacksonasantos.travelplan.dao.TravelExpensesDAO;
 import com.jacksonasantos.travelplan.dao.TravelItemExpensesDAO;
@@ -51,6 +52,7 @@ import com.jacksonasantos.travelplan.dao.interfaces.MarkerISchema;
 import com.jacksonasantos.travelplan.dao.interfaces.PendingVehicleISchema;
 import com.jacksonasantos.travelplan.dao.interfaces.PersonISchema;
 import com.jacksonasantos.travelplan.dao.interfaces.ReservationISchema;
+import com.jacksonasantos.travelplan.dao.interfaces.TourISchema;
 import com.jacksonasantos.travelplan.dao.interfaces.TravelExpensesISchema;
 import com.jacksonasantos.travelplan.dao.interfaces.TravelISchema;
 import com.jacksonasantos.travelplan.dao.interfaces.TravelItemExpensesISchema;
@@ -64,7 +66,7 @@ public class Database {
     private final Context mContext;
 
     private static final String DATABASE_NAME = "TravelPlan.db";
-    private static final int DATABASE_VERSION = 60;
+    private static final int DATABASE_VERSION = 61;
 
     public static AccommodationDAO mAccommodationDao;
     public static AchievementDAO mAchievementDao;
@@ -82,6 +84,7 @@ public class Database {
     public static PendingVehicleDAO mPendingVehicleDao;
     public static PersonDAO mPersonDao;
     public static ReservationDAO mReservationDao;
+    public static TourDAO mTourDao;
     public static TravelDAO mTravelDao;
     public static TravelExpensesDAO mTravelExpensesDao;
     public static TravelItemExpensesDAO mTravelItemExpensesDao;
@@ -174,7 +177,8 @@ public class Database {
             {"57", ""  , "MaintenancePlanHasVehicleTypeISchema", "ALTER_TABLE_MAINTENANCE_PLAN_HAS_VEHICLE_TYPE_V57", "MAINTENANCE_PLAN_HAS_VEHICLE_TYPE_TABLE", "V57 - Create Table..."   },
             {"58", ""  , "VehicleISchema"           , "ALTER_TABLE_VEHICLE_V58"               , "VEHICLE_TABLE"              , "V58 - Alter Table..."    },
             {"59", ""  , "Person"                   , "CREATE_TABLE_PERSON_V59"               , "PERSON_TABLE"               , "V59 - Create Table..."   },
-            {"60", "2" , "VehicleISchema"           , "ALTER_TABLE_VEHICLE_V60_2"             , "VEHICLE_TABLE"              , "V60.2 - Alter Table..."  }
+            {"60", "2" , "VehicleISchema"           , "ALTER_TABLE_VEHICLE_V60_2"             , "VEHICLE_TABLE"              , "V60.2 - Alter Table..."  },
+            {"61", ""  , "Tour"                     , "CREATE_TABLE_TOUR_V60"                 , "TOUR_TABLE"                 , "V60 - Create Table..."   }
     };
 
     public Database(Context context) {
@@ -207,6 +211,7 @@ public class Database {
             mItineraryDao = new ItineraryDAO(mDb);
             mMaintenanceItemDao = new MaintenanceItemDAO(mDb);
             mNextMaintenanceItemDao = new NextMaintenanceItemDAO(mDb);
+            mTourDao = new TourDAO(mDb);
             mTravelExpensesDao = new TravelExpensesDAO(mDb);
             mTravelItemExpensesDao = new TravelItemExpensesDAO(mDb);
             mInsuranceContactDao = new InsuranceContactDAO(mDb);
@@ -333,6 +338,7 @@ public class Database {
             db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V58); Log.w("Table "+VehicleISchema.VEHICLE_TABLE,"V58 - Alter Table...");
             db.execSQL(PersonISchema.CREATE_TABLE_PERSON_V59);Log.w("Table "+PersonISchema.PERSON_TABLE,"V59 - Create Table...");
             db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V60_1); Log.w("Table "+VehicleISchema.VEHICLE_TABLE,"V60_1 - Alter Table...");
+            db.execSQL(TourISchema.CREATE_TABLE_TOUR_V61);Log.w("Table "+TourISchema.TOUR_TABLE,"V61 - Create Table...");
         }
 
         @SuppressLint("SQLiteString")
@@ -523,6 +529,9 @@ public class Database {
                         break;
                     case 60:
                         db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V60_1);
+                        break;
+                    case 61:
+                        db.execSQL(TourISchema.CREATE_TABLE_TOUR_V61);
                         break;
                     default:
                         break;

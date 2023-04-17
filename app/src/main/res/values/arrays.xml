@@ -175,4 +175,13 @@
         <item>@string/pay</item>
         <item>@string/executed</item>
     </string-array>
+    <!-- Tour Type Status -->
+    <string-array name="tour_type_array">
+        <item>@string/Museum</item>
+        <item>@string/Panoramic_view</item>
+        <item>@string/Square</item>
+        <item>@string/Monument</item>
+        <item>@string/Restaurant</item>
+        <item>@string/Church</item>
+    </string-array>
 </resources>

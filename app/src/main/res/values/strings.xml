@@ -517,4 +517,30 @@
     <string name="in">in</string>
     <string name="expiring">expiring</string>
     <string name="expired">expired</string>
+
+    <!-- Tour -->
+    <string name="Tour">Tour</string>
+    <string name="Tour_Deleting">Deleting Person</string>
+
+    <string name="Tour_Travel">Travel</string>
+    <string name="Tour_Marker">Marker</string>
+    <string name="Tour_Tour_Type">Tour Type</string>
+    <string name="Tour_Local_Tour">Local</string>
+    <string name="Tour_Currency_Type">Currency Type</string>
+    <string name="Tour_Value">Value</string>
+    <string name="Tour_Value_Adult">Value Adult</string>
+    <string name="Tour_Value_Child">Value Child</string>
+    <string name="Tour_Date">Date</string>
+    <string name="Tour_Opening_Hours">Opening</string>
+    <string name="Tour_Distance">Distance</string>
+    <string name="Tour_Visitation_Time">Visitation Time</string>
+    <string name="Tour_Note">Note</string>
+
+    <string name="Museum">Museum</string>
+    <string name="Panoramic_view">Panoramic View</string>
+    <string name="Square">Square</string>
+    <string name="Monument">Monument</string>
+    <string name="Restaurant">Restaurant</string>
+    <string name="Church">Church</string>
+
 </resources>

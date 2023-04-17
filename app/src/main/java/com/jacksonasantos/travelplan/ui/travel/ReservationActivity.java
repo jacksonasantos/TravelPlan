@@ -3,11 +3,13 @@ package com.jacksonasantos.travelplan.ui.travel;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,10 +33,10 @@ import java.util.List;
 
 public class ReservationActivity extends AppCompatActivity {
     
-    private AutoCompleteTextView spinTravel;
-    private int nrSpinTravel;
-    private AutoCompleteTextView spinAccommodation;
-    private int nrSpinAccommodation;
+    private Spinner spinTravel;
+    private Integer nrSpinTravel;
+    private Spinner spinAccommodation;
+    private Integer nrSpinAccommodation;
     private ImageButton btAddAccommodation;
     private EditText etVoucher_Number;
     private EditText etCheckin_Date;
@@ -51,7 +53,7 @@ public class ReservationActivity extends AppCompatActivity {
     private boolean opInsert = true;
     private Reservation reservation;
 
-    private ArrayAdapter<Accommodation> adapterA = null;
+    protected ArrayAdapter<Accommodation> adapterA = null;
     private List<Accommodation> accommodations;
 
     @SuppressLint("WrongViewCast")
@@ -102,24 +104,64 @@ public class ReservationActivity extends AppCompatActivity {
         nrStatus_Reservation = 0;
 
         final List<Travel> travels =  Database.mTravelDao.fetchArrayTravel();
+        travels.add(0, new Travel());
+
         ArrayAdapter<Travel> adapterT = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, travels);
         adapterT.setDropDownViewResource( android.R.layout.simple_spinner_dropdown_item);
         spinTravel.setAdapter(adapterT);
-        final Travel[] travel = {new Travel()};
-        spinTravel.setOnItemClickListener((parent, view, position, id) -> {
-            travel[0] = (Travel) parent.getItemAtPosition(position);
-            nrSpinTravel = travel[0].getId();
+        if (nrSpinTravel != null && nrSpinTravel > 0) {
+            Travel trip1 = Database.mTravelDao.fetchTravelById(nrSpinTravel);
+            for (int x = 1; x <= spinTravel.getAdapter().getCount(); x++) {
+                if (spinTravel.getAdapter().getItem(x).toString().equals(trip1.getDescription())) {
+                    spinTravel.setSelection(x);
+                    nrSpinTravel = trip1.getId();
+                    break;
+                }
+            }
+        }
+
+        final Travel[] t1 = {new Travel()};
+        spinTravel.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long idx) {
+                t1[0] = (Travel) parent.getItemAtPosition(position);
+                nrSpinTravel = t1[0].getId();
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                nrSpinTravel = 0;
+            }
         });
         adapterT.notifyDataSetChanged();
 
-        accommodations =  Database.mAccommodationDao.fetchArrayAccommodation();
-        adapterA = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, accommodations);
+        final List<Accommodation> accommodations =  Database.mAccommodationDao.fetchArrayAccommodation();
+        accommodations.add(0, new Accommodation());
+
+        ArrayAdapter<Accommodation> adapterA = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, accommodations);
         adapterA.setDropDownViewResource( android.R.layout.simple_spinner_dropdown_item);
         spinAccommodation.setAdapter(adapterA);
-        final Accommodation[] accommodation = {new Accommodation()};
-        spinAccommodation.setOnItemClickListener((parent, view, position, id) -> {
-            accommodation[0] = (Accommodation) parent.getItemAtPosition(position);
-            nrSpinAccommodation = accommodation[0].getId();
+        if (nrSpinAccommodation != null && nrSpinAccommodation > 0) {
+            Accommodation accommodation1 = Database.mAccommodationDao.fetchAccommodationById(nrSpinAccommodation);
+            for (int x = 1; x <= spinAccommodation.getAdapter().getCount(); x++) {
+                if (spinAccommodation.getAdapter().getItem(x).toString().equals(accommodation1.getName())) {
+                    spinAccommodation.setSelection(x);
+                    nrSpinAccommodation = accommodation1.getId();
+                    break;
+                }
+            }
+        }
+
+        final Accommodation[] a1 = {new Accommodation()};
+        spinAccommodation.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long idx) {
+                a1[0] = (Accommodation) parent.getItemAtPosition(position);
+                nrSpinAccommodation = a1[0].getId();
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                nrSpinAccommodation = 0;
+            }
         });
         adapterA.notifyDataSetChanged();
 
@@ -127,25 +169,24 @@ public class ReservationActivity extends AppCompatActivity {
         etCheckout_Date.addTextChangedListener(new DateInputMask(etCheckout_Date));
 
         if (reservation != null) {
+
             nrSpinTravel=reservation.getTravel_id();
-            Travel t1 = Database.mTravelDao.fetchTravelById(nrSpinTravel);
-            if (t1.getDescription()!=null) {
-                for (int x = 0; x <= spinTravel.getAdapter().getCount(); x++) {
-                    if (spinTravel.getAdapter().getItem(x).toString().equals(t1.getDescription())) {
-                        spinTravel.setText(spinTravel.getAdapter().getItem(x).toString(),false);
+            if (nrSpinTravel > 0) {
+                Travel trip1 = Database.mTravelDao.fetchTravelById(nrSpinTravel);
+                for (int x = 1; x <= spinTravel.getAdapter().getCount(); x++) {
+                    if (spinTravel.getAdapter().getItem(x).toString().equals(trip1.getDescription())) {
+                        spinTravel.setSelection(x);
                         break;
                     }
                 }
             }
             if (reservation.getAccommodation_id()!=null) {
                 nrSpinAccommodation = reservation.getAccommodation_id();
-                Accommodation a1 = Database.mAccommodationDao.fetchAccommodationById(nrSpinAccommodation);
-                if (a1.getName() != null) {
-                    for (int x = 0; x < spinAccommodation.getAdapter().getCount(); x++) {
-                        if (spinAccommodation.getAdapter().getItem(x).toString().equals(a1.getName())) {
-                            spinAccommodation.setText(spinAccommodation.getAdapter().getItem(x).toString(), false);
-                            break;
-                        }
+                Accommodation accommodation1 = Database.mAccommodationDao.fetchAccommodationById(nrSpinAccommodation);
+                for (int x = 1; x <= spinAccommodation.getAdapter().getCount(); x++) {
+                    if (spinAccommodation.getAdapter().getItem(x).toString().equals(accommodation1.getName())) {
+                        spinAccommodation.setSelection(x);
+                        break;
                     }
                 }
             }

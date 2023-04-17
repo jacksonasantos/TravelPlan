@@ -36,6 +36,7 @@ import com.jacksonasantos.travelplan.ui.travel.ReservationActivity;
 import com.jacksonasantos.travelplan.ui.travel.TravelAchievementListAdapter;
 import com.jacksonasantos.travelplan.ui.travel.TravelFuelSupplyListAdapter;
 import com.jacksonasantos.travelplan.ui.travel.TravelRouteFragment;
+import com.jacksonasantos.travelplan.ui.travel.TravelTourListAdapter;
 import com.jacksonasantos.travelplan.ui.travel.TravelVehicleListAdapter;
 import com.jacksonasantos.travelplan.ui.travel.TravelVehicleStatusListAdapter;
 import com.jacksonasantos.travelplan.ui.utility.DateInputMask;
@@ -68,8 +69,14 @@ public class HomeTravelFragment extends Fragment implements View.OnClickListener
     private ImageButton btnTolls;
     private ImageButton btnInsurance;
 
+    private ConstraintLayout layerExpense;
+    private RecyclerView listTravelExpenses;
+
     private ConstraintLayout layerVehicle;
     private RecyclerView listVehicle;
+
+    private ConstraintLayout layerTour;
+    private RecyclerView listTour;
 
     private ConstraintLayout layerFuelSupply;
     private RecyclerView listFuelSupply;
@@ -82,9 +89,6 @@ public class HomeTravelFragment extends Fragment implements View.OnClickListener
 
     private ConstraintLayout layerReservation;
     private RecyclerView listReservation;
-
-    private ConstraintLayout layerExpense;
-    private RecyclerView listTravelExpenses;
 
     private ConstraintLayout layerInsurance;
     private RecyclerView listInsuranceExpiration;
@@ -115,9 +119,16 @@ public class HomeTravelFragment extends Fragment implements View.OnClickListener
         btnTour = v.findViewById(R.id.btnTour);
         btnTolls = v.findViewById(R.id.btnTolls);
         btnInsurance = v.findViewById(R.id.btnInsurance);
+        // TODO - habilitar o cadastro de seguros para locações
+
+        layerExpense = v.findViewById(R.id.layerExpense);
+        listTravelExpenses = v.findViewById(R.id.listTravelExpenses);
 
         layerVehicle = v.findViewById(R.id.layerVehicle);
         listVehicle = v.findViewById(R.id.listVehicle);
+
+        layerTour = v.findViewById(R.id.layerTour);
+        listTour = v.findViewById(R.id.listTour);
 
         layerFuelSupply = v.findViewById(R.id.layerFuelSupply);
         listFuelSupply = v.findViewById(R.id.listFuelSupply);
@@ -130,9 +141,6 @@ public class HomeTravelFragment extends Fragment implements View.OnClickListener
 
         layerReservation = v.findViewById(R.id.layerReservation);
         listReservation = v.findViewById(R.id.listReservation);
-
-        layerExpense = v.findViewById(R.id.layerExpense);
-        listTravelExpenses = v.findViewById(R.id.listTravelExpenses);
 
         layerInsurance = v.findViewById(R.id.layerInsurance);
         listInsuranceExpiration = v.findViewById(R.id.listInsuranceExpiration);
@@ -306,6 +314,18 @@ public class HomeTravelFragment extends Fragment implements View.OnClickListener
                     startActivity(intent);
                 });
 
+                // Expenses - LayerExpense
+                final int Show_Header_SummaryExpense = 1; // 0 - NO SHOW HEADER | 1 - SHOW HEADER
+                final int Show_Footer_SummaryExpense = 1; // 0 - NO SHOW FOOTER | 1 - SHOW FOOTER
+                HomeTravelSummaryExpenseListAdapter adapterTravelExpense = new HomeTravelSummaryExpenseListAdapter( Database.mSummaryTravelExpenseDao.findTravelExpense(travel[0].getId() ), getContext(), Show_Header_SummaryExpense, Show_Footer_SummaryExpense);
+                if ( adapterTravelExpense.getItemCount() > Show_Header_SummaryExpense+Show_Footer_SummaryExpense){
+                    layerExpense.setVisibility(View.VISIBLE);
+                    listTravelExpenses.setAdapter(adapterTravelExpense);
+                    listTravelExpenses.setLayoutManager(new LinearLayoutManager(getContext()));
+                } else {
+                    layerExpense.setVisibility(View.GONE);
+                }
+
                 // Vehicles has Travel
                 final int Show_Header_VehicleTravel = 1  ;
                 TravelVehicleListAdapter adapterVehicleTravel = new TravelVehicleListAdapter(Database.mVehicleHasTravelDao.fetchAllVehicleHasTravelByTravel(travel[0].getId() ), getContext(),"Home", Show_Header_VehicleTravel,travel[0].id);
@@ -315,6 +335,17 @@ public class HomeTravelFragment extends Fragment implements View.OnClickListener
                     listVehicle.setLayoutManager(new LinearLayoutManager(getContext()));
                 } else {
                     layerVehicle.setVisibility(View.GONE);
+                }
+
+                // Tours
+                final int Show_Header_Tour = 1  ;
+                TravelTourListAdapter adapterTourTravel = new TravelTourListAdapter(Database.mTourDao.fetchAllTourByTravel(travel[0].getId() ), getContext(),"Home", Show_Header_Tour,travel[0].id);
+                if ( adapterTourTravel.getItemCount() > Show_Header_Tour){
+                    layerTour.setVisibility(View.VISIBLE);
+                    listTour.setAdapter(adapterTourTravel);
+                    listTour.setLayoutManager(new LinearLayoutManager(getContext()));
+                } else {
+                    layerTour.setVisibility(View.GONE);
                 }
 
                 // Fuel Supply has Travel
@@ -362,18 +393,6 @@ public class HomeTravelFragment extends Fragment implements View.OnClickListener
                     layerReservation.setVisibility(View.GONE);
                 }
 
-                // Expenses - LayerExpense
-                final int Show_Header_SummaryExpense = 1; // 0 - NO SHOW HEADER | 1 - SHOW HEADER
-                final int Show_Footer_SummaryExpense = 1; // 0 - NO SHOW FOOTER | 1 - SHOW FOOTER
-                HomeTravelSummaryExpenseListAdapter adapterTravelExpense = new HomeTravelSummaryExpenseListAdapter( Database.mSummaryTravelExpenseDao.findTravelExpense(travel[0].getId() ), getContext(), Show_Header_SummaryExpense, Show_Footer_SummaryExpense);
-                if ( adapterTravelExpense.getItemCount() > Show_Header_SummaryExpense+Show_Footer_SummaryExpense){
-                    layerExpense.setVisibility(View.VISIBLE);
-                    listTravelExpenses.setAdapter(adapterTravelExpense);
-                    listTravelExpenses.setLayoutManager(new LinearLayoutManager(getContext()));
-                } else {
-                    layerExpense.setVisibility(View.GONE);
-                }
-
                 // Insurance - layerInsurance
                 final int Show_Header_Insurance = 0; // 0 - NO SHOW HEADER | 1 - SHOW HEADER
                 HomeInsuranceListAdapter adapterInsurance = new HomeInsuranceListAdapter(Database.mInsuranceDao.findReminderInsurance("T", travel[0].getId() ), getContext(), Show_Header_Insurance);
@@ -394,6 +413,8 @@ public class HomeTravelFragment extends Fragment implements View.OnClickListener
 
             public void TravelItemExpenses(View v, int expense_type ) {
 
+                // TODO - mostrar itens cadastrado nas outras tabelas para escolher e vincular ao gasto executado, trocando ou marcando o status da despesas realizada
+                // TODO - mostrar os markers para cada tipo para escolher no cadastro da despesa realizada
                 LayoutInflater li = LayoutInflater.from(v.getContext());
                 View promptsView = li.inflate(R.layout.dialog_travel_item_expenses, null);
 
@@ -402,6 +423,8 @@ public class HomeTravelFragment extends Fragment implements View.OnClickListener
 
                 final HomeTravelItemExpensesListAdapter[] adapterTravelItemExpenses = new HomeTravelItemExpensesListAdapter[1];
                 final Spinner spinExpenseType = promptsView.findViewById(R.id.spinExpenseType);
+                // TODO - não deixar trocar o spinner do botaão escolhido
+
                 final EditText etExpectedValue = promptsView.findViewById(R.id.etExpectedValue);
                 final EditText etNote = promptsView.findViewById(R.id.etNote);
 
@@ -422,6 +445,7 @@ public class HomeTravelFragment extends Fragment implements View.OnClickListener
                 spinExpenseType.setSelection(expense_type);
                 double vlrExpectedValue = 0.0;
                 for (int x = 0; x < travelExpensesList.size(); x++) {
+                    // TODO - Incluir os valores planejados das outras tabelas de cadas despesa, ex. Tours cadastrados com valores
                     vlrExpectedValue = vlrExpectedValue + travelExpensesList.get(x).getExpected_value();
                 }
                 etExpectedValue.setText(currencyFormatter.format(vlrExpectedValue));

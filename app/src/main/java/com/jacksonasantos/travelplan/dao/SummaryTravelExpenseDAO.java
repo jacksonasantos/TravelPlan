@@ -10,6 +10,7 @@ import com.jacksonasantos.travelplan.dao.interfaces.ItineraryISchema;
 import com.jacksonasantos.travelplan.dao.interfaces.ReservationISchema;
 import com.jacksonasantos.travelplan.dao.interfaces.SummaryTravelExpenseIDAO;
 import com.jacksonasantos.travelplan.dao.interfaces.SummaryTravelExpenseISchema;
+import com.jacksonasantos.travelplan.dao.interfaces.TourISchema;
 import com.jacksonasantos.travelplan.dao.interfaces.TravelExpensesISchema;
 import com.jacksonasantos.travelplan.dao.interfaces.TravelItemExpensesISchema;
 import com.jacksonasantos.travelplan.dao.interfaces.VehicleHasTravelISchema;
@@ -54,6 +55,12 @@ public class SummaryTravelExpenseDAO extends DbContentProvider implements Summar
                               " FROM " + ReservationISchema.RESERVATION_TABLE +
                              " WHERE " + ReservationISchema.RESERVATION_TRAVEL_ID + " = ? " +
                             " UNION " +
+                            " SELECT 3 "+ SummaryTravelExpenseISchema.SUMMARY_TRAVEL_EXPENSE_EXPENSE_TYPE + ", " +  // Tour
+                                   " SUM(" + TourISchema.TOUR_VALUE_ADULT + ") " + SummaryTravelExpenseISchema.SUMMARY_TRAVEL_EXPENSE_REALIZED_VALUE + ", " +
+                                   " 0 " + SummaryTravelExpenseISchema.SUMMARY_TRAVEL_EXPENSE_EXPECTED_VALUE +
+                              " FROM " + TourISchema.TOUR_TABLE +
+                             " WHERE " + TourISchema.TOUR_TRAVEL_ID + " = ? " +
+                            " UNION " +                                                                             // Travel Expenses
                             " SELECT 6 "+ SummaryTravelExpenseISchema.SUMMARY_TRAVEL_EXPENSE_EXPENSE_TYPE + ", " +  // Insurance
                                    " 0 " + SummaryTravelExpenseISchema.SUMMARY_TRAVEL_EXPENSE_EXPECTED_VALUE + ", " +
                                    " SUM(" + InsuranceISchema.INSURANCE_TOTAL_PREMIUM_VALUE + ") " + SummaryTravelExpenseISchema.SUMMARY_TRAVEL_EXPENSE_REALIZED_VALUE +
@@ -72,7 +79,7 @@ public class SummaryTravelExpenseDAO extends DbContentProvider implements Summar
                              " GROUP BY " + TravelExpensesISchema.TRAVEL_EXPENSES_EXPENSE_TYPE + " " +
                            ") " +
                   " GROUP BY " + TravelExpensesISchema.TRAVEL_EXPENSES_EXPENSE_TYPE,
-        new String[] { String.valueOf(travel_id), String.valueOf(travel_id), String.valueOf(travel_id), String.valueOf(travel_id), String.valueOf(travel_id)});
+        new String[] { String.valueOf(travel_id), String.valueOf(travel_id), String.valueOf(travel_id), String.valueOf(travel_id), String.valueOf(travel_id), String.valueOf(travel_id)});
         if (null != cursor) {
             if (cursor.moveToFirst()) {
                 do {

@@ -83,6 +83,9 @@
             android:name=".ui.travel.TravelActivity"
             android:label="@string/Travel" />
         <activity
+            android:name=".ui.travel.TourActivity"
+            android:label="@string/Tour" />
+        <activity
             android:name=".ui.travel.ItineraryActivity"
             android:label="@string/Itinerary" />
         <activity

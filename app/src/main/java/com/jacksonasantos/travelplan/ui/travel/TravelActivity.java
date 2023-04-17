@@ -27,10 +27,12 @@ public class TravelActivity extends AppCompatActivity {
     private TextView tvStatus;
 
     private RecyclerView rvVehicleTravel;
+    private RecyclerView rvTourTravel;
     private RecyclerView rvAchievementTravel;
     private RecyclerView rvTravelExpenses;
 
     private TravelVehicleListAdapter adapterVehicleTravel;
+    private TravelTourListAdapter adapterTourTravel;
     private TravelAchievementListAdapter adapterAchievementTravel;
     private TravelExpensesListAdapter adapterTravelExpenses;
 
@@ -60,6 +62,7 @@ public class TravelActivity extends AppCompatActivity {
         tvStatus = findViewById(R.id.tvStatus);
 
         rvVehicleTravel = findViewById(R.id.rvVehicleTravel);
+        rvTourTravel = findViewById(R.id.rvTourTravel);
         rvAchievementTravel = findViewById(R.id.rvAchievementTravel);
         rvTravelExpenses = findViewById(R.id.rvTravelExpenses);
     }
@@ -95,6 +98,11 @@ public class TravelActivity extends AppCompatActivity {
             rvVehicleTravel.setAdapter(adapterVehicleTravel);
             rvVehicleTravel.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
             adapterVehicleTravel.notifyDataSetChanged();
+
+            adapterTourTravel = new TravelTourListAdapter(Database.mTourDao.fetchAllTourByTravel(travel.getId()), getApplicationContext(),"Travel",1, travel.getId());
+            rvTourTravel.setAdapter(adapterTourTravel);
+            rvTourTravel.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+            adapterTourTravel.notifyDataSetChanged();
 
             adapterAchievementTravel = new TravelAchievementListAdapter(Database.mAchievementDao.fetchAllAchievementByTravel(travel.getId()), getApplicationContext(),"Travel",1, travel.getId());
             rvAchievementTravel.setAdapter(adapterAchievementTravel);
