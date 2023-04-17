@@ -199,6 +199,8 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
                         Geocoder geocoder = new Geocoder(requireContext());
                         List<Address> addresses = geocoder.getFromLocation(point.latitude, point.longitude, 1);
                         Address address = Objects.requireNonNull(addresses).get(0);
+                        mArgs.putString("address_marker", address.getThoroughfare()+", "+address.getSubThoroughfare());
+                        this.setArguments(mArgs);
                         mArgs.putString("state_marker", getAbbreviationFromState(address.getAdminArea()));
                         this.setArguments(mArgs);
                         mArgs.putString("city_marker", address.getSubAdminArea());

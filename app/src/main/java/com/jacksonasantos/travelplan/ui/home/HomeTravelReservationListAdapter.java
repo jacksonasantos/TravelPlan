@@ -130,6 +130,7 @@ public class HomeTravelReservationListAdapter extends RecyclerView.Adapter<Recyc
                 alertDialog.show();
             });
 
+            // TODO - eliminar o botão edit e editar através da layer
             // btnEdit
             itemViewHolder.btnEdit.setOnClickListener (v -> {
                 Intent intent = new Intent (v.getContext(), ReservationActivity.class);

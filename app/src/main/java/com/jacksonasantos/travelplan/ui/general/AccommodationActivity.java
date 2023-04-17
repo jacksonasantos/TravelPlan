@@ -6,15 +6,21 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.jacksonasantos.travelplan.R;
 import com.jacksonasantos.travelplan.dao.Accommodation;
 import com.jacksonasantos.travelplan.dao.general.Database;
+import com.jacksonasantos.travelplan.ui.travel.ItineraryActivity;
 import com.jacksonasantos.travelplan.ui.utility.Utils;
 
 public class AccommodationActivity extends AppCompatActivity {
@@ -24,7 +30,7 @@ public class AccommodationActivity extends AppCompatActivity {
     private EditText etAccommodation_State;
     private EditText etAccommodation_Country;
     private EditText etAccommodation_Latlng_Accommodation;
-    // TODO - incluir botão para recuperar a LATLNG do endereço a Accommodation
+    private ImageButton btAccommodation_Latlng_Accommodation;
     private EditText etAccommodation_Contact_Name;
     private EditText etAccommodation_Phone;
     private EditText etAccommodation_Email;
@@ -72,11 +78,26 @@ public class AccommodationActivity extends AppCompatActivity {
         etAccommodation_State = findViewById(R.id.etAccommodation_State);
         etAccommodation_Country = findViewById(R.id.etAccommodation_Country);
         etAccommodation_Latlng_Accommodation = findViewById(R.id.etAccommodation_Latlng_Accommodation);
+        btAccommodation_Latlng_Accommodation = findViewById(R.id.btAccommodation_Latlng_Accommodation);
         etAccommodation_Contact_Name = findViewById(R.id.etAccommodation_Contact_Name);
         etAccommodation_Phone = findViewById(R.id.etAccommodation_Phone);
         etAccommodation_Email = findViewById(R.id.etAccommodation_Email);
         etAccommodation_Site = findViewById(R.id.etAccommodation_Site);
         spinAccommodation_Accommodation_Type = findViewById(R.id.spinAccommodation_Accommodation_Type);
+
+        btAccommodation_Latlng_Accommodation.setOnClickListener(view -> {
+            Intent intent = new Intent (getBaseContext(), ItineraryActivity.class);
+            if (!etAccommodation_Latlng_Accommodation.getText().toString().equals("")) {
+                intent.putExtra("local_search", etAccommodation_Latlng_Accommodation.getText().toString());
+            } else {
+                intent.putExtra("local_search", etAccommodationName.getText().toString() + "," +
+                                                            etAccommodation_Address.getText().toString()+ "," +
+                                                            etAccommodation_City.getText().toString()+ "," +
+                                                            etAccommodation_State.getText().toString()+ "," +
+                                                            etAccommodation_Country.getText().toString());
+            }
+            myActivityResultLauncher.launch(intent);
+        });
 
         Utils.createSpinnerResources(R.array.accommodation_type_array, spinAccommodation_Accommodation_Type, this);
         nrSpinAccommodation_Accommodation_Type = 0;
@@ -107,6 +128,24 @@ public class AccommodationActivity extends AppCompatActivity {
             spinAccommodation_Accommodation_Type.setSelection(nrSpinAccommodation_Accommodation_Type);
         }
     }
+
+    final ActivityResultLauncher<Intent> myActivityResultLauncher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            new ActivityResultCallback<ActivityResult>() {
+                @Override
+                public void onActivityResult(ActivityResult result) {
+                    if (result.getResultCode() == 124) {
+                        Intent data = result.getData();
+                        if (data != null) {
+                            etAccommodation_Latlng_Accommodation.setText(data.getStringExtra("resulted_value"));
+                            etAccommodation_Address.setText(data.getStringExtra("resulted_address"));
+                            etAccommodation_City.setText(data.getStringExtra("resulted_city"));
+                            etAccommodation_State.setText(data.getStringExtra("resulted_state"));
+                            etAccommodation_Country.setText(data.getStringExtra("resulted_country"));
+                        }
+                    }
+                }
+            });
 
     public void addListenerOnButtonSave() {
         Button btSaveAccommodation = findViewById(R.id.btSaveAccommodation);

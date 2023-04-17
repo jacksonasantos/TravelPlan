@@ -149,19 +149,30 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
                 android:orientation="horizontal"
+                android:layout_weight="10"
                 android:padding="@dimen/labels_margin">
+                <ImageButton
+                    android:id="@+id/btAccommodation_Latlng_Accommodation"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:contentDescription="@string/Accommodation_Latlng_Accommodation"
+                    android:scaleType="centerCrop"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="parent"
+                    app:srcCompat="@drawable/ic_menu_location" />
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="6"
-                    android:text="@string/Accommodation_Latlng_Accommodation" />
+                    android:layout_weight="4"
+                    android:text="@string/Accommodation_Latlng_Accommodation"
+                    tools:ignore="NestedWeights" />
                 <EditText
                     android:id="@+id/etAccommodation_Latlng_Accommodation"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="4"
+                    android:layout_weight="2.2"
                     android:autofillHints="no"
                     android:inputType="text"
                     android:nextFocusDown="@+id/etAccommodation_Contact_Name"
