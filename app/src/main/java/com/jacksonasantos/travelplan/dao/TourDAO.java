@@ -108,6 +108,8 @@ public class TourDAO extends DbContentProvider implements TourISchema, TourIDAO 
             if (c.getColumnIndex(TOUR_CURRENCY_TYPE) != -1)   {t.setCurrency_type(c.getInt(c.getColumnIndexOrThrow(TOUR_CURRENCY_TYPE))); }
             if (c.getColumnIndex(TOUR_VALUE_ADULT) != -1)     {t.setValue_adult(c.getDouble(c.getColumnIndexOrThrow(TOUR_VALUE_ADULT))); }
             if (c.getColumnIndex(TOUR_VALUE_CHILD) != -1)     {t.setValue_child(c.getDouble(c.getColumnIndexOrThrow(TOUR_VALUE_CHILD))); }
+            if (c.getColumnIndex(TOUR_NUMBER_ADULT) != -1)    {t.setNumber_adult(c.getInt(c.getColumnIndexOrThrow(TOUR_NUMBER_ADULT))); }
+            if (c.getColumnIndex(TOUR_NUMBER_CHILD) != -1)    {t.setNumber_child(c.getInt(c.getColumnIndexOrThrow(TOUR_NUMBER_CHILD))); }
             if (c.getColumnIndex(TOUR_TOUR_DATE) != -1)       {t.setTour_date(Utils.dateParse(c.getString(c.getColumnIndexOrThrow(TOUR_TOUR_DATE)))); }
             if (c.getColumnIndex(TOUR_OPENING_HOURS) != -1)   {t.setOpening_hours(c.getString(c.getColumnIndexOrThrow(TOUR_OPENING_HOURS))); }
             if (c.getColumnIndex(TOUR_DISTANCE) != -1)        {t.setDistance(c.getInt(c.getColumnIndexOrThrow(TOUR_DISTANCE))); }
@@ -127,6 +129,8 @@ public class TourDAO extends DbContentProvider implements TourISchema, TourIDAO 
         initialValues.put(TOUR_CURRENCY_TYPE, t.currency_type);
         initialValues.put(TOUR_VALUE_ADULT, t.value_adult);
         initialValues.put(TOUR_VALUE_CHILD, t.value_child);
+        initialValues.put(TOUR_NUMBER_ADULT, t.number_adult);
+        initialValues.put(TOUR_NUMBER_CHILD, t.number_child);
         initialValues.put(TOUR_TOUR_DATE, Utils.dateFormat(t.tour_date));
         initialValues.put(TOUR_OPENING_HOURS, t.opening_hours);
         initialValues.put(TOUR_DISTANCE, t.distance);
@@ -137,5 +141,4 @@ public class TourDAO extends DbContentProvider implements TourISchema, TourIDAO 
     private ContentValues getContentValue() {
         return initialValues;
     }
-
 }

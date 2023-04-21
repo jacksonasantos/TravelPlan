@@ -39,6 +39,8 @@ public class TourActivity extends AppCompatActivity implements TourTypeListAdapt
     private EditText etDate ;
     private EditText etValueAdult;
     private EditText etValueChild ;
+    private EditText etNumberAdult;
+    private EditText etNumberChild ;
     private Spinner spCurrencyType;
     private int nrSpCurrencyType;
     private EditText etOpeningHours;
@@ -78,7 +80,6 @@ public class TourActivity extends AppCompatActivity implements TourTypeListAdapt
         }
 
         addListenerOnButtonSave();
-        // TODO- incluir a quantidade de PACs por idade
         tvTravel = findViewById(R.id.tvTravel);
         tvItinerary = findViewById(R.id.tvItinerary);
         tvMarker = findViewById(R.id.tvMarker);
@@ -87,6 +88,8 @@ public class TourActivity extends AppCompatActivity implements TourTypeListAdapt
         etDate = findViewById(R.id.etDate);
         etValueAdult = findViewById(R.id.etValueAdult);
         etValueChild = findViewById(R.id.etValueChild);
+        etNumberAdult = findViewById(R.id.etNumberAdult);
+        etNumberChild = findViewById(R.id.etNumberChild);
         spCurrencyType = findViewById(R.id.spCurrencyType);
         etOpeningHours = findViewById(R.id.etOpeningHours);
         etVisitationTime = findViewById(R.id.etVisitationTime);
@@ -126,21 +129,22 @@ public class TourActivity extends AppCompatActivity implements TourTypeListAdapt
         if (tour != null) {
             Travel t1 = Database.mTravelDao.fetchTravelById(tour.getTravel_id());
             tvTravel.setText(t1.getDescription());
-            tvItinerary.setVisibility(View.INVISIBLE);//.setText("");
-            tvMarker.setVisibility(View.INVISIBLE);//.setText("");
+            tvItinerary.setVisibility(View.INVISIBLE);
+            tvMarker.setVisibility(View.INVISIBLE);
             nrTourType = tour.getTour_type();
             Utils.selected_position = nrTourType;
             etLocalTour.setText(tour.getLocal_tour());
             etDate.setText(Utils.dateToString(tour.getTour_date()));
-            etValueAdult.setText(String.valueOf(tour.getValue_adult())); // TODO - verificar a gravação de valores nulos
+            etValueAdult.setText(String.valueOf(tour.getValue_adult()));
             etValueChild.setText(String.valueOf(tour.getValue_child()));
+            etNumberAdult.setText(String.valueOf(tour.getNumber_adult()));
+            etNumberChild.setText(String.valueOf(tour.getNumber_child()));
             nrSpCurrencyType = tour.getCurrency_type();
             spCurrencyType.setSelection(nrSpCurrencyType);
             etOpeningHours.setText(tour.getOpening_hours());
             etVisitationTime.setText(tour.getVisitation_time());
             etNote.setText(tour.getNote());
         }
-
     }
 
     @Override
@@ -169,6 +173,8 @@ public class TourActivity extends AppCompatActivity implements TourTypeListAdapt
                 t1.setCurrency_type(nrSpCurrencyType);
                 t1.setValue_adult(Double.parseDouble(etValueAdult.getText().toString()));
                 t1.setValue_child(Double.parseDouble(etValueChild.getText().toString()));
+                t1.setNumber_adult(Integer.parseInt(etNumberAdult.getText().toString()));
+                t1.setNumber_child(Integer.parseInt(etNumberChild.getText().toString()));
                 t1.setTour_date(Utils.stringToDate(etDate.getText().toString()));
                 t1.setOpening_hours(etOpeningHours.getText().toString());
                 t1.setDistance(0);
@@ -208,6 +214,8 @@ public class TourActivity extends AppCompatActivity implements TourTypeListAdapt
                 etDate.getText().toString().trim().isEmpty()
                 //etValueAdult.getText().toString().trim().isEmpty() ||
                 //etValueChild.getText().toString().trim().isEmpty() ||
+                //etNumberAdult.getText().toString().trim().isEmpty() ||
+                //etNumberChild.getText().toString().trim().isEmpty() ||
                 //nrspCurrencyType == -1 ||
                 //etOpeningHours.getText().toString().trim().isEmpty() ||
                 //etVisitationTime.getText().toString().trim().isEmpty() ||

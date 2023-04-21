@@ -474,4 +474,6 @@
     <string name="Transport_Service_Tax">Valor Impostos</string>
     <string name="Transport_Amount_Paid">Valor Pago</string>
     <string name="Transport_Note">Observação</string>
+    <string name="Tour_Number_Adult">Núm Adultos</string>
+    <string name="Tour_Number_Child">Núm Crianças</string>
 </resources>

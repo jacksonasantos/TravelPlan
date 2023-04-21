@@ -84,31 +84,31 @@
                 </LinearLayout>
 
                 <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/labels_space_top"
-                android:orientation="horizontal"
-                android:weightSum="10">
-
-                <TextView
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="2.5"
-                    android:text="@string/Tour_Date"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textSize="14sp" />
+                    android:layout_marginTop="@dimen/labels_space_top"
+                    android:orientation="horizontal"
+                    android:weightSum="10">
 
-                <EditText
-                    android:id="@+id/etDate"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="7.5"
-                    android:autofillHints="no"
-                    android:gravity="center"
-                    android:inputType="datetime"
-                    android:textSize="12sp"
-                    tools:ignore="LabelFor" />
-            </LinearLayout>
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2.5"
+                        android:text="@string/Tour_Date"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textSize="14sp" />
+
+                    <EditText
+                        android:id="@+id/etDate"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="7.5"
+                        android:autofillHints="no"
+                        android:gravity="center"
+                        android:inputType="datetime"
+                        android:textSize="12sp"
+                        tools:ignore="LabelFor" />
+                </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -163,6 +163,51 @@
                         android:hint="@string/Tour_Currency_Type"
                         android:textSize="12sp"
                         tools:ignore="SmallSp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="10">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2.5"
+                        android:text="@string/Tour_Number_Adult"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textSize="14sp" />
+
+                    <EditText
+                        android:id="@+id/etNumberAdult"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1.5"
+                        android:gravity="end"
+                        android:autofillHints="no"
+                        android:inputType="number"
+                        android:textSize="12sp"
+                        tools:ignore="LabelFor" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2.5"
+                        android:text="@string/Tour_Number_Child"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textSize="14sp" />
+                    <EditText
+                        android:id="@+id/etNumberChild"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1.5"
+                        android:gravity="end"
+                        android:autofillHints="no"
+                        android:inputType="number"
+                        android:textSize="12sp"
+                        tools:ignore="LabelFor" />
+
                 </LinearLayout>
 
                 <LinearLayout

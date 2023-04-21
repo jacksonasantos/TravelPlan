@@ -15,6 +15,8 @@ public class Tour {
     public int currency_type;
     public Double value_adult;
     public Double value_child;
+    public int number_adult;
+    public int number_child;
     public Date tour_date;
     public String opening_hours;
     public int distance;
@@ -79,6 +81,12 @@ public class Tour {
 
     public Double getValue_child() { return value_child; }
     public void setValue_child(Double value_child) { this.value_child = value_child; }
+
+    public int getNumber_adult() { return number_adult; }
+    public void setNumber_adult(int number_adult) { this.number_adult = number_adult; }
+
+    public int getNumber_child() { return number_child; }
+    public void setNumber_child(int number_child) { this.number_child = number_child; }
 
     public Date getTour_date() { return tour_date; }
     public void setTour_date(Date tour_date) { this.tour_date = tour_date; }

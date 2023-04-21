@@ -12,6 +12,8 @@ public interface TourISchema {
     String TOUR_CURRENCY_TYPE = "currency_type";
     String TOUR_VALUE_ADULT = "value_adult";
     String TOUR_VALUE_CHILD = "value_child";
+    String TOUR_NUMBER_ADULT = "number_adult";
+    String TOUR_NUMBER_CHILD = "number_child";
     String TOUR_TOUR_DATE = "tour_date";
     String TOUR_OPENING_HOURS = "opening_hours";
     String TOUR_DISTANCE = "distance";
@@ -36,6 +38,13 @@ public interface TourISchema {
             + TOUR_NOTE + " TEXT "
             + ")";
 
+    // Version 63
+    String ALTER_TABLE_TOUR_V63_1 = "ALTER TABLE " + TOUR_TABLE
+            + " ADD COLUMN " + TOUR_NUMBER_ADULT + " INT ";
+
+    String ALTER_TABLE_TOUR_V63_2 = "ALTER TABLE " + TOUR_TABLE
+            + " ADD COLUMN " + TOUR_NUMBER_CHILD + " INT ";
+
     String[] TOUR_COLUMNS = new String[] {
             TOUR_ID,
             TOUR_TRAVEL_ID,
@@ -45,6 +54,8 @@ public interface TourISchema {
             TOUR_CURRENCY_TYPE,
             TOUR_VALUE_ADULT,
             TOUR_VALUE_CHILD,
+            TOUR_NUMBER_ADULT,
+            TOUR_NUMBER_CHILD,
             TOUR_TOUR_DATE,
             TOUR_OPENING_HOURS,
             TOUR_DISTANCE,

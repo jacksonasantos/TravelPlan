@@ -530,6 +530,8 @@
     <string name="Tour_Value">Value</string>
     <string name="Tour_Value_Adult">Value Adult</string>
     <string name="Tour_Value_Child">Value Child</string>
+    <string name="Tour_Number_Adult">Number Adult</string>
+    <string name="Tour_Number_Child">Number Child</string>
     <string name="Tour_Date">Date</string>
     <string name="Tour_Opening_Hours">Opening</string>
     <string name="Tour_Distance">Distance</string>
