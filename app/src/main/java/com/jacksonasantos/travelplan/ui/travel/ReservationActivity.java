@@ -98,6 +98,9 @@ public class ReservationActivity extends AppCompatActivity {
         etDaily_Rate = findViewById(R.id.etDaily_Rate);
         etOther_Rate = findViewById(R.id.etOther_Rate);
         etReservation_Amount = findViewById(R.id.etReservation_Amount);
+        // TODO - Calcular o valor da reserva com a qtde diarias e valor da diaria somando o valor de outros
+        // TODO - Alinhar valores a direita
+        // TODO - Mostra a quantidade de diarias da reserva
         etAmount_Paid = findViewById(R.id.etAmount_Paid);
         etNote = findViewById(R.id.etNote);
         tvStatus_Reservation = findViewById(R.id.tvStatus_Reservation);

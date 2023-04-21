@@ -30,6 +30,7 @@ public class TravelActivity extends AppCompatActivity {
     private RecyclerView rvTourTravel;
     private RecyclerView rvAchievementTravel;
     private RecyclerView rvTravelExpenses;
+    // TODO - Relacionar os transportes com Transport ou Vehicle vinculando as pessoas e os itinerários
 
     private TravelVehicleListAdapter adapterVehicleTravel;
     private TravelTourListAdapter adapterTourTravel;

@@ -34,7 +34,7 @@ public class TourActivity extends AppCompatActivity implements TourTypeListAdapt
     private TextView tvItinerary;
     private TextView tvMarker ;
     private RecyclerView rvTourType ;
-    private int nrTourType;
+    private int nrTourType = -1;
     private EditText etLocalTour ;
     private EditText etDate ;
     private EditText etValueAdult;
@@ -78,13 +78,11 @@ public class TourActivity extends AppCompatActivity implements TourTypeListAdapt
         }
 
         addListenerOnButtonSave();
-
+        // TODO- incluir a quantidade de PACs por idade
         tvTravel = findViewById(R.id.tvTravel);
         tvItinerary = findViewById(R.id.tvItinerary);
         tvMarker = findViewById(R.id.tvMarker);
         rvTourType = findViewById(R.id.rvTourType);
-        // TODO - na edição marcar o botão do tipo para permitir a mudança
-        // TODO - na mudança desmarcar tipo selecionando anteriormente
         etLocalTour = findViewById(R.id.etLocalTour);
         etDate = findViewById(R.id.etDate);
         etValueAdult = findViewById(R.id.etValueAdult);
@@ -121,7 +119,6 @@ public class TourActivity extends AppCompatActivity implements TourTypeListAdapt
         }
 
         adapterTourType = new TourTypeListAdapter(vTourType, this);
-
         adapterTourType.addItemClickListener(this);
         rvTourType.setAdapter(adapterTourType);
         rvTourType.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
@@ -132,6 +129,7 @@ public class TourActivity extends AppCompatActivity implements TourTypeListAdapt
             tvItinerary.setVisibility(View.INVISIBLE);//.setText("");
             tvMarker.setVisibility(View.INVISIBLE);//.setText("");
             nrTourType = tour.getTour_type();
+            Utils.selected_position = nrTourType;
             etLocalTour.setText(tour.getLocal_tour());
             etDate.setText(Utils.dateToString(tour.getTour_date()));
             etValueAdult.setText(String.valueOf(tour.getValue_adult())); // TODO - verificar a gravação de valores nulos
@@ -149,6 +147,8 @@ public class TourActivity extends AppCompatActivity implements TourTypeListAdapt
     public void onItemClick(int position) {
         if (nrTourType == position) nrTourType = -1;
         else nrTourType = position;
+
+        Utils.selected_position = nrTourType;
     }
 
     public void addListenerOnButtonSave() {

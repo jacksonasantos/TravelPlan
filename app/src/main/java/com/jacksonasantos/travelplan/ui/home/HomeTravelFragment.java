@@ -37,6 +37,7 @@ import com.jacksonasantos.travelplan.ui.travel.TravelAchievementListAdapter;
 import com.jacksonasantos.travelplan.ui.travel.TravelFuelSupplyListAdapter;
 import com.jacksonasantos.travelplan.ui.travel.TravelRouteFragment;
 import com.jacksonasantos.travelplan.ui.travel.TravelTourListAdapter;
+import com.jacksonasantos.travelplan.ui.travel.TravelTransportListAdapter;
 import com.jacksonasantos.travelplan.ui.travel.TravelVehicleListAdapter;
 import com.jacksonasantos.travelplan.ui.travel.TravelVehicleStatusListAdapter;
 import com.jacksonasantos.travelplan.ui.utility.DateInputMask;
@@ -75,6 +76,9 @@ public class HomeTravelFragment extends Fragment implements View.OnClickListener
     private ConstraintLayout layerVehicle;
     private RecyclerView listVehicle;
 
+    private ConstraintLayout layerTransport;
+    private RecyclerView listTransport;
+
     private ConstraintLayout layerTour;
     private RecyclerView listTour;
 
@@ -102,6 +106,7 @@ public class HomeTravelFragment extends Fragment implements View.OnClickListener
                              final ViewGroup container, Bundle savedInstanceState) {
 
         View v=inflater.inflate(R.layout.fragment_home_travel, container, false);
+
         layerHomeTravel = v.findViewById(R.id.layerHomeTravel);
         layerTravel = v.findViewById(R.id.layerTravel);
         spTravel = v.findViewById(R.id.spTravel);
@@ -123,6 +128,9 @@ public class HomeTravelFragment extends Fragment implements View.OnClickListener
 
         layerExpense = v.findViewById(R.id.layerExpense);
         listTravelExpenses = v.findViewById(R.id.listTravelExpenses);
+
+        layerTransport = v.findViewById(R.id.layerTransport);
+        listTransport = v.findViewById(R.id.listTransport);
 
         layerVehicle = v.findViewById(R.id.layerVehicle);
         listVehicle = v.findViewById(R.id.listVehicle);
@@ -336,6 +344,13 @@ public class HomeTravelFragment extends Fragment implements View.OnClickListener
                 } else {
                     layerVehicle.setVisibility(View.GONE);
                 }
+
+                // Vehicles has Travel
+                final int Show_Header_Transport = 1  ;
+                TravelTransportListAdapter adapterTransportTravel = new TravelTransportListAdapter(Database.mTransportDao.fetchAllTransportByTravel(travel[0].getId() ), getContext(),"Home", Show_Header_Transport,travel[0].id);
+                layerTransport.setVisibility(View.VISIBLE);
+                listTransport.setAdapter(adapterTransportTravel);
+                listTransport.setLayoutManager(new LinearLayoutManager(getContext()));
 
                 // Tours
                 final int Show_Header_Tour = 1  ;

@@ -11,6 +11,7 @@ import com.jacksonasantos.travelplan.dao.interfaces.ReservationISchema;
 import com.jacksonasantos.travelplan.dao.interfaces.SummaryTravelExpenseIDAO;
 import com.jacksonasantos.travelplan.dao.interfaces.SummaryTravelExpenseISchema;
 import com.jacksonasantos.travelplan.dao.interfaces.TourISchema;
+import com.jacksonasantos.travelplan.dao.interfaces.TransportISchema;
 import com.jacksonasantos.travelplan.dao.interfaces.TravelExpensesISchema;
 import com.jacksonasantos.travelplan.dao.interfaces.TravelItemExpensesISchema;
 import com.jacksonasantos.travelplan.dao.interfaces.VehicleHasTravelISchema;
@@ -32,7 +33,7 @@ public class SummaryTravelExpenseDAO extends DbContentProvider implements Summar
 
     public List<SummaryTravelExpense> findTravelExpense(Integer travel_id) {
         List<SummaryTravelExpense> summaryTravelExpenseList = new ArrayList<>();
-
+        // TODO - Incluir nos passeios os valores de Tours para todas as Pessoas da viajem
         cursor = super.rawQuery(
                 "SELECT " + SummaryTravelExpenseISchema.SUMMARY_TRAVEL_EXPENSE_EXPENSE_TYPE + ", " +
                                " SUM( " + SummaryTravelExpenseISchema.SUMMARY_TRAVEL_EXPENSE_EXPECTED_VALUE + ") " + SummaryTravelExpenseISchema.SUMMARY_TRAVEL_EXPENSE_EXPECTED_VALUE + ", " +
@@ -66,6 +67,12 @@ public class SummaryTravelExpenseDAO extends DbContentProvider implements Summar
                                    " SUM(" + InsuranceISchema.INSURANCE_TOTAL_PREMIUM_VALUE + ") " + SummaryTravelExpenseISchema.SUMMARY_TRAVEL_EXPENSE_REALIZED_VALUE +
                               " FROM " + InsuranceISchema.INSURANCE_TABLE +
                              " WHERE " + InsuranceISchema.INSURANCE_TRAVEL_ID + " = ? " +
+                            " UNION " +
+                            " SELECT 7 "+ SummaryTravelExpenseISchema.SUMMARY_TRAVEL_EXPENSE_EXPENSE_TYPE + ", " +  // Transport
+                                   " SUM(" + TransportISchema.TRANSPORT_SERVICE_VALUE +"+"+ TransportISchema.TRANSPORT_SERVICE_TAX+ ") "+ SummaryTravelExpenseISchema.SUMMARY_TRAVEL_EXPENSE_EXPECTED_VALUE + ", " +
+                                   " SUM(" + TransportISchema.TRANSPORT_AMOUNT_PAID + ") " + SummaryTravelExpenseISchema.SUMMARY_TRAVEL_EXPENSE_REALIZED_VALUE +
+                              " FROM " + TransportISchema.TRANSPORT_TABLE +
+                             " WHERE " + TransportISchema.TRANSPORT_TRAVEL_ID + " = ? " +
                             " UNION " +                                                                             // Travel Expenses
                             " SELECT " + TravelExpensesISchema.TRAVEL_EXPENSES_EXPENSE_TYPE + " " + SummaryTravelExpenseISchema.SUMMARY_TRAVEL_EXPENSE_EXPENSE_TYPE + ", " +
                                    " SUM(" + TravelExpensesISchema.TRAVEL_EXPENSES_EXPECTED_VALUE + ") " + SummaryTravelExpenseISchema.SUMMARY_TRAVEL_EXPENSE_EXPECTED_VALUE + ", " +
@@ -79,7 +86,7 @@ public class SummaryTravelExpenseDAO extends DbContentProvider implements Summar
                              " GROUP BY " + TravelExpensesISchema.TRAVEL_EXPENSES_EXPENSE_TYPE + " " +
                            ") " +
                   " GROUP BY " + TravelExpensesISchema.TRAVEL_EXPENSES_EXPENSE_TYPE,
-        new String[] { String.valueOf(travel_id), String.valueOf(travel_id), String.valueOf(travel_id), String.valueOf(travel_id), String.valueOf(travel_id), String.valueOf(travel_id)});
+        new String[] { String.valueOf(travel_id), String.valueOf(travel_id), String.valueOf(travel_id), String.valueOf(travel_id), String.valueOf(travel_id), String.valueOf(travel_id), String.valueOf(travel_id)});
         if (null != cursor) {
             if (cursor.moveToFirst()) {
                 do {

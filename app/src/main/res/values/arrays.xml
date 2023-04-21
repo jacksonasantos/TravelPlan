@@ -111,6 +111,7 @@
         <item>@string/accommodation</item>
         <item>@string/extras</item>
         <item>@string/insurance</item>
+        <item>@string/Transport</item>
     </string-array>
     <!-- Vehicle Services -->
     <string-array name="vehicle_services">
@@ -184,4 +185,12 @@
         <item>@string/Restaurant</item>
         <item>@string/Church</item>
     </string-array>
+    <!-- Transport Type Status -->
+    <string-array name="transport_type_array">
+        <item>@string/Onw</item>
+        <item>@string/Voo</item>
+        <item>@string/Rental</item>
+        <item>@string/Hiring</item>
+    </string-array>
+
 </resources>

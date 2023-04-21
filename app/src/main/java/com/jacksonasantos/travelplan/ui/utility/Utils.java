@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Color;
 import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -12,6 +11,7 @@ import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
 
 import java.io.File;
 import java.text.NumberFormat;
@@ -26,6 +26,7 @@ import java.util.concurrent.TimeUnit;
 public class Utils extends AppCompatActivity  {
 
     private static final Globals g = Globals.getInstance();
+    public static int selected_position = RecyclerView.NO_POSITION;
 
     public static ArrayList<File> imageReader(File root)
     {
@@ -131,8 +132,23 @@ public class Utils extends AppCompatActivity  {
         return null;
     }
 
+    public static Date stringToDateTime(String dt) {
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        try {
+            return (dt==null?null:dateFormat.parse(dt));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     public static String dateToString(Date d) {
         @SuppressLint("SimpleDateFormat") SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        return (d==null?null:dateFormat.format(d));
+    }
+
+    public static String dateTimeToString(Date d) {
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         return (d==null?null:dateFormat.format(d));
     }
 
@@ -145,14 +161,6 @@ public class Utils extends AppCompatActivity  {
             long diffInMillis = Math.abs(secondDate.getTime() - firstDate.getTime());
         return (int) TimeUnit.DAYS.convert(diffInMillis, TimeUnit.MILLISECONDS);
         }
-
-    public static void createSpinnerResources(int resource_array, AutoCompleteTextView spin, Context context) {
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(
-                context,
-                android.R.layout.simple_spinner_dropdown_item,
-                context.getResources().getStringArray(resource_array));
-        spin.setAdapter(adapter);
-    }
 
     public static void createSpinnerResources(int resource_array, Spinner spin, Context context) {
         ArrayAdapter<String> adapter = new ArrayAdapter<>(

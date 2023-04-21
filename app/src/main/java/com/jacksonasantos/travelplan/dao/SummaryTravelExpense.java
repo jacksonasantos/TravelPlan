@@ -20,6 +20,7 @@ public class SummaryTravelExpense {
             case 4: draw = R.drawable.ic_menu_accommodation; break;
             case 5: draw = R.drawable.ic_money_extra; break;
             case 6: draw = R.drawable.ic_menu_insurance; break;
+            case 7: draw = R.drawable.ic_transport; break;
             default: draw = R.drawable.ic_error; break;
         }
         return draw;

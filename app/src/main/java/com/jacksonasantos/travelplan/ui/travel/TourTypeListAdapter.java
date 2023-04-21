@@ -2,8 +2,6 @@ package com.jacksonasantos.travelplan.ui.travel;
 
 import android.content.Context;
 import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.jacksonasantos.travelplan.R;
 import com.jacksonasantos.travelplan.dao.Tour;
 import com.jacksonasantos.travelplan.dao.general.Database;
+import com.jacksonasantos.travelplan.ui.utility.Utils;
 
 import java.util.List;
 
@@ -39,7 +38,13 @@ public class TourTypeListAdapter extends RecyclerView.Adapter<TourTypeListAdapte
             img_tour_type.setOnClickListener(this);
             tv_tour_type = v.findViewById(R.id.tv_tour_type);
         }
-
+        void bindItem(int pos) {
+            if(Utils.selected_position==pos){
+                ll_tour_type.setBackgroundColor(Color.LTGRAY);
+            } else {
+                ll_tour_type.setBackgroundColor(Color.WHITE);
+            }
+        }
         @Override
         public void onClick(View view) { }
     }
@@ -67,20 +72,16 @@ public class TourTypeListAdapter extends RecyclerView.Adapter<TourTypeListAdapte
 
     @Override
     public void onBindViewHolder(@NonNull final MyViewHolder holder, final int position) {
+        holder.bindItem(position);
         holder.tv_tour_type.setText(context.getResources().getStringArray(R.array.tour_type_array)[mTourType.get(position)]);
         holder.img_tour_type.setImageResource(Tour.getTourTypeImage(mTourType.get(position)));
         holder.img_tour_type.setOnClickListener(view -> {
             if (mItemClickListener != null) {
-                int color = Color.TRANSPARENT;
-                Drawable background = holder.ll_tour_type.getBackground();
-                if (background instanceof ColorDrawable)
-                    color = ((ColorDrawable) background).getColor();
-                if (color == Color.LTGRAY){
-                    holder.ll_tour_type.setBackgroundColor(Color.WHITE);
-                } else {
-                    holder.ll_tour_type.setBackgroundColor(Color.LTGRAY);
+                if (Utils.selected_position == position) {
+                    Utils.selected_position = RecyclerView.NO_POSITION;
                 }
                 mItemClickListener.onItemClick(position);
+                notifyDataSetChanged();
             }
         });
     }

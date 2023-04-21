@@ -1,0 +1,443 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    android:background="@color/colorBackgroundDialog"
+    android:padding="10dp">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardBackgroundColor="@color/colorBackgroundCard"
+            app:cardCornerRadius="@dimen/cardCornerRadius"
+            app:cardElevation="@dimen/cardElevation">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/labels_margin">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="@dimen/labels_margin">
+                    <TextView
+                        android:id="@+id/tvTravel"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/labels_margin"
+                        android:gravity="center"
+                        android:textStyle="bold"
+                        android:textSize="14sp" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rvTransportType"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/labels_space_top"
+                        android:layout_gravity="center"
+                        tools:itemCount="1" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/llTransportTypeOwn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/labels_space_top"
+                    android:orientation="horizontal"
+                    android:weightSum="10">
+                    <TextView
+                        android:id="@+id/tvOwnVehicle"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="4.5"
+                        android:text="@string/Transport_Own_Vehicle"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textSize="14sp" />
+
+                    <Spinner
+                        android:id="@+id/spOwnVehicle"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="5.5"
+                        android:autofillHints="no"
+                        android:gravity="center"
+                        android:inputType="textCapWords"
+                        android:textSize="12sp"
+                        tools:ignore="LabelFor" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/llTransportType"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/labels_space_top"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/labels_space_top"
+                        android:orientation="horizontal"
+                        android:weightSum="10"
+                        tools:ignore="TooManyViews">
+                        <TextView
+                            android:id="@+id/tvIdentifier"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2.5"
+                            android:text="@string/Transport_Hiring_Identifier"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:textSize="14sp" />
+
+                        <EditText
+                            android:id="@+id/etIdentifier"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="7.5"
+                            android:autofillHints="no"
+                            android:gravity="center"
+                            android:inputType="textCapWords"
+                            android:textSize="12sp"
+                            android:nextFocusDown="@+id/etCompany"
+                            tools:ignore="LabelFor" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/labels_space_top"
+                        android:orientation="horizontal"
+                        android:weightSum="10">
+
+                        <TextView
+                            android:id="@+id/tvCompany"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2.5"
+                            android:text="@string/Transport_Hiring_Company"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:textSize="14sp" />
+
+                        <EditText
+                            android:id="@+id/etCompany"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="7.5"
+                            android:autofillHints="no"
+                            android:gravity="center"
+                            android:inputType="textCapWords"
+                            android:textSize="12sp"
+                            android:nextFocusDown="@+id/etDescription"
+                            tools:ignore="LabelFor" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/labels_space_top"
+                        android:orientation="horizontal"
+                        android:weightSum="10">
+
+                        <TextView
+                            android:id="@+id/tvDescription"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2.5"
+                            android:text="@string/Transport_Hiring_Description"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:textSize="14sp" />
+
+                        <EditText
+                            android:id="@+id/etDescription"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="7.5"
+                            android:autofillHints="no"
+                            android:gravity="center"
+                            android:inputType="textCapWords"
+                            android:textSize="12sp"
+                            android:nextFocusDown="@+id/etContact"
+                            tools:ignore="LabelFor" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/labels_space_top"
+                        android:orientation="horizontal"
+                        android:weightSum="10">
+
+                        <TextView
+                            android:id="@+id/tvContact"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2.5"
+                            android:text="@string/Transport_Hiring_Contact"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:textSize="14sp" />
+
+                        <EditText
+                            android:id="@+id/etContact"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="7.5"
+                            android:autofillHints="no"
+                            android:gravity="center"
+                            android:inputType="textCapWords"
+                            android:textSize="12sp"
+                            android:nextFocusDown="@+id/etStartLocation"
+                            tools:ignore="LabelFor" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/labels_space_top"
+                        android:orientation="horizontal"
+                        android:weightSum="10">
+
+                        <TextView
+                            android:id="@+id/tvStartLocation"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="5"
+                            android:gravity="center"
+                            android:text="@string/Transport_Start_Location"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:id="@+id/tvEndLocation"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="5"
+                            android:gravity="center"
+                            android:text="@string/Transport_End_Location"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:textSize="14sp" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/labels_space_top"
+                        android:orientation="horizontal"
+                        android:weightSum="10">
+                        <EditText
+                            android:id="@+id/etStartLocation"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="4.5"
+                            android:autofillHints="no"
+                            android:inputType="text"
+                            android:textSize="12sp"
+                            android:nextFocusDown="@+id/etEndLocation"
+                            tools:ignore="LabelFor" />
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:text="@string/to"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:textSize="14sp" />
+                        <EditText
+                            android:id="@+id/etEndLocation"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="4.5"
+                            android:autofillHints="no"
+                            android:inputType="text"
+                            android:textSize="12sp"
+                            android:nextFocusDown="@+id/etStartLocationDate"
+                            tools:ignore="LabelFor" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:weightSum="10">
+
+                        <EditText
+                            android:id="@+id/etStartLocationDate"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="4.5"
+                            android:autofillHints="no"
+                            android:gravity="center"
+                            android:inputType="datetime"
+                            android:textSize="12sp"
+                            android:nextFocusDown="@+id/etEndLocationDate"
+                            tools:ignore="LabelFor" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:text="-"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:textSize="14sp"
+                            tools:ignore="HardcodedText" />
+
+                        <EditText
+                            android:id="@+id/etEndLocationDate"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="4.5"
+                            android:gravity="center"
+                            android:autofillHints="no"
+                            android:inputType="datetime"
+                            android:textSize="12sp"
+                            android:nextFocusDown="@+id/etServiceValue"
+                            tools:ignore="LabelFor" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/labels_space_top"
+                        android:orientation="horizontal"
+                        android:weightSum="10">
+
+                        <TextView
+                            android:id="@+id/tvServiceValue"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="3.3"
+                            android:gravity="end"
+                            android:text="@string/Transport_Hiring_Service_Value"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:textSize="14sp" />
+                        <TextView
+                            android:id="@+id/tvServiceTax"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="3.3"
+                            android:gravity="end"
+                            android:text="@string/Transport_Hiring_Service_Tax"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:textSize="14sp" />
+                        <TextView
+                            android:id="@+id/tvAmountPaid"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="3.3"
+                            android:gravity="end"
+                            android:text="@string/Transport_Hiring_Amount_Paid"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:textSize="14sp" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:weightSum="10">
+
+                        <EditText
+                            android:id="@+id/etServiceValue"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="3.4"
+                            android:gravity="end"
+                            android:autofillHints="no"
+                            android:inputType="numberDecimal"
+                            android:textSize="12sp"
+                            android:nextFocusDown="@+id/etServiceTax"
+                            tools:ignore="LabelFor" />
+                        <EditText
+                            android:id="@+id/etServiceTax"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="3.3"
+                            android:gravity="end"
+                            android:autofillHints="no"
+                            android:inputType="numberDecimal"
+                            android:textSize="12sp"
+                            android:nextFocusDown="@+id/etAmountPaid"
+                            tools:ignore="LabelFor" />
+                        <EditText
+                            android:id="@+id/etAmountPaid"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="3.3"
+                            android:gravity="end"
+                            android:autofillHints="no"
+                            android:inputType="numberDecimal"
+                            android:textSize="12sp"
+                            android:nextFocusDown="@+id/etNote"
+                            tools:ignore="LabelFor" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/labels_space_top"
+                        android:orientation="horizontal"
+                        android:weightSum="10">
+
+                        <TextView
+                            android:id="@+id/tvNote"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2.5"
+                            android:text="@string/Transport_Hiring_Note"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:textSize="14sp" />
+
+                        <EditText
+                            android:id="@+id/etNote"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="7.5"
+                            android:autofillHints="no"
+                            android:inputType="text"
+                            android:textSize="12sp"
+                            android:nextFocusDown="@+id/rvTransportPerson"
+                            tools:ignore="LabelFor" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <TextView
+                        android:id="@+id/tvTransportPerson"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/labels_space_top"
+                        android:gravity="center"
+                        android:text="@string/Person"
+                        android:textColor="@color/design_default_color_secondary_variant"
+                        android:textSize="14sp" />
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rvTransportPerson"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/labels_space_top"
+                        android:layout_gravity="center"
+                        android:scrollbars="vertical"
+                        android:nextFocusDown="@+id/btnSave"
+                        tools:itemCount="1" />
+                </LinearLayout>
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+        <Button
+            android:id="@+id/btnSave"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="8dp"
+            android:text="@string/bt_Save" />
+    </LinearLayout>
+</ScrollView>

@@ -520,7 +520,7 @@
 
     <!-- Tour -->
     <string name="Tour">Tour</string>
-    <string name="Tour_Deleting">Deleting Person</string>
+    <string name="Tour_Deleting">Deleting Tour</string>
 
     <string name="Tour_Travel">Travel</string>
     <string name="Tour_Marker">Marker</string>
@@ -542,5 +542,74 @@
     <string name="Monument">Monument</string>
     <string name="Restaurant">Restaurant</string>
     <string name="Church">Church</string>
+
+    <!-- Transport -->
+    <string name="Transport">Transport</string>
+    <string name="Transport_Deleting">Deleting Transport</string>
+
+    <string name="Transport_Travel">Travel</string>
+    <string name="Transport_Transport_Type">Transport Type</string>
+
+    <string name="Transport_Identifier">Identifier</string>
+    <string name="Transport_Description">Description</string>
+    <string name="Transport_Company">Company</string>
+    <string name="Transport_Contact">Contact</string>
+    <string name="Transport_Start_Location">Start Location</string>
+    <string name="Transport_Start_Date">Start Date</string>
+    <string name="Transport_End_Location">End Location</string>
+    <string name="Transport_End_Date">End Date</string>
+    <string name="Transport_Service_Value">Service Value</string>
+    <string name="Transport_Service_Tax">Service Tax</string>
+    <string name="Transport_Amount_Paid">Amount Paid</string>
+    <string name="Transport_Note">Note</string>
+
+    <string name="Transport_Voo_Reserve">Reserve</string>
+    <string name="Transport_Voo_Company">Company</string>
+    <string name="Transport_Voo_Voo_Code">Voo</string>
+    <string name="Transport_Voo_Contact">Contact</string>
+    <string name="Transport_Voo_Departure">Departure</string>
+    <string name="Transport_Voo_Departure_Date">Departure Date</string>
+    <string name="Transport_Voo_Arrival">Arrival</string>
+    <string name="Transport_Voo_Arrival_Date">Arrival Date</string>
+    <string name="Transport_Voo_Value_Ticket">Value Ticket</string>
+    <string name="Transport_Voo_Value_Tax">Value Tax</string>
+    <string name="Transport_Voo_Amount_Paid">Amount Paid</string>
+    <string name="Transport_Voo_Note">Note</string>
+
+    <string name="Transport_Rental_Voucher">Voucher</string>
+    <string name="Transport_Rental_Description">Description</string>
+    <string name="Transport_Rental_Company">Company</string>
+    <string name="Transport_Rental_Contact">Contact</string>
+    <string name="Transport_Rental_PickUp_Location">Pick Up</string>
+    <string name="Transport_Rental_PickUp_Date">Pick Up Date</string>
+    <string name="Transport_Rental_Return_Location">Return</string>
+    <string name="Transport_Rental_Return_Date">Return Date</string>
+    <string name="Transport_Rental_Reserve_Value">Reserve Value</string>
+    <string name="Transport_Rental_Value_Tax">Value Tax</string>
+    <string name="Transport_Rental_Amount_Paid">Amount Paid</string>
+    <string name="Transport_Rental_Note">Note</string>
+
+    <string name="Transport_Hiring_Identifier">Identifier</string>
+    <string name="Transport_Hiring_Description">Description</string>
+    <string name="Transport_Hiring_Company">Company</string>
+    <string name="Transport_Hiring_Contact">Contact</string>
+    <string name="Transport_Hiring_Start_Location">Start Location</string>
+    <string name="Transport_Hiring_Start_Date">Start Date</string>
+    <string name="Transport_Hiring_End_Location">End Location</string>
+    <string name="Transport_Hiring_End_Date">End Date</string>
+    <string name="Transport_Hiring_Service_Value">Service Value</string>
+    <string name="Transport_Hiring_Service_Tax">Service Tax</string>
+    <string name="Transport_Hiring_Amount_Paid">Amount Paid</string>
+    <string name="Transport_Hiring_Note">Note</string>
+
+    <string name="Transport_Own_Vehicle">Own Vehicle</string>
+
+    <string name="Traveler">Traveler</string>
+    <string name="Renter">Renter</string>
+
+    <string name="Onw">Own</string>
+    <string name="Voo">Voo</string>
+    <string name="Rental">Rental</string>
+    <string name="Hiring">Hiring</string>
 
 </resources>
