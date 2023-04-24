@@ -20,6 +20,12 @@ public interface TourISchema {
     String TOUR_VISITATION_TIME = "visitation_time";
     String TOUR_NOTE = "note";
 
+    String TOUR_ADDRESS_TOUR = "address_tour";
+    String TOUR_CITY_TOUR = "city_tour";
+    String TOUR_STATE_TOUR = "state_tour";
+    String TOUR_COUNTRY_TOUR = "country_tour";
+    String TOUR_LATLNG_TOUR = "latlng_tour";
+
     // Version 61
     String CREATE_TABLE_TOUR_V61 = "CREATE TABLE IF NOT EXISTS "
             + TOUR_TABLE + " ("
@@ -45,6 +51,18 @@ public interface TourISchema {
     String ALTER_TABLE_TOUR_V63_2 = "ALTER TABLE " + TOUR_TABLE
             + " ADD COLUMN " + TOUR_NUMBER_CHILD + " INT ";
 
+    // Version 64
+    String ALTER_TABLE_TOUR_V64_1 = "ALTER TABLE " + TOUR_TABLE
+            + " ADD COLUMN " + TOUR_ADDRESS_TOUR + " TEXT ";
+    String ALTER_TABLE_TOUR_V64_2 = "ALTER TABLE " + TOUR_TABLE
+            + " ADD COLUMN " + TOUR_CITY_TOUR + " TEXT ";
+    String ALTER_TABLE_TOUR_V64_3 = "ALTER TABLE " + TOUR_TABLE
+            + " ADD COLUMN " + TOUR_STATE_TOUR + " TEXT ";
+    String ALTER_TABLE_TOUR_V64_4 = "ALTER TABLE " + TOUR_TABLE
+            + " ADD COLUMN " + TOUR_COUNTRY_TOUR + " TEXT ";
+    String ALTER_TABLE_TOUR_V64_5 = "ALTER TABLE " + TOUR_TABLE
+            + " ADD COLUMN " + TOUR_LATLNG_TOUR + " TEXT ";
+
     String[] TOUR_COLUMNS = new String[] {
             TOUR_ID,
             TOUR_TRAVEL_ID,
@@ -60,6 +78,11 @@ public interface TourISchema {
             TOUR_OPENING_HOURS,
             TOUR_DISTANCE,
             TOUR_VISITATION_TIME,
-            TOUR_NOTE
+            TOUR_NOTE,
+            TOUR_ADDRESS_TOUR,
+            TOUR_CITY_TOUR,
+            TOUR_STATE_TOUR,
+            TOUR_COUNTRY_TOUR,
+            TOUR_LATLNG_TOUR
    };
 }

@@ -537,6 +537,11 @@
     <string name="Tour_Distance">Distance</string>
     <string name="Tour_Visitation_Time">Visitation Time</string>
     <string name="Tour_Note">Note</string>
+    <string name="Tour_Address_Tour">Address</string>
+    <string name="Tour_City_Tour">City</string>
+    <string name="Tour_State_Tour">State</string>
+    <string name="Tour_Country_Tour">Country</string>
+    <string name="Tour_LatLng_Tour" translatable="false">Lat/Lng</string>
 
     <string name="Error_Date_Invalid">Error invalid date</string>
 

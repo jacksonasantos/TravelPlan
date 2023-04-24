@@ -22,6 +22,11 @@ public class Tour {
     public int distance;
     public String visitation_time;
     public String note;
+    public String address_tour;
+    public String city_tour;
+    public String state_tour;
+    public String country_tour;
+    public String latlng_tour;
 
     public Tour() {
     }
@@ -102,4 +107,20 @@ public class Tour {
 
     public String getNote() { return note; }
     public void setNote(String note) { this.note = note; }
+
+    public String getAddress_tour() {return address_tour;}
+    public void setAddress_tour(String address_tour) {this.address_tour = address_tour;}
+
+    public String getCity_tour() {return city_tour;}
+    public void setCity_tour(String city_tour) {this.city_tour = city_tour;}
+
+    public String getState_tour() {return state_tour;}
+    public void setState_tour(String state_tour) {this.state_tour = state_tour;}
+
+    public String getCountry_tour() {return country_tour;}
+    public void setCountry_tour(String country_tour) {this.country_tour = country_tour;}
+
+    public String getLatlng_tour() {return latlng_tour;}
+    public void setLatlng_tour(String latlng_tour) {this.latlng_tour = latlng_tour;}
+
 }

@@ -66,13 +66,77 @@
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="2.5"
+                        android:layout_weight="2.8"
+                        android:layout_gravity="center"
                         android:text="@string/Tour_Local_Tour"
                         android:textAppearance="?android:attr/textAppearanceMedium"
                         android:textSize="14sp" />
 
                     <EditText
                         android:id="@+id/etLocalTour"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="7"
+                        android:layout_gravity="center"
+                        android:autofillHints="no"
+                        android:gravity="center"
+                        android:inputType="textCapWords"
+                        android:textSize="12sp"
+                        tools:ignore="LabelFor" />
+
+                    <ImageButton
+                        android:id="@+id/btLocationTour"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:contentDescription="@string/Achievement_Latlng_Achievement"
+                        android:scaleType="centerCrop"
+                        app:srcCompat="@drawable/ic_menu_location" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/labels_space_top"
+                    android:orientation="horizontal"
+                    android:weightSum="10">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2.5"
+                        android:text="@string/Tour_LatLng_Tour"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textSize="14sp" />
+
+                    <EditText
+                        android:id="@+id/etLatLngTour"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="7.5"
+                        android:autofillHints="no"
+                        android:gravity="center"
+                        android:inputType="text"
+                        android:textSize="12sp"
+                        tools:ignore="LabelFor" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/labels_space_top"
+                    android:orientation="horizontal"
+                    android:weightSum="10">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2.5"
+                        android:text="@string/Tour_Address_Tour"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textSize="14sp" />
+
+                    <EditText
+                        android:id="@+id/etAddressTour"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="7.5"
@@ -87,6 +151,53 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/labels_space_top"
+                    android:orientation="horizontal"
+                    android:weightSum="10">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2.5"
+                        android:text="@string/Tour_City_Tour"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textSize="14sp" />
+
+                    <EditText
+                        android:id="@+id/etCityTour"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="4"
+                        android:autofillHints="no"
+                        android:gravity="center"
+                        android:inputType="textCapWords"
+                        android:textSize="12sp"
+                        tools:ignore="LabelFor" />
+                    <EditText
+                        android:id="@+id/etStateTour"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:autofillHints="no"
+                        android:gravity="center"
+                        android:inputType="textCapWords"
+                        android:textSize="12sp"
+                        tools:ignore="LabelFor" />
+                    <EditText
+                        android:id="@+id/etCountryTour"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1.5"
+                        android:autofillHints="no"
+                        android:gravity="center"
+                        android:inputType="textCapWords"
+                        android:textSize="12sp"
+                        tools:ignore="LabelFor" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/labels_marginLeft"
                     android:orientation="horizontal"
                     android:weightSum="10">
 

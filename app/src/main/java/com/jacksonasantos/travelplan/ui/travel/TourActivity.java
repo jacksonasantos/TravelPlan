@@ -1,15 +1,21 @@
 package com.jacksonasantos.travelplan.ui.travel;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -23,6 +29,7 @@ import com.jacksonasantos.travelplan.ui.utility.DateInputMask;
 import com.jacksonasantos.travelplan.ui.utility.Utils;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class TourActivity extends AppCompatActivity implements TourTypeListAdapter.ItemClickListener {
@@ -47,6 +54,12 @@ public class TourActivity extends AppCompatActivity implements TourTypeListAdapt
     private EditText etOpeningHours;
     private EditText etVisitationTime;
     private EditText etNote;
+    private EditText etAddressTour;
+    private EditText etCityTour;
+    private EditText etStateTour;
+    private EditText etCountryTour;
+    private EditText etLatLngTour;
+    private ImageButton btLocationTour;
 
     public TourTypeListAdapter adapterTourType;
 
@@ -89,8 +102,6 @@ public class TourActivity extends AppCompatActivity implements TourTypeListAdapt
         tvMarker = findViewById(R.id.tvMarker);
         rvTourType = findViewById(R.id.rvTourType);
         etLocalTour = findViewById(R.id.etLocalTour);
-        // TODO - Incluir Botão de localização no mapa
-        // TODO - Incluir campo de endereço
         etDate = findViewById(R.id.etDate);
         etValueAdult = findViewById(R.id.etValueAdult);
         etValueChild = findViewById(R.id.etValueChild);
@@ -100,14 +111,33 @@ public class TourActivity extends AppCompatActivity implements TourTypeListAdapt
         etOpeningHours = findViewById(R.id.etOpeningHours);
         etVisitationTime = findViewById(R.id.etVisitationTime);
         etNote = findViewById(R.id.etNote);
+        etAddressTour = findViewById(R.id.etAddressTour);
+        etCityTour = findViewById(R.id.etCityTour);
+        etStateTour = findViewById(R.id.etStateTour);
+        etCountryTour = findViewById(R.id.etCountryTour);
+        etLatLngTour = findViewById(R.id.etLatLngTour);
+        btLocationTour = findViewById(R.id.btLocationTour);
+
         tvItinerary.setVisibility(View.INVISIBLE);
         tvMarker.setVisibility(View.INVISIBLE);
+        btLocationTour.setOnClickListener(view -> {
+            Intent intent = new Intent (getBaseContext(), ItineraryActivity.class);
+            if (!etLatLngTour.getText().toString().equals("")) {
+                intent.putExtra("local_search", etLatLngTour.getText().toString());
+            } else {
+                intent.putExtra("local_search", etLocalTour.getText().toString()+ "," + etAddressTour.getText().toString()+"," + etCityTour.getText().toString()+"," + etStateTour.getText().toString()+"," + etCountryTour.getText().toString());
+            }
+            myActivityResultLauncher.launch(intent);
+        });
         etDate.addTextChangedListener(new DateInputMask(etDate));
         etDate.setOnFocusChangeListener((v, hasFocus) -> {
             if(!hasFocus) {
-                if (Utils.stringToDate(etDate.getText().toString()).before(travel.getDeparture_date()) ||
-                    Utils.stringToDate(etDate.getText().toString()).after(travel.getReturn_date())) {
-                    etDate.setError(getResources().getString(R.string.Error_Date_Invalid));
+                Date d = Utils.stringToDate(etDate.getText().toString());
+                if (d != null) {
+                    if (d.before(travel.getDeparture_date()) ||
+                        d.after(travel.getReturn_date())) {
+                        etDate.setError(getResources().getString(R.string.Error_Date_Invalid));
+                    }
                 }
             }
         });
@@ -157,8 +187,32 @@ public class TourActivity extends AppCompatActivity implements TourTypeListAdapt
             etOpeningHours.setText(tour.getOpening_hours());
             etVisitationTime.setText(tour.getVisitation_time());
             etNote.setText(tour.getNote());
+            etAddressTour.setText(tour.getAddress_tour());
+            etCityTour.setText(tour.getCity_tour());
+            etStateTour.setText(tour.getState_tour());
+            etCountryTour.setText(tour.getCountry_tour());
+            etLatLngTour.setText(tour.getLatlng_tour());
         }
     }
+
+    final ActivityResultLauncher<Intent> myActivityResultLauncher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            new ActivityResultCallback<ActivityResult>() {
+                @Override
+                public void onActivityResult(ActivityResult result) {
+                    if (result.getResultCode() == 124) {
+                        Intent data = result.getData();
+                        if (data != null) {
+                            etLatLngTour.setText(data.getStringExtra("resulted_value"));
+                            etLocalTour.setText(data.getStringExtra("resulted_feature"));
+                            etAddressTour.setText(data.getStringExtra("resulted_address"));
+                            etCityTour.setText(data.getStringExtra("resulted_city"));
+                            etStateTour.setText(data.getStringExtra("resulted_state"));
+                            etCountryTour.setText(data.getStringExtra("resulted_country"));
+                        }
+                    }
+                }
+            });
 
     @Override
     public void onItemClick(int position) {
@@ -193,6 +247,11 @@ public class TourActivity extends AppCompatActivity implements TourTypeListAdapt
                 t1.setDistance(0);
                 t1.setVisitation_time(etVisitationTime.getText().toString());
                 t1.setNote(etNote.getText().toString());
+                t1.setAddress_tour(etAddressTour.getText().toString());
+                t1.setCity_tour(etCityTour.getText().toString());
+                t1.setState_tour(etStateTour.getText().toString());
+                t1.setCountry_tour(etCountryTour.getText().toString());
+                t1.setLatlng_tour(etLatLngTour.getText().toString());
 
                 if (!opInsert) {
                     try {
@@ -222,11 +281,13 @@ public class TourActivity extends AppCompatActivity implements TourTypeListAdapt
         boolean isValid = true;
 
         try {
-            if (nrTourType == -1 ||
-                etLocalTour.getText().toString().trim().isEmpty() ||
-                etDate.getText().toString().trim().isEmpty() ||
-                Utils.stringToDate(etDate.getText().toString()).before(travel.getDeparture_date()) ||
-                Utils.stringToDate(etDate.getText().toString()).after(travel.getReturn_date())
+            Date d1 = Utils.stringToDate(etDate.getText().toString());
+            if (d1 !=null &&
+                (nrTourType == -1 ||
+                 etLocalTour.getText().toString().trim().isEmpty() ||
+                 etDate.getText().toString().trim().isEmpty() ||
+                 d1.before(travel.getDeparture_date()) ||
+                 d1.after(travel.getReturn_date()))
                 //etValueAdult.getText().toString().trim().isEmpty() ||
                 //etValueChild.getText().toString().trim().isEmpty() ||
                 //etNumberAdult.getText().toString().trim().isEmpty() ||
@@ -234,7 +295,12 @@ public class TourActivity extends AppCompatActivity implements TourTypeListAdapt
                 //nrspCurrencyType == -1 ||
                 //etOpeningHours.getText().toString().trim().isEmpty() ||
                 //etVisitationTime.getText().toString().trim().isEmpty() ||
-                //etNote.getText().toString().trim().isEmpty()
+                //etNote.getText().toString().trim().isEmpty()||
+                //etAddressTour.getText().toString().trim().isEmpty()||
+                //etCityTour.getText().toString().trim().isEmpty()||
+                //etStateTour.getText().toString().trim().isEmpty()||
+                //etCountryTour.getText().toString().trim().isEmpty()||
+                //etLatLngTour.getText().toString().trim().isEmpty()
             ){
                 isValid = false;
             }

@@ -477,4 +477,8 @@
     <string name="Tour_Number_Adult">Núm Adultos</string>
     <string name="Tour_Number_Child">Núm Crianças</string>
     <string name="Error_Date_Invalid">Erro de Data Inválida</string>
+    <string name="Tour_Address_Tour">Endereço</string>
+    <string name="Tour_City_Tour">Cidade</string>
+    <string name="Tour_Country_Tour">Pais</string>
+    <string name="Tour_State_Tour">Estado</string>
 </resources>

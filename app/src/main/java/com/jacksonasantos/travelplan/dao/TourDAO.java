@@ -115,6 +115,12 @@ public class TourDAO extends DbContentProvider implements TourISchema, TourIDAO 
             if (c.getColumnIndex(TOUR_DISTANCE) != -1)        {t.setDistance(c.getInt(c.getColumnIndexOrThrow(TOUR_DISTANCE))); }
             if (c.getColumnIndex(TOUR_VISITATION_TIME) != -1) {t.setVisitation_time(c.getString(c.getColumnIndexOrThrow(TOUR_VISITATION_TIME))); }
             if (c.getColumnIndex(TOUR_NOTE) != -1)            {t.setNote(c.getString(c.getColumnIndexOrThrow(TOUR_NOTE))); }
+            if (c.getColumnIndex(TOUR_ADDRESS_TOUR) != -1)    {t.setAddress_tour(c.getString(c.getColumnIndexOrThrow(TOUR_ADDRESS_TOUR))); }
+            if (c.getColumnIndex(TOUR_CITY_TOUR) != -1)       {t.setCity_tour(c.getString(c.getColumnIndexOrThrow(TOUR_CITY_TOUR))); }
+            if (c.getColumnIndex(TOUR_STATE_TOUR) != -1)      {t.setState_tour(c.getString(c.getColumnIndexOrThrow(TOUR_STATE_TOUR))); }
+            if (c.getColumnIndex(TOUR_COUNTRY_TOUR) != -1)    {t.setCountry_tour(c.getString(c.getColumnIndexOrThrow(TOUR_COUNTRY_TOUR))); }
+            if (c.getColumnIndex(TOUR_LATLNG_TOUR) != -1)     {t.setLatlng_tour(c.getString(c.getColumnIndexOrThrow(TOUR_LATLNG_TOUR))); }
+
         }
         return t;
     }
@@ -136,6 +142,11 @@ public class TourDAO extends DbContentProvider implements TourISchema, TourIDAO 
         initialValues.put(TOUR_DISTANCE, t.distance);
         initialValues.put(TOUR_VISITATION_TIME, t.visitation_time);
         initialValues.put(TOUR_NOTE, t.note);
+        initialValues.put(TOUR_ADDRESS_TOUR, t.address_tour);
+        initialValues.put(TOUR_CITY_TOUR, t.city_tour);
+        initialValues.put(TOUR_STATE_TOUR, t.state_tour);
+        initialValues.put(TOUR_COUNTRY_TOUR, t.country_tour);
+        initialValues.put(TOUR_LATLNG_TOUR, t.latlng_tour);
     }
 
     private ContentValues getContentValue() {
