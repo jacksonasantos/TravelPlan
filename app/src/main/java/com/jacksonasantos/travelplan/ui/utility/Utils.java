@@ -122,7 +122,7 @@ public class Utils extends AppCompatActivity  {
         return d;
     }
 
-    public static Date stringToDate(String d) {
+    public static Date stringToDate(String d)  {
         @SuppressLint("SimpleDateFormat") SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         try {
             return (d==null?null:dateFormat.parse(d));

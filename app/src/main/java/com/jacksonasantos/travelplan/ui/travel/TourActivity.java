@@ -135,10 +135,8 @@ public class TourActivity extends AppCompatActivity implements TourTypeListAdapt
                 Date d = Utils.stringToDate(etDate.getText().toString());
                 if (d != null) {
                     try {
-                        if (    d.compareTo(travel.getDeparture_date())<0 ||
-                                d.compareTo(travel.getReturn_date())>0){
-                            //d.before(travel.getDeparture_date()) ||
-                            //d.after(travel.getReturn_date())) {
+                        if ( d.before(travel.getDeparture_date()) ||
+                            d.after(travel.getReturn_date())) {
                             etDate.setError(getResources().getString(R.string.Error_Date_Invalid));
                         }
                     } catch (NullPointerException e) {
@@ -292,10 +290,8 @@ public class TourActivity extends AppCompatActivity implements TourTypeListAdapt
                 (nrTourType == -1 ||
                  etLocalTour.getText().toString().trim().isEmpty() ||
                  etDate.getText().toString().trim().isEmpty() ||
-                        d1.compareTo(travel.getDeparture_date())<0 ||
-                        d1.compareTo(travel.getReturn_date())>0)
-                 //d1.before(travel.getDeparture_date()) ||
-                 //d1.after(travel.getReturn_date()))
+                 d1.before(travel.getDeparture_date()) ||
+                 d1.after(travel.getReturn_date()))
                 //etValueAdult.getText().toString().trim().isEmpty() ||
                 //etValueChild.getText().toString().trim().isEmpty() ||
                 //etNumberAdult.getText().toString().trim().isEmpty() ||
@@ -313,8 +309,12 @@ public class TourActivity extends AppCompatActivity implements TourTypeListAdapt
                 isValid = false;
             }
         } catch (Exception e) {
-            Toast.makeText(getApplicationContext(), R.string.Data_Validator_Error +" - " + e.getMessage(), Toast.LENGTH_LONG).show();
-            isValid = false;
+            if (e instanceof NullPointerException){
+               isValid = true;
+            } else {
+              Toast.makeText(getApplicationContext(), R.string.Data_Validator_Error +" - " + e.getMessage(), Toast.LENGTH_LONG).show();
+              isValid = false;
+            }
         }
         return isValid;
     }
