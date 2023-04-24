@@ -79,9 +79,9 @@ public class HomeInsuranceListAdapter extends RecyclerView.Adapter<RecyclerView.
             itemViewHolder.txtInsuranceBroker.setText(Database.mBrokerDao.fetchBrokerById(insurance.getBroker_id()).getName());
             itemViewHolder.txtInsurancePolicy.setText(String.valueOf(insurance.getInsurance_policy()));
             itemViewHolder.txtInsuranceFinalEffectiveDate.setText(Utils.dateToString(insurance.getFinal_effective_date()));
-
             itemViewHolder.btnDoneInsurance.setOnClickListener(v -> {
                 try {
+                    // TODO - Pedir Confirmação antes de fazer o update
                     Insurance i1 = Database.mInsuranceDao.fetchInsuranceById(insurance.getId());
                     i1.setStatus(insurance.getStatus() == 0 ? 1 : 0);
                     i1.setTravel_id(insurance.getTravel_id() == 0 ? null : insurance.getTravel_id());

@@ -476,4 +476,5 @@
     <string name="Transport_Note">Observação</string>
     <string name="Tour_Number_Adult">Núm Adultos</string>
     <string name="Tour_Number_Child">Núm Crianças</string>
+    <string name="Error_Date_Invalid">Erro de Data Inválida</string>
 </resources>

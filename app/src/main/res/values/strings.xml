@@ -538,6 +538,8 @@
     <string name="Tour_Visitation_Time">Visitation Time</string>
     <string name="Tour_Note">Note</string>
 
+    <string name="Error_Date_Invalid">Error invalid date</string>
+
     <string name="Museum">Museum</string>
     <string name="Panoramic_view">Panoramic View</string>
     <string name="Square">Square</string>

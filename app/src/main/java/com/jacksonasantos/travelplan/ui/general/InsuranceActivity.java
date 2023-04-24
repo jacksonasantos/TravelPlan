@@ -49,6 +49,7 @@ public  class InsuranceActivity extends AppCompatActivity {
     private EditText etInsurance_Deductible;
     private EditText etBonus_Class;
     private EditText etNote;
+    // TODO - Permitir alteração do Status
     private TextView tvStatus;
     private int nrStatus;
     private Spinner spinTravel;

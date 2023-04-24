@@ -1,5 +1,6 @@
 package com.jacksonasantos.travelplan.ui.travel;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -49,6 +50,8 @@ public class TourActivity extends AppCompatActivity implements TourTypeListAdapt
 
     public TourTypeListAdapter adapterTourType;
 
+    Travel travel;
+    @SuppressLint("ResourceType")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,6 +74,7 @@ public class TourActivity extends AppCompatActivity implements TourTypeListAdapt
             }
             if (extras.getInt( "travel_id") > 0) {
                 tour.setTravel_id(extras.getInt("travel_id"));
+                travel = Database.mTravelDao.fetchTravelById(tour.getTravel_id());
             }
         }
 
@@ -85,6 +89,8 @@ public class TourActivity extends AppCompatActivity implements TourTypeListAdapt
         tvMarker = findViewById(R.id.tvMarker);
         rvTourType = findViewById(R.id.rvTourType);
         etLocalTour = findViewById(R.id.etLocalTour);
+        // TODO - Incluir Botão de localização no mapa
+        // TODO - Incluir campo de endereço
         etDate = findViewById(R.id.etDate);
         etValueAdult = findViewById(R.id.etValueAdult);
         etValueChild = findViewById(R.id.etValueChild);
@@ -94,10 +100,17 @@ public class TourActivity extends AppCompatActivity implements TourTypeListAdapt
         etOpeningHours = findViewById(R.id.etOpeningHours);
         etVisitationTime = findViewById(R.id.etVisitationTime);
         etNote = findViewById(R.id.etNote);
-
         tvItinerary.setVisibility(View.INVISIBLE);
         tvMarker.setVisibility(View.INVISIBLE);
         etDate.addTextChangedListener(new DateInputMask(etDate));
+        etDate.setOnFocusChangeListener((v, hasFocus) -> {
+            if(!hasFocus) {
+                if (Utils.stringToDate(etDate.getText().toString()).before(travel.getDeparture_date()) ||
+                    Utils.stringToDate(etDate.getText().toString()).after(travel.getReturn_date())) {
+                    etDate.setError(getResources().getString(R.string.Error_Date_Invalid));
+                }
+            }
+        });
 
         Utils.createSpinnerResources(R.array.currency_array, spCurrencyType, this);
         nrSpCurrencyType = tour.getCurrency_type();
@@ -211,7 +224,9 @@ public class TourActivity extends AppCompatActivity implements TourTypeListAdapt
         try {
             if (nrTourType == -1 ||
                 etLocalTour.getText().toString().trim().isEmpty() ||
-                etDate.getText().toString().trim().isEmpty()
+                etDate.getText().toString().trim().isEmpty() ||
+                Utils.stringToDate(etDate.getText().toString()).before(travel.getDeparture_date()) ||
+                Utils.stringToDate(etDate.getText().toString()).after(travel.getReturn_date())
                 //etValueAdult.getText().toString().trim().isEmpty() ||
                 //etValueChild.getText().toString().trim().isEmpty() ||
                 //etNumberAdult.getText().toString().trim().isEmpty() ||
