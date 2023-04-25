@@ -35,7 +35,7 @@ import java.util.concurrent.Executors;
 public class RouteClass {
     GoogleMap mMap;
     Context context;
-    String lang;
+    String lang, mode;
     char typeUpdate;
     Integer nrTravel_Id, nrAchievement_Id;
     boolean isAlpha = false;
@@ -44,17 +44,19 @@ public class RouteClass {
     private final ExecutorService myExecutor = Executors.newSingleThreadExecutor();
     private final Handler myHandler = new Handler(Looper.getMainLooper());
 
-    public void drawRoute(GoogleMap map, Context c, ArrayList<LatLng> points, boolean withIndications, String language, boolean optimize, char type, Integer id, int sequence, Integer sequenceSelected, boolean alpha) {
+    public void drawRoute(GoogleMap map, Context context, ArrayList<LatLng> points, boolean withIndications, String language, boolean optimize, char typeUpdateTable, Integer id, int sequence, Integer sequenceSelected, boolean alpha) {
         this.mMap = map;
-        this.context = c;
+        this.context = context;
         this.lang = language;
-        this.typeUpdate = type;
+        this.typeUpdate = typeUpdateTable;
         this.nrTravel_Id = null;
         this.nrAchievement_Id = null;
         this.isAlpha = alpha;
+        this.mode = mode;
 
-        String mode = "driving";
         String url = null;
+
+        if (mode == null) mode = "driving";
 
         if (typeUpdate == 'T') {
             nrTravel_Id = id;
@@ -151,7 +153,7 @@ public class RouteClass {
             JSONObject routes = routeArray.getJSONObject(0);
             JSONArray arrayLegs = routes.getJSONArray("legs");
             int nrDuration = 0, nrDistance = 0;
-            for (int y =0; y < arrayLegs.length(); y++) {
+            for (int y = 0; y < arrayLegs.length(); y++) {
                 JSONObject legs = arrayLegs.getJSONObject(y);
                 JSONArray stepsArray = legs.getJSONArray("steps");
 
@@ -159,25 +161,31 @@ public class RouteClass {
                 nrDistance += legs.getJSONObject("distance").getInt("value");
 
                 for (int i = 0; i < stepsArray.length(); i++) {
+
                     String polyline = (String) ((JSONObject) ((JSONObject) stepsArray.get(i)).get("polyline")).get("points");
                     int vColor;
-                    switch (nrSequence%4){
-                        case 0: vColor = Color.MAGENTA;
-                                break;
-                        case 1: vColor = Color.DKGRAY;
-                                break;
-                        case 2: vColor = Color.BLUE;
-                                break;
-                        default: vColor = Color.RED;
+                    switch (nrSequence % 4) {
+                        case 0:
+                            vColor = Color.MAGENTA;
+                            break;
+                        case 1:
+                            vColor = Color.DKGRAY;
+                            break;
+                        case 2:
+                            vColor = Color.BLUE;
+                            break;
+                        default:
+                            vColor = Color.RED;
                     }
 
                     int vWidth = 8;
                     if (nrSequenceSelected != null) {
-                        vColor = nrSequence==nrSequenceSelected ? vColor : Color.RED;
-                        vWidth = nrSequence==nrSequenceSelected ? vWidth : 14;
+                        vColor = nrSequence == nrSequenceSelected ? vColor : Color.RED;
+                        vWidth = nrSequence == nrSequenceSelected ? vWidth : 14;
                     }
                     //if (isAlpha) vColor = (vColor & 0x00FFFFFF) | (0x40 << 24);
 
+                    // TODO - desenhar linha reta para voos
                     mMap.addPolyline(new PolylineOptions()
                             .addAll(decodePoly(polyline))
                             .width(vWidth)
@@ -194,7 +202,6 @@ public class RouteClass {
                                 .draggable(true)
                                 .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
                     }
-
                 }
             }
             if ( typeUpdate == 'T' ) {

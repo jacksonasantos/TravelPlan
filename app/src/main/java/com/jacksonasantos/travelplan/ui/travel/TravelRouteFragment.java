@@ -93,6 +93,7 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
     private EditText etSearch;
     private Button btnSearch;
     private RecyclerView listMarkers;
+    // TODO  - Melhorar ações nos botoes do itinerário
 
     private final MarkerOptions markerOptions = new MarkerOptions();
     private LatLngBounds.Builder builder = new LatLngBounds.Builder();
@@ -709,7 +710,7 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
         final EditText etOrig_location = promptsView.findViewById(R.id.etOrig_location);
         final EditText etDest_location = promptsView.findViewById(R.id.etDest_location);
         final EditText etDaily = promptsView.findViewById(R.id.etDaily);
-
+        // TODO - Inclui a seleção dos transportes disponiveis
         final boolean[] isSave = {false};
 
         if (add) {
