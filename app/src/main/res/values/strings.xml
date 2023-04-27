@@ -621,4 +621,16 @@
     <string name="Rental">Rental</string>
     <string name="Hiring">Hiring</string>
 
+    <!-- Itinerary Has Transport Fragment -->
+    <string name="Itinerary_has_Transport">Itinerary has Transport</string>
+    <string name="Itinerary_has_Transport_Deleting">Deleting Itinerary has Transport</string>
+
+    <string name="Itinerary_has_Transport_Vehicle">Vehicle</string>
+    <string name="Itinerary_has_Transport_Transport">Transport</string>
+    <string name="Itinerary_has_Transport_Itinerary">Itinerary</string>
+    <string name="Itinerary_has_Transport_Person">Person</string>
+    <string name="Itinerary_has_Transport_Driver">Driver</string>
+    <string name="Itinerary_has_Transport_Transport_Type">Transport Type</string>
+    <string name="Itinerary_has_Transport_Sequence_Itinerary">Sequence Itinerary</string>
+
 </resources>

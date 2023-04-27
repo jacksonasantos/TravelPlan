@@ -53,7 +53,7 @@ public class RouteClass {
         this.nrAchievement_Id = null;
         this.isAlpha = alpha;
         this.mode = mode;
-
+        // TODO - implementar o parametro mode (DRIVING, WALKING, TRANSPORT)
         String url = null;
 
         if (mode == null) mode = "driving";

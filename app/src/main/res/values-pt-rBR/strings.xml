@@ -481,4 +481,13 @@
     <string name="Tour_City_Tour">Cidade</string>
     <string name="Tour_Country_Tour">Pais</string>
     <string name="Tour_State_Tour">Estado</string>
+    <string name="Itinerary_has_Transport">Transporte do Itinerário</string>
+    <string name="Itinerary_has_Transport_Deleting">Excluindo Transporte do Itinerário</string>
+    <string name="Itinerary_has_Transport_Vehicle">Veículo</string>
+    <string name="Itinerary_has_Transport_Itinerary">Itinerário</string>
+    <string name="Itinerary_has_Transport_Transport">Transporte</string>
+    <string name="Itinerary_has_Transport_Transport_Type">Tipo</string>
+    <string name="Itinerary_has_Transport_Person">Pessoa</string>
+    <string name="Itinerary_has_Transport_Driver">Condutor</string>
+    <string name="Itinerary_has_Transport_Sequence_Itinerary">Sequência</string>
 </resources>

@@ -32,6 +32,7 @@ import com.jacksonasantos.travelplan.dao.VehicleHasTravel;
 import com.jacksonasantos.travelplan.dao.general.Database;
 import com.jacksonasantos.travelplan.ui.general.InsuranceActivity;
 import com.jacksonasantos.travelplan.ui.travel.ItineraryActivity;
+import com.jacksonasantos.travelplan.ui.travel.ItineraryHasTransportListAdapter;
 import com.jacksonasantos.travelplan.ui.travel.ReservationActivity;
 import com.jacksonasantos.travelplan.ui.travel.TravelAchievementListAdapter;
 import com.jacksonasantos.travelplan.ui.travel.TravelFuelSupplyListAdapter;
@@ -79,6 +80,9 @@ public class HomeTravelFragment extends Fragment implements View.OnClickListener
     private ConstraintLayout layerTransport;
     private RecyclerView listTransport;
 
+    private ConstraintLayout layerItineraryHasTransport;
+    private RecyclerView listItineraryHasTransport;
+
     private ConstraintLayout layerTour;
     private RecyclerView listTour;
 
@@ -120,17 +124,21 @@ public class HomeTravelFragment extends Fragment implements View.OnClickListener
         btnAccommodation = v.findViewById(R.id.btnAccommodation);
         btnFood = v.findViewById(R.id.btnFood);
         btnFuel = v.findViewById(R.id.btnFuel);
+        // TODO - Permitir abastecimento de veiculos locados
         btnExtra = v.findViewById(R.id.btnExtra);
         btnTour = v.findViewById(R.id.btnTour);
         btnTolls = v.findViewById(R.id.btnTolls);
         btnInsurance = v.findViewById(R.id.btnInsurance);
-        // TODO - habilitar o cadastro de seguros para locações
+        // TODO - enable insurance registration for leases
 
         layerExpense = v.findViewById(R.id.layerExpense);
         listTravelExpenses = v.findViewById(R.id.listTravelExpenses);
 
         layerTransport = v.findViewById(R.id.layerTransport);
         listTransport = v.findViewById(R.id.listTransport);
+
+        layerItineraryHasTransport = v.findViewById(R.id.layerItineraryHasTransport);
+        listItineraryHasTransport = v.findViewById(R.id.listItineraryHasTransport);
 
         layerVehicle = v.findViewById(R.id.layerVehicle);
         listVehicle = v.findViewById(R.id.listVehicle);
@@ -352,6 +360,13 @@ public class HomeTravelFragment extends Fragment implements View.OnClickListener
                 listTransport.setAdapter(adapterTransportTravel);
                 listTransport.setLayoutManager(new LinearLayoutManager(getContext()));
 
+                // Itinerary has Transport
+                final int Show_Header_ItineraryHasTransport = 1  ;
+                ItineraryHasTransportListAdapter adapterItineraryHasTransport = new ItineraryHasTransportListAdapter(Database.mItineraryHasTransportDao.fetchAllItineraryHasTransportByTravel(travel[0].getId() ), getContext(),"Home", Show_Header_ItineraryHasTransport, travel[0].id);
+                layerItineraryHasTransport.setVisibility(View.VISIBLE);
+                listItineraryHasTransport.setAdapter(adapterItineraryHasTransport);
+                listItineraryHasTransport.setLayoutManager(new LinearLayoutManager(getContext()));
+
                 // Tours
                 final int Show_Header_Tour = 1  ;
                 TravelTourListAdapter adapterTourTravel = new TravelTourListAdapter(Database.mTourDao.fetchAllTourByTravel(travel[0].getId() ), getContext(),"Home", Show_Header_Tour,travel[0].id);
@@ -428,8 +443,8 @@ public class HomeTravelFragment extends Fragment implements View.OnClickListener
 
             public void TravelItemExpenses(View v, int expense_type ) {
 
-                // TODO - mostrar itens cadastrado nas outras tabelas para escolher e vincular ao gasto executado, trocando ou marcando o status da despesas realizada
-                // TODO - mostrar os markers para cada tipo para escolher no cadastro da despesa realizada
+                // TODO - show items registered in other tables to choose from and link to the executed expense, changing or marking the status of the expenses incurred
+                // TODO - show the markers for each type to choose from in the expense record
                 LayoutInflater li = LayoutInflater.from(v.getContext());
                 View promptsView = li.inflate(R.layout.dialog_travel_item_expenses, null);
 
@@ -438,7 +453,7 @@ public class HomeTravelFragment extends Fragment implements View.OnClickListener
 
                 final HomeTravelItemExpensesListAdapter[] adapterTravelItemExpenses = new HomeTravelItemExpensesListAdapter[1];
                 final Spinner spinExpenseType = promptsView.findViewById(R.id.spinExpenseType);
-                // TODO - não deixar trocar o spinner do botaão escolhido
+                // TODO - not letting you change the spinner of the chosen button
 
                 final EditText etExpectedValue = promptsView.findViewById(R.id.etExpectedValue);
                 final EditText etNote = promptsView.findViewById(R.id.etNote);
@@ -460,7 +475,7 @@ public class HomeTravelFragment extends Fragment implements View.OnClickListener
                 spinExpenseType.setSelection(expense_type);
                 double vlrExpectedValue = 0.0;
                 for (int x = 0; x < travelExpensesList.size(); x++) {
-                    // TODO - Incluir os valores planejados das outras tabelas de cadas despesa, ex. Tours cadastrados com valores
+                    // TODO - Include planned amounts from other tables for each expense, eg. Tours registered with values
                     vlrExpectedValue = vlrExpectedValue + travelExpensesList.get(x).getExpected_value();
                 }
                 etExpectedValue.setText(currencyFormatter.format(vlrExpectedValue));

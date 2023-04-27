@@ -1,5 +1,6 @@
 package com.jacksonasantos.travelplan.ui.travel;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -36,12 +37,12 @@ public class TransportActivity extends AppCompatActivity implements TransportTyp
     private RecyclerView rvTransportType ;
     private int nrTransportType= -1;
     public TransportTypeListAdapter adapterTransportType;
+    public ItineraryHasTransportListAdapter adapterItineraryHasTransport;
 
     private LinearLayout llTransportTypeOwn;
+    private Spinner spOwnVehicle; // TODO - Falta spvehicle
+
     private LinearLayout llTransportType;
-
-    private Spinner spOwnVehicle;
-
     private TextView tvIdentifier ;
     private TextView tvDescription ;
     private TextView tvCompany ;
@@ -52,7 +53,6 @@ public class TransportActivity extends AppCompatActivity implements TransportTyp
     private TextView tvServiceTax;
     private TextView tvAmountPaid;
     private TextView tvNote;
-
     private EditText etIdentifier ;
     private EditText etDescription ;
     private EditText etCompany ;
@@ -66,9 +66,11 @@ public class TransportActivity extends AppCompatActivity implements TransportTyp
     private EditText etAmountPaid;
     private EditText etNote;
 
+    private LinearLayout llItineraryHasTransport;
     private RecyclerView rvTransportPerson;
     private TextView tvTransportPerson;
 
+    @SuppressLint("NotifyDataSetChanged")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -139,6 +141,7 @@ public class TransportActivity extends AppCompatActivity implements TransportTyp
         etAmountPaid = findViewById(R.id.etAmountPaid);
         etNote = findViewById(R.id.etNote);
 
+        llItineraryHasTransport = findViewById(R.id.llItineraryHasTransport);
         tvTransportPerson = findViewById(R.id.tvTransportPerson);
         rvTransportPerson = findViewById(R.id.rvTransportPerson);
 
@@ -157,6 +160,18 @@ public class TransportActivity extends AppCompatActivity implements TransportTyp
 
         etStartDate.addTextChangedListener(new DateTimeInputMask(etStartDate));
         etEndDate.addTextChangedListener(new DateTimeInputMask(etEndDate));
+
+        if (!opInsert) {
+            // Itinerary has Transport
+            final int Show_Header_ItineraryHasTransport = 1;
+            adapterItineraryHasTransport = new ItineraryHasTransportListAdapter(Database.mItineraryHasTransportDao.fetchAllItineraryHasTransportByTravel(transport.getTravel_id()), getApplicationContext(), "Home", Show_Header_ItineraryHasTransport, transport.getTravel_id());
+            llItineraryHasTransport.setVisibility(View.VISIBLE);
+            rvTransportPerson.setAdapter(adapterItineraryHasTransport);
+            rvTransportPerson.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+            adapterItineraryHasTransport.notifyDataSetChanged();
+        } else {
+            llItineraryHasTransport.setVisibility(View.INVISIBLE);
+        }
 
         if (transport != null) {
             Travel t1 = Database.mTravelDao.fetchTravelById(transport.getTravel_id());
@@ -180,14 +195,11 @@ public class TransportActivity extends AppCompatActivity implements TransportTyp
 
     @Override
     public void onItemClick(int position) {
-
         if (nrTransportType != position) {
             nrTransportType = position;
         }
         else nrTransportType = -1;
-
         Utils.selected_position = nrTransportType;
-
         switch(nrTransportType) {
             case -1: {
                 llTransportTypeOwn.setVisibility(View.GONE);
@@ -248,16 +260,13 @@ public class TransportActivity extends AppCompatActivity implements TransportTyp
                 tvTransportPerson.setText(getResources().getString(R.string.Traveler));
                 break;
             }
-
         }
     }
 
     public void addListenerOnButtonSave() {
         Button btnSave = findViewById(R.id.btnSave);
-
         btnSave.setOnClickListener(v -> {
             boolean isSave = false;
-
             if (!validateData()) {
                 Toast.makeText(getApplicationContext(), R.string.Error_Data_Validation, Toast.LENGTH_LONG).show();
             } else {
@@ -303,7 +312,6 @@ public class TransportActivity extends AppCompatActivity implements TransportTyp
     }
     private boolean validateData() {
         boolean isValid = true;
-
         try {
             if (nrTransportType == -1 ||
                 etIdentifier.getText().toString().trim().isEmpty() ||

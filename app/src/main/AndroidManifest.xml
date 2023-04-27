@@ -89,6 +89,9 @@
             android:name=".ui.travel.TransportActivity"
             android:label="@string/Transport" />
         <activity
+            android:name=".ui.travel.ItineraryHasTransportActivity"
+            android:label="@string/Itinerary_has_Transport" />
+        <activity
             android:name=".ui.travel.ItineraryActivity"
             android:label="@string/Itinerary" />
         <activity

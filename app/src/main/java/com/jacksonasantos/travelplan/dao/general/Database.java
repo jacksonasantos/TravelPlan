@@ -16,6 +16,7 @@ import com.jacksonasantos.travelplan.dao.InsuranceCompanyDAO;
 import com.jacksonasantos.travelplan.dao.InsuranceContactDAO;
 import com.jacksonasantos.travelplan.dao.InsuranceDAO;
 import com.jacksonasantos.travelplan.dao.ItineraryDAO;
+import com.jacksonasantos.travelplan.dao.ItineraryHasTransportDAO;
 import com.jacksonasantos.travelplan.dao.MaintenanceDAO;
 import com.jacksonasantos.travelplan.dao.MaintenanceItemDAO;
 import com.jacksonasantos.travelplan.dao.MaintenancePlanDAO;
@@ -45,6 +46,7 @@ import com.jacksonasantos.travelplan.dao.interfaces.FuelSupplyISchema;
 import com.jacksonasantos.travelplan.dao.interfaces.InsuranceCompanyISchema;
 import com.jacksonasantos.travelplan.dao.interfaces.InsuranceContactISchema;
 import com.jacksonasantos.travelplan.dao.interfaces.InsuranceISchema;
+import com.jacksonasantos.travelplan.dao.interfaces.ItineraryHasTransportISchema;
 import com.jacksonasantos.travelplan.dao.interfaces.ItineraryISchema;
 import com.jacksonasantos.travelplan.dao.interfaces.MaintenanceISchema;
 import com.jacksonasantos.travelplan.dao.interfaces.MaintenanceItemISchema;
@@ -68,7 +70,7 @@ public class Database {
     private final Context mContext;
 
     private static final String DATABASE_NAME = "TravelPlan.db";
-    private static final int DATABASE_VERSION = 64;
+    private static final int DATABASE_VERSION = 65;
 
     public static AccommodationDAO mAccommodationDao;
     public static AchievementDAO mAchievementDao;
@@ -101,6 +103,7 @@ public class Database {
     public static NextMaintenanceItemDAO mNextMaintenanceItemDao;
     public static VehicleMaintenanceItemDAO mVehicleMaintenanceItemDao;
     public static MaintenancePlanHasVehicleTypeDAO mMaintenancePlanHasVehicleTypeDAO;
+    public static ItineraryHasTransportDAO mItineraryHasTransportDao;
 
     public String[][] matrix = {
             {"1" , ""  , "VehicleISchema"           , "CREATE_TABLE_VEHICLE_V1"               , "VEHICLE_TABLE"              , "V1 - Create Table..."    },
@@ -189,7 +192,8 @@ public class Database {
             {"64", "2" , "Tour"                     , "ALTER_TABLE_TOUR_V64_2"                , "TOUR_TABLE"                 , "V64.2 - Alter Table..."  },
             {"64", "3" , "Tour"                     , "ALTER_TABLE_TOUR_V64_3"                , "TOUR_TABLE"                 , "V64.3 - Alter Table..."  },
             {"64", "4" , "Tour"                     , "ALTER_TABLE_TOUR_V64_4"                , "TOUR_TABLE"                 , "V64.4 - Alter Table..."  },
-            {"64", "5" , "Tour"                     , "ALTER_TABLE_TOUR_V64_5"                , "TOUR_TABLE"                 , "V64.5 - Alter Table..."  }
+            {"64", "5" , "Tour"                     , "ALTER_TABLE_TOUR_V64_5"                , "TOUR_TABLE"                 , "V64.5 - Alter Table..."  },
+            {"65", ""  , "ItineraryHasTrasnport"    , "CREATE_TABLE_ITINERARY_HAS_TRASNPORT_V65", "ITINERARY_HAS_TRANSPORT_TABLE", "V65 - Create Table..."  }
     };
 
     public Database(Context context) {
@@ -232,6 +236,7 @@ public class Database {
             mPendingVehicleDao = new PendingVehicleDAO(mDb);
             mMaintenancePlanHasVehicleTypeDAO = new MaintenancePlanHasVehicleTypeDAO(mDb);
             mPersonDao = new PersonDAO(mDb);
+            mItineraryHasTransportDao = new ItineraryHasTransportDAO(mDb);
         } catch (Exception e) {
             Log.i("Open Database ", "Error : " + e.getMessage());
             Toast.makeText(mContext, "Error Open Database : " + e.getMessage(), Toast.LENGTH_LONG).show();
@@ -359,6 +364,7 @@ public class Database {
             db.execSQL(TourISchema.ALTER_TABLE_TOUR_V64_3); Log.w("Table "+TourISchema.TOUR_TABLE,"V64_3 - Alter Table...");
             db.execSQL(TourISchema.ALTER_TABLE_TOUR_V64_4); Log.w("Table "+TourISchema.TOUR_TABLE,"V64_4 - Alter Table...");
             db.execSQL(TourISchema.ALTER_TABLE_TOUR_V64_5); Log.w("Table "+TourISchema.TOUR_TABLE,"V64_5 - Alter Table...");
+            db.execSQL(ItineraryHasTransportISchema.CREATE_TABLE_ITINERARY_HAS_TRANSPORT_V65);Log.w("Table "+ItineraryHasTransportISchema.ITINERARY_HAS_TRANSPORT_TABLE,"V65 - Create Table...");
         }
 
         @SuppressLint("SQLiteString")
@@ -566,6 +572,9 @@ public class Database {
                         db.execSQL(TourISchema.ALTER_TABLE_TOUR_V64_3);
                         db.execSQL(TourISchema.ALTER_TABLE_TOUR_V64_4);
                         db.execSQL(TourISchema.ALTER_TABLE_TOUR_V64_5);
+                        break;
+                    case 65:
+                        db.execSQL(ItineraryHasTransportISchema.CREATE_TABLE_ITINERARY_HAS_TRANSPORT_V65);
                         break;
                     default:
                         break;

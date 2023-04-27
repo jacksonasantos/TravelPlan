@@ -67,6 +67,7 @@ public class ItineraryDAO extends DbContentProvider implements ItineraryISchema,
         }
         return itineraryList;
     }
+
     public Itinerary fetchLastItineraryByTravel(Integer travel_id) {
         Itinerary itinerary = new Itinerary();
         final String[] selectionArgs = { String.valueOf(travel_id) };

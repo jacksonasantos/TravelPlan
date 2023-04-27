@@ -710,7 +710,8 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
         final EditText etOrig_location = promptsView.findViewById(R.id.etOrig_location);
         final EditText etDest_location = promptsView.findViewById(R.id.etDest_location);
         final EditText etDaily = promptsView.findViewById(R.id.etDaily);
-        // TODO - Inclui a seleção dos transportes disponiveis
+        final LinearLayout llItineraryHasTransport = promptsView.findViewById(R.id.llItineraryHasTransport);
+        final RecyclerView rvItineraryHasTransport = promptsView.findViewById(R.id.rvItineraryHasTransport);
         final boolean[] isSave = {false};
 
         if (add) {
@@ -721,12 +722,21 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
             } else {
                 etSequence.setText(String.valueOf(1));
             }
+            llItineraryHasTransport.setVisibility(View.INVISIBLE);
         } else {
             nrTravel_Id = i.getTravel_id();
             etSequence.setText(String.valueOf(i.getSequence()));
             etDest_location.setText(i.getDest_location());
             etOrig_location.setText(i.getOrig_location());
             etDaily.setText(String.valueOf(i.getDaily()));
+            llItineraryHasTransport.setVisibility(View.VISIBLE);
+
+            // Itinerary has Transport
+            final int Show_Header_ItineraryHasTransport = 1  ;
+            ItineraryHasTransportListAdapter adapterItineraryHasTransport = new ItineraryHasTransportListAdapter(Database.mItineraryHasTransportDao.fetchAllItineraryHasTransportByTravelItinerary(nrTravel_Id, nrItinerary_Id ), getContext(),"Home", Show_Header_ItineraryHasTransport, nrTravel_Id);
+            rvItineraryHasTransport.setAdapter(adapterItineraryHasTransport);
+            rvItineraryHasTransport.setLayoutManager(new LinearLayoutManager(getContext()));
+
         }
 
         final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(requireContext());

@@ -30,9 +30,11 @@ public class TravelActivity extends AppCompatActivity {
     private RecyclerView rvTourTravel;
     private RecyclerView rvAchievementTravel;
     private RecyclerView rvTravelExpenses;
-    // TODO - Relacionar os transportes com Transport ou Vehicle vinculando as pessoas e os itinerários
-    // TODO - apdapter par mostrar itinerário e poder manter
+    private RecyclerView rvItinerary;
+    private RecyclerView rvItineraryHasTransport;
 
+    private TravelRouteFragment.HomeTravelItineraryListAdapter adapterItinerary;
+    private ItineraryHasTransportListAdapter adapterItineraryHasTransport;
     private TravelVehicleListAdapter adapterVehicleTravel;
     private TravelTourListAdapter adapterTourTravel;
     private TravelAchievementListAdapter adapterAchievementTravel;
@@ -40,8 +42,6 @@ public class TravelActivity extends AppCompatActivity {
 
     private boolean opInsert = true;
     private Travel travel;
-
-    @SuppressLint("WrongViewCast")
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,13 +63,15 @@ public class TravelActivity extends AppCompatActivity {
         etNote = findViewById(R.id.etNote);
         tvStatus = findViewById(R.id.tvStatus);
 
+        rvItinerary = findViewById(R.id.rvItinerary);
+        rvItineraryHasTransport = findViewById(R.id.rvItineraryHasTransport);
         rvVehicleTravel = findViewById(R.id.rvVehicleTravel);
         rvTourTravel = findViewById(R.id.rvTourTravel);
         rvAchievementTravel = findViewById(R.id.rvAchievementTravel);
         rvTravelExpenses = findViewById(R.id.rvTravelExpenses);
     }
 
-    @SuppressLint({"UseCompatLoadingForDrawables", "NotifyDataSetChanged"})
+    @SuppressLint("NotifyDataSetChanged")
     protected void onResume() {
         super.onResume();
 
@@ -96,6 +98,16 @@ public class TravelActivity extends AppCompatActivity {
         etReturn_date.addTextChangedListener(new DateInputMask(etReturn_date));
 
         if (travel != null) {
+
+            adapterItinerary = new TravelRouteFragment.HomeTravelItineraryListAdapter(Database.mItineraryDao.fetchAllItineraryByTravel(travel.getId() ), getApplicationContext(), 0,0, false);
+            rvItinerary.setAdapter(adapterItinerary);
+            rvItinerary.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+            adapterItinerary.notifyDataSetChanged();
+
+            adapterItineraryHasTransport = new ItineraryHasTransportListAdapter(Database.mItineraryHasTransportDao.fetchAllItineraryHasTransportByTravel(travel.getId() ), getApplicationContext(),"Travel", 1, travel.id);
+            rvItineraryHasTransport.setAdapter(adapterItineraryHasTransport);
+            rvItineraryHasTransport.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+
             adapterVehicleTravel = new TravelVehicleListAdapter(Database.mVehicleHasTravelDao.fetchAllVehicleHasTravelByTravel(travel.getId()), getApplicationContext(),"Travel",1, travel.getId());
             rvVehicleTravel.setAdapter(adapterVehicleTravel);
             rvVehicleTravel.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
