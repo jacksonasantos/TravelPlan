@@ -33,7 +33,6 @@ public class SummaryTravelExpenseDAO extends DbContentProvider implements Summar
 
     public List<SummaryTravelExpense> findTravelExpense(Integer travel_id) {
         List<SummaryTravelExpense> summaryTravelExpenseList = new ArrayList<>();
-        // TODO - Incluir nos passeios os valores de Tours para todas as Pessoas da viajem
         cursor = super.rawQuery(
                 "SELECT " + SummaryTravelExpenseISchema.SUMMARY_TRAVEL_EXPENSE_EXPENSE_TYPE + ", " +
                                " SUM( " + SummaryTravelExpenseISchema.SUMMARY_TRAVEL_EXPENSE_EXPECTED_VALUE + ") " + SummaryTravelExpenseISchema.SUMMARY_TRAVEL_EXPENSE_EXPECTED_VALUE + ", " +

@@ -10,7 +10,6 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.ActionBar;
@@ -49,8 +48,7 @@ public  class InsuranceActivity extends AppCompatActivity {
     private EditText etInsurance_Deductible;
     private EditText etBonus_Class;
     private EditText etNote;
-    // TODO - Permitir alteração do Status
-    private TextView tvStatus;
+    private RadioGroup rgInsuranceStatus;
     private int nrStatus;
     private Spinner spinTravel;
     private Integer nrSpinTravel;
@@ -116,7 +114,7 @@ public  class InsuranceActivity extends AppCompatActivity {
         etInsurance_Deductible = findViewById(R.id.etInsurance_Deductible);
         etBonus_Class = findViewById(R.id.etBonus_Class);
         etNote = findViewById(R.id.etNote);
-        tvStatus = findViewById(R.id.tvStatus);
+        rgInsuranceStatus = findViewById(R.id.rgInsuranceStatus);
         spinTravel = findViewById(R.id.spinTravel);
         spinVehicle = findViewById(R.id.spinVehicle);
         spinVehicle.setVisibility(View.VISIBLE);
@@ -147,7 +145,8 @@ public  class InsuranceActivity extends AppCompatActivity {
                     break;
             }
         });
-
+        Utils.addRadioButtonResources(R.array.insurance_status_array, rgInsuranceStatus, this);
+        rgInsuranceStatus.setOnCheckedChangeListener((group, checkedId) -> nrStatus = checkedId);
         final List<InsuranceCompany> insuranceCompanies =  Database.mInsuranceCompanyDao.fetchArrayInsuranceCompany();
         insuranceCompanies.add(0, new InsuranceCompany());
         ArrayAdapter<InsuranceCompany> adapterIC = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, insuranceCompanies);
@@ -301,8 +300,8 @@ public  class InsuranceActivity extends AppCompatActivity {
             etInsurance_Deductible.setText(String.valueOf(insurance.getInsurance_deductible()));
             etBonus_Class.setText(String.valueOf(insurance.getBonus_class()));
             etNote.setText(insurance.getNote());
+            rgInsuranceStatus.check(insurance.getStatus());
             nrStatus=insurance.getStatus();
-            tvStatus.setText(getResources().getStringArray(R.array.insurance_status_array)[nrStatus]);
             nrSpinTravel=insurance.getTravel_id();
             if (nrSpinTravel != null && nrSpinTravel > 0) {
                 Travel trip1 = Database.mTravelDao.fetchTravelById(nrSpinTravel);
@@ -392,7 +391,7 @@ public  class InsuranceActivity extends AppCompatActivity {
                 && !etDescription.getText().toString().trim().isEmpty()
                 && !etInsurance_Policy.getText().toString().trim().isEmpty()
                 && !etIssuance_Date.getText().toString().trim().isEmpty()
-                && nrSpinBroker!=0
+                //&& nrSpinBroker!=0
                 && !etInitial_Effective_Date.getText().toString().trim().isEmpty()
                 //&& !etFinal_Effective_Date.getText().toString().trim().isEmpty()
                 && !etNet_Premium_Value.getText().toString().trim().isEmpty()

@@ -63,7 +63,7 @@ public class InsuranceDAO extends DbContentProvider implements InsuranceISchema,
         } else {
             selection = INSURANCE_TRAVEL_ID + " = ? AND ";
         }
-        final String selectionField = selection + INSURANCE_STATUS + " = 0 ";
+        final String selectionField = selection + INSURANCE_STATUS + " = 1 ";
 
         cursor = super.query(INSURANCE_TABLE, INSURANCE_COLUMNS, selectionField, selectionArgs, INSURANCE_FINAL_EFFECTIVE_DATE);
         if (cursor.moveToFirst()) {
@@ -79,7 +79,7 @@ public class InsuranceDAO extends DbContentProvider implements InsuranceISchema,
 
     public List<Insurance> fetchAllInsurance() {
         List<Insurance> insuranceList = new ArrayList<>();
-        cursor = super.query(INSURANCE_TABLE, INSURANCE_COLUMNS, null, null, INSURANCE_INSURANCE_POLICY);
+        cursor = super.query(INSURANCE_TABLE, INSURANCE_COLUMNS, null, null, INSURANCE_FINAL_EFFECTIVE_DATE);
         if (cursor.moveToFirst()) {
             do {
                 Insurance insurance = cursorToEntity(cursor);

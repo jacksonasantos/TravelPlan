@@ -389,19 +389,17 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="5"
+                        android:layout_weight="6"
                         android:text="@string/Insurance_Status" />
-                    <EditText
-                        android:id="@+id/tvStatus"
+                    <RadioGroup
+                        android:id="@+id/rgInsuranceStatus"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="5"
-                        android:autofillHints="no"
-                        android:clickable="false"
-                        android:enabled="false"
-                        android:inputType="none"
-                        android:textSize="12sp"
-                        tools:ignore="LabelFor" />
+                        android:layout_weight="4"
+                        android:orientation="horizontal"
+                        android:gravity="center_horizontal"
+                        android:hint="@string/Insurance_Status">
+                    </RadioGroup>
                 </LinearLayout>
             </LinearLayout>
         </androidx.cardview.widget.CardView>

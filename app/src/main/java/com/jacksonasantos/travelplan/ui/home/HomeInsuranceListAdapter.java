@@ -12,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -80,19 +81,28 @@ public class HomeInsuranceListAdapter extends RecyclerView.Adapter<RecyclerView.
             itemViewHolder.txtInsurancePolicy.setText(String.valueOf(insurance.getInsurance_policy()));
             itemViewHolder.txtInsuranceFinalEffectiveDate.setText(Utils.dateToString(insurance.getFinal_effective_date()));
             itemViewHolder.btnDoneInsurance.setOnClickListener(v -> {
-                try {
-                    // TODO - Pedir Confirmação antes de fazer o update
-                    Insurance i1 = Database.mInsuranceDao.fetchInsuranceById(insurance.getId());
-                    i1.setStatus(insurance.getStatus() == 0 ? 1 : 0);
-                    i1.setTravel_id(insurance.getTravel_id() == 0 ? null : insurance.getTravel_id());
-                    i1.setVehicle_id(insurance.getVehicle_id() == 0 ? null : insurance.getVehicle_id());
-                    if (Database.mInsuranceDao.updateInsurance(i1)) {
-                        mInsurance.remove(position);
-                        notifyItemRemoved(position);
-                    }
-                } catch (Exception e) {
-                    Toast.makeText(context, context.getString(R.string.Error_Changing_Data) + "\n" + e.getMessage(), Toast.LENGTH_LONG).show();
-                }
+                    final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(v.getContext());
+                    alertDialogBuilder
+                            .setTitle(context.getString(R.string.Insurance_Termination))
+                            .setCancelable(false)
+                            .setPositiveButton(R.string.OK, (dialog, id) -> {
+                                try {
+                                    Insurance i1 = Database.mInsuranceDao.fetchInsuranceById(insurance.getId());
+                                    i1.setStatus(insurance.getStatus() == 1 ? 2 : 1);
+                                    i1.setTravel_id(insurance.getTravel_id() == 0 ? null : insurance.getTravel_id());
+                                    i1.setVehicle_id(insurance.getVehicle_id() == 0 ? null : insurance.getVehicle_id());
+                                    i1.setBroker_id(insurance.getBroker_id() == 0 ? null : insurance.getBroker_id());
+                                    if (Database.mInsuranceDao.updateInsurance(i1)) {
+                                        mInsurance.remove(position);
+                                        notifyItemRemoved(position);
+                                    }
+                                } catch (Exception e) {
+                                    Toast.makeText(context, context.getString(R.string.Error_Changing_Data) + "\n" + e.getMessage(), Toast.LENGTH_LONG).show();
+                                }
+                            })
+                            .setNegativeButton(R.string.Cancel, (dialog, id) -> dialog.cancel());
+                    AlertDialog alertDialog = alertDialogBuilder.create();
+                    alertDialog.show();
             });
         }
     }

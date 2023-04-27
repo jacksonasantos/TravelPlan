@@ -240,6 +240,7 @@
     <string name="Insurance_Deleting">Deleting Insurance</string>
     <string name="bt_Closed_Insurance">Closed Insurance</string>
     <string name="bt_Renew_Insurance">Renew Insurance</string>
+    <string name="Insurance_Termination">Confirm termination of insurance?</string>
 
     <string name="Insurance_Type">Insurance Type</string>
     <string name="Insurance_Description">Description</string>

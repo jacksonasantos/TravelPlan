@@ -63,7 +63,7 @@ public class Insurance implements Cloneable {
     public int getColorInsuranceStatus() {
         Globals g = Globals.getInstance();
         int color = 0;
-        if (status == 1) {  // Closed
+        if (status == 2) {  // Closed
             color = Color.BLUE;
         } else {
             if (!(final_effective_date == null)) {
