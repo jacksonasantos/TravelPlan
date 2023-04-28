@@ -463,6 +463,7 @@
     <string name="Reservation_Voucher_Number">Voucher</string>
     <string name="Reservation_Checkin_Date">CheckIn</string>
     <string name="Reservation_Checkout_Date">CheckOut</string>
+    <string name="Reservation_Rates">Rates</string>
     <string name="Reservation_Apt_Type">Apt Type</string>
     <string name="Reservation_Daily_Rate">Daily Rate</string>
     <string name="Reservation_Other_Rate">Other Rate</string>

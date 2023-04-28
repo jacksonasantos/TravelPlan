@@ -30,6 +30,7 @@ import com.jacksonasantos.travelplan.ui.utility.DateInputMask;
 import com.jacksonasantos.travelplan.ui.utility.Utils;
 
 import java.util.List;
+import java.util.Objects;
 
 public class ReservationActivity extends AppCompatActivity {
     
@@ -41,6 +42,7 @@ public class ReservationActivity extends AppCompatActivity {
     private EditText etVoucher_Number;
     private EditText etCheckin_Date;
     private EditText etCheckout_Date;
+    private TextView tvRates;
     private EditText etApt_Type;
     private EditText etDaily_Rate;
     private EditText etOther_Rate;
@@ -94,13 +96,11 @@ public class ReservationActivity extends AppCompatActivity {
         etVoucher_Number = findViewById(R.id.etVoucher_Number);
         etCheckin_Date = findViewById(R.id.etCheckin_Date);
         etCheckout_Date = findViewById(R.id.etCheckout_Date);
+        tvRates = findViewById(R.id.tvRates);
         etApt_Type = findViewById(R.id.etApt_Type);
         etDaily_Rate = findViewById(R.id.etDaily_Rate);
         etOther_Rate = findViewById(R.id.etOther_Rate);
         etReservation_Amount = findViewById(R.id.etReservation_Amount);
-        // TODO - Calcular o valor da reserva com a qtde diarias e valor da diaria somando o valor de outros
-        // TODO - Alinhar valores a direita
-        // TODO - Mostra a quantidade de diarias da reserva
         etAmount_Paid = findViewById(R.id.etAmount_Paid);
         etNote = findViewById(R.id.etNote);
         tvStatus_Reservation = findViewById(R.id.tvStatus_Reservation);
@@ -122,7 +122,25 @@ public class ReservationActivity extends AppCompatActivity {
                 }
             }
         }
-
+        View.OnFocusChangeListener listenerCheckoutDate = (v, hasFocus) -> {
+            if (!hasFocus) {
+                if (!etCheckin_Date.getText().toString().equals("") &&
+                        !etCheckout_Date.getText().toString().equals("")) {
+                    long d1 = Objects.requireNonNull(Utils.stringToDate(etCheckin_Date.getText().toString())).getTime();
+                    long d2 = Objects.requireNonNull(Utils.stringToDate(etCheckout_Date.getText().toString())).getTime();
+                    int dias = (int) ((d2 - d1) / (24 * 60 * 60 * 1000));
+                    tvRates.setText(String.valueOf(dias + 1));
+                }
+            }
+        };        View.OnFocusChangeListener listenerReservationAmount = (v, hasFocus) -> {
+            if (!hasFocus) {
+                etReservation_Amount.setText(String.valueOf(Integer.parseInt(tvRates.getText().toString())*Double.parseDouble(etDaily_Rate.getText().toString())+Double.parseDouble(etOther_Rate.getText().toString())));
+            }
+        };
+        etCheckin_Date.setOnFocusChangeListener(listenerCheckoutDate);
+        etCheckout_Date.setOnFocusChangeListener(listenerCheckoutDate);
+        etDaily_Rate.setOnFocusChangeListener(listenerReservationAmount);
+        etOther_Rate.setOnFocusChangeListener(listenerReservationAmount);
         final Travel[] t1 = {new Travel()};
         spinTravel.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -196,6 +214,13 @@ public class ReservationActivity extends AppCompatActivity {
             etVoucher_Number.setText(reservation.getVoucher_number());
             etCheckin_Date.setText(Utils.dateToString(reservation.getCheckin_date()));
             etCheckout_Date.setText(Utils.dateToString(reservation.getCheckout_date()));
+            if (!etCheckin_Date.getText().toString().equals("") &&
+                    !etCheckout_Date.getText().toString().equals("")) {
+                long d1 = Objects.requireNonNull(Utils.stringToDate(etCheckin_Date.getText().toString())).getTime();
+                long d2 = Objects.requireNonNull(Utils.stringToDate(etCheckout_Date.getText().toString())).getTime();
+                int dias = (int) ((d2 - d1) / (24 * 60 * 60 * 1000));
+                tvRates.setText(String.valueOf(dias + 1));
+            }
             etApt_Type.setText(reservation.getApt_type());
             etDaily_Rate.setText(String.valueOf(reservation.getDaily_rate()));
             etOther_Rate.setText(String.valueOf(reservation.getOther_rate()));

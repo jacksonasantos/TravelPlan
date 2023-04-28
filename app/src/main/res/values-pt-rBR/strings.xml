@@ -491,4 +491,5 @@
     <string name="Itinerary_has_Transport_Driver">Condutor</string>
     <string name="Itinerary_has_Transport_Sequence_Itinerary">Sequência</string>
     <string name="Insurance_Termination">Confirma o encerramento do seguro?</string>
+    <string name="Reservation_Rates">Diárias</string>
 </resources>

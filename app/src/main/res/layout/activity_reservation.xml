@@ -107,7 +107,7 @@
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="5"
+                        android:layout_weight="4"
                         android:text="@string/Reservation_Checkin_Date"
                         android:textAppearance="?android:attr/textAppearanceMedium"
                         android:textSize="14sp" />
@@ -115,8 +115,16 @@
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="5"
+                        android:layout_weight="4"
                         android:text="@string/Reservation_Checkout_Date"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:text="@string/Reservation_Rates"
                         android:textAppearance="?android:attr/textAppearanceMedium"
                         android:textSize="14sp" />
 
@@ -130,9 +138,10 @@
                     android:baselineAligned="false">
                     <EditText
                         android:id="@+id/etCheckin_Date"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="5"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="4"
+                        android:gravity="center"
                         android:autofillHints="no"
                         android:nextFocusDown="@+id/etCheckout_Date"
                         android:inputType="date"
@@ -140,14 +149,25 @@
                         tools:ignore="LabelFor" />
                     <EditText
                         android:id="@+id/etCheckout_Date"
-                        android:layout_width="match_parent"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="5"
+                        android:layout_weight="4"
+                        android:gravity="center"
                         android:autofillHints="no"
                         android:inputType="date"
                         android:nextFocusDown="@+id/etApt_Type"
                         android:textSize="14sp"
                         tools:ignore="LabelFor" />
+
+                    <TextView
+                        android:id="@+id/tvRates"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textSize="14sp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -214,6 +234,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="5"
+                        android:gravity="end"
                         android:autofillHints="no"
                         android:inputType="numberDecimal"
                         android:nextFocusDown="@+id/etOther_Rate"
@@ -224,6 +245,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="5"
+                        android:gravity="end"
                         android:autofillHints="no"
                         android:cursorVisible="true"
                         android:inputType="numberDecimal"
@@ -269,6 +291,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="5"
+                        android:gravity="end"
                         android:autofillHints="no"
                         android:inputType="numberDecimal"
                         android:textAllCaps="true"
@@ -281,6 +304,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="5"
+                        android:gravity="end"
                         android:autofillHints="no"
                         android:inputType="numberDecimal"
                         android:nextFocusDown="@+id/etNote"

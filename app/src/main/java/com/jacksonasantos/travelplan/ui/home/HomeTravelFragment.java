@@ -129,7 +129,6 @@ public class HomeTravelFragment extends Fragment implements View.OnClickListener
         btnTour = v.findViewById(R.id.btnTour);
         btnTolls = v.findViewById(R.id.btnTolls);
         btnInsurance = v.findViewById(R.id.btnInsurance);
-        // TODO - enable insurance registration for leases
 
         layerExpense = v.findViewById(R.id.layerExpense);
         listTravelExpenses = v.findViewById(R.id.listTravelExpenses);
