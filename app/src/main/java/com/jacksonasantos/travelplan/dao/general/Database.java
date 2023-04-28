@@ -70,7 +70,7 @@ public class Database {
     private final Context mContext;
 
     private static final String DATABASE_NAME = "TravelPlan.db";
-    private static final int DATABASE_VERSION = 65;
+    private static final int DATABASE_VERSION = 66;
 
     public static AccommodationDAO mAccommodationDao;
     public static AchievementDAO mAchievementDao;
@@ -185,7 +185,7 @@ public class Database {
             {"59", ""  , "Person"                   , "CREATE_TABLE_PERSON_V59"               , "PERSON_TABLE"               , "V59 - Create Table..."   },
             {"60", "2" , "VehicleISchema"           , "ALTER_TABLE_VEHICLE_V60_2"             , "VEHICLE_TABLE"              , "V60.1 - Alter Table..."  },
             {"61", ""  , "Tour"                     , "CREATE_TABLE_TOUR_V61"                 , "TOUR_TABLE"                 , "V61 - Create Table..."   },
-            {"62", ""  , "Trasnport"                , "CREATE_TABLE_TTRANSPORT_V62"           , "TRASNPORT_TOUR_TABLE"       , "V62 - Create Table..."   },
+            {"62", ""  , "Transport"                , "CREATE_TABLE_TTRANSPORT_V62"           , "TRASNPORT_TOUR_TABLE"       , "V62 - Create Table..."   },
             {"63", "1" , "Tour"                     , "ALTER_TABLE_TOUR_V63_1"                , "TOUR_TABLE"                 , "V63.1 - Alter Table..."  },
             {"63", "2" , "Tour"                     , "ALTER_TABLE_TOUR_V63_2"                , "TOUR_TABLE"                 , "V63.2 - Alter Table..."  },
             {"64", "1" , "Tour"                     , "ALTER_TABLE_TOUR_V64_1"                , "TOUR_TABLE"                 , "V64.1 - Alter Table..."  },
@@ -193,7 +193,9 @@ public class Database {
             {"64", "3" , "Tour"                     , "ALTER_TABLE_TOUR_V64_3"                , "TOUR_TABLE"                 , "V64.3 - Alter Table..."  },
             {"64", "4" , "Tour"                     , "ALTER_TABLE_TOUR_V64_4"                , "TOUR_TABLE"                 , "V64.4 - Alter Table..."  },
             {"64", "5" , "Tour"                     , "ALTER_TABLE_TOUR_V64_5"                , "TOUR_TABLE"                 , "V64.5 - Alter Table..."  },
-            {"65", ""  , "ItineraryHasTrasnport"    , "CREATE_TABLE_ITINERARY_HAS_TRASNPORT_V65", "ITINERARY_HAS_TRANSPORT_TABLE", "V65 - Create Table..."  }
+            {"65", ""  , "ItineraryHasTrasnport"    , "CREATE_TABLE_ITINERARY_HAS_TRASNPORT_V65", "ITINERARY_HAS_TRANSPORT_TABLE", "V65 - Create Table..."  },
+            {"66", ""  , "VehicleHasTravelISchema"  , "ALTER_TABLE_VEHICLE_HAS_TRAVEL_V66"    , "VEHICLE_HAS_TRAVEL_TABLE"   , "V66 - Alter Table..."  }
+
     };
 
     public Database(Context context) {
@@ -365,6 +367,7 @@ public class Database {
             db.execSQL(TourISchema.ALTER_TABLE_TOUR_V64_4); Log.w("Table "+TourISchema.TOUR_TABLE,"V64_4 - Alter Table...");
             db.execSQL(TourISchema.ALTER_TABLE_TOUR_V64_5); Log.w("Table "+TourISchema.TOUR_TABLE,"V64_5 - Alter Table...");
             db.execSQL(ItineraryHasTransportISchema.CREATE_TABLE_ITINERARY_HAS_TRANSPORT_V65);Log.w("Table "+ItineraryHasTransportISchema.ITINERARY_HAS_TRANSPORT_TABLE,"V65 - Create Table...");
+            db.execSQL(VehicleHasTravelISchema.ALTER_TABLE_VEHICLE_HAS_TRAVEL_V66);Log.w("Table "+VehicleHasTravelISchema.VEHICLE_HAS_TRAVEL_TABLE,"V66 - Alter Table...");
         }
 
         @SuppressLint("SQLiteString")
@@ -575,6 +578,9 @@ public class Database {
                         break;
                     case 65:
                         db.execSQL(ItineraryHasTransportISchema.CREATE_TABLE_ITINERARY_HAS_TRANSPORT_V65);
+                        break;
+                    case 66:
+                        db.execSQL(VehicleHasTravelISchema.ALTER_TABLE_VEHICLE_HAS_TRAVEL_V66);
                         break;
                     default:
                         break;

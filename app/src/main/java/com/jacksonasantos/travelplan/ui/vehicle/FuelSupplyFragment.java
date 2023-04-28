@@ -30,6 +30,8 @@ public class FuelSupplyFragment extends Fragment  {
         requireActivity().addMenuProvider(new MenuProvider() {
             private Menu mMenu;
 
+            final Globals g = Globals.getInstance();
+
             @Override
             public void onCreateMenu(@NonNull Menu menu, @NonNull MenuInflater menuInflater) {
                 menu.clear();
@@ -51,12 +53,13 @@ public class FuelSupplyFragment extends Fragment  {
                 switch(item.getItemId()) {
                     case R.id.add_menu:
                         intent = new Intent( getContext(), FuelSupplyActivity.class );
+                        intent.putExtra("vehicle_id", g.getIdVehicle());
                         startActivity( intent );
                         break;
 
                     case R.id.filter_menu:
-                        Globals.getInstance().setFilterVehicle(!Globals.getInstance().getFilterVehicle());
-                        if ( Globals.getInstance().getFilterVehicle() ) {
+                        g.setFilterVehicle(!g.getFilterVehicle());
+                        if ( g.getFilterVehicle() ) {
                             this.mMenu.getItem(0).setIcon(R.drawable.ic_button_filter);
                         } else {
                             this.mMenu.getItem(0).setIcon(R.drawable.ic_button_filter_no);

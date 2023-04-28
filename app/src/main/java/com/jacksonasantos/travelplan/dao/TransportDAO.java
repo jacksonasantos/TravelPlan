@@ -55,7 +55,6 @@ public class TransportDAO extends DbContentProvider implements TransportISchema,
 
     public List<Transport> fetchAllTransport() {
         List<Transport> transportList = new ArrayList<>();
-
         cursor = super.query(TRANSPORT_TABLE, TRANSPORT_COLUMNS, null, null, TRANSPORT_START_DATE );
         if (cursor.moveToFirst()) {
             do {
@@ -65,6 +64,14 @@ public class TransportDAO extends DbContentProvider implements TransportISchema,
             cursor.close();
         }
         return transportList;
+    }
+
+    public Cursor fetchCursorTransport() {
+        return super.rawQuery( "SELECT '' _id, '' text1 UNION " +
+                "SELECT " + TRANSPORT_ID + ", " +
+                TRANSPORT_DESCRIPTION + " " +
+                "FROM " + TRANSPORT_TABLE + " " +
+                "ORDER BY " + TRANSPORT_DESCRIPTION, null);
     }
 
     public ArrayList<Transport> fetchArrayTransport(){
@@ -137,9 +144,7 @@ public class TransportDAO extends DbContentProvider implements TransportISchema,
         initialValues.put(TRANSPORT_AMOUNT_PAID, t.amount_paid);
         initialValues.put(TRANSPORT_NOTE, t.note);
     }
-
     private ContentValues getContentValue() {
         return initialValues;
     }
-
 }

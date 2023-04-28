@@ -23,6 +23,7 @@ import com.jacksonasantos.travelplan.dao.Person;
 import com.jacksonasantos.travelplan.dao.Transport;
 import com.jacksonasantos.travelplan.dao.Travel;
 import com.jacksonasantos.travelplan.dao.Vehicle;
+import com.jacksonasantos.travelplan.dao.VehicleHasTravel;
 import com.jacksonasantos.travelplan.dao.general.Database;
 import com.jacksonasantos.travelplan.ui.utility.Utils;
 
@@ -341,6 +342,14 @@ public class ItineraryHasTransportActivity extends AppCompatActivity implements 
                 it1.setDriver(cbDriver.isChecked()?1:0);
                 it1.setSequence_itinerary(Integer.parseInt(tvSequenceItinerary.getText().toString()));
 
+                VehicleHasTravel vt1 = new VehicleHasTravel();
+                if (cbDriver.isChecked()) {
+                    vt1.setTravel_id(nrTravel);
+                    vt1.setVehicle_id(nrOwnVehicle);
+                    vt1.setTransport_id(nrTransport);
+                    vt1.setPerson_id(nrPerson);
+                }
+
                 if (!opInsert) {
                     try {
                         it1.setId(itineraryHasTransport.getId());
@@ -351,6 +360,9 @@ public class ItineraryHasTransportActivity extends AppCompatActivity implements 
                 } else {
                     try {
                         isSave = Database.mItineraryHasTransportDao.addItineraryHasTransport(it1);
+                        if (cbDriver.isChecked()) {
+                            isSave = Database.mVehicleHasTravelDao.addVehicleHasTravel(vt1);
+                        }
                     } catch (Exception e) {
                         Toast.makeText(getApplicationContext(), R.string.Error_Including_Data + e.getMessage(), Toast.LENGTH_LONG).show();
                     }

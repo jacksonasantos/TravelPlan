@@ -4,8 +4,10 @@ public interface VehicleHasTravelISchema {
 
     String VEHICLE_HAS_TRAVEL_TABLE = "vehicle_has_travel";
 
+    String VEHICLE_HAS_TRAVEL_ID = "id";
     String VEHICLE_HAS_TRAVEL_VEHICLE_ID = "vehicle_id";
     String VEHICLE_HAS_TRAVEL_TRAVEL_ID = "travel_id";
+    String VEHICLE_HAS_TRAVEL_TRANSPORT_ID = "transport_id";
     String VEHICLE_HAS_TRAVEL_PERSON_ID = "person_id";
     String VEHICLE_HAS_TRAVEL_START_ODOMETER = "start_odometer";
     String VEHICLE_HAS_TRAVEL_FINAL_ODOMETER = "final_odometer";
@@ -13,9 +15,9 @@ public interface VehicleHasTravelISchema {
     // Version 25
     String CREATE_TABLE_VEHICLE_HAS_TRAVEL_V25 = "CREATE TABLE IF NOT EXISTS "
             + VEHICLE_HAS_TRAVEL_TABLE + " ("
+            + VEHICLE_HAS_TRAVEL_ID + " INTEGER PRIMARY KEY, "
             + VEHICLE_HAS_TRAVEL_VEHICLE_ID + " INTEGER REFERENCES " + VehicleISchema.VEHICLE_TABLE + " ("+VehicleISchema.VEHICLE_ID+"), "
             + VEHICLE_HAS_TRAVEL_TRAVEL_ID + " INTEGER REFERENCES " + TravelISchema.TRAVEL_TABLE + " ("+TravelISchema.TRAVEL_ID+"), "
-            + " PRIMARY KEY ("+VEHICLE_HAS_TRAVEL_VEHICLE_ID+", "+ VEHICLE_HAS_TRAVEL_TRAVEL_ID+") "
             + ")";
 
     // Version 49
@@ -25,9 +27,14 @@ public interface VehicleHasTravelISchema {
     String ALTER_TABLE_VEHICLE_HAS_TRAVEL_V52_1 = "ALTER TABLE " + VEHICLE_HAS_TRAVEL_TABLE + " ADD COLUMN " + VEHICLE_HAS_TRAVEL_START_ODOMETER + " INTEGER ";
     String ALTER_TABLE_VEHICLE_HAS_TRAVEL_V52_2 = "ALTER TABLE " + VEHICLE_HAS_TRAVEL_TABLE + " ADD COLUMN " + VEHICLE_HAS_TRAVEL_FINAL_ODOMETER + " INTEGER ";
 
+    // Version 66
+    String ALTER_TABLE_VEHICLE_HAS_TRAVEL_V66 = "ALTER TABLE " + VEHICLE_HAS_TRAVEL_TABLE + " ADD COLUMN " + VEHICLE_HAS_TRAVEL_TRANSPORT_ID + " INTEGER REFERENCES " + TransportISchema.TRANSPORT_TABLE + " ("+ TransportISchema.TRANSPORT_ID+") ";
+
     String[] VEHICLE_HAS_TRAVEL_COLUMNS = new String[] {
+            VEHICLE_HAS_TRAVEL_ID,
             VEHICLE_HAS_TRAVEL_VEHICLE_ID,
             VEHICLE_HAS_TRAVEL_TRAVEL_ID,
+            VEHICLE_HAS_TRAVEL_TRANSPORT_ID,
             VEHICLE_HAS_TRAVEL_PERSON_ID,
             VEHICLE_HAS_TRAVEL_START_ODOMETER,
             VEHICLE_HAS_TRAVEL_FINAL_ODOMETER

@@ -5,8 +5,9 @@ import com.jacksonasantos.travelplan.dao.VehicleHasTravel;
 import java.util.List;
 
 public interface VehicleHasTravelIDAO {
+    VehicleHasTravel fetchAllVehicleHasTravelById(Integer id);
     List<VehicleHasTravel> fetchAllVehicleHasTravelByTravel(Integer travel_id);
     boolean addVehicleHasTravel(VehicleHasTravel vehicleHasTravel);
-    void deleteVehicleHasTravel(Integer vehicle_id, Integer travel_id);
+    void deleteVehicleHasTravel(Integer Id);
     boolean updateVehicleHasTravel(VehicleHasTravel vehicleHasTravel);
 }

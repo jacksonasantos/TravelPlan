@@ -20,6 +20,22 @@ public class VehicleHasTravelDAO extends DbContentProvider implements VehicleHas
         super(db);
     }
 
+    public VehicleHasTravel fetchAllVehicleHasTravelById(Integer id) {
+        final String[] selectionArgs = { String.valueOf(id) };
+        final String selection = VEHICLE_HAS_TRAVEL_ID + " = ? ";
+        VehicleHasTravel vehicleHasTravel = new VehicleHasTravel();
+        cursor = super.query(VEHICLE_HAS_TRAVEL_TABLE, VEHICLE_HAS_TRAVEL_COLUMNS, selection, selectionArgs, null);
+        if (cursor != null) {
+            cursor.moveToFirst();
+            while (!cursor.isAfterLast()) {
+                vehicleHasTravel = cursorToEntity(cursor);
+                cursor.moveToNext();
+            }
+            cursor.close();
+        }
+        return vehicleHasTravel;
+    }
+
     public List<VehicleHasTravel> fetchAllVehicleHasTravelByTravel(Integer travel_id) {
         final String[] selectionArgs = { String.valueOf(travel_id) };
         final String selection = VEHICLE_HAS_TRAVEL_TRAVEL_ID + " = ?";
@@ -35,18 +51,16 @@ public class VehicleHasTravelDAO extends DbContentProvider implements VehicleHas
         return vehicleHasTravelList;
     }
 
-    public void deleteVehicleHasTravel(Integer vehicle_id, Integer travel_id) {
-        final String[] selectionArgs = { String.valueOf(vehicle_id),String.valueOf(travel_id) };
-        final String selection = VEHICLE_HAS_TRAVEL_VEHICLE_ID + " = ? AND " +
-                VEHICLE_HAS_TRAVEL_TRAVEL_ID + " = ? ";
+    public void deleteVehicleHasTravel(Integer id) {
+        final String[] selectionArgs = { String.valueOf(id)};
+        final String selection = VEHICLE_HAS_TRAVEL_ID + " = ? ";
         super.delete(VEHICLE_HAS_TRAVEL_TABLE, selection, selectionArgs);
     }
 
     public boolean updateVehicleHasTravel(VehicleHasTravel vehicleHasTravel) {
         setContentValue(vehicleHasTravel);
-        final String[] selectionArgs = { String.valueOf(vehicleHasTravel.getVehicle_id()),String.valueOf(vehicleHasTravel.getTravel_id()) };
-        final String selection = VEHICLE_HAS_TRAVEL_VEHICLE_ID + " = ? AND " +
-                                 VEHICLE_HAS_TRAVEL_TRAVEL_ID + " = ? ";
+        final String[] selectionArgs = { String.valueOf(vehicleHasTravel.getId())};
+        final String selection = VEHICLE_HAS_TRAVEL_ID + " = ? ";
         return (super.update(VEHICLE_HAS_TRAVEL_TABLE, getContentValue(), selection, selectionArgs) > 0);
     }
 
@@ -58,8 +72,10 @@ public class VehicleHasTravelDAO extends DbContentProvider implements VehicleHas
     protected VehicleHasTravel cursorToEntity(Cursor c) {
         VehicleHasTravel vHT = new VehicleHasTravel();
         if (c != null) {
+            if (c.getColumnIndex(VEHICLE_HAS_TRAVEL_ID) != -1)              {vHT.setId(c.getInt(c.getColumnIndexOrThrow(VEHICLE_HAS_TRAVEL_ID))); }
             if (c.getColumnIndex(VEHICLE_HAS_TRAVEL_VEHICLE_ID) != -1)      {vHT.setVehicle_id(c.getInt(c.getColumnIndexOrThrow(VEHICLE_HAS_TRAVEL_VEHICLE_ID))); }
             if (c.getColumnIndex(VEHICLE_HAS_TRAVEL_TRAVEL_ID) != -1)       {vHT.setTravel_id(c.getInt(c.getColumnIndexOrThrow(VEHICLE_HAS_TRAVEL_TRAVEL_ID))); }
+            if (c.getColumnIndex(VEHICLE_HAS_TRAVEL_TRANSPORT_ID) != -1)    {vHT.setTransport_id(c.getInt(c.getColumnIndexOrThrow(VEHICLE_HAS_TRAVEL_TRANSPORT_ID))); }
             if (c.getColumnIndex(VEHICLE_HAS_TRAVEL_PERSON_ID) != -1)       {vHT.setPerson_id(c.getInt(c.getColumnIndexOrThrow(VEHICLE_HAS_TRAVEL_PERSON_ID))); }
             if (c.getColumnIndex(VEHICLE_HAS_TRAVEL_START_ODOMETER) != -1)  {vHT.setStart_odometer(c.getInt(c.getColumnIndexOrThrow(VEHICLE_HAS_TRAVEL_START_ODOMETER))); }
             if (c.getColumnIndex(VEHICLE_HAS_TRAVEL_FINAL_ODOMETER) != -1)  {vHT.setFinal_odometer(c.getInt(c.getColumnIndexOrThrow(VEHICLE_HAS_TRAVEL_FINAL_ODOMETER))); }
@@ -69,8 +85,10 @@ public class VehicleHasTravelDAO extends DbContentProvider implements VehicleHas
 
     private void setContentValue(VehicleHasTravel vHT) {
         initialValues = new ContentValues();
+        initialValues.put(VEHICLE_HAS_TRAVEL_ID, vHT.id);
         initialValues.put(VEHICLE_HAS_TRAVEL_VEHICLE_ID, vHT.vehicle_id);
         initialValues.put(VEHICLE_HAS_TRAVEL_TRAVEL_ID, vHT.travel_id);
+        initialValues.put(VEHICLE_HAS_TRAVEL_TRANSPORT_ID, vHT.transport_id);
         initialValues.put(VEHICLE_HAS_TRAVEL_PERSON_ID, vHT.person_id);
         initialValues.put(VEHICLE_HAS_TRAVEL_START_ODOMETER, vHT.start_odometer);
         initialValues.put(VEHICLE_HAS_TRAVEL_FINAL_ODOMETER, vHT.final_odometer);

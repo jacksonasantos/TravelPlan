@@ -124,7 +124,6 @@ public class HomeTravelFragment extends Fragment implements View.OnClickListener
         btnAccommodation = v.findViewById(R.id.btnAccommodation);
         btnFood = v.findViewById(R.id.btnFood);
         btnFuel = v.findViewById(R.id.btnFuel);
-        // TODO - Permitir abastecimento de veiculos locados
         btnExtra = v.findViewById(R.id.btnExtra);
         btnTour = v.findViewById(R.id.btnTour);
         btnTolls = v.findViewById(R.id.btnTolls);
@@ -307,7 +306,11 @@ public class HomeTravelFragment extends Fragment implements View.OnClickListener
 
                             String[] listItems = new String[vehicleHasTravel.size()];
                             for (int i = 0; i<vehicleHasTravel.size(); i++){
-                                listItems[i] = Database.mVehicleDao.fetchVehicleById(vehicleHasTravel.get(i).getVehicle_id()).getName();
+                                if (vehicleHasTravel.get(i).getVehicle_id()==0){
+                                    listItems[i] = Database.mTransportDao.fetchTransportById(vehicleHasTravel.get(i).getTransport_id()).getDescription();
+                                } else {
+                                    listItems[i] = Database.mVehicleDao.fetchVehicleById(vehicleHasTravel.get(i).getVehicle_id()).getName();
+                                }
                             }
 
                             final int[] checkedItem = {-1};
@@ -321,6 +324,8 @@ public class HomeTravelFragment extends Fragment implements View.OnClickListener
                             AlertDialog customAlertDialog = alertDialog.create();
                             customAlertDialog.show();
                         }
+                    } else {
+                        startActivity(intent);
                     }
                 });
                 btnInsurance.setOnClickListener (v -> {

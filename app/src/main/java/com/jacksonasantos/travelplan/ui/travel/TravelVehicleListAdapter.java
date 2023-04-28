@@ -22,6 +22,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.jacksonasantos.travelplan.R;
 import com.jacksonasantos.travelplan.dao.Person;
 import com.jacksonasantos.travelplan.dao.FuelSupply;
+import com.jacksonasantos.travelplan.dao.Transport;
 import com.jacksonasantos.travelplan.dao.Vehicle;
 import com.jacksonasantos.travelplan.dao.VehicleHasTravel;
 import com.jacksonasantos.travelplan.dao.general.Database;
@@ -76,6 +77,7 @@ public class TravelVehicleListAdapter extends RecyclerView.Adapter<RecyclerView.
             HeaderViewHolder headerViewHolder = (HeaderViewHolder) holder;
 
             final int[] nrSpinVehicle = {0};
+            final int[] nrSpinTransport = {0};
             final int[] nrSpinPerson = {0};
 
             headerViewHolder.llVehicleTravelItem.setBackgroundColor(Utils.getColorWithAlpha(R.color.colorItemList,0.1f));
@@ -84,98 +86,116 @@ public class TravelVehicleListAdapter extends RecyclerView.Adapter<RecyclerView.
             headerViewHolder.txtAvgConsumption.setText(R.string.Vehicle_Avg_Consumption);
             headerViewHolder.txtAvgConsumptionTravel.setText(R.string.Travel_Avg_Consumption);
             headerViewHolder.btnDelete.setVisibility(View.INVISIBLE);
-            if (form.equals("Home")) {
-                headerViewHolder.btnAddVehicelHasTravel.setVisibility(View.INVISIBLE);
-            }
-            else {
-                headerViewHolder.btnAddVehicelHasTravel.setImageResource(R.drawable.ic_button_add);
-                headerViewHolder.btnAddVehicelHasTravel.setOnClickListener(v -> {
-                    LayoutInflater li = LayoutInflater.from(v.getContext());
-                    View promptsView = li.inflate(R.layout.dialog_travel_vehiclehastravel, null);
+            headerViewHolder.btnAddVehicelHasTravel.setImageResource(R.drawable.ic_button_add);
+            headerViewHolder.btnAddVehicelHasTravel.setOnClickListener(v -> {
+                LayoutInflater li = LayoutInflater.from(v.getContext());
+                View promptsView = li.inflate(R.layout.dialog_travel_vehiclehastravel, null);
 
-                    String[] adapterCols = new String[]{"text1"};
-                    int[] adapterRowViews = new int[]{android.R.id.text1};
-                    final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(v.getContext());
-                    alertDialogBuilder.setView(promptsView);
-                    final Spinner spinVehicle = promptsView.findViewById(R.id.spinVehicle);
-                    final Spinner spinPerson = promptsView.findViewById(R.id.spinPerson);
+                String[] adapterCols = new String[]{"text1"};
+                int[] adapterRowViews = new int[]{android.R.id.text1};
+                final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(v.getContext());
+                alertDialogBuilder.setView(promptsView);
+                final Spinner spinVehicle = promptsView.findViewById(R.id.spinVehicle);
+                final Spinner spinTransport = promptsView.findViewById(R.id.spinTransport);
+                final Spinner spinPerson = promptsView.findViewById(R.id.spinPerson);
 
-                    Cursor cVehicle = Database.mVehicleDao.fetchCursorVehicle();
-                    SimpleCursorAdapter cursorAdapterV = new SimpleCursorAdapter(li.getContext(),
-                            android.R.layout.simple_spinner_item, cVehicle, adapterCols, adapterRowViews, 0);
-                    cursorAdapterV.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                    spinVehicle.setAdapter(cursorAdapterV);
-                    Utils.setSpinnerToValue(spinVehicle, nrSpinVehicle[0]);
-                    spinVehicle.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                        @Override
-                        public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                            nrSpinVehicle[0] = Math.toIntExact(spinVehicle.getSelectedItemId());
-                        }
+                Cursor cVehicle = Database.mVehicleDao.fetchCursorVehicle();
+                SimpleCursorAdapter cursorAdapterV = new SimpleCursorAdapter(li.getContext(),
+                        android.R.layout.simple_spinner_item, cVehicle, adapterCols, adapterRowViews, 0);
+                cursorAdapterV.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                spinVehicle.setAdapter(cursorAdapterV);
+                Utils.setSpinnerToValue(spinVehicle, nrSpinVehicle[0]);
+                spinVehicle.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                        nrSpinVehicle[0] = Math.toIntExact(spinVehicle.getSelectedItemId());
+                    }
 
-                        @Override
-                        public void onNothingSelected(AdapterView<?> adapterView) {
-                        }
-                    });
-
-                    Cursor cPerson = Database.mPersonDao.fetchCursorPerson();
-                    SimpleCursorAdapter cursorAdapterC = new SimpleCursorAdapter(li.getContext(),
-                            android.R.layout.simple_spinner_item, cPerson, adapterCols, adapterRowViews, 0);
-                    cursorAdapterC.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                    spinPerson.setAdapter(cursorAdapterC);
-                    Utils.setSpinnerToValue(spinPerson, nrSpinPerson[0]);
-                    spinPerson.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                        @Override
-                        public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                            nrSpinPerson[0] = Math.toIntExact(spinPerson.getSelectedItemId());
-                        }
-
-                        @Override
-                        public void onNothingSelected(AdapterView<?> adapterView) {
-                        }
-                    });
-
-                    alertDialogBuilder
-                            .setCancelable(false)
-                            .setPositiveButton(R.string.OK, (dialog, id) -> {
-                                boolean isSave = false;
-
-                                final VehicleHasTravel vt1 = new VehicleHasTravel();
-
-                                vt1.setTravel_id(mTravel_id);
-                                vt1.setVehicle_id(nrSpinVehicle[0]);
-                                vt1.setPerson_id(nrSpinPerson[0]);
-                                try {
-                                    isSave = Database.mVehicleHasTravelDao.addVehicleHasTravel(vt1);
-                                } catch (Exception e) {
-                                    Toast.makeText(context, R.string.Error_Including_Data + e.getMessage(), Toast.LENGTH_LONG).show();
-                                }
-
-                                if (!isSave) {
-                                    Toast.makeText(context, R.string.Error_Saving_Data, Toast.LENGTH_LONG).show();
-                                } else {
-                                    mVehicleHasTravel.add(vt1);
-                                    notifyItemInserted(mVehicleHasTravel.size());
-                                }
-                            })
-                            .setNegativeButton(R.string.Cancel, (dialog, id) -> dialog.cancel());
-                    AlertDialog alertDialog = alertDialogBuilder.create();
-                    alertDialog.show();
+                    @Override
+                    public void onNothingSelected(AdapterView<?> adapterView) {
+                    }
                 });
 
-            }
+                Cursor cTransport = Database.mTransportDao.fetchCursorTransport();
+                SimpleCursorAdapter cursorAdapterT = new SimpleCursorAdapter(li.getContext(),
+                        android.R.layout.simple_spinner_item, cTransport, adapterCols, adapterRowViews, 0);
+                cursorAdapterT.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                spinTransport.setAdapter(cursorAdapterT);
+                Utils.setSpinnerToValue(spinTransport, nrSpinTransport[0]);
+                spinTransport.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                        nrSpinTransport[0] = Math.toIntExact(spinTransport.getSelectedItemId());
+                    }
+
+                    @Override
+                    public void onNothingSelected(AdapterView<?> adapterView) {
+                    }
+                });
+
+                Cursor cPerson = Database.mPersonDao.fetchCursorPerson();
+                SimpleCursorAdapter cursorAdapterC = new SimpleCursorAdapter(li.getContext(),
+                        android.R.layout.simple_spinner_item, cPerson, adapterCols, adapterRowViews, 0);
+                cursorAdapterC.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                spinPerson.setAdapter(cursorAdapterC);
+                Utils.setSpinnerToValue(spinPerson, nrSpinPerson[0]);
+                spinPerson.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                        nrSpinPerson[0] = Math.toIntExact(spinPerson.getSelectedItemId());
+                    }
+
+                    @Override
+                    public void onNothingSelected(AdapterView<?> adapterView) {
+                    }
+                });
+
+                alertDialogBuilder
+                        .setCancelable(false)
+                        .setPositiveButton(R.string.OK, (dialog, id) -> {
+                            boolean isSave = false;
+
+                            final VehicleHasTravel vt1 = new VehicleHasTravel();
+
+                            vt1.setTravel_id(mTravel_id);
+                            vt1.setVehicle_id(nrSpinVehicle[0]==0?null:nrSpinVehicle[0]);
+                            vt1.setTransport_id(nrSpinTransport[0]==0?null:nrSpinTransport[0]);
+                            vt1.setPerson_id(nrSpinPerson[0]);
+                            try {
+                                isSave = Database.mVehicleHasTravelDao.addVehicleHasTravel(vt1);
+                            } catch (Exception e) {
+                                Toast.makeText(context, R.string.Error_Including_Data + e.getMessage(), Toast.LENGTH_LONG).show();
+                            }
+
+                            if (!isSave) {
+                                Toast.makeText(context, R.string.Error_Saving_Data, Toast.LENGTH_LONG).show();
+                            } else {
+                                mVehicleHasTravel.add(vt1);
+                                notifyItemInserted(mVehicleHasTravel.size());
+                            }
+                        })
+                        .setNegativeButton(R.string.Cancel, (dialog, id) -> dialog.cancel());
+                AlertDialog alertDialog = alertDialogBuilder.create();
+                alertDialog.show();
+            });
         }
         else if (holder instanceof ItemViewHolder) {
             final ItemViewHolder itemViewHolder = (ItemViewHolder) holder;
             final VehicleHasTravel vehicleHasTravel = mVehicleHasTravel.get(position-show_header);
             final Person driver = Database.mPersonDao.fetchPersonById(vehicleHasTravel.getPerson_id());
             final Vehicle vehicle = Database.mVehicleDao.fetchVehicleById(vehicleHasTravel.getVehicle_id());
+            final Transport transport = Database.mTransportDao.fetchTransportById(vehicleHasTravel.getTransport_id());
             final FuelSupply vehicleTravel = Database.mFuelSupplyDao.findAVGConsumptionTravel(vehicleHasTravel.getVehicle_id(), vehicleHasTravel.getTravel_id());
 
-            //itemViewHolder.llVehicleTravelItem.setBackgroundColor(Utils.getColorWithAlpha(R.color.colorItemList,0.1f));
-            itemViewHolder.txtVehicle.setText(vehicle.getShort_name());
+            if (vehicleTravel.getVehicle_id() == null || vehicleHasTravel.getVehicle_id() == 0 ) {
+                itemViewHolder.txtVehicle.setText(transport.getDescription());
+                }
+            else {
+                itemViewHolder.txtVehicle.setText(vehicle.getShort_name());
+                itemViewHolder.txtAvgConsumption.setText(String.format("%s %s", numberFormatter.format(vehicle.getAvg_consumption()), g.getMeasureConsumption()));
+                itemViewHolder.txtAvgConsumptionTravel.setText(String.format("%s %s", numberFormatter.format(vehicleTravel.getStat_avg_fuel_consumption()), g.getMeasureConsumption()));
+            }
             itemViewHolder.txtPerson.setText(driver.getShort_Name());
-            itemViewHolder.txtAvgConsumption.setText(String.format("%s %s", numberFormatter.format(vehicle.getAvg_consumption()), g.getMeasureConsumption()));
-            itemViewHolder.txtAvgConsumptionTravel.setText(String.format("%s %s", numberFormatter.format(vehicleTravel.getStat_avg_fuel_consumption()), g.getMeasureConsumption()));
 
             if (form.equals("Home")) {
                 itemViewHolder.btnDelete.setVisibility(View.INVISIBLE);
@@ -190,10 +210,10 @@ public class TravelVehicleListAdapter extends RecyclerView.Adapter<RecyclerView.
                             .setMessage(R.string.Msg_Confirm)
                             .setPositiveButton(R.string.Yes, (dialogInterface, i) -> {
                                 try {
-                                    Database.mVehicleHasTravelDao.deleteVehicleHasTravel(vehicleHasTravel.getVehicle_id(), vehicleHasTravel.getTravel_id());
+                                    Database.mVehicleHasTravelDao.deleteVehicleHasTravel(vehicleHasTravel.getId());
                                     mVehicleHasTravel.remove(position-show_header);
-                                    notifyItemRemoved(position);
-                                    notifyItemRangeChanged(position, mVehicleHasTravel.size());
+                                    notifyItemRemoved(position-show_header);
+                                    notifyItemRangeChanged(position-show_header, mVehicleHasTravel.size());
                                 } catch (Exception e) {
                                     Toast.makeText(context, context.getString(R.string.Error_Deleting_Data) + "\n" + e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
                                 }
@@ -204,7 +224,9 @@ public class TravelVehicleListAdapter extends RecyclerView.Adapter<RecyclerView.
 
             itemViewHolder.btnRefuel.setOnClickListener(v -> {
                 Intent intent = new Intent(v.getContext(), FuelSupplyActivity.class);
-                intent.putExtra("vehicle_id", vehicleHasTravel.getVehicle_id());
+                if (vehicle != null) {
+                    intent.putExtra("vehicle_id", vehicleHasTravel.getVehicle_id());
+                }
                 intent.putExtra("travel_id", vehicleHasTravel.getTravel_id());
                 v.getContext().startActivity(intent);
             });
