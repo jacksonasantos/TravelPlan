@@ -57,18 +57,6 @@
         android:textSize="12sp" />
 
     <ImageButton
-        android:id="@+id/btnEdit"
-        android:layout_width="22dp"
-        android:layout_height="22dp"
-        android:layout_gravity="center"
-        android:contentDescription="@string/bt_Edit"
-        android:padding="7dp"
-        android:scaleType="fitCenter"
-        android:scaleX="1.5"
-        android:scaleY="1.5"
-        app:srcCompat="@drawable/ic_button_edit" />
-
-    <ImageButton
         android:id="@+id/btnDelete"
         android:layout_width="22dp"
         android:layout_height="22dp"

@@ -71,7 +71,6 @@ public class HomeTravelReservationListAdapter extends RecyclerView.Adapter<Recyc
             headerViewHolder.txtVoucher.setText(R.string.Reservation_Voucher_Number);
             headerViewHolder.txtCheckin.setText(R.string.Reservation_Checkin_Date);
             headerViewHolder.txtDaily.setText(R.string.Reservation_Daily);
-            headerViewHolder.btnEdit.setVisibility(View.INVISIBLE);
             headerViewHolder.btnDelete.setVisibility(View.INVISIBLE);
         }
         else if (holder instanceof ItemViewHolder) {
@@ -89,7 +88,6 @@ public class HomeTravelReservationListAdapter extends RecyclerView.Adapter<Recyc
             itemViewHolder.txtCheckin.setText(Utils.dateToString(reservation.getCheckin_date()));
             itemViewHolder.txtDaily.setText(Integer.toString(Utils.diffBetweenDate(reservation.getCheckout_date(), reservation.getCheckin_date())));
 
-            // imgStatus
             itemViewHolder.imgStatus.setImageResource(reservation.getImage_Status_reservation(reservation.getStatus_reservation()));
             itemViewHolder.imgStatus.setOnClickListener( v -> {
                 LayoutInflater li = LayoutInflater.from(v.getContext());
@@ -130,16 +128,13 @@ public class HomeTravelReservationListAdapter extends RecyclerView.Adapter<Recyc
                 alertDialog.show();
             });
 
-            // TODO - eliminar o botão edit e editar através da layer
-            // btnEdit
-            itemViewHolder.btnEdit.setOnClickListener (v -> {
+            itemViewHolder.llReservationItem.setOnClickListener (v -> {
                 Intent intent = new Intent (v.getContext(), ReservationActivity.class);
                 intent.putExtra("reservation_id", reservation.getId());
                 context.startActivity(intent);
                 notifyItemChanged(position);
             });
 
-            // btnDelete
             itemViewHolder.btnDelete.setOnClickListener (v -> new AlertDialog.Builder(v.getContext())
                     .setTitle(R.string.Reservation_Deleting)
                     .setMessage(R.string.Msg_Confirm)
@@ -177,7 +172,6 @@ public class HomeTravelReservationListAdapter extends RecyclerView.Adapter<Recyc
         private final TextView txtVoucher;
         private final TextView txtCheckin;
         private final TextView txtDaily;
-        private final ImageButton btnEdit;
         private final ImageButton btnDelete;
 
         public HeaderViewHolder(View v) {
@@ -188,7 +182,6 @@ public class HomeTravelReservationListAdapter extends RecyclerView.Adapter<Recyc
             txtVoucher = v.findViewById(R.id.txtVoucher);
             txtCheckin = v.findViewById(R.id.txtCheckin);
             txtDaily = v.findViewById(R.id.txtDaily);
-            btnEdit = v.findViewById(R.id.btnEdit);
             btnDelete = v.findViewById(R.id.btnDelete);
         }
     }
@@ -200,7 +193,6 @@ public class HomeTravelReservationListAdapter extends RecyclerView.Adapter<Recyc
         private final TextView txtVoucher;
         private final TextView txtCheckin;
         private final TextView txtDaily;
-        private final ImageButton btnEdit;
         private final ImageButton btnDelete;
 
         public ItemViewHolder(View v) {
@@ -211,7 +203,6 @@ public class HomeTravelReservationListAdapter extends RecyclerView.Adapter<Recyc
             txtVoucher = v.findViewById(R.id.txtVoucher);
             txtCheckin = v.findViewById(R.id.txtCheckin);
             txtDaily = v.findViewById(R.id.txtDaily);
-            btnEdit = v.findViewById(R.id.btnEdit);
             btnDelete = v.findViewById(R.id.btnDelete);
         }
     }
