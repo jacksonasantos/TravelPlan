@@ -82,7 +82,7 @@ public class TravelVehicleListAdapter extends RecyclerView.Adapter<RecyclerView.
 
             headerViewHolder.llVehicleTravelItem.setBackgroundColor(Utils.getColorWithAlpha(R.color.colorItemList,0.1f));
             headerViewHolder.txtVehicle.setText(R.string.Vehicle);
-            headerViewHolder.txtPerson.setText(R.string.Person);
+            headerViewHolder.txtPerson.setText(R.string.Itinerary_has_Transport_Driver);
             headerViewHolder.txtAvgConsumption.setText(R.string.Vehicle_Avg_Consumption);
             headerViewHolder.txtAvgConsumptionTravel.setText(R.string.Travel_Avg_Consumption);
             headerViewHolder.btnDelete.setVisibility(View.INVISIBLE);
@@ -187,7 +187,7 @@ public class TravelVehicleListAdapter extends RecyclerView.Adapter<RecyclerView.
             final Transport transport = Database.mTransportDao.fetchTransportById(vehicleHasTravel.getTransport_id());
             final FuelSupply vehicleTravel = Database.mFuelSupplyDao.findAVGConsumptionTravel(vehicleHasTravel.getVehicle_id(), vehicleHasTravel.getTravel_id());
 
-            if (vehicleTravel.getVehicle_id() == null || vehicleHasTravel.getVehicle_id() == 0 ) {
+            if (vehicleHasTravel.getVehicle_id() == null || vehicleHasTravel.getVehicle_id() == 0 ) {
                 itemViewHolder.txtVehicle.setText(transport.getDescription());
                 }
             else {

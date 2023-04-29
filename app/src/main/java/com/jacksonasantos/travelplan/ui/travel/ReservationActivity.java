@@ -129,7 +129,7 @@ public class ReservationActivity extends AppCompatActivity {
                     long d1 = Objects.requireNonNull(Utils.stringToDate(etCheckin_Date.getText().toString())).getTime();
                     long d2 = Objects.requireNonNull(Utils.stringToDate(etCheckout_Date.getText().toString())).getTime();
                     int dias = (int) ((d2 - d1) / (24 * 60 * 60 * 1000));
-                    tvRates.setText(String.valueOf(dias + 1));
+                    tvRates.setText(String.valueOf(dias));
                 }
             }
         };        View.OnFocusChangeListener listenerReservationAmount = (v, hasFocus) -> {
@@ -219,7 +219,7 @@ public class ReservationActivity extends AppCompatActivity {
                 long d1 = Objects.requireNonNull(Utils.stringToDate(etCheckin_Date.getText().toString())).getTime();
                 long d2 = Objects.requireNonNull(Utils.stringToDate(etCheckout_Date.getText().toString())).getTime();
                 int dias = (int) ((d2 - d1) / (24 * 60 * 60 * 1000));
-                tvRates.setText(String.valueOf(dias + 1));
+                tvRates.setText(String.valueOf(dias));
             }
             etApt_Type.setText(reservation.getApt_type());
             etDaily_Rate.setText(String.valueOf(reservation.getDaily_rate()));

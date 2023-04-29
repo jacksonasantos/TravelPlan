@@ -54,6 +54,24 @@ public class ItineraryHasTransportDAO extends DbContentProvider implements Itine
         }
         return itineraryHasTransportList;
     }
+    public List<ItineraryHasTransport> fetchAllItineraryHasTransportByTravelType(Integer travel_id, Integer transport_type) {
+        List<ItineraryHasTransport> itineraryHasTransportList = new ArrayList<>();
+
+        final String[] selectionArgs = { String.valueOf(travel_id), String.valueOf(transport_type) };
+        final String selection = ITINERARY_HAS_TRANSPORT_TRAVEL_ID + " = ? AND "+ITINERARY_HAS_TRANSPORT_TRANSPORT_TYPE + " = ? ";
+
+        cursor = super.query(ITINERARY_HAS_TRANSPORT_TABLE, ITINERARY_HAS_TRANSPORT_COLUMNS, selection, selectionArgs, ITINERARY_HAS_TRANSPORT_SEQUENCE_ITINERARY);
+
+        if (cursor.moveToFirst()) {
+            do {
+                ItineraryHasTransport it = cursorToEntity(cursor);
+                itineraryHasTransportList.add(it);
+            } while (cursor.moveToNext());
+
+            cursor.close();
+        }
+        return itineraryHasTransportList;
+    }
 
     public List<ItineraryHasTransport> fetchAllItineraryHasTransportByTravelItinerary(Integer travel_id, Integer itinerary_id) {
         List<ItineraryHasTransport> itineraryHasTransportList = new ArrayList<>();

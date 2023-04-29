@@ -3,6 +3,8 @@ package com.jacksonasantos.travelplan.ui.travel;
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -16,8 +18,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.jacksonasantos.travelplan.R;
+import com.jacksonasantos.travelplan.dao.Person;
 import com.jacksonasantos.travelplan.dao.Transport;
 import com.jacksonasantos.travelplan.dao.Travel;
+import com.jacksonasantos.travelplan.dao.Vehicle;
+import com.jacksonasantos.travelplan.dao.VehicleHasTravel;
 import com.jacksonasantos.travelplan.dao.general.Database;
 import com.jacksonasantos.travelplan.ui.utility.DateTimeInputMask;
 import com.jacksonasantos.travelplan.ui.utility.Utils;
@@ -40,7 +45,10 @@ public class TransportActivity extends AppCompatActivity implements TransportTyp
     public ItineraryHasTransportListAdapter adapterItineraryHasTransport;
 
     private LinearLayout llTransportTypeOwn;
-    private Spinner spOwnVehicle; // TODO - Falta spvehicle
+    private Spinner spOwnVehicle;
+    private Integer nrOwnVehicle;
+    private Spinner spPerson;
+    private Integer nrPerson;
 
     private LinearLayout llTransportType;
     private TextView tvIdentifier ;
@@ -116,6 +124,7 @@ public class TransportActivity extends AppCompatActivity implements TransportTyp
         tvTravel = findViewById(R.id.tvTravel);
         rvTransportType = findViewById(R.id.rvTransportType);
         spOwnVehicle = findViewById(R.id.spOwnVehicle);
+        spPerson = findViewById(R.id.spPerson);
 
         tvIdentifier = findViewById(R.id.tvIdentifier);
         tvDescription = findViewById(R.id.tvDescription);
@@ -161,17 +170,63 @@ public class TransportActivity extends AppCompatActivity implements TransportTyp
         etStartDate.addTextChangedListener(new DateTimeInputMask(etStartDate));
         etEndDate.addTextChangedListener(new DateTimeInputMask(etEndDate));
 
-        if (!opInsert) {
-            // Itinerary has Transport
-            final int Show_Header_ItineraryHasTransport = 1;
-            adapterItineraryHasTransport = new ItineraryHasTransportListAdapter(Database.mItineraryHasTransportDao.fetchAllItineraryHasTransportByTravel(transport.getTravel_id()), getApplicationContext(), "Home", Show_Header_ItineraryHasTransport, transport.getTravel_id());
-            llItineraryHasTransport.setVisibility(View.VISIBLE);
-            rvTransportPerson.setAdapter(adapterItineraryHasTransport);
-            rvTransportPerson.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-            adapterItineraryHasTransport.notifyDataSetChanged();
-        } else {
-            llItineraryHasTransport.setVisibility(View.INVISIBLE);
+        final List<Vehicle> vehicles =  Database.mVehicleDao.fetchArrayVehicles();
+        vehicles.add(0, new Vehicle());
+        ArrayAdapter<Vehicle> adapterV = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, vehicles);
+        adapterV.setDropDownViewResource( android.R.layout.simple_spinner_dropdown_item);
+        spOwnVehicle.setAdapter(adapterV);
+        if (nrOwnVehicle != null && nrOwnVehicle > 0) {
+            Travel trip1 = Database.mTravelDao.fetchTravelById(nrOwnVehicle);
+            for (int x = 1; x <= spOwnVehicle.getAdapter().getCount(); x++) {
+                if (spOwnVehicle.getAdapter().getItem(x).toString().equals(trip1.getDescription())) {
+                    spOwnVehicle.setSelection(x);
+                    nrOwnVehicle = trip1.getId();
+                    break;
+                }
+            }
         }
+        final Vehicle[] v1 = {new Vehicle()};
+        spOwnVehicle.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long idx) {
+                v1[0] = (Vehicle) parent.getItemAtPosition(position);
+                nrOwnVehicle = v1[0].getId();
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                nrOwnVehicle = null;
+            }
+        });
+        adapterV.notifyDataSetChanged();
+
+        final List<Person> persons =  Database.mPersonDao.fetchArrayPerson();
+        persons.add(0, new Person());
+        ArrayAdapter<Person> adapterP = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, persons);
+        adapterP.setDropDownViewResource( android.R.layout.simple_spinner_dropdown_item);
+        spPerson.setAdapter(adapterP);
+        if (nrPerson != null && nrPerson > 0) {
+            Person pers1 = Database.mPersonDao.fetchPersonById(nrPerson);
+            for (int x = 1; x <= spPerson.getAdapter().getCount(); x++) {
+                if (spPerson.getAdapter().getItem(x).toString().equals(pers1.getShort_Name())) {
+                    spPerson.setSelection(x);
+                    nrPerson = pers1.getId();
+                    break;
+                }
+            }
+        }
+        final Person[] p1 = {new Person()};
+        spPerson.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long idx) {
+                p1[0] = (Person) parent.getItemAtPosition(position);
+                nrPerson = p1[0].getId();
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                nrPerson = null;
+            }
+        });
+        adapterP.notifyDataSetChanged();
 
         if (transport != null) {
             Travel t1 = Database.mTravelDao.fetchTravelById(transport.getTravel_id());
@@ -190,9 +245,22 @@ public class TransportActivity extends AppCompatActivity implements TransportTyp
             etServiceTax.setText(String.valueOf(transport.getService_tax()));
             etAmountPaid.setText(String.valueOf(transport.getAmount_paid()));
             etNote.setText(transport.getNote());
+
+            if (!opInsert) {
+                final int Show_Header_ItineraryHasTransport = 1;
+                adapterItineraryHasTransport = new ItineraryHasTransportListAdapter(Database.mItineraryHasTransportDao.fetchAllItineraryHasTransportByTravelType(transport.getTravel_id(), nrTransportType), getApplicationContext(), "Home", Show_Header_ItineraryHasTransport, transport.getTravel_id());
+                llItineraryHasTransport.setVisibility(View.VISIBLE);
+                rvTransportPerson.setAdapter(adapterItineraryHasTransport);
+                rvTransportPerson.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+                adapterItineraryHasTransport.notifyDataSetChanged();
+            } else {
+                llItineraryHasTransport.setVisibility(View.INVISIBLE);
+            }
+
         }
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     @Override
     public void onItemClick(int position) {
         if (nrTransportType != position) {
@@ -200,6 +268,18 @@ public class TransportActivity extends AppCompatActivity implements TransportTyp
         }
         else nrTransportType = -1;
         Utils.selected_position = nrTransportType;
+
+        if (!opInsert) {
+            final int Show_Header_ItineraryHasTransport = 1;
+            adapterItineraryHasTransport = new ItineraryHasTransportListAdapter(Database.mItineraryHasTransportDao.fetchAllItineraryHasTransportByTravelType(transport.getTravel_id(), nrTransportType), getApplicationContext(), "Home", Show_Header_ItineraryHasTransport, transport.getTravel_id());
+            llItineraryHasTransport.setVisibility(View.VISIBLE);
+            rvTransportPerson.setAdapter(adapterItineraryHasTransport);
+            rvTransportPerson.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+            adapterItineraryHasTransport.notifyDataSetChanged();
+        } else {
+            llItineraryHasTransport.setVisibility(View.INVISIBLE);
+        }
+
         switch(nrTransportType) {
             case -1: {
                 llTransportTypeOwn.setVisibility(View.GONE);
@@ -271,8 +351,8 @@ public class TransportActivity extends AppCompatActivity implements TransportTyp
                 Toast.makeText(getApplicationContext(), R.string.Error_Data_Validation, Toast.LENGTH_LONG).show();
             } else {
                 final Transport t1 = new Transport();
-                t1.setTravel_id(transport.getTravel_id());
                 t1.setTransport_type(nrTransportType);
+                t1.setTravel_id(transport.getTravel_id());
                 t1.setIdentifier(etIdentifier.getText().toString());
                 t1.setDescription(etDescription.getText().toString());
                 t1.setCompany(etCompany.getText().toString());
@@ -285,6 +365,14 @@ public class TransportActivity extends AppCompatActivity implements TransportTyp
                 t1.setService_tax(Double.parseDouble(etServiceTax.getText().toString()));
                 t1.setAmount_paid(Double.parseDouble(etAmountPaid.getText().toString()));
                 t1.setNote(etNote.getText().toString());
+                // TODO - Armazenar a média de consumo de combustivel do veiculo locado
+                // TODO - Incluir a média de consumo nas Despesas da Viagem como Previsto para a quilometragem da planejada da viagem
+                // TODO - Incluir a media de consumo no TravelVehicleListAdapter
+
+                final VehicleHasTravel vht = new VehicleHasTravel();
+                vht.setVehicle_id(nrOwnVehicle);
+                vht.setTravel_id(transport.getTravel_id());
+                vht.setPerson_id(nrPerson);
 
                 if (!opInsert) {
                     try {
@@ -295,7 +383,12 @@ public class TransportActivity extends AppCompatActivity implements TransportTyp
                     }
                 } else {
                     try {
-                        isSave = Database.mTransportDao.addTransport(t1);
+                        if (nrTransportType == 0 ) {
+                            isSave = Database.mVehicleHasTravelDao.addVehicleHasTravel(vht);
+                        } else {
+                            isSave = Database.mTransportDao.addTransport(t1);
+                        }
+
                     } catch (Exception e) {
                         Toast.makeText(getApplicationContext(), R.string.Error_Including_Data + e.getMessage(), Toast.LENGTH_LONG).show();
                     }
@@ -313,21 +406,27 @@ public class TransportActivity extends AppCompatActivity implements TransportTyp
     private boolean validateData() {
         boolean isValid = true;
         try {
-            if (nrTransportType == -1 ||
-                etIdentifier.getText().toString().trim().isEmpty() ||
-                etDescription.getText().toString().trim().isEmpty() ||
-                etCompany.getText().toString().trim().isEmpty() ||
-                //etContact.getText().toString().trim().isEmpty() ||
-                etStartLocation.getText().toString().trim().isEmpty() ||
-                etStartDate.getText().toString().trim().isEmpty() ||
-                //etEndLocation.getText().toString().trim().isEmpty() ||
-                //etEndDate.getText().toString().trim().isEmpty() ||
-                etServiceValue.getText().toString().trim().isEmpty() ||
-                //etServiceTax.getText().toString().trim().isEmpty() ||
-                //etAmountPaid.getText().toString().trim().isEmpty() ||
-                etNote.getText().toString().trim().isEmpty()
-            ){
-                isValid = false;
+            if (nrTransportType == 0) {
+                if (nrOwnVehicle == 0) {
+                    isValid = false;
+                }
+            } else {
+                if (nrTransportType == -1 ||
+                    etIdentifier.getText().toString().trim().isEmpty() ||
+                    etDescription.getText().toString().trim().isEmpty() ||
+                    etCompany.getText().toString().trim().isEmpty() ||
+                    //etContact.getText().toString().trim().isEmpty() ||
+                    etStartLocation.getText().toString().trim().isEmpty() ||
+                    etStartDate.getText().toString().trim().isEmpty() ||
+                    //etEndLocation.getText().toString().trim().isEmpty() ||
+                    //etEndDate.getText().toString().trim().isEmpty() ||
+                    etServiceValue.getText().toString().trim().isEmpty() ||
+                    //etServiceTax.getText().toString().trim().isEmpty() ||
+                    //etAmountPaid.getText().toString().trim().isEmpty() ||
+                    etNote.getText().toString().trim().isEmpty()
+                ) {
+                    isValid = false;
+                }
             }
         } catch (Exception e) {
             Toast.makeText(getApplicationContext(), R.string.Data_Validator_Error +" - " + e.getMessage(), Toast.LENGTH_LONG).show();

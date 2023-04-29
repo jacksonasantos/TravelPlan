@@ -1,5 +1,9 @@
 package com.jacksonasantos.travelplan.dao;
 
+import static com.jacksonasantos.travelplan.dao.interfaces.VehicleHasTravelISchema.VEHICLE_HAS_TRAVEL_TABLE;
+import static com.jacksonasantos.travelplan.dao.interfaces.VehicleHasTravelISchema.VEHICLE_HAS_TRAVEL_TRAVEL_ID;
+import static com.jacksonasantos.travelplan.dao.interfaces.VehicleHasTravelISchema.VEHICLE_HAS_TRAVEL_VEHICLE_ID;
+
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteConstraintException;
@@ -81,6 +85,25 @@ public class VehicleDAO extends DbContentProvider implements VehicleISchema, Veh
         return vehicleList;
     }
 
+    public ArrayList<Vehicle> fetchArrayVehiclesHasTravel( Integer travel_id){
+        ArrayList<Vehicle> vehicleList = new ArrayList<>();
+        final String[] selectionArgs = { String.valueOf(travel_id) };
+        final String sql = "SELECT v.* " +
+                             "FROM " + VEHICLE_TABLE + " v " +
+                                ", " + VEHICLE_HAS_TRAVEL_TABLE + " vt " +
+                            "WHERE v." + VEHICLE_ID + " = vt." + VEHICLE_HAS_TRAVEL_VEHICLE_ID + " " +
+                              "AND vt." + VEHICLE_HAS_TRAVEL_TRAVEL_ID + " = ? ";
+
+        Cursor cursor = super.rawQuery(sql, selectionArgs);
+        if(cursor != null && cursor.moveToFirst()){
+            do{
+                Vehicle vehicle = cursorToEntity(cursor);
+                vehicleList.add(vehicle);
+            }while(cursor.moveToNext());
+        }
+        return vehicleList;
+    }
+
     public Cursor fetchCursorVehicle() {
         return super.rawQuery( "SELECT '' _id, '' text1 UNION " +
                 "SELECT " + VEHICLE_ID + ", " +
@@ -96,6 +119,7 @@ public class VehicleDAO extends DbContentProvider implements VehicleISchema, Veh
         };
         return super.query(VEHICLE_TABLE, VEHICLE_COLUMNS, null,null, VEHICLE_NAME);
     }
+
 
     public void deleteVehicle(Integer id) {
         final String[] selectionArgs = { String.valueOf(id) };

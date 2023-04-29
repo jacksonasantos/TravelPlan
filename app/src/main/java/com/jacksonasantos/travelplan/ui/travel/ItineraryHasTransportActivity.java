@@ -42,8 +42,8 @@ public class ItineraryHasTransportActivity extends AppCompatActivity implements 
 
     private TextView tvTravel;
     private RecyclerView rvTransportType ;
-    private int nrTransportType= -1;
-    private LinearLayout llTransportTypeOwn, llTransportTypeOthers, llItinerary, llPerson;
+    private int nrTransportType = -1;
+    private LinearLayout llTransportTypeOwn, llTransportTypeOthers;
     private Spinner spOwnVehicle, spTransport, spItinerary, spPerson;
     private Integer nrTravel, nrOwnVehicle, nrTransport, nrItinerary, nrPerson;
     private CheckBox cbDriver;
@@ -65,14 +65,15 @@ public class ItineraryHasTransportActivity extends AppCompatActivity implements 
         tvTravel = findViewById(R.id.tvTravel);
         llTransportTypeOwn = findViewById(R.id.llTransportTypeOwn);
         llTransportTypeOthers = findViewById(R.id.llTransportTypeOthers);
-        llItinerary = findViewById(R.id.llItinerary);
-        llPerson = findViewById(R.id.llPerson);
         spOwnVehicle = findViewById(R.id.spOwnVehicle);
         spTransport = findViewById(R.id.spTransport);
         spItinerary = findViewById(R.id.spItinerary);
         spPerson = findViewById(R.id.spPerson);
         cbDriver = findViewById(R.id.cbDriver);
         tvSequenceItinerary = findViewById(R.id.tvSequenceItinerary);
+
+        llTransportTypeOwn.setVisibility(View.VISIBLE);
+        llTransportTypeOthers.setVisibility(View.GONE);
 
         if (extras != null) {
             if (extras.getInt( "itinerary_has_transport_id") > 0) {
@@ -142,7 +143,7 @@ public class ItineraryHasTransportActivity extends AppCompatActivity implements 
         rvTransportType.setAdapter(adapterTransportType);
 
         // spOwnVehicle
-        final List<Vehicle> vehicles =  Database.mVehicleDao.fetchArrayVehicles();
+        final List<Vehicle> vehicles =  Database.mVehicleDao.fetchArrayVehiclesHasTravel(nrTravel);
         vehicles.add(0, new Vehicle());
         ArrayAdapter<Vehicle> adapterV = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, vehicles);
         adapterV.setDropDownViewResource( android.R.layout.simple_spinner_dropdown_item);
@@ -321,6 +322,14 @@ public class ItineraryHasTransportActivity extends AppCompatActivity implements 
         else { nrTransportType = -1; }
 
         Utils.selected_position = nrTransportType;
+
+        if (nrTransportType == 0) {
+            llTransportTypeOwn.setVisibility(View.VISIBLE);
+            llTransportTypeOthers.setVisibility(View.GONE);
+        } else {
+            llTransportTypeOwn.setVisibility(View.GONE);
+            llTransportTypeOthers.setVisibility(View.VISIBLE);
+        }
     }
 
     public void addListenerOnButtonSave() {

@@ -457,8 +457,7 @@ public class HomeTravelFragment extends Fragment implements View.OnClickListener
 
                 final HomeTravelItemExpensesListAdapter[] adapterTravelItemExpenses = new HomeTravelItemExpensesListAdapter[1];
                 final Spinner spinExpenseType = promptsView.findViewById(R.id.spinExpenseType);
-                // TODO - not letting you change the spinner of the chosen button
-
+                spinExpenseType.setEnabled(false);
                 final EditText etExpectedValue = promptsView.findViewById(R.id.etExpectedValue);
                 final EditText etNote = promptsView.findViewById(R.id.etNote);
 

@@ -76,9 +76,13 @@ public class TravelTransportListAdapter extends RecyclerView.Adapter<RecyclerVie
             final ItemViewHolder itemViewHolder = (ItemViewHolder) holder;
 
             itemViewHolder.imgTransportType.setImageResource(Transport.getTransportTypeImage(mTransport.get(position-show_header).getTransport_type()));
-            itemViewHolder.txtTransportDescription.setText(mTransport.get(position-show_header).getDescription());
-            itemViewHolder.txtTransportIdentifier.setText(mTransport.get(position-show_header).getIdentifier());
-            itemViewHolder.btnDelete.setVisibility(View.VISIBLE);
+            if (mTransport.get(position-show_header).getTransport_type() == 0 ) {
+                itemViewHolder.txtTransportDescription.setText(R.string.Onw);
+            } else {
+                itemViewHolder.txtTransportDescription.setText(mTransport.get(position - show_header).getDescription());
+                itemViewHolder.txtTransportIdentifier.setText(mTransport.get(position - show_header).getIdentifier());
+                itemViewHolder.btnDelete.setVisibility(View.VISIBLE);
+            }
 
             itemViewHolder.llTransportTravelItem.setOnClickListener( v-> {
                 Intent intent = new Intent (v.getContext(), TransportActivity.class);
