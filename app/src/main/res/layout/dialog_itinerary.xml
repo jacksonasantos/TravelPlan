@@ -93,6 +93,28 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="2.5"
+                    android:text="@string/Itinerary_Travel_Mode"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textSize="14sp" />
+                <Spinner
+                    android:id="@+id/spTravel_mode"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="7.5"
+                    android:layout_gravity="center"
+                    android:autofillHints="no"
+                    android:entries="@array/travel_mode_array"
+                    android:textSize="12sp"  />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="10">
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2.5"
                     android:text="@string/Itinerary_Daily"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:textSize="14sp" />

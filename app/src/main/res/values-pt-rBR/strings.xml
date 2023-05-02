@@ -492,4 +492,9 @@
     <string name="Itinerary_has_Transport_Sequence_Itinerary">Sequência</string>
     <string name="Insurance_Termination">Confirma o encerramento do seguro?</string>
     <string name="Reservation_Rates">Diárias</string>
+    <string name="Itinerary_Travel_Mode">Modo Viagem</string>
+    <string name="driving">Dirigindo</string>
+    <string name="walking">Caminhando</string>
+    <string name="bicycling">Pedalando</string>
+    <string name="transit">"Transporte Público "</string>
 </resources>

@@ -421,6 +421,12 @@
     <string name="Itinerary_Daily">Daily</string>
     <string name="Itinerary_Distance">Distance</string>
     <string name="Itinerary_Time">Time</string>
+    <string name="Itinerary_Travel_Mode">Travel Mode</string>
+
+    <string name="driving">Driving</string>
+    <string name="walking">Walking</string>
+    <string name="bicycling">Bicycling</string>
+    <string name="transit">Transit</string>
 
     <string name="Itinerary_Deleting">Deleting Itinerary</string>
     <string name="add_new_itinerary">Add new Itinerary</string>

@@ -70,7 +70,7 @@ public class Database {
     private final Context mContext;
 
     private static final String DATABASE_NAME = "TravelPlan.db";
-    private static final int DATABASE_VERSION = 66;
+    private static final int DATABASE_VERSION = 67;
 
     public static AccommodationDAO mAccommodationDao;
     public static AchievementDAO mAchievementDao;
@@ -194,8 +194,8 @@ public class Database {
             {"64", "4" , "Tour"                     , "ALTER_TABLE_TOUR_V64_4"                , "TOUR_TABLE"                 , "V64.4 - Alter Table..."  },
             {"64", "5" , "Tour"                     , "ALTER_TABLE_TOUR_V64_5"                , "TOUR_TABLE"                 , "V64.5 - Alter Table..."  },
             {"65", ""  , "ItineraryHasTrasnport"    , "CREATE_TABLE_ITINERARY_HAS_TRASNPORT_V65", "ITINERARY_HAS_TRANSPORT_TABLE", "V65 - Create Table..."  },
-            {"66", ""  , "VehicleHasTravelISchema"  , "ALTER_TABLE_VEHICLE_HAS_TRAVEL_V66"    , "VEHICLE_HAS_TRAVEL_TABLE"   , "V66 - Alter Table..."  }
-
+            {"66", ""  , "VehicleHasTravelISchema"  , "ALTER_TABLE_VEHICLE_HAS_TRAVEL_V66"    , "VEHICLE_HAS_TRAVEL_TABLE"   , "V66 - Alter Table..."  },
+            {"67", ""  , "ItineraryISchema"         , "ALTER_TABLE_ITINERARY_V67"             , "ITINERARY_TABLE"            , "V67 - Alter Table..."  }
     };
 
     public Database(Context context) {
@@ -368,6 +368,7 @@ public class Database {
             db.execSQL(TourISchema.ALTER_TABLE_TOUR_V64_5); Log.w("Table "+TourISchema.TOUR_TABLE,"V64_5 - Alter Table...");
             db.execSQL(ItineraryHasTransportISchema.CREATE_TABLE_ITINERARY_HAS_TRANSPORT_V65);Log.w("Table "+ItineraryHasTransportISchema.ITINERARY_HAS_TRANSPORT_TABLE,"V65 - Create Table...");
             db.execSQL(VehicleHasTravelISchema.ALTER_TABLE_VEHICLE_HAS_TRAVEL_V66);Log.w("Table "+VehicleHasTravelISchema.VEHICLE_HAS_TRAVEL_TABLE,"V66 - Alter Table...");
+            db.execSQL(ItineraryISchema.ALTER_TABLE_ITINERARY_V67);Log.w("Table "+ItineraryISchema.ITINERARY_TABLE,"V67 - Alter Table...");
         }
 
         @SuppressLint("SQLiteString")
@@ -581,6 +582,9 @@ public class Database {
                         break;
                     case 66:
                         db.execSQL(VehicleHasTravelISchema.ALTER_TABLE_VEHICLE_HAS_TRAVEL_V66);
+                        break;
+                    case 67:
+                        db.execSQL(ItineraryISchema.ALTER_TABLE_ITINERARY_V67);
                         break;
                     default:
                         break;

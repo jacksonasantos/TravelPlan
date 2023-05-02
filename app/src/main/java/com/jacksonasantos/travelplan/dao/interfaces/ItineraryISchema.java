@@ -12,6 +12,7 @@ public interface ItineraryISchema {
     String ITINERARY_DAILY = "daily";
     String ITINERARY_DISTANCE = "distance";
     String ITINERARY_TIME = "time";
+    String ITINERARY_TRAVEL_MODE = "travel_mode";
 
     // Version 27
     String CREATE_TABLE_ITINERARY_V27 = "CREATE TABLE IF NOT EXISTS "
@@ -26,6 +27,10 @@ public interface ItineraryISchema {
             + ITINERARY_TIME + " INT "
             + ")";
 
+    // Version 67
+    String ALTER_TABLE_ITINERARY_V67 = "ALTER TABLE " + ITINERARY_TABLE
+            + " ADD COLUMN " + ITINERARY_TRAVEL_MODE + " INT ";
+
     String[] ITINERARY_COLUMNS = new String[] {
             ITINERARY_ID,
             ITINERARY_TRAVEL_ID,
@@ -34,6 +39,7 @@ public interface ItineraryISchema {
             ITINERARY_DEST_LOCATION,
             ITINERARY_DAILY,
             ITINERARY_DISTANCE,
-            ITINERARY_TIME
+            ITINERARY_TIME,
+            ITINERARY_TRAVEL_MODE
     };
 }

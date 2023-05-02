@@ -631,7 +631,7 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
                drawMarker(latlngTarget, null, ContextCompat.getColor(requireContext(), R.color.colorMarker), 0);
 
             if (achievementRoute) {
-                routeClass.drawRoute(googleMap, getContext(), pointsRoute, false, lang, false, 'A', achievement.getId(), i, null, isAlpha);
+                routeClass.drawRoute(googleMap, getContext(), pointsRoute, false, lang, false, 'A', achievement.getId(), i, null, isAlpha, 0);
             }
 
         }
@@ -654,7 +654,7 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
                         LatLng latlng = new LatLng(Double.parseDouble(marker.getLatitude()), Double.parseDouble(marker.getLongitude()));
                         drawMarker(latlng, marker.getName(), ContextCompat.getColor(requireContext(), R.color.colorMarker), marker.getMarker_typeImage(marker.getMarker_type()));
                     }
-                    routeClass.drawRoute(googleMap, getContext(), pointsRoute, false, lang, false, 'T', nrTravel_Id, itinerary.getSequence(), nrItinerary_Id, false);
+                    routeClass.drawRoute(googleMap, getContext(), pointsRoute, false, lang, false, 'T', nrTravel_Id, itinerary.getSequence(), nrItinerary_Id, false, itinerary.getTravel_mode());
                     zoomMarkers();
                 }
             }
@@ -701,7 +701,7 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
         mMapView.onResume();
     }
 
-    void MaintenanceItinerary(Itinerary i, boolean add){
+    void MaintenanceItinerary(Itinerary i, boolean isAdd){
 
         LayoutInflater li = LayoutInflater.from(requireContext());
         View promptsView = li.inflate(R.layout.dialog_itinerary, null);
@@ -710,11 +710,12 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
         final EditText etOrig_location = promptsView.findViewById(R.id.etOrig_location);
         final EditText etDest_location = promptsView.findViewById(R.id.etDest_location);
         final EditText etDaily = promptsView.findViewById(R.id.etDaily);
+        final Spinner spTravel_mode = promptsView.findViewById(R.id.spTravel_mode);
         final LinearLayout llItineraryHasTransport = promptsView.findViewById(R.id.llItineraryHasTransport);
         final RecyclerView rvItineraryHasTransport = promptsView.findViewById(R.id.rvItineraryHasTransport);
         final boolean[] isSave = {false};
 
-        if (add) {
+        if (isAdd) {
             Itinerary itineraryLast = Database.mItineraryDao.fetchLastItineraryByTravel(nrTravel_Id);
             if (itineraryLast != null) {
                 etSequence.setText(String.valueOf(itineraryLast.getSequence() + 1));
@@ -729,6 +730,7 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
             etDest_location.setText(i.getDest_location());
             etOrig_location.setText(i.getOrig_location());
             etDaily.setText(String.valueOf(i.getDaily()));
+            spTravel_mode.setSelection(i.getTravel_mode());
             llItineraryHasTransport.setVisibility(View.VISIBLE);
 
             // Itinerary has Transport
@@ -747,20 +749,22 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
                     if (!etSequence.getText().toString().isEmpty() &&
                             !etOrig_location.getText().toString().isEmpty() &&
                             !etDest_location.getText().toString().isEmpty() &&
-                            !etDaily.getText().toString().isEmpty()) {
+                            !etDaily.getText().toString().isEmpty() &&
+                            spTravel_mode.getSelectedItemPosition() < 0) {
 
                         Itinerary itinerary = new Itinerary();
-                        if (!add) itinerary.setId(i.getId());
+                        if (!isAdd) itinerary.setId(i.getId());
                         itinerary.setTravel_id(nrTravel_Id);
                         itinerary.setSequence(Integer.parseInt(etSequence.getText().toString()));
                         itinerary.setOrig_location(etOrig_location.getText().toString());
                         itinerary.setDest_location(etDest_location.getText().toString());
                         itinerary.setDaily(Integer.parseInt(etDaily.getText().toString()));
-                        if (!add) itinerary.setDistance(i.getDistance());
-                        if (!add) itinerary.setTime(i.getTime());
+                        itinerary.setTravel_mode(spTravel_mode.getSelectedItemPosition());
+                        if (!isAdd) itinerary.setDistance(i.getDistance());
+                        if (!isAdd) itinerary.setTime(i.getTime());
 
                         try {
-                            if (add) {
+                            if (isAdd) {
                                 isSave[0] = Database.mItineraryDao.addItinerary(itinerary);
                             }
                             else {
@@ -770,7 +774,7 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
                             clearMap = updateListItinerary();
 
                         } catch (Exception e) {
-                            Toast.makeText(requireContext(), (add?R.string.Error_Including_Data:R.string.Error_Changing_Data) + e.getMessage(), Toast.LENGTH_LONG).show();
+                            Toast.makeText(requireContext(), (isAdd?R.string.Error_Including_Data:R.string.Error_Changing_Data) + e.getMessage(), Toast.LENGTH_LONG).show();
                         }
                     }
                     if (!isSave[0]) {

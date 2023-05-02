@@ -11,8 +11,12 @@ import androidx.core.text.HtmlCompat;
 
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.Dash;
+import com.google.android.gms.maps.model.Dot;
+import com.google.android.gms.maps.model.Gap;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.PatternItem;
 import com.google.android.gms.maps.model.PolylineOptions;
 import com.jacksonasantos.travelplan.MainActivity;
 import com.jacksonasantos.travelplan.R;
@@ -28,6 +32,8 @@ import org.json.JSONObject;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -44,7 +50,7 @@ public class RouteClass {
     private final ExecutorService myExecutor = Executors.newSingleThreadExecutor();
     private final Handler myHandler = new Handler(Looper.getMainLooper());
 
-    public void drawRoute(GoogleMap map, Context context, ArrayList<LatLng> points, boolean withIndications, String language, boolean optimize, char typeUpdateTable, Integer id, int sequence, Integer sequenceSelected, boolean alpha) {
+    public void drawRoute(GoogleMap map, Context context, ArrayList<LatLng> points, boolean withIndications, String language, boolean optimize, char typeUpdateTable, Integer id, int sequence, Integer sequenceSelected, boolean alpha, int travel_mode) {
         this.mMap = map;
         this.context = context;
         this.lang = language;
@@ -52,11 +58,12 @@ public class RouteClass {
         this.nrTravel_Id = null;
         this.nrAchievement_Id = null;
         this.isAlpha = alpha;
-        this.mode = mode;
-        // TODO - implementar o parametro mode (DRIVING, WALKING, TRANSPORT)
+
         String url = null;
 
         if (mode == null) mode = "driving";
+        String[] travelModes = context.getResources().getStringArray(R.array.travel_mode_array);
+        mode = travelModes[travel_mode];
 
         if (typeUpdate == 'T') {
             nrTravel_Id = id;
@@ -147,6 +154,11 @@ public class RouteClass {
     }
 
     private void drawPath(String result, boolean withSteps, int nrSequence, Integer nrSequenceSelected, Integer nrAchievement_Id) {
+
+        final List<PatternItem> PATTERN_DRIVING = Collections.singletonList(new Dash(1));
+        final List<PatternItem> PATTERN_WALKING = Arrays.asList(new Dot(), new Gap(10), new Dash(20), new Gap(10));
+        final List<PatternItem> PATTERN_BICYCLING = Collections.singletonList(new Dot());
+        final List<PatternItem> PATTERN_TRANSIT = Collections.singletonList(new Dash(1));
         try {
             final JSONObject json = new JSONObject(result);
             JSONArray routeArray = json.getJSONArray("routes");
@@ -185,6 +197,21 @@ public class RouteClass {
                     }
                     //if (isAlpha) vColor = (vColor & 0x00FFFFFF) | (0x40 << 24);
 
+                    List<PatternItem> PATTERN_POLYLINE;
+                    switch (Database.mItineraryDao.fetchItineraryByTravelId(nrTravel_Id, nrSequence).getTravel_mode()) {
+                        case 1:
+                            PATTERN_POLYLINE = PATTERN_WALKING;
+                            break;
+                        case 2:
+                            PATTERN_POLYLINE = PATTERN_BICYCLING;
+                            break;
+                        case 3:
+                            PATTERN_POLYLINE = PATTERN_TRANSIT;
+                            break;
+                        default:
+                            PATTERN_POLYLINE = PATTERN_DRIVING;
+                    }
+
                     // TODO - desenhar linha reta para voos
                     mMap.addPolyline(new PolylineOptions()
                             .addAll(decodePoly(polyline))
@@ -192,6 +219,7 @@ public class RouteClass {
                             .clickable(true)
                             .color(vColor)
                             .geodesic(true)
+                            .pattern(PATTERN_POLYLINE)
                     );
                     if (withSteps) {
                         Step step = new Step(stepsArray.getJSONObject(i));

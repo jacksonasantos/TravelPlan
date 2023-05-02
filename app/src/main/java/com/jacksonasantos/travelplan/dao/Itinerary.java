@@ -16,6 +16,7 @@ public class Itinerary {
     public int daily;
     public int distance;
     public int time;
+    public int travel_mode;
 
     final Globals g = Globals.getInstance();
 
@@ -62,6 +63,9 @@ public class Itinerary {
 
     public int getDistance() { return distance/g.getMeasureIndexInMeter(); }
     public void setDistance(int distance) { this.distance = distance; }
+
+    public int getTravel_mode() { return travel_mode; }
+    public void setTravel_mode(int travel_mode) { this.travel_mode = travel_mode; }
 
     public int getTime() { return time; }
     public void setTime(int time) { this.time = time; }

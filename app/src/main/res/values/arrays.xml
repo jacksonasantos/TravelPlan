@@ -89,6 +89,13 @@
         <item>@string/running</item>            <!-- GREEN -->
         <item>@string/executed</item>           <!-- BLUE -->
     </string-array>
+    <!-- Travel Mode -->
+    <string-array name="travel_mode_array">
+        <item>@string/driving</item>
+        <item>@string/walking</item>
+        <item>@string/bicycling</item>
+        <item>@string/transit</item>
+    </string-array>
     <!-- Marker Type -->
     <string-array name="marker_type_array">
         <item>@string/source</item>
