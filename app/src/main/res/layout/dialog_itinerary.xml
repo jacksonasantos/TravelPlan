@@ -34,11 +34,30 @@
                     android:id="@+id/etSequence"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="7.5"
+                    android:layout_weight="1.5"
+                    android:gravity="center"
                     android:autofillHints="no"
                     android:inputType="number"
                     tools:ignore="LabelFor"
                     android:textSize="12sp" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:gravity="end"
+                    android:text="@string/Itinerary_Date"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/tvDate"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="4"
+                    android:gravity="center"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textSize="14sp"  />
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"

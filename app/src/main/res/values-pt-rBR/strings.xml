@@ -497,4 +497,5 @@
     <string name="walking">Caminhando</string>
     <string name="bicycling">Pedalando</string>
     <string name="transit">"Transporte Público "</string>
+    <string name="Itinerary_Date">Data</string>
 </resources>

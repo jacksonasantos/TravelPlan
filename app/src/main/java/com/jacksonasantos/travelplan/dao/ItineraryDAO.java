@@ -1,5 +1,8 @@
 package com.jacksonasantos.travelplan.dao;
 
+import static com.jacksonasantos.travelplan.dao.interfaces.TravelISchema.TRAVEL_ID;
+import static com.jacksonasantos.travelplan.dao.interfaces.TravelISchema.TRAVEL_TABLE;
+
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -86,8 +89,38 @@ public class ItineraryDAO extends DbContentProvider implements ItineraryISchema,
         final String selection = ITINERARY_TRAVEL_ID + " = ?";
 
         return super.rawQuery("SELECT "+ITINERARY_ID+" _id, "+
-                                    ITINERARY_ORIG_LOCATION+"||' - '||"+ITINERARY_DEST_LOCATION+" text1 "+
-                                   "FROM "+ITINERARY_TABLE + " WHERE "+ selection, selectionArgs);
+                ITINERARY_ORIG_LOCATION+"||' - '||"+ITINERARY_DEST_LOCATION+" text1 "+
+                "FROM "+ITINERARY_TABLE + " WHERE "+ selection, selectionArgs);
+    }
+
+    public String fetchItineraryDateSequence(Integer travel_id, Integer sequence){
+        final String[] selectionArgs = { String.valueOf(travel_id), String.valueOf(travel_id), String.valueOf(sequence) };
+
+        String itineraryDate = null;
+        cursor =super.rawQuery("SELECT STRFTIME('%d/%m/%Y', DATE(DATE(t.departure_date, '+'||i." + ITINERARY_DAILY + "||' days'), '-'||ii." + ITINERARY_DAILY + "||' days')) date_sequence " +
+                                     "FROM (SELECT i1." + ITINERARY_TRAVEL_ID + ", " +
+                                                  "i1." + ITINERARY_SEQUENCE + ", " +
+                                                  "SUM(i2." + ITINERARY_DAILY + ") as daily " +
+                                             "FROM " + ITINERARY_TABLE + " AS i1 " +
+                                            "INNER JOIN " + ITINERARY_TABLE + " AS i2 ON i1." + ITINERARY_TRAVEL_ID + " = i2." + ITINERARY_TRAVEL_ID + " " +
+                                                                                    "AND i1." + ITINERARY_SEQUENCE + " >= i2." + ITINERARY_SEQUENCE + " " +
+                                            "WHERE i1." + ITINERARY_TRAVEL_ID + " = ? " +
+                                            "GROUP BY i1." + ITINERARY_TRAVEL_ID + ", i1." + ITINERARY_SEQUENCE + " " +
+                                            "ORDER BY i1." + ITINERARY_SEQUENCE + " ASC ) i " +
+                                    "INNER JOIN " + TRAVEL_TABLE + " t ON t." + TRAVEL_ID + " = i." + ITINERARY_TRAVEL_ID + " " +
+                                    "INNER JOIN " + ITINERARY_TABLE + " ii ON ii." + ITINERARY_TRAVEL_ID + " = i." + ITINERARY_TRAVEL_ID + " " +
+                                                                         "AND ii." + ITINERARY_SEQUENCE + " = i." + ITINERARY_SEQUENCE + " " +
+                                    "WHERE i." + ITINERARY_TRAVEL_ID + " = ? " +
+                                      "AND i." + ITINERARY_SEQUENCE + " = ? " +
+                                    "ORDER BY ii." + ITINERARY_SEQUENCE, selectionArgs);
+
+        if (cursor.moveToFirst()) {
+            do {
+                itineraryDate = cursor.getString(cursor.getColumnIndexOrThrow("date_sequence"));
+            } while (cursor.moveToNext());
+            cursor.close();
+        }
+        return itineraryDate;
     }
 
     public void deleteItinerary(Integer id) {

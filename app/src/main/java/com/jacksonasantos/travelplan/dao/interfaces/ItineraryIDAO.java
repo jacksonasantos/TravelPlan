@@ -12,6 +12,7 @@ public interface ItineraryIDAO {
     List<Itinerary> fetchAllItineraryByTravel( Integer travel_id);
     Itinerary fetchLastItineraryByTravel(Integer travel_id);
     Cursor fetchArrayItinerary(Integer travel_id);
+    String fetchItineraryDateSequence(Integer travel_id, Integer sequence);
     boolean addItinerary(Itinerary itinerary);
     void deleteItinerary(Integer id);
     void updateItinerary(Itinerary itinerary);

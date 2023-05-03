@@ -93,7 +93,7 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
     private EditText etSearch;
     private Button btnSearch;
     private RecyclerView listMarkers;
-    // TODO  - Melhorar ações nos botoes do itinerário
+    // TODO  - Melhorar ações nos botoes do itinerário, add botção de deletar no item do recycle, mostrar titulo com o add (+), longclick na linha entra em edição e click faz a seleção
 
     private final MarkerOptions markerOptions = new MarkerOptions();
     private LatLngBounds.Builder builder = new LatLngBounds.Builder();
@@ -707,6 +707,7 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
         View promptsView = li.inflate(R.layout.dialog_itinerary, null);
 
         final EditText etSequence = promptsView.findViewById(R.id.etSequence);
+        final TextView tvDate = promptsView.findViewById(R.id.tvDate);
         final EditText etOrig_location = promptsView.findViewById(R.id.etOrig_location);
         final EditText etDest_location = promptsView.findViewById(R.id.etDest_location);
         final EditText etDaily = promptsView.findViewById(R.id.etDaily);
@@ -727,6 +728,7 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
         } else {
             nrTravel_Id = i.getTravel_id();
             etSequence.setText(String.valueOf(i.getSequence()));
+            tvDate.setText(Database.mItineraryDao.fetchItineraryDateSequence(nrTravel_Id,i.getSequence()));
             etDest_location.setText(i.getDest_location());
             etOrig_location.setText(i.getOrig_location());
             etDaily.setText(String.valueOf(i.getDaily()));

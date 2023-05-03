@@ -211,6 +211,8 @@ public class ReservationActivity extends AppCompatActivity {
                     }
                 }
             }
+            //TODO - mostra dados da acomodação ( endereço, fone, lat/lng )
+
             etVoucher_Number.setText(reservation.getVoucher_number());
             etCheckin_Date.setText(Utils.dateToString(reservation.getCheckin_date()));
             etCheckout_Date.setText(Utils.dateToString(reservation.getCheckout_date()));
