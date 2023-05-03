@@ -26,6 +26,7 @@ import com.jacksonasantos.travelplan.ui.travel.ReservationActivity;
 import com.jacksonasantos.travelplan.ui.utility.Utils;
 
 import java.util.List;
+import java.util.Objects;
 
 public class HomeTravelReservationListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
@@ -85,7 +86,7 @@ public class HomeTravelReservationListAdapter extends RecyclerView.Adapter<Recyc
 
             itemViewHolder.txtAccommodation.setText(Database.mAccommodationDao.fetchAccommodationById(reservation.getAccommodation_id()).getName());
             itemViewHolder.txtVoucher.setText(reservation.getVoucher_number());
-            itemViewHolder.txtCheckin.setText(Utils.dateToString(reservation.getCheckin_date()));
+            itemViewHolder.txtCheckin.setText(Objects.requireNonNull(Utils.dateToString(reservation.getCheckin_date())).substring(0,5));
             itemViewHolder.txtDaily.setText(Integer.toString(Utils.diffBetweenDate(reservation.getCheckout_date(), reservation.getCheckin_date())));
 
             itemViewHolder.imgStatus.setImageResource(reservation.getImage_Status_reservation(reservation.getStatus_reservation()));

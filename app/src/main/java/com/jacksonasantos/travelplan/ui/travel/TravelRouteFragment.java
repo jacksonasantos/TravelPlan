@@ -776,6 +776,7 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
             if (holder instanceof HeaderViewHolder) {
                 HeaderViewHolder headerViewHolder = (HeaderViewHolder) holder;
                 headerViewHolder.llItineraryItem.setBackgroundColor(Color.LTGRAY);
+                headerViewHolder.txtDate.setText(R.string.Itinerary_Date);
                 headerViewHolder.txtSequence.setText("");
                 headerViewHolder.txtSource.setText(R.string.Itinerary_Source);
                 headerViewHolder.txtTarget.setText(R.string.Itinerary_Target);
@@ -847,6 +848,7 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
                         itemViewHolder.llItineraryItem.setBackgroundColor(Color.WHITE);
                     }
 
+                    itemViewHolder.txtDate.setText(Database.mItineraryDao.fetchItineraryDateSequence(itinerary.getTravel_id(),itinerary.getSequence()).substring(0,5));
                     itemViewHolder.txtSequence.setText(Integer.toString(itinerary.getSequence()));
                     itemViewHolder.txtSource.setText(itinerary.getOrig_location());
                     itemViewHolder.txtTarget.setText(itinerary.getDest_location());
@@ -880,6 +882,7 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
 
         private static class HeaderViewHolder extends RecyclerView.ViewHolder {
             private final LinearLayout llItineraryItem;
+            private final TextView txtDate;
             private final TextView txtSequence;
             private final TextView txtSource;
             private final TextView txtTarget;
@@ -891,6 +894,7 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
             public HeaderViewHolder(View v) {
                 super(v);
                 llItineraryItem = v.findViewById(R.id.llItineraryItem);
+                txtDate = v.findViewById(R.id.txtDate);
                 txtSequence = v.findViewById(R.id.txtSequence);
                 txtSource = v.findViewById(R.id.txtSource);
                 txtTarget = v.findViewById(R.id.txtTarget);
@@ -903,6 +907,7 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
 
         public static class ItemViewHolder extends RecyclerView.ViewHolder {
             private final LinearLayout llItineraryItem;
+            private final TextView txtDate;
             private final TextView txtSequence;
             private final TextView txtSource;
             private final TextView txtTarget;
@@ -914,6 +919,7 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
             public ItemViewHolder(View v) {
                 super(v);
                 llItineraryItem = v.findViewById(R.id.llItineraryItem);
+                txtDate = v.findViewById(R.id.txtDate);
                 txtSequence = v.findViewById(R.id.txtSequence);
                 txtSource = v.findViewById(R.id.txtSource);
                 txtTarget = v.findViewById(R.id.txtTarget);

@@ -10,6 +10,17 @@
     tools:context=".ui.home.HomeTravelFragment">
 
     <TextView
+        android:id="@+id/txtDate"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="10"
+        android:layout_gravity="center"
+        android:gravity="start|center_vertical"
+        android:textSize="10sp"
+        tools:ignore="SmallSp"
+        android:textStyle="bold" />
+
+    <TextView
         android:id="@+id/txtSequence"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -24,7 +35,7 @@
         android:id="@+id/txtSource"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="35"
+        android:layout_weight="30"
         android:layout_gravity="center"
         android:gravity="start|center_vertical"
         android:textSize="10sp"
@@ -34,7 +45,7 @@
         android:id="@+id/txtTarget"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="35"
+        android:layout_weight="30"
         android:layout_gravity="center"
         android:gravity="center_vertical|start"
         android:textSize="10sp"

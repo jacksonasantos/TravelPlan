@@ -24,6 +24,7 @@ import com.jacksonasantos.travelplan.dao.general.Database;
 import com.jacksonasantos.travelplan.ui.utility.Utils;
 
 import java.util.List;
+import java.util.Objects;
 
 public class TravelTourListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
@@ -76,7 +77,7 @@ public class TravelTourListAdapter extends RecyclerView.Adapter<RecyclerView.Vie
             final ItemViewHolder itemViewHolder = (ItemViewHolder) holder;
 
             itemViewHolder.imgTourType.setImageResource(Tour.getTourTypeImage(mTour.get(position-show_header).getTour_type()));
-            itemViewHolder.txtTourDate.setText(Utils.dateToString(mTour.get(position-show_header).getTour_date()));
+            itemViewHolder.txtTourDate.setText(Objects.requireNonNull(Utils.dateToString(mTour.get(position - show_header).getTour_date())).substring(0,5));
             itemViewHolder.txtLocalTour.setText(mTour.get(position-show_header).getLocal_tour());
             if (form.equals("Home")) {
                 itemViewHolder.btnDelete.setVisibility(View.INVISIBLE);
