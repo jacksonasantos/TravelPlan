@@ -119,7 +119,8 @@ public class ItineraryHasTransportListAdapter extends RecyclerView.Adapter<Recyc
                             Toast.makeText(context, context.getString(R.string.Error_Deleting_Data) + "\n" + e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
                         }
                     }).setNegativeButton(R.string.No, null)
-                    .show());
+                    .show()
+            );
         }
     }
 

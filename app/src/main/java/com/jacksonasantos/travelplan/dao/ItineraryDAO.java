@@ -129,11 +129,11 @@ public class ItineraryDAO extends DbContentProvider implements ItineraryISchema,
         super.delete(ITINERARY_TABLE, selection, selectionArgs);
     }
 
-    public void updateItinerary(Itinerary itinerary) {
+    public boolean updateItinerary(Itinerary itinerary) {
         setContentValue(itinerary);
         final String[] selectionArgs = { String.valueOf(itinerary.getId()) };
         final String selection = ITINERARY_ID + " = ?";
-        super.update(ITINERARY_TABLE, getContentValue(), selection, selectionArgs);
+        return (super.update(ITINERARY_TABLE, getContentValue(), selection, selectionArgs)>0);
     }
 
     public boolean addItinerary(Itinerary itinerary) {
@@ -151,7 +151,7 @@ public class ItineraryDAO extends DbContentProvider implements ItineraryISchema,
             if (c.getColumnIndex(ITINERARY_DEST_LOCATION) != -1)    {i.setDest_location(c.getString(c.getColumnIndexOrThrow(ITINERARY_DEST_LOCATION))); }
             if (c.getColumnIndex(ITINERARY_DISTANCE) != -1)         {i.setDistance(c.getInt(c.getColumnIndexOrThrow(ITINERARY_DISTANCE))); }
             if (c.getColumnIndex(ITINERARY_DAILY) != -1)            {i.setDaily(c.getInt(c.getColumnIndexOrThrow(ITINERARY_DAILY))); }
-            if (c.getColumnIndex(ITINERARY_ORIG_LOCATION) != -1)    {i.setOrig_location(c.getString(c.getColumnIndexOrThrow(ITINERARY_ORIG_LOCATION))); }
+            if (c.getColumnIndex(ITINERARY_TIME) != -1)             {i.setTime(c.getInt(c.getColumnIndexOrThrow(ITINERARY_TIME))); }
             if (c.getColumnIndex(ITINERARY_TRAVEL_MODE) != -1)      {i.setTravel_mode(c.getInt(c.getColumnIndexOrThrow(ITINERARY_TRAVEL_MODE))); }
         }
         return i;

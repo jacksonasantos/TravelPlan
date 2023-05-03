@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/llItineraryItem"
     android:layout_width="match_parent"
@@ -13,6 +14,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="3"
+        android:layout_gravity="center"
         android:gravity="start|center_vertical"
         android:textSize="10sp"
         tools:ignore="SmallSp"
@@ -23,6 +25,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="35"
+        android:layout_gravity="center"
         android:gravity="start|center_vertical"
         android:textSize="10sp"
         tools:ignore="SmallSp" />
@@ -32,6 +35,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="35"
+        android:layout_gravity="center"
         android:gravity="center_vertical|start"
         android:textSize="10sp"
         tools:ignore="SmallSp" />
@@ -41,6 +45,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="7"
+        android:layout_gravity="center"
         android:gravity="center_vertical|end"
         android:textSize="10sp"
         tools:ignore="SmallSp" />
@@ -50,6 +55,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="10"
+        android:layout_gravity="center"
         android:gravity="center_vertical|end"
         android:textSize="10sp"
         tools:ignore="SmallSp" />
@@ -59,9 +65,22 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="10"
+        android:layout_gravity="center"
         android:gravity="center_vertical|end"
         android:textSize="10sp"
         tools:ignore="SmallSp" />
+
+    <ImageButton
+        android:id="@+id/btnDelete"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="@dimen/labels_margin"
+        android:contentDescription="@string/bt_Delete"
+        android:padding="7dp"
+        android:scaleType="fitCenter"
+        android:scaleX="1.8"
+        android:scaleY="1.8"
+        app:srcCompat="@drawable/ic_button_delete" />
 
 </LinearLayout>
 

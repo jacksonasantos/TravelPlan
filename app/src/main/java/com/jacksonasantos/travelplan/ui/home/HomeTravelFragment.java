@@ -405,9 +405,9 @@ public class HomeTravelFragment extends Fragment implements View.OnClickListener
                 }
 
                 // Itinerary
-                final int Show_Header_Itinerary = 0;    // 0 - NO SHOW HEADER | 1 - SHOW HEADER
+                final int Show_Header_Itinerary = 1;
                 final int Show_Footer_Itinerary = 1;
-                TravelRouteFragment.HomeTravelItineraryListAdapter adapterItinerary = new TravelRouteFragment.HomeTravelItineraryListAdapter(Database.mItineraryDao.fetchAllItineraryByTravel(travel[0].getId() ), getContext(), Show_Header_Itinerary,Show_Footer_Itinerary, true);
+                TravelRouteFragment.HomeTravelItineraryListAdapter adapterItinerary = new TravelRouteFragment.HomeTravelItineraryListAdapter(Database.mItineraryDao.fetchAllItineraryByTravel(travel[0].getId() ), getContext(), Show_Header_Itinerary,Show_Footer_Itinerary, true, travel[0].getId());
                 if ( adapterItinerary.getItemCount() > Show_Header_Itinerary+Show_Footer_Itinerary){
                     layerItinerary.setVisibility(View.VISIBLE);
                     listItinerary.setAdapter(adapterItinerary);
@@ -417,7 +417,7 @@ public class HomeTravelFragment extends Fragment implements View.OnClickListener
                 }
 
                 // Reservation
-                final int Show_Header_Reservation = 0; // 0 - NO SHOW HEADER | 1 - SHOW HEADER
+                final int Show_Header_Reservation = 0;
                 HomeTravelReservationListAdapter adapterReservation = new HomeTravelReservationListAdapter( Database.mReservationDao.fetchAllReservationByTravel(travel[0].getId()), getContext(), Show_Header_Reservation);
                 if ( adapterReservation.getItemCount() > Show_Header_Reservation){
                     layerReservation.setVisibility(View.VISIBLE);
@@ -428,7 +428,7 @@ public class HomeTravelFragment extends Fragment implements View.OnClickListener
                 }
 
                 // Insurance - layerInsurance
-                final int Show_Header_Insurance = 0; // 0 - NO SHOW HEADER | 1 - SHOW HEADER
+                final int Show_Header_Insurance = 0;
                 HomeInsuranceListAdapter adapterInsurance = new HomeInsuranceListAdapter(Database.mInsuranceDao.findReminderInsurance("T", travel[0].getId() ), getContext(), Show_Header_Insurance);
                 if ( adapterInsurance.getItemCount() > Show_Header_Insurance){
                     layerInsurance.setVisibility(View.VISIBLE);

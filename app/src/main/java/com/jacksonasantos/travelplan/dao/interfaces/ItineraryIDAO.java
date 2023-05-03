@@ -15,5 +15,5 @@ public interface ItineraryIDAO {
     String fetchItineraryDateSequence(Integer travel_id, Integer sequence);
     boolean addItinerary(Itinerary itinerary);
     void deleteItinerary(Integer id);
-    void updateItinerary(Itinerary itinerary);
+    boolean updateItinerary(Itinerary itinerary);
 }

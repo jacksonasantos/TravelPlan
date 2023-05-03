@@ -61,7 +61,9 @@ public class Itinerary {
     public int getDaily() { return daily; }
     public void setDaily(int daily) { this.daily = daily; }
 
-    public int getDistance() { return distance/g.getMeasureIndexInMeter(); }
+    public int getDistanceMeter() { return distance/g.getMeasureIndexInMeter(); }
+
+    public int getDistance() { return distance; }
     public void setDistance(int distance) { this.distance = distance; }
 
     public int getTravel_mode() { return travel_mode; }

@@ -1,5 +1,6 @@
 package com.jacksonasantos.travelplan.ui.travel;
 
+import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
 import static com.jacksonasantos.travelplan.ui.utility.Abbreviations.getAbbreviationFromState;
 
 import android.Manifest;
@@ -26,6 +27,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.SimpleCursorAdapter;
 import android.widget.Spinner;
@@ -78,22 +80,20 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
 
     public boolean clearMap;
     public final boolean flgModeAchievement;
-    public Integer nrTravel_Id;
     public final String txt_Search;
+
+    public static Integer nrTravel_Id;
     public static Integer nrItinerary_Id;
     public static Integer nrAchievement_Id;
 
     private Button buttonSeparator;
     private TextView tvTravel;
-    private Button btnAddItinerary;
-    private Button btnEditItinerary;
     private RecyclerView listItinerary;
     private MapView mMapView;
     private GoogleMap googleMap;
     private EditText etSearch;
     private Button btnSearch;
     private RecyclerView listMarkers;
-    // TODO  - Melhorar ações nos botoes do itinerário, add botção de deletar no item do recycle, mostrar titulo com o add (+), longclick na linha entra em edição e click faz a seleção
 
     private final MarkerOptions markerOptions = new MarkerOptions();
     private LatLngBounds.Builder builder = new LatLngBounds.Builder();
@@ -108,7 +108,7 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
         this.clearMap = clearMap;
         this.flgModeAchievement = flgModeAchievement;
         nrTravel_Id = travel_id;
-        txt_Search = tx_Search;
+        this.txt_Search = tx_Search;
 
         try {
             MapsInitializer.initialize(requireContext());
@@ -123,8 +123,6 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
         View rootView = inflater.inflate(R.layout.fragment_travel_route, container, false);
 
         tvTravel = rootView.findViewById(R.id.tvTravel);
-        btnAddItinerary = rootView.findViewById(R.id.btnAddItinerary);
-        btnEditItinerary = rootView.findViewById(R.id.btnEditItinerary);
         listItinerary = rootView.findViewById(R.id.listItinerary);
         buttonSeparator = rootView.findViewById(R.id.buttonSeparator);
         mMapView = rootView.findViewById(R.id.mapView);
@@ -134,8 +132,6 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
 
         if (flgModeAchievement) {
             tvTravel.setVisibility(View.GONE);
-            btnAddItinerary.setVisibility(View.GONE);
-            btnEditItinerary.setVisibility(View.GONE);
             listItinerary.setVisibility(View.GONE);
             buttonSeparator.setVisibility(View.GONE);
             listMarkers.setVisibility(View.GONE);
@@ -143,7 +139,6 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
 
         if (txt_Search!=null) {
             tvTravel.setVisibility(View.GONE);
-            btnAddItinerary.setVisibility(View.GONE);
             listItinerary.setVisibility(View.GONE);
             listMarkers.setVisibility(View.GONE);
             etSearch.setText(txt_Search);
@@ -682,116 +677,13 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
         Database mDb = new Database(getContext());
         mDb.open();
 
-        btnAddItinerary.setOnClickListener(view -> {
-            Itinerary itinerary = new Itinerary();
-            MaintenanceItinerary(itinerary, true);
-            drawItinerary(nrTravel_Id);
-        });
-
-        btnEditItinerary.setOnClickListener(view -> {
-            if (nrItinerary_Id != null) {
-                Itinerary itinerary = Database.mItineraryDao.fetchItineraryById(nrItinerary_Id);
-                MaintenanceItinerary(itinerary, false);
-                drawItinerary(nrTravel_Id);
-            } else {
-                Toast.makeText(requireContext(), R.string.select_itinerary_to_edit, Toast.LENGTH_LONG).show();
-            }
-        });
-
         mMapView.onResume();
     }
 
-    void MaintenanceItinerary(Itinerary i, boolean isAdd){
-
-        LayoutInflater li = LayoutInflater.from(requireContext());
-        View promptsView = li.inflate(R.layout.dialog_itinerary, null);
-
-        final EditText etSequence = promptsView.findViewById(R.id.etSequence);
-        final TextView tvDate = promptsView.findViewById(R.id.tvDate);
-        final EditText etOrig_location = promptsView.findViewById(R.id.etOrig_location);
-        final EditText etDest_location = promptsView.findViewById(R.id.etDest_location);
-        final EditText etDaily = promptsView.findViewById(R.id.etDaily);
-        final Spinner spTravel_mode = promptsView.findViewById(R.id.spTravel_mode);
-        final LinearLayout llItineraryHasTransport = promptsView.findViewById(R.id.llItineraryHasTransport);
-        final RecyclerView rvItineraryHasTransport = promptsView.findViewById(R.id.rvItineraryHasTransport);
-        final boolean[] isSave = {false};
-
-        if (isAdd) {
-            Itinerary itineraryLast = Database.mItineraryDao.fetchLastItineraryByTravel(nrTravel_Id);
-            if (itineraryLast != null) {
-                etSequence.setText(String.valueOf(itineraryLast.getSequence() + 1));
-                etOrig_location.setText(itineraryLast.getDest_location());
-            } else {
-                etSequence.setText(String.valueOf(1));
-            }
-            llItineraryHasTransport.setVisibility(View.INVISIBLE);
-        } else {
-            nrTravel_Id = i.getTravel_id();
-            etSequence.setText(String.valueOf(i.getSequence()));
-            tvDate.setText(Database.mItineraryDao.fetchItineraryDateSequence(nrTravel_Id,i.getSequence()));
-            etDest_location.setText(i.getDest_location());
-            etOrig_location.setText(i.getOrig_location());
-            etDaily.setText(String.valueOf(i.getDaily()));
-            spTravel_mode.setSelection(i.getTravel_mode());
-            llItineraryHasTransport.setVisibility(View.VISIBLE);
-
-            // Itinerary has Transport
-            final int Show_Header_ItineraryHasTransport = 1  ;
-            ItineraryHasTransportListAdapter adapterItineraryHasTransport = new ItineraryHasTransportListAdapter(Database.mItineraryHasTransportDao.fetchAllItineraryHasTransportByTravelItinerary(nrTravel_Id, nrItinerary_Id ), getContext(),"Home", Show_Header_ItineraryHasTransport, nrTravel_Id);
-            rvItineraryHasTransport.setAdapter(adapterItineraryHasTransport);
-            rvItineraryHasTransport.setLayoutManager(new LinearLayoutManager(getContext()));
-
-        }
-
-        final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(requireContext());
-        alertDialogBuilder.setView(promptsView);
-        alertDialogBuilder
-                .setCancelable(false)
-                .setPositiveButton(R.string.OK, (dialog, id) -> {
-                    if (!etSequence.getText().toString().isEmpty() &&
-                            !etOrig_location.getText().toString().isEmpty() &&
-                            !etDest_location.getText().toString().isEmpty() &&
-                            !etDaily.getText().toString().isEmpty() &&
-                            spTravel_mode.getSelectedItemPosition() < 0) {
-
-                        Itinerary itinerary = new Itinerary();
-                        if (!isAdd) itinerary.setId(i.getId());
-                        itinerary.setTravel_id(nrTravel_Id);
-                        itinerary.setSequence(Integer.parseInt(etSequence.getText().toString()));
-                        itinerary.setOrig_location(etOrig_location.getText().toString());
-                        itinerary.setDest_location(etDest_location.getText().toString());
-                        itinerary.setDaily(Integer.parseInt(etDaily.getText().toString()));
-                        itinerary.setTravel_mode(spTravel_mode.getSelectedItemPosition());
-                        if (!isAdd) itinerary.setDistance(i.getDistance());
-                        if (!isAdd) itinerary.setTime(i.getTime());
-
-                        try {
-                            if (isAdd) {
-                                isSave[0] = Database.mItineraryDao.addItinerary(itinerary);
-                            }
-                            else {
-                                Database.mItineraryDao.updateItinerary(itinerary);
-                                isSave[0] = true;
-                            }
-                            clearMap = updateListItinerary();
-
-                        } catch (Exception e) {
-                            Toast.makeText(requireContext(), (isAdd?R.string.Error_Including_Data:R.string.Error_Changing_Data) + e.getMessage(), Toast.LENGTH_LONG).show();
-                        }
-                    }
-                    if (!isSave[0]) {
-                        Toast.makeText(requireContext(), R.string.Error_Saving_Data, Toast.LENGTH_LONG).show();
-                    }
-                })
-                .setNegativeButton(R.string.Cancel, (dialog, id) -> dialog.cancel());
-        AlertDialog alertDialog = alertDialogBuilder.create();
-        alertDialog.show();
-    }
-
     public boolean updateListItinerary() {
-        final int Show_Header_Itinerary = 0; // 0 - NO SHOW HEADER | 1 - SHOW HEADER
-        final int Show_Footer_Itinerary = 1; // 0 - NO SHOW Footer | 1 - SHOW Footer
-        HomeTravelItineraryListAdapter adapterItinerary = new HomeTravelItineraryListAdapter(Database.mItineraryDao.fetchAllItineraryByTravel(nrTravel_Id), requireContext(), Show_Header_Itinerary, Show_Footer_Itinerary, false);
+        final int Show_Header_Itinerary = 1;
+        final int Show_Footer_Itinerary = 1;
+        HomeTravelItineraryListAdapter adapterItinerary = new HomeTravelItineraryListAdapter(Database.mItineraryDao.fetchAllItineraryByTravel(nrTravel_Id), requireContext(), Show_Header_Itinerary, Show_Footer_Itinerary, false, nrTravel_Id);
         if ( adapterItinerary.getItemCount() > 0){
             listItinerary.setAdapter(adapterItinerary);
             listItinerary.setLayoutManager(new LinearLayoutManager(requireContext()));
@@ -858,12 +750,13 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
         final boolean show_home;
         boolean lClick = false;
 
-        public HomeTravelItineraryListAdapter(List<Itinerary> itinerary, Context context, int show_header, int show_footer, boolean show_home) {
+        public HomeTravelItineraryListAdapter(List<Itinerary> itinerary, Context context, int show_header, int show_footer, boolean show_home, Integer travel_id) {
             this.mItinerary = itinerary;
             this.context = context;
             this.show_header = show_header>=1?1:0;
             this.show_footer = show_footer>=1?1:0;
             this.show_home = show_home;
+            nrTravel_Id = travel_id;
         }
 
         @NonNull
@@ -889,6 +782,14 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
                 headerViewHolder.txtDaily.setText(R.string.Itinerary_Daily);
                 headerViewHolder.txtDistance.setText(R.string.Itinerary_Distance);
                 headerViewHolder.txtTime.setText(R.string.Itinerary_Time);
+                headerViewHolder.btAdd.setImageResource(R.drawable.ic_button_add);
+                headerViewHolder.btAdd.setOnClickListener(v -> {
+                    Intent intent = new Intent (v.getContext(), MaintenanceItineraryActivity.class);
+                    intent.putExtra("travel_id", nrTravel_Id );
+                    intent.setFlags(FLAG_ACTIVITY_NEW_TASK);
+                    context.startActivity(intent);
+                    notifyItemChanged(position);
+                });
             }
             else if (holder instanceof FooterViewHolder) {
                 FooterViewHolder footerViewHolder = (FooterViewHolder) holder;
@@ -902,53 +803,59 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
                 final ItemViewHolder itemViewHolder = (ItemViewHolder) holder;
                 if (mItinerary.size()>0) {
                     final Itinerary itinerary = mItinerary.get(position - show_header);
-                    if (!show_home) {
-                        itemViewHolder.itemView.setOnClickListener(view -> {
-                            if (position != RecyclerView.NO_POSITION) {
-                                nrItinerary_Id = !itinerary.getId().equals(nrItinerary_Id) ? itinerary.getId() : null;
-                                lClick = true;
 
-                                // TODO - Update the Map when choosing an itinerary (thickening the line for example)
-                                notifyDataSetChanged();
-                            }
-                        });
-                        itemViewHolder.itemView.setOnLongClickListener(view -> {
-                            new AlertDialog.Builder(view.getContext())
-                                    .setTitle(R.string.Itinerary_Deleting)
-                                    .setMessage(context.getResources().getString(R.string.Msg_Confirm) + "\n\n" +
-                                            context.getResources().getString(R.string.marker_itinerary) + ":\n" +
-                                            context.getResources().getString(R.string.from) + ": " +
-                                            itinerary.getOrig_location() + "\n" +
-                                            context.getResources().getString(R.string.to) + ": " +
-                                            itinerary.getDest_location())
-                                    .setPositiveButton(R.string.Yes, (dialogInterface, i) -> {
-                                        try {
-                                            Database.mItineraryDao.deleteItinerary(nrItinerary_Id);
-                                            mItinerary.remove(position);
-                                            notifyItemRemoved(position);
-                                            notifyItemRangeChanged(position, mItinerary.size());
-                                        } catch (Exception e) {
-                                            Toast.makeText(context, context.getString(R.string.Error_Deleting_Data) + "\n" + e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
-                                        }
-                                    }).setNegativeButton(R.string.No, null)
-                                    .show();
-                            return true;
-                        });
-                        if (itinerary.getId().equals(nrItinerary_Id)) {
-                            itemViewHolder.llItineraryItem.setBackgroundColor(Color.GRAY);
-                        } else {
-                            itemViewHolder.llItineraryItem.setBackgroundColor(Color.WHITE);
+                    itemViewHolder.itemView.setOnLongClickListener(view -> {
+                        if (position != RecyclerView.NO_POSITION) {
+                            nrItinerary_Id = !itinerary.getId().equals(nrItinerary_Id) ? itinerary.getId() : null;
+                            lClick = true;
+                            // TODO - Update the Map when choosing an itinerary (thickening the line for example)
+                            notifyDataSetChanged();
                         }
+                        return true;
+                    });
+                    itemViewHolder.itemView.setOnClickListener(view -> {
+                        final Itinerary i1 = mItinerary.get(position - show_header);
+                        Intent intent = new Intent (view.getContext(), MaintenanceItineraryActivity.class);
+                        intent.putExtra("itinerary_id", i1.getId() );
+                        intent.setFlags(FLAG_ACTIVITY_NEW_TASK);
+                        context.startActivity(intent);
+                        notifyItemChanged(position);
+                    });
+                    itemViewHolder.btDelete.setOnClickListener (v -> new AlertDialog.Builder(v.getContext())
+                            .setTitle(R.string.Itinerary_Deleting)
+                            .setMessage(context.getResources().getString(R.string.Msg_Confirm) + "\n\n" +
+                                    context.getResources().getString(R.string.marker_itinerary) + ": " +itinerary.getSequence()+"\n"+
+                                    context.getResources().getString(R.string.from) + ": " +
+                                    itinerary.getOrig_location() + "\n" +
+                                    context.getResources().getString(R.string.to) + ": " +
+                                    itinerary.getDest_location())
+                            .setPositiveButton(R.string.Yes, (dialogInterface, i) -> {
+                                try {
+                                    Database.mItineraryDao.deleteItinerary(itinerary.getId());
+                                    mItinerary.remove(position - show_header);
+                                    notifyItemRemoved(position - show_header);
+                                    notifyItemRangeChanged(position - show_header, mItinerary.size());
+                                } catch (Exception e) {
+                                    Toast.makeText(context, context.getString(R.string.Error_Deleting_Data) + "\n" + e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+                                }
+                            }).setNegativeButton(R.string.No, null)
+                            .show()
+                    );
+                    if (itinerary.getId().equals(nrItinerary_Id)) {
+                        itemViewHolder.llItineraryItem.setBackgroundColor(Color.GRAY);
+                    } else {
+                        itemViewHolder.llItineraryItem.setBackgroundColor(Color.WHITE);
                     }
+
                     itemViewHolder.txtSequence.setText(Integer.toString(itinerary.getSequence()));
                     itemViewHolder.txtSource.setText(itinerary.getOrig_location());
                     itemViewHolder.txtTarget.setText(itinerary.getDest_location());
                     itemViewHolder.txtDaily.setText(Integer.toString(itinerary.getDaily()));
-                    itemViewHolder.txtDistance.setText(Integer.toString(itinerary.getDistance()));
+                    itemViewHolder.txtDistance.setText(Integer.toString(itinerary.getDistanceMeter()));
                     itemViewHolder.txtTime.setText(itinerary.getDuration());
                     if (!lClick) {
                         vTotDaily += itinerary.getDaily();
-                        vTotDistance += itinerary.getDistance();
+                        vTotDistance += itinerary.getDistanceMeter();
                         if (itinerary.getTime() > 0) {
                             vTotTime += itinerary.getTime();
                         }
@@ -979,6 +886,7 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
             private final TextView txtDaily;
             private final TextView txtDistance;
             private final TextView txtTime;
+            private final ImageButton btAdd;
 
             public HeaderViewHolder(View v) {
                 super(v);
@@ -989,6 +897,7 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
                 txtDaily = v.findViewById(R.id.txtDaily);
                 txtDistance = v.findViewById(R.id.txtDistance);
                 txtTime = v.findViewById(R.id.txtTime);
+                btAdd = v.findViewById(R.id.btnDelete);
             }
         }
 
@@ -1000,6 +909,7 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
             private final TextView txtDaily;
             private final TextView txtDistance;
             private final TextView txtTime;
+            private final ImageButton btDelete;
 
             public ItemViewHolder(View v) {
                 super(v);
@@ -1010,6 +920,7 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
                 txtDaily = v.findViewById(R.id.txtDaily);
                 txtDistance = v.findViewById(R.id.txtDistance);
                 txtTime = v.findViewById(R.id.txtTime);
+                btDelete = v.findViewById(R.id.btnDelete);
             }
         }
 
@@ -1019,6 +930,7 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
             private final TextView txtDaily;
             private final TextView txtDistance;
             private final TextView txtTime;
+            private final ImageButton btDelete;
 
             public FooterViewHolder(View v) {
                 super(v);
@@ -1027,6 +939,8 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
                 txtDaily = v.findViewById(R.id.txtDaily);
                 txtDistance = v.findViewById(R.id.txtDistance);
                 txtTime = v.findViewById(R.id.txtTime);
+                btDelete = v.findViewById(R.id.btnDelete);
+                btDelete.setVisibility(View.INVISIBLE);
             }
         }
     }

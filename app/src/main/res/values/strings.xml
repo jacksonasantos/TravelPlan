@@ -420,7 +420,7 @@
     <string name="Itinerary_Source">Source</string>
     <string name="Itinerary_Target">Target</string>
     <string name="Itinerary_Daily">Daily</string>
-    <string name="Itinerary_Distance">Distance</string>
+    <string name="Itinerary_Distance">Dist.</string>
     <string name="Itinerary_Time">Time</string>
     <string name="Itinerary_Travel_Mode">Travel Mode</string>
 

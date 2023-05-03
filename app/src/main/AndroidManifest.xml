@@ -95,6 +95,9 @@
             android:name=".ui.travel.ItineraryActivity"
             android:label="@string/Itinerary" />
         <activity
+            android:name=".ui.travel.MaintenanceItineraryActivity"
+            android:label="@string/Itinerary" />
+        <activity
             android:name=".ui.travel.ReservationActivity"
             android:label="@string/Reservation" />
         <activity
