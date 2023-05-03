@@ -38,6 +38,13 @@ public class ReservationActivity extends AppCompatActivity {
     private Integer nrSpinTravel;
     private Spinner spinAccommodation;
     private Integer nrSpinAccommodation;
+    private TextView tvAccommodation_Address;
+    private TextView tvAccommodation_CityStateCountry;
+    private TextView tvAccommodation_LatLng;
+    private TextView tvAccommodation_Contact;
+    private TextView tvAccommodation_Phone;
+    private TextView tvAccommodation_Email;
+    private TextView tvAccommodation_Site;
     private ImageButton btAddAccommodation;
     private EditText etVoucher_Number;
     private EditText etCheckin_Date;
@@ -58,7 +65,7 @@ public class ReservationActivity extends AppCompatActivity {
     protected ArrayAdapter<Accommodation> adapterA = null;
     private List<Accommodation> accommodations;
 
-    @SuppressLint("WrongViewCast")
+    @SuppressLint({"WrongViewCast", "SetTextI18n"})
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,6 +100,13 @@ public class ReservationActivity extends AppCompatActivity {
 
         spinTravel = findViewById(R.id.spinTravel);
         spinAccommodation = findViewById(R.id.spinAccommodation);
+        tvAccommodation_Address = findViewById(R.id.tvAccommodation_Address);
+        tvAccommodation_CityStateCountry = findViewById(R.id.tvAccommodation_CityStateCountry);
+        tvAccommodation_LatLng = findViewById(R.id.tvAccommodation_LatLng);
+        tvAccommodation_Contact = findViewById(R.id.tvAccommodation_Contact);
+        tvAccommodation_Phone = findViewById(R.id.tvAccommodation_Phone);
+        tvAccommodation_Email = findViewById(R.id.tvAccommodation_Email);
+        tvAccommodation_Site = findViewById(R.id.tvAccommodation_Site);
         etVoucher_Number = findViewById(R.id.etVoucher_Number);
         etCheckin_Date = findViewById(R.id.etCheckin_Date);
         etCheckout_Date = findViewById(R.id.etCheckout_Date);
@@ -125,7 +139,7 @@ public class ReservationActivity extends AppCompatActivity {
         View.OnFocusChangeListener listenerCheckoutDate = (v, hasFocus) -> {
             if (!hasFocus) {
                 if (!etCheckin_Date.getText().toString().equals("") &&
-                        !etCheckout_Date.getText().toString().equals("")) {
+                    !etCheckout_Date.getText().toString().equals("")) {
                     long d1 = Objects.requireNonNull(Utils.stringToDate(etCheckin_Date.getText().toString())).getTime();
                     long d2 = Objects.requireNonNull(Utils.stringToDate(etCheckout_Date.getText().toString())).getTime();
                     int dias = (int) ((d2 - d1) / (24 * 60 * 60 * 1000));
@@ -167,6 +181,13 @@ public class ReservationActivity extends AppCompatActivity {
                 if (spinAccommodation.getAdapter().getItem(x).toString().equals(accommodation1.getName())) {
                     spinAccommodation.setSelection(x);
                     nrSpinAccommodation = accommodation1.getId();
+                    tvAccommodation_Address.setText(accommodation1.getAddress());
+                    tvAccommodation_CityStateCountry.setText(accommodation1.getCity()+" - "+accommodation1.getState()+" - "+accommodation1.getCountry());
+                    tvAccommodation_LatLng.setText(accommodation1.getLatlng_accommodation());
+                    tvAccommodation_Contact.setText(accommodation1.getContact_name());
+                    tvAccommodation_Phone.setText(accommodation1.getPhone());
+                    tvAccommodation_Email.setText(accommodation1.getEmail());
+                    tvAccommodation_Site.setText(accommodation1.getSite());
                     break;
                 }
             }
@@ -178,6 +199,13 @@ public class ReservationActivity extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long idx) {
                 a1[0] = (Accommodation) parent.getItemAtPosition(position);
                 nrSpinAccommodation = a1[0].getId();
+                tvAccommodation_Address.setText(a1[0].getAddress());
+                tvAccommodation_CityStateCountry.setText(a1[0].getCity()+" - "+a1[0].getState()+" - "+a1[0].getCountry());
+                tvAccommodation_LatLng.setText(a1[0].getLatlng_accommodation());
+                tvAccommodation_Contact.setText(a1[0].getContact_name());
+                tvAccommodation_Phone.setText(a1[0].getPhone());
+                tvAccommodation_Email.setText(a1[0].getEmail());
+                tvAccommodation_Site.setText(a1[0].getSite());
             }
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
@@ -190,7 +218,6 @@ public class ReservationActivity extends AppCompatActivity {
         etCheckout_Date.addTextChangedListener(new DateInputMask(etCheckout_Date));
 
         if (reservation != null) {
-
             nrSpinTravel=reservation.getTravel_id();
             if (nrSpinTravel > 0) {
                 Travel trip1 = Database.mTravelDao.fetchTravelById(nrSpinTravel);
@@ -207,12 +234,17 @@ public class ReservationActivity extends AppCompatActivity {
                 for (int x = 1; x <= spinAccommodation.getAdapter().getCount(); x++) {
                     if (spinAccommodation.getAdapter().getItem(x).toString().equals(accommodation1.getName())) {
                         spinAccommodation.setSelection(x);
+                        tvAccommodation_Address.setText(accommodation1.getAddress());
+                        tvAccommodation_CityStateCountry.setText(accommodation1.getCity()+" - "+accommodation1.getState()+" - "+accommodation1.getCountry());
+                        tvAccommodation_LatLng.setText(accommodation1.getLatlng_accommodation());
+                        tvAccommodation_Contact.setText(accommodation1.getContact_name());
+                        tvAccommodation_Phone.setText(accommodation1.getPhone());
+                        tvAccommodation_Email.setText(accommodation1.getEmail());
+                        tvAccommodation_Site.setText(accommodation1.getSite());
                         break;
                     }
                 }
             }
-            //TODO - mostra dados da acomodação ( endereço, fone, lat/lng )
-
             etVoucher_Number.setText(reservation.getVoucher_number());
             etCheckin_Date.setText(Utils.dateToString(reservation.getCheckin_date()));
             etCheckout_Date.setText(Utils.dateToString(reservation.getCheckout_date()));

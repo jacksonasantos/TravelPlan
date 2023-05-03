@@ -73,6 +73,168 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/labels_marginLeft"
+                    android:orientation="horizontal"
+                    android:weightSum="10">
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2.5"
+                        android:text="@string/Accommodation_Address"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textSize="14sp" />
+                    <TextView
+                        android:id="@+id/tvAccommodation_Address"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom"
+                        android:layout_weight="7.5"
+                        android:autofillHints="no"
+                        android:textSize="12sp"
+                        tools:ignore="LabelFor,TextFields" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/labels_marginLeft"
+                    android:orientation="horizontal"
+                    android:weightSum="10">
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2.5"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textSize="14sp" />
+                    <TextView
+                        android:id="@+id/tvAccommodation_CityStateCountry"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom"
+                        android:layout_weight="7.5"
+                        android:autofillHints="no"
+                        android:textSize="12sp"
+                        tools:ignore="LabelFor,TextFields" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/labels_marginLeft"
+                    android:orientation="horizontal"
+                    android:weightSum="10">
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2.5"
+                        android:text="@string/Accommodation_Latlng_Accommodation"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textSize="14sp" />
+                    <TextView
+                        android:id="@+id/tvAccommodation_LatLng"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom"
+                        android:layout_weight="7.5"
+                        android:autofillHints="no"
+                        android:textSize="12sp"
+                        tools:ignore="LabelFor,TextFields" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/labels_marginLeft"
+                    android:orientation="horizontal"
+                    android:weightSum="10">
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2.5"
+                        android:text="@string/Accommodation_Contact"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textSize="14sp" />
+                    <TextView
+                        android:id="@+id/tvAccommodation_Contact"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom"
+                        android:layout_weight="7.5"
+                        android:autofillHints="no"
+                        android:textSize="12sp"
+                        tools:ignore="LabelFor,TextFields" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/labels_marginLeft"
+                    android:orientation="horizontal"
+                    android:weightSum="10">
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2.5"
+                        android:text="@string/Accommodation_Phone"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textSize="14sp" />
+                    <TextView
+                        android:id="@+id/tvAccommodation_Phone"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom"
+                        android:layout_weight="7.5"
+                        android:autofillHints="no"
+                        android:textSize="12sp"
+                        tools:ignore="LabelFor,TextFields" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/labels_marginLeft"
+                    android:orientation="horizontal"
+                    android:weightSum="10">
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2.5"
+                        android:text="@string/Accommodation_Email"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textSize="14sp" />
+                    <TextView
+                        android:id="@+id/tvAccommodation_Email"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom"
+                        android:layout_weight="7.5"
+                        android:autofillHints="no"
+                        android:textSize="12sp"
+                        tools:ignore="LabelFor,TextFields" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/labels_marginLeft"
+                    android:orientation="horizontal"
+                    android:weightSum="10">
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2.5"
+                        android:text="@string/Accommodation_Site"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textSize="14sp" />
+                    <TextView
+                        android:id="@+id/tvAccommodation_Site"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom"
+                        android:layout_weight="7.5"
+                        android:autofillHints="no"
+                        android:textSize="12sp"
+                        tools:ignore="LabelFor,TextFields" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/labels_space_top"
                     android:orientation="horizontal"
                     android:weightSum="10">
@@ -108,6 +270,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="4"
+                        android:gravity="center"
                         android:text="@string/Reservation_Checkin_Date"
                         android:textAppearance="?android:attr/textAppearanceMedium"
                         android:textSize="14sp" />
@@ -116,6 +279,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="4"
+                        android:gravity="center"
                         android:text="@string/Reservation_Checkout_Date"
                         android:textAppearance="?android:attr/textAppearanceMedium"
                         android:textSize="14sp" />
@@ -124,6 +288,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="2"
+                        android:gravity="center"
                         android:text="@string/Reservation_Rates"
                         android:textAppearance="?android:attr/textAppearanceMedium"
                         android:textSize="14sp" />

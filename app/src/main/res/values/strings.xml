@@ -403,6 +403,7 @@
     <string name="Accommodation_State">State</string>
     <string name="Accommodation_Country">Country</string>
     <string name="Accommodation_Contact_Name">Contact Name</string>
+    <string name="Accommodation_Contact">Contact</string>
     <string name="Accommodation_Phone">Phone</string>
     <string name="Accommodation_Email">E-mail</string>
     <string name="Accommodation_Site">Site</string>
