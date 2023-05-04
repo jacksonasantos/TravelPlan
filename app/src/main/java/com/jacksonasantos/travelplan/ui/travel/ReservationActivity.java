@@ -171,27 +171,9 @@ public class ReservationActivity extends AppCompatActivity {
 
         final List<Accommodation> accommodations =  Database.mAccommodationDao.fetchArrayAccommodation();
         accommodations.add(0, new Accommodation());
-
         ArrayAdapter<Accommodation> adapterA = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, accommodations);
         adapterA.setDropDownViewResource( android.R.layout.simple_spinner_dropdown_item);
         spinAccommodation.setAdapter(adapterA);
-        if (nrSpinAccommodation != null && nrSpinAccommodation > 0) {
-            Accommodation accommodation1 = Database.mAccommodationDao.fetchAccommodationById(nrSpinAccommodation);
-            for (int x = 1; x <= spinAccommodation.getAdapter().getCount(); x++) {
-                if (spinAccommodation.getAdapter().getItem(x).toString().equals(accommodation1.getName())) {
-                    spinAccommodation.setSelection(x);
-                    nrSpinAccommodation = accommodation1.getId();
-                    tvAccommodation_Address.setText(accommodation1.getAddress());
-                    tvAccommodation_CityStateCountry.setText(accommodation1.getCity()+" - "+accommodation1.getState()+" - "+accommodation1.getCountry());
-                    tvAccommodation_LatLng.setText(accommodation1.getLatlng_accommodation());
-                    tvAccommodation_Contact.setText(accommodation1.getContact_name());
-                    tvAccommodation_Phone.setText(accommodation1.getPhone());
-                    tvAccommodation_Email.setText(accommodation1.getEmail());
-                    tvAccommodation_Site.setText(accommodation1.getSite());
-                    break;
-                }
-            }
-        }
 
         final Accommodation[] a1 = {new Accommodation()};
         spinAccommodation.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {

@@ -61,6 +61,8 @@ public class TourActivity extends AppCompatActivity implements TourTypeListAdapt
     private EditText etLatLngTour;
     private ImageButton btLocationTour;
 
+    // TODO - Vincular o Passeio a uma Conquista
+
     public TourTypeListAdapter adapterTourType;
 
     Travel travel;
@@ -309,12 +311,8 @@ public class TourActivity extends AppCompatActivity implements TourTypeListAdapt
                 isValid = false;
             }
         } catch (Exception e) {
-            if (e instanceof NullPointerException){
-               isValid = true;
-            } else {
-              Toast.makeText(getApplicationContext(), R.string.Data_Validator_Error +" - " + e.getMessage(), Toast.LENGTH_LONG).show();
-              isValid = false;
-            }
+            Toast.makeText(getApplicationContext(), R.string.Data_Validator_Error +" - " + e.getMessage(), Toast.LENGTH_LONG).show();
+            isValid = false;
         }
         return isValid;
     }
