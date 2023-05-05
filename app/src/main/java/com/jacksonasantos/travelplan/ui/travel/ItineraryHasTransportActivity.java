@@ -1,11 +1,13 @@
 package com.jacksonasantos.travelplan.ui.travel;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -25,6 +27,7 @@ import com.jacksonasantos.travelplan.dao.Travel;
 import com.jacksonasantos.travelplan.dao.Vehicle;
 import com.jacksonasantos.travelplan.dao.VehicleHasTravel;
 import com.jacksonasantos.travelplan.dao.general.Database;
+import com.jacksonasantos.travelplan.ui.utility.Globals;
 import com.jacksonasantos.travelplan.ui.utility.Utils;
 
 import java.util.ArrayList;
@@ -43,12 +46,16 @@ public class ItineraryHasTransportActivity extends AppCompatActivity implements 
     private TextView tvTravel;
     private RecyclerView rvTransportType ;
     private int nrTransportType = -1;
-    private LinearLayout llTransportTypeOwn, llTransportTypeOthers;
+    private LinearLayout llTransportTypeOwn, llTransportTypeOthers, llAVG;
     private Spinner spOwnVehicle, spTransport, spItinerary, spPerson;
     private Integer nrTravel, nrOwnVehicle, nrTransport, nrItinerary, nrPerson;
     private CheckBox cbDriver;
-    private TextView tvSequenceItinerary;
+    private TextView tvSequenceItinerary, tvMeasureConsumption, tvMeasureCostLitre;
+    private EditText etAVGConsumption, etAVGCostLitre;
 
+    final Globals g = Globals.getInstance();
+
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,6 +70,7 @@ public class ItineraryHasTransportActivity extends AppCompatActivity implements 
         itineraryHasTransport = new ItineraryHasTransport();
 
         tvTravel = findViewById(R.id.tvTravel);
+        llAVG = findViewById(R.id.llAVG);
         llTransportTypeOwn = findViewById(R.id.llTransportTypeOwn);
         llTransportTypeOthers = findViewById(R.id.llTransportTypeOthers);
         spOwnVehicle = findViewById(R.id.spOwnVehicle);
@@ -71,26 +79,49 @@ public class ItineraryHasTransportActivity extends AppCompatActivity implements 
         spPerson = findViewById(R.id.spPerson);
         cbDriver = findViewById(R.id.cbDriver);
         tvSequenceItinerary = findViewById(R.id.tvSequenceItinerary);
+        etAVGConsumption = findViewById(R.id.etAVGConsumption);
+        tvMeasureConsumption = findViewById(R.id.tvMeasureConsumption);
+        etAVGCostLitre = findViewById(R.id.etAVGCostLitre);
+        tvMeasureCostLitre = findViewById(R.id.tvMeasureCostLitre);
 
         llTransportTypeOwn.setVisibility(View.VISIBLE);
         llTransportTypeOthers.setVisibility(View.GONE);
+        llAVG.setVisibility(View.GONE);
+        tvMeasureConsumption.setText(g.getMeasureConsumption());
+        tvMeasureCostLitre.setText(String.format("%s/%s", getResources().getStringArray(R.array.currency_array)[g.getIdCurrency()], g.getMeasureCost()));
 
         if (extras != null) {
             if (extras.getInt( "itinerary_has_transport_id") > 0) {
                 itineraryHasTransport.setId(extras.getInt("itinerary_has_transport_id"));
                 itineraryHasTransport = Database.mItineraryHasTransportDao.fetchItineraryHasTransportById(itineraryHasTransport.getId());
+                VehicleHasTravel vehicleHasTravel;
+                if (itineraryHasTransport.getVehicle_id() == null || itineraryHasTransport.getVehicle_id() == 0) {
+                    vehicleHasTravel = Database.mVehicleHasTravelDao.findVehicleHasTravelByTravelTransport(itineraryHasTransport.getTravel_id(), itineraryHasTransport.getTransport_id());
+                } else {
+                    vehicleHasTravel = Database.mVehicleHasTravelDao.findVehicleHasTravelByTravelVehicle(itineraryHasTransport.getTravel_id(), itineraryHasTransport.getVehicle_id());
+                }
                 nrTravel = itineraryHasTransport.getTravel_id();
                 nrOwnVehicle = itineraryHasTransport.getVehicle_id();
                 nrTransport = itineraryHasTransport.getTransport_id();
                 nrItinerary = itineraryHasTransport.getItinerary_id();
                 nrPerson = itineraryHasTransport.getPerson_id();
+                cbDriver.setChecked(itineraryHasTransport.getDriver()==1);
+                etAVGConsumption.setText(String.valueOf(vehicleHasTravel.getAvg_consumption()));
+                etAVGCostLitre.setText(String.valueOf(vehicleHasTravel.getAvg_cost_litre()));
+
                 opInsert = false;
                 llTransportTypeOwn.setVisibility(View.INVISIBLE);
                 llTransportTypeOthers.setVisibility(View.INVISIBLE);
+                llAVG.setVisibility(View.INVISIBLE);
                 if (itineraryHasTransport.getTransport_type()==0) {
                     llTransportTypeOwn.setVisibility(View.VISIBLE);
                 } else {
                     llTransportTypeOthers.setVisibility(View.VISIBLE);
+                    if (itineraryHasTransport.getTransport_type()==2) {
+                        llAVG.setVisibility(View.VISIBLE);
+                    } else {
+                        llAVG.setVisibility(View.GONE);
+                    }
                 }
             } else {
                 if (extras.getInt("travel_id") > 0) {
@@ -143,7 +174,7 @@ public class ItineraryHasTransportActivity extends AppCompatActivity implements 
         rvTransportType.setAdapter(adapterTransportType);
 
         // spOwnVehicle
-        final List<Vehicle> vehicles =  Database.mVehicleDao.fetchArrayVehiclesHasTravel(nrTravel);
+        final List<Vehicle> vehicles =  Database.mVehicleDao.fetchArrayVehicles();
         vehicles.add(0, new Vehicle());
         ArrayAdapter<Vehicle> adapterV = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, vehicles);
         adapterV.setDropDownViewResource( android.R.layout.simple_spinner_dropdown_item);
@@ -312,6 +343,14 @@ public class ItineraryHasTransportActivity extends AppCompatActivity implements 
                     }
                 }
             }
+            VehicleHasTravel vehicleHasTravel;
+            if (itineraryHasTransport.getVehicle_id() == null || itineraryHasTransport.getVehicle_id() == 0) {
+                vehicleHasTravel = Database.mVehicleHasTravelDao.findVehicleHasTravelByTravelTransport(itineraryHasTransport.getTravel_id(), itineraryHasTransport.getTransport_id());
+            } else {
+                vehicleHasTravel = Database.mVehicleHasTravelDao.findVehicleHasTravelByTravelVehicle(itineraryHasTransport.getTravel_id(), itineraryHasTransport.getVehicle_id());
+            }
+            etAVGConsumption.setText(String.valueOf(vehicleHasTravel.getAvg_consumption()));
+            etAVGCostLitre.setText(String.valueOf(vehicleHasTravel.getAvg_cost_litre()));
         }
     }
 
@@ -326,9 +365,15 @@ public class ItineraryHasTransportActivity extends AppCompatActivity implements 
         if (nrTransportType == 0) {
             llTransportTypeOwn.setVisibility(View.VISIBLE);
             llTransportTypeOthers.setVisibility(View.GONE);
+            llAVG.setVisibility(View.GONE);
         } else {
             llTransportTypeOwn.setVisibility(View.GONE);
             llTransportTypeOthers.setVisibility(View.VISIBLE);
+            if (nrTransportType==2) {
+                llAVG.setVisibility(View.VISIBLE);
+            } else {
+                llAVG.setVisibility(View.GONE);
+            }
         }
     }
 
@@ -351,26 +396,44 @@ public class ItineraryHasTransportActivity extends AppCompatActivity implements 
                 it1.setDriver(cbDriver.isChecked()?1:0);
                 it1.setSequence_itinerary(Integer.parseInt(tvSequenceItinerary.getText().toString()));
 
-                VehicleHasTravel vt1 = new VehicleHasTravel();
+                VehicleHasTravel vt1;
+                if (nrOwnVehicle == null || nrOwnVehicle == 0) {
+                    vt1 = Database.mVehicleHasTravelDao.findVehicleHasTravelByTravelTransport(nrTravel, nrTransport);
+                } else {
+                    vt1 = Database.mVehicleHasTravelDao.findVehicleHasTravelByTravelVehicle(nrTravel, nrOwnVehicle);
+                }
                 if (cbDriver.isChecked()) {
                     vt1.setTravel_id(nrTravel);
                     vt1.setVehicle_id(nrOwnVehicle);
                     vt1.setTransport_id(nrTransport);
                     vt1.setPerson_id(nrPerson);
+                    if (!etAVGConsumption.getText().toString().isEmpty()) {
+                        vt1.setAvg_consumption(Float.parseFloat(etAVGConsumption.getText().toString()));
+                    } else { vt1.setAvg_consumption(0); }
+                    if (!etAVGCostLitre.getText().toString().isEmpty()) {
+                        vt1.setAvg_cost_litre(Float.parseFloat(etAVGCostLitre.getText().toString()));
+                    } else { vt1.setAvg_cost_litre(0); }
                 }
 
                 if (!opInsert) {
                     try {
                         it1.setId(itineraryHasTransport.getId());
                         isSave = Database.mItineraryHasTransportDao.updateItineraryHasTransport(it1);
+                        if (cbDriver.isChecked() && isSave) {
+                            isSave = Database.mVehicleHasTravelDao.updateVehicleHasTravel(vt1);
+                        }
                     } catch (Exception e) {
                         Toast.makeText(getApplicationContext(), R.string.Error_Changing_Data + e.getMessage(), Toast.LENGTH_LONG).show();
                     }
                 } else {
                     try {
                         isSave = Database.mItineraryHasTransportDao.addItineraryHasTransport(it1);
-                        if (cbDriver.isChecked()) {
-                            isSave = Database.mVehicleHasTravelDao.addVehicleHasTravel(vt1);
+                        if (cbDriver.isChecked() && isSave) {
+                            if(vt1.getId()==null || vt1.getId()==0){
+                                isSave = Database.mVehicleHasTravelDao.addVehicleHasTravel(vt1);
+                            } else {
+                                isSave =Database.mVehicleHasTravelDao.updateVehicleHasTravel(vt1);
+                            }
                         }
                     } catch (Exception e) {
                         Toast.makeText(getApplicationContext(), R.string.Error_Including_Data + e.getMessage(), Toast.LENGTH_LONG).show();

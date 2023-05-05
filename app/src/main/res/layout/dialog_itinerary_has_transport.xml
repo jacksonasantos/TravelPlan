@@ -63,32 +63,113 @@
                         android:textSize="12sp"
                         tools:ignore="LabelFor" />
                 </LinearLayout>
+
                 <LinearLayout
                     android:id="@+id/llTransportTypeOthers"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/labels_space_top"
-                    android:orientation="horizontal"
-                    android:weightSum="10">
-                    <TextView
-                        android:id="@+id/tvTransport"
-                        android:layout_width="0dp"
+                    android:orientation="vertical">
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="2.5"
-                        android:layout_gravity="center"
-                        android:text="@string/Itinerary_has_Transport_Transport"
-                        android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:textSize="14sp" />
-                    <Spinner
-                        android:id="@+id/spTransport"
-                        android:layout_width="0dp"
+                        android:layout_marginTop="@dimen/labels_space_top"
+                        android:orientation="horizontal"
+                        android:weightSum="10">
+                        <TextView
+                            android:id="@+id/tvTransport"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2.5"
+                            android:layout_gravity="center"
+                            android:text="@string/Itinerary_has_Transport_Transport"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:textSize="14sp" />
+                        <Spinner
+                            android:id="@+id/spTransport"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="7.5"
+                            android:autofillHints="no"
+                            android:gravity="center"
+                            android:inputType="textCapWords"
+                            android:textSize="12sp"
+                            tools:ignore="LabelFor" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/llAVG"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="7.5"
-                        android:autofillHints="no"
-                        android:gravity="center"
-                        android:inputType="textCapWords"
-                        android:textSize="12sp"
-                        tools:ignore="LabelFor" />
+                        android:layout_marginStart="@dimen/labels_marginLeft"
+                        android:orientation="vertical">
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:weightSum="10">
+                            <TextView
+                                android:id="@+id/tvAVGConsumption"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="4"
+                                android:layout_gravity="center"
+                                android:text="@string/Avg_Consumption"
+                                android:textAppearance="?android:attr/textAppearanceMedium"
+                                android:textSize="11sp" />
+                            <EditText
+                                android:id="@+id/etAVGConsumption"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="4"
+                                android:autofillHints="no"
+                                android:gravity="center"
+                                android:inputType="numberDecimal"
+                                android:textSize="11sp"
+                                tools:ignore="LabelFor" />
+                            <TextView
+                                android:id="@+id/tvMeasureConsumption"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="2"
+                                android:layout_gravity="center"
+                                android:textAppearance="?android:attr/textAppearanceMedium"
+                                android:textSize="11sp" />
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:weightSum="10">
+                            <TextView
+                                android:id="@+id/tvAVGCostLitre"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="4"
+                                android:layout_gravity="center"
+                                android:text="@string/Vehicle_Avg_Cost_Litre"
+                                android:textAppearance="?android:attr/textAppearanceMedium"
+                                android:textSize="11sp" />
+                            <EditText
+                                android:id="@+id/etAVGCostLitre"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="4"
+                                android:autofillHints="no"
+                                android:gravity="center"
+                                android:inputType="numberDecimal"
+                                android:textSize="11sp"
+                                tools:ignore="LabelFor" />
+                            <TextView
+                                android:id="@+id/tvMeasureCostLitre"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="2"
+                                android:layout_gravity="center"
+                                android:textAppearance="?android:attr/textAppearanceMedium"
+                                android:textSize="11sp" />
+                        </LinearLayout>
+                    </LinearLayout>
                 </LinearLayout>
                 <LinearLayout
                     android:id="@+id/llItinerary"

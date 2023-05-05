@@ -36,6 +36,37 @@ public class VehicleHasTravelDAO extends DbContentProvider implements VehicleHas
         return vehicleHasTravel;
     }
 
+    public VehicleHasTravel findVehicleHasTravelByTravelVehicle(Integer travel_id, Integer vehicle_id) {
+        final String[] selectionArgs = { String.valueOf(travel_id), String.valueOf(vehicle_id) };
+        final String selection = VEHICLE_HAS_TRAVEL_TRAVEL_ID + " = ? AND "+VEHICLE_HAS_TRAVEL_VEHICLE_ID + " = ? ";
+        VehicleHasTravel vehicleHasTravel = new VehicleHasTravel();
+        cursor = super.query(VEHICLE_HAS_TRAVEL_TABLE, VEHICLE_HAS_TRAVEL_COLUMNS, selection, selectionArgs, null);
+        if (cursor != null) {
+            cursor.moveToFirst();
+            while (!cursor.isAfterLast()) {
+                vehicleHasTravel = cursorToEntity(cursor);
+                cursor.moveToNext();
+            }
+            cursor.close();
+        }
+        return vehicleHasTravel;
+    }
+    public VehicleHasTravel findVehicleHasTravelByTravelTransport(Integer travel_id, Integer transport_id) {
+        final String[] selectionArgs = { String.valueOf(travel_id), String.valueOf(transport_id) };
+        final String selection = VEHICLE_HAS_TRAVEL_TRAVEL_ID + " = ? AND "+VEHICLE_HAS_TRAVEL_TRANSPORT_ID + " = ? ";
+        VehicleHasTravel vehicleHasTravel = new VehicleHasTravel();
+        cursor = super.query(VEHICLE_HAS_TRAVEL_TABLE, VEHICLE_HAS_TRAVEL_COLUMNS, selection, selectionArgs, null);
+        if (cursor != null) {
+            cursor.moveToFirst();
+            while (!cursor.isAfterLast()) {
+                vehicleHasTravel = cursorToEntity(cursor);
+                cursor.moveToNext();
+            }
+            cursor.close();
+        }
+        return vehicleHasTravel;
+    }
+
     public List<VehicleHasTravel> fetchAllVehicleHasTravelByTravel(Integer travel_id) {
         final String[] selectionArgs = { String.valueOf(travel_id) };
         final String selection = VEHICLE_HAS_TRAVEL_TRAVEL_ID + " = ?";
@@ -79,6 +110,8 @@ public class VehicleHasTravelDAO extends DbContentProvider implements VehicleHas
             if (c.getColumnIndex(VEHICLE_HAS_TRAVEL_PERSON_ID) != -1)       {vHT.setPerson_id(c.getInt(c.getColumnIndexOrThrow(VEHICLE_HAS_TRAVEL_PERSON_ID))); }
             if (c.getColumnIndex(VEHICLE_HAS_TRAVEL_START_ODOMETER) != -1)  {vHT.setStart_odometer(c.getInt(c.getColumnIndexOrThrow(VEHICLE_HAS_TRAVEL_START_ODOMETER))); }
             if (c.getColumnIndex(VEHICLE_HAS_TRAVEL_FINAL_ODOMETER) != -1)  {vHT.setFinal_odometer(c.getInt(c.getColumnIndexOrThrow(VEHICLE_HAS_TRAVEL_FINAL_ODOMETER))); }
+            if (c.getColumnIndex(VEHICLE_HAS_TRAVEL_AVG_CONSUMPTION) != -1) {vHT.setAvg_consumption(c.getFloat(c.getColumnIndexOrThrow(VEHICLE_HAS_TRAVEL_AVG_CONSUMPTION))); }
+            if (c.getColumnIndex(VEHICLE_HAS_TRAVEL_AVG_COST_LITRE) != -1)  {vHT.setAvg_cost_litre(c.getFloat(c.getColumnIndexOrThrow(VEHICLE_HAS_TRAVEL_AVG_COST_LITRE))); }
         }
         return vHT;
     }
@@ -92,6 +125,8 @@ public class VehicleHasTravelDAO extends DbContentProvider implements VehicleHas
         initialValues.put(VEHICLE_HAS_TRAVEL_PERSON_ID, vHT.person_id);
         initialValues.put(VEHICLE_HAS_TRAVEL_START_ODOMETER, vHT.start_odometer);
         initialValues.put(VEHICLE_HAS_TRAVEL_FINAL_ODOMETER, vHT.final_odometer);
+        initialValues.put(VEHICLE_HAS_TRAVEL_AVG_CONSUMPTION, vHT.avg_consumption);
+        initialValues.put(VEHICLE_HAS_TRAVEL_AVG_COST_LITRE, vHT.avg_cost_litre);
     }
 
     private ContentValues getContentValue() {

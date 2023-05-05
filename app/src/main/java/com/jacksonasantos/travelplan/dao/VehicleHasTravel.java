@@ -8,6 +8,8 @@ public class VehicleHasTravel {
     public Integer person_id;
     public int start_odometer;
     public int final_odometer;
+    public float avg_consumption;
+    public float avg_cost_litre;
 
     public VehicleHasTravel() {
     }
@@ -32,4 +34,10 @@ public class VehicleHasTravel {
 
     public int getFinal_odometer() { return final_odometer; }
     public void setFinal_odometer(int final_odometer) { this.final_odometer = final_odometer; }
+
+    public float getAvg_consumption() {return avg_consumption;}
+    public void setAvg_consumption(float avg_consumption) {this.avg_consumption = avg_consumption;}
+
+    public float getAvg_cost_litre() {return avg_cost_litre;}
+    public void setAvg_cost_litre(float avg_cost_litre) {this.avg_cost_litre = avg_cost_litre;}
 }

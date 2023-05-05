@@ -38,13 +38,14 @@ public class SummaryTravelExpenseDAO extends DbContentProvider implements Summar
                                " SUM( " + SummaryTravelExpenseISchema.SUMMARY_TRAVEL_EXPENSE_EXPECTED_VALUE + ") " + SummaryTravelExpenseISchema.SUMMARY_TRAVEL_EXPENSE_EXPECTED_VALUE + ", " +
                                " SUM( " + SummaryTravelExpenseISchema.SUMMARY_TRAVEL_EXPENSE_REALIZED_VALUE + ") " + SummaryTravelExpenseISchema.SUMMARY_TRAVEL_EXPENSE_REALIZED_VALUE +
                      " FROM ( SELECT 0 " + SummaryTravelExpenseISchema.SUMMARY_TRAVEL_EXPENSE_EXPENSE_TYPE + ", " + // Combustible
-                                   " ( SELECT SUM((i." + ItineraryISchema.ITINERARY_DISTANCE+"/"+ g.getMeasureIndexInMeter() +")*v."+ VehicleISchema.VEHICLE_AVG_COST_LITRE+") " + SummaryTravelExpenseISchema.SUMMARY_TRAVEL_EXPENSE_EXPECTED_VALUE +
-                                       " FROM " + ItineraryISchema.ITINERARY_TABLE + " i " +
-                                           ", " + VehicleHasTravelISchema.VEHICLE_HAS_TRAVEL_TABLE + " vt " +
-                                           ", " + VehicleISchema.VEHICLE_TABLE + " v " +
-                                      " WHERE i." + ItineraryISchema.ITINERARY_TRAVEL_ID + " = vt." + VehicleHasTravelISchema.VEHICLE_HAS_TRAVEL_TRAVEL_ID +
-                                        " AND vt." + VehicleHasTravelISchema.VEHICLE_HAS_TRAVEL_VEHICLE_ID + " = v." + VehicleISchema.VEHICLE_ID +
-                                        " AND i." + ItineraryISchema.ITINERARY_TRAVEL_ID + " = ?) " + SummaryTravelExpenseISchema.SUMMARY_TRAVEL_EXPENSE_EXPECTED_VALUE + ", " +
+                                   " (SELECT SUM((i." + ItineraryISchema.ITINERARY_DISTANCE+"/"+ g.getMeasureIndexInMeter() +")*[IFNULL]( vt."+VehicleHasTravelISchema.VEHICLE_HAS_TRAVEL_AVG_COST_LITRE+",v."+ VehicleISchema.VEHICLE_AVG_COST_LITRE+")) " + SummaryTravelExpenseISchema.SUMMARY_TRAVEL_EXPENSE_EXPECTED_VALUE +
+                                      " FROM " + ItineraryISchema.ITINERARY_TABLE + " i " +
+                                      " JOIN " + ItineraryHasTransportDAO.ITINERARY_HAS_TRANSPORT_TABLE + " it ON it."+ItineraryHasTransportDAO.ITINERARY_HAS_TRANSPORT_ITINERARY_ID+" = i."+ItineraryDAO.ITINERARY_ID +
+                                                                                                            " AND it."+ItineraryHasTransportDAO.ITINERARY_HAS_TRANSPORT_DRIVER+" == 1 " +
+                                      " LEFT JOIN "+ VehicleHasTravelDAO.VEHICLE_HAS_TRAVEL_TABLE + " vt ON vt."+VehicleHasTravelDAO.VEHICLE_HAS_TRAVEL_TRAVEL_ID+" = i."+ItineraryDAO.ITINERARY_TRAVEL_ID +
+                                                                     " AND vt."+ VehicleHasTravelDAO.VEHICLE_HAS_TRAVEL_TRANSPORT_ID+" = it."+ ItineraryHasTransportDAO.ITINERARY_HAS_TRANSPORT_TRANSPORT_ID +
+                                      " LEFT JOIN "+VehicleDAO.VEHICLE_TABLE+" v ON v."+VehicleDAO.VEHICLE_ID+" = it."+ItineraryHasTransportDAO.ITINERARY_HAS_TRANSPORT_VEHICLE_ID +
+                                     " WHERE i." + ItineraryDAO.ITINERARY_TRAVEL_ID + " = ?) " + SummaryTravelExpenseISchema.SUMMARY_TRAVEL_EXPENSE_EXPECTED_VALUE + ", " +
                                    " SUM(" + FuelSupplyISchema.FUEL_SUPPLY_SUPPLY_VALUE +") " + SummaryTravelExpenseISchema.SUMMARY_TRAVEL_EXPENSE_REALIZED_VALUE +
                               " FROM " + FuelSupplyISchema.FUEL_SUPPLY_TABLE +
                              " WHERE " + FuelSupplyISchema.FUEL_SUPPLY_ASSOCIATED_TRAVEL_ID + " = ? " +

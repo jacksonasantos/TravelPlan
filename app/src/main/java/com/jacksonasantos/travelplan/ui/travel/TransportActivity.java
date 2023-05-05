@@ -61,6 +61,7 @@ public class TransportActivity extends AppCompatActivity implements TransportTyp
     private TextView tvServiceTax;
     private TextView tvAmountPaid;
     private TextView tvNote;
+    private TextView tv_AVGConsumption;
     private EditText etIdentifier ;
     private EditText etDescription ;
     private EditText etCompany ;
@@ -365,9 +366,6 @@ public class TransportActivity extends AppCompatActivity implements TransportTyp
                 t1.setService_tax(Double.parseDouble(etServiceTax.getText().toString()));
                 t1.setAmount_paid(Double.parseDouble(etAmountPaid.getText().toString()));
                 t1.setNote(etNote.getText().toString());
-                // TODO - Armazenar a média de consumo de combustivel do veiculo locado
-                // TODO - Incluir a média de consumo nas Despesas da Viagem como Previsto para a quilometragem da planejada da viagem
-                // TODO - Incluir a media de consumo no TravelVehicleListAdapter
 
                 final VehicleHasTravel vht = new VehicleHasTravel();
                 vht.setVehicle_id(nrOwnVehicle);
