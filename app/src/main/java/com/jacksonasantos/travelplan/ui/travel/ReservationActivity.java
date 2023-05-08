@@ -249,7 +249,6 @@ public class ReservationActivity extends AppCompatActivity {
 
     public void addListenerOnButtonAddAccommodation() {
         btAddAccommodation = findViewById(R.id.btAddAccommodation);
-
         btAddAccommodation.setOnClickListener(v -> {
             Intent intent = new Intent (v.getContext(), AccommodationActivity.class);
             intent.putExtra("op_result", true);

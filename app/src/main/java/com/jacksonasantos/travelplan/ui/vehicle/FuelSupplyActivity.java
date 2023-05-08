@@ -539,6 +539,7 @@ public class FuelSupplyActivity extends AppCompatActivity implements PlacesAdapt
                                     List<VehicleStatistics> vStat = Database.mVehicleStatisticsDao.findTotalFuelingVehicleStatistics(nrVehicleId);
                                     v1.setAvg_consumption(vStat.get(0).getAvg_consumption());
                                     v1.setAvg_cost_litre(vStat.get(0).getAvg_cost_litre());
+                                    // TODO - Avaliar a atualizaçao das médias para veículos locados para uma viagem
                                     v1.setDt_last_fueling(Utils.stringToDate(etSupplyDate.getText().toString()));
                                     v1.setLast_supply_reason_type(findViewById(rbSupplyReasonType).getId());
                                     v1.setAccumulated_number_liters(vAccumulatedLiterNumber);

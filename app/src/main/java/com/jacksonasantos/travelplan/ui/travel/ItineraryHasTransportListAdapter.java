@@ -111,6 +111,7 @@ public class ItineraryHasTransportListAdapter extends RecyclerView.Adapter<Recyc
                     .setMessage(R.string.Msg_Confirm)
                     .setPositiveButton(R.string.Yes, (dialogInterface, i) -> {
                         try {
+                            // TODO - Deletar Vehicle_has_Travel quando for o ultimo cadastrado cadastrado como condutor
                             Database.mItineraryHasTransportDao.deleteItineraryHasTransport(mItineraryHasTransport.get(position - show_header).getId());
                             mItineraryHasTransport.remove(position - show_header);
                             notifyItemRemoved(position - show_header);

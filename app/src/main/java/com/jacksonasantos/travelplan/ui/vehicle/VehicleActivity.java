@@ -252,6 +252,7 @@ public class VehicleActivity extends AppCompatActivity {
             etFullCapacity.setText(String.valueOf(vehicle.getFull_capacity()));
             etAVGConsumption.setText(String.valueOf(vehicle.getAvg_consumption()));
             etAVGCostLitre.setText(String.valueOf(vehicle.getAvg_cost_litre()));
+            // TODO - Mostrar as medidas das Médias
             etDtOdometer.setText(Utils.dateToString(vehicle.getDt_odometer()));
             etOdometer.setText(vehicle.getOdometer()==0?null:String.valueOf(vehicle.getOdometer()));
             etDtLastFueling.setText(Utils.dateToString(vehicle.getDt_last_fueling()));

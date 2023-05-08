@@ -61,7 +61,6 @@ public class TransportActivity extends AppCompatActivity implements TransportTyp
     private TextView tvServiceTax;
     private TextView tvAmountPaid;
     private TextView tvNote;
-    private TextView tv_AVGConsumption;
     private EditText etIdentifier ;
     private EditText etDescription ;
     private EditText etCompany ;
@@ -97,6 +96,11 @@ public class TransportActivity extends AppCompatActivity implements TransportTyp
         transport.setAmount_paid(0.0);
         llTransportTypeOwn = findViewById(R.id.llTransportTypeOwn);
         llTransportType = findViewById(R.id.llTransportType);
+
+        if (nrTransportType==-1) {
+            llTransportTypeOwn.setVisibility(View.VISIBLE);
+            llTransportType.setVisibility(View.GONE);
+        }
         if (extras != null) {
             if (extras.getInt( "transport_id") > 0) {
                 transport.setId(extras.getInt("transport_id"));
@@ -268,6 +272,7 @@ public class TransportActivity extends AppCompatActivity implements TransportTyp
             nrTransportType = position;
         }
         else nrTransportType = -1;
+
         Utils.selected_position = nrTransportType;
 
         if (!opInsert) {
