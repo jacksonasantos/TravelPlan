@@ -25,6 +25,7 @@ public interface TourISchema {
     String TOUR_STATE_TOUR = "state_tour";
     String TOUR_COUNTRY_TOUR = "country_tour";
     String TOUR_LATLNG_TOUR = "latlng_tour";
+    String TOUR_ACHIEVEMENT_ID = "achievement_id";
 
     // Version 61
     String CREATE_TABLE_TOUR_V61 = "CREATE TABLE IF NOT EXISTS "
@@ -63,6 +64,10 @@ public interface TourISchema {
     String ALTER_TABLE_TOUR_V64_5 = "ALTER TABLE " + TOUR_TABLE
             + " ADD COLUMN " + TOUR_LATLNG_TOUR + " TEXT ";
 
+    // Version 69
+    String ALTER_TABLE_TOUR_V69 = "ALTER TABLE " + TOUR_TABLE
+            + " ADD COLUMN " + TOUR_ACHIEVEMENT_ID + " INTEGER REFERENCES " + AchievementISchema.ACHIEVEMENT_TABLE + " ("+AchievementISchema.ACHIEVEMENT_ID+") ";
+
     String[] TOUR_COLUMNS = new String[] {
             TOUR_ID,
             TOUR_TRAVEL_ID,
@@ -83,6 +88,7 @@ public interface TourISchema {
             TOUR_CITY_TOUR,
             TOUR_STATE_TOUR,
             TOUR_COUNTRY_TOUR,
-            TOUR_LATLNG_TOUR
+            TOUR_LATLNG_TOUR,
+            TOUR_ACHIEVEMENT_ID
    };
 }

@@ -552,6 +552,7 @@
     <string name="Tour_State_Tour">State</string>
     <string name="Tour_Country_Tour">Country</string>
     <string name="Tour_LatLng_Tour" translatable="false">Lat/Lng</string>
+    <string name="Tour_Achievement">Achievement</string>
 
     <string name="Error_Date_Invalid">Error invalid date</string>
 

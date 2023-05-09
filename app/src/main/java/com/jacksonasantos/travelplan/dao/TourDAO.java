@@ -120,6 +120,7 @@ public class TourDAO extends DbContentProvider implements TourISchema, TourIDAO 
             if (c.getColumnIndex(TOUR_STATE_TOUR) != -1)      {t.setState_tour(c.getString(c.getColumnIndexOrThrow(TOUR_STATE_TOUR))); }
             if (c.getColumnIndex(TOUR_COUNTRY_TOUR) != -1)    {t.setCountry_tour(c.getString(c.getColumnIndexOrThrow(TOUR_COUNTRY_TOUR))); }
             if (c.getColumnIndex(TOUR_LATLNG_TOUR) != -1)     {t.setLatlng_tour(c.getString(c.getColumnIndexOrThrow(TOUR_LATLNG_TOUR))); }
+            if (c.getColumnIndex(TOUR_ACHIEVEMENT_ID) != -1)  {t.setAchievement_id(c.getInt(c.getColumnIndexOrThrow(TOUR_ACHIEVEMENT_ID))); }
 
         }
         return t;
@@ -147,6 +148,7 @@ public class TourDAO extends DbContentProvider implements TourISchema, TourIDAO 
         initialValues.put(TOUR_STATE_TOUR, t.state_tour);
         initialValues.put(TOUR_COUNTRY_TOUR, t.country_tour);
         initialValues.put(TOUR_LATLNG_TOUR, t.latlng_tour);
+        initialValues.put(TOUR_ACHIEVEMENT_ID, t.achievement_id);
     }
 
     private ContentValues getContentValue() {

@@ -27,6 +27,7 @@ public class Tour {
     public String state_tour;
     public String country_tour;
     public String latlng_tour;
+    public Integer achievement_id;
 
     public Tour() {
     }
@@ -123,4 +124,6 @@ public class Tour {
     public String getLatlng_tour() {return latlng_tour;}
     public void setLatlng_tour(String latlng_tour) {this.latlng_tour = latlng_tour;}
 
+    public Integer getAchievement_id() {return achievement_id;}
+    public void setAchievement_id(Integer achievement_id) {this.achievement_id = achievement_id;}
 }

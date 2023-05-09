@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -22,6 +23,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.jacksonasantos.travelplan.R;
+import com.jacksonasantos.travelplan.dao.Achievement;
 import com.jacksonasantos.travelplan.dao.Tour;
 import com.jacksonasantos.travelplan.dao.Travel;
 import com.jacksonasantos.travelplan.dao.general.Database;
@@ -43,6 +45,9 @@ public class TourActivity extends AppCompatActivity implements TourTypeListAdapt
     private TextView tvMarker ;
     private RecyclerView rvTourType ;
     private int nrTourType = -1;
+
+    private Spinner spAchievement;
+    private Integer nrSpAchievement;
     private EditText etLocalTour ;
     private EditText etDate ;
     private EditText etValueAdult;
@@ -60,8 +65,6 @@ public class TourActivity extends AppCompatActivity implements TourTypeListAdapt
     private EditText etCountryTour;
     private EditText etLatLngTour;
     private ImageButton btLocationTour;
-
-    // TODO - Vincular o Passeio a uma Conquista
 
     public TourTypeListAdapter adapterTourType;
 
@@ -89,7 +92,6 @@ public class TourActivity extends AppCompatActivity implements TourTypeListAdapt
             }
             if (extras.getInt( "travel_id") > 0) {
                 tour.setTravel_id(extras.getInt("travel_id"));
-                travel = Database.mTravelDao.fetchTravelById(tour.getTravel_id());
             }
         }
 
@@ -98,11 +100,13 @@ public class TourActivity extends AppCompatActivity implements TourTypeListAdapt
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
 
+        travel = Database.mTravelDao.fetchTravelById(tour.getTravel_id());
         addListenerOnButtonSave();
         tvTravel = findViewById(R.id.tvTravel);
         tvItinerary = findViewById(R.id.tvItinerary);
         tvMarker = findViewById(R.id.tvMarker);
         rvTourType = findViewById(R.id.rvTourType);
+        spAchievement = findViewById(R.id.spAchievement);
         etLocalTour = findViewById(R.id.etLocalTour);
         etDate = findViewById(R.id.etDate);
         etValueAdult = findViewById(R.id.etValueAdult);
@@ -148,6 +152,31 @@ public class TourActivity extends AppCompatActivity implements TourTypeListAdapt
             }
         });
 
+        final List<Achievement> achievements =  Database.mAchievementDao.fetchAllAchievement();
+        achievements.add(0, new Achievement());
+        ArrayAdapter<Achievement> adapterA = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, achievements);
+        adapterA.setDropDownViewResource( android.R.layout.simple_spinner_dropdown_item);
+        spAchievement.setAdapter(adapterA);
+
+        nrSpAchievement = tour.getAchievement_id();
+        spAchievement.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long idx) {
+                nrSpAchievement = ((Achievement) parent.getItemAtPosition(position)).getId();
+                spAchievement.setSelection(position);
+                if (opInsert) {
+                    etCityTour.setText(((Achievement) parent.getItemAtPosition(position)).getCity());
+                    etStateTour.setText(((Achievement) parent.getItemAtPosition(position)).getState());
+                    etCountryTour.setText(((Achievement) parent.getItemAtPosition(position)).getCountry());
+                    etLatLngTour.setText(((Achievement) parent.getItemAtPosition(position)).getLatlng_achievement());
+                }
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                nrSpAchievement =0;
+            }
+        });
+
         Utils.createSpinnerResources(R.array.currency_array, spCurrencyType, this);
         nrSpCurrencyType = tour.getCurrency_type();
         spCurrencyType.setSelection(nrSpCurrencyType);
@@ -156,6 +185,7 @@ public class TourActivity extends AppCompatActivity implements TourTypeListAdapt
             public void onItemSelected(AdapterView<?> parent, View view, int position, long idx) {
                 nrSpCurrencyType = position;
                 spCurrencyType.setSelection(nrSpCurrencyType);
+
             }
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
@@ -176,12 +206,22 @@ public class TourActivity extends AppCompatActivity implements TourTypeListAdapt
         rvTourType.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
 
         if (tour != null) {
-            Travel t1 = Database.mTravelDao.fetchTravelById(tour.getTravel_id());
-            tvTravel.setText(t1.getDescription());
+            travel = Database.mTravelDao.fetchTravelById(tour.getTravel_id());
+            tvTravel.setText(travel.getDescription());
             tvItinerary.setVisibility(View.INVISIBLE);
             tvMarker.setVisibility(View.INVISIBLE);
             nrTourType = tour.getTour_type();
             Utils.selected_position = nrTourType;
+            nrSpAchievement = tour.getAchievement_id();
+            if (nrSpAchievement != null && nrSpAchievement > 0) {
+                Achievement a1 = Database.mAchievementDao.fetchAchievementById(nrSpAchievement);
+                for (int x = 1; x <= spAchievement.getAdapter().getCount(); x++) {
+                    if (spAchievement.getAdapter().getItem(x).toString().equals(a1.getName())) {
+                        spAchievement.setSelection(x);
+                        break;
+                    }
+                }
+            }
             etLocalTour.setText(tour.getLocal_tour());
             etDate.setText(Utils.dateToString(tour.getTour_date()));
             etValueAdult.setText(String.valueOf(tour.getValue_adult()));
@@ -243,6 +283,7 @@ public class TourActivity extends AppCompatActivity implements TourTypeListAdapt
                 t1.setMarker_id(null);
                 t1.setLocal_tour(etLocalTour.getText().toString());
                 t1.setTour_type(nrTourType);
+                t1.setAchievement_id(nrSpAchievement);
                 t1.setCurrency_type(nrSpCurrencyType);
                 t1.setValue_adult(Double.parseDouble(etValueAdult.getText().toString()));
                 t1.setValue_child(Double.parseDouble(etValueChild.getText().toString()));
@@ -290,6 +331,7 @@ public class TourActivity extends AppCompatActivity implements TourTypeListAdapt
             Date d1 = Utils.stringToDate(etDate.getText().toString());
             if (d1 !=null &&
                 (nrTourType == -1 ||
+                 //nrSpAchievement == -1 ||
                  etLocalTour.getText().toString().trim().isEmpty() ||
                  etDate.getText().toString().trim().isEmpty() ||
                  d1.before(travel.getDeparture_date()) ||

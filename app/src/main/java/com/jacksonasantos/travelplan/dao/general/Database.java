@@ -70,7 +70,7 @@ public class Database {
     private final Context mContext;
 
     private static final String DATABASE_NAME = "TravelPlan.db";
-    private static final int DATABASE_VERSION = 68;
+    private static final int DATABASE_VERSION = 69;
 
     public static AccommodationDAO mAccommodationDao;
     public static AchievementDAO mAchievementDao;
@@ -104,101 +104,6 @@ public class Database {
     public static VehicleMaintenanceItemDAO mVehicleMaintenanceItemDao;
     public static MaintenancePlanHasVehicleTypeDAO mMaintenancePlanHasVehicleTypeDAO;
     public static ItineraryHasTransportDAO mItineraryHasTransportDao;
-
-    public String[][] matrix = {
-            {"1" , ""  , "VehicleISchema"           , "CREATE_TABLE_VEHICLE_V1"               , "VEHICLE_TABLE"              , "V1 - Create Table..."    },
-            {"2" , ""  , "VehicleISchema"           , "ALTER_TABLE_VEHICLE_V2"                , "VEHICLE_TABLE"              , "V2 - Alter Table..."     },
-            {"3" , ""  , "VehicleISchema"           , "ALTER_TABLE_VEHICLE_V3"                , "VEHICLE_TABLE"              , "V3 - Alter Table..."     },
-            {"5" , ""  , "VehicleISchema"           , "ALTER_TABLE_VEHICLE_V5"                , "VEHICLE_TABLE"              , "V5 - Alter Table..."     },
-            {"6" , ""  , "VehicleISchema"           , "ALTER_TABLE_VEHICLE_V6"                , "VEHICLE_TABLE"              , "V6 - Alter Table..."     },
-            {"7" , "1" , "VehicleISchema"           , "ALTER_TABLE_VEHICLE_V7_1"              , "VEHICLE_TABLE"              , "V7.1 - Alter Table..."   },
-            {"7" , "2" , "VehicleISchema"           , "ALTER_TABLE_VEHICLE_V7_2"              , "VEHICLE_TABLE"              , "V7.2 - Alter Table..."   },
-            {"7" , "3" , "VehicleISchema"           , "ALTER_TABLE_VEHICLE_V7_3"              , "VEHICLE_TABLE"              , "V7.3 - Alter Table..."   },
-            {"7" , "4" , "VehicleISchema"           , "ALTER_TABLE_VEHICLE_V7_4"              , "VEHICLE_TABLE"              , "V7.4 - Alter Table..."   },
-            {"8" , ""  , "FuelSupplyISchema"        , "CREATE_TABLE_FUEL_SUPPLY_V8"           , "FUEL_SUPPLY_TABLE"          , "V8 - Create Table..."    },
-            {"8" , ""  , "CurrencyQuoteISchema"     , "CREATE_TABLE_CURRENCY_QUOTE_V8"        , "CURRENCY_QUOTE_TABLE"       , "V8 - Create Table..."    },
-            {"9" , ""  , "FuelSupplyISchema"        , "ALTER_TABLE_FUEL_SUPPLY_V9"            , "FUEL_SUPPLY_TABLE"          , "V9 - Alter Table..."     },
-            {"10", ""  , "MaintenanceISchema"       , "CREATE_TABLE_MAINTENANCE_V10"          , "MAINTENANCE_TABLE"          , "V10 - Create Table..."   },
-            {"11", "1" , "VehicleISchema"           , "ALTER_TABLE_VEHICLE_V11_1"             , "VEHICLE_TABLE"              , "V11.1 - Alter Table..."  },
-            {"11", "2" , "VehicleISchema"           , "ALTER_TABLE_VEHICLE_V11_2"             , "VEHICLE_TABLE"              , "V11.2 - Alter Table..."  },
-            {"11", "3" , "VehicleISchema"           , "ALTER_TABLE_VEHICLE_V11_3"             , "VEHICLE_TABLE"              , "V11.3 - Alter Table..."  },
-            {"11", "4" , "VehicleISchema"           , "ALTER_TABLE_VEHICLE_V11_4"             , "VEHICLE_TABLE"              , "V11.4 - Alter Table..."  },
-            {"11", "5" , "VehicleISchema"           , "ALTER_TABLE_VEHICLE_V11_5"             , "VEHICLE_TABLE"              , "V11.5 - Alter Table..."  },
-            {"11", "6" , "VehicleISchema"           , "ALTER_TABLE_VEHICLE_V11_6"             , "VEHICLE_TABLE"              , "V11.6 - Alter Table..."  },
-            {"11", "7" , "VehicleISchema"           , "ALTER_TABLE_VEHICLE_V11_7"             , "VEHICLE_TABLE"              , "V11.7 - Alter Table..."  },
-            {"11", "8" , "VehicleISchema"           , "ALTER_TABLE_VEHICLE_V11_8"             , "VEHICLE_TABLE"              , "V11.8 - Alter Table..."  },
-            {"11", "9" , "VehicleISchema"           , "ALTER_TABLE_VEHICLE_V11_9"             , "VEHICLE_TABLE"              , "V11.9 - Alter Table..."  },
-            {"11", "10", "VehicleISchema"           , "ALTER_TABLE_VEHICLE_V11_10"            , "VEHICLE_TABLE"              , "V11.10 - Alter Table..." },
-            {"11", "11", "VehicleISchema"           , "ALTER_TABLE_VEHICLE_V11_11"            , "VEHICLE_TABLE"              , "V11.11 - Alter Table..." },
-            {"11", "12", "VehicleISchema"           , "ALTER_TABLE_VEHICLE_V11_12"            , "VEHICLE_TABLE"              , "V11.12 - Alter Table..." },
-            {"12", ""  , "InsuranceCompanyISchema"  , "CREATE_TABLE_INSURANCE_COMPANY_V12"    , "INSURANCE_COMPANY_TABLE"    , "V12 - Create Table..."   },
-            {"15", ""  , "TravelISchema"            , "CREATE_TABLE_TRAVEL_V15"               , "TRAVEL_TABLE"               , "V15 - Create Table..."   },
-            {"16", ""  , "BrokerISchema"            , "CREATE_TABLE_BROKER_V16"               , "BROKER_TABLE"               , "V16 - Create Table..."   },
-            {"16", ""  , "InsuranceISchema"         , "CREATE_TABLE_INSURANCE_V16"            , "INSURANCE_TABLE"            , "V16 - Create Table..."   },
-            {"18", ""  , "InsuranceISchema"         , "ALTER_TABLE_INSURANCE_V18"             , "INSURANCE_TABLE"            , "V18 - Alter Table..."    },
-            {"19", "1" , "InsuranceISchema"         , "ALTER_TABLE_INSURANCE_V19_1"           , "INSURANCE_TABLE"            , "V19.1 - Alter Table..."  },
-            {"19", "2" , "InsuranceISchema"         , "ALTER_TABLE_INSURANCE_V19_2"           , "INSURANCE_TABLE"            , "V19.2 - Alter Table..."  },
-            {"20", ""  , "FuelSupplyISchema"        , "ALTER_TABLE_FUEL_SUPPLY_V20"           , "FUEL_SUPPLY_TABLE"          , "V20 - Alter Table..."    },
-            {"22", ""  , "MaintenancePlanISchema"   , "CREATE_TABLE_MAINTENANCE_PLAN_V22"     , "MAINTENANCE_PLAN_TABLE"     , "V22 - Create Table..."   },
-            {"23", ""  , "VehicleHasPlanISchema"    , "CREATE_TABLE_VEHICLE_HAS_PLAN_V23"     , "VEHICLE_HAS_PLAN_TABLE"     , "V23 - Create Table..."   },
-            {"24", ""  , "BrokerISchema"            , "ALTER_TABLE_BROKER_V24"                , "BROKER_TABLE"               , "V24 - Alter Table..."    },
-            {"25", ""  , "VehicleHasTravelISchema"  , "CREATE_TABLE_VEHICLE_HAS_TRAVEL_V25"   , "VEHICLE_HAS_TRAVEL_TABLE"   , "V25 - Create Table..."   },
-            {"26", ""  , "MarkerISchema"            , "CREATE_TABLE_MARKER_V26"               , "MARKER_TABLE"               , "V26 - Create Table..."   },
-            {"27", ""  , "AccommodationISchema"     , "CREATE_TABLE_ACCOMMODATION_V27"        , "ACCOMMODATION_TABLE"        , "V27 - Create Table..."   },
-            {"27", ""  , "ReservationISchema"       , "CREATE_TABLE_RESERVATION_V27"          , "RESERVATION_TABLE"          , "V27 - Create Table..."   },
-            {"27", ""  , "ItineraryISchema"         , "CREATE_TABLE_ITINERARY_V27"            , "ITINERARY_TABLE"            , "V27 - Create Table..."   },
-            {"28", "1" , "VehicleISchema"           , "ALTER_TABLE_VEHICLE_V28_1"             , "VEHICLE_TABLE"              , "V28.1 - Alter Table..."  },
-            {"28", "2" , "VehicleISchema"           , "ALTER_TABLE_VEHICLE_V28_2"             , "VEHICLE_TABLE"              , "V28.2 - Alter Table..."  },
-            {"28", "3" , "VehicleISchema"           , "ALTER_TABLE_VEHICLE_V28_3"             , "VEHICLE_TABLE"              , "V28.3 - Alter Table..."  },
-            {"28", "4" , "VehicleISchema"           , "ALTER_TABLE_VEHICLE_V28_4"             , "VEHICLE_TABLE"              , "V28.4 - Alter Table..."  },
-            {"29", ""  , "MaintenanceItemISchema"   , "CREATE_TABLE_MAINTENANCE_ITEM_V29"     , "MAINTENANCE_ITEM_TABLE"     , "V29 - Create Table..."   },
-            {"30", ""  , "FuelSupplyISchema"        , "ALTER_TABLE_FUEL_SUPPLY_V30"           , "FUEL_SUPPLY_TABLE"          , "V30 - Alter Table..."    },
-            {"31", ""  , "TravelExpensesISchema"    , "CREATE_TABLE_TRAVEL_EXPENSES_V31"      , "TRAVEL_EXPENSES_TABLE"      , "V31 - Create Table..."   },
-            {"31", ""  , "TravelItemExpensesISchema", "CREATE_TABLE_TRAVEL_ITEM_EXPENSES_V31" , "TRAVEL_ITEM_EXPENSES_TABLE" , "V31 - Create Table..."   },
-            {"32", ""  , "InsuranceContactISchema"  , "CREATE_TABLE_INSURANCE_CONTACT_V32"    , "INSURANCE_CONTACT_TABLE"    , "V32 - Create Table..."   },
-            {"33", ""  , "MarkerISchema"            , "ALTER_TABLE_MARKER_V33"                , "MARKER_TABLE"               , "V33 - Alter Table..."    },
-            {"34", ""  , "MarkerISchema"            , "ALTER_TABLE_MARKER_V34"                , "MARKER_TABLE"               , "V34 - Alter Table..."    },
-            {"35", ""  , "VehicleISchema"           , "ALTER_TABLE_VEHICLE_V35"               , "VEHICLE_TABLE"              , "V35 - Alter Table..."    },
-            {"36", ""  , "AchievementISchema"       , "CREATE_TABLE_ACHIEVEMENT_V36"          , "ACHIEVEMENT_TABLE"          , "V36 - Create Table..."   },
-            {"38", ""  , "AchievementISchema"       , "ALTER_TABLE_ACHIEVEMENT_V38"           , "ACHIEVEMENT_TABLE"          , "V38 - Alter Table..."    },
-            {"39", ""  , "AchievementISchema"       , "ALTER_TABLE_ACHIEVEMENT_V39"           , "ACHIEVEMENT_TABLE"          , "V39 - Alter Table..."    },
-            {"40", ""  , "VehicleISchema"           , "ALTER_TABLE_VEHICLE_V40"               , "VEHICLE_TABLE"              , "V40 - Alter Table..."    },
-            {"43", ""  , "TravelExpensesISchema"    , "ALTER_TABLE_TRAVEL_EXPENSES_V43"       , "TRAVEL_EXPENSES_TABLE"      , "V43 - Alter Table..."    },
-            {"44", ""  , "TravelItemExpensesISchema", "ALTER_TABLE_TRAVEL_ITEM_EXPENSES_V44"  , "TRAVEL_ITEM_EXPENSES_TABLE" , "V44 - Alter Table..."    },
-            {"44", "1" , "TravelItemExpensesISchema", "ALTER_TABLE_TRAVEL_ITEM_EXPENSES_V44_1", "TRAVEL_ITEM_EXPENSES_TABLE" , "V44.1 - Alter Table..."  },
-            {"45", ""  , "FuelSupplyISchema"        , "ALTER_TABLE_FUEL_SUPPLY_V45"           , "FUEL_SUPPLY_TABLE"          , "V45 - Alter Table..."    },
-            {"46", "1" , "AchievementISchema"       , "ALTER_TABLE_ACHIEVEMENT_V46_1"         , "ACHIEVEMENT_TABLE"          , "V46.1 - Alter Table..."  },
-            {"46", "2" , "AchievementISchema"       , "ALTER_TABLE_ACHIEVEMENT_V46_2"         , "ACHIEVEMENT_TABLE"          , "V46.2 - Alter Table..."  },
-            {"46", "3" , "AchievementISchema"       , "ALTER_TABLE_ACHIEVEMENT_V46_3"         , "ACHIEVEMENT_TABLE"          , "V46.3 - Alter Table..."  },
-            {"48", ""  , "VehicleISchema"           , "ALTER_TABLE_VEHICLE_V48"               , "VEHICLE_TABLE"              , "V48 - Create Table..."   },
-            {"49", ""  , "VehicleHasTravelISchema"  , "ALTER_TABLE_VEHICLE_HAS_TRAVEL_V49"    , "VEHICLE_HAS_TRAVEL_TABLE"   , "V49 - Alter Table..."    },
-            {"50", ""  , "MarkerISchema"            , "ALTER_TABLE_MARKER_V50"                , "MARKER_TABLE"               , "V50 - Create Table..."   },
-            {"51", ""  , "AchievementISchema"       , "ALTER_TABLE_ACHIEVEMENT_V51"           , "ACHIEVEMENT_TABLE"          , "V51 - Alter Table..."    },
-            {"52", "1" , "VehicleHasTravelISchema"  , "ALTER_TABLE_VEHICLE_HAS_TRAVEL_V52_1"  , "VEHICLE_HAS_TRAVEL_TABLE"   , "V52.1 - Alter Table..."  },
-            {"52", "2" , "VehicleHasTravelISchema"  , "ALTER_TABLE_VEHICLE_HAS_TRAVEL_V52_2"  , "VEHICLE_HAS_TRAVEL_TABLE"   , "V52.2 - Alter Table..."  },
-            {"54", ""  , "MaintenanceItemISchema"   , "ALTER_TABLE_MAINTENANCE_ITEM_V54"      , "MAINTENANCE_ITEM_TABLE"     , "V54 - Alter Table..."    },
-            {"53", ""  , "PendingVehicleISchema"    , "CREATE_TABLE_PENDING_VEHICLE_V53"      , "PENDING_VEHICLE_TABLE"      , "V53 - Create Table..."   },
-            {"55", "1" , "AchievementISchema"       , "ALTER_TABLE_ACHIEVEMENT_V55_1"         , "ACHIEVEMENT_TABLE"          , "V55.1 - Alter Table..."  },
-            {"55", "2" , "AchievementISchema"       , "ALTER_TABLE_ACHIEVEMENT_V55_2"         , "ACHIEVEMENT_TABLE"          , "V55.2 - Alter Table..."  },
-            {"57", ""  , "MaintenancePlanHasVehicleTypeISchema", "ALTER_TABLE_MAINTENANCE_PLAN_HAS_VEHICLE_TYPE_V57", "MAINTENANCE_PLAN_HAS_VEHICLE_TYPE_TABLE", "V57 - Create Table..."   },
-            {"58", ""  , "VehicleISchema"           , "ALTER_TABLE_VEHICLE_V58"               , "VEHICLE_TABLE"              , "V58 - Alter Table..."    },
-            {"59", ""  , "Person"                   , "CREATE_TABLE_PERSON_V59"               , "PERSON_TABLE"               , "V59 - Create Table..."   },
-            {"60", "2" , "VehicleISchema"           , "ALTER_TABLE_VEHICLE_V60_2"             , "VEHICLE_TABLE"              , "V60.1 - Alter Table..."  },
-            {"61", ""  , "Tour"                     , "CREATE_TABLE_TOUR_V61"                 , "TOUR_TABLE"                 , "V61 - Create Table..."   },
-            {"62", ""  , "Transport"                , "CREATE_TABLE_TTRANSPORT_V62"           , "TRASNPORT_TOUR_TABLE"       , "V62 - Create Table..."   },
-            {"63", "1" , "Tour"                     , "ALTER_TABLE_TOUR_V63_1"                , "TOUR_TABLE"                 , "V63.1 - Alter Table..."  },
-            {"63", "2" , "Tour"                     , "ALTER_TABLE_TOUR_V63_2"                , "TOUR_TABLE"                 , "V63.2 - Alter Table..."  },
-            {"64", "1" , "Tour"                     , "ALTER_TABLE_TOUR_V64_1"                , "TOUR_TABLE"                 , "V64.1 - Alter Table..."  },
-            {"64", "2" , "Tour"                     , "ALTER_TABLE_TOUR_V64_2"                , "TOUR_TABLE"                 , "V64.2 - Alter Table..."  },
-            {"64", "3" , "Tour"                     , "ALTER_TABLE_TOUR_V64_3"                , "TOUR_TABLE"                 , "V64.3 - Alter Table..."  },
-            {"64", "4" , "Tour"                     , "ALTER_TABLE_TOUR_V64_4"                , "TOUR_TABLE"                 , "V64.4 - Alter Table..."  },
-            {"64", "5" , "Tour"                     , "ALTER_TABLE_TOUR_V64_5"                , "TOUR_TABLE"                 , "V64.5 - Alter Table..."  },
-            {"65", ""  , "ItineraryHasTransport"    , "CREATE_TABLE_ITINERARY_HAS_TRASNPORT_V65", "ITINERARY_HAS_TRANSPORT_TABLE", "V65 - Create Table..."  },
-            {"66", ""  , "VehicleHasTravelISchema"  , "ALTER_TABLE_VEHICLE_HAS_TRAVEL_V66"    , "VEHICLE_HAS_TRAVEL_TABLE"   , "V66 - Alter Table..."  },
-            {"67", ""  , "ItineraryISchema"         , "ALTER_TABLE_ITINERARY_V67"             , "ITINERARY_TABLE"            , "V67 - Alter Table..."  },
-            {"68", "1"  , "VehicleHasTravelISchema"  , "ALTER_TABLE_VEHICLE_HAS_TRAVEL_V68_1"    , "VEHICLE_HAS_TRAVEL_TABLE"   , "V68.1 - Alter Table..."  },
-            {"68", "2"  , "VehicleHasTravelISchema"  , "ALTER_TABLE_VEHICLE_HAS_TRAVEL_V68_2"    , "VEHICLE_HAS_TRAVEL_TABLE"   , "V68.2 - Alter Table..."  }
-    };
 
     public Database(Context context) {
         this.mContext = context;
@@ -265,20 +170,6 @@ public class Database {
         @SuppressLint("SQLiteString")
         @Override
         public void onCreate(SQLiteDatabase db) {
-
-            /*
-            for (String [] line : matrix) {
-                String xExec = line[2] + "." + line[3];
-                String xLog = "Tab +"+line[2]+"."+line[4];
-                String xLog2 = line[5];
-
-                System.out.print ( xExec );
-                System.out.print ( xLog + " " + xLog2 );
-
-                db.execSQL( xExec );
-                Log.w( xLog, xLog2 );
-            }
-            */
 
             db.execSQL(VehicleISchema.CREATE_TABLE_VEHICLE_V1); Log.w("Table "+VehicleISchema.VEHICLE_TABLE,"V1 - Create Table...");
             db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V2); Log.w("Table "+VehicleISchema.VEHICLE_TABLE,"V2 - Alter Table...");
@@ -373,6 +264,7 @@ public class Database {
             db.execSQL(ItineraryISchema.ALTER_TABLE_ITINERARY_V67);Log.w("Table "+ItineraryISchema.ITINERARY_TABLE,"V67 - Alter Table...");
             db.execSQL(VehicleHasTravelISchema.ALTER_TABLE_VEHICLE_HAS_TRAVEL_V68_1);Log.w("Table "+VehicleHasTravelISchema.VEHICLE_HAS_TRAVEL_TABLE,"V68.1 - Alter Table...");
             db.execSQL(VehicleHasTravelISchema.ALTER_TABLE_VEHICLE_HAS_TRAVEL_V68_2);Log.w("Table "+VehicleHasTravelISchema.VEHICLE_HAS_TRAVEL_TABLE,"V68.2 - Alter Table...");
+            db.execSQL(TourISchema.ALTER_TABLE_TOUR_V69);Log.w("Table "+TourISchema.TOUR_TABLE,"V69 - Alter Table...");
         }
 
         @SuppressLint("SQLiteString")
@@ -593,6 +485,9 @@ public class Database {
                     case 68:
                         db.execSQL(VehicleHasTravelISchema.ALTER_TABLE_VEHICLE_HAS_TRAVEL_V68_1);
                         db.execSQL(VehicleHasTravelISchema.ALTER_TABLE_VEHICLE_HAS_TRAVEL_V68_2);
+                        break;
+                    case 69:
+                        db.execSQL(TourISchema.ALTER_TABLE_TOUR_V69);
                         break;
                     default:
                         break;

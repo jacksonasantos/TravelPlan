@@ -5,6 +5,8 @@ import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -64,6 +66,7 @@ public class TravelTourListAdapter extends RecyclerView.Adapter<RecyclerView.Vie
             headerViewHolder.imgTourType.setImageBitmap(null);
             headerViewHolder.txtTourDate.setText(R.string.Tour_Date);
             headerViewHolder.txtLocalTour.setText(R.string.Tour_Local_Tour);
+            headerViewHolder.imgAchievement.setImageBitmap(null);
             headerViewHolder.btnAddTour.setImageResource(R.drawable.ic_button_add);
             headerViewHolder.btnAddTour.setOnClickListener(v -> {
                 Intent intent = new Intent (v.getContext(), TourActivity.class);
@@ -79,6 +82,11 @@ public class TravelTourListAdapter extends RecyclerView.Adapter<RecyclerView.Vie
             itemViewHolder.imgTourType.setImageResource(Tour.getTourTypeImage(mTour.get(position-show_header).getTour_type()));
             itemViewHolder.txtTourDate.setText(Objects.requireNonNull(Utils.dateToString(mTour.get(position - show_header).getTour_date())).substring(0,5));
             itemViewHolder.txtLocalTour.setText(mTour.get(position-show_header).getLocal_tour());
+            byte[] imgArray = Database.mAchievementDao.fetchAchievementById(mTour.get(position - show_header).getAchievement_id()).getImage();
+            if(imgArray!=null){
+                Bitmap raw = BitmapFactory.decodeByteArray(imgArray, 0, imgArray.length);
+                itemViewHolder.imgAchievement.setImageBitmap(raw);
+            }
             if (form.equals("Home")) {
                 itemViewHolder.btnDelete.setVisibility(View.INVISIBLE);
             } else {
@@ -132,6 +140,7 @@ public class TravelTourListAdapter extends RecyclerView.Adapter<RecyclerView.Vie
         public final ImageView imgTourType;
         public final TextView txtTourDate;
         public final TextView txtLocalTour;
+        public final ImageView imgAchievement;
         public final ImageButton btnAddTour;
 
         public HeaderViewHolder(View v) {
@@ -140,6 +149,7 @@ public class TravelTourListAdapter extends RecyclerView.Adapter<RecyclerView.Vie
             imgTourType = v.findViewById(R.id.imgTourType);
             txtTourDate = v.findViewById(R.id.txtTourDate);
             txtLocalTour = v.findViewById(R.id.txtLocalTour);
+            imgAchievement = v.findViewById(R.id.imgAchievement);
             btnAddTour = v.findViewById(R.id.btnDelete);
         }
     }
@@ -149,6 +159,7 @@ public class TravelTourListAdapter extends RecyclerView.Adapter<RecyclerView.Vie
         public final ImageView imgTourType;
         public final TextView txtTourDate;
         public final TextView txtLocalTour;
+        public final ImageView imgAchievement;
         public final ImageButton btnDelete;
 
         public ItemViewHolder(View v) {
@@ -157,6 +168,7 @@ public class TravelTourListAdapter extends RecyclerView.Adapter<RecyclerView.Vie
             imgTourType = v.findViewById(R.id.imgTourType);
             txtTourDate = v.findViewById(R.id.txtTourDate);
             txtLocalTour = v.findViewById(R.id.txtLocalTour);
+            imgAchievement = v.findViewById(R.id.imgAchievement);
             btnDelete = v.findViewById(R.id.btnDelete);
         }
     }
