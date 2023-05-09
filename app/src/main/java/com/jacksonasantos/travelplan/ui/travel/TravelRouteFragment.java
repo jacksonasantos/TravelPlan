@@ -372,8 +372,7 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
         int[] adapterRowViews = new int[]{android.R.id.text1};
 
         Cursor cItinerary = Database.mItineraryDao.fetchArrayItinerary(nrTravel_Id);
-        SimpleCursorAdapter cursorAdapterI = new SimpleCursorAdapter( requireActivity(),
-                android.R.layout.simple_spinner_item, cItinerary, adapterCols, adapterRowViews, 0);
+        SimpleCursorAdapter cursorAdapterI = new SimpleCursorAdapter( requireActivity(), android.R.layout.simple_spinner_item, cItinerary, adapterCols, adapterRowViews, 0);
         cursorAdapterI.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinItinerary.setAdapter(cursorAdapterI);
         Utils.setSpinnerToValue(spinItinerary, nrItinerary_Id); // Selected Value of Spinner with value marked maps
@@ -390,8 +389,7 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
         });
 
         Cursor cAchievement = Database.mAchievementDao.fetchArrayAchievement();
-        SimpleCursorAdapter cursorAdapterA = new SimpleCursorAdapter( requireActivity(),
-                android.R.layout.simple_spinner_item, cAchievement, adapterCols, adapterRowViews, 0);
+        SimpleCursorAdapter cursorAdapterA = new SimpleCursorAdapter( requireActivity(), android.R.layout.simple_spinner_item, cAchievement, adapterCols, adapterRowViews, 0);
         cursorAdapterA.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinMarkerAchievement.setAdapter(cursorAdapterA);
         Utils.setSpinnerToValue(spinMarkerAchievement, nrAchievement_Id); // Selected Value of Spinner with value marked maps
@@ -437,18 +435,18 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
                         m.setLongitude(tvLng.getText().toString());
                         m.setZoom_level(tvZoom.getText().toString());
 
-                       try {
-                           isSave.set(adjustMarker(nrTravel_Id, nrItinerary_Id, m.getSequence(), true));
-                           isSave.set(Database.mMarkerDao.addMarker(m));
+                        try {
+                            isSave.set(adjustMarker(nrTravel_Id, nrItinerary_Id, m.getSequence(), true));
+                            isSave.set(Database.mMarkerDao.addMarker(m));
 
-                           if ( nrAchievement_Id > 0 ) {
+                            if ( nrAchievement_Id > 0 ) {
                                Achievement a = Database.mAchievementDao.fetchAchievementById(nrAchievement_Id);
                                a.setLatlng_achievement(tvLat.getText().toString() + "," + tvLng.getText().toString());
                                a.setTravel_id(a.getTravel_id()==0?nrTravel_Id:a.getTravel_id());
                                a.setItinerary_id(a.getItinerary_id()==0?nrItinerary_Id:a.getItinerary_id());
                                isSave.set(Database.mAchievementDao.updateAchievement(a));
-                           } else {
-                               if ( m.getMarker_type() == 9 ) {
+                            } else {
+                                if ( m.getMarker_type() == 9 ) {
                                    Achievement a = new Achievement();
                                    a.setTravel_id(nrTravel_Id);
                                    a.setItinerary_id(nrItinerary_Id);
@@ -463,7 +461,7 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
                                }
                            }
 
-                           if ( Double.parseDouble(etExpectedValue.getText().toString()) > 0 ) {
+                            if ( Double.parseDouble(etExpectedValue.getText().toString()) > 0 ) {
                                LatLng latlng = new LatLng(Double.parseDouble(tvLat.getText().toString()), Double.parseDouble(tvLng.getText().toString()));
                                m = Database.mMarkerDao.fetchMarkerByPoint(nrTravel_Id, latlng);
                                TravelExpenses te = new TravelExpenses();
