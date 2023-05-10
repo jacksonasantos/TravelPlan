@@ -1,114 +1,176 @@
 package com.jacksonasantos.travelplan.ui.travel;
 
-import android.content.Intent;
+import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.Spinner;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.jacksonasantos.travelplan.R;
-import com.jacksonasantos.travelplan.dao.Travel;
-
-import java.util.Objects;
+import com.jacksonasantos.travelplan.dao.Itinerary;
+import com.jacksonasantos.travelplan.dao.general.Database;
 
 public class ItineraryActivity extends AppCompatActivity {
+    
+    private boolean opInsert = true;
 
-    private Travel travel;
-    private String txtSearch;
-    private int idSearch;
-    private boolean flgAchievement = false;
-    FragmentManager fragmentManager;
-    FragmentTransaction fragmentTransaction;
-    String result, resultFeature, resultAddress, resultState, resultCity, resultCountry;
+    private Itinerary itinerary;
 
+    private EditText etSequence;
+    private TextView tvDate;
+    private EditText etOrig_location;
+    private EditText etDest_location;
+    private EditText etDaily;
+    private Spinner spTravel_mode;
+    private LinearLayout llItineraryHasTransport;
+    private RecyclerView rvItineraryHasTransport;
+    private LinearLayout llMarker;
+    private RecyclerView rvMarker;
+
+    @SuppressLint("ResourceType")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setTitle(R.string.Itinerary);
-        setContentView(R.layout.activity_itinerary);
+        Database mDb = new Database(getApplicationContext());
+        mDb.open();
 
-        travel = new Travel();
+        setTitle(R.string.Itinerary);
+        setContentView(R.layout.dialog_itinerary);
+
         Bundle extras = getIntent().getExtras();
+        itinerary = new Itinerary();
         if (extras != null) {
-            if (extras.getBoolean("flg_achievement")){
-                flgAchievement = true;
-                setTitle(R.string.Achievement);
+            if (extras.getInt( "itinerary_id") > 0) {
+                itinerary.setId(extras.getInt("itinerary_id"));
+                itinerary = Database.mItineraryDao.fetchItineraryById(itinerary.getId());
+                opInsert = false;
             }
             if (extras.getInt( "travel_id") > 0) {
-                travel.setId(extras.getInt("travel_id"));
+                itinerary.setTravel_id(extras.getInt("travel_id"));
+            }
+        }
+
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
+
+        addListenerOnButtonSave();
+        etSequence = findViewById(R.id.etSequence);
+        tvDate = findViewById(R.id.tvDate);
+        etOrig_location = findViewById(R.id.etOrig_location);
+        etDest_location = findViewById(R.id.etDest_location);
+        etDaily = findViewById(R.id.etDaily);
+        spTravel_mode = findViewById(R.id.spTravel_mode);
+        llItineraryHasTransport = findViewById(R.id.llItineraryHasTransport);
+        rvItineraryHasTransport = findViewById(R.id.rvItineraryHasTransport);
+        llMarker = findViewById(R.id.llMarker);
+        rvMarker = findViewById(R.id.rvMarker);
+
+        if (opInsert){
+            Itinerary itineraryLast = Database.mItineraryDao.fetchLastItineraryByTravel(itinerary.getTravel_id());
+            if (itineraryLast != null) {
+                etSequence.setText(String.valueOf(itineraryLast.getSequence() + 1));
+                etOrig_location.setText(itineraryLast.getDest_location());
             } else {
-                travel.setId(null);
+                etSequence.setText(String.valueOf(1));
             }
-            if (!Objects.equals(extras.getString("local_search"), "") && extras.getString("local_search")!=null){
-                txtSearch = extras.getString("local_search");
-                idSearch = 0;
-            }
-            if (!Objects.equals(extras.getString("local_search_source"), "") && extras.getString("local_search_source")!=null){
-                txtSearch = extras.getString("local_search_source");
-                idSearch = 1;
-            }
-            if (!Objects.equals(extras.getString("local_search_target"), "") && extras.getString("local_search_target")!=null){
-                txtSearch = extras.getString("local_search_target");
-                idSearch = 2;
-            }
+            tvDate.setText(Database.mItineraryDao.fetchItineraryDateSequence(itinerary.getTravel_id(),0));
+            llItineraryHasTransport.setVisibility(View.INVISIBLE);
+            llMarker.setVisibility(View.INVISIBLE);
+        } else {
+            etSequence.setText(String.valueOf(itinerary.getSequence()));
+            tvDate.setText(Database.mItineraryDao.fetchItineraryDateSequence(itinerary.getTravel_id(),itinerary.getSequence()));
+            etDest_location.setText(itinerary.getDest_location());
+            etOrig_location.setText(itinerary.getOrig_location());
+            etDaily.setText(String.valueOf(itinerary.getDaily()));
+            spTravel_mode.setSelection(itinerary.getTravel_mode());
+            llItineraryHasTransport.setVisibility(View.VISIBLE);
+            llMarker.setVisibility(View.VISIBLE);
+
+            // Itinerary has Transport
+            final int Show_Header_ItineraryHasTransport = 1  ;
+            ItineraryHasTransportListAdapter adapterItineraryHasTransport = new ItineraryHasTransportListAdapter(Database.mItineraryHasTransportDao.fetchAllItineraryHasTransportByTravelItinerary(itinerary.getTravel_id(), itinerary.getId() ), getApplicationContext(),"Home", Show_Header_ItineraryHasTransport, itinerary.getTravel_id());
+            rvItineraryHasTransport.setAdapter(adapterItineraryHasTransport);
+            rvItineraryHasTransport.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+
+            // Marker
+            final int Show_Header_Marker = 1  ;
+            MarkerListAdapter adapterMarker = new MarkerListAdapter(Database.mMarkerDao.fetchMarkerByTravelItineraryId(itinerary.getTravel_id(), itinerary.getId() ), getApplicationContext(), Show_Header_Marker, itinerary.getTravel_id());
+            rvMarker.setAdapter(adapterMarker);
+            rvMarker.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         }
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
+    public void addListenerOnButtonSave() {
+        Button btnSave = findViewById(R.id.btnSave);
 
-        fragmentManager = getSupportFragmentManager();
-        fragmentTransaction = fragmentManager.beginTransaction()
-                                             .replace( R.id.container,
-                                                       new TravelRouteFragment(true,
-                                                                               travel.getId(),
-                                                                               txtSearch,
-                                                                               flgAchievement),
-                                                     "Tag");
+        btnSave.setOnClickListener(v -> {
+            boolean isSave = false;
 
-        fragmentTransaction.commit();
+            if (!validateData()) {
+                Toast.makeText(getApplicationContext(), R.string.Error_Data_Validation, Toast.LENGTH_LONG).show();
+            } else {
+                final Itinerary i1 = new Itinerary();
+
+                if (!opInsert) i1.setId(itinerary.getId());
+                i1.setTravel_id(itinerary.getTravel_id());
+                i1.setSequence(Integer.parseInt(etSequence.getText().toString()));
+                i1.setOrig_location(etOrig_location.getText().toString());
+                i1.setDest_location(etDest_location.getText().toString());
+                i1.setDaily(Integer.parseInt(etDaily.getText().toString()));
+                i1.setTravel_mode(spTravel_mode.getSelectedItemPosition());
+                if (!opInsert) i1.setDistance(itinerary.getDistance());
+                if (!opInsert) i1.setTime(itinerary.getTime());
+
+                if (!opInsert) {
+                    try {
+                        isSave = Database.mItineraryDao.updateItinerary(i1);
+                    } catch (Exception e) {
+                        Toast.makeText(getApplicationContext(), R.string.Error_Changing_Data + e.getMessage(), Toast.LENGTH_LONG).show();
+                    }
+                } else {
+                    try {
+                        isSave = Database.mItineraryDao.addItinerary(i1);
+                    } catch (Exception e) {
+                        Toast.makeText(getApplicationContext(), R.string.Error_Including_Data + e.getMessage(), Toast.LENGTH_LONG).show();
+                    }
+                }
+
+                setResult(isSave ? 1 : 0);
+                if (isSave) {
+                    finish();
+                } else {
+                    Toast.makeText(getApplicationContext(), R.string.Error_Saving_Data, Toast.LENGTH_LONG).show();
+                }
+            }
+        });
     }
 
-    @Override
-    public void finish() {
-        TravelRouteFragment fragment = (TravelRouteFragment) fragmentManager.findFragmentByTag("Tag");
-        Bundle mArg = fragment != null ? fragment.getArguments() : null;
-        result = mArg != null ? mArg.getString("point_marker", "") : null;
-        resultFeature = mArg != null ? mArg.getString("feature_marker", "") : null;
-        resultAddress = mArg != null ? mArg.getString("address_marker", "") : null;
-        resultState = mArg != null ? mArg.getString("state_marker", "") : null;
-        resultCity = mArg != null ? mArg.getString("city_marker", "") : null;
-        resultCountry = mArg != null ? mArg.getString("country_marker", "") : null;
-
-        Intent i = new Intent();
-        if (result != null) {
-            i.putExtra("resulted_value", result);
-            i.putExtra("resulted_feature", resultFeature);
-            i.putExtra("resulted_address", resultAddress);
-            i.putExtra("resulted_city", resultCity);
-            i.putExtra("resulted_state", resultState);
-            i.putExtra("resulted_country", resultCountry);
-            switch (idSearch) {
-                case 0:
-                    setResult(124, i);
-                    break;
-                case 1:
-                    setResult(125, i);
-                    break;
-                case 2:
-                    setResult(126, i);
-                    break;
-                default:
-                    break;
+    private boolean validateData() {
+        boolean isValid = true;
+        try {
+            if (etSequence.getText().toString().isEmpty() ||
+                etOrig_location.getText().toString().isEmpty() ||
+                etDest_location.getText().toString().isEmpty() ||
+                etDaily.getText().toString().isEmpty() ||
+                spTravel_mode.getSelectedItemPosition() < 0) {
+                isValid = false;
             }
+        } catch (Exception e) {
+            Toast.makeText(getApplicationContext(), R.string.Data_Validator_Error + " - " + e.getMessage(), Toast.LENGTH_LONG).show();
+            isValid = false;
         }
-        if (flgAchievement) {
-            i.putExtra("resulted_return", "");
-            setResult(120, i);
-        }
-        super.finish();
+        return isValid;
     }
 }

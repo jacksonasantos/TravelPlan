@@ -19,6 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.jacksonasantos.travelplan.R;
 import com.jacksonasantos.travelplan.dao.Insurance;
 import com.jacksonasantos.travelplan.dao.general.Database;
+import com.jacksonasantos.travelplan.ui.general.InsuranceDialog;
 import com.jacksonasantos.travelplan.ui.utility.Utils;
 
 import java.util.List;
@@ -73,6 +74,9 @@ public class HomeInsuranceListAdapter extends RecyclerView.Adapter<RecyclerView.
             } else {
                 itemViewHolder.llInsuranceItem.setBackgroundColor(Color.WHITE);
             }
+
+            itemViewHolder.llInsuranceItem.setOnClickListener(v -> InsuranceDialog.InsuranceClass(insurance, v));
+
             itemViewHolder.imInsuranceType.setImageResource(insurance.getInsurance_typeImage(insurance.getInsurance_type()));
             itemViewHolder.imInsuranceStatus.setImageResource(R.drawable.ic_ball);
             itemViewHolder.imInsuranceStatus.setColorFilter(insurance.getColorInsuranceStatus(), PorterDuff.Mode.MULTIPLY);

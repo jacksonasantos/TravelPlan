@@ -24,7 +24,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.40"
-                android:text="@string/Travel_Status" />
+                android:text="@string/Travel_Status"
+                tools:ignore="SmallSp" />
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvVehicles"
                 android:layout_width="0dp"

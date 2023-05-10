@@ -20,7 +20,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.jacksonasantos.travelplan.R;
 import com.jacksonasantos.travelplan.dao.Accommodation;
 import com.jacksonasantos.travelplan.dao.general.Database;
-import com.jacksonasantos.travelplan.ui.travel.ItineraryActivity;
+import com.jacksonasantos.travelplan.ui.travel.MaintenanceItineraryActivity;
 import com.jacksonasantos.travelplan.ui.utility.Utils;
 
 public class AccommodationActivity extends AppCompatActivity {
@@ -86,7 +86,7 @@ public class AccommodationActivity extends AppCompatActivity {
         spinAccommodation_Accommodation_Type = findViewById(R.id.spinAccommodation_Accommodation_Type);
 
         btAccommodation_Latlng_Accommodation.setOnClickListener(view -> {
-            Intent intent = new Intent (getBaseContext(), ItineraryActivity.class);
+            Intent intent = new Intent (getBaseContext(), MaintenanceItineraryActivity.class);
             if (!etAccommodation_Latlng_Accommodation.getText().toString().equals("")) {
                 intent.putExtra("local_search", etAccommodation_Latlng_Accommodation.getText().toString());
             } else {

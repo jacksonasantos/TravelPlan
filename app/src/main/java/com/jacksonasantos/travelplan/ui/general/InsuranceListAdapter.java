@@ -1,6 +1,5 @@
 package com.jacksonasantos.travelplan.ui.general;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -13,13 +12,13 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.jacksonasantos.travelplan.R;
 import com.jacksonasantos.travelplan.dao.Insurance;
 import com.jacksonasantos.travelplan.dao.general.Database;
 
-import java.text.SimpleDateFormat;
 import java.util.List;
 
 public class InsuranceListAdapter extends RecyclerView.Adapter<InsuranceListAdapter.MyViewHolder> {
@@ -29,6 +28,7 @@ public class InsuranceListAdapter extends RecyclerView.Adapter<InsuranceListAdap
 
     public static class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
+        public final ConstraintLayout clInsurance;
         public final TextView txtInsurancePolicy;
         public final TextView txtInsuranceDescription;
         public final ImageView imInsuranceType;
@@ -38,12 +38,14 @@ public class InsuranceListAdapter extends RecyclerView.Adapter<InsuranceListAdap
 
         public MyViewHolder(View v) {
             super(v);
+            clInsurance = v.findViewById(R.id.clInsurance);
             imInsuranceType = v.findViewById(R.id.imInsuranceType);
             imInsuranceStatus = v.findViewById(R.id.imInsuranceStatus);
             txtInsurancePolicy = v.findViewById(R.id.txtPolicy);
             txtInsuranceDescription = v.findViewById(R.id.txtDescription);
             btnEdit = v.findViewById(R.id.btnEdit);
             btnDelete = v.findViewById(R.id.btnDelete);
+            clInsurance.setOnClickListener(this);
             btnEdit.setOnClickListener(this);
             btnDelete.setOnClickListener(this);
         }
@@ -71,13 +73,13 @@ public class InsuranceListAdapter extends RecyclerView.Adapter<InsuranceListAdap
     @Override
     public void onBindViewHolder(@NonNull final MyViewHolder holder, final int position) {
         final Insurance insurance = mInsurance.get(position);
-        @SuppressLint("SimpleDateFormat") SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 
         holder.imInsuranceType.setImageResource(insurance.getInsurance_typeImage(insurance.getInsurance_type()));
         holder.imInsuranceStatus.setImageResource(R.drawable.ic_ball );
         holder.imInsuranceStatus.setColorFilter(insurance.getColorInsuranceStatus());
         holder.txtInsurancePolicy.setText(insurance.getInsurance_policy());
         holder.txtInsuranceDescription.setText(insurance.getDescription());
+
         // btnEdit
         holder.btnEdit.setOnClickListener (v -> {
             Intent intent = new Intent (v.getContext(), InsuranceActivity.class);

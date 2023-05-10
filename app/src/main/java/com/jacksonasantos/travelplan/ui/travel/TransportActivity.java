@@ -106,8 +106,8 @@ public class TransportActivity extends AppCompatActivity implements TransportTyp
                 transport.setId(extras.getInt("transport_id"));
                 transport = Database.mTransportDao.fetchTransportById(transport.getId());
                 opInsert = false;
-                llTransportTypeOwn.setVisibility(View.INVISIBLE);
-                llTransportType.setVisibility(View.INVISIBLE);
+                llTransportTypeOwn.setVisibility(View.GONE);
+                llTransportType.setVisibility(View.GONE);
                 if (transport.getTransport_type()==0) {
                     llTransportTypeOwn.setVisibility(View.VISIBLE);
                 } else {

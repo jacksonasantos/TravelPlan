@@ -127,7 +127,7 @@ public class TourActivity extends AppCompatActivity implements TourTypeListAdapt
         tvItinerary.setVisibility(View.INVISIBLE);
         tvMarker.setVisibility(View.INVISIBLE);
         btLocationTour.setOnClickListener(view -> {
-            Intent intent = new Intent (getBaseContext(), ItineraryActivity.class);
+            Intent intent = new Intent (getBaseContext(), MaintenanceItineraryActivity.class);
             if (!etLatLngTour.getText().toString().equals("")) {
                 intent.putExtra("local_search", etLatLngTour.getText().toString());
             } else {

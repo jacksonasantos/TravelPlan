@@ -5,7 +5,8 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"
+        android:maxSdkVersion="32" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
         tools:ignore="ScopedStorage" />
 
@@ -92,10 +93,10 @@
             android:name=".ui.travel.ItineraryHasTransportActivity"
             android:label="@string/Itinerary_has_Transport" />
         <activity
-            android:name=".ui.travel.ItineraryActivity"
+            android:name=".ui.travel.MaintenanceItineraryActivity"
             android:label="@string/Itinerary" />
         <activity
-            android:name=".ui.travel.MaintenanceItineraryActivity"
+            android:name=".ui.travel.ItineraryActivity"
             android:label="@string/Itinerary" />
         <activity
             android:name=".ui.travel.ReservationActivity"

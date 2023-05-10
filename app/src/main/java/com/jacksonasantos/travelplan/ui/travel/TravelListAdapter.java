@@ -83,7 +83,7 @@ public class TravelListAdapter extends RecyclerView.Adapter<TravelListAdapter.My
 
         // btnItinerary
         holder.btnItinerary.setOnClickListener (v -> {
-            Intent intent = new Intent (v.getContext(), ItineraryActivity.class);
+            Intent intent = new Intent (v.getContext(), MaintenanceItineraryActivity.class);
             intent.putExtra("travel_id", travel.getId());
             context.startActivity(intent);
             notifyDataSetChanged();

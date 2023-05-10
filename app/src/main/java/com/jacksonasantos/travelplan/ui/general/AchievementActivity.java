@@ -30,7 +30,7 @@ import androidx.core.app.ActivityCompat;
 import com.jacksonasantos.travelplan.R;
 import com.jacksonasantos.travelplan.dao.Achievement;
 import com.jacksonasantos.travelplan.dao.general.Database;
-import com.jacksonasantos.travelplan.ui.travel.ItineraryActivity;
+import com.jacksonasantos.travelplan.ui.travel.MaintenanceItineraryActivity;
 import com.jacksonasantos.travelplan.ui.utility.Utils;
 
 import java.io.ByteArrayOutputStream;
@@ -128,7 +128,7 @@ public class AchievementActivity extends AppCompatActivity {
         imgStatusAchievement = findViewById(R.id.imgStatusAchievement);
 
         btLocation.setOnClickListener(view -> {
-           Intent intent = new Intent (getBaseContext(), ItineraryActivity.class);
+           Intent intent = new Intent (getBaseContext(), MaintenanceItineraryActivity.class);
             if (!etAchievement_Latlng_Achievement.getText().toString().equals("")) {
                 intent.putExtra("local_search", etAchievement_Latlng_Achievement.getText().toString());
             } else {
@@ -138,7 +138,7 @@ public class AchievementActivity extends AppCompatActivity {
         });
 
         btLocationSource.setOnClickListener(view -> {
-            Intent intent = new Intent (getBaseContext(), ItineraryActivity.class);
+            Intent intent = new Intent (getBaseContext(), MaintenanceItineraryActivity.class);
             if (!etAchievement_Latlng_Source.getText().toString().equals("")) {
                 intent.putExtra("local_search_source", etAchievement_Latlng_Source.getText().toString());
             } else {
@@ -148,7 +148,7 @@ public class AchievementActivity extends AppCompatActivity {
         });
 
         btLocationTarget.setOnClickListener(view -> {
-            Intent intent = new Intent (getBaseContext(), ItineraryActivity.class);
+            Intent intent = new Intent (getBaseContext(), MaintenanceItineraryActivity.class);
             if (!etAchievement_Latlng_Target.getText().toString().equals("")) {
                 intent.putExtra("local_search_target", etAchievement_Latlng_Target.getText().toString());
             } else {

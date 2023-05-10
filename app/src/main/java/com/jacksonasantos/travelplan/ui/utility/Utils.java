@@ -186,6 +186,7 @@ public class Utils extends AppCompatActivity  {
                 RadioGroup.LayoutParams.WRAP_CONTENT);
         nRadio.setLayoutParams(params);
         nRadio.setText(txt); // define the text
+        nRadio.setTextSize(11);
         nRadio.setId(i);     // define o code - sequence of FOR
         return nRadio;
     }

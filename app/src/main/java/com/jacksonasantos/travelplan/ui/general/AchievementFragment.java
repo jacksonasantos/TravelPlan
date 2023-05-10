@@ -25,7 +25,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.jacksonasantos.travelplan.R;
 import com.jacksonasantos.travelplan.dao.general.Database;
-import com.jacksonasantos.travelplan.ui.travel.ItineraryActivity;
+import com.jacksonasantos.travelplan.ui.travel.MaintenanceItineraryActivity;
 
 public class AchievementFragment extends Fragment {
 
@@ -115,7 +115,7 @@ public class AchievementFragment extends Fragment {
             listAchievement.addItemDecoration(new DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL));
             adapter.notifyDataSetChanged();
         } else if (mViewMode.equals("map")) {
-            Intent intent = new Intent(getContext(), ItineraryActivity.class);
+            Intent intent = new Intent(getContext(), MaintenanceItineraryActivity.class);
             intent.putExtra("flg_achievement", true);
             myActivityResultLauncher.launch(intent);
         }

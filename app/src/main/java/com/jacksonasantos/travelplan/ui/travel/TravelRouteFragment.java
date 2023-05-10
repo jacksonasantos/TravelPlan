@@ -783,7 +783,7 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
                 headerViewHolder.txtTime.setText(R.string.Itinerary_Time);
                 headerViewHolder.btAdd.setImageResource(R.drawable.ic_button_add);
                 headerViewHolder.btAdd.setOnClickListener(v -> {
-                    Intent intent = new Intent (v.getContext(), MaintenanceItineraryActivity.class);
+                    Intent intent = new Intent (v.getContext(), ItineraryActivity.class);
                     intent.putExtra("travel_id", nrTravel_Id );
                     intent.setFlags(FLAG_ACTIVITY_NEW_TASK);
                     context.startActivity(intent);
@@ -814,7 +814,7 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
                     });
                     itemViewHolder.itemView.setOnClickListener(view -> {
                         final Itinerary i1 = mItinerary.get(position - show_header);
-                        Intent intent = new Intent (view.getContext(), MaintenanceItineraryActivity.class);
+                        Intent intent = new Intent (view.getContext(), ItineraryActivity.class);
                         intent.putExtra("itinerary_id", i1.getId() );
                         intent.setFlags(FLAG_ACTIVITY_NEW_TASK);
                         context.startActivity(intent);

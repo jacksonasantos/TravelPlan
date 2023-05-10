@@ -16,6 +16,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.jacksonasantos.travelplan.R;
+import com.jacksonasantos.travelplan.dao.Transport;
 import com.jacksonasantos.travelplan.dao.Vehicle;
 import com.jacksonasantos.travelplan.dao.VehicleHasTravel;
 import com.jacksonasantos.travelplan.dao.general.Database;
@@ -77,8 +78,13 @@ public class TravelVehicleStatusListAdapter extends RecyclerView.Adapter<Recycle
             final ItemViewHolder itemViewHolder = (ItemViewHolder) holder;
             final VehicleHasTravel vehicleHasTravel = mVehicleHasTravel.get(position-show_header);
             final Vehicle vehicle = Database.mVehicleDao.fetchVehicleById(vehicleHasTravel.getVehicle_id());
+            final Transport transport = Database.mTransportDao.fetchTransportById(vehicleHasTravel.getTransport_id());
 
-            itemViewHolder.txtVehicle.setText(vehicle.getShort_name());
+            if (vehicleHasTravel.getVehicle_id()==0) {
+                itemViewHolder.txtVehicle.setText(transport.getDescription());
+            } else {
+                itemViewHolder.txtVehicle.setText(vehicle.getShort_name());
+            }
             itemViewHolder.txtStartOdometer.setText(numberFormatter.format(vehicleHasTravel.getStart_odometer()));
             itemViewHolder.txtFinalOdometer.setText(numberFormatter.format(vehicleHasTravel.getFinal_odometer()));
 
@@ -93,7 +99,11 @@ public class TravelVehicleStatusListAdapter extends RecyclerView.Adapter<Recycle
                 final EditText etStartOdometer = promptsView.findViewById(R.id.etStartOdometer);
                 final EditText etFinalOdometer = promptsView.findViewById(R.id.etFinalOdometer);
 
-                txtVehicle.setText(vehicle.getShort_name());
+                if (vehicleHasTravel.getVehicle_id()==0){
+                    txtVehicle.setText(transport.getDescription());
+                } else {
+                    txtVehicle.setText(vehicle.getShort_name());
+                }
                 etStartOdometer.setText(String.valueOf(vehicleHasTravel.getStart_odometer()));
                 etFinalOdometer.setText(String.valueOf(vehicleHasTravel.getFinal_odometer()));
 

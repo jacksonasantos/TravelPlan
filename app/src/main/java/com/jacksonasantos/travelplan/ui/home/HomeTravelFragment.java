@@ -31,7 +31,7 @@ import com.jacksonasantos.travelplan.dao.TravelItemExpenses;
 import com.jacksonasantos.travelplan.dao.VehicleHasTravel;
 import com.jacksonasantos.travelplan.dao.general.Database;
 import com.jacksonasantos.travelplan.ui.general.InsuranceActivity;
-import com.jacksonasantos.travelplan.ui.travel.ItineraryActivity;
+import com.jacksonasantos.travelplan.ui.travel.MaintenanceItineraryActivity;
 import com.jacksonasantos.travelplan.ui.travel.ItineraryHasTransportListAdapter;
 import com.jacksonasantos.travelplan.ui.travel.ReservationActivity;
 import com.jacksonasantos.travelplan.ui.travel.TravelAchievementListAdapter;
@@ -230,6 +230,7 @@ public class HomeTravelFragment extends Fragment implements View.OnClickListener
                     rgTravelStatus.setOnCheckedChangeListener((group, checkedId) -> rbTravelStatus = checkedId);
                     rgTravelStatus.check(travel[0].getStatus()+1);
 
+
                     final int Show_Header_VehicleTravelStatus = 1  ;
                     TravelVehicleStatusListAdapter adapterTravelVehicleStatus = new TravelVehicleStatusListAdapter(Database.mVehicleHasTravelDao.fetchAllVehicleHasTravelByTravel(travel[0].getId() ), getContext(), "Home", Show_Header_VehicleTravelStatus);
                     if ( adapterTravelVehicleStatus.getItemCount() > Show_Header_VehicleTravelStatus){
@@ -282,7 +283,7 @@ public class HomeTravelFragment extends Fragment implements View.OnClickListener
                 btnTour.setOnClickListener (v -> TravelItemExpenses(v,3));
                 btnExtra.setOnClickListener (v -> TravelItemExpenses(v,5));
                 btnItinerary.setOnClickListener (v -> {
-                    Intent intent = new Intent(v.getContext(), ItineraryActivity.class);
+                    Intent intent = new Intent(v.getContext(), MaintenanceItineraryActivity.class);
                     intent.putExtra("travel_id", travel[0].id);
                     startActivity(intent);
                 });
