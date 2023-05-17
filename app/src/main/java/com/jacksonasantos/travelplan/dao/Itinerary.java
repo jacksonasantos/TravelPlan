@@ -27,22 +27,18 @@ public class Itinerary {
     @Override
     public String toString() { return sequence==0?"":sequence+"-"+orig_location+" p/ "+dest_location; }
 
-    public int getColorItinerary( int sequence){
+    public static int getColorItinerary(int sequence){
         int color;
-        switch(sequence) {
-            case 1: color = Color.BLUE; break;
-            case 2: color = Color.MAGENTA; break;
-            case 3: color = Color.RED; break;
-            case 4: color = Color.CYAN; break;
-            case 5: color = Color.GRAY; break;
-            case 6: color = Color.YELLOW; break;
-            case 7: color = Color.LTGRAY; break;
-            case 8: color = Color.GREEN; break;
-            case 9: color = Color.DKGRAY; break;
-            default: color = Color.BLACK; break;
+        switch(sequence % 5) {
+            case 0: color = Color.BLUE; break;
+            case 1: color = Color.DKGRAY; break;
+            case 2: color = Color.RED; break;
+            case 3: color = Color.GREEN; break;
+            default: color = Color.MAGENTA; break;
         }
         return color;
     }
+
     public Integer getId() {return id;}
     public void setId(Integer id) {this.id = id;}
 
@@ -61,7 +57,8 @@ public class Itinerary {
     public int getDaily() { return daily; }
     public void setDaily(int daily) { this.daily = daily; }
 
-    public int getDistanceMeter() { return distance/g.getMeasureIndexInMeter(); }
+    public int getDistanceMeasureIndex() { return getDistance()/g.getMeasureIndexInMeter(); }
+    public void setDistanceMeasureIndex(int distanceMeasureIndex) { this.distance = distanceMeasureIndex*g.getMeasureIndexInMeter(); }
 
     public int getDistance() { return distance; }
     public void setDistance(int distance) { this.distance = distance; }
@@ -74,8 +71,13 @@ public class Itinerary {
 
     @SuppressLint("DefaultLocale")
     public String getDuration() {
-        int totalHr = time / 3600;
-        int totalMin = (time-(totalHr * 3600)) / 60;
+        int totalHr = getTime() / 3600;
+        int totalMin = (getTime()-(totalHr * 3600)) / 60;
         return String.format("%3d:%02d", totalHr, totalMin);
+    }
+    public void setDuration( String duration) {
+        int totalHr = Integer.parseInt(duration.substring(0,duration.indexOf(":")).trim()) * 3600;
+        int totalMin = Integer.parseInt(duration.substring(duration.length()-2) ) * 60;
+        this.time = totalHr+totalMin;
     }
 }

@@ -7,17 +7,40 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    tools:context=".ui.travel.TravelRouteFragment">
+    tools:context=".ui.travel.MarkerListAdapter">
 
     <TextView
         android:id="@+id/txtDescription"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
-        android:background="#00FFFFFF"
+        android:layout_weight="0.60"
+        android:textSize="11sp"
         app:autoSizeMaxTextSize="12sp"
         app:autoSizeMinTextSize="4sp"
         app:autoSizeStepGranularity="1sp"
         app:autoSizeTextType="uniform" />
 
+    <TextView
+        android:id="@+id/txtCityState"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:layout_weight="0.40"
+        android:textSize="11sp"
+        app:autoSizeMaxTextSize="10sp"
+        app:autoSizeMinTextSize="4sp"
+        app:autoSizeStepGranularity="1sp"
+        app:autoSizeTextType="uniform" />
+
+    <ImageButton
+        android:id="@+id/btnDelete"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:contentDescription="@string/bt_Delete"
+        android:padding="7dp"
+        android:scaleType="fitCenter"
+        android:scaleX="1.5"
+        android:scaleY="1.5"
+        app:srcCompat="@drawable/ic_button_delete" />
 </LinearLayout>

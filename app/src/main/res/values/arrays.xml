@@ -95,6 +95,7 @@
         <item>@string/walking</item>
         <item>@string/bicycling</item>
         <item>@string/transit</item>
+        <item>@string/flying</item>
     </string-array>
     <!-- Marker Type -->
     <string-array name="marker_type_array">

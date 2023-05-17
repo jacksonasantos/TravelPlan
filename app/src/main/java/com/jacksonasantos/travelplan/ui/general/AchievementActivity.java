@@ -323,7 +323,7 @@ public class AchievementActivity extends AppCompatActivity {
                     }
                 } else {
                     try {
-                        isSave = Database.mAchievementDao.addAchievement(a1);
+                        isSave =(Database.mAchievementDao.addAchievement(a1)>0);
                     } catch (Exception e) {
                         Toast.makeText(getApplicationContext(), R.string.Error_Including_Data + e.getMessage(), Toast.LENGTH_LONG).show();
                     }

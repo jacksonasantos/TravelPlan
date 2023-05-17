@@ -1,6 +1,5 @@
 package com.jacksonasantos.travelplan.ui.travel;
 
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Handler;
@@ -22,6 +21,7 @@ import com.jacksonasantos.travelplan.MainActivity;
 import com.jacksonasantos.travelplan.R;
 import com.jacksonasantos.travelplan.dao.Achievement;
 import com.jacksonasantos.travelplan.dao.Itinerary;
+import com.jacksonasantos.travelplan.dao.Marker;
 import com.jacksonasantos.travelplan.dao.general.Database;
 import com.jacksonasantos.travelplan.ui.utility.JSONParser;
 
@@ -132,20 +132,10 @@ public class RouteClass {
     }
 
     private void connectAsyncTask(String urlPass, boolean withSteps,int sequence, Integer sequenceSelected, Integer nrAchievement_Id ) {
-
-        ProgressDialog progressDialog;
-        progressDialog = new ProgressDialog(context);
-        progressDialog.setMessage("Fetching route, Please wait...");
-        progressDialog.setIndeterminate(true);
-        progressDialog.show();
-
         myExecutor.execute(() -> {
-
             JSONParser jParser = new JSONParser();
             String r = jParser.getJSONFromUrl(urlPass);
-
             myHandler.post(() -> {
-                progressDialog.dismiss();
                 if (r != null && !r.equals("")) {
                     drawPath(r, withSteps, sequence, sequenceSelected, nrAchievement_Id);
                 }
@@ -159,6 +149,7 @@ public class RouteClass {
         final List<PatternItem> PATTERN_WALKING = Arrays.asList(new Dot(), new Gap(10), new Dash(20), new Gap(10));
         final List<PatternItem> PATTERN_BICYCLING = Collections.singletonList(new Dot());
         final List<PatternItem> PATTERN_TRANSIT = Collections.singletonList(new Dash(1));
+        final List<PatternItem> PATTERN_FLYING = Arrays.asList(new Dot(), new Dot(), new Dot(), new Gap(15), new Dash(20), new Gap(15));
         try {
             final JSONObject json = new JSONObject(result);
             JSONArray routeArray = json.getJSONArray("routes");
@@ -173,54 +164,54 @@ public class RouteClass {
                 nrDistance += legs.getJSONObject("distance").getInt("value");
 
                 for (int i = 0; i < stepsArray.length(); i++) {
-
                     String polyline = (String) ((JSONObject) ((JSONObject) stepsArray.get(i)).get("polyline")).get("points");
-                    int vColor;
-                    switch (nrSequence % 4) {
-                        case 0:
-                            vColor = Color.MAGENTA;
-                            break;
-                        case 1:
-                            vColor = Color.DKGRAY;
-                            break;
-                        case 2:
-                            vColor = Color.BLUE;
-                            break;
-                        default:
-                            vColor = Color.RED;
-                    }
 
+                    int vColor = Itinerary.getColorItinerary(nrSequence);
                     int vWidth = 8;
                     if (nrSequenceSelected != null) {
                         vColor = nrSequence == nrSequenceSelected ? vColor : Color.RED;
                         vWidth = nrSequence == nrSequenceSelected ? vWidth : 14;
                     }
-                    //if (isAlpha) vColor = (vColor & 0x00FFFFFF) | (0x40 << 24);
 
                     List<PatternItem> PATTERN_POLYLINE;
                     switch (Database.mItineraryDao.fetchItineraryByTravelId(nrTravel_Id, nrSequence).getTravel_mode()) {
-                        case 1:
-                            PATTERN_POLYLINE = PATTERN_WALKING;
-                            break;
-                        case 2:
-                            PATTERN_POLYLINE = PATTERN_BICYCLING;
-                            break;
-                        case 3:
-                            PATTERN_POLYLINE = PATTERN_TRANSIT;
-                            break;
-                        default:
-                            PATTERN_POLYLINE = PATTERN_DRIVING;
+                        case 1: PATTERN_POLYLINE = PATTERN_WALKING; break;
+                        case 2: PATTERN_POLYLINE = PATTERN_BICYCLING; break;
+                        case 3: PATTERN_POLYLINE = PATTERN_TRANSIT; break;
+                        case 4: PATTERN_POLYLINE = PATTERN_FLYING; break;
+                        default: PATTERN_POLYLINE = PATTERN_DRIVING;
                     }
 
-                    // TODO - desenhar linha reta para voos
-                    mMap.addPolyline(new PolylineOptions()
-                            .addAll(decodePoly(polyline))
-                            .width(vWidth)
-                            .clickable(true)
-                            .color(vColor)
-                            .geodesic(true)
-                            .pattern(PATTERN_POLYLINE)
-                    );
+                    Itinerary itinerary = Database.mItineraryDao.fetchItineraryByTravelId(nrTravel_Id, nrSequence);
+                    if (itinerary.getTravel_mode() == 4) {
+                        List<Marker> marker = Database.mMarkerDao.fetchMarkerByTravelItineraryId(nrTravel_Id, itinerary.getId());
+                        LatLng markerOrigin = null, markerTarget = null;
+                        for (int ii = 0; ii < marker.size(); ii++) {
+                            if (marker.get(ii).getMarker_type() == 0) {
+                                markerOrigin = new LatLng(Double.parseDouble(marker.get(ii).getLatitude()), Double.parseDouble(marker.get(ii).getLongitude()));
+                            }
+                            if (marker.get(ii).getMarker_type() == 1) {
+                                markerTarget = new LatLng(Double.parseDouble(marker.get(ii).getLatitude()), Double.parseDouble(marker.get(ii).getLongitude()));
+                            }
+                        }
+                        mMap.addPolyline(new PolylineOptions()
+                                .add(markerOrigin, markerTarget)
+                                .width(vWidth)
+                                .clickable(true)
+                                .color(vColor)
+                                .geodesic(true)
+                                .pattern(PATTERN_POLYLINE)
+                        );
+                    } else {
+                        mMap.addPolyline(new PolylineOptions()
+                                .addAll(decodePoly(polyline))
+                                .width(vWidth)
+                                .clickable(true)
+                                .color(vColor)
+                                .geodesic(true)
+                                .pattern(PATTERN_POLYLINE)
+                        );
+                    }
                     if (withSteps) {
                         Step step = new Step(stepsArray.getJSONObject(i));
                         mMap.addMarker(new MarkerOptions()
@@ -233,10 +224,12 @@ public class RouteClass {
                 }
             }
             if ( typeUpdate == 'T' ) {
-                Itinerary itinerary = Database.mItineraryDao.fetchItineraryByTravelId(nrTravel_Id, nrSequence);
-                itinerary.setDistance(nrDistance);
-                itinerary.setTime(nrDuration);
-                Database.mItineraryDao.updateItinerary(itinerary);
+                if (Database.mItineraryDao.fetchItineraryByTravelId(nrTravel_Id, nrSequence).getTravel_mode() < 4) {
+                    Itinerary itinerary = Database.mItineraryDao.fetchItineraryByTravelId(nrTravel_Id, nrSequence);
+                    itinerary.setDistance(nrDistance);
+                    itinerary.setTime(nrDuration);
+                    Database.mItineraryDao.updateItinerary(itinerary);
+                }
             } else if (typeUpdate == 'A') {
                 Achievement achievement = Database.mAchievementDao.fetchAchievementById(nrAchievement_Id);
                 achievement.setLength_achievement(nrDistance);

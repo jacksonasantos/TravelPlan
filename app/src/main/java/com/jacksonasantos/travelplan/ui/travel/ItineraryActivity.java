@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.jacksonasantos.travelplan.R;
 import com.jacksonasantos.travelplan.dao.Itinerary;
 import com.jacksonasantos.travelplan.dao.general.Database;
+import com.jacksonasantos.travelplan.ui.utility.Globals;
 
 public class ItineraryActivity extends AppCompatActivity {
     
@@ -26,15 +27,19 @@ public class ItineraryActivity extends AppCompatActivity {
     private Itinerary itinerary;
 
     private EditText etSequence;
-    private TextView tvDate;
+    private TextView tvDate, tvMeasureIndex;
     private EditText etOrig_location;
     private EditText etDest_location;
     private EditText etDaily;
+    private EditText etTime;
+    private EditText etDistance;
     private Spinner spTravel_mode;
     private LinearLayout llItineraryHasTransport;
     private RecyclerView rvItineraryHasTransport;
     private LinearLayout llMarker;
     private RecyclerView rvMarker;
+
+    final Globals g = Globals.getInstance();
 
     @SuppressLint("ResourceType")
     @Override
@@ -71,6 +76,9 @@ public class ItineraryActivity extends AppCompatActivity {
         etOrig_location = findViewById(R.id.etOrig_location);
         etDest_location = findViewById(R.id.etDest_location);
         etDaily = findViewById(R.id.etDaily);
+        etTime = findViewById(R.id.etTime);
+        etDistance = findViewById(R.id.etDistance);
+        tvMeasureIndex = findViewById(R.id.tvMeasureIndex);
         spTravel_mode = findViewById(R.id.spTravel_mode);
         llItineraryHasTransport = findViewById(R.id.llItineraryHasTransport);
         rvItineraryHasTransport = findViewById(R.id.rvItineraryHasTransport);
@@ -94,6 +102,9 @@ public class ItineraryActivity extends AppCompatActivity {
             etDest_location.setText(itinerary.getDest_location());
             etOrig_location.setText(itinerary.getOrig_location());
             etDaily.setText(String.valueOf(itinerary.getDaily()));
+            etTime.setText(itinerary.getDuration());
+            etDistance.setText(String.valueOf(itinerary.getDistanceMeasureIndex()));
+            tvMeasureIndex.setText(g.getMeasureCost());
             spTravel_mode.setSelection(itinerary.getTravel_mode());
             llItineraryHasTransport.setVisibility(View.VISIBLE);
             llMarker.setVisibility(View.VISIBLE);
@@ -105,8 +116,7 @@ public class ItineraryActivity extends AppCompatActivity {
             rvItineraryHasTransport.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
 
             // Marker
-            final int Show_Header_Marker = 1  ;
-            MarkerListAdapter adapterMarker = new MarkerListAdapter(Database.mMarkerDao.fetchMarkerByTravelItineraryId(itinerary.getTravel_id(), itinerary.getId() ), getApplicationContext(), Show_Header_Marker, itinerary.getTravel_id());
+            MarkerListAdapter adapterMarker = new MarkerListAdapter(Database.mMarkerDao.fetchMarkerByTravelItineraryId(itinerary.getTravel_id(), itinerary.getId() ), getApplicationContext(), 1, 0, false, itinerary.getTravel_id(), itinerary.getId());
             rvMarker.setAdapter(adapterMarker);
             rvMarker.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         }
@@ -129,9 +139,9 @@ public class ItineraryActivity extends AppCompatActivity {
                 i1.setOrig_location(etOrig_location.getText().toString());
                 i1.setDest_location(etDest_location.getText().toString());
                 i1.setDaily(Integer.parseInt(etDaily.getText().toString()));
+                i1.setDuration(etTime.getText().toString());
+                i1.setDistanceMeasureIndex(Integer.parseInt(etDistance.getText().toString()));
                 i1.setTravel_mode(spTravel_mode.getSelectedItemPosition());
-                if (!opInsert) i1.setDistance(itinerary.getDistance());
-                if (!opInsert) i1.setTime(itinerary.getTime());
 
                 if (!opInsert) {
                     try {
@@ -164,6 +174,8 @@ public class ItineraryActivity extends AppCompatActivity {
                 etOrig_location.getText().toString().isEmpty() ||
                 etDest_location.getText().toString().isEmpty() ||
                 etDaily.getText().toString().isEmpty() ||
+                //etTime.getText().toString().isEmpty() ||
+                //etDistance.getText().toString().isEmpty() ||
                 spTravel_mode.getSelectedItemPosition() < 0) {
                 isValid = false;
             }

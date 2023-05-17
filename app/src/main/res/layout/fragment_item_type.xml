@@ -1,7 +1,7 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/ll_tour_type"
+    android:id="@+id/ll_type"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:orientation="vertical"
@@ -9,19 +9,19 @@
     tools:ignore="UseCompoundDrawables">
 
     <ImageView
-        android:id="@+id/img_tour_type"
+        android:id="@+id/img_type"
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_gravity="center"
-        android:contentDescription="@string/Tour_Tour_Type" />
+        android:importantForAccessibility="no" />
     <TextView
-        android:id="@+id/tv_tour_type"
+        android:id="@+id/tv_type"
         android:layout_width="50dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/labels_margin"
         android:gravity="center"
         android:textAppearance="?android:attr/textAppearanceSmall"
-        android:textSize="9sp"
+        android:textSize="8sp"
         tools:ignore="SmallSp" />
 
 </LinearLayout>

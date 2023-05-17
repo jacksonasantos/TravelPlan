@@ -72,8 +72,8 @@ public class TravelExpensesDAO extends DbContentProvider implements TravelExpens
     public TravelExpenses fetchTravelExpensesByTravelMarker( Integer travel_id, Integer marker_id) {
         final String[] selectionArgs = { String.valueOf(travel_id), String.valueOf(marker_id) };
         final String selection = TRAVEL_EXPENSES_TRAVEL_ID + " = ? AND " + TRAVEL_EXPENSES_MARKER_ID + " = ? ";
-        TravelExpenses travelExpenses = new TravelExpenses();
 
+        TravelExpenses travelExpenses = new TravelExpenses();
         cursor = super.query(TRAVEL_EXPENSES_TABLE, TRAVEL_EXPENSES_COLUMNS, selection, selectionArgs, null);
         if (cursor != null) {
             cursor.moveToFirst();

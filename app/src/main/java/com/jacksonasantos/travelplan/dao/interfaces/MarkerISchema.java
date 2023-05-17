@@ -16,11 +16,9 @@ public interface MarkerISchema {
     String MARKER_STATE = "state";
     String MARKER_COUNTRY = "country";
     String MARKER_ABBR_COUNTRY = "abbr_country";
-    String MARKER_CATEGORY_TYPE = "category_type";
     String MARKER_DESCRIPTION = "description";
     String MARKER_LATITUDE = "latitude";
     String MARKER_LONGITUDE = "longitude";
-    String MARKER_ZOOM_LEVEL = "zoom_level";
 
     // Version 26
     String CREATE_TABLE_MARKER_V26 = "CREATE TABLE IF NOT EXISTS "
@@ -34,11 +32,9 @@ public interface MarkerISchema {
             + MARKER_STATE + " TEXT, "
             + MARKER_COUNTRY + " TEXT, "
             + MARKER_ABBR_COUNTRY + "TEXT, "
-            + MARKER_CATEGORY_TYPE + " INT, "
             + MARKER_DESCRIPTION + " TEXT, "
             + MARKER_LATITUDE + " TEXT, "
-            + MARKER_LONGITUDE + " TEXT, "
-            + MARKER_ZOOM_LEVEL + " TEXT "
+            + MARKER_LONGITUDE + " TEXT "
            + ")";
 
     // Version 33
@@ -66,10 +62,8 @@ public interface MarkerISchema {
             MARKER_STATE,
             MARKER_COUNTRY,
             MARKER_ABBR_COUNTRY,
-            MARKER_CATEGORY_TYPE,
             MARKER_DESCRIPTION,
             MARKER_LATITUDE,
-            MARKER_LONGITUDE,
-            MARKER_ZOOM_LEVEL
+            MARKER_LONGITUDE
     };
 }

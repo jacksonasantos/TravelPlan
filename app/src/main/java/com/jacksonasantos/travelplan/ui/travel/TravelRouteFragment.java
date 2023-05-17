@@ -8,7 +8,6 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -24,13 +23,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
-import android.widget.SimpleCursorAdapter;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -61,30 +57,25 @@ import com.jacksonasantos.travelplan.dao.Achievement;
 import com.jacksonasantos.travelplan.dao.Itinerary;
 import com.jacksonasantos.travelplan.dao.Marker;
 import com.jacksonasantos.travelplan.dao.Travel;
-import com.jacksonasantos.travelplan.dao.TravelExpenses;
 import com.jacksonasantos.travelplan.dao.general.Database;
 import com.jacksonasantos.travelplan.ui.general.AchievementActivity;
 import com.jacksonasantos.travelplan.ui.utility.Globals;
 import com.jacksonasantos.travelplan.ui.utility.Utils;
 
 import java.io.IOException;
-import java.math.BigDecimal;
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 import java.util.Objects;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 public class TravelRouteFragment extends Fragment implements LocationListener {
 
     public boolean clearMap;
     public final boolean flgModeAchievement;
     public final String txt_Search;
+    public Context context;
 
     public static Integer nrTravel_Id;
     public static Integer nrItinerary_Id;
-    public static Integer nrAchievement_Id;
 
     private Button buttonSeparator;
     private TextView tvTravel;
@@ -109,6 +100,7 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
         this.flgModeAchievement = flgModeAchievement;
         nrTravel_Id = travel_id;
         this.txt_Search = tx_Search;
+        this.context = getContext();
 
         try {
             MapsInitializer.initialize(requireContext());
@@ -215,7 +207,7 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
 
             googleMap.setOnMarkerClickListener(marker -> {
                 if (!flgModeAchievement) {
-                    if (removeMarker(marker.getPosition())) {
+                    if (MarkerActivity.removeMarker(context, nrTravel_Id, marker.getPosition())) {
                         marker.remove();
                         drawItinerary(nrTravel_Id);
                     }
@@ -290,220 +282,21 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
         zoomMarkers();
     }
 
-    private boolean removeMarker(LatLng point ) {
-        boolean result;
-        try {
-            Marker m = Database.mMarkerDao.fetchMarkerByPoint(nrTravel_Id, point);
-            if (m.getAchievement_id()!=null && m.getAchievement_id()>0){
-                Achievement a = Database.mAchievementDao.fetchAchievementById(m.getAchievement_id());
-                a.setItinerary_id(null);
-                a.setTravel_id(null);
-                Database.mAchievementDao.updateAchievement(a);
-            }
-            TravelExpenses te = Database.mTravelExpensesDao.fetchTravelExpensesByTravelMarker(nrTravel_Id, m.getId() );
-            result = Database.mTravelExpensesDao.deleteTravelExpenses(te.getId());
-            if ( Database.mMarkerDao.deleteMarker(nrTravel_Id, String.valueOf(point.latitude), String.valueOf(point.longitude)) ) {
-                result = adjustMarker(nrTravel_Id, m.getItinerary_id(), m.getSequence(), false);
-            }
-        } catch (Exception e) {
-            Toast.makeText(getActivity(), R.string.Error_Deleting_Data + e.getMessage(), Toast.LENGTH_LONG).show();
-            result = false;
-        }
-        return result;
+
+
+    private boolean registryMarker(@NonNull final LatLng point) {
+        Intent intent = new Intent (requireContext(), MarkerActivity.class);
+        intent.putExtra("travel_id", nrTravel_Id);
+        intent.putExtra("lat", point.latitude);
+        intent.putExtra("lng", point.longitude);
+        intent.setFlags(FLAG_ACTIVITY_NEW_TASK);
+        context.startActivity(intent);
+
+        drawItinerary(nrTravel_Id);
+        return true;
     }
 
-    private boolean registryMarker(@NonNull final LatLng point) throws IOException {
-        final Globals g = Globals.getInstance();
-        final Locale locale = new Locale(g.getLanguage(), g.getCountry());
-        final DecimalFormat decimalFormatter = (DecimalFormat) DecimalFormat.getNumberInstance(locale);
 
-        Geocoder geocoder = new Geocoder(requireContext(), Locale.getDefault());
-        final List<Address> addresses = geocoder.getFromLocation(point.latitude, point.longitude, 1);
-
-        LayoutInflater li = LayoutInflater.from(requireContext());
-        View promptsView = li.inflate(R.layout.dialog_marker, null);
-
-        final TextView tvLat = promptsView.findViewById(R.id.tvLat);
-        final TextView tvLng = promptsView.findViewById(R.id.tvLng);
-        final TextView tvZoom = promptsView.findViewById(R.id.tvZoom);
-        final TextView tvName = promptsView.findViewById(R.id.tvName);
-        final TextView tvAddress = promptsView.findViewById(R.id.tvAddress);
-        final TextView tvCity = promptsView.findViewById(R.id.tvCity);
-        final TextView tvState = promptsView.findViewById(R.id.tvState);
-        final TextView tvAbbrCountry = promptsView.findViewById(R.id.tvAbbrCountry);
-        final TextView tvCountry = promptsView.findViewById(R.id.tvCountry);
-        final TextView tvCategory = promptsView.findViewById(R.id.tvCategory);
-
-        final Spinner spinItinerary = promptsView.findViewById(R.id.spinItinerary);
-        final Spinner spinMarkerType = promptsView.findViewById(R.id.spinMarkerType);
-        final Spinner spinMarkerAchievement = promptsView.findViewById(R.id.spinMarkerAchievement);
-        final EditText etSeq = promptsView.findViewById(R.id.etSeq);
-        final EditText etDescription = promptsView.findViewById(R.id.etDescription);
-        final EditText etExpectedValue = promptsView.findViewById(R.id.etExpectedValue);
-        final RecyclerView rvListMarkers = promptsView.findViewById(R.id.rvListMarkers);
-
-        tvLat.setText(String.valueOf(point.latitude));
-        tvLng.setText(String.valueOf(point.longitude));
-        tvZoom.setText(String.valueOf(googleMap.getCameraPosition().zoom));
-        tvName.setText(Objects.requireNonNull(addresses).get(0).getFeatureName());
-        tvAddress.setText(addresses.get(0).getAddressLine(0));
-        tvCity.setText(addresses.get(0).getSubAdminArea());
-        tvState.setText(addresses.get(0).getAdminArea());
-        tvAbbrCountry.setText(addresses.get(0).getCountryCode());
-        tvCountry.setText(addresses.get(0).getCountryName());
-        tvCategory.setText("0");
-
-        MarkerListAdapter adapterMarker = new MarkerListAdapter(Database.mMarkerDao.fetchMarkerByTravelItineraryId(nrTravel_Id, nrItinerary_Id), requireContext(), 1, 0);
-        rvListMarkers.setAdapter(adapterMarker);
-        rvListMarkers.setLayoutManager(new LinearLayoutManager(requireContext()));
-
-        spinMarkerType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                Marker m = new Marker();
-                etExpectedValue.setText(decimalFormatter.format(m.getMarker_typeExpectedValue(i)==null? BigDecimal.ZERO:m.getMarker_typeExpectedValue(i)));
-            }
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-            }
-        });
-
-        String[] adapterCols = new String[]{"text1"};
-        int[] adapterRowViews = new int[]{android.R.id.text1};
-
-        Cursor cItinerary = Database.mItineraryDao.fetchArrayItinerary(nrTravel_Id);
-        SimpleCursorAdapter cursorAdapterI = new SimpleCursorAdapter( requireActivity(), android.R.layout.simple_spinner_item, cItinerary, adapterCols, adapterRowViews, 0);
-        cursorAdapterI.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinItinerary.setAdapter(cursorAdapterI);
-        Utils.setSpinnerToValue(spinItinerary, nrItinerary_Id); // Selected Value of Spinner with value marked maps
-        spinItinerary.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                nrItinerary_Id = Math.toIntExact(spinItinerary.getSelectedItemId());
-                MarkerListAdapter adapterMarker = new MarkerListAdapter(Database.mMarkerDao.fetchMarkerByTravelItineraryId(nrTravel_Id, nrItinerary_Id), requireContext(), 1, 0);
-                rvListMarkers.setAdapter(adapterMarker);
-            }
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-            }
-        });
-
-        Cursor cAchievement = Database.mAchievementDao.fetchArrayAchievement();
-        SimpleCursorAdapter cursorAdapterA = new SimpleCursorAdapter( requireActivity(), android.R.layout.simple_spinner_item, cAchievement, adapterCols, adapterRowViews, 0);
-        cursorAdapterA.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinMarkerAchievement.setAdapter(cursorAdapterA);
-        Utils.setSpinnerToValue(spinMarkerAchievement, nrAchievement_Id); // Selected Value of Spinner with value marked maps
-        spinMarkerAchievement.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                nrAchievement_Id = Math.toIntExact(spinMarkerAchievement.getSelectedItemId());
-            }
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-            }
-        });
-
-        AtomicBoolean isSave = new AtomicBoolean(false);
-
-        final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(requireContext());
-        alertDialogBuilder.setView(promptsView);
-        alertDialogBuilder
-                .setCancelable(false)
-                .setPositiveButton(R.string.OK, (dialog, id) -> {
-                    if (nrItinerary_Id==null || nrItinerary_Id==0) {
-                        Toast.makeText(requireContext(), R.string.itinerary_not_selected, Toast.LENGTH_LONG).show();
-                        dialog.dismiss();
-                    }
-                    if (!etSeq.getText().toString().isEmpty() ) {
-
-                        Marker m = new Marker();
-                        m.setTravel_id(nrTravel_Id);
-                        m.setItinerary_id(nrItinerary_Id);
-                        m.setAchievement_id(nrAchievement_Id==0?null:nrAchievement_Id);
-                        m.setMarker_type(spinMarkerType.getSelectedItemPosition());
-                        m.setSequence(Integer.valueOf(etSeq.getText().toString()));
-                        m.setDescription(etDescription.getText().toString());
-
-                        m.setName(tvName.getText(). toString());
-                        m.setAddress(tvAddress.getText().toString());
-                        m.setCity(tvCity.getText().toString());
-                        m.setState(tvState.getText().toString());
-                        m.setAbbr_country(tvAbbrCountry.getText().toString());
-                        m.setCountry(tvCountry.getText().toString());
-                        m.setCategory_type(Integer.parseInt(tvCategory.getText().toString()));
-                        m.setLatitude(tvLat.getText().toString());
-                        m.setLongitude(tvLng.getText().toString());
-                        m.setZoom_level(tvZoom.getText().toString());
-
-                        try {
-                            isSave.set(adjustMarker(nrTravel_Id, nrItinerary_Id, m.getSequence(), true));
-                            isSave.set(Database.mMarkerDao.addMarker(m));
-
-                            if ( nrAchievement_Id > 0 ) {
-                               Achievement a = Database.mAchievementDao.fetchAchievementById(nrAchievement_Id);
-                               a.setLatlng_achievement(tvLat.getText().toString() + "," + tvLng.getText().toString());
-                               a.setTravel_id(a.getTravel_id()==0?nrTravel_Id:a.getTravel_id());
-                               a.setItinerary_id(a.getItinerary_id()==0?nrItinerary_Id:a.getItinerary_id());
-                               isSave.set(Database.mAchievementDao.updateAchievement(a));
-                            } else {
-                                if ( m.getMarker_type() == 9 ) {
-                                   Achievement a = new Achievement();
-                                   a.setTravel_id(nrTravel_Id);
-                                   a.setItinerary_id(nrItinerary_Id);
-                                   a.setShort_name(tvName.getText().toString());
-                                   a.setName(tvName.getText().toString());
-                                   a.setCity(tvCity.getText().toString());
-                                   a.setState(tvState.getText().toString());
-                                   a.setCountry(tvAbbrCountry.getText().toString());
-                                   a.setLatlng_achievement(tvLat.getText().toString()+","+tvLng.getText().toString());
-                                   a.setStatus_achievement(0);
-                                   isSave.set(Database.mAchievementDao.addAchievement(a));
-                               }
-                           }
-
-                            if ( Double.parseDouble(etExpectedValue.getText().toString()) > 0 ) {
-                               LatLng latlng = new LatLng(Double.parseDouble(tvLat.getText().toString()), Double.parseDouble(tvLng.getText().toString()));
-                               m = Database.mMarkerDao.fetchMarkerByPoint(nrTravel_Id, latlng);
-                               TravelExpenses te = new TravelExpenses();
-                               te.setTravel_id(m.getTravel_id());
-                               te.setExpense_type(m.getMarker_typeExpenseType(spinMarkerType.getSelectedItemPosition()));
-                               te.setExpected_value(Double.parseDouble(etExpectedValue.getText().toString()));
-                               te.setNote(getResources().getString(R.string.marker)+" " + m.getId() + " - " + getResources().getString(R.string.marker_itinerary) + ": " + nrItinerary_Id);
-                               te.setMarker_id(m.getId());
-                               isSave.set(Database.mTravelExpensesDao.addTravelExpenses(te));
-                           }
-                           drawItinerary(nrTravel_Id);
-
-                       } catch (Exception e) {
-                           Toast.makeText(requireContext(), R.string.Error_Including_Data + e.getMessage(), Toast.LENGTH_LONG).show();
-                       }
-                    } else {
-                        Toast.makeText(requireContext(), R.string.marker_sequence_not_informed, Toast.LENGTH_LONG).show();
-                    }
-                })
-                .setNegativeButton(R.string.Cancel, (dialog, id) -> dialog.cancel());
-        AlertDialog alertDialog = alertDialogBuilder.create();
-        alertDialog.show();
-        return isSave.get();
-    }
-
-    private boolean adjustMarker ( Integer travel_id, Integer itinerary_id, int sequence, boolean increment ){
-        boolean result = false;
-        List<Marker> cursor = Database.mMarkerDao.fetchMarkerByTravelItineraryId(travel_id, itinerary_id);
-        for (int x = 0; x < cursor.size(); x++) {
-            Marker m1 = cursor.get(x);
-            if (m1.getSequence() >= sequence ){
-                if (increment) {
-                    m1.setSequence(m1.getSequence() + 1);
-                } else {
-                    m1.setSequence(m1.getSequence() - 1);
-                }
-                Database.mMarkerDao.updateMarker(m1);
-                result = true;
-            }
-        }
-        return result;
-    }
 
     private Bitmap addBorder(Bitmap bmp, int borderSize) {
         int width = bmp.getWidth();
@@ -645,7 +438,7 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
                     for (int x = 0; x < cMarker.size(); x++) {
                         Marker marker = cMarker.get(x);
                         LatLng latlng = new LatLng(Double.parseDouble(marker.getLatitude()), Double.parseDouble(marker.getLongitude()));
-                        drawMarker(latlng, marker.getName(), ContextCompat.getColor(requireContext(), R.color.colorMarker), marker.getMarker_typeImage(marker.getMarker_type()));
+                        drawMarker(latlng, marker.getName(), ContextCompat.getColor(requireContext(), R.color.colorMarker), Marker.getMarker_typeImage(marker.getMarker_type()));
                     }
                     routeClass.drawRoute(googleMap, getContext(), pointsRoute, false, lang, false, 'T', nrTravel_Id, itinerary.getSequence(), nrItinerary_Id, false, itinerary.getTravel_mode());
                     zoomMarkers();
@@ -653,9 +446,9 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
             }
             MarkerListAdapter adapterTmp;
             if (nrItinerary_Id == null) {
-                adapterTmp = new MarkerListAdapter(Database.mMarkerDao.fetchMarkerByTravelId(nrTravel_Id), requireContext(), 0, 0);
+                adapterTmp = new MarkerListAdapter(Database.mMarkerDao.fetchMarkerByTravelId(nrTravel_Id), requireContext(), 0, 0, true, nrTravel_Id, null);
             } else {
-                adapterTmp = new MarkerListAdapter(Database.mMarkerDao.fetchMarkerByTravelItineraryId(nrTravel_Id, nrItinerary_Id), requireContext(), 0, 0);
+                adapterTmp = new MarkerListAdapter(Database.mMarkerDao.fetchMarkerByTravelItineraryId(nrTravel_Id, nrItinerary_Id), requireContext(), 0, 0, true, nrTravel_Id, nrItinerary_Id);
             }
 
             if (adapterTmp.getItemCount() > 0) {
@@ -851,11 +644,11 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
                     itemViewHolder.txtSource.setText(itinerary.getOrig_location());
                     itemViewHolder.txtTarget.setText(itinerary.getDest_location());
                     itemViewHolder.txtDaily.setText(Integer.toString(itinerary.getDaily()));
-                    itemViewHolder.txtDistance.setText(Integer.toString(itinerary.getDistanceMeter()));
+                    itemViewHolder.txtDistance.setText(Integer.toString(itinerary.getDistanceMeasureIndex()));
                     itemViewHolder.txtTime.setText(itinerary.getDuration());
                     if (!lClick) {
                         vTotDaily += itinerary.getDaily();
-                        vTotDistance += itinerary.getDistanceMeter();
+                        vTotDistance += itinerary.getDistanceMeasureIndex();
                         if (itinerary.getTime() > 0) {
                             vTotTime += itinerary.getTime();
                         }

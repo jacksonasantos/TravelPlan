@@ -16,11 +16,9 @@ public class Marker {
     public String state;
     public String country;
     public String abbr_country;
-    public int category_type;
     public String description;
     public String latitude;
     public String longitude;
-    public String zoom_level;
 
     public Marker() {
     }
@@ -40,7 +38,7 @@ public class Marker {
     public int getMarker_type() { return marker_type; }
     public void setMarker_type(int marker_type) { this.marker_type = marker_type; }
 
-    public int getMarker_typeImage(int marker_type) {
+    public static int getMarker_typeImage(int marker_type) {
         int draw;
         switch(marker_type) {
             case 0:
@@ -82,7 +80,8 @@ public class Marker {
             case 4: value = 4; break;   // 4-Accommodation -> 4-accommodation
             case 5: value = 2; break;   // 5-Toll          -> 2-Toll
             case 6:                     // 6-Tour          -> 3-Tours
-            case 7: value = 3; break;   // 7-Landmark      -> 3-Tours
+            case 7:                     // 7-Landmark      -> 3-Tours
+            case 9: value = 3; break;   // 9-Achievement   -> 3-Tours
             default:
                 throw new IllegalStateException("Unexpected value: " + marker_type);
         }
@@ -110,9 +109,6 @@ public class Marker {
     public String getAbbr_country() { return abbr_country; }
     public void setAbbr_country(String abbr_country) { this.abbr_country = abbr_country; }
 
-    public int getCategory_type() { return category_type; }
-    public void setCategory_type(int category_type) { this.category_type = category_type; }
-
     public String getDescription() { return description; }
     public void setDescription(String description) { this.description = description; }
 
@@ -121,7 +117,4 @@ public class Marker {
 
     public String getLongitude() {return longitude;}
     public void setLongitude(String longitude) { this.longitude = longitude; }
-
-    public String getZoom_level() { return zoom_level; }
-    public void setZoom_level(String zoom_level) { this.zoom_level = zoom_level; }
 }

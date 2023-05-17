@@ -108,13 +108,13 @@ public class AchievementDAO extends DbContentProvider implements AchievementISch
         }
     }
 
-    public boolean addAchievement(Achievement achievement) {
+    public Integer addAchievement(Achievement achievement) {
         setContentValue(achievement);
         try {
-            return (super.insert(ACHIEVEMENT_TABLE, getContentValue()) > 0);
+            return Math.toIntExact(super.insert(ACHIEVEMENT_TABLE, getContentValue()));
         } catch (SQLiteConstraintException ex){
             Log.w("Insert Table", Objects.requireNonNull(ex.getMessage()));
-            return false;
+            return -1;
         }
     }
 

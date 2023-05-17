@@ -18,6 +18,14 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:padding="@dimen/labels_margin">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/labels_space_top"
+                android:gravity="center"
+                android:text="@string/Itinerary"
+                android:textColor="@color/design_default_color_secondary_variant"
+                android:textSize="14sp" />
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -141,10 +149,59 @@
                     android:id="@+id/etDaily"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="7.5"
+                    android:layout_weight="2.5"
+                    android:gravity="end"
                     android:autofillHints="no"
                     android:inputType="number"
                     tools:ignore="LabelFor"
+                    android:textSize="12sp"  />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="10">
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2.5"
+                    android:text="@string/Itinerary_Time"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textSize="14sp" />
+                <EditText
+                    android:id="@+id/etTime"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2.5"
+                    android:gravity="center"
+                    android:autofillHints="no"
+                    android:inputType="number"
+                    tools:ignore="LabelFor"
+                    android:textSize="12sp"  />
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:text="@string/Itinerary_Distance"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textSize="14sp" />
+                <EditText
+                    android:id="@+id/etDistance"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:gravity="center"
+                    android:autofillHints="no"
+                    android:inputType="number"
+                    tools:ignore="LabelFor"
+                    android:textSize="12sp"  />
+                <TextView
+                    android:id="@+id/tvMeasureIndex"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="start"
+                    android:autofillHints="no"
                     android:textSize="12sp"  />
             </LinearLayout>
         </LinearLayout>

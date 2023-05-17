@@ -11,7 +11,7 @@ public interface AchievementIDAO {
     List<Achievement> fetchAllAchievement();
     List<Achievement> fetchAllAchievementByStatusAchievement( Integer status );
     Cursor fetchArrayAchievement();
-    boolean addAchievement(Achievement achievement);
+    Integer addAchievement(Achievement achievement);
     void deleteAchievement(Integer id);
     boolean updateAchievement(Achievement achievement);
 }

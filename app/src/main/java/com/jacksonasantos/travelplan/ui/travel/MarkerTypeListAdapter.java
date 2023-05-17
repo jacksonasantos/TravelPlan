@@ -14,53 +14,49 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.jacksonasantos.travelplan.R;
-import com.jacksonasantos.travelplan.dao.Tour;
-import com.jacksonasantos.travelplan.dao.general.Database;
+import com.jacksonasantos.travelplan.dao.Marker;
 import com.jacksonasantos.travelplan.ui.utility.Utils;
 
 import java.util.List;
 
-public class TourTypeListAdapter extends RecyclerView.Adapter<TourTypeListAdapter.MyViewHolder> {
+public class MarkerTypeListAdapter extends RecyclerView.Adapter<MarkerTypeListAdapter.MyViewHolder> {
 
-    public final List<Integer> mTourType;
+    public final List<Integer> mMarkerType;
     final Context context;
     private ItemClickListener mItemClickListener;
 
     public static class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        public final LinearLayout ll_tour_type;
-        public final ImageView img_tour_type;
-        public final TextView tv_tour_type;
+        public final LinearLayout ll_marker_type;
+        public final ImageView img_marker_type;
+        public final TextView tv_marker_type;
 
         public MyViewHolder(View v) {
             super(v);
-            ll_tour_type = v.findViewById(R.id.ll_type);
-            img_tour_type = v.findViewById(R.id.img_type);
-            img_tour_type.setOnClickListener(this);
-            tv_tour_type = v.findViewById(R.id.tv_type);
+            ll_marker_type = v.findViewById(R.id.ll_type);
+            img_marker_type = v.findViewById(R.id.img_type);
+            img_marker_type.setOnClickListener(this);
+            tv_marker_type = v.findViewById(R.id.tv_type);
         }
         void bindItem(int pos) {
             if(Utils.selected_position==pos){
-                ll_tour_type.setBackgroundColor(Color.LTGRAY);
+                ll_marker_type.setBackgroundColor(Color.LTGRAY);
             } else {
-                ll_tour_type.setBackgroundColor(Color.WHITE);
+                ll_marker_type.setBackgroundColor(Color.WHITE);
             }
         }
         @Override
         public void onClick(View view) { }
     }
 
-       public TourTypeListAdapter(List<Integer> tourType, Context context) {
-        this.mTourType = tourType;
+       public MarkerTypeListAdapter(List<Integer> markerType, Context context) {
+        this.mMarkerType = markerType;
         this.context = context;
-
-        Database mdb = new Database(context);
-        mdb.open();
     }
 
     @NonNull
     @Override
-    public TourTypeListAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public MarkerTypeListAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.fragment_item_type, parent, false);
 
@@ -75,9 +71,9 @@ public class TourTypeListAdapter extends RecyclerView.Adapter<TourTypeListAdapte
     @Override
     public void onBindViewHolder(@NonNull final MyViewHolder holder, final int position) {
         holder.bindItem(position);
-        holder.tv_tour_type.setText(context.getResources().getStringArray(R.array.tour_type_array)[mTourType.get(position)]);
-        holder.img_tour_type.setImageResource(Tour.getTourTypeImage(mTourType.get(position)));
-        holder.img_tour_type.setOnClickListener(view -> {
+        holder.tv_marker_type.setText(context.getResources().getStringArray(R.array.marker_type_array)[mMarkerType.get(position)]);
+        holder.img_marker_type.setImageResource(Marker.getMarker_typeImage(mMarkerType.get(position)));
+        holder.img_marker_type.setOnClickListener(view -> {
             if (mItemClickListener != null) {
                 if (Utils.selected_position == position) {
                     Utils.selected_position = RecyclerView.NO_POSITION;
@@ -90,7 +86,7 @@ public class TourTypeListAdapter extends RecyclerView.Adapter<TourTypeListAdapte
 
     @Override
     public int getItemCount() {
-        return mTourType.size();
+        return mMarkerType.size();
     }
 
     public interface ItemClickListener {
