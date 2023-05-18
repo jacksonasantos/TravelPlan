@@ -10,8 +10,8 @@
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/imgExpense"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
+        android:layout_width="18dp"
+        android:layout_height="18dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

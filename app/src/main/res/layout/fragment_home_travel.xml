@@ -114,8 +114,8 @@
 
             <ImageButton
                 android:id="@+id/btnItinerary"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
                 android:contentDescription="@string/Itinerary"
                 app:layout_constraintEnd_toStartOf="@+id/btnAccommodation"
                 app:layout_constraintStart_toStartOf="parent"
@@ -124,8 +124,8 @@
 
             <ImageButton
                 android:id="@+id/btnAccommodation"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
                 android:contentDescription="@string/accommodation"
                 app:layout_constraintEnd_toStartOf="@+id/btnFood"
                 app:layout_constraintStart_toEndOf="@+id/btnItinerary"
@@ -134,8 +134,8 @@
 
             <ImageButton
                 android:id="@+id/btnFood"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
                 android:contentDescription="@string/food"
                 app:layout_constraintEnd_toStartOf="@+id/btnFuel"
                 app:layout_constraintStart_toEndOf="@+id/btnAccommodation"
@@ -144,8 +144,8 @@
 
             <ImageButton
                 android:id="@+id/btnFuel"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
                 android:contentDescription="@string/combustible"
                 app:layout_constraintEnd_toStartOf="@+id/btnExtra"
                 app:layout_constraintStart_toEndOf="@+id/btnFood"
@@ -154,8 +154,8 @@
 
             <ImageButton
                 android:id="@+id/btnExtra"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
                 android:contentDescription="@string/extras"
                 app:layout_constraintEnd_toStartOf="@+id/btnTour"
                 app:layout_constraintStart_toEndOf="@+id/btnFuel"
@@ -164,8 +164,8 @@
 
             <ImageButton
                 android:id="@+id/btnTour"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
                 android:contentDescription="@string/tours"
                 app:layout_constraintEnd_toStartOf="@+id/btnTolls"
                 app:layout_constraintStart_toEndOf="@+id/btnExtra"
@@ -174,8 +174,8 @@
 
             <ImageButton
                 android:id="@+id/btnTolls"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
                 android:contentDescription="@string/toll"
                 app:layout_constraintEnd_toStartOf="@+id/btnInsurance"
                 app:layout_constraintStart_toEndOf="@+id/btnTour"
@@ -184,13 +184,23 @@
 
             <ImageButton
                 android:id="@+id/btnInsurance"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
                 android:contentDescription="@string/insurance"
+                app:layout_constraintEnd_toStartOf="@+id/btnTransport"
                 app:layout_constraintStart_toEndOf="@+id/btnTolls"
-                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/ic_menu_insurance" />
+
+            <ImageButton
+                android:id="@+id/btnTransport"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:contentDescription="@string/Transport"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/btnInsurance"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_transport" />
 
             <Button
                 android:id="@+id/buttonSeparator0"
@@ -248,17 +258,67 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/layerVehicle"
+            android:id="@+id/layerItinerary"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginStart="@dimen/labels_margin"
-            android:layout_marginLeft="@dimen/labels_margin"
             android:layout_marginEnd="@dimen/labels_margin"
-            android:layout_marginRight="@dimen/labels_margin"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/layerExpense">
 
+            <TextView
+                android:id="@+id/tvItinerary"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/Itinerary"
+                android:textColor="@color/design_default_color_secondary_variant"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/listItinerary"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scrollbars="vertical"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvItinerary"
+                tools:itemCount="2" />
+
+            <Button
+                android:id="@+id/buttonSeparator2"
+                android:layout_width="match_parent"
+                android:layout_height="16dp"
+                android:clickable="false"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/listItinerary" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layerVehicle"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginStart="@dimen/labels_margin"
+            android:layout_marginEnd="@dimen/labels_margin"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/layerItinerary">
+
+            <TextView
+                android:id="@+id/tvVehicle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/Vehicle"
+                android:textColor="@color/design_default_color_secondary_variant"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/listVehicle"
@@ -267,6 +327,7 @@
                 android:scrollbars="vertical"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvVehicle"
                 tools:itemCount="2" />
 
             <Button
@@ -455,50 +516,6 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/layerItinerary"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginStart="@dimen/labels_margin"
-            android:layout_marginLeft="@dimen/labels_margin"
-            android:layout_marginEnd="@dimen/labels_margin"
-            android:layout_marginRight="@dimen/labels_margin"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/layerFuelSupply">
-
-            <TextView
-                android:id="@+id/tvItinerary"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/Itinerary"
-                android:textColor="@color/design_default_color_secondary_variant"
-                android:textSize="14sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/listItinerary"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scrollbars="vertical"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvItinerary"
-                tools:itemCount="2" />
-
-            <Button
-                android:id="@+id/buttonSeparator2"
-                android:layout_width="match_parent"
-                android:layout_height="16dp"
-                android:clickable="false"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/listItinerary" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/layerAchievement"
             android:layout_width="match_parent"
             android:layout_height="0dp"
@@ -508,7 +525,7 @@
             android:layout_marginRight="@dimen/labels_margin"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/layerItinerary" >
+            app:layout_constraintTop_toBottomOf="@+id/layerFuelSupply" >
 
             <TextView
                 android:id="@+id/tvAchievement"

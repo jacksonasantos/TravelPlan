@@ -205,6 +205,10 @@ public class TourActivity extends AppCompatActivity implements TourTypeListAdapt
         rvTourType.setAdapter(adapterTourType);
         rvTourType.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
 
+        etValueAdult.setOnFocusChangeListener((v, hasFocus) -> etValueAdult.setText(""));
+        etValueChild.setOnFocusChangeListener((v, hasFocus) -> etValueChild.setText(""));
+        etNumberAdult.setOnFocusChangeListener((v, hasFocus) -> etNumberAdult.setText(""));
+        etNumberChild.setOnFocusChangeListener((v, hasFocus) -> etNumberChild.setText(""));
         if (tour != null) {
             travel = Database.mTravelDao.fetchTravelById(tour.getTravel_id());
             tvTravel.setText(travel.getDescription());

@@ -20,42 +20,57 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:weightSum="10"
-                android:padding="@dimen/labels_margin">
-                <ImageView
-                    android:id="@+id/imVehicleType"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:contentDescription="@string/Vehicle_Type"
-                    android:hint="@string/Vehicle_Type"
-                    tools:ignore="ContentDescription" />
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/labels_space_top"
+                    android:layout_marginBottom="@dimen/labels_margin"
+                    android:gravity="center"
+                    android:text="@string/Vehicle_MaintenanceItem"
+                    android:textColor="@color/design_default_color_secondary_variant"
+                    android:textSize="14sp" />
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:orientation="vertical">
-                    <TextView
-                        android:id="@+id/txVehicleName"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="bottom|center_horizontal"
-                        android:hint="@string/Vehicle_Name" />
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="10"
+                    android:padding="@dimen/labels_margin">
+
+                    <ImageView
+                        android:id="@+id/imVehicleType"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:contentDescription="@string/Vehicle_Type"
+                        android:hint="@string/Vehicle_Type"
+                        tools:ignore="ContentDescription" />
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
+                        android:layout_height="40dp"
+                        android:orientation="vertical">
                         <TextView
-                            android:id="@+id/txVehicleLicencePlate"
-                            android:layout_width="200dp"
-                            android:layout_height="wrap_content"
-                            android:gravity="bottom|center_horizontal"
-                            android:hint="@string/Vehicle_Licence_Plate" />
-                        <TextView
-                            android:id="@+id/txVehicleOdometer"
+                            android:id="@+id/txVehicleName"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="bottom|center_horizontal"
-                            android:hint="@string/Vehicle_Odometer" />
+                            android:hint="@string/Vehicle_Name" />
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+                            <TextView
+                                android:id="@+id/txVehicleLicencePlate"
+                                android:layout_width="200dp"
+                                android:layout_height="wrap_content"
+                                android:gravity="bottom|center_horizontal"
+                                android:hint="@string/Vehicle_Licence_Plate" />
+                            <TextView
+                                android:id="@+id/txVehicleOdometer"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="bottom|center_horizontal"
+                                android:hint="@string/Vehicle_Odometer" />
+                        </LinearLayout>
                     </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
