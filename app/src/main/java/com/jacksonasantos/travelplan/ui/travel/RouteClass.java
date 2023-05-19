@@ -168,13 +168,15 @@ public class RouteClass {
 
                     int vColor = Itinerary.getColorItinerary(nrSequence);
                     int vWidth = 8;
-                    if (nrSequenceSelected != null) {
-                        vColor = nrSequence == nrSequenceSelected ? vColor : Color.RED;
+                    if (nrSequenceSelected != null && nrSequenceSelected > 0) {
+                        vColor = nrSequence == nrSequenceSelected ? vColor : Color.BLACK;
                         vWidth = nrSequence == nrSequenceSelected ? vWidth : 14;
                     }
 
+                    Itinerary itinerary = Database.mItineraryDao.fetchItineraryByTravelId(nrTravel_Id, nrSequence);
+
                     List<PatternItem> PATTERN_POLYLINE;
-                    switch (Database.mItineraryDao.fetchItineraryByTravelId(nrTravel_Id, nrSequence).getTravel_mode()) {
+                    switch (itinerary.getTravel_mode()) {
                         case 1: PATTERN_POLYLINE = PATTERN_WALKING; break;
                         case 2: PATTERN_POLYLINE = PATTERN_BICYCLING; break;
                         case 3: PATTERN_POLYLINE = PATTERN_TRANSIT; break;
@@ -182,7 +184,6 @@ public class RouteClass {
                         default: PATTERN_POLYLINE = PATTERN_DRIVING;
                     }
 
-                    Itinerary itinerary = Database.mItineraryDao.fetchItineraryByTravelId(nrTravel_Id, nrSequence);
                     if (itinerary.getTravel_mode() == 4) {
                         List<Marker> marker = Database.mMarkerDao.fetchMarkerByTravelItineraryId(nrTravel_Id, itinerary.getId());
                         LatLng markerOrigin = null, markerTarget = null;

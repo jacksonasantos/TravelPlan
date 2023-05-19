@@ -56,7 +56,6 @@ public class HomeInsuranceListAdapter extends RecyclerView.Adapter<RecyclerView.
     public void onBindViewHolder(@NonNull final RecyclerView.ViewHolder holder, final int position) {
         if (holder instanceof HeaderViewHolder){
             HeaderViewHolder headerViewHolder = (HeaderViewHolder) holder;
-
             headerViewHolder.llInsuranceItem.setBackgroundColor(Color.LTGRAY);
             headerViewHolder.imInsuranceType.setVisibility(View.INVISIBLE);
             headerViewHolder.imInsuranceStatus.setVisibility(View.INVISIBLE);
@@ -69,14 +68,7 @@ public class HomeInsuranceListAdapter extends RecyclerView.Adapter<RecyclerView.
         else if (holder instanceof ItemViewHolder) {
             final ItemViewHolder itemViewHolder = (ItemViewHolder) holder;
             final Insurance insurance = mInsurance.get(position-show_header);
-            if (position % 2 == 0) {
-                itemViewHolder.llInsuranceItem.setBackgroundColor(Color.LTGRAY);
-            } else {
-                itemViewHolder.llInsuranceItem.setBackgroundColor(Color.WHITE);
-            }
-
             itemViewHolder.llInsuranceItem.setOnClickListener(v -> InsuranceDialog.InsuranceClass(insurance, v));
-
             itemViewHolder.imInsuranceType.setImageResource(insurance.getInsurance_typeImage(insurance.getInsurance_type()));
             itemViewHolder.imInsuranceStatus.setImageResource(R.drawable.ic_ball);
             itemViewHolder.imInsuranceStatus.setColorFilter(insurance.getColorInsuranceStatus(), PorterDuff.Mode.MULTIPLY);

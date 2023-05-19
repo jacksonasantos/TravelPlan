@@ -284,7 +284,6 @@ public class TourActivity extends AppCompatActivity implements TourTypeListAdapt
                 final Tour t1 = new Tour();
 
                 t1.setTravel_id(tour.getTravel_id());
-                t1.setMarker_id(null);
                 t1.setLocal_tour(etLocalTour.getText().toString());
                 t1.setTour_type(nrTourType);
                 t1.setAchievement_id(nrSpAchievement);

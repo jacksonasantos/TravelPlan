@@ -20,6 +20,8 @@ import com.jacksonasantos.travelplan.dao.Itinerary;
 import com.jacksonasantos.travelplan.dao.general.Database;
 import com.jacksonasantos.travelplan.ui.utility.Globals;
 
+import java.util.List;
+
 public class ItineraryActivity extends AppCompatActivity {
     
     private boolean opInsert = true;
@@ -39,12 +41,15 @@ public class ItineraryActivity extends AppCompatActivity {
     private LinearLayout llMarker;
     private RecyclerView rvMarker;
 
+    private Itinerary itineraryLast;
+
     final Globals g = Globals.getInstance();
 
     @SuppressLint("ResourceType")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
 
         Database mDb = new Database(getApplicationContext());
         mDb.open();
@@ -86,16 +91,16 @@ public class ItineraryActivity extends AppCompatActivity {
         rvMarker = findViewById(R.id.rvMarker);
 
         if (opInsert){
-            Itinerary itineraryLast = Database.mItineraryDao.fetchLastItineraryByTravel(itinerary.getTravel_id());
-            if (itineraryLast != null) {
+            itineraryLast = Database.mItineraryDao.fetchLastItineraryByTravel(itinerary.getTravel_id());
+            if (itineraryLast.getSequence() > 0) {
                 etSequence.setText(String.valueOf(itineraryLast.getSequence() + 1));
                 etOrig_location.setText(itineraryLast.getDest_location());
             } else {
                 etSequence.setText(String.valueOf(1));
             }
             tvDate.setText(Database.mItineraryDao.fetchItineraryDateSequence(itinerary.getTravel_id(),0));
-            llItineraryHasTransport.setVisibility(View.INVISIBLE);
-            llMarker.setVisibility(View.INVISIBLE);
+            llItineraryHasTransport.setVisibility(View.GONE);
+            llMarker.setVisibility(View.GONE);
         } else {
             etSequence.setText(String.valueOf(itinerary.getSequence()));
             tvDate.setText(Database.mItineraryDao.fetchItineraryDateSequence(itinerary.getTravel_id(),itinerary.getSequence()));
@@ -133,6 +138,10 @@ public class ItineraryActivity extends AppCompatActivity {
             } else {
                 final Itinerary i1 = new Itinerary();
 
+                if (opInsert && Integer.parseInt(etSequence.getText().toString()) <= itineraryLast.getSequence()) {
+                    isSave = adjustItinerary( itinerary.getTravel_id(), Integer.parseInt(etSequence.getText().toString()), true);
+                }
+
                 if (!opInsert) i1.setId(itinerary.getId());
                 i1.setTravel_id(itinerary.getTravel_id());
                 i1.setSequence(Integer.parseInt(etSequence.getText().toString()));
@@ -140,7 +149,9 @@ public class ItineraryActivity extends AppCompatActivity {
                 i1.setDest_location(etDest_location.getText().toString());
                 i1.setDaily(Integer.parseInt(etDaily.getText().toString()));
                 i1.setDuration(etTime.getText().toString());
-                i1.setDistanceMeasureIndex(Integer.parseInt(etDistance.getText().toString()));
+                if (!etDistance.getText().toString().equals("")) {
+                    i1.setDistanceMeasureIndex(Integer.parseInt(etDistance.getText().toString()));
+                }
                 i1.setTravel_mode(spTravel_mode.getSelectedItemPosition());
 
                 if (!opInsert) {
@@ -165,6 +176,24 @@ public class ItineraryActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    private boolean adjustItinerary(Integer travel_id, int sequence, boolean increment) {
+        boolean result = false;
+        List<Itinerary> cursor = Database.mItineraryDao.fetchAllItineraryByTravel(travel_id);
+        for (int x = 0; x < cursor.size(); x++) {
+            Itinerary i1 = cursor.get(x);
+            if (i1.getSequence() >= sequence ){
+                if (increment) {
+                    i1.setSequence(i1.getSequence() + 1);
+                } else {
+                    i1.setSequence(i1.getSequence() - 1);
+                }
+                Database.mItineraryDao.updateItinerary(i1);
+                result = true;
+            }
+        }
+        return result;
     }
 
     private boolean validateData() {

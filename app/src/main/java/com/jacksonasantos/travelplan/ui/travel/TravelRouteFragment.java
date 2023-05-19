@@ -287,10 +287,11 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
     private boolean registryMarker(@NonNull final LatLng point) {
         Intent intent = new Intent (requireContext(), MarkerActivity.class);
         intent.putExtra("travel_id", nrTravel_Id);
+        if (nrItinerary_Id != null) intent.putExtra("itinerary_id", nrItinerary_Id);
         intent.putExtra("lat", point.latitude);
         intent.putExtra("lng", point.longitude);
         intent.setFlags(FLAG_ACTIVITY_NEW_TASK);
-        context.startActivity(intent);
+        startActivity(intent);
 
         drawItinerary(nrTravel_Id);
         return true;
@@ -429,11 +430,11 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
         List<Itinerary> cItinerary = Database.mItineraryDao.fetchAllItineraryByTravel(travel_id);
         if (!clearMap) {
             clearItinerary();
+            builder = new LatLngBounds.Builder();
             for (int i = 0; i < cItinerary.size(); i++) {
                 Itinerary itinerary = cItinerary.get(i);
                 pointsRoute.clear();
                 List<Marker> cMarker = Database.mMarkerDao.fetchMarkerByTravelItineraryId(travel_id, itinerary.getId());
-                builder = new LatLngBounds.Builder();
                 if (cMarker.size() > 0) {
                     for (int x = 0; x < cMarker.size(); x++) {
                         Marker marker = cMarker.get(x);

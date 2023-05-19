@@ -9,7 +9,6 @@ import java.util.Date;
 public class Tour {
     public Integer id;
     public Integer travel_id;
-    public Integer marker_id;
     public int tour_type;
     public String local_tour;
     public int currency_type;
@@ -41,9 +40,6 @@ public class Tour {
 
     public Integer getTravel_id() { return travel_id; }
     public void setTravel_id(Integer travel_id) { this.travel_id = travel_id; }
-
-    public Integer getMarker_id() { return marker_id; }
-    public void setMarker_id(Integer marker_id) { this.marker_id = marker_id; }
 
     public String getLocal_tour() { return local_tour; }
     public void setLocal_tour(String local_tour) { this.local_tour = local_tour; }

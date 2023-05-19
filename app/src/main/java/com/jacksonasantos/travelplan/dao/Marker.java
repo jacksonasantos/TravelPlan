@@ -8,6 +8,7 @@ public class Marker {
     public Integer travel_id;
     public Integer itinerary_id;
     public Integer achievement_id;
+    public Integer tour_id;
     public int marker_type;
     public Integer sequence;
     public String name;
@@ -34,6 +35,9 @@ public class Marker {
 
     public Integer getAchievement_id() { return achievement_id; }
     public void setAchievement_id(Integer achievement_id) { this.achievement_id = achievement_id; }
+
+    public Integer getTour_id() { return tour_id; }
+    public void setTour_id(Integer tour_id) { this.tour_id = tour_id; }
 
     public int getMarker_type() { return marker_type; }
     public void setMarker_type(int marker_type) { this.marker_type = marker_type; }

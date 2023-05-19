@@ -7,6 +7,8 @@ import androidx.annotation.NonNull;
 
 import com.jacksonasantos.travelplan.ui.utility.Globals;
 
+import java.util.Objects;
+
 public class Itinerary {
     public Integer id;
     public Integer travel_id;
@@ -31,7 +33,7 @@ public class Itinerary {
         int color;
         switch(sequence % 5) {
             case 0: color = Color.BLUE; break;
-            case 1: color = Color.DKGRAY; break;
+            case 1: color = Color.GRAY; break;
             case 2: color = Color.RED; break;
             case 3: color = Color.GREEN; break;
             default: color = Color.MAGENTA; break;
@@ -76,8 +78,10 @@ public class Itinerary {
         return String.format("%3d:%02d", totalHr, totalMin);
     }
     public void setDuration( String duration) {
-        int totalHr = Integer.parseInt(duration.substring(0,duration.indexOf(":")).trim()) * 3600;
-        int totalMin = Integer.parseInt(duration.substring(duration.length()-2) ) * 60;
-        this.time = totalHr+totalMin;
+        if (!Objects.equals(duration, "")) {
+            int totalHr = Integer.parseInt(duration.substring(0, duration.indexOf(":")).trim()) * 3600;
+            int totalMin = Integer.parseInt(duration.substring(duration.length() - 2)) * 60;
+            this.time = totalHr + totalMin;
+        }
     }
 }

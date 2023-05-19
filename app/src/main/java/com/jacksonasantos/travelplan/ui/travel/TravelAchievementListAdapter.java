@@ -1,5 +1,7 @@
 package com.jacksonasantos.travelplan.ui.travel;
 
+import static com.jacksonasantos.travelplan.ui.travel.MarkerActivity.adjustMarker;
+
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.database.Cursor;
@@ -201,7 +203,9 @@ public class TravelAchievementListAdapter extends RecyclerView.Adapter<RecyclerV
                                             for (int x = 0; x < markers.size(); x++) {
                                                 Marker marker = markers.get(x);
                                                 if (Objects.equals(marker.getAchievement_id(), mAchievementNew.getId())) {
-                                                    Database.mMarkerDao.deleteMarker(marker.getId());
+                                                    if (  Database.mMarkerDao.deleteMarker(marker.getId()) ) {
+                                                        adjustMarker(marker.getTravel_id(), marker.getItinerary_id(), marker.getSequence(), false);
+                                                    }
                                                 }
                                             }
                                         }

@@ -6,7 +6,6 @@ public interface TourISchema {
 
     String TOUR_ID = "id";
     String TOUR_TRAVEL_ID = "travel_id";
-    String TOUR_MARKER_ID = "marker_id";
     String TOUR_TOUR_TYPE = "tour_type";
     String TOUR_LOCAL_TOUR = "local_tour";
     String TOUR_CURRENCY_TYPE = "currency_type";
@@ -32,7 +31,6 @@ public interface TourISchema {
             + TOUR_TABLE + " ("
             + TOUR_ID + " INTEGER PRIMARY KEY, "
             + TOUR_TRAVEL_ID + " INTEGER REFERENCES " + TravelISchema.TRAVEL_TABLE + " ("+TravelISchema.TRAVEL_ID+"), "
-            + TOUR_MARKER_ID + " INTEGER REFERENCES " + MarkerISchema.MARKER_TABLE + " ("+MarkerISchema.MARKER_ID+"), "
             + TOUR_TOUR_TYPE + " INT, "
             + TOUR_LOCAL_TOUR + " TEXT, "
             + TOUR_CURRENCY_TYPE + " INT, "
@@ -71,7 +69,6 @@ public interface TourISchema {
     String[] TOUR_COLUMNS = new String[] {
             TOUR_ID,
             TOUR_TRAVEL_ID,
-            TOUR_MARKER_ID,
             TOUR_TOUR_TYPE,
             TOUR_LOCAL_TOUR,
             TOUR_CURRENCY_TYPE,

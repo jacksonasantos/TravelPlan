@@ -15,11 +15,13 @@
         app:cardBackgroundColor="@color/colorBackgroundCard"
         app:cardCornerRadius="@dimen/cardCornerRadius"
         app:cardElevation="@dimen/cardElevation">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:padding="@dimen/labels_margin">
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -33,36 +35,40 @@
                 android:id="@+id/rvMarkerType"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/default_margin_top"
+                android:layout_marginTop="@dimen/labels_space_top"
                 android:layout_marginBottom="@dimen/labels_space_top"
                 android:layout_gravity="center"
                 tools:itemCount="1" />
+
             <LinearLayout
+                android:id="@+id/llItinerary"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:weightSum="10">
+
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="3"
+                    android:layout_gravity="center"
+                    android:layout_weight="2"
                     android:text="@string/marker_itinerary"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:textSize="10sp"
-                    android:layout_gravity="center"
                     tools:ignore="SmallSp" />
+
                 <Spinner
                     android:id="@+id/spinItinerary"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="7"
+                    android:layout_weight="8"
                     android:text="@string/marker_itinerary"
                     android:textSize="10sp"
-                    tools:ignore="SmallSp">
-                </Spinner>
+                    tools:ignore="SmallSp" />
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/llAchievement"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
@@ -70,7 +76,7 @@
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="3"
+                    android:layout_weight="2"
                     android:text="@string/marker_achievement"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:textSize="10sp"
@@ -81,8 +87,35 @@
                     android:id="@+id/spinMarkerAchievement"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="7"
+                    android:layout_weight="8"
                     android:text="@string/marker_achievement"
+                    android:textSize="10sp"
+                    tools:ignore="SmallSp">
+
+                </Spinner>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/llTour"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="10">
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:text="@string/Tour"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textSize="10sp"
+                    android:layout_gravity="center"
+                    tools:ignore="SmallSp" />
+
+                <Spinner
+                    android:id="@+id/spinTour"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="8"
                     android:textSize="10sp"
                     tools:ignore="SmallSp">
 
@@ -93,10 +126,11 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:weightSum="10">
+
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="3"
+                    android:layout_weight="2"
                     android:text="@string/marker_sequence"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:textSize="10sp"
@@ -120,7 +154,7 @@
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="3"
+                    android:layout_weight="2"
                     android:text="@string/marker_description"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:textSize="10sp"
@@ -129,7 +163,7 @@
                     android:id="@+id/etDescription"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="7"
+                    android:layout_weight="8"
                     android:autofillHints="no"
                     android:inputType="textCapSentences"
                     tools:ignore="LabelFor,SmallSp"
@@ -144,7 +178,7 @@
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="3"
+                    android:layout_weight="2"
                     android:text="@string/marker_expected_value"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:textSize="10sp"
@@ -166,6 +200,7 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/labels_space_top"
         android:layout_marginBottom="@dimen/labels_space_top"
         app:cardBackgroundColor="@color/colorBackgroundCard"
         app:cardCornerRadius="@dimen/cardCornerRadius"
@@ -178,8 +213,8 @@
             android:padding="@dimen/labels_margin">
             <ImageButton
                 android:id="@+id/btLocation"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:layout_gravity="center"
                 android:contentDescription="@string/Achievement_Latlng_Achievement"
                 android:scaleType="centerCrop"
