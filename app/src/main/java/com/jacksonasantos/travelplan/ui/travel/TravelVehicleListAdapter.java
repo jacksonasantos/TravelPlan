@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -46,7 +47,6 @@ public class TravelVehicleListAdapter extends RecyclerView.Adapter<RecyclerView.
     final Globals g = Globals.getInstance();
     final Locale locale = new Locale(g.getLanguage(), g.getCountry());
     final NumberFormat numberFormatter = NumberFormat.getNumberInstance(locale);
-    final NumberFormat integerFormatter = NumberFormat.getNumberInstance(locale);
 
     public TravelVehicleListAdapter(List<VehicleHasTravel> vehicleHasTravels, Context context, String form, int show_header, Integer travel_id) {
         this.mVehicleHasTravel = vehicleHasTravels;
@@ -55,7 +55,8 @@ public class TravelVehicleListAdapter extends RecyclerView.Adapter<RecyclerView.
         this.form = form;
         this.show_header = show_header;
 
-        integerFormatter.setMaximumFractionDigits(0);
+        numberFormatter.setMaximumFractionDigits(2);
+        numberFormatter.setMinimumFractionDigits(2);
     }
 
     @NonNull
@@ -75,11 +76,13 @@ public class TravelVehicleListAdapter extends RecyclerView.Adapter<RecyclerView.
             HeaderViewHolder headerViewHolder = (HeaderViewHolder) holder;
 
             headerViewHolder.llVehicleTravelItem.setBackgroundColor(Utils.getColorWithAlpha(R.color.colorItemList,0.1f));
+            headerViewHolder.imgTransportType.setVisibility(View.INVISIBLE);
             headerViewHolder.txtVehicle.setText(R.string.Vehicle);
             headerViewHolder.txtPerson.setText(R.string.Itinerary_has_Transport_Driver);
+            headerViewHolder.txtIdentifier.setText(R.string.Transport_Identifier);
             headerViewHolder.txtAvgConsumption.setText(R.string.Vehicle_Avg_Consumption);
             headerViewHolder.txtAvgConsumptionTravel.setText(R.string.Travel_Avg_Consumption);
-            headerViewHolder.btnDelete.setVisibility(View.INVISIBLE);
+            headerViewHolder.btnRefuel.setVisibility(View.INVISIBLE);
             headerViewHolder.btnAddVehicleHasTravel.setImageResource(R.drawable.ic_button_add);
             headerViewHolder.btnAddVehicleHasTravel.setOnClickListener(v -> {
                 Intent intent = new Intent (v.getContext(), ItineraryHasTransportActivity.class);
@@ -95,22 +98,22 @@ public class TravelVehicleListAdapter extends RecyclerView.Adapter<RecyclerView.
             final Person driver = Database.mPersonDao.fetchPersonById(vehicleHasTravel.getPerson_id());
             final Vehicle vehicle = Database.mVehicleDao.fetchVehicleById(vehicleHasTravel.getVehicle_id());
             final Transport transport = Database.mTransportDao.fetchTransportById(vehicleHasTravel.getTransport_id());
-            final FuelSupply vehicleTravel = Database.mFuelSupplyDao.findAVGConsumptionTravel(vehicleHasTravel.getVehicle_id(), vehicleHasTravel.getTravel_id());
+            final FuelSupply fuelSupply = Database.mFuelSupplyDao.findAVGConsumptionTravel(vehicleHasTravel.getVehicle_id(), mTravel_id);
 
+            itemViewHolder.imgTransportType.setImageResource(Transport.getTransportTypeImage(transport.getTransport_type()));
             if (vehicleHasTravel.getVehicle_id() == null || vehicleHasTravel.getVehicle_id() == 0 ) {
                 itemViewHolder.txtVehicle.setText(transport.getDescription());
+                itemViewHolder.txtIdentifier.setText(transport.getIdentifier());
                 itemViewHolder.txtAvgConsumption.setText(String.format("%s %s", numberFormatter.format(vehicleHasTravel.getAvg_consumption()), g.getMeasureConsumption()));
                 }
             else {
                 itemViewHolder.txtVehicle.setText(vehicle.getShort_name());
+                itemViewHolder.txtIdentifier.setText(vehicle.getLicense_plate());
                 itemViewHolder.txtAvgConsumption.setText(String.format("%s %s", numberFormatter.format(vehicle.getAvg_consumption()), g.getMeasureConsumption()));
-                itemViewHolder.txtAvgConsumptionTravel.setText(String.format("%s %s", numberFormatter.format(vehicleTravel.getStat_avg_fuel_consumption()), g.getMeasureConsumption()));
+                itemViewHolder.txtAvgConsumptionTravel.setText(String.format("%s %s", numberFormatter.format(fuelSupply.getStat_avg_fuel_consumption()), g.getMeasureConsumption()));
+                // TODO - Armazenar abastecimento para transporte e mostra media
             }
             itemViewHolder.txtPerson.setText(driver.getShort_Name());
-
-            if (form.equals("Home")) {
-                itemViewHolder.btnDelete.setVisibility(View.INVISIBLE);
-            }
 
             itemViewHolder.btnDelete.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -133,14 +136,21 @@ public class TravelVehicleListAdapter extends RecyclerView.Adapter<RecyclerView.
                 }
             });
 
-            itemViewHolder.btnRefuel.setOnClickListener(v -> {
-                Intent intent = new Intent(v.getContext(), FuelSupplyActivity.class);
-                if (vehicle != null) {
-                    intent.putExtra("vehicle_id", vehicleHasTravel.getVehicle_id());
-                }
-                intent.putExtra("travel_id", vehicleHasTravel.getTravel_id());
-                v.getContext().startActivity(intent);
-            });
+            if (!itemViewHolder.txtPerson.getText().toString().equals("")) {
+                itemViewHolder.btnRefuel.setOnClickListener(v -> {
+                    Intent intent = new Intent(v.getContext(), FuelSupplyActivity.class);
+                    if (vehicle != null) {
+                        intent.putExtra("vehicle_id", vehicleHasTravel.getVehicle_id());
+                    }
+                    if (transport != null) {
+                        intent.putExtra("transport_id", vehicleHasTravel.getTransport_id());
+                    }
+                    intent.putExtra("travel_id", vehicleHasTravel.getTravel_id());
+                    v.getContext().startActivity(intent);
+                });
+            } else {
+                itemViewHolder.btnRefuel.setVisibility(View.INVISIBLE);
+            }
         }
     }
 
@@ -159,29 +169,35 @@ public class TravelVehicleListAdapter extends RecyclerView.Adapter<RecyclerView.
 
     private static class HeaderViewHolder extends RecyclerView.ViewHolder {
         public final LinearLayout llVehicleTravelItem;
+        public final ImageView imgTransportType;
         public final TextView txtVehicle;
         public final TextView txtPerson;
+        public final TextView txtIdentifier;
         public final TextView txtAvgConsumption;
         public final TextView txtAvgConsumptionTravel;
+        public final ImageButton btnRefuel;
         public final ImageButton btnAddVehicleHasTravel;
-        public final ImageButton btnDelete;
 
         public HeaderViewHolder(View v) {
             super(v);
             llVehicleTravelItem = v.findViewById(R.id.llVehicleTravelItem);
+            imgTransportType = v.findViewById(R.id.imgTransportType);
             txtVehicle = v.findViewById(R.id.txtVehicle);
             txtPerson = v.findViewById(R.id.txtPerson);
+            txtIdentifier = v.findViewById(R.id.txtIdentifier);
             txtAvgConsumption = v.findViewById(R.id.txtAvgConsumption);
             txtAvgConsumptionTravel = v.findViewById(R.id.txtAvgConsumptionTravel);
-            btnAddVehicleHasTravel = v.findViewById(R.id.btnRefuel);
-            btnDelete = v.findViewById(R.id.btnDelete);
+            btnRefuel = v.findViewById(R.id.btnRefuel);
+            btnAddVehicleHasTravel = v.findViewById(R.id.btnDelete);
         }
     }
 
     public static class ItemViewHolder extends RecyclerView.ViewHolder {
         public final LinearLayout llVehicleTravelItem;
+        public final ImageView imgTransportType;
         public final TextView txtVehicle;
         public final TextView txtPerson;
+        public final TextView txtIdentifier;
         public final TextView txtAvgConsumption;
         public final TextView txtAvgConsumptionTravel;
         public final ImageButton btnDelete;
@@ -190,8 +206,10 @@ public class TravelVehicleListAdapter extends RecyclerView.Adapter<RecyclerView.
         public ItemViewHolder(View v) {
             super(v);
             llVehicleTravelItem = v.findViewById(R.id.llVehicleTravelItem);
+            imgTransportType = v.findViewById(R.id.imgTransportType);
             txtVehicle = v.findViewById(R.id.txtVehicle);
             txtPerson = v.findViewById(R.id.txtPerson);
+            txtIdentifier = v.findViewById(R.id.txtIdentifier);
             txtAvgConsumption = v.findViewById(R.id.txtAvgConsumption);
             txtAvgConsumptionTravel = v.findViewById(R.id.txtAvgConsumptionTravel);
             btnDelete = v.findViewById(R.id.btnDelete);

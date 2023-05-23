@@ -502,4 +502,5 @@
     <string name="Itinerary_Date">Data</string>
     <string name="Accommodation_Contact">Contato</string>
     <string name="Marker_Deleting">Excluindo Marcador</string>
+    <string name="Travel_Vehicle">Veículos da Viagem</string>
 </resources>

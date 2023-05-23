@@ -97,12 +97,20 @@
                             android:id="@+id/spTransport"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_weight="7.5"
+                            android:layout_weight="6.5"
+                            android:layout_gravity="center"
                             android:autofillHints="no"
                             android:gravity="center"
                             android:inputType="textCapWords"
                             android:textSize="12sp"
                             tools:ignore="LabelFor" />
+                        <ImageButton
+                            android:id="@+id/btAddTransport"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:contentDescription="@string/add_new_accommodation"
+                            app:srcCompat="@drawable/ic_button_add"/>
                     </LinearLayout>
 
                     <LinearLayout

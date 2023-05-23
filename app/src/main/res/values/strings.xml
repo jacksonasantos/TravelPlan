@@ -379,6 +379,7 @@
     <string name="TravelItemExpenses_Note">Note</string>
     <string name="TravelItemExpenses_Deleting">Deleting Travel Item Expenses</string>
 
+    <string name="Travel_Vehicle">Travel Vehicle</string>
     <string name="Vehicle_Travel_Deleting">Deleting Vehicle has Travel</string>
     <string name="Achievement_Travel_Deleting">Deleting Achievement from the Travel</string>
     <string name="Vehicle_not_Selected">Vehicle not Selected</string>

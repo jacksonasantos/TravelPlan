@@ -10,5 +10,6 @@
     <color name="colorMarker">#6D4AED</color>
     <color name="colorSelectedImage">#800088FF</color>
     <color name="colorItemList">#C5CAE9</color>
+    <color name="colorBlack">#000000</color>
 </resources>
 

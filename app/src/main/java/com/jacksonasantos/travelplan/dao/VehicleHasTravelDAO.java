@@ -20,22 +20,6 @@ public class VehicleHasTravelDAO extends DbContentProvider implements VehicleHas
         super(db);
     }
 
-    public VehicleHasTravel fetchAllVehicleHasTravelById(Integer id) {
-        final String[] selectionArgs = { String.valueOf(id) };
-        final String selection = VEHICLE_HAS_TRAVEL_ID + " = ? ";
-        VehicleHasTravel vehicleHasTravel = new VehicleHasTravel();
-        cursor = super.query(VEHICLE_HAS_TRAVEL_TABLE, VEHICLE_HAS_TRAVEL_COLUMNS, selection, selectionArgs, null);
-        if (cursor != null) {
-            cursor.moveToFirst();
-            while (!cursor.isAfterLast()) {
-                vehicleHasTravel = cursorToEntity(cursor);
-                cursor.moveToNext();
-            }
-            cursor.close();
-        }
-        return vehicleHasTravel;
-    }
-
     public VehicleHasTravel findVehicleHasTravelByTravelVehicle(Integer travel_id, Integer vehicle_id) {
         final String[] selectionArgs = { String.valueOf(travel_id), String.valueOf(vehicle_id) };
         final String selection = VEHICLE_HAS_TRAVEL_TRAVEL_ID + " = ? AND "+VEHICLE_HAS_TRAVEL_VEHICLE_ID + " = ? ";
@@ -67,11 +51,56 @@ public class VehicleHasTravelDAO extends DbContentProvider implements VehicleHas
         return vehicleHasTravel;
     }
 
-    public List<VehicleHasTravel> fetchAllVehicleHasTravelByTravel(Integer travel_id) {
-        final String[] selectionArgs = { String.valueOf(travel_id) };
-        final String selection = VEHICLE_HAS_TRAVEL_TRAVEL_ID + " = ?";
+    public List<VehicleHasTravel> fetchAllVehicleHasTravelByTravelForFuel(Integer travel_id) {
+        final String[] selectionArgs = { String.valueOf(travel_id),  String.valueOf(travel_id) };
         List<VehicleHasTravel> vehicleHasTravelList = new ArrayList<>();
-        cursor = super.query(VEHICLE_HAS_TRAVEL_TABLE, VEHICLE_HAS_TRAVEL_COLUMNS, selection, selectionArgs, VEHICLE_HAS_TRAVEL_VEHICLE_ID);
+
+        cursor = super.rawQuery(
+        " SELECT DISTINCT it." + ItineraryHasTransportDAO.ITINERARY_HAS_TRANSPORT_TRAVEL_ID + ", " +
+                             " it."+ ItineraryHasTransportDAO.ITINERARY_HAS_TRANSPORT_TRANSPORT_ID + ", " +
+                             " it."+ ItineraryHasTransportDAO.ITINERARY_HAS_TRANSPORT_VEHICLE_ID + " " +
+               " FROM " + ItineraryHasTransportDAO.ITINERARY_HAS_TRANSPORT_TABLE + " it " +
+              " WHERE it." + ItineraryHasTransportDAO.ITINERARY_HAS_TRANSPORT_TRAVEL_ID + " = ? " +
+                " AND it." + ItineraryHasTransportDAO.ITINERARY_HAS_TRANSPORT_DRIVER + " = 1 "+
+              " UNION " +
+             " SELECT DISTINCT vt." + VEHICLE_HAS_TRAVEL_TRAVEL_ID + ", " +
+                             " vt." + VEHICLE_HAS_TRAVEL_TRANSPORT_ID + ", " +
+                             " vt." + VEHICLE_HAS_TRAVEL_VEHICLE_ID + " " +
+                        " FROM " + VEHICLE_HAS_TRAVEL_TABLE + " vt " +
+                       " WHERE vt." + VEHICLE_HAS_TRAVEL_TRAVEL_ID + " = ? ", selectionArgs );
+        if (cursor.moveToFirst()) {
+            do {
+                VehicleHasTravel vehicleHasTravel = cursorToEntity(cursor);
+                vehicleHasTravelList.add(vehicleHasTravel);
+            } while (cursor.moveToNext());
+            cursor.close();
+        }
+        return vehicleHasTravelList;
+    }
+
+    public List<VehicleHasTravel> fetchAllVehicleHasTravelByTravel(Integer travel_id) {
+        final String[] selectionArgs = { String.valueOf(travel_id),  String.valueOf(travel_id) };
+        List<VehicleHasTravel> vehicleHasTravelList = new ArrayList<>();
+
+        cursor = super.rawQuery(
+                " SELECT vt." + VEHICLE_HAS_TRAVEL_ID + " " + VEHICLE_HAS_TRAVEL_ID + ", "+
+                        " vt." + VEHICLE_HAS_TRAVEL_VEHICLE_ID + " " + VEHICLE_HAS_TRAVEL_VEHICLE_ID + ", " +
+                        " vt." + VEHICLE_HAS_TRAVEL_TRANSPORT_ID + " " + VEHICLE_HAS_TRAVEL_TRANSPORT_ID + ", " +
+                        " vt." + VEHICLE_HAS_TRAVEL_PERSON_ID + " " + VEHICLE_HAS_TRAVEL_PERSON_ID + ", " +
+                        " vt." + VEHICLE_HAS_TRAVEL_AVG_CONSUMPTION + " " + VEHICLE_HAS_TRAVEL_AVG_CONSUMPTION + " " +
+                        " FROM " + VEHICLE_HAS_TRAVEL_TABLE + " vt " +
+                        " JOIN " + VehicleDAO.VEHICLE_TABLE + " v ON v." + VehicleDAO.VEHICLE_ID + " = vt." + VEHICLE_HAS_TRAVEL_VEHICLE_ID + " " +
+                        " WHERE vt." + VEHICLE_HAS_TRAVEL_TRAVEL_ID + " = ? " +
+                        " UNION ALL " +
+                        " SELECT vt1." + VEHICLE_HAS_TRAVEL_ID + ", " +
+                        " null, " +
+                        " t. " + TransportDAO.TRANSPORT_ID + ", "+
+                        " vt1." + VEHICLE_HAS_TRAVEL_PERSON_ID + ", " +
+                        " vt1." + VEHICLE_HAS_TRAVEL_AVG_CONSUMPTION + " " +
+                        " FROM " + TransportDAO.TRANSPORT_TABLE + " t " +
+                        " LEFT JOIN " + VEHICLE_HAS_TRAVEL_TABLE + " vt1 ON vt1." + VEHICLE_HAS_TRAVEL_TRANSPORT_ID + " = t." + TransportDAO.TRANSPORT_ID + " " +
+                        " WHERE t." + TransportDAO.TRANSPORT_TRAVEL_ID  + " = ? ", selectionArgs );
+
         if (cursor.moveToFirst()) {
             do {
                 VehicleHasTravel vehicleHasTravel = cursorToEntity(cursor);

@@ -5,6 +5,7 @@ import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -59,7 +60,7 @@ public class ItineraryHasTransportListAdapter extends RecyclerView.Adapter<Recyc
         } else return new ItineraryHasTransportListAdapter.ItemViewHolder(itineraryHasTransportView);
     }
 
-    @SuppressLint({"NotifyDataSetChanged", "SetTextI18n"})
+    @SuppressLint({"NotifyDataSetChanged", "SetTextI18n", "ResourceAsColor", "ResourceType"})
     @Override
     public void onBindViewHolder(@NonNull final RecyclerView.ViewHolder holder, @SuppressLint("RecyclerView") final int position) {
         if (holder instanceof HeaderViewHolder){
@@ -96,6 +97,9 @@ public class ItineraryHasTransportListAdapter extends RecyclerView.Adapter<Recyc
             itemViewHolder.imgType.setImageResource(Transport.getTransportTypeImage(itineraryHasTransport.getTransport_type()));
             itemViewHolder.txtTransport.setText(vTransport);
             itemViewHolder.txtPerson.setText(p1.getShort_Name());
+            if (itineraryHasTransport.getDriver() == 1 ) {
+                itemViewHolder.txtPerson.setTextColor(Color.BLUE);
+            }
             itemViewHolder.txtItinerary.setText(i1.toString());
 
             itemViewHolder.llItineraryHasTransport.setOnClickListener (v -> {

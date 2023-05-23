@@ -1,6 +1,7 @@
 package com.jacksonasantos.travelplan.ui.travel;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -8,11 +9,16 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -52,6 +58,8 @@ public class ItineraryHasTransportActivity extends AppCompatActivity implements 
     private CheckBox cbDriver;
     private TextView tvSequenceItinerary, tvMeasureConsumption, tvMeasureCostLitre;
     private EditText etAVGConsumption, etAVGCostLitre;
+    private ImageButton btAddTransport;
+    private ArrayAdapter<Transport> adapterT;
 
     final Globals g = Globals.getInstance();
 
@@ -83,6 +91,7 @@ public class ItineraryHasTransportActivity extends AppCompatActivity implements 
         tvMeasureConsumption = findViewById(R.id.tvMeasureConsumption);
         etAVGCostLitre = findViewById(R.id.etAVGCostLitre);
         tvMeasureCostLitre = findViewById(R.id.tvMeasureCostLitre);
+        btAddTransport = findViewById(R.id.btAddTransport);
 
         llTransportTypeOwn.setVisibility(View.VISIBLE);
         llTransportTypeOthers.setVisibility(View.GONE);
@@ -206,7 +215,7 @@ public class ItineraryHasTransportActivity extends AppCompatActivity implements 
         // spTransport
         final List<Transport> transports =  Database.mTransportDao.fetchAllTransport();
         transports.add(0, new Transport());
-        ArrayAdapter<Transport> adapterT = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, transports);
+        adapterT = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, transports);
         adapterT.setDropDownViewResource( android.R.layout.simple_spinner_dropdown_item);
         spTransport.setAdapter(adapterT);
         if (nrTransport != null && nrTransport > 0) {
@@ -295,6 +304,14 @@ public class ItineraryHasTransportActivity extends AppCompatActivity implements 
         });
         adapterP.notifyDataSetChanged();
 
+        btAddTransport.setOnClickListener(v -> {
+            Intent intent = new Intent (v.getContext(), TransportActivity.class); // TODO - marcar o tipo no cadastro do transporte
+            intent.putExtra("op_result", true);
+            intent.putExtra("travel_id", nrTravel);
+            intent.putExtra("transport_type", nrTransportType);
+            myActivityResultLauncher.launch(intent);
+        } );
+
         if (itineraryHasTransport != null) {
             nrTravel = itineraryHasTransport.getTravel_id();
             travel = Database.mTravelDao.fetchTravelById(nrTravel);
@@ -353,6 +370,30 @@ public class ItineraryHasTransportActivity extends AppCompatActivity implements 
             etAVGCostLitre.setText(String.valueOf(vehicleHasTravel.getAvg_cost_litre()));
         }
     }
+
+    final ActivityResultLauncher<Intent> myActivityResultLauncher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            new ActivityResultCallback<ActivityResult>() {
+                @Override
+                public void onActivityResult(ActivityResult result) {
+                    if (result.getResultCode() == 128) {
+                        Intent data = result.getData();
+
+                        if (data != null) {
+                            int x = data.getIntExtra("resulted_value", 0);
+                            List<Transport> transports = Database.mTransportDao.fetchAllTransport();
+                            adapterT.clear();
+                            adapterT.addAll(transports);
+                            adapterT.notifyDataSetChanged() ;
+                            for (int i = 0; i < transports.size(); i++) {
+                                if (transports.get(i).getId() == x) spTransport.setSelection(i);
+                            }
+                            spTransport.requestFocus();
+                        }
+                    }
+                }
+            }
+    );
 
     @Override
     public void onItemClick(int position) {

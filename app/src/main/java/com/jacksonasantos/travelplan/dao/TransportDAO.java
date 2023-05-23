@@ -37,22 +37,6 @@ public class TransportDAO extends DbContentProvider implements TransportISchema,
         return transport;
     }
 
-    public List<Transport> fetchAllTransportByTravel(Integer travel_id) {
-        final String[] selectionArgs = { String.valueOf(travel_id) };
-        final String selection = TRANSPORT_TRAVEL_ID + " = ?";
-        List<Transport> transportList = new ArrayList<>();
-
-        cursor = super.query(TRANSPORT_TABLE, TRANSPORT_COLUMNS, selection, selectionArgs, TRANSPORT_START_DATE );
-        if (cursor.moveToFirst()) {
-            do {
-                Transport transport = cursorToEntity(cursor);
-                transportList.add(transport);
-            } while (cursor.moveToNext());
-            cursor.close();
-        }
-        return transportList;
-    }
-
     public List<Transport> fetchAllTransport() {
         List<Transport> transportList = new ArrayList<>();
         cursor = super.query(TRANSPORT_TABLE, TRANSPORT_COLUMNS, null, null, TRANSPORT_START_DATE );
@@ -62,26 +46,6 @@ public class TransportDAO extends DbContentProvider implements TransportISchema,
                 transportList.add(transport);
             } while (cursor.moveToNext());
             cursor.close();
-        }
-        return transportList;
-    }
-
-    public Cursor fetchCursorTransport() {
-        return super.rawQuery( "SELECT '' _id, '' text1 UNION " +
-                "SELECT " + TRANSPORT_ID + ", " +
-                TRANSPORT_DESCRIPTION + " " +
-                "FROM " + TRANSPORT_TABLE + " " +
-                "ORDER BY " + TRANSPORT_DESCRIPTION, null);
-    }
-
-    public ArrayList<Transport> fetchArrayTransport(){
-        ArrayList<Transport> transportList = new ArrayList<>();
-        Cursor cursor = super.query(TRANSPORT_TABLE, TRANSPORT_COLUMNS, null,null, TRANSPORT_START_DATE );
-        if(cursor != null && cursor.moveToFirst()){
-            do{
-                Transport transport = cursorToEntity(cursor);
-                transportList.add(transport);
-            }while(cursor.moveToNext());
         }
         return transportList;
     }
@@ -99,9 +63,9 @@ public class TransportDAO extends DbContentProvider implements TransportISchema,
         return (super.update(TRANSPORT_TABLE, getContentValue(), selection, selectionArgs) > 0);
     }
 
-    public boolean addTransport(Transport transport) {
+    public Integer addTransport(Transport transport) {
         setContentValue(transport);
-        return (super.insert(TRANSPORT_TABLE, getContentValue()) > 0);
+        return Math.toIntExact(super.insert(TRANSPORT_TABLE, getContentValue()));
     }
 
     protected Transport cursorToEntity(Cursor c) {

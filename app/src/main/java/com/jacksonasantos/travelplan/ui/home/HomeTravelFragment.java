@@ -31,15 +31,14 @@ import com.jacksonasantos.travelplan.dao.TravelItemExpenses;
 import com.jacksonasantos.travelplan.dao.VehicleHasTravel;
 import com.jacksonasantos.travelplan.dao.general.Database;
 import com.jacksonasantos.travelplan.ui.general.InsuranceActivity;
+import com.jacksonasantos.travelplan.ui.travel.ItineraryHasTransportActivity;
 import com.jacksonasantos.travelplan.ui.travel.ItineraryHasTransportListAdapter;
 import com.jacksonasantos.travelplan.ui.travel.MaintenanceItineraryActivity;
 import com.jacksonasantos.travelplan.ui.travel.ReservationActivity;
-import com.jacksonasantos.travelplan.ui.travel.TransportActivity;
 import com.jacksonasantos.travelplan.ui.travel.TravelAchievementListAdapter;
 import com.jacksonasantos.travelplan.ui.travel.TravelFuelSupplyListAdapter;
 import com.jacksonasantos.travelplan.ui.travel.TravelRouteFragment;
 import com.jacksonasantos.travelplan.ui.travel.TravelTourListAdapter;
-import com.jacksonasantos.travelplan.ui.travel.TravelTransportListAdapter;
 import com.jacksonasantos.travelplan.ui.travel.TravelVehicleListAdapter;
 import com.jacksonasantos.travelplan.ui.travel.TravelVehicleStatusListAdapter;
 import com.jacksonasantos.travelplan.ui.utility.DateInputMask;
@@ -78,9 +77,6 @@ public class HomeTravelFragment extends Fragment implements View.OnClickListener
 
     private ConstraintLayout layerVehicle;
     private RecyclerView listVehicle;
-
-    private ConstraintLayout layerTransport;
-    private RecyclerView listTransport;
 
     private ConstraintLayout layerItineraryHasTransport;
     private RecyclerView listItineraryHasTransport;
@@ -134,9 +130,6 @@ public class HomeTravelFragment extends Fragment implements View.OnClickListener
 
         layerExpense = v.findViewById(R.id.layerExpense);
         listTravelExpenses = v.findViewById(R.id.listTravelExpenses);
-
-        layerTransport = v.findViewById(R.id.layerTransport);
-        listTransport = v.findViewById(R.id.listTransport);
 
         layerItineraryHasTransport = v.findViewById(R.id.layerItineraryHasTransport);
         listItineraryHasTransport = v.findViewById(R.id.listItineraryHasTransport);
@@ -234,7 +227,6 @@ public class HomeTravelFragment extends Fragment implements View.OnClickListener
                     rgTravelStatus.setOnCheckedChangeListener((group, checkedId) -> rbTravelStatus = checkedId);
                     rgTravelStatus.check(travel[0].getStatus()+1);
 
-
                     final int Show_Header_VehicleTravelStatus = 1  ;
                     TravelVehicleStatusListAdapter adapterTravelVehicleStatus = new TravelVehicleStatusListAdapter(Database.mVehicleHasTravelDao.fetchAllVehicleHasTravelByTravel(travel[0].getId() ), getContext(), "Home", Show_Header_VehicleTravelStatus);
                     if ( adapterTravelVehicleStatus.getItemCount() > Show_Header_VehicleTravelStatus){
@@ -298,10 +290,15 @@ public class HomeTravelFragment extends Fragment implements View.OnClickListener
                 btnFuel.setOnClickListener (v -> {
                     Intent intent = new Intent(v.getContext(), FuelSupplyActivity.class);
                     intent.putExtra("travel_id", travel[0].id);
-                    List<VehicleHasTravel> vehicleHasTravel = Database.mVehicleHasTravelDao.fetchAllVehicleHasTravelByTravel(travel[0].getId());
+                    List<VehicleHasTravel> vehicleHasTravel = Database.mVehicleHasTravelDao.fetchAllVehicleHasTravelByTravelForFuel(travel[0].getId());
                     if (vehicleHasTravel.size() > 0) {
                         if (vehicleHasTravel.size() == 1) {
-                            intent.putExtra("vehicle_id", vehicleHasTravel.get(0).getVehicle_id());
+                            if (vehicleHasTravel.get(0).getVehicle_id()!=null) {
+                                intent.putExtra("vehicle_id", vehicleHasTravel.get(0).getVehicle_id());
+                            }
+                            if (vehicleHasTravel.get(0).getTransport_id()!=null) {
+                                intent.putExtra("transport_id", vehicleHasTravel.get(0).getTransport_id());
+                            }
                             startActivity(intent);
                         } else {
                             AlertDialog.Builder alertDialog = new AlertDialog.Builder(requireContext());
@@ -319,7 +316,12 @@ public class HomeTravelFragment extends Fragment implements View.OnClickListener
 
                             final int[] checkedItem = {-1};
                             alertDialog.setSingleChoiceItems(listItems, checkedItem[0], (dialog, which) -> {
-                                intent.putExtra("vehicle_id", vehicleHasTravel.get(which).getVehicle_id());
+                                if (vehicleHasTravel.get(which).getVehicle_id()!=null) {
+                                    intent.putExtra("vehicle_id", vehicleHasTravel.get(which).getVehicle_id());
+                                }
+                                if (vehicleHasTravel.get(which).getTransport_id()!=null) {
+                                    intent.putExtra("transport_id", vehicleHasTravel.get(which).getTransport_id());
+                                }
                                 dialog.dismiss();
                                 startActivity(intent);
                             });
@@ -338,7 +340,7 @@ public class HomeTravelFragment extends Fragment implements View.OnClickListener
                     startActivity(intent);
                 });
                 btnTransport.setOnClickListener (v -> {
-                    Intent intent = new Intent(v.getContext(), TransportActivity.class);
+                    Intent intent = new Intent(v.getContext(), ItineraryHasTransportActivity.class);
                     intent.putExtra("travel_id", travel[0].id);
                     startActivity(intent);
                 });
@@ -376,17 +378,6 @@ public class HomeTravelFragment extends Fragment implements View.OnClickListener
                     listVehicle.setLayoutManager(new LinearLayoutManager(getContext()));
                 } else {
                     layerVehicle.setVisibility(View.GONE);
-                }
-
-                // Transport has Travel
-                final int Show_Header_Transport = 1  ;
-                TravelTransportListAdapter adapterTransportTravel = new TravelTransportListAdapter(Database.mTransportDao.fetchAllTransportByTravel(travel[0].getId() ), getContext(),"Home", Show_Header_Transport,travel[0].id);
-                if (adapterTransportTravel.getItemCount() > Show_Header_Transport) {
-                    layerTransport.setVisibility(View.VISIBLE);
-                    listTransport.setAdapter(adapterTransportTravel);
-                    listTransport.setLayoutManager(new LinearLayoutManager(getContext()));
-                } else {
-                    layerTransport.setVisibility(View.GONE);
                 }
 
                 // Itinerary has Transport
@@ -455,10 +446,14 @@ public class HomeTravelFragment extends Fragment implements View.OnClickListener
                     layerInsurance.setVisibility(View.GONE);
                 }
 
+                adapterTravelExpense.notifyDataSetChanged();
+                adapterItinerary.notifyDataSetChanged();
                 adapterVehicleTravel.notifyDataSetChanged();
+                adapterItineraryHasTransport.notifyDataSetChanged();
+                adapterTourTravel.notifyDataSetChanged();
+                adapterFuelSupplyTravel.notifyDataSetChanged();
                 adapterAchievementTravel.notifyDataSetChanged();
                 adapterReservation.notifyDataSetChanged();
-                adapterTravelExpense.notifyDataSetChanged();
                 adapterInsurance.notifyDataSetChanged();
             }
 

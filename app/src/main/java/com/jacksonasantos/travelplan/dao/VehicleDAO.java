@@ -6,9 +6,7 @@ import static com.jacksonasantos.travelplan.dao.interfaces.VehicleHasTravelISche
 
 import android.content.ContentValues;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteConstraintException;
 import android.database.sqlite.SQLiteDatabase;
-import android.util.Log;
 
 import com.jacksonasantos.travelplan.dao.general.DbContentProvider;
 import com.jacksonasantos.travelplan.dao.interfaces.VehicleIDAO;
@@ -18,7 +16,6 @@ import com.jacksonasantos.travelplan.ui.utility.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 public class VehicleDAO extends DbContentProvider implements VehicleISchema, VehicleIDAO {
 
@@ -33,18 +30,14 @@ public class VehicleDAO extends DbContentProvider implements VehicleISchema, Veh
         final String[] selectionArgs = { String.valueOf(id) };
         final String selection = VEHICLE_ID + " = ?";
         Vehicle vehicle = new Vehicle();
-        try {
-            cursor = super.query(VEHICLE_TABLE, VEHICLE_COLUMNS, selection, selectionArgs, VEHICLE_ID);
-            if (cursor != null) {
-                cursor.moveToFirst();
-                while (!cursor.isAfterLast()) {
-                    vehicle = cursorToEntity(cursor);
-                    cursor.moveToNext();
-                }
-                cursor.close();
+        cursor = super.query(VEHICLE_TABLE, VEHICLE_COLUMNS, selection, selectionArgs, VEHICLE_ID);
+        if (cursor != null) {
+            cursor.moveToFirst();
+            while (!cursor.isAfterLast()) {
+                vehicle = cursorToEntity(cursor);
+                cursor.moveToNext();
             }
-        } catch (SQLiteConstraintException ex) {
-            Log.w("Update Table", Objects.requireNonNull(ex.getMessage()));
+            cursor.close();
         }
         return vehicle;
     }

@@ -1,6 +1,7 @@
 package com.jacksonasantos.travelplan.ui.travel;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -74,6 +75,8 @@ public class TransportActivity extends AppCompatActivity implements TransportTyp
     private EditText etAmountPaid;
     private EditText etNote;
 
+    private boolean opResult;
+
     private LinearLayout llItineraryHasTransport;
     private RecyclerView rvTransportPerson;
     private TextView tvTransportPerson;
@@ -102,21 +105,31 @@ public class TransportActivity extends AppCompatActivity implements TransportTyp
             llTransportType.setVisibility(View.GONE);
         }
         if (extras != null) {
+            if (extras.getBoolean("op_result")) {
+                opResult = true;
+            }
             if (extras.getInt( "transport_id") > 0) {
                 transport.setId(extras.getInt("transport_id"));
                 transport = Database.mTransportDao.fetchTransportById(transport.getId());
                 opInsert = false;
+                nrTransportType = transport.getTransport_type();
                 llTransportTypeOwn.setVisibility(View.GONE);
                 llTransportType.setVisibility(View.GONE);
-                if (transport.getTransport_type()==0) {
-                    llTransportTypeOwn.setVisibility(View.VISIBLE);
-                } else {
-                    llTransportType.setVisibility(View.VISIBLE);
-                }
             }
             if (extras.getInt( "travel_id") > 0) {
                 transport.setTravel_id(extras.getInt("travel_id"));
             }
+            if (extras.getInt( "transport_type") > 0) {
+                nrTransportType = extras.getInt("transport_type");
+                llTransportTypeOwn.setVisibility(View.GONE);
+                llTransportType.setVisibility(View.GONE);
+            }
+        }
+
+        if (nrTransportType==0) {
+            llTransportTypeOwn.setVisibility(View.VISIBLE);
+        } else {
+            llTransportType.setVisibility(View.VISIBLE);
         }
 
         ActionBar actionBar = getSupportActionBar();
@@ -159,13 +172,13 @@ public class TransportActivity extends AppCompatActivity implements TransportTyp
         tvTransportPerson = findViewById(R.id.tvTransportPerson);
         rvTransportPerson = findViewById(R.id.rvTransportPerson);
 
-        nrTransportType = -1;
-
+        //nrTransportType = -1;
         List<Integer> vTransportType = new ArrayList<>();
         for(int i = 0; i < getApplicationContext().getResources().getStringArray(R.array.transport_type_array).length; i++) {
             vTransportType.add(i);
         }
 
+        Utils.selected_position = nrTransportType;
         linearLayoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.HORIZONTAL, false);
         rvTransportType.setLayoutManager(linearLayoutManager);
         adapterTransportType = new TransportTypeListAdapter(vTransportType, this);
@@ -210,11 +223,11 @@ public class TransportActivity extends AppCompatActivity implements TransportTyp
         adapterP.setDropDownViewResource( android.R.layout.simple_spinner_dropdown_item);
         spPerson.setAdapter(adapterP);
         if (nrPerson != null && nrPerson > 0) {
-            Person pers1 = Database.mPersonDao.fetchPersonById(nrPerson);
+            Person person1 = Database.mPersonDao.fetchPersonById(nrPerson);
             for (int x = 1; x <= spPerson.getAdapter().getCount(); x++) {
-                if (spPerson.getAdapter().getItem(x).toString().equals(pers1.getShort_Name())) {
+                if (spPerson.getAdapter().getItem(x).toString().equals(person1.getShort_Name())) {
                     spPerson.setSelection(x);
-                    nrPerson = pers1.getId();
+                    nrPerson = person1.getId();
                     break;
                 }
             }
@@ -389,7 +402,8 @@ public class TransportActivity extends AppCompatActivity implements TransportTyp
                         if (nrTransportType == 0 ) {
                             isSave = Database.mVehicleHasTravelDao.addVehicleHasTravel(vht);
                         } else {
-                            isSave = Database.mTransportDao.addTransport(t1);
+                            t1.setId(Database.mTransportDao.addTransport(t1));
+                            if (t1.getId()>0) isSave=true;
                         }
 
                     } catch (Exception e) {
@@ -399,6 +413,11 @@ public class TransportActivity extends AppCompatActivity implements TransportTyp
 
                 setResult(isSave ? 1 : 0);
                 if (isSave) {
+                    if (opResult) {
+                        Intent i = new Intent();
+                        i.putExtra("resulted_value", t1.getId());
+                        setResult(128, i);
+                    }
                     finish();
                 } else {
                     Toast.makeText(getApplicationContext(), R.string.Error_Saving_Data, Toast.LENGTH_LONG).show();
