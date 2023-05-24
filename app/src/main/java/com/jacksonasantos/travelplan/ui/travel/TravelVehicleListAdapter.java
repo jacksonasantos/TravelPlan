@@ -85,7 +85,7 @@ public class TravelVehicleListAdapter extends RecyclerView.Adapter<RecyclerView.
             headerViewHolder.btnRefuel.setVisibility(View.INVISIBLE);
             headerViewHolder.btnAddVehicleHasTravel.setImageResource(R.drawable.ic_button_add);
             headerViewHolder.btnAddVehicleHasTravel.setOnClickListener(v -> {
-                Intent intent = new Intent (v.getContext(), ItineraryHasTransportActivity.class);
+                Intent intent = new Intent (v.getContext(), TransportActivity.class);
                 intent.putExtra("travel_id", mTravel_id);
                 intent.setFlags(FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(intent);
@@ -121,6 +121,16 @@ public class TravelVehicleListAdapter extends RecyclerView.Adapter<RecyclerView.
                 itemViewHolder.txtAvgConsumptionTravel.setText(String.format("%s %s", numberFormatter.format(fuelSupply.getStat_avg_fuel_consumption()), g.getMeasureConsumption()));
             }
             itemViewHolder.txtPerson.setText(driver.getShort_Name());
+
+            itemViewHolder.llVehicleTravelItem.setOnClickListener(v -> {
+                if (vehicleHasTravel.getTransport_id()!=null) {
+                    Intent intent = new Intent(v.getContext(), TransportActivity.class);
+                    intent.putExtra("transport_id", transport.getId());
+                    intent.setFlags(FLAG_ACTIVITY_NEW_TASK);
+                    context.startActivity(intent);
+                    notifyDataSetChanged();
+                }
+            });
 
             itemViewHolder.btnDelete.setOnClickListener(new View.OnClickListener() {
                 @Override
