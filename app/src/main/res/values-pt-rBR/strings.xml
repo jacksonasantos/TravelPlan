@@ -503,4 +503,6 @@
     <string name="Accommodation_Contact">Contato</string>
     <string name="Marker_Deleting">Excluindo Marcador</string>
     <string name="Travel_Vehicle">Veículos da Viagem</string>
+    <string name="Transport_Odometer_value_is_invalid">"     Valor do Odômetro do Transporte está inválido"</string>
+    <string name="LastOdometer">Último Odômetro</string>
 </resources>

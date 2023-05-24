@@ -98,20 +98,27 @@ public class TravelVehicleListAdapter extends RecyclerView.Adapter<RecyclerView.
             final Person driver = Database.mPersonDao.fetchPersonById(vehicleHasTravel.getPerson_id());
             final Vehicle vehicle = Database.mVehicleDao.fetchVehicleById(vehicleHasTravel.getVehicle_id());
             final Transport transport = Database.mTransportDao.fetchTransportById(vehicleHasTravel.getTransport_id());
-            final FuelSupply fuelSupply = Database.mFuelSupplyDao.findAVGConsumptionTravel(vehicleHasTravel.getVehicle_id(), mTravel_id);
 
             itemViewHolder.imgTransportType.setImageResource(Transport.getTransportTypeImage(transport.getTransport_type()));
+            final FuelSupply fuelSupply;
             if (vehicleHasTravel.getVehicle_id() == null || vehicleHasTravel.getVehicle_id() == 0 ) {
+                fuelSupply = Database.mFuelSupplyDao.findAVGConsumptionTravelTransport(vehicleHasTravel.getTransport_id(), mTravel_id);
                 itemViewHolder.txtVehicle.setText(transport.getDescription());
                 itemViewHolder.txtIdentifier.setText(transport.getIdentifier());
-                itemViewHolder.txtAvgConsumption.setText(String.format("%s %s", numberFormatter.format(vehicleHasTravel.getAvg_consumption()), g.getMeasureConsumption()));
+                if (vehicleHasTravel.getPerson_id()!=null) {
+                    itemViewHolder.txtAvgConsumption.setText(String.format("%s %s", numberFormatter.format(vehicleHasTravel.getAvg_consumption()), g.getMeasureConsumption()));
                 }
+            }
             else {
+                fuelSupply = Database.mFuelSupplyDao.findAVGConsumptionTravelVehicle(vehicleHasTravel.getVehicle_id(), mTravel_id);
                 itemViewHolder.txtVehicle.setText(vehicle.getShort_name());
                 itemViewHolder.txtIdentifier.setText(vehicle.getLicense_plate());
-                itemViewHolder.txtAvgConsumption.setText(String.format("%s %s", numberFormatter.format(vehicle.getAvg_consumption()), g.getMeasureConsumption()));
+                if (vehicleHasTravel.getPerson_id()!=null) {
+                    itemViewHolder.txtAvgConsumption.setText(String.format("%s %s", numberFormatter.format(vehicle.getAvg_consumption()), g.getMeasureConsumption()));
+                }
+            }
+            if (vehicleHasTravel.getPerson_id()!=null) {
                 itemViewHolder.txtAvgConsumptionTravel.setText(String.format("%s %s", numberFormatter.format(fuelSupply.getStat_avg_fuel_consumption()), g.getMeasureConsumption()));
-                // TODO - Armazenar abastecimento para transporte e mostra media
             }
             itemViewHolder.txtPerson.setText(driver.getShort_Name());
 

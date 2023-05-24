@@ -234,6 +234,7 @@
     <string name="InsuranceExpiration">Insurance Expiration</string>
     <string name="StartOdometer">Start Odometer</string>
     <string name="FinalOdometer">Final Odometer</string>
+    <string name="LastOdometer">Last Odometer</string>
 
     <!-- Insurance Activity -->
     <string name="insurance">Insurance</string>
@@ -570,6 +571,7 @@
     <!-- Transport -->
     <string name="Transport">Transport</string>
     <string name="Transport_Deleting">Deleting Transport</string>
+    <string name="Transport_Odometer_value_is_invalid">Transport Odometer value is invalid</string>
 
     <string name="Transport_Travel">Travel</string>
     <string name="Transport_Transport_Type">Transport Type</string>

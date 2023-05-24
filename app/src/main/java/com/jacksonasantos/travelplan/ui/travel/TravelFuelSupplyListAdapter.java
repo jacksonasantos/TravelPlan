@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.jacksonasantos.travelplan.R;
 import com.jacksonasantos.travelplan.dao.FuelSupply;
+import com.jacksonasantos.travelplan.dao.Transport;
 import com.jacksonasantos.travelplan.dao.Vehicle;
 import com.jacksonasantos.travelplan.dao.general.Database;
 import com.jacksonasantos.travelplan.ui.utility.Globals;
@@ -75,9 +76,14 @@ public class TravelFuelSupplyListAdapter extends RecyclerView.Adapter<RecyclerVi
         else if (holder instanceof ItemViewHolder) {
             final ItemViewHolder itemViewHolder = (ItemViewHolder) holder;
             final FuelSupply fuelSupplyHasTravel = mFuelSupplyHasTravel.get(position-show_header);
-            final Vehicle vehicle = Database.mVehicleDao.fetchVehicleById(fuelSupplyHasTravel.getVehicle_id());
+            if (fuelSupplyHasTravel.getVehicle_id() >0) {
+                final Vehicle vehicle = Database.mVehicleDao.fetchVehicleById(fuelSupplyHasTravel.getVehicle_id());
+                itemViewHolder.txtVehicle.setText(vehicle.getShort_name());
+            } else {
+                final Transport transport = Database.mTransportDao.fetchTransportById(fuelSupplyHasTravel.getTransport_id());
+                itemViewHolder.txtVehicle.setText(transport.getDescription());
+            }
 
-            itemViewHolder.txtVehicle.setText(vehicle.getShort_name());
             itemViewHolder.txtSupplyDate.setText(Utils.dateToString(fuelSupplyHasTravel.getSupply_date()));
             itemViewHolder.txtLocation.setText(fuelSupplyHasTravel.getGas_station_location());
             itemViewHolder.txtNumberLiters.setText(String.valueOf(fuelSupplyHasTravel.getNumber_liters()));

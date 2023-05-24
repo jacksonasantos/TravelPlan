@@ -68,14 +68,37 @@ public class VehicleStatisticsDAO extends DbContentProvider implements VehicleSt
     public List<VehicleStatistics> findTotalFuelingVehicleStatistics(Integer vehicle_id) {
         List<VehicleStatistics> vehicleStatisticsList = new ArrayList<>();
         cursor = super.rawQuery("SELECT " + FuelSupplyISchema.FUEL_SUPPLY_VEHICLE_ID + ", " +
-                                             "9 supply_reason_type, " +
-                                             "(SUM(" + FuelSupplyISchema.FUEL_SUPPLY_SUPPLY_VALUE+") / SUM(" + FuelSupplyISchema.FUEL_SUPPLY_VEHICLE_TRAVELLED_DISTANCE + ") ) avg_cost_litre, " +
-                                             "(AVG("+ FuelSupplyISchema.FUEL_SUPPLY_VEHICLE_TRAVELLED_DISTANCE+" / (" + FuelSupplyISchema.FUEL_SUPPLY_NUMBER_LITERS + "+" + FuelSupplyISchema.FUEL_SUPPLY_ACCUMULATED_NUMBER_LITERS+")) ) avg_consumption " +
-                                       "FROM " + FuelSupplyISchema.FUEL_SUPPLY_TABLE + " " +
-                                      "WHERE " + FuelSupplyISchema.FUEL_SUPPLY_VEHICLE_ID + "=? " +
-                                        "AND " + FuelSupplyISchema.FUEL_SUPPLY_VEHICLE_TRAVELLED_DISTANCE + " > 0 " +
-                                   "GROUP BY " + FuelSupplyISchema.FUEL_SUPPLY_VEHICLE_ID,
+                                            " 9 supply_reason_type, " +
+                                            " (SUM(" + FuelSupplyISchema.FUEL_SUPPLY_SUPPLY_VALUE+") / SUM(" + FuelSupplyISchema.FUEL_SUPPLY_VEHICLE_TRAVELLED_DISTANCE + ") ) avg_cost_litre, " +
+                                            " (AVG("+ FuelSupplyISchema.FUEL_SUPPLY_VEHICLE_TRAVELLED_DISTANCE+" / (" + FuelSupplyISchema.FUEL_SUPPLY_NUMBER_LITERS + "+" + FuelSupplyISchema.FUEL_SUPPLY_ACCUMULATED_NUMBER_LITERS+")) ) avg_consumption " +
+                                      "FROM " + FuelSupplyISchema.FUEL_SUPPLY_TABLE + " " +
+                                     "WHERE " + FuelSupplyISchema.FUEL_SUPPLY_VEHICLE_ID + "= ? " +
+                                       "AND " + FuelSupplyISchema.FUEL_SUPPLY_VEHICLE_TRAVELLED_DISTANCE + " > 0 " +
+                                     "GROUP BY " + FuelSupplyISchema.FUEL_SUPPLY_VEHICLE_ID,
                 new String[] { String.valueOf(vehicle_id)});
+        if (null != cursor) {
+            if (cursor.moveToFirst()) {
+                do {
+                    VehicleStatistics vehicleStatistics = cursorToEntity(cursor);
+                    vehicleStatisticsList.add(vehicleStatistics);
+                } while (cursor.moveToNext());
+            }
+            cursor.close();
+        }
+        return vehicleStatisticsList;
+    }
+
+    public List<VehicleStatistics> findTotalFuelingTransportStatistics(Integer transport_id) {
+        List<VehicleStatistics> vehicleStatisticsList = new ArrayList<>();
+        cursor = super.rawQuery("SELECT " + FuelSupplyISchema.FUEL_SUPPLY_TRANSPORT_ID + ", " +
+                                            " 9 supply_reason_type, " +
+                                            " (SUM(" + FuelSupplyISchema.FUEL_SUPPLY_SUPPLY_VALUE+") / SUM(" + FuelSupplyISchema.FUEL_SUPPLY_VEHICLE_TRAVELLED_DISTANCE + ") ) avg_cost_litre, " +
+                                            " (AVG("+ FuelSupplyISchema.FUEL_SUPPLY_VEHICLE_TRAVELLED_DISTANCE+" / (" + FuelSupplyISchema.FUEL_SUPPLY_NUMBER_LITERS + "+" + FuelSupplyISchema.FUEL_SUPPLY_ACCUMULATED_NUMBER_LITERS+")) ) avg_consumption " +
+                                      "FROM " + FuelSupplyISchema.FUEL_SUPPLY_TABLE + " " +
+                                     "WHERE " + FuelSupplyISchema.FUEL_SUPPLY_TRANSPORT_ID + "= ? " +
+                                       "AND " + FuelSupplyISchema.FUEL_SUPPLY_VEHICLE_TRAVELLED_DISTANCE + " > 0 " +
+                                     "GROUP BY " + FuelSupplyISchema.FUEL_SUPPLY_TRANSPORT_ID,
+                new String[] { String.valueOf(transport_id)});
         if (null != cursor) {
             if (cursor.moveToFirst()) {
                 do {

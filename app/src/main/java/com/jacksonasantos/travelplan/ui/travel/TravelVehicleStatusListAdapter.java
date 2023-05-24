@@ -72,6 +72,8 @@ public class TravelVehicleStatusListAdapter extends RecyclerView.Adapter<Recycle
             headerViewHolder.txtStartOdometer.setText(R.string.StartOdometer);
             headerViewHolder.txtFinalOdometer.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
             headerViewHolder.txtFinalOdometer.setText(R.string.FinalOdometer);
+            headerViewHolder.txtLastOdometer.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+            headerViewHolder.txtLastOdometer.setText(R.string.LastOdometer);
             headerViewHolder.btnEdit.setVisibility(View.INVISIBLE);
         }
         else if (holder instanceof ItemViewHolder) {
@@ -80,13 +82,14 @@ public class TravelVehicleStatusListAdapter extends RecyclerView.Adapter<Recycle
             final Vehicle vehicle = Database.mVehicleDao.fetchVehicleById(vehicleHasTravel.getVehicle_id());
             final Transport transport = Database.mTransportDao.fetchTransportById(vehicleHasTravel.getTransport_id());
 
-            if (vehicleHasTravel.getVehicle_id()==0) {
+            if (vehicleHasTravel.getVehicle_id()==null) {
                 itemViewHolder.txtVehicle.setText(transport.getDescription());
             } else {
                 itemViewHolder.txtVehicle.setText(vehicle.getShort_name());
             }
             itemViewHolder.txtStartOdometer.setText(numberFormatter.format(vehicleHasTravel.getStart_odometer()));
             itemViewHolder.txtFinalOdometer.setText(numberFormatter.format(vehicleHasTravel.getFinal_odometer()));
+            itemViewHolder.txtLastOdometer.setText(numberFormatter.format(vehicleHasTravel.getLast_odometer()));
 
             itemViewHolder.btnEdit.setOnClickListener(v -> {
                 LayoutInflater li = LayoutInflater.from(v.getContext());
@@ -98,14 +101,16 @@ public class TravelVehicleStatusListAdapter extends RecyclerView.Adapter<Recycle
                 final TextView txtVehicle = promptsView.findViewById(R.id.txtVehicle);
                 final EditText etStartOdometer = promptsView.findViewById(R.id.etStartOdometer);
                 final EditText etFinalOdometer = promptsView.findViewById(R.id.etFinalOdometer);
+                final EditText etLastOdometer = promptsView.findViewById(R.id.etLastOdometer);
 
-                if (vehicleHasTravel.getVehicle_id()==0){
+                if (vehicleHasTravel.getVehicle_id()==null){
                     txtVehicle.setText(transport.getDescription());
                 } else {
                     txtVehicle.setText(vehicle.getShort_name());
                 }
                 etStartOdometer.setText(String.valueOf(vehicleHasTravel.getStart_odometer()));
                 etFinalOdometer.setText(String.valueOf(vehicleHasTravel.getFinal_odometer()));
+                etLastOdometer.setText(String.valueOf(vehicleHasTravel.getLast_odometer()));
 
                 alertDialogBuilder
                         .setCancelable(false)
@@ -117,6 +122,9 @@ public class TravelVehicleStatusListAdapter extends RecyclerView.Adapter<Recycle
                             }
                             if (!etFinalOdometer.getText().toString().isEmpty()) {
                                 vehicleHasTravel.setFinal_odometer(Integer.parseInt(etFinalOdometer.getText().toString()));
+                            }
+                            if (!etLastOdometer.getText().toString().isEmpty()) {
+                                vehicleHasTravel.setLast_odometer(Integer.parseInt(etLastOdometer.getText().toString()));
                             }
 
                             try {
@@ -156,6 +164,7 @@ public class TravelVehicleStatusListAdapter extends RecyclerView.Adapter<Recycle
         public final TextView txtVehicle;
         public final TextView txtStartOdometer;
         public final TextView txtFinalOdometer;
+        public final TextView txtLastOdometer;
         public final ImageButton btnEdit;
 
         public HeaderViewHolder(View v) {
@@ -164,6 +173,7 @@ public class TravelVehicleStatusListAdapter extends RecyclerView.Adapter<Recycle
             txtVehicle = v.findViewById(R.id.txtVehicle);
             txtStartOdometer = v.findViewById(R.id.txtStartOdometer);
             txtFinalOdometer = v.findViewById(R.id.txtFinalOdometer);
+            txtLastOdometer = v.findViewById(R.id.txtLastOdometer);
             btnEdit = v.findViewById(R.id.btnEdit);
         }
     }
@@ -173,6 +183,7 @@ public class TravelVehicleStatusListAdapter extends RecyclerView.Adapter<Recycle
         public final TextView txtVehicle;
         public final TextView txtStartOdometer;
         public final TextView txtFinalOdometer;
+        public final TextView txtLastOdometer;
         public final ImageButton btnEdit;
 
         public ItemViewHolder(View v) {
@@ -181,6 +192,7 @@ public class TravelVehicleStatusListAdapter extends RecyclerView.Adapter<Recycle
             txtVehicle = v.findViewById(R.id.txtVehicle);
             txtStartOdometer = v.findViewById(R.id.txtStartOdometer);
             txtFinalOdometer = v.findViewById(R.id.txtFinalOdometer);
+            txtLastOdometer = v.findViewById(R.id.txtLastOdometer);
             btnEdit = v.findViewById(R.id.btnEdit);
         }
     }

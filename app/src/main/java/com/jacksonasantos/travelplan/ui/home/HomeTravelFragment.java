@@ -228,7 +228,7 @@ public class HomeTravelFragment extends Fragment implements View.OnClickListener
                     rgTravelStatus.check(travel[0].getStatus()+1);
 
                     final int Show_Header_VehicleTravelStatus = 1  ;
-                    TravelVehicleStatusListAdapter adapterTravelVehicleStatus = new TravelVehicleStatusListAdapter(Database.mVehicleHasTravelDao.fetchAllVehicleHasTravelByTravel(travel[0].getId() ), getContext(), "Home", Show_Header_VehicleTravelStatus);
+                    TravelVehicleStatusListAdapter adapterTravelVehicleStatus = new TravelVehicleStatusListAdapter(Database.mVehicleHasTravelDao.fetchAllVehicleHasTravelByTravelForFuel(travel[0].getId() ), getContext(), "Home", Show_Header_VehicleTravelStatus);
                     if ( adapterTravelVehicleStatus.getItemCount() > Show_Header_VehicleTravelStatus){
                         rvVehicles.setAdapter(adapterTravelVehicleStatus);
                         rvVehicles.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -238,15 +238,15 @@ public class HomeTravelFragment extends Fragment implements View.OnClickListener
                             .setCancelable(false)
                             .setPositiveButton(R.string.OK, (dialog, id1) -> {
                                 boolean isSave = true;
-
                                 try {
                                     boolean temOdometerStart = true;
                                     boolean temOdometerFinal = true;
                                     boolean goRun = true;
                                     List<VehicleHasTravel> list = Database.mVehicleHasTravelDao.fetchAllVehicleHasTravelByTravel(travel[0].getId());
                                     for (int i = 0; i < list.size(); i++) {
-                                        if (list.get(i).getStart_odometer() == 0) temOdometerStart = false;
-                                        if (list.get(i).getFinal_odometer() == 0) temOdometerFinal = false;
+                                        VehicleHasTravel vt1 = Database.mVehicleHasTravelDao.findVehicleHasTravelByID(list.get(i).getId());
+                                        if (vt1.getStart_odometer() == 0) temOdometerStart = false;
+                                        if (vt1.getFinal_odometer() == 0) temOdometerFinal = false;
                                     }
                                     if ((rbTravelStatus-1)==2 && !temOdometerStart){
                                         Toast.makeText(requireContext(), R.string.Home_Travel_Change_Status_Running, Toast.LENGTH_LONG).show();
@@ -307,7 +307,7 @@ public class HomeTravelFragment extends Fragment implements View.OnClickListener
 
                             String[] listItems = new String[vehicleHasTravel.size()];
                             for (int i = 0; i<vehicleHasTravel.size(); i++){
-                                if (vehicleHasTravel.get(i).getVehicle_id()==0){
+                                if (vehicleHasTravel.get(i).getVehicle_id()==null){
                                     listItems[i] = Database.mTransportDao.fetchTransportById(vehicleHasTravel.get(i).getTransport_id()).getDescription();
                                 } else {
                                     listItems[i] = Database.mVehicleDao.fetchVehicleById(vehicleHasTravel.get(i).getVehicle_id()).getName();

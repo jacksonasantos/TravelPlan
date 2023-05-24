@@ -82,14 +82,32 @@ public class FuelSupplyDAO extends DbContentProvider implements FuelSupplyISchem
         return fuelSupply;
     }
 
-    public FuelSupply findAVGConsumptionTravel(Integer vehicle_id, Integer travel_id) {
+    public FuelSupply findAVGConsumptionTravelVehicle(Integer vehicle_id, Integer travel_id) {
+        FuelSupply fuelSupply = new FuelSupply();
+        cursor = super.rawQuery("SELECT SUM(" + FUEL_SUPPLY_VEHICLE_TRAVELLED_DISTANCE + ")/SUM(" + FUEL_SUPPLY_NUMBER_LITERS +"+"+FUEL_SUPPLY_ACCUMULATED_NUMBER_LITERS+") stat_avg_fuel_consumption " +
+                        " FROM " + FUEL_SUPPLY_TABLE +
+                        " WHERE " + FUEL_SUPPLY_VEHICLE_ID + "= ? " +
+                        " AND " + FUEL_SUPPLY_ASSOCIATED_TRAVEL_ID + " = ? " +
+                        " AND " + FUEL_SUPPLY_VEHICLE_TRAVELLED_DISTANCE + " > 0 ",
+                new String[] { String.valueOf(vehicle_id), String.valueOf(travel_id)});
+        if (null != cursor) {
+            if (cursor.getCount() > 0) {
+                cursor.moveToFirst();
+                fuelSupply = cursorToEntity(cursor);
+            }
+            cursor.close();
+        }
+        return fuelSupply;
+    }
+
+    public FuelSupply findAVGConsumptionTravelTransport( Integer transport_id, Integer travel_id) {
         FuelSupply fuelSupply = new FuelSupply();
         cursor = super.rawQuery("SELECT SUM(" + FUEL_SUPPLY_VEHICLE_TRAVELLED_DISTANCE + ")/SUM(" + FUEL_SUPPLY_NUMBER_LITERS +"+"+FUEL_SUPPLY_ACCUMULATED_NUMBER_LITERS+") stat_avg_fuel_consumption " +
                                      " FROM " + FUEL_SUPPLY_TABLE +
-                                    " WHERE " + FUEL_SUPPLY_VEHICLE_ID + "= ? " +
+                                    " WHERE " + FUEL_SUPPLY_TRANSPORT_ID + "= ? " +
                                       " AND " + FUEL_SUPPLY_ASSOCIATED_TRAVEL_ID + " = ? " +
                                       " AND " + FUEL_SUPPLY_VEHICLE_TRAVELLED_DISTANCE + " > 0 ",
-                new String[] { String.valueOf(vehicle_id), String.valueOf(travel_id)});
+                new String[] { String.valueOf(transport_id), String.valueOf(travel_id)});
         if (null != cursor) {
             if (cursor.getCount() > 0) {
                 cursor.moveToFirst();
@@ -104,7 +122,6 @@ public class FuelSupplyDAO extends DbContentProvider implements FuelSupplyISchem
         List<FuelSupply> fuelSupplyList = new ArrayList<>();
         String order = FUEL_SUPPLY_SUPPLY_DATE;
         if (descOrder) { order = order + " DESC "; }
-        //order = order + "," + FUEL_SUPPLY_ID;
         order = order + "," + FUEL_SUPPLY_VEHICLE_ID;
         order = order + "," + FUEL_SUPPLY_ID;
         if (descOrder) { order = order + " DESC "; }
@@ -149,6 +166,7 @@ public class FuelSupplyDAO extends DbContentProvider implements FuelSupplyISchem
         if (c != null) {
             if (c.getColumnIndex(FUEL_SUPPLY_ID) != -1) {fS.setId(c.getInt(c.getColumnIndexOrThrow(FUEL_SUPPLY_ID))); }
             if (c.getColumnIndex(FUEL_SUPPLY_VEHICLE_ID) != -1) {fS.setVehicle_id(c.getInt(c.getColumnIndexOrThrow(FUEL_SUPPLY_VEHICLE_ID))); }
+            if (c.getColumnIndex(FUEL_SUPPLY_TRANSPORT_ID) != -1) {fS.setTransport_id(c.getInt(c.getColumnIndexOrThrow(FUEL_SUPPLY_TRANSPORT_ID))); }
             if (c.getColumnIndex(FUEL_SUPPLY_GAS_STATION) != -1) {fS.setGas_station(c.getString(c.getColumnIndexOrThrow(FUEL_SUPPLY_GAS_STATION))); }
             if (c.getColumnIndex(FUEL_SUPPLY_GAS_STATION_LOCATION) != -1) {fS.setGas_station_location(c.getString(c.getColumnIndexOrThrow(FUEL_SUPPLY_GAS_STATION_LOCATION))); }
             if (c.getColumnIndex(FUEL_SUPPLY_SUPPLY_DATE) != -1) {fS.setSupply_date(Utils.dateParse(c.getString(c.getColumnIndexOrThrow(FUEL_SUPPLY_SUPPLY_DATE)))); }
@@ -176,6 +194,7 @@ public class FuelSupplyDAO extends DbContentProvider implements FuelSupplyISchem
         initialValues = new ContentValues();
         initialValues.put(FUEL_SUPPLY_ID, fS.id);
         initialValues.put(FUEL_SUPPLY_VEHICLE_ID, fS.vehicle_id);
+        initialValues.put(FUEL_SUPPLY_TRANSPORT_ID, fS.transport_id);
         initialValues.put(FUEL_SUPPLY_GAS_STATION, fS.gas_station);
         initialValues.put(FUEL_SUPPLY_GAS_STATION_LOCATION, fS.gas_station_location);
         initialValues.put(FUEL_SUPPLY_SUPPLY_DATE, Utils.dateFormat(fS.supply_date));
@@ -200,5 +219,4 @@ public class FuelSupplyDAO extends DbContentProvider implements FuelSupplyISchem
     private ContentValues getContentValue() {
         return initialValues;
     }
-
 }

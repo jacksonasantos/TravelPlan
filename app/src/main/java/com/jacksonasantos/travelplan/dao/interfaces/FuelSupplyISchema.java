@@ -6,6 +6,7 @@ public interface FuelSupplyISchema {
 
     String FUEL_SUPPLY_ID = "id";
     String FUEL_SUPPLY_VEHICLE_ID = "vehicle_id";
+    String FUEL_SUPPLY_TRANSPORT_ID = "transport_id";
     String FUEL_SUPPLY_GAS_STATION = "gas_station";
     String FUEL_SUPPLY_GAS_STATION_LOCATION = "gas_station_location";
     String FUEL_SUPPLY_SUPPLY_DATE = "supply_date";
@@ -64,9 +65,14 @@ public interface FuelSupplyISchema {
     String ALTER_TABLE_FUEL_SUPPLY_V45 = "ALTER TABLE " + FUEL_SUPPLY_TABLE
             + " ADD COLUMN " + FUEL_SUPPLY_ACCUMULATED_SUPPLY_VALUE + " DOUBLE ";
 
+    // Version 71
+    String ALTER_TABLE_FUEL_SUPPLY_V71 = "ALTER TABLE " + FUEL_SUPPLY_TABLE
+            + " ADD COLUMN " + FUEL_SUPPLY_TRANSPORT_ID + " INTEGER REFERENCES " + TransportISchema.TRANSPORT_TABLE + " ("+TransportISchema.TRANSPORT_ID+") ";
+
     String[] FUEL_SUPPLY_COLUMNS = new String[] {
             FUEL_SUPPLY_ID,
             FUEL_SUPPLY_VEHICLE_ID,
+            FUEL_SUPPLY_TRANSPORT_ID,
             FUEL_SUPPLY_GAS_STATION,
             FUEL_SUPPLY_GAS_STATION_LOCATION,
             FUEL_SUPPLY_SUPPLY_DATE,

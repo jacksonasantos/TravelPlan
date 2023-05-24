@@ -43,8 +43,10 @@ import com.jacksonasantos.travelplan.MainActivity;
 import com.jacksonasantos.travelplan.R;
 import com.jacksonasantos.travelplan.dao.CurrencyQuote;
 import com.jacksonasantos.travelplan.dao.FuelSupply;
+import com.jacksonasantos.travelplan.dao.Transport;
 import com.jacksonasantos.travelplan.dao.Travel;
 import com.jacksonasantos.travelplan.dao.Vehicle;
+import com.jacksonasantos.travelplan.dao.VehicleHasTravel;
 import com.jacksonasantos.travelplan.dao.VehicleStatistics;
 import com.jacksonasantos.travelplan.dao.general.Database;
 import com.jacksonasantos.travelplan.ui.general.CurrencyQuoteActivity;
@@ -65,22 +67,28 @@ import java.util.Objects;
 public class FuelSupplyActivity extends AppCompatActivity implements PlacesAdapter.OnItemClicked {
 
     private CardView cvVehicle;
-    private CardView cvStatistics;
-    private CardView cvAccumulated;
-    private TextView txVehicleName;
     private ImageView imVehicleType;
+    private TextView txVehicleName;
     private TextView txVehicleLicencePlate;
     private Integer nrVehicleId = null;
+
+    private CardView cvTransport;
+    private ImageView imTransportType;
+    private TextView txTransportDescription;
+    private TextView txTransportIdentifier;
+    private Integer nrTransportId = null;
+
     private ImageButton btLocation;
     public RecyclerView listPlaces;
     private EditText etGasStation;
     private EditText etGasStationLocation;
-    private Spinner spCombustible;
-    private int nrSpCombustible;
+
     private EditText etSupplyDate;
-    private EditText etNumberLiters;
     private SwitchMaterial cbFullTank;
     private int vlFullTank = 0;
+    private Spinner spCombustible;
+    private int nrSpCombustible;
+    private EditText etNumberLiters;
     private Spinner spCurrencyType;
     private int nrSpCurrencyType;
     private Integer nrCurrencyQuoteId;
@@ -89,18 +97,23 @@ public class FuelSupplyActivity extends AppCompatActivity implements PlacesAdapt
     private EditText etFuelValue;
     private EditText etVehicleOdometer;
     private TextView tvVehicleOdometer;
-    private TextView txVehicleTravelledDistance;
-    private TextView txStatAvgFuelConsumption;
-    private TextView txStatCostPerLitre;
-    private TextView txUnitDistance;
-    private TextView txUnitConsumption;
     private RadioGroup rgSupplyReasonType;
     private int rbSupplyReasonType;
     private EditText etSupplyReason;
     private Spinner spAssociatedTravelId;
     private Integer nrSpAssociatedTravelId;
+
+    private CardView cvStatistics;
+    private TextView txVehicleTravelledDistance;
+    private TextView txUnitDistance;
+    private TextView txStatAvgFuelConsumption;
+    private TextView txUnitConsumption;
+    private TextView txStatCostPerLitre;
+
+    private CardView cvAccumulated;
     private TextView txAccumulatedNumberLiters;
     private TextView txAccumulatedSupplyValue;
+
     private int vLastOdometer;
     private int vLastTravelledDistance;
     private double vAccumulatedNumberLiter = 0;
@@ -155,6 +168,11 @@ public class FuelSupplyActivity extends AppCompatActivity implements PlacesAdapt
                 fuelSupply.setVehicle_id(nrVehicleId);
             }
 
+            if (extras.getInt( "transport_id") > 0) {
+                nrTransportId = extras.getInt("transport_id");
+                fuelSupply.setTransport_id(nrTransportId);
+            }
+
             if (extras.getInt( "fuel_supply_id") > 0) {
                 fuelSupply.setId(extras.getInt("fuel_supply_id"));
                 fuelSupply = Database.mFuelSupplyDao.fetchFuelSupplyById(fuelSupply.getId());
@@ -173,6 +191,7 @@ public class FuelSupplyActivity extends AppCompatActivity implements PlacesAdapt
         }
         if (!opInsert) {
             nrVehicleId = fuelSupply.getVehicle_id();
+            nrTransportId = fuelSupply.getTransport_id();
         }
 
         ActionBar actionBar = getSupportActionBar();
@@ -181,12 +200,17 @@ public class FuelSupplyActivity extends AppCompatActivity implements PlacesAdapt
         }
 
         addListenerOnButtonSave();
+
+        cvTransport = findViewById(R.id.cvTransport);
+        imTransportType = findViewById(R.id.imTransportType);
+        txTransportDescription = findViewById(R.id.txTransportDescription);
+        txTransportIdentifier = findViewById(R.id.txTransportIdentifier);
+
         cvVehicle = findViewById(R.id.cvVehicle);
-        cvStatistics = findViewById(R.id.cvStatistics);
-        cvAccumulated = findViewById(R.id.cvAccumulated);
         txVehicleName = findViewById(R.id.txVehicleName);
         imVehicleType = findViewById(R.id.imVehicleType);
         txVehicleLicencePlate = findViewById(R.id.txVehicleLicencePlate);
+
         btLocation  = findViewById(R.id.btLocation);
         listPlaces = findViewById(R.id.listPlaces);
         etGasStation = findViewById(R.id.etGasStation);
@@ -202,33 +226,52 @@ public class FuelSupplyActivity extends AppCompatActivity implements PlacesAdapt
         etVehicleOdometer = findViewById(R.id.etVehicleOdometer);
         tvVehicleOdometer = findViewById(R.id.tvVehicleOdometer);
         txVehicleTravelledDistance = findViewById(R.id.txVehicleTravelledDistance);
+        rgSupplyReasonType = findViewById(R.id.rgSupplyReasonType);
+        etSupplyReason = findViewById(R.id.etSupplyReason);
+        spAssociatedTravelId = findViewById(R.id.spAssociatedTravelId);
+
+        cvStatistics = findViewById(R.id.cvStatistics);
         txStatAvgFuelConsumption = findViewById(R.id.txStatAvgFuelConsumption);
         txStatCostPerLitre = findViewById(R.id.txStatCostPerLitre);
         txUnitDistance = findViewById(R.id.txUnitDistance);
         txUnitConsumption = findViewById(R.id.txUnitConsumption);
-        rgSupplyReasonType = findViewById(R.id.rgSupplyReasonType);
-        etSupplyReason = findViewById(R.id.etSupplyReason);
-        spAssociatedTravelId = findViewById(R.id.spAssociatedTravelId);
+
+        cvAccumulated = findViewById(R.id.cvAccumulated);
         txAccumulatedNumberLiters = findViewById(R.id.txAccumulatedNumberLiters);
         txAccumulatedSupplyValue = findViewById(R.id.txAccumulatedSupplyValue);
+
         Vehicle vehicle = new Vehicle();
+        Transport transport;
+        VehicleHasTravel vehicleHasTravel = new VehicleHasTravel();
         if (nrVehicleId != null) {
             vehicle = Database.mVehicleDao.fetchVehicleById(nrVehicleId);
             txVehicleName.setText(vehicle.getName());
             txVehicleLicencePlate.setText(vehicle.getLicense_plate());
             imVehicleType.setImageResource(vehicle.getVehicleTypeImage(vehicle.getVehicle_type()));
             cvVehicle.setVisibility(View.VISIBLE);
+            cvTransport.setVisibility(View.GONE);
             cvStatistics.setVisibility(View.VISIBLE);
             cvAccumulated.setVisibility(View.VISIBLE);
         } else {
+            if (nrTransportId != null) {
+                transport = Database.mTransportDao.fetchTransportById(nrTransportId);
+                vehicleHasTravel = Database.mVehicleHasTravelDao.findVehicleHasTravelByTravelTransport(nrSpAssociatedTravelId,nrTransportId);
+                if (vehicleHasTravel.getLast_odometer()==0){
+                    Toast.makeText(getApplicationContext(), getResources().getString(R.string.Transport_Odometer_value_is_invalid), Toast.LENGTH_LONG).show();
+                    Log.e("FuelSupply",  getResources().getString(R.string.Transport_Odometer_value_is_invalid));
+                    finish();
+                }
+                txTransportDescription.setText(transport.getDescription());
+                txTransportIdentifier.setText(transport.getIdentifier());
+                imTransportType.setImageResource(Transport.getTransportTypeImage(transport.getTransport_type()));
+                cvTransport.setVisibility(View.VISIBLE);
+            }
             cvVehicle.setVisibility(View.GONE);
             cvStatistics.setVisibility(View.GONE);
             cvAccumulated.setVisibility(View.GONE);
         }
 
-
         btLocation.setOnClickListener(view -> {
-
             if (ActivityCompat.checkSelfPermission(getBaseContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
                 ActivityCompat.checkSelfPermission(getBaseContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                 requestPermissionLauncher.launch(Manifest.permission.ACCESS_FINE_LOCATION);
@@ -351,8 +394,28 @@ public class FuelSupplyActivity extends AppCompatActivity implements PlacesAdapt
             etVehicleOdometer.setVisibility(View.VISIBLE);
             etVehicleOdometer.setOnFocusChangeListener(listenerOdometer);
         } else {
-            tvVehicleOdometer.setVisibility(View.GONE);
-            etVehicleOdometer.setVisibility(View.GONE);
+            if (nrTransportId!=null) {
+                vLastOdometer = vehicleHasTravel.getLast_odometer();
+                View.OnFocusChangeListener listenerOdometer = (v, hasFocus) -> {
+                    if (!hasFocus) {
+                        String vTxtOdometerFuelSupply = etVehicleOdometer.getText().toString();
+                        if (!vTxtOdometerFuelSupply.isEmpty() && vlFullTank == 1) {
+                            int vValOdometerFuelSupply = Integer.parseInt(vTxtOdometerFuelSupply);
+                            vLastTravelledDistance = 0;
+                            if ((vValOdometerFuelSupply >= vLastOdometer) && (vlFullTank == 1)) {
+                                vLastTravelledDistance = vValOdometerFuelSupply - vLastOdometer;
+                                txVehicleTravelledDistance.setText(String.valueOf(vLastTravelledDistance));
+                            }
+                        }
+                    }
+                };
+                tvVehicleOdometer.setVisibility(View.VISIBLE);
+                etVehicleOdometer.setVisibility(View.VISIBLE);
+                etVehicleOdometer.setOnFocusChangeListener(listenerOdometer);
+            } else {
+                tvVehicleOdometer.setVisibility(View.GONE);
+                etVehicleOdometer.setVisibility(View.GONE);
+            }
         }
 
         Utils.addRadioButtonResources(R.array.supply_reason_type_array, rgSupplyReasonType, this);
@@ -408,6 +471,11 @@ public class FuelSupplyActivity extends AppCompatActivity implements PlacesAdapt
             if ( nrVehicleId != null ) {
                 etVehicleOdometer.setText(String.valueOf(fuelSupply.getVehicle_odometer() == 0 ? "" : fuelSupply.getVehicle_odometer()));
                 txVehicleTravelledDistance.setText(String.valueOf(fuelSupply.getVehicle_travelled_distance()));
+            } else {
+                if (nrTransportId != null ){
+                    etVehicleOdometer.setText(String.valueOf(fuelSupply.getVehicle_odometer() == 0 ? "" : fuelSupply.getVehicle_odometer()));
+                    txVehicleTravelledDistance.setText(String.valueOf(fuelSupply.getVehicle_travelled_distance()));
+                }
             }
             txStatAvgFuelConsumption.setText(numberFormat.format(fuelSupply.getStat_avg_fuel_consumption()));
             txStatCostPerLitre.setText(currencyFormatter.format(fuelSupply.getStat_cost_per_litre()));
@@ -441,10 +509,16 @@ public class FuelSupplyActivity extends AppCompatActivity implements PlacesAdapt
             } else {
                 final FuelSupply f1 = new FuelSupply();
                 Vehicle v1 = new Vehicle();
+                VehicleHasTravel vt1 = new VehicleHasTravel();
 
-                if (nrVehicleId != null ) {
-                    v1 = Database.mVehicleDao.fetchVehicleById(nrVehicleId);
-                    vLastOdometer = v1.getOdometer();
+                if (nrVehicleId != null || nrTransportId != null ) {
+                    if (nrVehicleId != null) {
+                        v1 = Database.mVehicleDao.fetchVehicleById(nrVehicleId);
+                        vLastOdometer = v1.getOdometer();
+                    } else {
+                        vt1 = Database.mVehicleHasTravelDao.findVehicleHasTravelByTravelTransport(nrSpAssociatedTravelId, nrTransportId);
+                        vLastOdometer = vt1.getLast_odometer();
+                    }
                     String vTxtOdometerFuelSupply = etVehicleOdometer.getText().toString();
                     if (vTxtOdometerFuelSupply.equals("0") || vTxtOdometerFuelSupply.equals("")) {
                         vTxtOdometerFuelSupply = null;
@@ -459,16 +533,26 @@ public class FuelSupplyActivity extends AppCompatActivity implements PlacesAdapt
                         if (vLastTravelledDistance > 0) {
                             // TODO - CHECK STATISTICS ADJUSTMENTS WHEN CHANGING THE ODOMETER AND DISTANCE TRAVELED
                             // TODO - recalcular a distancia e o novo consumo quando alterado o odometro pegando o abastecimento imediatamente anterior
-                            vStatAvgFuelConsumption = vLastTravelledDistance / Float.parseFloat(Double.toString(Double.parseDouble(etNumberLiters.getText().toString()) + v1.getAccumulated_number_liters()));
-                            vStatCostPerLitre = vLastTravelledDistance / Float.parseFloat(Double.toString(Double.parseDouble(etSupplyValue.getText().toString()) + v1.getAccumulated_supply_value()));
-                            vAccumulatedNumberLiter = v1.getAccumulated_number_liters();
-                            vAccumulatedSupplyValue = v1.getAccumulated_supply_value();
-                            vAccumulatedLiterNumber = 0;
-                            vAccumulatedValueSupply = 0;
-                            if (rbSupplyReasonType != 3 &&
-                                    v1.getLast_supply_reason_type() != rbSupplyReasonType &&
-                                    v1.getAccumulated_number_liters() > 0) {
-                                rbSupplyReasonType = 3;
+                            if (nrVehicleId!=null) {
+                                vStatAvgFuelConsumption = vLastTravelledDistance / Float.parseFloat(Double.toString(Double.parseDouble(etNumberLiters.getText().toString()) + v1.getAccumulated_number_liters()));
+                                vStatCostPerLitre = vLastTravelledDistance / Float.parseFloat(Double.toString(Double.parseDouble(etSupplyValue.getText().toString()) + v1.getAccumulated_supply_value()));
+                                vAccumulatedNumberLiter = v1.getAccumulated_number_liters();
+                                vAccumulatedSupplyValue = v1.getAccumulated_supply_value();
+                                vAccumulatedLiterNumber = 0;
+                                vAccumulatedValueSupply = 0;
+                                if (rbSupplyReasonType != 3 &&
+                                        v1.getLast_supply_reason_type() != rbSupplyReasonType &&
+                                        v1.getAccumulated_number_liters() > 0) {
+                                    rbSupplyReasonType = 3;
+                                }
+                            } else {
+                                vStatAvgFuelConsumption = vLastTravelledDistance / Float.parseFloat(Double.toString(Double.parseDouble(etNumberLiters.getText().toString()) ));
+                                vStatCostPerLitre = vLastTravelledDistance / Float.parseFloat(Double.toString(Double.parseDouble(etSupplyValue.getText().toString()) ));
+                                vAccumulatedNumberLiter = 0;
+                                vAccumulatedSupplyValue = 0;
+                                vAccumulatedLiterNumber = 0;
+                                vAccumulatedValueSupply = 0;
+                                rbSupplyReasonType = 2;
                             }
                             txStatAvgFuelConsumption.setText(numberFormat.format(vStatAvgFuelConsumption));
                             txStatCostPerLitre.setText(currencyFormatter.format(vStatCostPerLitre));
@@ -484,6 +568,7 @@ public class FuelSupplyActivity extends AppCompatActivity implements PlacesAdapt
                 }
 
                 f1.setVehicle_id(nrVehicleId);
+                f1.setTransport_id(nrTransportId);
                 f1.setGas_station(etGasStation.getText().toString());
                 f1.setGas_station_location(etGasStationLocation.getText().toString());
                 f1.setSupply_date( Utils.stringToDate(etSupplyDate.getText().toString()));
@@ -499,7 +584,7 @@ public class FuelSupplyActivity extends AppCompatActivity implements PlacesAdapt
                 f1.setSupply_reason_type(findViewById(rbSupplyReasonType).getId());
                 f1.setSupply_reason(etSupplyReason.getText().toString());
                 f1.setAssociated_travel_id(nrSpAssociatedTravelId);
-                if (nrVehicleId != null ) {
+                if (nrVehicleId != null || nrTransportId!=null ) {
                     if (!etVehicleOdometer.getText().toString().isEmpty()) {
                         f1.setVehicle_odometer(Integer.parseInt(etVehicleOdometer.getText().toString()));
                         f1.setVehicle_travelled_distance(Integer.parseInt(txVehicleTravelledDistance.getText().toString()));
@@ -552,6 +637,14 @@ public class FuelSupplyActivity extends AppCompatActivity implements PlacesAdapt
                                 v1.setAccumulated_supply_value(vAccumulatedValueSupply);
                             }
                             isSave = Database.mVehicleDao.updateVehicle(v1);
+                        } else {
+                            if (nrTransportId!= null) {
+                                List<VehicleStatistics> vStat = Database.mVehicleStatisticsDao.findTotalFuelingTransportStatistics(nrTransportId);
+                                vt1.setLast_odometer(Integer.parseInt(etVehicleOdometer.getText().toString()));
+                                vt1.setAvg_consumption(vStat.get(0).getAvg_consumption());
+                                vt1.setAvg_cost_litre(vStat.get(0).getAvg_cost_litre());
+                                isSave = Database.mVehicleHasTravelDao.updateVehicleHasTravel(vt1);
+                            }
                         }
                     }
                 } catch (Exception e) {

@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.jacksonasantos.travelplan.R;
 import com.jacksonasantos.travelplan.dao.FuelSupply;
+import com.jacksonasantos.travelplan.dao.Transport;
 import com.jacksonasantos.travelplan.dao.Vehicle;
 import com.jacksonasantos.travelplan.dao.VehicleStatistics;
 import com.jacksonasantos.travelplan.dao.general.Database;
@@ -86,10 +87,15 @@ public class FuelSupplyListAdapter extends RecyclerView.Adapter<FuelSupplyListAd
     @Override
     public void onBindViewHolder(@NonNull final MyViewHolder holder, final int position) {
         final FuelSupply fuelSupply = mFuelSupply.get(position);
-        Vehicle v = Database.mVehicleDao.fetchVehicleById(fuelSupply.getVehicle_id());
 
         holder.txtSupplyDate.setText(Utils.dateToString(fuelSupply.getSupply_date()));
-        holder.txtVehicleShortName.setText(v.getShort_name());
+        if (fuelSupply.getVehicle_id() >0) {
+            final Vehicle v = Database.mVehicleDao.fetchVehicleById(fuelSupply.getVehicle_id());
+            holder.txtVehicleShortName.setText(v.getShort_name());
+        } else {
+            final Transport t = Database.mTransportDao.fetchTransportById(fuelSupply.getTransport_id());
+            holder.txtVehicleShortName.setText(t.getDescription());
+        }
         holder.txtVehicleOdometer.setText(String.valueOf(fuelSupply.getVehicle_odometer()));
         holder.txtNumberLiters.setText(String.format("%s %s", fuelSupply.getNumber_liters(), g.getMeasureCapacity()));
         NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(locale);
