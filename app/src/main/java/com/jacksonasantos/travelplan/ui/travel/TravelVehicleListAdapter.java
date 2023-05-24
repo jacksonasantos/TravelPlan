@@ -141,6 +141,7 @@ public class TravelVehicleListAdapter extends RecyclerView.Adapter<RecyclerView.
                             .setMessage(R.string.Msg_Confirm)
                             .setPositiveButton(R.string.Yes, (dialogInterface, i) -> {
                                 try {
+                                    Database.mTransportDao.deleteTransport(vehicleHasTravel.getTransport_id());
                                     Database.mVehicleHasTravelDao.deleteVehicleHasTravel(vehicleHasTravel.getId());
                                     mVehicleHasTravel.remove(position-show_header);
                                     notifyItemRemoved(position-show_header);
