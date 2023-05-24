@@ -50,6 +50,21 @@ public class TransportDAO extends DbContentProvider implements TransportISchema,
         return transportList;
     }
 
+    public List<Transport> fetchAllTransportTravel(Integer travel_id) {
+        final String[] selectionArgs = { String.valueOf(travel_id) };
+        final String selection = TRANSPORT_TRAVEL_ID + " = ?";
+        List<Transport> transportList = new ArrayList<>();
+        cursor = super.query(TRANSPORT_TABLE, TRANSPORT_COLUMNS, selection, selectionArgs, TRANSPORT_START_DATE );
+        if (cursor.moveToFirst()) {
+            do {
+                Transport transport = cursorToEntity(cursor);
+                transportList.add(transport);
+            } while (cursor.moveToNext());
+            cursor.close();
+        }
+        return transportList;
+    }
+
     public void deleteTransport(Integer id) {
         final String[] selectionArgs = { String.valueOf(id) };
         final String selection = TRANSPORT_ID + " = ?";

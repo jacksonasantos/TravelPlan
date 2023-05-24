@@ -212,9 +212,8 @@ public class ItineraryHasTransportActivity extends AppCompatActivity implements 
         });
         adapterV.notifyDataSetChanged();
 
-        // TODO  - Spinner Transpor show transports of the travel
         // spTransport
-        final List<Transport> transports =  Database.mTransportDao.fetchAllTransport();
+        final List<Transport> transports =  Database.mTransportDao.fetchAllTransportTravel(nrTravel);
         transports.add(0, new Transport());
         adapterT = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, transports);
         adapterT.setDropDownViewResource( android.R.layout.simple_spinner_dropdown_item);
