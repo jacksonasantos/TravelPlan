@@ -64,6 +64,8 @@ public class MarkerActivity extends AppCompatActivity implements MarkerTypeListA
     private LinearLayout llItinerary, llAchievement, llTour;
     private int nrMarkerType = -1;
 
+    // TODO - Include ADD Tour Button
+    // TODO - Include ADD Achievement Button
     public MarkerTypeListAdapter adapterMarkerType;
 
     Travel travel;

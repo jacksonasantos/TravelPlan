@@ -212,6 +212,7 @@ public class ItineraryHasTransportActivity extends AppCompatActivity implements 
         });
         adapterV.notifyDataSetChanged();
 
+        // TODO  - Spinner Transpor show transports of the travel
         // spTransport
         final List<Transport> transports =  Database.mTransportDao.fetchAllTransport();
         transports.add(0, new Transport());

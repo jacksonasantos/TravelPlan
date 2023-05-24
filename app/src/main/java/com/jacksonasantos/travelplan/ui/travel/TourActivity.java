@@ -41,8 +41,8 @@ public class TourActivity extends AppCompatActivity implements TourTypeListAdapt
     private Tour tour;
 
     private TextView tvTravel;
-    private TextView tvItinerary;
-    private TextView tvMarker ;
+    private TextView tvItinerary; // TODO - enable itinerary choice when exists
+    private TextView tvMarker ; // TODO - enable marker choice when exists
     private RecyclerView rvTourType ;
     private int nrTourType = -1;
 

@@ -80,6 +80,7 @@ public class TravelTourListAdapter extends RecyclerView.Adapter<RecyclerView.Vie
             final ItemViewHolder itemViewHolder = (ItemViewHolder) holder;
 
             itemViewHolder.imgTourType.setImageResource(Tour.getTourTypeImage(mTour.get(position-show_header).getTour_type()));
+            // TODO - Register tour as effective and update achievement when you have a relationship
             itemViewHolder.txtTourDate.setText(Objects.requireNonNull(Utils.dateToString(mTour.get(position - show_header).getTour_date())).substring(0,5));
             itemViewHolder.txtLocalTour.setText(mTour.get(position-show_header).getLocal_tour());
             byte[] imgArray = Database.mAchievementDao.fetchAchievementById(mTour.get(position - show_header).getAchievement_id()).getImage();

@@ -143,6 +143,7 @@ public class TravelVehicleListAdapter extends RecyclerView.Adapter<RecyclerView.
                                 try {
                                     Database.mTransportDao.deleteTransport(vehicleHasTravel.getTransport_id());
                                     Database.mVehicleHasTravelDao.deleteVehicleHasTravel(vehicleHasTravel.getId());
+                                    // TODO - Remove transport of itinerary has transport
                                     mVehicleHasTravel.remove(position-show_header);
                                     notifyItemRemoved(position-show_header);
                                     notifyItemRangeChanged(position-show_header, mVehicleHasTravel.size());
