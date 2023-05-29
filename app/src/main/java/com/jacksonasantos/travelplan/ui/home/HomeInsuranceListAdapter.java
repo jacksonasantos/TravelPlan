@@ -76,6 +76,9 @@ public class HomeInsuranceListAdapter extends RecyclerView.Adapter<RecyclerView.
             itemViewHolder.txtInsuranceBroker.setText(Database.mBrokerDao.fetchBrokerById(insurance.getBroker_id()).getName());
             itemViewHolder.txtInsurancePolicy.setText(String.valueOf(insurance.getInsurance_policy()));
             itemViewHolder.txtInsuranceFinalEffectiveDate.setText(Utils.dateToString(insurance.getFinal_effective_date()));
+            if (insurance.getStatus() == 2) {
+                itemViewHolder.btnDoneInsurance.setVisibility(View.INVISIBLE);
+            }
             itemViewHolder.btnDoneInsurance.setOnClickListener(v -> {
                     final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(v.getContext());
                     alertDialogBuilder
@@ -88,10 +91,6 @@ public class HomeInsuranceListAdapter extends RecyclerView.Adapter<RecyclerView.
                                     i1.setTravel_id(insurance.getTravel_id() == 0 ? null : insurance.getTravel_id());
                                     i1.setVehicle_id(insurance.getVehicle_id() == 0 ? null : insurance.getVehicle_id());
                                     i1.setBroker_id(insurance.getBroker_id() == 0 ? null : insurance.getBroker_id());
-                                    if (Database.mInsuranceDao.updateInsurance(i1)) {
-                                        mInsurance.remove(position);
-                                        notifyItemRemoved(position);
-                                    }
                                 } catch (Exception e) {
                                     Toast.makeText(context, context.getString(R.string.Error_Changing_Data) + "\n" + e.getMessage(), Toast.LENGTH_LONG).show();
                                 }

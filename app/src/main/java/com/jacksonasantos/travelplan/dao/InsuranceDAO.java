@@ -59,13 +59,12 @@ public class InsuranceDAO extends DbContentProvider implements InsuranceISchema,
         final String[] selectionArgs = { String.valueOf(id) };
         final String selection;
         if (type.equals("V")) {
-            selection = INSURANCE_VEHICLE_ID + " = ? AND ";
+            selection = INSURANCE_VEHICLE_ID + " = ? AND " + INSURANCE_STATUS + " = 1 ";
         } else {
-            selection = INSURANCE_TRAVEL_ID + " = ? AND ";
+            selection = INSURANCE_TRAVEL_ID + " = ? ";
         }
-        final String selectionField = selection + INSURANCE_STATUS + " = 1 ";
 
-        cursor = super.query(INSURANCE_TABLE, INSURANCE_COLUMNS, selectionField, selectionArgs, INSURANCE_FINAL_EFFECTIVE_DATE);
+        cursor = super.query(INSURANCE_TABLE, INSURANCE_COLUMNS, selection, selectionArgs, INSURANCE_FINAL_EFFECTIVE_DATE);
         if (cursor.moveToFirst()) {
             do {
                 Insurance insurance = cursorToEntity(cursor);

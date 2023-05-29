@@ -242,7 +242,7 @@ public class HomeTravelFragment extends Fragment implements View.OnClickListener
                                     boolean temOdometerStart = true;
                                     boolean temOdometerFinal = true;
                                     boolean goRun = true;
-                                    List<VehicleHasTravel> list = Database.mVehicleHasTravelDao.fetchAllVehicleHasTravelByTravel(travel[0].getId());
+                                    List<VehicleHasTravel> list = Database.mVehicleHasTravelDao.fetchAllVehicleHasTravelByTravelForFuel(travel[0].getId());
                                     for (int i = 0; i < list.size(); i++) {
                                         VehicleHasTravel vt1 = Database.mVehicleHasTravelDao.findVehicleHasTravelByID(list.get(i).getId());
                                         if (vt1.getStart_odometer() == 0) temOdometerStart = false;
