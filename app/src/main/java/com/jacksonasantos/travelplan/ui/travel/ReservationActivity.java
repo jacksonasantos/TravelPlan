@@ -172,7 +172,7 @@ public class ReservationActivity extends AppCompatActivity {
         final List<Accommodation> accommodations =  Database.mAccommodationDao.fetchArrayAccommodation();
         accommodations.add(0, new Accommodation());
         ArrayAdapter<Accommodation> adapterA = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, accommodations);
-        adapterA.setDropDownViewResource( android.R.layout.simple_spinner_dropdown_item);
+        adapterA.setDropDownViewResource( R.layout._multi_spinner_dropdown_item);
         spinAccommodation.setAdapter(adapterA);
 
         final Accommodation[] a1 = {new Accommodation()};
@@ -214,7 +214,7 @@ public class ReservationActivity extends AppCompatActivity {
                 nrSpinAccommodation = reservation.getAccommodation_id();
                 Accommodation accommodation1 = Database.mAccommodationDao.fetchAccommodationById(nrSpinAccommodation);
                 for (int x = 1; x <= spinAccommodation.getAdapter().getCount(); x++) {
-                    if (spinAccommodation.getAdapter().getItem(x).toString().equals(accommodation1.getName())) {
+                    if (spinAccommodation.getAdapter().getItem(x).toString().equals(accommodation1.toString())) {
                         spinAccommodation.setSelection(x);
                         tvAccommodation_Address.setText(accommodation1.getAddress());
                         tvAccommodation_CityStateCountry.setText(accommodation1.getCity()+" - "+accommodation1.getState()+" - "+accommodation1.getCountry());
