@@ -1,5 +1,7 @@
 package com.jacksonasantos.travelplan.dao;
 
+import androidx.annotation.NonNull;
+
 import com.jacksonasantos.travelplan.R;
 import com.jacksonasantos.travelplan.ui.utility.Globals;
 
@@ -23,6 +25,10 @@ public class Marker {
 
     public Marker() {
     }
+
+    @NonNull
+    @Override
+    public String toString() { return sequence==null||sequence==0?"":sequence+"-"+name; }
 
     public Integer getId() {return id;}
     public void setId(Integer id) {this.id = id;}

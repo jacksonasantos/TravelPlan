@@ -41,6 +41,22 @@ public class MarkerDAO extends DbContentProvider implements MarkerISchema, Marke
         return marker;
     }
 
+    public Marker fetchMarkerByTour(Integer tour_id) {
+        final String[] selectionArgs = { String.valueOf(tour_id)};
+        final String selection = MARKER_TOUR_ID + " = ?";
+        Marker marker = new Marker();
+        cursor = super.query(MARKER_TABLE, MARKER_COLUMNS, selection, selectionArgs, MARKER_ID);
+        if (cursor != null) {
+            cursor.moveToFirst();
+            while (!cursor.isAfterLast()) {
+                marker = cursorToEntity(cursor);
+                cursor.moveToNext();
+            }
+            cursor.close();
+        }
+        return marker;
+    }
+
     public Marker fetchMarkerById(Integer marker_id) {
         final String[] selectionArgs = { String.valueOf(marker_id)};
         final String selection = MARKER_ID + " = ? ";

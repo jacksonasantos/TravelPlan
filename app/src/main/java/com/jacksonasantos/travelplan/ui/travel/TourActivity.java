@@ -24,6 +24,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.jacksonasantos.travelplan.R;
 import com.jacksonasantos.travelplan.dao.Achievement;
+import com.jacksonasantos.travelplan.dao.Itinerary;
+import com.jacksonasantos.travelplan.dao.Marker;
 import com.jacksonasantos.travelplan.dao.Tour;
 import com.jacksonasantos.travelplan.dao.Travel;
 import com.jacksonasantos.travelplan.dao.general.Database;
@@ -41,9 +43,9 @@ public class TourActivity extends AppCompatActivity implements TourTypeListAdapt
     private Tour tour;
 
     private TextView tvTravel;
-    private TextView tvItinerary; // TODO - enable itinerary choice when exists
-    private TextView tvMarker ; // TODO - enable marker choice when exists
-    private RecyclerView rvTourType ;
+    private TextView tvItinerary;
+    private TextView tvMarker;
+    private RecyclerView rvTourType;
     private int nrTourType = -1;
 
     private Spinner spAchievement;
@@ -124,8 +126,6 @@ public class TourActivity extends AppCompatActivity implements TourTypeListAdapt
         etLatLngTour = findViewById(R.id.etLatLngTour);
         btLocationTour = findViewById(R.id.btLocationTour);
 
-        tvItinerary.setVisibility(View.INVISIBLE);
-        tvMarker.setVisibility(View.INVISIBLE);
         btLocationTour.setOnClickListener(view -> {
             Intent intent = new Intent (getBaseContext(), MaintenanceItineraryActivity.class);
             if (!etLatLngTour.getText().toString().equals("")) {
@@ -211,9 +211,11 @@ public class TourActivity extends AppCompatActivity implements TourTypeListAdapt
         etNumberChild.setOnFocusChangeListener((v, hasFocus) -> etNumberChild.setText(""));
         if (tour != null) {
             travel = Database.mTravelDao.fetchTravelById(tour.getTravel_id());
+            Marker marker = Database.mMarkerDao.fetchMarkerByTour(tour.getId());
+            Itinerary itinerary = Database.mItineraryDao.fetchItineraryById(marker.getItinerary_id());
             tvTravel.setText(travel.getDescription());
-            tvItinerary.setVisibility(View.INVISIBLE);
-            tvMarker.setVisibility(View.INVISIBLE);
+            tvItinerary.setText(itinerary.toString());
+            tvMarker.setText(marker.toString());
             nrTourType = tour.getTour_type();
             Utils.selected_position = nrTourType;
             nrSpAchievement = tour.getAchievement_id();
@@ -268,7 +270,6 @@ public class TourActivity extends AppCompatActivity implements TourTypeListAdapt
     public void onItemClick(int position) {
         if (nrTourType == position) nrTourType = -1;
         else nrTourType = position;
-
         Utils.selected_position = nrTourType;
     }
 
@@ -282,7 +283,6 @@ public class TourActivity extends AppCompatActivity implements TourTypeListAdapt
                 Toast.makeText(getApplicationContext(), R.string.Error_Data_Validation, Toast.LENGTH_LONG).show();
             } else {
                 final Tour t1 = new Tour();
-
                 t1.setTravel_id(tour.getTravel_id());
                 t1.setLocal_tour(etLocalTour.getText().toString());
                 t1.setTour_type(nrTourType);

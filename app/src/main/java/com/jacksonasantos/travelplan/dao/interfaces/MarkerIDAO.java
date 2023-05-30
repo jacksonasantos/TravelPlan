@@ -7,6 +7,7 @@ import java.util.List;
 
 public interface MarkerIDAO {
     Marker fetchMarkerById(Integer marker_id);
+    Marker fetchMarkerByTour(Integer tour_id);
     Marker fetchMarkerByPoint(Integer travel_id, LatLng point);
     List<Marker> fetchMarkerByTravelItineraryId(Integer travel_id, Integer itinerary_id);
     List<Marker> fetchMarkerByTravelId(Integer travel_id);
