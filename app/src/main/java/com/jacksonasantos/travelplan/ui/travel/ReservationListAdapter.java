@@ -1,4 +1,4 @@
-package com.jacksonasantos.travelplan.ui.home;
+package com.jacksonasantos.travelplan.ui.travel;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -22,13 +22,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.jacksonasantos.travelplan.R;
 import com.jacksonasantos.travelplan.dao.Reservation;
 import com.jacksonasantos.travelplan.dao.general.Database;
-import com.jacksonasantos.travelplan.ui.travel.ReservationActivity;
 import com.jacksonasantos.travelplan.ui.utility.Utils;
 
 import java.util.List;
 import java.util.Objects;
 
-public class HomeTravelReservationListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class ReservationListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private static final int TYPE_HEADER = 0;
     private static final int TYPE_ITEM = 1;
@@ -37,7 +36,7 @@ public class HomeTravelReservationListAdapter extends RecyclerView.Adapter<Recyc
     final Context context;
     final int show_header;
 
-    public HomeTravelReservationListAdapter(List<Reservation> reservation, Context context, int show_header) {
+    public ReservationListAdapter(List<Reservation> reservation, Context context, int show_header) {
         this.mReservation = reservation;
         this.context = context;
         this.show_header = show_header; // 0 - NO SHOW HEADER | 1 - SHOW HEADER
@@ -52,7 +51,7 @@ public class HomeTravelReservationListAdapter extends RecyclerView.Adapter<Recyc
 
         View reservationView = LayoutInflater
                 .from(parent.getContext())
-                .inflate(R.layout.fragment_home_travel_item_reservation, parent, false);
+                .inflate(R.layout.fragment_item_reservation, parent, false);
 
         if (viewType == TYPE_HEADER) {
             return new HeaderViewHolder(reservationView);
@@ -66,7 +65,7 @@ public class HomeTravelReservationListAdapter extends RecyclerView.Adapter<Recyc
         if (holder instanceof HeaderViewHolder){
             HeaderViewHolder headerViewHolder = (HeaderViewHolder) holder;
 
-            headerViewHolder.llReservationItem.setBackgroundColor(Color.LTGRAY);
+            headerViewHolder.llReservationItem.setBackgroundColor(Utils.getColorWithAlpha(R.color.colorItemList,0.3f));
             headerViewHolder.imgStatus.setVisibility(View.VISIBLE);
             headerViewHolder.txtAccommodation.setText(R.string.Accommodation_Name);
             headerViewHolder.txtVoucher.setText(R.string.Reservation_Voucher_Number);
@@ -84,10 +83,14 @@ public class HomeTravelReservationListAdapter extends RecyclerView.Adapter<Recyc
                 itemViewHolder.llReservationItem.setBackgroundColor(Utils.getColorWithAlpha(R.color.colorItemList,0.1f));
             }
 
-            itemViewHolder.txtAccommodation.setText(Database.mAccommodationDao.fetchAccommodationById(reservation.getAccommodation_id()).getName());
+            if (reservation.getAccommodation_id()!=null && reservation.getAccommodation_id()>0) {
+                itemViewHolder.txtAccommodation.setText(Database.mAccommodationDao.fetchAccommodationById(reservation.getAccommodation_id()).getName());
+            } else {
+                itemViewHolder.txtAccommodation.setText(reservation.getNote());
+            }
             itemViewHolder.txtVoucher.setText(reservation.getVoucher_number());
             itemViewHolder.txtCheckin.setText(Objects.requireNonNull(Utils.dateToString(reservation.getCheckin_date())).substring(0,5));
-            itemViewHolder.txtDaily.setText(Integer.toString(Utils.diffBetweenDate(reservation.getCheckout_date(), reservation.getCheckin_date())));
+            itemViewHolder.txtDaily.setText(String.valueOf(reservation.getRates()));
 
             itemViewHolder.imgStatus.setImageResource(reservation.getImage_Status_reservation(reservation.getStatus_reservation()));
             itemViewHolder.imgStatus.setOnClickListener( v -> {
@@ -97,8 +100,31 @@ public class HomeTravelReservationListAdapter extends RecyclerView.Adapter<Recyc
                 final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(v.getContext());
                 alertDialogBuilder.setView(promptsView);
 
+                final TextView tvTravel = promptsView.findViewById(R.id.tvTravel);
+                final TextView tvAccommodation = promptsView.findViewById(R.id.tvAccommodation);
+                final TextView tvVoucher_Number = promptsView.findViewById(R.id.tvVoucher_Number);
+                final TextView tvCheckin_Date = promptsView.findViewById(R.id.tvCheckin_Date);
+                final TextView tvCheckout_Date = promptsView.findViewById(R.id.tvCheckout_Date);
+                final TextView tvRates = promptsView.findViewById(R.id.tvRates);
+                final TextView tvDaily_Rate = promptsView.findViewById(R.id.tvDaily_Rate);
+                final TextView tvOther_Rate = promptsView.findViewById(R.id.tvOther_Rate);
+                final TextView tvReservation_Amount = promptsView.findViewById(R.id.tvReservation_Amount);
+                final TextView tvAptType = promptsView.findViewById(R.id.tvAptType);
+                final TextView tvNote = promptsView.findViewById(R.id.tvNote);
                 final Spinner spinStatusReservation = promptsView.findViewById(R.id.spinStatusReservation);
                 final EditText etAmountPaid = promptsView.findViewById(R.id.etAmountPaid);
+
+                tvTravel.setText(Database.mTravelDao.fetchTravelById(reservation.getTravel_id()).getDescription());
+                tvAccommodation.setText(Database.mAccommodationDao.fetchAccommodationById(reservation.getAccommodation_id()).getName());
+                tvVoucher_Number.setText(reservation.getVoucher_number());
+                tvCheckin_Date.setText(Utils.dateToString(reservation.getCheckin_date()));
+                tvCheckout_Date.setText(Utils.dateToString(reservation.getCheckout_date()));
+                tvRates.setText(String.valueOf(reservation.getRates()));
+                tvDaily_Rate.setText(Double.toString(reservation.getDaily_rate()));
+                tvOther_Rate.setText(Double.toString(reservation.getOther_rate()));
+                tvReservation_Amount.setText(Double.toString(reservation.getReservation_amount()));
+                tvAptType.setText(reservation.getApt_type());
+                tvNote.setText(reservation.getNote());
 
                 spinStatusReservation.setSelection(reservation.getStatus_reservation());
                 etAmountPaid.setText(String.valueOf(reservation.getAmount_paid()));
@@ -107,21 +133,23 @@ public class HomeTravelReservationListAdapter extends RecyclerView.Adapter<Recyc
                         .setCancelable(false)
                         .setPositiveButton(R.string.OK, (dialog, id) -> {
                             boolean isSave = false;
+                            if (reservation.getAccommodation_id()==0) {
+                                Toast.makeText(context, R.string.Reservation_Invalid_Accommodation_Details, Toast.LENGTH_LONG).show();
+                            } else {
+                                if (!etAmountPaid.getText().toString().isEmpty()) {
+                                    reservation.setAmount_paid(Double.parseDouble(etAmountPaid.getText().toString()));
+                                }
+                                reservation.setStatus_reservation(spinStatusReservation.getSelectedItemPosition());
 
-                            if (!etAmountPaid.getText().toString().isEmpty()) {
-                                reservation.setAmount_paid(Double.parseDouble(etAmountPaid.getText().toString()));
-                            }
-                            reservation.setStatus_reservation(spinStatusReservation.getSelectedItemPosition());
-
-                            try {
-                                isSave = Database.mReservationDao.updateReservation(reservation);
-                                notifyItemChanged(position);
-                            } catch (Exception e) {
-                                Toast.makeText(context, R.string.Error_Changing_Data + e.getMessage(), Toast.LENGTH_LONG).show();
-                            }
-
-                            if (!isSave) {
-                                Toast.makeText(context, R.string.Error_Saving_Data, Toast.LENGTH_LONG).show();
+                                try {
+                                    isSave = Database.mReservationDao.updateReservation(reservation);
+                                    notifyItemChanged(position);
+                                } catch (Exception e) {
+                                    Toast.makeText(context, R.string.Error_Changing_Data + e.getMessage(), Toast.LENGTH_LONG).show();
+                                }
+                                if (!isSave) {
+                                    Toast.makeText(context, R.string.Error_Saving_Data, Toast.LENGTH_LONG).show();
+                                }
                             }
                         })
                         .setNegativeButton(R.string.Cancel, (dialog, id) -> dialog.cancel());

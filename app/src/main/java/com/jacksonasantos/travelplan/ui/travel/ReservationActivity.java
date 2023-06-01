@@ -138,15 +138,10 @@ public class ReservationActivity extends AppCompatActivity {
         }
         View.OnFocusChangeListener listenerCheckoutDate = (v, hasFocus) -> {
             if (!hasFocus) {
-                if (!etCheckin_Date.getText().toString().equals("") &&
-                    !etCheckout_Date.getText().toString().equals("")) {
-                    long d1 = Objects.requireNonNull(Utils.stringToDate(etCheckin_Date.getText().toString())).getTime();
-                    long d2 = Objects.requireNonNull(Utils.stringToDate(etCheckout_Date.getText().toString())).getTime();
-                    int dias = (int) ((d2 - d1) / (24 * 60 * 60 * 1000));
-                    tvRates.setText(String.valueOf(dias));
-                }
+                tvRates.setText(String.valueOf(reservation.getRates()));
             }
-        };        View.OnFocusChangeListener listenerReservationAmount = (v, hasFocus) -> {
+        };
+        View.OnFocusChangeListener listenerReservationAmount = (v, hasFocus) -> {
             if (!hasFocus) {
                 etReservation_Amount.setText(String.valueOf(Integer.parseInt(tvRates.getText().toString())*Double.parseDouble(etDaily_Rate.getText().toString())+Double.parseDouble(etOther_Rate.getText().toString())));
             }
@@ -182,7 +177,11 @@ public class ReservationActivity extends AppCompatActivity {
                 a1[0] = (Accommodation) parent.getItemAtPosition(position);
                 nrSpinAccommodation = a1[0].getId();
                 tvAccommodation_Address.setText(a1[0].getAddress());
-                tvAccommodation_CityStateCountry.setText(a1[0].getCity()+" - "+a1[0].getState()+" - "+a1[0].getCountry());
+                if (a1[0].getCity()!=null) {
+                    tvAccommodation_CityStateCountry.setText(String.format("%s - %s - %s", a1[0].getCity(), a1[0].getState(), a1[0].getCountry()));
+                } else {
+                    tvAccommodation_CityStateCountry.setText("");
+                }
                 tvAccommodation_LatLng.setText(a1[0].getLatlng_accommodation());
                 tvAccommodation_Contact.setText(a1[0].getContact_name());
                 tvAccommodation_Phone.setText(a1[0].getPhone());
@@ -210,14 +209,14 @@ public class ReservationActivity extends AppCompatActivity {
                     }
                 }
             }
-            if (reservation.getAccommodation_id()!=null) {
+            if (reservation.getAccommodation_id()!=null && reservation.getAccommodation_id()>0) {
                 nrSpinAccommodation = reservation.getAccommodation_id();
                 Accommodation accommodation1 = Database.mAccommodationDao.fetchAccommodationById(nrSpinAccommodation);
                 for (int x = 1; x <= spinAccommodation.getAdapter().getCount(); x++) {
                     if (spinAccommodation.getAdapter().getItem(x).toString().equals(accommodation1.toString())) {
                         spinAccommodation.setSelection(x);
                         tvAccommodation_Address.setText(accommodation1.getAddress());
-                        tvAccommodation_CityStateCountry.setText(accommodation1.getCity()+" - "+accommodation1.getState()+" - "+accommodation1.getCountry());
+                        tvAccommodation_CityStateCountry.setText(String.format("%s - %s - %s", accommodation1.getCity(),accommodation1.getState(),accommodation1.getCountry()));
                         tvAccommodation_LatLng.setText(accommodation1.getLatlng_accommodation());
                         tvAccommodation_Contact.setText(accommodation1.getContact_name());
                         tvAccommodation_Phone.setText(accommodation1.getPhone());

@@ -10,8 +10,8 @@
 
     <ImageView
         android:id="@+id/imgStatus"
-        android:layout_width="22dp"
-        android:layout_height="22dp"
+        android:layout_width="19dp"
+        android:layout_height="19dp"
         android:layout_gravity="center"
         android:contentDescription="@string/Reservation_Status_Reservation"
         android:padding="7dp"
@@ -26,8 +26,11 @@
         android:layout_weight="10"
         android:layout_gravity="center"
         android:gravity="start|center_vertical"
-        android:textSize="12sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        app:autoSizeMaxTextSize="11sp"
+        app:autoSizeMinTextSize="4sp"
+        app:autoSizeStepGranularity="1sp"
+        app:autoSizeTextType="uniform" />
 
     <TextView
         android:id="@+id/txtVoucher"
@@ -36,7 +39,10 @@
         android:layout_weight="6"
         android:layout_gravity="center"
         android:gravity="center|center_vertical"
-        android:textSize="12sp" />
+        app:autoSizeMaxTextSize="11sp"
+        app:autoSizeMinTextSize="4sp"
+        app:autoSizeStepGranularity="1sp"
+        app:autoSizeTextType="uniform" />
 
     <TextView
         android:id="@+id/txtCheckin"
@@ -45,7 +51,10 @@
         android:layout_weight="4"
         android:layout_gravity="center"
         android:gravity="center"
-        android:textSize="12sp" />
+        app:autoSizeMaxTextSize="11sp"
+        app:autoSizeMinTextSize="4sp"
+        app:autoSizeStepGranularity="1sp"
+        app:autoSizeTextType="uniform" />
 
     <TextView
         android:id="@+id/txtDaily"
@@ -54,18 +63,21 @@
         android:layout_weight="2"
         android:layout_gravity="center"
         android:gravity="center"
-        android:textSize="12sp" />
+        app:autoSizeMaxTextSize="11sp"
+        app:autoSizeMinTextSize="4sp"
+        app:autoSizeStepGranularity="1sp"
+        app:autoSizeTextType="uniform" />
 
     <ImageButton
         android:id="@+id/btnDelete"
-        android:layout_width="22dp"
-        android:layout_height="22dp"
+        android:layout_width="19dp"
+        android:layout_height="19dp"
         android:layout_gravity="center"
         android:contentDescription="@string/bt_Delete"
         android:padding="7dp"
         android:scaleType="fitCenter"
-        android:scaleX="1.5"
-        android:scaleY="1.5"
+        android:scaleX="1.6"
+        android:scaleY="1.8"
         app:srcCompat="@drawable/ic_button_delete" />
 
 </LinearLayout>

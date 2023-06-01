@@ -178,7 +178,7 @@ public class ItineraryActivity extends AppCompatActivity {
         });
     }
 
-    private boolean adjustItinerary(Integer travel_id, int sequence, boolean increment) {
+    static boolean adjustItinerary(Integer travel_id, int sequence, boolean increment) {
         boolean result = false;
         List<Itinerary> cursor = Database.mItineraryDao.fetchAllItineraryByTravel(travel_id);
         for (int x = 0; x < cursor.size(); x++) {

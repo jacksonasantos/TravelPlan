@@ -35,6 +35,7 @@ import com.jacksonasantos.travelplan.ui.travel.ItineraryHasTransportActivity;
 import com.jacksonasantos.travelplan.ui.travel.ItineraryHasTransportListAdapter;
 import com.jacksonasantos.travelplan.ui.travel.MaintenanceItineraryActivity;
 import com.jacksonasantos.travelplan.ui.travel.ReservationActivity;
+import com.jacksonasantos.travelplan.ui.travel.ReservationListAdapter;
 import com.jacksonasantos.travelplan.ui.travel.TravelAchievementListAdapter;
 import com.jacksonasantos.travelplan.ui.travel.TravelFuelSupplyListAdapter;
 import com.jacksonasantos.travelplan.ui.travel.TravelRouteFragment;
@@ -340,6 +341,7 @@ public class HomeTravelFragment extends Fragment implements View.OnClickListener
                     startActivity(intent);
                 });
                 btnTransport.setOnClickListener (v -> {
+                    // TODO - Criar tela mais pratica para vincular os Veiculos aos Itinerarios
                     Intent intent = new Intent(v.getContext(), ItineraryHasTransportActivity.class);
                     intent.putExtra("travel_id", travel[0].id);
                     startActivity(intent);
@@ -425,8 +427,8 @@ public class HomeTravelFragment extends Fragment implements View.OnClickListener
                 }
 
                 // Reservation
-                final int Show_Header_Reservation = 0;
-                HomeTravelReservationListAdapter adapterReservation = new HomeTravelReservationListAdapter( Database.mReservationDao.fetchAllReservationByTravel(travel[0].getId()), getContext(), Show_Header_Reservation);
+                final int Show_Header_Reservation = 1;
+                ReservationListAdapter adapterReservation = new ReservationListAdapter( Database.mReservationDao.fetchAllReservationByTravel(travel[0].getId()), getContext(), Show_Header_Reservation);
                 if ( adapterReservation.getItemCount() > Show_Header_Reservation){
                     layerReservation.setVisibility(View.VISIBLE);
                     listReservation.setAdapter(adapterReservation);

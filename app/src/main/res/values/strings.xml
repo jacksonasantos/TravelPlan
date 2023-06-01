@@ -472,6 +472,7 @@
     <!-- Reservation Fragment -->
     <string name="Reservation">Reservation</string>
     <string name="Reservation_Deleting">Deleting Reservation</string>
+    <string name="Reservation_Invalid_Accommodation_Details">Invalid Accommodation Details</string>
 
     <string name="Reservation_Voucher_Number">Voucher</string>
     <string name="Reservation_Checkin_Date">CheckIn</string>

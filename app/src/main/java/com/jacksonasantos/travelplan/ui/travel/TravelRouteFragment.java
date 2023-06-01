@@ -535,7 +535,7 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
         private long totalHr = 0;
         private long totalMin = 0;
 
-        public final List<Itinerary> mItinerary;
+        public List<Itinerary> mItinerary;
         final Context context;
         final int show_header;
         final int show_footer;
@@ -597,6 +597,22 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
                 if (mItinerary.size()>0) {
                     final Itinerary itinerary = mItinerary.get(position - show_header);
 
+                    itemViewHolder.txtDate.setText(Database.mItineraryDao.fetchItineraryDateSequence(itinerary.getTravel_id(),itinerary.getSequence()).substring(0,5));
+                    itemViewHolder.txtSequence.setText(Integer.toString(itinerary.getSequence()));
+                    itemViewHolder.txtSource.setText(itinerary.getOrig_location());
+                    itemViewHolder.txtTarget.setText(itinerary.getDest_location());
+                    itemViewHolder.txtDaily.setText(Integer.toString(itinerary.getDaily()));
+                    itemViewHolder.txtDistance.setText(Integer.toString(itinerary.getDistanceMeasureIndex()));
+                    itemViewHolder.txtTime.setText(itinerary.getDuration());
+                    if (!lClick) {
+                        vTotDaily += itinerary.getDaily();
+                        vTotDistance += itinerary.getDistanceMeasureIndex();
+                        if (itinerary.getTime() > 0) {
+                            vTotTime += itinerary.getTime();
+                        }
+                        totalHr = vTotTime / 3600;
+                        totalMin = (vTotTime - (totalHr * 3600)) / 60;
+                    }
                     itemViewHolder.itemView.setOnLongClickListener(view -> {
                         if (position != RecyclerView.NO_POSITION) {
                             nrItinerary_Id = !itinerary.getId().equals(nrItinerary_Id) ? itinerary.getId() : null;
@@ -625,7 +641,8 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
                             .setPositiveButton(R.string.Yes, (dialogInterface, i) -> {
                                 try {
                                     Database.mItineraryDao.deleteItinerary(itinerary.getId());
-                                    mItinerary.remove(position - show_header);
+                                    ItineraryActivity.adjustItinerary( itinerary.getTravel_id(), itinerary.getSequence(), false);
+                                    mItinerary = Database.mItineraryDao.fetchAllItineraryByTravel(nrTravel_Id);
                                     notifyItemRemoved(position - show_header);
                                     notifyItemRangeChanged(position - show_header, mItinerary.size());
                                 } catch (Exception e) {
@@ -638,23 +655,6 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
                         itemViewHolder.llItineraryItem.setBackgroundColor(Color.GRAY);
                     } else {
                         itemViewHolder.llItineraryItem.setBackgroundColor(Color.WHITE);
-                    }
-
-                    itemViewHolder.txtDate.setText(Database.mItineraryDao.fetchItineraryDateSequence(itinerary.getTravel_id(),itinerary.getSequence()).substring(0,5));
-                    itemViewHolder.txtSequence.setText(Integer.toString(itinerary.getSequence()));
-                    itemViewHolder.txtSource.setText(itinerary.getOrig_location());
-                    itemViewHolder.txtTarget.setText(itinerary.getDest_location());
-                    itemViewHolder.txtDaily.setText(Integer.toString(itinerary.getDaily()));
-                    itemViewHolder.txtDistance.setText(Integer.toString(itinerary.getDistanceMeasureIndex()));
-                    itemViewHolder.txtTime.setText(itinerary.getDuration());
-                    if (!lClick) {
-                        vTotDaily += itinerary.getDaily();
-                        vTotDistance += itinerary.getDistanceMeasureIndex();
-                        if (itinerary.getTime() > 0) {
-                            vTotTime += itinerary.getTime();
-                        }
-                        totalHr = vTotTime / 3600;
-                        totalMin = (vTotTime - (totalHr * 3600)) / 60;
                     }
                 }
             }
