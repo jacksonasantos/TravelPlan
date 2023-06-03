@@ -10,8 +10,10 @@ import android.database.sqlite.SQLiteDatabase;
 import com.jacksonasantos.travelplan.dao.general.DbContentProvider;
 import com.jacksonasantos.travelplan.dao.interfaces.ItineraryIDAO;
 import com.jacksonasantos.travelplan.dao.interfaces.ItineraryISchema;
+import com.jacksonasantos.travelplan.ui.utility.Utils;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class ItineraryDAO extends DbContentProvider implements ItineraryISchema, ItineraryIDAO {
@@ -93,7 +95,7 @@ public class ItineraryDAO extends DbContentProvider implements ItineraryISchema,
                 "FROM "+ITINERARY_TABLE + " WHERE "+ selection, selectionArgs);
     }
 
-    public String fetchItineraryDateSequence(Integer travel_id, Integer sequence){
+    public Date fetchItineraryDateSequence(Integer travel_id, Integer sequence){
         final String[] selectionArgs = { String.valueOf(travel_id), String.valueOf(travel_id), String.valueOf(sequence) };
 
         String itineraryDate = null;
@@ -120,7 +122,7 @@ public class ItineraryDAO extends DbContentProvider implements ItineraryISchema,
             } while (cursor.moveToNext());
             cursor.close();
         }
-        return itineraryDate;
+        return Utils.stringToDate(itineraryDate);
     }
 
     public void deleteItinerary(Integer id) {

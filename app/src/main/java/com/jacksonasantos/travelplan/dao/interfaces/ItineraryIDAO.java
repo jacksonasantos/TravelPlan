@@ -4,6 +4,7 @@ import android.database.Cursor;
 
 import com.jacksonasantos.travelplan.dao.Itinerary;
 
+import java.util.Date;
 import java.util.List;
 
 public interface ItineraryIDAO {
@@ -12,7 +13,7 @@ public interface ItineraryIDAO {
     List<Itinerary> fetchAllItineraryByTravel( Integer travel_id);
     Itinerary fetchLastItineraryByTravel(Integer travel_id);
     Cursor fetchArrayItinerary(Integer travel_id);
-    String fetchItineraryDateSequence(Integer travel_id, Integer sequence);
+    Date fetchItineraryDateSequence(Integer travel_id, Integer sequence);
     boolean addItinerary(Itinerary itinerary);
     void deleteItinerary(Integer id);
     boolean updateItinerary(Itinerary itinerary);

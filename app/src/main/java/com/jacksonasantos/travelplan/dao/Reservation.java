@@ -74,8 +74,8 @@ public class Reservation {
         return draw;
     }
     public int getRates() {
-        if (!getCheckin_date().toString().equals("") &&
-            !getCheckout_date().toString().equals("")) {
+        if (getCheckin_date()!=null && !getCheckin_date().toString().equals("") &&
+            getCheckout_date()!=null && !getCheckout_date().toString().equals("") ) {
             long d1 = getCheckin_date().getTime();
             long d2 = getCheckout_date().getTime();
             return (int) ((d2 - d1) / (24 * 60 * 60 * 1000));

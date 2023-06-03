@@ -64,6 +64,8 @@ import com.jacksonasantos.travelplan.ui.utility.Utils;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
@@ -597,7 +599,14 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
                 if (mItinerary.size()>0) {
                     final Itinerary itinerary = mItinerary.get(position - show_header);
 
-                    itemViewHolder.txtDate.setText(Database.mItineraryDao.fetchItineraryDateSequence(itinerary.getTravel_id(),itinerary.getSequence()).substring(0,5));
+                    Date itineraryDate = Database.mItineraryDao.fetchItineraryDateSequence(itinerary.getTravel_id(),itinerary.getSequence());
+
+                    Calendar cal = Calendar.getInstance();
+                    cal.setTime(itineraryDate);
+                    String strDayWeek = context.getResources().getStringArray(R.array.day_week_array)[cal.get(Calendar.DAY_OF_WEEK)-1];
+
+                    itemViewHolder.txtDate.setText(Utils.dateToString(itineraryDate).substring(0,5));
+                    itemViewHolder.txtDayWeek.setText(strDayWeek.substring(0,3));
                     itemViewHolder.txtSequence.setText(Integer.toString(itinerary.getSequence()));
                     itemViewHolder.txtSource.setText(itinerary.getOrig_location());
                     itemViewHolder.txtTarget.setText(itinerary.getDest_location());
@@ -700,6 +709,7 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
         public static class ItemViewHolder extends RecyclerView.ViewHolder {
             private final LinearLayout llItineraryItem;
             private final TextView txtDate;
+            private final TextView txtDayWeek;
             private final TextView txtSequence;
             private final TextView txtSource;
             private final TextView txtTarget;
@@ -712,6 +722,7 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
                 super(v);
                 llItineraryItem = v.findViewById(R.id.llItineraryItem);
                 txtDate = v.findViewById(R.id.txtDate);
+                txtDayWeek = v.findViewById(R.id.txtDayWeek);
                 txtSequence = v.findViewById(R.id.txtSequence);
                 txtSource = v.findViewById(R.id.txtSource);
                 txtTarget = v.findViewById(R.id.txtTarget);

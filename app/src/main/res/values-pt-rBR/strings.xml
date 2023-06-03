@@ -506,4 +506,11 @@
     <string name="Transport_Odometer_value_is_invalid">"     Valor do Odômetro do Transporte está inválido"</string>
     <string name="LastOdometer">Último Odômetro</string>
     <string name="Reservation_Invalid_Accommodation_Details">Dados da Acomodação Inválidos</string>
+    <string name="sunday">Domingo</string>
+    <string name="monday">Segunda</string>
+    <string name="thursday">Terça</string>
+    <string name="wednesday">Quarta</string>
+    <string name="tuesday">Quinta</string>
+    <string name="friday">Sexta</string>
+    <string name="saturday">Sábado</string>
 </resources>

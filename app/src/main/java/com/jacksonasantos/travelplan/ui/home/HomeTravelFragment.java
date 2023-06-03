@@ -363,13 +363,9 @@ public class HomeTravelFragment extends Fragment implements View.OnClickListener
                 final int Show_Header_Itinerary = 1;
                 final int Show_Footer_Itinerary = 1;
                 TravelRouteFragment.HomeTravelItineraryListAdapter adapterItinerary = new TravelRouteFragment.HomeTravelItineraryListAdapter(Database.mItineraryDao.fetchAllItineraryByTravel(travel[0].getId() ), getContext(), Show_Header_Itinerary,Show_Footer_Itinerary, true, travel[0].getId());
-                if ( adapterItinerary.getItemCount() > Show_Header_Itinerary+Show_Footer_Itinerary){
-                    layerItinerary.setVisibility(View.VISIBLE);
-                    listItinerary.setAdapter(adapterItinerary);
-                    listItinerary.setLayoutManager(new LinearLayoutManager(getContext()));
-                } else {
-                    layerItinerary.setVisibility(View.GONE);
-                }
+                layerItinerary.setVisibility(View.VISIBLE);
+                listItinerary.setAdapter(adapterItinerary);
+                listItinerary.setLayoutManager(new LinearLayoutManager(getContext()));
 
                 // Vehicles has Travel
                 final int Show_Header_VehicleTravel = 1  ;

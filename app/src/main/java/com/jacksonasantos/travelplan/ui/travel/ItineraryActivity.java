@@ -19,6 +19,7 @@ import com.jacksonasantos.travelplan.R;
 import com.jacksonasantos.travelplan.dao.Itinerary;
 import com.jacksonasantos.travelplan.dao.general.Database;
 import com.jacksonasantos.travelplan.ui.utility.Globals;
+import com.jacksonasantos.travelplan.ui.utility.Utils;
 
 import java.util.List;
 
@@ -98,12 +99,12 @@ public class ItineraryActivity extends AppCompatActivity {
             } else {
                 etSequence.setText(String.valueOf(1));
             }
-            tvDate.setText(Database.mItineraryDao.fetchItineraryDateSequence(itinerary.getTravel_id(),0));
+            tvDate.setText(Utils.dateToString(Database.mItineraryDao.fetchItineraryDateSequence(itinerary.getTravel_id(),0)));
             llItineraryHasTransport.setVisibility(View.GONE);
             llMarker.setVisibility(View.GONE);
         } else {
             etSequence.setText(String.valueOf(itinerary.getSequence()));
-            tvDate.setText(Database.mItineraryDao.fetchItineraryDateSequence(itinerary.getTravel_id(),itinerary.getSequence()));
+            tvDate.setText(Utils.dateToString(Database.mItineraryDao.fetchItineraryDateSequence(itinerary.getTravel_id(),itinerary.getSequence())));
             etDest_location.setText(itinerary.getDest_location());
             etOrig_location.setText(itinerary.getOrig_location());
             etDaily.setText(String.valueOf(itinerary.getDaily()));

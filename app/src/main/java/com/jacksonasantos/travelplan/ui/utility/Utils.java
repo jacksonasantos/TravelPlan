@@ -144,7 +144,7 @@ public class Utils extends AppCompatActivity  {
 
     public static String dateToString(Date d) {
         @SuppressLint("SimpleDateFormat") SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-        return (d==null?null:dateFormat.format(d));
+        return (d==null?"":dateFormat.format(d));
     }
 
     public static String dateTimeToString(Date d) {

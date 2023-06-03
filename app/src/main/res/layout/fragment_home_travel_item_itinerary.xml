@@ -21,6 +21,17 @@
         android:textStyle="bold" />
 
     <TextView
+        android:id="@+id/txtDayWeek"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="8"
+        android:layout_gravity="center"
+        android:gravity="start|center_vertical"
+        android:textSize="10sp"
+        tools:ignore="SmallSp"
+        android:textStyle="bold" />
+
+    <TextView
         android:id="@+id/txtSequence"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
