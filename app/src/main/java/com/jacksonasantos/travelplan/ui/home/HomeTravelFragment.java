@@ -36,6 +36,7 @@ import com.jacksonasantos.travelplan.ui.travel.ItineraryHasTransportListAdapter;
 import com.jacksonasantos.travelplan.ui.travel.MaintenanceItineraryActivity;
 import com.jacksonasantos.travelplan.ui.travel.ReservationActivity;
 import com.jacksonasantos.travelplan.ui.travel.ReservationListAdapter;
+import com.jacksonasantos.travelplan.ui.travel.TourActivity;
 import com.jacksonasantos.travelplan.ui.travel.TravelAchievementListAdapter;
 import com.jacksonasantos.travelplan.ui.travel.TravelFuelSupplyListAdapter;
 import com.jacksonasantos.travelplan.ui.travel.TravelRouteFragment;
@@ -398,6 +399,11 @@ public class HomeTravelFragment extends Fragment implements View.OnClickListener
                     listTour.setLayoutManager(new LinearLayoutManager(getContext()));
                 } else {
                     layerTour.setVisibility(View.GONE);
+                    btnTour.setOnClickListener (v -> {
+                        Intent intent = new Intent(v.getContext(), TourActivity.class);
+                        intent.putExtra("travel_id", travel[0].id);
+                        startActivity(intent);
+                    });
                 }
 
                 // Fuel Supply has Travel
@@ -412,7 +418,7 @@ public class HomeTravelFragment extends Fragment implements View.OnClickListener
                 }
 
                 // Achievement has Travel
-                final int Show_Header_AchievementTravel = 0 ;
+                final int Show_Header_AchievementTravel = 1 ;
                 TravelAchievementListAdapter adapterAchievementTravel = new TravelAchievementListAdapter(Database.mAchievementDao.fetchAllAchievementByTravel(travel[0].getId()), getContext(),"Home", Show_Header_AchievementTravel, travel[0].getId());
                 if ( adapterAchievementTravel.getItemCount() > Show_Header_AchievementTravel){
                     layerAchievement.setVisibility(View.VISIBLE);

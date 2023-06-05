@@ -60,6 +60,7 @@ import java.io.IOException;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
@@ -531,7 +532,6 @@ public class FuelSupplyActivity extends AppCompatActivity implements PlacesAdapt
                             txVehicleTravelledDistance.setText(String.valueOf(vLastTravelledDistance));
                         }
                         if (vLastTravelledDistance > 0) {
-                            // TODO - CHECK STATISTICS ADJUSTMENTS WHEN CHANGING THE ODOMETER AND DISTANCE TRAVELED
                             // TODO - recalcular a distancia e o novo consumo quando alterado o odometro pegando o abastecimento imediatamente anterior
                             if (nrVehicleId!=null) {
                                 vStatAvgFuelConsumption = vLastTravelledDistance / Float.parseFloat(Double.toString(Double.parseDouble(etNumberLiters.getText().toString()) + v1.getAccumulated_number_liters()));
@@ -541,8 +541,8 @@ public class FuelSupplyActivity extends AppCompatActivity implements PlacesAdapt
                                 vAccumulatedLiterNumber = 0;
                                 vAccumulatedValueSupply = 0;
                                 if (rbSupplyReasonType != 3 &&
-                                        v1.getLast_supply_reason_type() != rbSupplyReasonType &&
-                                        v1.getAccumulated_number_liters() > 0) {
+                                    v1.getLast_supply_reason_type() != rbSupplyReasonType &&
+                                    v1.getAccumulated_number_liters() > 0) {
                                     rbSupplyReasonType = 3;
                                 }
                             } else {
@@ -624,7 +624,6 @@ public class FuelSupplyActivity extends AppCompatActivity implements PlacesAdapt
                                     List<VehicleStatistics> vStat = Database.mVehicleStatisticsDao.findTotalFuelingVehicleStatistics(nrVehicleId);
                                     v1.setAvg_consumption(vStat.get(0).getAvg_consumption());
                                     v1.setAvg_cost_litre(vStat.get(0).getAvg_cost_litre());
-                                    // TODO - Avaliar a atualizaçao das médias para veículos locados para uma viagem
                                     v1.setDt_last_fueling(Utils.stringToDate(etSupplyDate.getText().toString()));
                                     v1.setLast_supply_reason_type(findViewById(rbSupplyReasonType).getId());
                                     v1.setAccumulated_number_liters(vAccumulatedLiterNumber);
@@ -671,12 +670,16 @@ public class FuelSupplyActivity extends AppCompatActivity implements PlacesAdapt
 
     private boolean validateData() {
         boolean isValid = false;
-
+        Date now = new Date();
         try {
+            if ( !now.after(Utils.stringToDate(etSupplyDate.getText().toString()))) {
+                Toast.makeText(getApplicationContext(), R.string.FuelSupply_Supply_Date_must_be_less, Toast.LENGTH_LONG).show();
+            }
             if (!etGasStation.getText().toString().trim().isEmpty()
                 && !etGasStationLocation.getText().toString().trim().isEmpty()
                 && !String.valueOf(nrSpCombustible).trim().isEmpty()
                 && !etSupplyDate.getText().toString().trim().isEmpty()
+                && now.after(Utils.stringToDate(etSupplyDate.getText().toString()))
                 //&& !cbFullTank.getText().toString().trim().isEmpty()
                 && !String.valueOf(nrSpCurrencyType).trim().isEmpty()
                 //&& !etCurrencyValue.getText().toString().trim().isEmpty()

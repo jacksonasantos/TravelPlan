@@ -109,11 +109,12 @@
                         android:id="@+id/etLocalTour"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="7"
                         android:layout_gravity="center"
+                        android:layout_weight="7"
                         android:autofillHints="no"
                         android:gravity="center"
                         android:inputType="textCapWords"
+                        android:nextFocusDown="@+id/etLatLngTour"
                         android:textSize="12sp"
                         tools:ignore="LabelFor" />
 
@@ -149,6 +150,7 @@
                         android:autofillHints="no"
                         android:gravity="center"
                         android:inputType="text"
+                        android:nextFocusDown="@+id/etAddressTour"
                         android:textSize="12sp"
                         tools:ignore="LabelFor" />
                 </LinearLayout>
@@ -177,6 +179,7 @@
                         android:gravity="center"
                         android:inputType="textCapWords"
                         android:textSize="12sp"
+                        android:nextFocusDown="@+id/etCityTour"
                         tools:ignore="LabelFor" />
                 </LinearLayout>
 
@@ -204,6 +207,7 @@
                         android:gravity="center"
                         android:inputType="textCapWords"
                         android:textSize="12sp"
+                        android:nextFocusDown="@+id/etStateTour"
                         tools:ignore="LabelFor" />
                     <EditText
                         android:id="@+id/etStateTour"
@@ -214,6 +218,7 @@
                         android:gravity="center"
                         android:inputType="textCapWords"
                         android:textSize="12sp"
+                        android:nextFocusDown="@+id/etCountryTour"
                         tools:ignore="LabelFor" />
                     <EditText
                         android:id="@+id/etCountryTour"
@@ -224,6 +229,7 @@
                         android:gravity="center"
                         android:inputType="textCapWords"
                         android:textSize="12sp"
+                        android:nextFocusDown="@+id/etDate"
                         tools:ignore="LabelFor" />
                 </LinearLayout>
 
@@ -251,6 +257,7 @@
                         android:gravity="center"
                         android:inputType="datetime"
                         android:textSize="12sp"
+                        android:nextFocusDown="@+id/etValueAdult"
                         tools:ignore="LabelFor" />
                 </LinearLayout>
 
@@ -277,6 +284,7 @@
                         android:autofillHints="no"
                         android:inputType="numberDecimal"
                         android:textSize="12sp"
+                        android:nextFocusDown="@+id/etValueChild"
                         tools:ignore="LabelFor" />
 
                     <TextView
@@ -295,6 +303,7 @@
                         android:autofillHints="no"
                         android:inputType="numberDecimal"
                         android:textSize="12sp"
+                        android:nextFocusDown="@+id/spCurrencyType"
                         tools:ignore="LabelFor" />
 
                     <Spinner
@@ -306,6 +315,7 @@
                         android:fadingEdge="none"
                         android:hint="@string/Tour_Currency_Type"
                         android:textSize="12sp"
+                        android:nextFocusDown="@+id/etNumberAdult"
                         tools:ignore="SmallSp" />
                 </LinearLayout>
 
@@ -332,6 +342,7 @@
                         android:autofillHints="no"
                         android:inputType="number"
                         android:textSize="12sp"
+                        android:nextFocusDown="@+id/etNumberChild"
                         tools:ignore="LabelFor" />
 
                     <TextView
@@ -350,6 +361,7 @@
                         android:autofillHints="no"
                         android:inputType="number"
                         android:textSize="12sp"
+                        android:nextFocusDown="@+id/etOpeningHours"
                         tools:ignore="LabelFor" />
 
                 </LinearLayout>
@@ -376,6 +388,7 @@
                         android:autofillHints="no"
                         android:inputType="text"
                         android:textSize="12sp"
+                        android:nextFocusDown="@+id/etVisitationTime"
                         tools:ignore="LabelFor" />
                 </LinearLayout>
 
@@ -401,6 +414,7 @@
                         android:autofillHints="no"
                         android:inputType="text"
                         android:textSize="12sp"
+                        android:nextFocusDown="@+id/etNote"
                         tools:ignore="LabelFor" />
                 </LinearLayout>
 
@@ -426,6 +440,7 @@
                         android:autofillHints="no"
                         android:inputType="text"
                         android:textSize="12sp"
+                        android:nextFocusDown="@+id/btnSave"
                         tools:ignore="LabelFor" />
                 </LinearLayout>
             </LinearLayout>

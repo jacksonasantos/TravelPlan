@@ -13,11 +13,14 @@ import android.widget.SpinnerAdapter;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.jacksonasantos.travelplan.R;
+
 import java.io.File;
 import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 import java.util.Objects;
@@ -140,6 +143,12 @@ public class Utils extends AppCompatActivity  {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public static String returnDayWeek(Date d, Context context) {
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(d);
+        return context.getResources().getStringArray(R.array.day_week_array)[cal.get(Calendar.DAY_OF_WEEK)-1];
     }
 
     public static String dateToString(Date d) {

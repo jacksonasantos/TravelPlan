@@ -193,6 +193,7 @@
     <!-- FuelSupply Fragment -->
     <string name="FuelSupply_Vehicle">Supply Vehicle</string>
     <string name="FuelSupply_Deleting">Deleting Supply</string>
+    <string name="FuelSupply_Supply_Date_must_be_less">Supply Date must be less than the current date</string>
 
     <string name="FuelSupply_Gas_Station">Gas Station</string>
     <string name="FuelSupply_Gas_Station_Location">Fuel Supply Gas Station Location</string>

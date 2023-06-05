@@ -64,7 +64,6 @@ import com.jacksonasantos.travelplan.ui.utility.Utils;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
@@ -569,9 +568,8 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
         public void onBindViewHolder(@NonNull final RecyclerView.ViewHolder holder, final int position) {
             if (holder instanceof HeaderViewHolder) {
                 HeaderViewHolder headerViewHolder = (HeaderViewHolder) holder;
-                headerViewHolder.llItineraryItem.setBackgroundColor(Color.LTGRAY);
+                headerViewHolder.llItineraryItem.setBackgroundColor(Utils.getColorWithAlpha(R.color.colorItemList,0.1f));
                 headerViewHolder.txtDate.setText(R.string.Itinerary_Date);
-                headerViewHolder.txtSequence.setText("");
                 headerViewHolder.txtSource.setText(R.string.Itinerary_Source);
                 headerViewHolder.txtTarget.setText(R.string.Itinerary_Target);
                 headerViewHolder.txtDaily.setText(R.string.Itinerary_Daily);
@@ -588,7 +586,7 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
             }
             else if (holder instanceof FooterViewHolder) {
                 FooterViewHolder footerViewHolder = (FooterViewHolder) holder;
-                footerViewHolder.llItineraryItem.setBackgroundColor(Utils.getColorWithAlpha(R.color.colorItemList,0.7f));
+                footerViewHolder.llItineraryItem.setBackgroundColor(Utils.getColorWithAlpha(R.color.colorItemList,0.5f));
                 footerViewHolder.txtSource.setText(R.string.HomeTravelTotal);
                 footerViewHolder.txtDaily.setText(Long.toString(vTotDaily));
                 footerViewHolder.txtDistance.setText(Long.toString(vTotDistance));
@@ -601,12 +599,8 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
 
                     Date itineraryDate = Database.mItineraryDao.fetchItineraryDateSequence(itinerary.getTravel_id(),itinerary.getSequence());
 
-                    Calendar cal = Calendar.getInstance();
-                    cal.setTime(itineraryDate);
-                    String strDayWeek = context.getResources().getStringArray(R.array.day_week_array)[cal.get(Calendar.DAY_OF_WEEK)-1];
-
                     itemViewHolder.txtDate.setText(Utils.dateToString(itineraryDate).substring(0,5));
-                    itemViewHolder.txtDayWeek.setText(strDayWeek.substring(0,3));
+                    itemViewHolder.txtDayWeek.setText(Utils.returnDayWeek(itineraryDate, context).substring(0,3));
                     itemViewHolder.txtSequence.setText(Integer.toString(itinerary.getSequence()));
                     itemViewHolder.txtSource.setText(itinerary.getOrig_location());
                     itemViewHolder.txtTarget.setText(itinerary.getDest_location());
@@ -684,7 +678,6 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
         private static class HeaderViewHolder extends RecyclerView.ViewHolder {
             private final LinearLayout llItineraryItem;
             private final TextView txtDate;
-            private final TextView txtSequence;
             private final TextView txtSource;
             private final TextView txtTarget;
             private final TextView txtDaily;
@@ -696,7 +689,6 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
                 super(v);
                 llItineraryItem = v.findViewById(R.id.llItineraryItem);
                 txtDate = v.findViewById(R.id.txtDate);
-                txtSequence = v.findViewById(R.id.txtSequence);
                 txtSource = v.findViewById(R.id.txtSource);
                 txtTarget = v.findViewById(R.id.txtTarget);
                 txtDaily = v.findViewById(R.id.txtDaily);

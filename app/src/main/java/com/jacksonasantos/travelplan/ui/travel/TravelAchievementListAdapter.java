@@ -148,19 +148,20 @@ public class TravelAchievementListAdapter extends RecyclerView.Adapter<RecyclerV
         }
         else if (holder instanceof ItemViewHolder) {
             final ItemViewHolder itemViewHolder = (ItemViewHolder) holder;
-            byte[] imgArray = mAchievement.get(position-show_header).getImage();
+            Achievement achievement = mAchievement.get(position-show_header);
+            byte[] imgArray = achievement.getImage();
             if (imgArray!=null){
                 Bitmap raw = BitmapFactory.decodeByteArray(imgArray, 0, imgArray.length);
                 itemViewHolder.imgAchievement.setImageBitmap(raw);
-                if (mAchievement.get(position-show_header).getStatus_achievement() == 1){
+                if (achievement.getStatus_achievement() == 1){
                     itemViewHolder.imgAchievement.setAlpha(1f);
                 } else {
                     itemViewHolder.imgAchievement.setAlpha(0.5f);
                 }
             }
-            itemViewHolder.txtSequenceAchievement.setText(String.valueOf(Database.mItineraryDao.fetchItineraryById(mAchievement.get(position-show_header).getItinerary_id()).getSequence()));
-            itemViewHolder.txtNameAchievement.setText(mAchievement.get(position-show_header).getName());
-            itemViewHolder.txtShortNameAchievement.setText(mAchievement.get(position-show_header).getShort_name());
+            itemViewHolder.txtSequenceAchievement.setText(String.valueOf(Database.mItineraryDao.fetchItineraryById(achievement.getItinerary_id()).getSequence()));
+            itemViewHolder.txtNameAchievement.setText(achievement.getName());
+            itemViewHolder.txtShortNameAchievement.setText(achievement.getShort_name());
 
             if (form.equals("Home")) {
                 itemViewHolder.btnDelete.setVisibility(View.INVISIBLE);
@@ -173,13 +174,13 @@ public class TravelAchievementListAdapter extends RecyclerView.Adapter<RecyclerV
                 public void onClick(View view) {
                     itemViewHolder.imgAchievement.setOnClickListener(this);
                     try {
-                        Achievement mAchievementNew = mAchievement.get(position-show_header);
-                        if ( mAchievementNew.getStatus_achievement()==0 ) {
-                            mAchievementNew.setStatus_achievement(1);
+                        Achievement achievementNew = mAchievement.get(position-show_header);
+                        if ( achievementNew.getStatus_achievement()==0 ) {
+                            achievementNew.setStatus_achievement(1);
                         } else {
-                            mAchievementNew.setStatus_achievement(0);
+                            achievementNew.setStatus_achievement(0);
                         }
-                        Database.mAchievementDao.updateAchievement(mAchievementNew);
+                        Database.mAchievementDao.updateAchievement(achievementNew);
                         notifyItemRangeChanged(position, mAchievement.size());
                     } catch (Exception e) {
                         Toast.makeText(context, context.getString(R.string.Error_Changing_Data) + "\n" + e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
@@ -196,13 +197,13 @@ public class TravelAchievementListAdapter extends RecyclerView.Adapter<RecyclerV
                             .setMessage(R.string.Msg_Confirm)
                             .setPositiveButton(R.string.Yes, (dialogInterface, i) -> {
                                 try {
-                                    Achievement mAchievementNew = mAchievement.get(position-show_header);
-                                    if ((mAchievementNew.getItinerary_id()!=null) && (mAchievementNew.getItinerary_id()>0)) {
-                                        List<Marker> markers = Database.mMarkerDao.fetchMarkerByTravelItineraryId(mAchievementNew.getTravel_id(), mAchievementNew.getItinerary_id());
+                                    Achievement achievementNew = mAchievement.get(position-show_header);
+                                    if ((achievementNew.getItinerary_id()!=null) && (achievementNew.getItinerary_id()>0)) {
+                                        List<Marker> markers = Database.mMarkerDao.fetchMarkerByTravelItineraryId(achievementNew.getTravel_id(), achievementNew.getItinerary_id());
                                         if (markers.size() > 0) {
                                             for (int x = 0; x < markers.size(); x++) {
                                                 Marker marker = markers.get(x);
-                                                if (Objects.equals(marker.getAchievement_id(), mAchievementNew.getId())) {
+                                                if (Objects.equals(marker.getAchievement_id(), achievementNew.getId())) {
                                                     if (  Database.mMarkerDao.deleteMarker(marker.getId()) ) {
                                                         adjustMarker(marker.getTravel_id(), marker.getItinerary_id(), marker.getSequence(), false);
                                                     }
@@ -210,9 +211,9 @@ public class TravelAchievementListAdapter extends RecyclerView.Adapter<RecyclerV
                                             }
                                         }
                                     }
-                                    mAchievementNew.setTravel_id(null);
-                                    mAchievementNew.setItinerary_id(null);
-                                    Database.mAchievementDao.updateAchievement(mAchievementNew);
+                                    achievementNew.setTravel_id(null);
+                                    achievementNew.setItinerary_id(null);
+                                    Database.mAchievementDao.updateAchievement(achievementNew);
                                     mAchievement.remove(position-show_header);
                                     notifyItemRemoved(position);
                                     notifyItemRangeChanged(position, mAchievement.size());

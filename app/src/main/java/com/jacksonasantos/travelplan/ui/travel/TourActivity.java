@@ -205,10 +205,22 @@ public class TourActivity extends AppCompatActivity implements TourTypeListAdapt
         rvTourType.setAdapter(adapterTourType);
         rvTourType.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
 
-        etValueAdult.setOnFocusChangeListener((v, hasFocus) -> etValueAdult.setText(""));
-        etValueChild.setOnFocusChangeListener((v, hasFocus) -> etValueChild.setText(""));
-        etNumberAdult.setOnFocusChangeListener((v, hasFocus) -> etNumberAdult.setText(""));
-        etNumberChild.setOnFocusChangeListener((v, hasFocus) -> etNumberChild.setText(""));
+        etValueAdult.setOnFocusChangeListener((v, hasFocus) -> {
+            if (hasFocus) {etValueAdult.setText("");}
+            else if(etValueAdult.getText().toString().equals("")) etValueAdult.setText("0");
+        });
+        etValueChild.setOnFocusChangeListener((v, hasFocus) -> {
+            if (hasFocus) {etValueChild.setText("");}
+            else if(etValueChild.getText().toString().equals("")) etValueChild.setText("0");
+        });
+        etNumberAdult.setOnFocusChangeListener((v, hasFocus) -> {
+            if (hasFocus) {etNumberAdult.setText("");}
+            else if(etNumberAdult.getText().toString().equals("")) etNumberAdult.setText("0");
+        });
+        etNumberChild.setOnFocusChangeListener((v, hasFocus) -> {
+            if (hasFocus) {etNumberChild.setText("");}
+            else if(etNumberChild.getText().toString().equals("")) etNumberChild.setText("0");
+        });
         if (tour != null) {
             travel = Database.mTravelDao.fetchTravelById(tour.getTravel_id());
             Marker marker = Database.mMarkerDao.fetchMarkerByTour(tour.getId());

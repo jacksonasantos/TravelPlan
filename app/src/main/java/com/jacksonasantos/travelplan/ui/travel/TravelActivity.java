@@ -99,7 +99,7 @@ public class TravelActivity extends AppCompatActivity {
 
         if (travel != null) {
 
-            adapterItinerary = new TravelRouteFragment.HomeTravelItineraryListAdapter(Database.mItineraryDao.fetchAllItineraryByTravel(travel.getId() ), getApplicationContext(), 0,0, false, travel.getId());
+            adapterItinerary = new TravelRouteFragment.HomeTravelItineraryListAdapter(Database.mItineraryDao.fetchAllItineraryByTravel(travel.getId() ), getApplicationContext(), 1,0, false, travel.getId());
             rvItinerary.setAdapter(adapterItinerary);
             rvItinerary.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
             adapterItinerary.notifyDataSetChanged();
