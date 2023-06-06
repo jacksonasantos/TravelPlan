@@ -514,4 +514,9 @@
     <string name="friday">Sexta</string>
     <string name="saturday">Sábado</string>
     <string name="FuelSupply_Supply_Date_must_be_less">Data do Abastecimento precisa ser menor que a data atual</string>
+    <string name="TravelItemExpenses_Date">Data</string>
+    <string name="TravelItemExpenses_Value">Valor</string>
+    <string name="TravelExpenses_Sum">Total</string>
+    <string name="TravelExpenseItems">Valores Realizados</string>
+    <string name="TravelExpenseExpected">Valores Previstos</string>
 </resources>

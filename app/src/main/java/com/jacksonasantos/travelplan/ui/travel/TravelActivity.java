@@ -123,7 +123,7 @@ public class TravelActivity extends AppCompatActivity {
             rvAchievementTravel.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
             adapterAchievementTravel.notifyDataSetChanged();
 
-            adapterTravelExpenses = new TravelExpensesListAdapter(travel.getId(), Database.mTravelExpensesDao.fetchAllTravelExpensesByTravel(travel.getId()), getApplicationContext(),1,0);
+            adapterTravelExpenses = new TravelExpensesListAdapter(travel.getId(), Database.mTravelExpensesDao.fetchAllTravelExpensesByTravel(travel.getId()), getApplicationContext(),1,0, false);
             rvTravelExpenses.setAdapter(adapterTravelExpenses);
             rvTravelExpenses.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
             adapterTravelExpenses.notifyDataSetChanged();

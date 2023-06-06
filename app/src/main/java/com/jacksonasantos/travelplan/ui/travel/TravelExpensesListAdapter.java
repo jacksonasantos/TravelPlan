@@ -37,65 +37,58 @@ public class TravelExpensesListAdapter extends RecyclerView.Adapter<RecyclerView
     final int show_header;
     final int show_footer;
     final Integer travel_id;
+    final boolean isHome;
 
     final Globals g = Globals.getInstance();
     final Locale locale = new Locale(g.getLanguage(), g.getCountry());
     final NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(locale);
+    Double vExpectedValue = 0.0;
 
-    public TravelExpensesListAdapter(Integer travel_id, List<TravelExpenses> travelExpenses, Context context, int show_header, int show_footer) {
+    public TravelExpensesListAdapter(Integer travel_id, List<TravelExpenses> travelExpenses, Context context, int show_header, int show_footer, Boolean isHome) {
         this.mTravelExpenses = travelExpenses;
         this.context = context;
         this.show_header = show_header>=1?1:0;
         this.show_footer = show_footer>=1?1:0;
         this.travel_id = travel_id;
+        this.isHome = isHome;
     }
 
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View travelExpensesView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.fragment_item_travel_expenses, parent, false);
-
-        if (viewType == TYPE_HEADER) {
-            return new HeaderViewHolder(travelExpensesView);
-        } else if (viewType == TYPE_FOOTER) {
-            return new FooterViewHolder(travelExpensesView);
-        } else return new ItemViewHolder(travelExpensesView);
+        View travelExpensesView = LayoutInflater.from(parent.getContext()).inflate(R.layout.fragment_item_travel_expenses, parent, false);
+        if (viewType == TYPE_HEADER) return new HeaderViewHolder(travelExpensesView);
+        else if (viewType == TYPE_FOOTER) return new FooterViewHolder(travelExpensesView);
+        else return new ItemViewHolder(travelExpensesView);
     }
 
-    // Replace the contents of a view (invoked by the layout manager)
     @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull final RecyclerView.ViewHolder holder, final int position) {
         if (holder instanceof HeaderViewHolder) {
             HeaderViewHolder headerViewHolder = (HeaderViewHolder) holder;
-
             headerViewHolder.llItemTravelExpense.setBackgroundColor(Utils.getColorWithAlpha(R.color.colorItemList,0.1f));
-            headerViewHolder.txtExpenseType.setText(R.string.TravelExpenses_ExpenseType);
+            if (isHome) headerViewHolder.txtExpenseType.setVisibility(View.GONE);
+            else headerViewHolder.txtExpenseType.setText(R.string.TravelExpenses_ExpenseType);
             headerViewHolder.txtExpectedValue.setText(R.string.TravelExpenses_ExpectedValue);
             headerViewHolder.txtNote.setText(R.string.TravelExpenses_Note);
             headerViewHolder.btnAddExpenses.setImageResource(R.drawable.ic_button_add);
             headerViewHolder.btnEdit.setVisibility(View.INVISIBLE);
-
             headerViewHolder.btnAddExpenses.setOnClickListener(v -> {
                 LayoutInflater li = LayoutInflater.from(v.getContext());
                 View promptsView = li.inflate(R.layout.dialog_travel_expenses, null);
-
                 final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(v.getContext());
-
                 alertDialogBuilder.setView(promptsView);
                 final Spinner spinExpenseType = promptsView.findViewById(R.id.spinExpenseType);
                 final EditText etExpectedValue = promptsView.findViewById(R.id.etExpectedValue);
                 final EditText etNote = promptsView.findViewById(R.id.etNote);
-
                 alertDialogBuilder
                         .setCancelable(false)
                         .setPositiveButton(R.string.OK, (dialog, id) -> {
                             boolean isSave = false;
-
                             TravelExpenses TE = new TravelExpenses();
-
                             TE.setTravel_id(travel_id);
+                            TE.setMarker_id(null);
                             TE.setExpense_type(spinExpenseType.getSelectedItemPosition());
                             if (!etExpectedValue.getText().toString().isEmpty()) {
                                 TE.setExpected_value(Double.parseDouble(etExpectedValue.getText().toString()));
@@ -119,14 +112,23 @@ public class TravelExpensesListAdapter extends RecyclerView.Adapter<RecyclerView
                 alertDialog.show();
             });
         }
+        else if (holder instanceof FooterViewHolder) {
+            final FooterViewHolder footerViewHolder = (FooterViewHolder) holder;
+            footerViewHolder.llItemTravelExpense.setBackgroundColor(Utils.getColorWithAlpha(R.color.colorItemList,0.1f));
+            footerViewHolder.txtExpenseType.setVisibility(View.GONE);
+            footerViewHolder.txtExpectedValue.setText(currencyFormatter.format(vExpectedValue));
+            footerViewHolder.txtNote.setText("");
+            footerViewHolder.btnEdit.setVisibility(View.INVISIBLE);
+            footerViewHolder.btnDelete.setVisibility(View.INVISIBLE);
+        }
         else if (holder instanceof ItemViewHolder) {
-
-            final ItemViewHolder itemViewHolder = (ItemViewHolder) holder;
-            final TravelExpenses travelExpenses = mTravelExpenses.get(position-show_header);
-            itemViewHolder.txtExpenseType.setText(context.getResources().getStringArray(R.array.expenses_type_array)[travelExpenses.getExpense_type()]);
+                final ItemViewHolder itemViewHolder = (ItemViewHolder) holder;
+                final TravelExpenses travelExpenses = mTravelExpenses.get(position-show_header);
+            if (isHome) itemViewHolder.txtExpenseType.setVisibility(View.GONE);
+            else itemViewHolder.txtExpenseType.setText(context.getResources().getStringArray(R.array.expenses_type_array)[travelExpenses.getExpense_type()]);
             itemViewHolder.txtExpectedValue.setText(currencyFormatter.format(travelExpenses.getExpected_value()));
+            vExpectedValue += travelExpenses.getExpected_value();
             itemViewHolder.txtNote.setText(travelExpenses.getNote());
-
             itemViewHolder.btnEdit.setOnClickListener(v -> {
                 LayoutInflater li = LayoutInflater.from(v.getContext());
                 View promptsView = li.inflate(R.layout.dialog_travel_expenses, null);
@@ -137,9 +139,7 @@ public class TravelExpensesListAdapter extends RecyclerView.Adapter<RecyclerView
                 final Spinner spinExpenseType = promptsView.findViewById(R.id.spinExpenseType);
                 final EditText etExpectedValue = promptsView.findViewById(R.id.etExpectedValue);
                 final EditText etNote = promptsView.findViewById(R.id.etNote);
-
                 TravelExpenses TE = Database.mTravelExpensesDao.fetchTravelExpensesById(travelExpenses.getId());
-
                 spinExpenseType.setSelection(TE.getExpense_type());
                 etExpectedValue.setText(TE.getExpected_value().toString());
                 etNote.setText(TE.getNote());
@@ -150,6 +150,7 @@ public class TravelExpensesListAdapter extends RecyclerView.Adapter<RecyclerView
                             boolean isSave = false;
 
                             TE.setTravel_id(travel_id);
+                            TE.setMarker_id(TE.getMarker_id()==0?null:TE.getMarker_id());
                             TE.setExpense_type(spinExpenseType.getSelectedItemPosition());
                             if (!etExpectedValue.getText().toString().isEmpty()) {
                                 TE.setExpected_value(Double.parseDouble(etExpectedValue.getText().toString()));
@@ -240,6 +241,7 @@ public class TravelExpensesListAdapter extends RecyclerView.Adapter<RecyclerView
     }
 
     public static class FooterViewHolder extends RecyclerView.ViewHolder {
+        public final LinearLayout llItemTravelExpense;
         public final TextView txtExpenseType;
         public final TextView txtExpectedValue;
         public final TextView txtNote;
@@ -248,6 +250,7 @@ public class TravelExpensesListAdapter extends RecyclerView.Adapter<RecyclerView
 
         public FooterViewHolder(View v) {
             super(v);
+            llItemTravelExpense = v.findViewById(R.id.llItemTravelExpense);
             txtExpenseType = v.findViewById(R.id.txtExpenseType);
             txtExpectedValue = v.findViewById(R.id.txtExpectedValue);
             txtNote = v.findViewById(R.id.txtNote);

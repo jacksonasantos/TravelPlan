@@ -375,7 +375,12 @@
     <string name="TravelExpenses_ExpenseType">Expense Type</string>
     <string name="TravelExpenses_ExpectedValue">Expected Value</string>
     <string name="TravelExpenses_Note">Note</string>
+    <string name="TravelExpenses_Sum">Sum</string>
 
+    <string name="TravelExpenseExpected">Expected Value</string>
+    <string name="TravelExpenseItems">Realized Value</string>
+    <string name="TravelItemExpenses_Date">Date</string>
+    <string name="TravelItemExpenses_Value">Value</string>
     <string name="TravelItemExpenses_ExpenseDate">Expense Date</string>
     <string name="TravelItemExpenses_RealizedValue">Realized Value</string>
     <string name="TravelItemExpenses_Note">Note</string>

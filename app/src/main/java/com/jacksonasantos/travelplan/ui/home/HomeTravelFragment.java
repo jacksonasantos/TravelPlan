@@ -9,7 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RadioGroup;
@@ -26,8 +25,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.jacksonasantos.travelplan.R;
 import com.jacksonasantos.travelplan.dao.Travel;
-import com.jacksonasantos.travelplan.dao.TravelExpenses;
-import com.jacksonasantos.travelplan.dao.TravelItemExpenses;
 import com.jacksonasantos.travelplan.dao.VehicleHasTravel;
 import com.jacksonasantos.travelplan.dao.general.Database;
 import com.jacksonasantos.travelplan.ui.general.InsuranceActivity;
@@ -38,19 +35,17 @@ import com.jacksonasantos.travelplan.ui.travel.ReservationActivity;
 import com.jacksonasantos.travelplan.ui.travel.ReservationListAdapter;
 import com.jacksonasantos.travelplan.ui.travel.TourActivity;
 import com.jacksonasantos.travelplan.ui.travel.TravelAchievementListAdapter;
+import com.jacksonasantos.travelplan.ui.travel.TravelExpensesListAdapter;
 import com.jacksonasantos.travelplan.ui.travel.TravelFuelSupplyListAdapter;
 import com.jacksonasantos.travelplan.ui.travel.TravelRouteFragment;
 import com.jacksonasantos.travelplan.ui.travel.TravelTourListAdapter;
 import com.jacksonasantos.travelplan.ui.travel.TravelVehicleListAdapter;
 import com.jacksonasantos.travelplan.ui.travel.TravelVehicleStatusListAdapter;
-import com.jacksonasantos.travelplan.ui.utility.DateInputMask;
 import com.jacksonasantos.travelplan.ui.utility.Globals;
 import com.jacksonasantos.travelplan.ui.utility.Utils;
 import com.jacksonasantos.travelplan.ui.vehicle.FuelSupplyActivity;
 
-import java.text.NumberFormat;
 import java.util.List;
-import java.util.Locale;
 
 public class HomeTravelFragment extends Fragment implements View.OnClickListener {
 
@@ -102,8 +97,6 @@ public class HomeTravelFragment extends Fragment implements View.OnClickListener
     private RecyclerView listInsuranceExpiration;
 
     final Globals g = Globals.getInstance();
-    final Locale locale = new Locale(g.getLanguage(), g.getCountry());
-    final NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(locale);
 
     @Override
     public View onCreateView(final LayoutInflater inflater,
@@ -472,75 +465,23 @@ public class HomeTravelFragment extends Fragment implements View.OnClickListener
                 alertDialogBuilder.setView(promptsView);
 
                 final HomeTravelItemExpensesListAdapter[] adapterTravelItemExpenses = new HomeTravelItemExpensesListAdapter[1];
-                final Spinner spinExpenseType = promptsView.findViewById(R.id.spinExpenseType);
-                spinExpenseType.setEnabled(false);
-                final EditText etExpectedValue = promptsView.findViewById(R.id.etExpectedValue);
-                final EditText etNote = promptsView.findViewById(R.id.etNote);
-
-                final EditText etExpenseDate = promptsView.findViewById(R.id.etExpenseDate);
-                final EditText etExpenseItemRealizedValue = promptsView.findViewById(R.id.etExpenseItemRealizedValue);
-                final EditText etExpenseItemNote = promptsView.findViewById(R.id.etExpenseItemNote);
-
+                final TextView txtExpenseType = promptsView.findViewById(R.id.txtExpenseType);
+                final RecyclerView rvTravelExpenseExpected = promptsView.findViewById(R.id.rvTravelExpenseExpected);
                 final RecyclerView rvTravelExpenseItem = promptsView.findViewById(R.id.rvTravelExpenseItem);
-                List<TravelExpenses> travelExpensesList = Database.mTravelExpensesDao.fetchAllTravelExpensesByTravelType(travel[0].getId(), expense_type);
 
-                if( travelExpensesList.size() == 0 ){
-                    TravelExpenses te = new TravelExpenses();
-                    te.setTravel_id(travel[0].getId());
-                    te.setExpense_type(expense_type);
-                    Database.mTravelExpensesDao.addTravelExpenses(te);
-                    travelExpensesList = Database.mTravelExpensesDao.fetchAllTravelExpensesByTravelType(travel[0].getId(), expense_type);
-                }
-                spinExpenseType.setSelection(expense_type);
-                double vlrExpectedValue = 0.0;
-                for (int x = 0; x < travelExpensesList.size(); x++) {
-                    // TODO - Include planned amounts from other tables for each expense, eg. Tours registered with values
-                    vlrExpectedValue = vlrExpectedValue + travelExpensesList.get(x).getExpected_value();
-                }
-                etExpectedValue.setText(currencyFormatter.format(vlrExpectedValue));
-                etNote.setText(travelExpensesList.get(0).getNote());
+                txtExpenseType.setText(getResources().getStringArray(R.array.expenses_type_array)[expense_type]);
 
-                etExpenseDate.addTextChangedListener(new DateInputMask(etExpenseDate));
+                TravelExpensesListAdapter adapterTravelExpenses = new TravelExpensesListAdapter(travel[0].getId(), Database.mTravelExpensesDao.fetchAllTravelExpensesByTravelType(travel[0].getId(), expense_type), requireContext(), 1, 1, true);
+                rvTravelExpenseExpected.setAdapter(adapterTravelExpenses);
+                rvTravelExpenseExpected.setLayoutManager(new LinearLayoutManager(requireContext()));
 
-                adapterTravelItemExpenses[0] = new HomeTravelItemExpensesListAdapter(Database.mTravelItemExpensesDao.fetchTravelItemExpensesByExpenseType( travelExpensesList.get(0).getTravel_id(), travelExpensesList.get(0).getExpense_type()), requireContext());
+                adapterTravelItemExpenses[0] = new HomeTravelItemExpensesListAdapter(Database.mTravelItemExpensesDao.fetchTravelItemExpensesByExpenseType( travel[0].getId(), expense_type), requireContext(),1,1, travel[0].getId(), expense_type);
                 rvTravelExpenseItem.setAdapter(adapterTravelItemExpenses[0]);
                 rvTravelExpenseItem.setLayoutManager(new LinearLayoutManager(requireContext()));
 
-                final List<TravelExpenses> finalTravelExpensesList = travelExpensesList;
                 alertDialogBuilder
                         .setCancelable(false)
-                        .setPositiveButton(R.string.OK, (dialog, id) -> {
-                            boolean isSave = false;
-
-                            TravelItemExpenses TIE = new TravelItemExpenses();
-
-                            TIE.setExpense_type(finalTravelExpensesList.get(0).getExpense_type());
-                            TIE.setTravel_id(travel[0].getId());
-                            TIE.setExpense_date(Utils.stringToDate(etExpenseDate.getText().toString()));
-                            if (!etExpenseItemRealizedValue.getText().toString().isEmpty()) {
-                                TIE.setRealized_value(Double.parseDouble(etExpenseItemRealizedValue.getText().toString()));
-                            }
-                            TIE.setNote(etExpenseItemNote.getText().toString());
-
-                            if (TIE.getExpense_date() != null ||
-                                TIE.getRealized_value() != null) {
-
-                                try {
-                                    isSave = Database.mTravelItemExpensesDao.addTravelItemExpenses(TIE);
-                                } catch (Exception e) {
-                                    Toast.makeText(requireContext(), R.string.Error_Including_Data + e.getMessage(), Toast.LENGTH_LONG).show();
-                                }
-
-                                if (!isSave) {
-                                    Toast.makeText(requireContext(), R.string.Error_Saving_Data, Toast.LENGTH_LONG).show();
-                                } else {
-                                    adapterTravelItemExpenses[0] = new HomeTravelItemExpensesListAdapter(Database.mTravelItemExpensesDao.fetchTravelItemExpensesByExpenseType(finalTravelExpensesList.get(0).getTravel_id(),finalTravelExpensesList.get(0).getExpense_type()), requireContext());
-                                    rvTravelExpenseItem.setAdapter(adapterTravelItemExpenses[0]);
-                                    rvTravelExpenseItem.setLayoutManager(new LinearLayoutManager(requireContext()));
-                                }
-                            }
-                        })
-                        .setNegativeButton(R.string.Cancel, (dialog, id) -> dialog.cancel());
+                        .setPositiveButton(R.string.OK, (dialog, id) -> { });
                 AlertDialog alertDialog = alertDialogBuilder.create();
                 alertDialog.show();
             }
