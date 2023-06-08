@@ -520,4 +520,5 @@
     <string name="TravelExpenseItems">Valores Realizados</string>
     <string name="TravelExpenseExpected">Valores Previstos</string>
     <string name="Tour_Sequence">Sequência</string>
+    <string name="Tour_Itinerary">Itinerário</string>
 </resources>

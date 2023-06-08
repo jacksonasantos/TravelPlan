@@ -6,6 +6,7 @@ public interface TourISchema {
 
     String TOUR_ID = "id";
     String TOUR_TRAVEL_ID = "travel_id";
+    String TOUR_ITINERARY_ID = "itinerary_id";
     String TOUR_TOUR_TYPE = "tour_type";
     String TOUR_LOCAL_TOUR = "local_tour";
     String TOUR_CURRENCY_TYPE = "currency_type";
@@ -67,13 +68,18 @@ public interface TourISchema {
     String ALTER_TABLE_TOUR_V69 = "ALTER TABLE " + TOUR_TABLE
             + " ADD COLUMN " + TOUR_ACHIEVEMENT_ID + " INTEGER REFERENCES " + AchievementISchema.ACHIEVEMENT_TABLE + " ("+AchievementISchema.ACHIEVEMENT_ID+") ";
 
-    // Version 69
+    // Version 73
     String ALTER_TABLE_TOUR_V73 = "ALTER TABLE " + TOUR_TABLE
             + " ADD COLUMN " + TOUR_TOUR_SEQUENCE + " INT ";
+
+    // Version 74
+    String ALTER_TABLE_TOUR_V74 = "ALTER TABLE " + TOUR_TABLE
+            + " ADD COLUMN " + TOUR_ITINERARY_ID + " INTEGER REFERENCES " + ItineraryISchema.ITINERARY_TABLE + " ("+ ItineraryISchema.ITINERARY_ID+") ";
 
     String[] TOUR_COLUMNS = new String[] {
             TOUR_ID,
             TOUR_TRAVEL_ID,
+            TOUR_ITINERARY_ID,
             TOUR_TOUR_TYPE,
             TOUR_LOCAL_TOUR,
             TOUR_CURRENCY_TYPE,

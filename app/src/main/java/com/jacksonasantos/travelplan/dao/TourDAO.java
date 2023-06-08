@@ -42,7 +42,23 @@ public class TourDAO extends DbContentProvider implements TourISchema, TourIDAO 
         final String selection = TOUR_TRAVEL_ID + " = ?";
         List<Tour> tourList = new ArrayList<>();
 
-        cursor = super.query(TOUR_TABLE, TOUR_COLUMNS, selection, selectionArgs, TOUR_TOUR_DATE );
+        cursor = super.query(TOUR_TABLE, TOUR_COLUMNS, selection, selectionArgs, TOUR_TOUR_DATE+","+TOUR_TOUR_SEQUENCE );
+        if (cursor.moveToFirst()) {
+            do {
+                Tour tour = cursorToEntity(cursor);
+                tourList.add(tour);
+            } while (cursor.moveToNext());
+            cursor.close();
+        }
+        return tourList;
+    }
+
+    public List<Tour> fetchAllTourByTravelItinerary(Integer travel_id, Integer itinerary_id) {
+        final String[] selectionArgs = { String.valueOf(travel_id), String.valueOf(itinerary_id) };
+        final String selection = TOUR_TRAVEL_ID + " = ? AND "+TOUR_ITINERARY_ID + " = ? ";
+        List<Tour> tourList = new ArrayList<>();
+
+        cursor = super.query(TOUR_TABLE, TOUR_COLUMNS, selection, selectionArgs, TOUR_TOUR_DATE+","+TOUR_TOUR_SEQUENCE );
         if (cursor.moveToFirst()) {
             do {
                 Tour tour = cursorToEntity(cursor);
@@ -56,7 +72,7 @@ public class TourDAO extends DbContentProvider implements TourISchema, TourIDAO 
     public List<Tour> fetchAllTour() {
         List<Tour> tourList = new ArrayList<>();
 
-        cursor = super.query(TOUR_TABLE, TOUR_COLUMNS, null, null, TOUR_TOUR_DATE );
+        cursor = super.query(TOUR_TABLE, TOUR_COLUMNS, null, null, TOUR_TOUR_DATE+","+TOUR_TOUR_SEQUENCE );
         if (cursor.moveToFirst()) {
             do {
                 Tour tour = cursorToEntity(cursor);
@@ -101,7 +117,10 @@ public class TourDAO extends DbContentProvider implements TourISchema, TourIDAO 
         Tour t = new Tour();
         if (c != null) {
             if (c.getColumnIndex(TOUR_ID) != -1)              {t.setId(c.getInt(c.getColumnIndexOrThrow(TOUR_ID))); }
-            if (c.getColumnIndex(TOUR_TRAVEL_ID) != -1)       {t.setTravel_id(c.getInt(c.getColumnIndexOrThrow(TOUR_TRAVEL_ID))); }
+            if (c.getColumnIndex(TOUR_TRAVEL_ID) != -1)       if (c.getInt(c.getColumnIndexOrThrow(TOUR_TRAVEL_ID)) == 0) t.setTravel_id(null);
+                                                              else t.setTravel_id(c.getInt(c.getColumnIndexOrThrow(TOUR_TRAVEL_ID)));
+            if (c.getColumnIndex(TOUR_ITINERARY_ID) != -1)    if (c.getInt(c.getColumnIndexOrThrow(TOUR_ITINERARY_ID)) == 0) t.setItinerary_id(null);
+                                                              else t.setItinerary_id(c.getInt(c.getColumnIndexOrThrow(TOUR_ITINERARY_ID)));
             if (c.getColumnIndex(TOUR_TOUR_TYPE) != -1)       {t.setTour_type(c.getInt(c.getColumnIndexOrThrow(TOUR_TOUR_TYPE))); }
             if (c.getColumnIndex(TOUR_LOCAL_TOUR) != -1)      {t.setLocal_tour(c.getString(c.getColumnIndexOrThrow(TOUR_LOCAL_TOUR))); }
             if (c.getColumnIndex(TOUR_CURRENCY_TYPE) != -1)   {t.setCurrency_type(c.getInt(c.getColumnIndexOrThrow(TOUR_CURRENCY_TYPE))); }
@@ -120,8 +139,8 @@ public class TourDAO extends DbContentProvider implements TourISchema, TourIDAO 
             if (c.getColumnIndex(TOUR_STATE_TOUR) != -1)      {t.setState_tour(c.getString(c.getColumnIndexOrThrow(TOUR_STATE_TOUR))); }
             if (c.getColumnIndex(TOUR_COUNTRY_TOUR) != -1)    {t.setCountry_tour(c.getString(c.getColumnIndexOrThrow(TOUR_COUNTRY_TOUR))); }
             if (c.getColumnIndex(TOUR_LATLNG_TOUR) != -1)     {t.setLatlng_tour(c.getString(c.getColumnIndexOrThrow(TOUR_LATLNG_TOUR))); }
-            if (c.getColumnIndex(TOUR_ACHIEVEMENT_ID) != -1)  {t.setAchievement_id(c.getInt(c.getColumnIndexOrThrow(TOUR_ACHIEVEMENT_ID))); }
-
+            if (c.getColumnIndex(TOUR_ACHIEVEMENT_ID) != -1)  if (c.getInt(c.getColumnIndexOrThrow(TOUR_ACHIEVEMENT_ID)) == 0) t.setAchievement_id(null);
+                                                              else t.setAchievement_id(c.getInt(c.getColumnIndexOrThrow(TOUR_ACHIEVEMENT_ID)));
         }
         return t;
     }
@@ -130,6 +149,7 @@ public class TourDAO extends DbContentProvider implements TourISchema, TourIDAO 
         initialValues = new ContentValues();
         initialValues.put(TOUR_ID, t.id);
         initialValues.put(TOUR_TRAVEL_ID, t.travel_id);
+        initialValues.put(TOUR_ITINERARY_ID, t.itinerary_id);
         initialValues.put(TOUR_TOUR_TYPE, t.tour_type);
         initialValues.put(TOUR_LOCAL_TOUR, t.local_tour);
         initialValues.put(TOUR_CURRENCY_TYPE, t.currency_type);

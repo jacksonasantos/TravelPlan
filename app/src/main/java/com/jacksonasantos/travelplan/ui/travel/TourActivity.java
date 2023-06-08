@@ -25,7 +25,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.jacksonasantos.travelplan.R;
 import com.jacksonasantos.travelplan.dao.Achievement;
 import com.jacksonasantos.travelplan.dao.Itinerary;
-import com.jacksonasantos.travelplan.dao.Marker;
 import com.jacksonasantos.travelplan.dao.Tour;
 import com.jacksonasantos.travelplan.dao.Travel;
 import com.jacksonasantos.travelplan.dao.general.Database;
@@ -43,13 +42,13 @@ public class TourActivity extends AppCompatActivity implements TourTypeListAdapt
     private Tour tour;
 
     private TextView tvTravel;
-    private TextView tvItinerary;
-    private TextView tvMarker;
     private RecyclerView rvTourType;
     private int nrTourType = -1;
 
     private Spinner spAchievement;
     private Integer nrSpAchievement;
+    private Spinner spItinerary;
+    private Integer nrSpItinerary;
     private EditText etLocalTour ;
     private EditText etDate ;
     private EditText etSequence;
@@ -106,10 +105,9 @@ public class TourActivity extends AppCompatActivity implements TourTypeListAdapt
         travel = Database.mTravelDao.fetchTravelById(tour.getTravel_id());
         addListenerOnButtonSave();
         tvTravel = findViewById(R.id.tvTravel);
-        tvItinerary = findViewById(R.id.tvItinerary);
-        tvMarker = findViewById(R.id.tvMarker);
         rvTourType = findViewById(R.id.rvTourType);
         spAchievement = findViewById(R.id.spAchievement);
+        spItinerary = findViewById(R.id.spItinerary);
         etLocalTour = findViewById(R.id.etLocalTour);
         etDate = findViewById(R.id.etDate);
         etSequence = findViewById(R.id.etSequence);
@@ -159,7 +157,6 @@ public class TourActivity extends AppCompatActivity implements TourTypeListAdapt
         ArrayAdapter<Achievement> adapterA = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, achievements);
         adapterA.setDropDownViewResource( android.R.layout.simple_spinner_dropdown_item);
         spAchievement.setAdapter(adapterA);
-
         nrSpAchievement = tour.getAchievement_id();
         spAchievement.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -175,7 +172,25 @@ public class TourActivity extends AppCompatActivity implements TourTypeListAdapt
             }
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
-                nrSpAchievement =0;
+                nrSpAchievement = 0;
+            }
+        });
+
+        final List<Itinerary> itineraries =  Database.mItineraryDao.fetchAllItineraryByTravel(tour.getTravel_id());
+        itineraries.add(0, new Itinerary());
+        ArrayAdapter<Itinerary> adapterI = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, itineraries);
+        adapterI.setDropDownViewResource( android.R.layout.simple_spinner_dropdown_item);
+        spItinerary.setAdapter(adapterI);
+        nrSpItinerary = tour.getItinerary_id();
+        spItinerary.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long idx) {
+                nrSpItinerary = ((Itinerary) parent.getItemAtPosition(position)).getId();
+                spItinerary.setSelection(position);
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                nrSpItinerary = 0;
             }
         });
 
@@ -225,11 +240,7 @@ public class TourActivity extends AppCompatActivity implements TourTypeListAdapt
         });
         if (tour != null) {
             travel = Database.mTravelDao.fetchTravelById(tour.getTravel_id());
-            Marker marker = Database.mMarkerDao.fetchMarkerByTour(tour.getId());
-            Itinerary itinerary = Database.mItineraryDao.fetchItineraryById(marker.getItinerary_id());
             tvTravel.setText(travel.getDescription());
-            tvItinerary.setText(itinerary.toString());
-            tvMarker.setText(marker.toString());
             nrTourType = tour.getTour_type();
             Utils.selected_position = nrTourType;
             nrSpAchievement = tour.getAchievement_id();
@@ -238,6 +249,16 @@ public class TourActivity extends AppCompatActivity implements TourTypeListAdapt
                 for (int x = 1; x <= spAchievement.getAdapter().getCount(); x++) {
                     if (spAchievement.getAdapter().getItem(x).toString().equals(a1.getName())) {
                         spAchievement.setSelection(x);
+                        break;
+                    }
+                }
+            }
+            nrSpItinerary = tour.getItinerary_id();
+            if (nrSpItinerary != null && nrSpItinerary > 0) {
+                Itinerary i1 = Database.mItineraryDao.fetchItineraryById(nrSpItinerary);
+                for (int x = 1; x <= spItinerary.getAdapter().getCount(); x++) {
+                    if (spItinerary.getAdapter().getItem(x).toString().equals(i1.toString())) {
+                        spItinerary.setSelection(x);
                         break;
                     }
                 }
@@ -299,9 +320,9 @@ public class TourActivity extends AppCompatActivity implements TourTypeListAdapt
             } else {
                 final Tour t1 = new Tour();
                 t1.setTravel_id(tour.getTravel_id());
-                t1.setLocal_tour(etLocalTour.getText().toString());
+                t1.setItinerary_id(nrSpItinerary);
                 t1.setTour_type(nrTourType);
-                t1.setAchievement_id(nrSpAchievement);
+                t1.setLocal_tour(etLocalTour.getText().toString());
                 t1.setCurrency_type(nrSpCurrencyType);
                 t1.setValue_adult(Double.parseDouble(etValueAdult.getText().toString()));
                 t1.setValue_child(Double.parseDouble(etValueChild.getText().toString()));
@@ -318,7 +339,7 @@ public class TourActivity extends AppCompatActivity implements TourTypeListAdapt
                 t1.setState_tour(etStateTour.getText().toString());
                 t1.setCountry_tour(etCountryTour.getText().toString());
                 t1.setLatlng_tour(etLatLngTour.getText().toString());
-
+                t1.setAchievement_id(nrSpAchievement);
                 if (!opInsert) {
                     try {
                         t1.setId(tour.getId());
@@ -351,6 +372,7 @@ public class TourActivity extends AppCompatActivity implements TourTypeListAdapt
             if (d1 !=null &&
                 (nrTourType == -1 ||
                  //nrSpAchievement == -1 ||
+                 //nrSpItinerary == -1 ||
                  etLocalTour.getText().toString().trim().isEmpty() ||
                  etDate.getText().toString().trim().isEmpty() ||
                  etSequence.getText().toString().trim().isEmpty() ||

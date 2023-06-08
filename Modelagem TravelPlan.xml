@@ -1,7 +1,7 @@
 <?xml version="1.0" standalone="yes" ?>
 <DBMODEL Version="4.0">
 <SETTINGS>
-<GLOBALSETTINGS ModelName="TravelPlan" IDModel="0" IDVersion="0" VersionStr="1.0.0.0" Comments="" UseVersionHistroy="1" AutoIncVersion="1" DatabaseType="SQLite" ZoomFac="91.00" XPos="782" YPos="1112" DefaultDataType="4" DefaultTablePrefix="0" DefSaveDBConn="" DefSyncDBConn="" DefQueryDBConn="" Printer="HPE02A98 (HP DeskJet 3630 series)" HPageCount="1.695364238410596" PageAspectRatio="1.42631797426318" PageOrientation="1" PageFormat="A4 (210x297 mm, 8.26x11.7 inches)" SelectedPages="0" UsePositionGrid="0" PositionGridX="20" PositionGridY="20" TableNameInRefs="1" DefaultTableType="0" ActivateRefDefForNewRelations="1" FKPrefix="" FKPostfix="" CreateFKRefDefIndex="1" DBQuoteCharacter="`" CreateSQLforLinkedObjects="0" DefModelFont="Tahoma" CanvasWidth="4096" CanvasHeight="2842" />
+<GLOBALSETTINGS ModelName="TravelPlan" IDModel="0" IDVersion="0" VersionStr="1.0.0.0" Comments="" UseVersionHistroy="1" AutoIncVersion="1" DatabaseType="SQLite" ZoomFac="91.00" XPos="1703" YPos="706" DefaultDataType="4" DefaultTablePrefix="0" DefSaveDBConn="" DefSyncDBConn="" DefQueryDBConn="" Printer="HPE02A98 (HP DeskJet 3630 series)" HPageCount="1.695364238410596" PageAspectRatio="1.42631797426318" PageOrientation="1" PageFormat="A4 (210x297 mm, 8.26x11.7 inches)" SelectedPages="0" UsePositionGrid="0" PositionGridX="20" PositionGridY="20" TableNameInRefs="1" DefaultTableType="0" ActivateRefDefForNewRelations="1" FKPrefix="" FKPostfix="" CreateFKRefDefIndex="1" DBQuoteCharacter="`" CreateSQLforLinkedObjects="0" DefModelFont="Tahoma" CanvasWidth="4096" CanvasHeight="2842" />
 <DATATYPEGROUPS>
 <DATATYPEGROUP Name="Numeric Types" Icon="1" />
 <DATATYPEGROUP Name="Date and Time Types" Icon="2" />
@@ -1411,6 +1411,7 @@
 <RELATION_START ID="1735" />
 <RELATION_START ID="1821" />
 <RELATION_START ID="1905" />
+<RELATION_START ID="2033" />
 </RELATIONS_START>
 <RELATIONS_END>
 <RELATION_END ID="1597" />
@@ -1816,7 +1817,7 @@
 </INDEX>
 </INDICES>
 </TABLE>
-<TABLE ID="1743" Tablename="achievement" PrevTableName="Table_21" XPos="2735" YPos="1445" TableType="0" TablePrefix="0" nmTable="0" Temporary="0" UseStandardInserts="0" StandardInserts="\n" TableOptions="DelayKeyTblUpdates=0\nPackKeys=0\nRowChecksum=0\nRowFormat=0\nUseRaid=0\nRaidType=0\n" Comments="" Collapsed="0" IsLinkedObject="0" IDLinkedModel="-1" Obj_id_Linked="-1" OrderPos="46" >
+<TABLE ID="1743" Tablename="achievement" PrevTableName="Table_21" XPos="2625" YPos="1367" TableType="0" TablePrefix="0" nmTable="0" Temporary="0" UseStandardInserts="0" StandardInserts="\n" TableOptions="DelayKeyTblUpdates=0\nPackKeys=0\nRowChecksum=0\nRowFormat=0\nUseRaid=0\nRaidType=0\n" Comments="" Collapsed="0" IsLinkedObject="0" IDLinkedModel="-1" Obj_id_Linked="-1" OrderPos="46" >
 <COLUMNS>
 <COLUMN ID="1747" ColName="id" PrevColName="" Pos="0" idDatatype="5" DatatypeParams="" Width="-1" Prec="-1" PrimaryKey="1" NotNull="1" AutoInc="1" IsForeignKey="0" DefaultValue="" Comments="">
 <OPTIONSELECTED>
@@ -2278,6 +2279,12 @@
 <OPTIONSELECT Value="0" />
 </OPTIONSELECTED>
 </COLUMN>
+<COLUMN ID="2034" ColName="itinerary_id" PrevColName="" Pos="1" idDatatype="5" DatatypeParams="" Width="-1" Prec="-1" PrimaryKey="0" NotNull="1" AutoInc="0" IsForeignKey="1" DefaultValue="" Comments="">
+<OPTIONSELECTED>
+<OPTIONSELECT Value="1" />
+<OPTIONSELECT Value="0" />
+</OPTIONSELECTED>
+</COLUMN>
 <COLUMN ID="2021" ColName="achievement_id" PrevColName="" Pos="1" idDatatype="5" DatatypeParams="" Width="-1" Prec="-1" PrimaryKey="0" NotNull="1" AutoInc="0" IsForeignKey="1" DefaultValue="" Comments="">
 <OPTIONSELECTED>
 <OPTIONSELECT Value="1" />
@@ -2318,6 +2325,12 @@
 </COLUMN>
 <COLUMN ID="1949" ColName="tour_date" PrevColName="date_tour" Pos="8" idDatatype="14" DatatypeParams="" Width="-1" Prec="-1" PrimaryKey="0" NotNull="0" AutoInc="0" IsForeignKey="0" DefaultValue="" Comments="">
 <OPTIONSELECTED>
+</OPTIONSELECTED>
+</COLUMN>
+<COLUMN ID="2032" ColName="tour_sequence" PrevColName="" Pos="20" idDatatype="4" DatatypeParams="" Width="-1" Prec="-1" PrimaryKey="0" NotNull="0" AutoInc="0" IsForeignKey="0" DefaultValue="" Comments="">
+<OPTIONSELECTED>
+<OPTIONSELECT Value="0" />
+<OPTIONSELECT Value="0" />
 </OPTIONSELECTED>
 </COLUMN>
 <COLUMN ID="1966" ColName="opening hours" PrevColName="" Pos="10" idDatatype="28" DatatypeParams="" Width="-1" Prec="-1" PrimaryKey="0" NotNull="0" AutoInc="0" IsForeignKey="0" DefaultValue="" Comments="">
@@ -2377,6 +2390,7 @@
 <RELATIONS_END>
 <RELATION_END ID="1967" />
 <RELATION_END ID="2020" />
+<RELATION_END ID="2033" />
 </RELATIONS_END>
 <INDICES>
 <INDEX ID="1937" IndexName="PRIMARY" IndexKind="0" FKRefDef_Obj_id="-1">
@@ -2392,6 +2406,11 @@
 <INDEX ID="2022" IndexName="tour_FKIndex3" IndexKind="1" FKRefDef_Obj_id="2020">
 <INDEXCOLUMNS>
 <INDEXCOLUMN idColumn="2021" LengthParam="0" />
+</INDEXCOLUMNS>
+</INDEX>
+<INDEX ID="2035" IndexName="tour_FKIndex3" IndexKind="1" FKRefDef_Obj_id="2033">
+<INDEXCOLUMNS>
+<INDEXCOLUMN idColumn="2034" LengthParam="0" />
 </INDEXCOLUMNS>
 </INDEX>
 </INDICES>
@@ -2419,7 +2438,7 @@
 <RELATION ID="1682" RelationName="Rel_MaintenancePlan_Item" Kind="2" SrcTable="1505" DestTable="1664" FKFields="id=maintenance_plan_id\n" FKFieldsComments="\n" relDirection="1" MidOffset="0" OptionalStart="0" OptionalEnd="0" CaptionOffsetX="-85" CaptionOffsetY="-42" StartIntervalOffsetX="0" StartIntervalOffsetY="0" EndIntervalOffsetX="0" EndIntervalOffsetY="0" CreateRefDef="1" Invisible="0" RefDef="Matching=0\nOnDelete=3\nOnUpdate=3\n" Comments="" FKRefDefIndex_Obj_id="1684" Splitted="0" IsLinkedObject="0" IDLinkedModel="-1" Obj_id_Linked="-1" OrderPos="43" />
 <RELATION ID="1698" RelationName="Rel_Travel_TravelExpenses" Kind="2" SrcTable="1382" DestTable="1694" FKFields="id=travel_id\n" FKFieldsComments="\n" relDirection="2" MidOffset="209" OptionalStart="0" OptionalEnd="0" CaptionOffsetX="-116" CaptionOffsetY="109" StartIntervalOffsetX="0" StartIntervalOffsetY="0" EndIntervalOffsetX="0" EndIntervalOffsetY="0" CreateRefDef="1" Invisible="0" RefDef="Matching=0\nOnDelete=3\nOnUpdate=3\n" Comments="" FKRefDefIndex_Obj_id="1700" Splitted="0" IsLinkedObject="0" IDLinkedModel="-1" Obj_id_Linked="-1" OrderPos="45" />
 <RELATION ID="1730" RelationName="Rel_Insurance_Contact" Kind="2" SrcTable="1408" DestTable="1723" FKFields="id=insurance_id\n" FKFieldsComments="\n" relDirection="4" MidOffset="0" OptionalStart="0" OptionalEnd="0" CaptionOffsetX="7" CaptionOffsetY="-46" StartIntervalOffsetX="0" StartIntervalOffsetY="0" EndIntervalOffsetX="0" EndIntervalOffsetY="0" CreateRefDef="1" Invisible="0" RefDef="Matching=0\nOnDelete=3\nOnUpdate=3\n" Comments="" FKRefDefIndex_Obj_id="1732" Splitted="0" IsLinkedObject="0" IDLinkedModel="-1" Obj_id_Linked="-1" OrderPos="49" />
-<RELATION ID="1735" RelationName="Rel_Itinerary_Marker" Kind="2" SrcTable="1588" DestTable="1404" FKFields="id=itinerary_id\n" FKFieldsComments="\n" relDirection="2" MidOffset="548" OptionalStart="0" OptionalEnd="0" CaptionOffsetX="174" CaptionOffsetY="-432" StartIntervalOffsetX="0" StartIntervalOffsetY="0" EndIntervalOffsetX="0" EndIntervalOffsetY="0" CreateRefDef="1" Invisible="0" RefDef="Matching=0\nOnDelete=3\nOnUpdate=3\n" Comments="" FKRefDefIndex_Obj_id="1737" Splitted="0" IsLinkedObject="0" IDLinkedModel="-1" Obj_id_Linked="-1" OrderPos="50" />
+<RELATION ID="1735" RelationName="Rel_Itinerary_Marker" Kind="2" SrcTable="1588" DestTable="1404" FKFields="id=itinerary_id\n" FKFieldsComments="\n" relDirection="2" MidOffset="546" OptionalStart="0" OptionalEnd="0" CaptionOffsetX="174" CaptionOffsetY="-432" StartIntervalOffsetX="0" StartIntervalOffsetY="0" EndIntervalOffsetX="0" EndIntervalOffsetY="0" CreateRefDef="1" Invisible="0" RefDef="Matching=0\nOnDelete=3\nOnUpdate=3\n" Comments="" FKRefDefIndex_Obj_id="1737" Splitted="0" IsLinkedObject="0" IDLinkedModel="-1" Obj_id_Linked="-1" OrderPos="50" />
 <RELATION ID="1760" RelationName="Rel_Travel_Achievement" Kind="2" SrcTable="1382" DestTable="1743" FKFields="id=travel_id\n" FKFieldsComments="\n" relDirection="2" MidOffset="62" OptionalStart="0" OptionalEnd="0" CaptionOffsetX="114" CaptionOffsetY="20" StartIntervalOffsetX="0" StartIntervalOffsetY="0" EndIntervalOffsetX="0" EndIntervalOffsetY="0" CreateRefDef="1" Invisible="0" RefDef="Matching=0\nOnDelete=3\nOnUpdate=3\n" Comments="" FKRefDefIndex_Obj_id="1762" Splitted="0" IsLinkedObject="0" IDLinkedModel="-1" Obj_id_Linked="-1" OrderPos="47" />
 <RELATION ID="1769" RelationName="Rel_Marker_TravelExpense" Kind="2" SrcTable="1404" DestTable="1694" FKFields="id=marker_id\n" FKFieldsComments="\n" relDirection="4" MidOffset="0" OptionalStart="0" OptionalEnd="0" CaptionOffsetX="118" CaptionOffsetY="83" StartIntervalOffsetX="0" StartIntervalOffsetY="0" EndIntervalOffsetX="0" EndIntervalOffsetY="0" CreateRefDef="1" Invisible="0" RefDef="Matching=0\nOnDelete=3\nOnUpdate=3\n" Comments="" FKRefDefIndex_Obj_id="1771" Splitted="0" IsLinkedObject="0" IDLinkedModel="-1" Obj_id_Linked="-1" OrderPos="48" />
 <RELATION ID="1776" RelationName="Rel_Travel_TravelItemExpense" Kind="2" SrcTable="1382" DestTable="1707" FKFields="id=travel_id\n" FKFieldsComments="\n" relDirection="2" MidOffset="-182" OptionalStart="0" OptionalEnd="0" CaptionOffsetX="-170" CaptionOffsetY="197" StartIntervalOffsetX="0" StartIntervalOffsetY="0" EndIntervalOffsetX="0" EndIntervalOffsetY="0" CreateRefDef="1" Invisible="0" RefDef="Matching=0\nOnDelete=3\nOnUpdate=3\n" Comments="" FKRefDefIndex_Obj_id="1778" Splitted="0" IsLinkedObject="0" IDLinkedModel="-1" Obj_id_Linked="-1" OrderPos="49" />
@@ -2438,9 +2457,10 @@
 <RELATION ID="1974" RelationName="Rel_Travel_Transport" Kind="2" SrcTable="1382" DestTable="1894" FKFields="id=travel_id\n" FKFieldsComments="\n" relDirection="3" MidOffset="86" OptionalStart="0" OptionalEnd="0" CaptionOffsetX="0" CaptionOffsetY="0" StartIntervalOffsetX="0" StartIntervalOffsetY="0" EndIntervalOffsetX="0" EndIntervalOffsetY="0" CreateRefDef="1" Invisible="0" RefDef="Matching=0\nOnDelete=3\nOnUpdate=3\n" Comments="" FKRefDefIndex_Obj_id="1976" Splitted="0" IsLinkedObject="0" IDLinkedModel="-1" Obj_id_Linked="-1" OrderPos="68" />
 <RELATION ID="1991" RelationName="Rel_Travel_ItineraryHasTransport" Kind="2" SrcTable="1382" DestTable="1880" FKFields="id=travel_id\n" FKFieldsComments="\n" relDirection="3" MidOffset="-45" OptionalStart="0" OptionalEnd="0" CaptionOffsetX="-102" CaptionOffsetY="-250" StartIntervalOffsetX="0" StartIntervalOffsetY="0" EndIntervalOffsetX="0" EndIntervalOffsetY="0" CreateRefDef="1" Invisible="0" RefDef="Matching=0\nOnDelete=3\nOnUpdate=3\n" Comments="" FKRefDefIndex_Obj_id="1993" Splitted="0" IsLinkedObject="0" IDLinkedModel="-1" Obj_id_Linked="-1" OrderPos="69" />
 <RELATION ID="1996" RelationName="Rel_Transport_VehicleHasTravel" Kind="2" SrcTable="1894" DestTable="1393" FKFields="id=transport_id\n" FKFieldsComments="\n" relDirection="4" MidOffset="0" OptionalStart="0" OptionalEnd="0" CaptionOffsetX="7" CaptionOffsetY="-112" StartIntervalOffsetX="0" StartIntervalOffsetY="0" EndIntervalOffsetX="0" EndIntervalOffsetY="0" CreateRefDef="1" Invisible="0" RefDef="Matching=0\nOnDelete=3\nOnUpdate=3\n" Comments="" FKRefDefIndex_Obj_id="1998" Splitted="0" IsLinkedObject="0" IDLinkedModel="-1" Obj_id_Linked="-1" OrderPos="70" />
-<RELATION ID="2020" RelationName="Rel_Achievement_Tour" Kind="2" SrcTable="1743" DestTable="1934" FKFields="id=achievement_id\n" FKFieldsComments="\n" relDirection="1" MidOffset="0" OptionalStart="0" OptionalEnd="0" CaptionOffsetX="-57" CaptionOffsetY="-48" StartIntervalOffsetX="0" StartIntervalOffsetY="0" EndIntervalOffsetX="0" EndIntervalOffsetY="0" CreateRefDef="1" Invisible="0" RefDef="Matching=0\nOnDelete=3\nOnUpdate=3\n" Comments="" FKRefDefIndex_Obj_id="2022" Splitted="0" IsLinkedObject="0" IDLinkedModel="-1" Obj_id_Linked="-1" OrderPos="71" />
+<RELATION ID="2020" RelationName="Rel_Achievement_Tour" Kind="2" SrcTable="1743" DestTable="1934" FKFields="id=achievement_id\n" FKFieldsComments="\n" relDirection="2" MidOffset="7" OptionalStart="0" OptionalEnd="0" CaptionOffsetX="-57" CaptionOffsetY="-48" StartIntervalOffsetX="0" StartIntervalOffsetY="0" EndIntervalOffsetX="0" EndIntervalOffsetY="0" CreateRefDef="1" Invisible="0" RefDef="Matching=0\nOnDelete=3\nOnUpdate=3\n" Comments="" FKRefDefIndex_Obj_id="2022" Splitted="0" IsLinkedObject="0" IDLinkedModel="-1" Obj_id_Linked="-1" OrderPos="71" />
 <RELATION ID="2023" RelationName="Rel_Tour_Marker" Kind="2" SrcTable="1934" DestTable="1404" FKFields="id=tour_id\n" FKFieldsComments="\n" relDirection="2" MidOffset="0" OptionalStart="0" OptionalEnd="0" CaptionOffsetX="109" CaptionOffsetY="-69" StartIntervalOffsetX="0" StartIntervalOffsetY="0" EndIntervalOffsetX="0" EndIntervalOffsetY="0" CreateRefDef="1" Invisible="0" RefDef="Matching=0\nOnDelete=3\nOnUpdate=3\n" Comments="" FKRefDefIndex_Obj_id="2025" Splitted="0" IsLinkedObject="0" IDLinkedModel="-1" Obj_id_Linked="-1" OrderPos="71" />
 <RELATION ID="2026" RelationName="Rel_Transport_FuelSupply" Kind="2" SrcTable="1894" DestTable="1022" FKFields="id=transport_id\n" FKFieldsComments="\n" relDirection="1" MidOffset="0" OptionalStart="0" OptionalEnd="0" CaptionOffsetX="60" CaptionOffsetY="11" StartIntervalOffsetX="0" StartIntervalOffsetY="0" EndIntervalOffsetX="0" EndIntervalOffsetY="0" CreateRefDef="1" Invisible="0" RefDef="Matching=0\nOnDelete=3\nOnUpdate=3\n" Comments="" FKRefDefIndex_Obj_id="2028" Splitted="0" IsLinkedObject="0" IDLinkedModel="-1" Obj_id_Linked="-1" OrderPos="72" />
+<RELATION ID="2033" RelationName="Rel_Itinarary_Tour" Kind="2" SrcTable="1588" DestTable="1934" FKFields="id=itinerary_id\n" FKFieldsComments="\n" relDirection="1" MidOffset="296" OptionalStart="0" OptionalEnd="0" CaptionOffsetX="0" CaptionOffsetY="0" StartIntervalOffsetX="0" StartIntervalOffsetY="0" EndIntervalOffsetX="0" EndIntervalOffsetY="0" CreateRefDef="1" Invisible="0" RefDef="Matching=0\nOnDelete=3\nOnUpdate=3\n" Comments="" FKRefDefIndex_Obj_id="2035" Splitted="0" IsLinkedObject="0" IDLinkedModel="-1" Obj_id_Linked="-1" OrderPos="73" />
 </RELATIONS>
 <NOTES>
 </NOTES>

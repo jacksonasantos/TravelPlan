@@ -9,6 +9,7 @@ import java.util.Date;
 public class Tour {
     public Integer id;
     public Integer travel_id;
+    public Integer itinerary_id;
     public int tour_type;
     public String local_tour;
     public int currency_type;
@@ -42,6 +43,9 @@ public class Tour {
     public Integer getTravel_id() { return travel_id; }
     public void setTravel_id(Integer travel_id) { this.travel_id = travel_id; }
 
+    public Integer getItinerary_id() { return itinerary_id; }
+    public void setItinerary_id(Integer itinerary_id) { this.itinerary_id = itinerary_id; }
+
     public String getLocal_tour() { return local_tour; }
     public void setLocal_tour(String local_tour) { this.local_tour = local_tour; }
 
@@ -49,31 +53,15 @@ public class Tour {
     public void setTour_type(int tour_type) { this.tour_type = tour_type; }
 
     public static int getTourTypeImage( int tour_type ) {
-        int draw;
         switch(tour_type) {
-            case 0:
-                draw = R.drawable.ic_tour_museum;
-                break;
-            case 1:
-                draw = R.drawable.ic_tour_panoramic_view;
-                break;
-            case 2:
-                draw = R.drawable.ic_tour_square;
-                break;
-            case 3:
-                draw = R.drawable.ic_tour_monument;
-                break;
-            case 4:
-                draw = R.drawable.ic_tour_restaurant;
-                break;
-            case 5:
-                draw = R.drawable.ic_tour_church;
-                break;
-            default:
-                draw = R.drawable.ic_error;
-                break;
+            case 0: return R.drawable.ic_tour_museum;
+            case 1: return R.drawable.ic_tour_panoramic_view;
+            case 2: return R.drawable.ic_tour_square;
+            case 3: return R.drawable.ic_tour_monument;
+            case 4: return R.drawable.ic_tour_restaurant;
+            case 5: return R.drawable.ic_tour_church;
+            default: return R.drawable.ic_error;
         }
-        return draw;
     }
 
     public int getCurrency_type() { return currency_type; }
