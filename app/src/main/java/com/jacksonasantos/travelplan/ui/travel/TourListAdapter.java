@@ -28,7 +28,7 @@ import com.jacksonasantos.travelplan.ui.utility.Utils;
 import java.util.List;
 import java.util.Objects;
 
-public class TravelTourListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class TourListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private static final int TYPE_HEADER = 0;
     private static final int TYPE_ITEM = 1;
@@ -37,32 +37,27 @@ public class TravelTourListAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     final Context context;
     final int show_header;
     final Integer mTravel_id;
-    public final String form;
 
-    public TravelTourListAdapter(List<Tour> tours, Context context, String form, int show_header, Integer travel_id) {
+    public TourListAdapter(List<Tour> tours, Context context, int show_header, Integer travel_id) {
         this.mTour = tours;
         this.mTravel_id = travel_id;
         this.context = context;
-        this.form = form;
-        this.show_header = show_header; // 0 - NO SHOW HEADER | 1 - SHOW HEADER
+        this.show_header = show_header;
     }
 
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View tourView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.fragment_item_travel_tour, parent, false);
-
-        if (viewType == TYPE_HEADER) {
-            return new HeaderViewHolder(tourView);
-        } else return new ItemViewHolder(tourView);
+        View tourView = LayoutInflater.from(parent.getContext()).inflate(R.layout.fragment_item_tour, parent, false);
+        if (viewType == TYPE_HEADER) return new HeaderViewHolder(tourView);
+        else return new ItemViewHolder(tourView);
     }
 
     @Override
     public void onBindViewHolder(@NonNull final RecyclerView.ViewHolder holder, @SuppressLint("RecyclerView") final int position) {
         if (holder instanceof HeaderViewHolder){
             HeaderViewHolder headerViewHolder = (HeaderViewHolder) holder;
-            headerViewHolder.llTourTravelItem.setBackgroundColor(Utils.getColorWithAlpha(R.color.colorItemList,0.1f));
+            headerViewHolder.llTourItem.setBackgroundColor(Utils.getColorWithAlpha(R.color.colorItemList,0.1f));
             headerViewHolder.imgTourType.setImageBitmap(null);
             headerViewHolder.txtTourDate.setText(R.string.Tour_Date);
             headerViewHolder.txtLocalTour.setText(R.string.Tour_Local_Tour);
@@ -78,24 +73,19 @@ public class TravelTourListAdapter extends RecyclerView.Adapter<RecyclerView.Vie
         }
         else if (holder instanceof ItemViewHolder) {
             final ItemViewHolder itemViewHolder = (ItemViewHolder) holder;
-
-            itemViewHolder.imgTourType.setImageResource(Tour.getTourTypeImage(mTour.get(position-show_header).getTour_type()));
-            // TODO - Register tour as effective and update achievement when you have a relationship
-            itemViewHolder.txtTourDate.setText(Objects.requireNonNull(Utils.dateToString(mTour.get(position - show_header).getTour_date())).substring(0,5));
-            itemViewHolder.txtLocalTour.setText(mTour.get(position-show_header).getLocal_tour());
-            byte[] imgArray = Database.mAchievementDao.fetchAchievementById(mTour.get(position - show_header).getAchievement_id()).getImage();
+            final Tour tour = mTour.get(position-show_header);
+            itemViewHolder.imgTourType.setImageResource(Tour.getTourTypeImage(tour.getTour_type()));
+            itemViewHolder.txtTourDate.setText(Objects.requireNonNull(Utils.dateToString(tour.getTour_date())).substring(0,5));
+            itemViewHolder.txtTourSequence.setText(String.valueOf(tour.getTour_sequence()));
+            itemViewHolder.txtLocalTour.setText(tour.getLocal_tour());
+            byte[] imgArray = Database.mAchievementDao.fetchAchievementById(tour.getAchievement_id()).getImage();
             if(imgArray!=null){
                 Bitmap raw = BitmapFactory.decodeByteArray(imgArray, 0, imgArray.length);
                 itemViewHolder.imgAchievement.setImageBitmap(raw);
             }
-            if (form.equals("Home")) {
-                itemViewHolder.btnDelete.setVisibility(View.INVISIBLE);
-            } else {
-                itemViewHolder.btnDelete.setVisibility(View.VISIBLE);
-            }
-            itemViewHolder.llTourTravelItem.setOnClickListener( v-> {
+            itemViewHolder.llTourItem.setOnClickListener( v-> {
                 Intent intent = new Intent (v.getContext(), TourActivity.class);
-                intent.putExtra("tour_id", mTour.get(position-show_header).getId());
+                intent.putExtra("tour_id", tour.getId());
                 intent.setFlags(FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(intent);
                 notifyItemChanged(position);
@@ -109,7 +99,7 @@ public class TravelTourListAdapter extends RecyclerView.Adapter<RecyclerView.Vie
                             .setMessage(R.string.Msg_Confirm)
                             .setPositiveButton(R.string.Yes, (dialogInterface, i) -> {
                                 try {
-                                    Database.mTourDao.deleteTour(mTour.get(position-show_header).getId());
+                                    Database.mTourDao.deleteTour(tour.getId());
                                     mTour.remove(position-show_header);
                                     notifyItemRemoved(position);
                                     notifyItemRangeChanged(position, mTour.size());
@@ -137,7 +127,7 @@ public class TravelTourListAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     }
 
     private static class HeaderViewHolder extends RecyclerView.ViewHolder {
-        public final LinearLayout llTourTravelItem;
+        public final LinearLayout llTourItem;
         public final ImageView imgTourType;
         public final TextView txtTourDate;
         public final TextView txtLocalTour;
@@ -146,7 +136,7 @@ public class TravelTourListAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 
         public HeaderViewHolder(View v) {
             super(v);
-            llTourTravelItem = v.findViewById(R.id.llTourTravelItem);
+            llTourItem = v.findViewById(R.id.llTourItem);
             imgTourType = v.findViewById(R.id.imgTourType);
             txtTourDate = v.findViewById(R.id.txtTourDate);
             txtLocalTour = v.findViewById(R.id.txtLocalTour);
@@ -156,18 +146,20 @@ public class TravelTourListAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     }
 
     public static class ItemViewHolder extends RecyclerView.ViewHolder {
-        public final LinearLayout llTourTravelItem;
+        public final LinearLayout llTourItem;
         public final ImageView imgTourType;
         public final TextView txtTourDate;
+        public final TextView txtTourSequence;
         public final TextView txtLocalTour;
         public final ImageView imgAchievement;
         public final ImageButton btnDelete;
 
         public ItemViewHolder(View v) {
             super(v);
-            llTourTravelItem = v.findViewById(R.id.llTourTravelItem);
+            llTourItem = v.findViewById(R.id.llTourItem);
             imgTourType = v.findViewById(R.id.imgTourType);
             txtTourDate = v.findViewById(R.id.txtTourDate);
+            txtTourSequence = v.findViewById(R.id.txtTourSequence);
             txtLocalTour = v.findViewById(R.id.txtLocalTour);
             imgAchievement = v.findViewById(R.id.imgAchievement);
             btnDelete = v.findViewById(R.id.btnDelete);

@@ -91,7 +91,7 @@ public class MarkerListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 } else {
                     itemViewHolder.llMarker.setBackgroundColor(Utils.getColorWithAlpha(Color.WHITE, (marker.getSequence() % 2 == 0 ? 0.7f : 0.5f)));
                 }
-                itemViewHolder.txtCityState.setVisibility(View.INVISIBLE);
+                itemViewHolder.txtCityState.setVisibility(View.GONE);
             } else {
                 itemViewHolder.txtCityState.setText(String.format("%s/%s", marker.getCity(), marker.getState()));
             }

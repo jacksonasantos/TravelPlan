@@ -83,7 +83,7 @@
         app:layout_constraintTop_toTopOf="@+id/etSearch" />
 
     <androidx.cardview.widget.CardView
-        android:layout_width="200dp"
+        android:layout_width="260dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/labels_marginLeft"
         android:layout_marginBottom="20dp"

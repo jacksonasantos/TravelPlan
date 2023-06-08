@@ -17,6 +17,7 @@ public class Tour {
     public int number_adult;
     public int number_child;
     public Date tour_date;
+    public int tour_sequence;
     public String opening_hours;
     public int distance;
     public String visitation_time;
@@ -92,6 +93,9 @@ public class Tour {
 
     public Date getTour_date() { return tour_date; }
     public void setTour_date(Date tour_date) { this.tour_date = tour_date; }
+
+    public int getTour_sequence() { return tour_sequence; }
+    public void setTour_sequence(int tour_sequence) { this.tour_sequence = tour_sequence; }
 
     public String getOpening_hours() { return opening_hours; }
     public void setOpening_hours(String opening_hours) { this.opening_hours = opening_hours; }

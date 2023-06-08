@@ -52,6 +52,7 @@ public class TourActivity extends AppCompatActivity implements TourTypeListAdapt
     private Integer nrSpAchievement;
     private EditText etLocalTour ;
     private EditText etDate ;
+    private EditText etSequence;
     private EditText etValueAdult;
     private EditText etValueChild ;
     private EditText etNumberAdult;
@@ -111,6 +112,7 @@ public class TourActivity extends AppCompatActivity implements TourTypeListAdapt
         spAchievement = findViewById(R.id.spAchievement);
         etLocalTour = findViewById(R.id.etLocalTour);
         etDate = findViewById(R.id.etDate);
+        etSequence = findViewById(R.id.etSequence);
         etValueAdult = findViewById(R.id.etValueAdult);
         etValueChild = findViewById(R.id.etValueChild);
         etNumberAdult = findViewById(R.id.etNumberAdult);
@@ -242,6 +244,7 @@ public class TourActivity extends AppCompatActivity implements TourTypeListAdapt
             }
             etLocalTour.setText(tour.getLocal_tour());
             etDate.setText(Utils.dateToString(tour.getTour_date()));
+            etSequence.setText(String.valueOf(tour.getTour_sequence()));
             etValueAdult.setText(String.valueOf(tour.getValue_adult()));
             etValueChild.setText(String.valueOf(tour.getValue_child()));
             etNumberAdult.setText(String.valueOf(tour.getNumber_adult()));
@@ -305,6 +308,7 @@ public class TourActivity extends AppCompatActivity implements TourTypeListAdapt
                 t1.setNumber_adult(Integer.parseInt(etNumberAdult.getText().toString()));
                 t1.setNumber_child(Integer.parseInt(etNumberChild.getText().toString()));
                 t1.setTour_date(Utils.stringToDate(etDate.getText().toString()));
+                t1.setTour_sequence(Integer.parseInt(etSequence.getText().toString()));
                 t1.setOpening_hours(etOpeningHours.getText().toString());
                 t1.setDistance(0);
                 t1.setVisitation_time(etVisitationTime.getText().toString());
@@ -349,6 +353,7 @@ public class TourActivity extends AppCompatActivity implements TourTypeListAdapt
                  //nrSpAchievement == -1 ||
                  etLocalTour.getText().toString().trim().isEmpty() ||
                  etDate.getText().toString().trim().isEmpty() ||
+                 etSequence.getText().toString().trim().isEmpty() ||
                  d1.before(travel.getDeparture_date()) ||
                  d1.after(travel.getReturn_date()))
                 //etValueAdult.getText().toString().trim().isEmpty() ||

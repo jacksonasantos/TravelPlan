@@ -14,6 +14,7 @@ public interface TourISchema {
     String TOUR_NUMBER_ADULT = "number_adult";
     String TOUR_NUMBER_CHILD = "number_child";
     String TOUR_TOUR_DATE = "tour_date";
+    String TOUR_TOUR_SEQUENCE = "tour_sequence";
     String TOUR_OPENING_HOURS = "opening_hours";
     String TOUR_DISTANCE = "distance";
     String TOUR_VISITATION_TIME = "visitation_time";
@@ -66,6 +67,10 @@ public interface TourISchema {
     String ALTER_TABLE_TOUR_V69 = "ALTER TABLE " + TOUR_TABLE
             + " ADD COLUMN " + TOUR_ACHIEVEMENT_ID + " INTEGER REFERENCES " + AchievementISchema.ACHIEVEMENT_TABLE + " ("+AchievementISchema.ACHIEVEMENT_ID+") ";
 
+    // Version 69
+    String ALTER_TABLE_TOUR_V73 = "ALTER TABLE " + TOUR_TABLE
+            + " ADD COLUMN " + TOUR_TOUR_SEQUENCE + " INT ";
+
     String[] TOUR_COLUMNS = new String[] {
             TOUR_ID,
             TOUR_TRAVEL_ID,
@@ -77,6 +82,7 @@ public interface TourISchema {
             TOUR_NUMBER_ADULT,
             TOUR_NUMBER_CHILD,
             TOUR_TOUR_DATE,
+            TOUR_TOUR_SEQUENCE,
             TOUR_OPENING_HOURS,
             TOUR_DISTANCE,
             TOUR_VISITATION_TIME,

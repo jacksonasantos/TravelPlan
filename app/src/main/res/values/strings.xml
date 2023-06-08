@@ -555,6 +555,7 @@
     <string name="Tour_Number_Adult">Number Adult</string>
     <string name="Tour_Number_Child">Number Child</string>
     <string name="Tour_Date">Date</string>
+    <string name="Tour_Sequence">Sequence</string>
     <string name="Tour_Opening_Hours">Opening</string>
     <string name="Tour_Distance">Distance</string>
     <string name="Tour_Visitation_Time">Visitation Time</string>

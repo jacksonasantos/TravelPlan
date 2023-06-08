@@ -110,6 +110,7 @@ public class TourDAO extends DbContentProvider implements TourISchema, TourIDAO 
             if (c.getColumnIndex(TOUR_NUMBER_ADULT) != -1)    {t.setNumber_adult(c.getInt(c.getColumnIndexOrThrow(TOUR_NUMBER_ADULT))); }
             if (c.getColumnIndex(TOUR_NUMBER_CHILD) != -1)    {t.setNumber_child(c.getInt(c.getColumnIndexOrThrow(TOUR_NUMBER_CHILD))); }
             if (c.getColumnIndex(TOUR_TOUR_DATE) != -1)       {t.setTour_date(Utils.dateParse(c.getString(c.getColumnIndexOrThrow(TOUR_TOUR_DATE)))); }
+            if (c.getColumnIndex(TOUR_TOUR_SEQUENCE) != -1)   {t.setTour_sequence(c.getInt(c.getColumnIndexOrThrow(TOUR_TOUR_SEQUENCE))); }
             if (c.getColumnIndex(TOUR_OPENING_HOURS) != -1)   {t.setOpening_hours(c.getString(c.getColumnIndexOrThrow(TOUR_OPENING_HOURS))); }
             if (c.getColumnIndex(TOUR_DISTANCE) != -1)        {t.setDistance(c.getInt(c.getColumnIndexOrThrow(TOUR_DISTANCE))); }
             if (c.getColumnIndex(TOUR_VISITATION_TIME) != -1) {t.setVisitation_time(c.getString(c.getColumnIndexOrThrow(TOUR_VISITATION_TIME))); }
@@ -137,6 +138,7 @@ public class TourDAO extends DbContentProvider implements TourISchema, TourIDAO 
         initialValues.put(TOUR_NUMBER_ADULT, t.number_adult);
         initialValues.put(TOUR_NUMBER_CHILD, t.number_child);
         initialValues.put(TOUR_TOUR_DATE, Utils.dateFormat(t.tour_date));
+        initialValues.put(TOUR_TOUR_SEQUENCE, t.tour_sequence);
         initialValues.put(TOUR_OPENING_HOURS, t.opening_hours);
         initialValues.put(TOUR_DISTANCE, t.distance);
         initialValues.put(TOUR_VISITATION_TIME, t.visitation_time);

@@ -38,7 +38,7 @@ import com.jacksonasantos.travelplan.ui.travel.TravelAchievementListAdapter;
 import com.jacksonasantos.travelplan.ui.travel.TravelExpensesListAdapter;
 import com.jacksonasantos.travelplan.ui.travel.TravelFuelSupplyListAdapter;
 import com.jacksonasantos.travelplan.ui.travel.TravelRouteFragment;
-import com.jacksonasantos.travelplan.ui.travel.TravelTourListAdapter;
+import com.jacksonasantos.travelplan.ui.travel.TourListAdapter;
 import com.jacksonasantos.travelplan.ui.travel.TravelVehicleListAdapter;
 import com.jacksonasantos.travelplan.ui.travel.TravelVehicleStatusListAdapter;
 import com.jacksonasantos.travelplan.ui.utility.Globals;
@@ -385,7 +385,7 @@ public class HomeTravelFragment extends Fragment implements View.OnClickListener
 
                 // Tours
                 final int Show_Header_Tour = 1  ;
-                TravelTourListAdapter adapterTourTravel = new TravelTourListAdapter(Database.mTourDao.fetchAllTourByTravel(travel[0].getId() ), getContext(),"Home", Show_Header_Tour,travel[0].id);
+                TourListAdapter adapterTourTravel = new TourListAdapter(Database.mTourDao.fetchAllTourByTravel(travel[0].getId() ), getContext(), Show_Header_Tour,travel[0].id);
                 if ( adapterTourTravel.getItemCount() > Show_Header_Tour){
                     layerTour.setVisibility(View.VISIBLE);
                     listTour.setAdapter(adapterTourTravel);
