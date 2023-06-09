@@ -21,6 +21,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.jacksonasantos.travelplan.R;
+import com.jacksonasantos.travelplan.dao.Itinerary;
 import com.jacksonasantos.travelplan.dao.Tour;
 import com.jacksonasantos.travelplan.dao.general.Database;
 import com.jacksonasantos.travelplan.ui.utility.Utils;
@@ -53,6 +54,7 @@ public class TourListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         else return new ItemViewHolder(tourView);
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull final RecyclerView.ViewHolder holder, @SuppressLint("RecyclerView") final int position) {
         if (holder instanceof HeaderViewHolder){
@@ -61,6 +63,7 @@ public class TourListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             headerViewHolder.imgTourType.setImageBitmap(null);
             headerViewHolder.txtTourDate.setText(R.string.Tour_Date);
             headerViewHolder.txtLocalTour.setText(R.string.Tour_Local_Tour);
+            headerViewHolder.txtDistance.setText(R.string.Itinerary_Distance);
             headerViewHolder.imgAchievement.setImageBitmap(null);
             headerViewHolder.btnAddTour.setImageResource(R.drawable.ic_button_add);
             headerViewHolder.btnAddTour.setOnClickListener(v -> {
@@ -74,10 +77,12 @@ public class TourListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         else if (holder instanceof ItemViewHolder) {
             final ItemViewHolder itemViewHolder = (ItemViewHolder) holder;
             final Tour tour = mTour.get(position-show_header);
+            final Itinerary itinerary = Database.mItineraryDao.fetchItineraryById(tour.getItinerary_id());
             itemViewHolder.imgTourType.setImageResource(Tour.getTourTypeImage(tour.getTour_type()));
             itemViewHolder.txtTourDate.setText(Objects.requireNonNull(Utils.dateToString(tour.getTour_date())).substring(0,5));
-            itemViewHolder.txtTourSequence.setText(String.valueOf(tour.getTour_sequence()));
+            itemViewHolder.txtTourSequence.setText(itinerary.getSequence() + "." + tour.getTour_sequence());
             itemViewHolder.txtLocalTour.setText(tour.getLocal_tour());
+            itemViewHolder.txtDistance.setText(Integer.toString(tour.getDistanceMeasureIndex()));
             byte[] imgArray = Database.mAchievementDao.fetchAchievementById(tour.getAchievement_id()).getImage();
             if(imgArray!=null){
                 Bitmap raw = BitmapFactory.decodeByteArray(imgArray, 0, imgArray.length);
@@ -131,6 +136,7 @@ public class TourListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         public final ImageView imgTourType;
         public final TextView txtTourDate;
         public final TextView txtLocalTour;
+        public final TextView txtDistance;
         public final ImageView imgAchievement;
         public final ImageButton btnAddTour;
 
@@ -140,6 +146,7 @@ public class TourListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             imgTourType = v.findViewById(R.id.imgTourType);
             txtTourDate = v.findViewById(R.id.txtTourDate);
             txtLocalTour = v.findViewById(R.id.txtLocalTour);
+            txtDistance = v.findViewById(R.id.txtDistance);
             imgAchievement = v.findViewById(R.id.imgAchievement);
             btnAddTour = v.findViewById(R.id.btnDelete);
         }
@@ -151,6 +158,7 @@ public class TourListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         public final TextView txtTourDate;
         public final TextView txtTourSequence;
         public final TextView txtLocalTour;
+        public final TextView txtDistance;
         public final ImageView imgAchievement;
         public final ImageButton btnDelete;
 
@@ -161,6 +169,7 @@ public class TourListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             txtTourDate = v.findViewById(R.id.txtTourDate);
             txtTourSequence = v.findViewById(R.id.txtTourSequence);
             txtLocalTour = v.findViewById(R.id.txtLocalTour);
+            txtDistance = v.findViewById(R.id.txtDistance);
             imgAchievement = v.findViewById(R.id.imgAchievement);
             btnDelete = v.findViewById(R.id.btnDelete);
         }

@@ -56,6 +56,7 @@ import com.jacksonasantos.travelplan.R;
 import com.jacksonasantos.travelplan.dao.Achievement;
 import com.jacksonasantos.travelplan.dao.Itinerary;
 import com.jacksonasantos.travelplan.dao.Marker;
+import com.jacksonasantos.travelplan.dao.Tour;
 import com.jacksonasantos.travelplan.dao.Travel;
 import com.jacksonasantos.travelplan.dao.general.Database;
 import com.jacksonasantos.travelplan.ui.general.AchievementActivity;
@@ -82,13 +83,13 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
     private TextView tvTravel;
     private RecyclerView listItinerary;
     private MapView mMapView;
-    private GoogleMap googleMap;
+    private static GoogleMap googleMap;
     private EditText etSearch;
     private Button btnSearch;
     private RecyclerView listMarkers;
 
     private final MarkerOptions markerOptions = new MarkerOptions();
-    private LatLngBounds.Builder builder = new LatLngBounds.Builder();
+    private static LatLngBounds.Builder builder = new LatLngBounds.Builder();
 
     final Globals g = Globals.getInstance();
     final String lang = g.getCountry()+"/"+g.getLanguage();
@@ -419,7 +420,7 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
                drawMarker(latlngTarget, null, ContextCompat.getColor(requireContext(), R.color.colorMarker), 0);
 
             if (achievementRoute) {
-                routeClass.drawRoute(googleMap, getContext(), pointsRoute, false, lang, false, 'A', achievement.getId(), i, null, isAlpha, 0);
+                routeClass.drawRoute(googleMap, getContext(), pointsRoute, false, lang, false, "Achievement", achievement.getId(), i, null, isAlpha, 0);
             }
 
         }
@@ -442,10 +443,36 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
                         LatLng latlng = new LatLng(Double.parseDouble(marker.getLatitude()), Double.parseDouble(marker.getLongitude()));
                         drawMarker(latlng, marker.getName(), ContextCompat.getColor(requireContext(), R.color.colorMarker), Marker.getMarker_typeImage(marker.getMarker_type()));
                     }
-                    routeClass.drawRoute(googleMap, getContext(), pointsRoute, false, lang, false, 'T', nrTravel_Id, itinerary.getSequence(), nrItinerary_Id, false, itinerary.getTravel_mode());
-                    zoomMarkers();
+                    routeClass.drawRoute(googleMap, getContext(), pointsRoute, false, lang, false, "Itinerary", nrTravel_Id, itinerary.getSequence(), nrItinerary_Id, false, itinerary.getTravel_mode());
+                }
+                List<Tour> cTour = Database.mTourDao.fetchAllTourByTravelItinerary(travel_id, itinerary.getId());
+                if (cTour.size()>0) {
+                    Marker lastMarker = Database.mMarkerDao.fetchLastMarkerByTravelItinerary(travel_id, itinerary.getId());
+                    LatLng lastPoint = new LatLng(Double.parseDouble(lastMarker.getLatitude()), Double.parseDouble(lastMarker.getLongitude()));
+                    for (int x=0; x < cTour.size(); x++) {
+                        pointsRoute.clear();
+                        pointsRoute.add(lastPoint);
+                        String[] point = cTour.get(x).getLatlng_tour().split(",");
+                        LatLng latlng = new LatLng(Double.parseDouble(point[0]), Double.parseDouble(point[1]));
+                        drawMarker(latlng, cTour.get(x).getNote(), ContextCompat.getColor(requireContext(), R.color.colorMarker), Marker.getMarker_typeImage(6));
+                        if (x==cTour.size()-1) {
+                            pointsRoute.add(new LatLng(Double.parseDouble(lastMarker.getLatitude()), Double.parseDouble(lastMarker.getLongitude())));
+                        }
+                        routeClass.drawRoute(googleMap, getContext(), pointsRoute, false, lang, false, "Tour", cTour.get(x).getId(), itinerary.getSequence(), null, false, 2);
+                        lastPoint = latlng;
+                    }
+                }
+                pointsRoute.clear();
+                cTour = Database.mTourDao.fetchAllTourByTravelItinerary(travel_id, null);
+                if (cTour.size()>0) {
+                    for (int x=0; x < cTour.size(); x++) {
+                        String[] point = cTour.get(x).getLatlng_tour().split(",");
+                        LatLng latlng = new LatLng(Double.parseDouble(point[0]), Double.parseDouble(point[1]));
+                        drawMarker(latlng, cTour.get(x).getNote(), ContextCompat.getColor(requireContext(), R.color.colorAccent), Marker.getMarker_typeImage(6));
+                    }
                 }
             }
+            zoomMarkers();
             MarkerListAdapter adapterTmp;
             if (nrItinerary_Id == null) {
                 adapterTmp = new MarkerListAdapter(Database.mMarkerDao.fetchMarkerByTravelId(nrTravel_Id), requireContext(), 0, 0, true, nrTravel_Id, null);

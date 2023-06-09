@@ -54,8 +54,17 @@ public class TourDAO extends DbContentProvider implements TourISchema, TourIDAO 
     }
 
     public List<Tour> fetchAllTourByTravelItinerary(Integer travel_id, Integer itinerary_id) {
-        final String[] selectionArgs = { String.valueOf(travel_id), String.valueOf(itinerary_id) };
-        final String selection = TOUR_TRAVEL_ID + " = ? AND "+TOUR_ITINERARY_ID + " = ? ";
+        String selection = TOUR_TRAVEL_ID + " = ? ";
+        String[] selectionArgs;
+        if (itinerary_id==null) {
+            selection = selection + " AND "+TOUR_ITINERARY_ID + " IS NULL ";
+            selectionArgs = new String[]{String.valueOf(travel_id)};
+        }
+        else {
+            selection = selection + " AND "+TOUR_ITINERARY_ID + " = ? ";
+            selectionArgs = new String[]{String.valueOf(travel_id), String.valueOf(itinerary_id)};
+        }
+
         List<Tour> tourList = new ArrayList<>();
 
         cursor = super.query(TOUR_TABLE, TOUR_COLUMNS, selection, selectionArgs, TOUR_TOUR_DATE+","+TOUR_TOUR_SEQUENCE );

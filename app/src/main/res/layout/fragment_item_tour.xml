@@ -18,9 +18,9 @@
     <TextView
         android:id="@+id/txtTourDate"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_gravity="center_vertical"
-        android:layout_weight="1.5"
+        android:layout_weight="1.2"
         android:gravity="start|center_vertical"
         app:autoSizeMaxTextSize="11sp"
         app:autoSizeMinTextSize="6sp"
@@ -30,11 +30,11 @@
     <TextView
         android:id="@+id/txtTourSequence"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_gravity="center_vertical"
-        android:layout_weight="0.5"
+        android:layout_weight="0.7"
         android:layout_marginEnd="@dimen/labels_margin"
-        android:gravity="end|center_vertical"
+        android:gravity="center|center_vertical"
         app:autoSizeMaxTextSize="11sp"
         app:autoSizeMinTextSize="6sp"
         app:autoSizeStepGranularity="1sp"
@@ -43,10 +43,21 @@
     <TextView
         android:id="@+id/txtLocalTour"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_gravity="center_vertical"
-        android:layout_weight="8"
+        android:layout_weight="6.5"
         android:gravity="start|center_vertical"
+        app:autoSizeMaxTextSize="11sp"
+        app:autoSizeMinTextSize="6sp"
+        app:autoSizeStepGranularity="1sp"
+        app:autoSizeTextType="uniform" />
+    <TextView
+        android:id="@+id/txtDistance"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_vertical"
+        android:layout_weight="1.5"
+        android:gravity="end|center_vertical"
         app:autoSizeMaxTextSize="11sp"
         app:autoSizeMinTextSize="6sp"
         app:autoSizeStepGranularity="1sp"
@@ -68,7 +79,7 @@
         android:padding="7dp"
         android:scaleType="fitCenter"
         android:scaleX="1.5"
-        android:scaleY="1.5"
+        android:scaleY="2"
         app:srcCompat="@drawable/ic_button_delete" />
 
 </LinearLayout>

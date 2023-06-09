@@ -3,6 +3,7 @@ package com.jacksonasantos.travelplan.dao;
 import androidx.annotation.NonNull;
 
 import com.jacksonasantos.travelplan.R;
+import com.jacksonasantos.travelplan.ui.utility.Globals;
 
 import java.util.Date;
 
@@ -29,6 +30,8 @@ public class Tour {
     public String country_tour;
     public String latlng_tour;
     public Integer achievement_id;
+
+    final Globals g = Globals.getInstance();
 
     public Tour() {
     }
@@ -90,6 +93,8 @@ public class Tour {
 
     public int getDistance() { return distance; }
     public void setDistance(int distance) { this.distance = distance; }
+
+    public int getDistanceMeasureIndex() { return getDistance()/g.getMeasureIndexInMeter(); }
 
     public String getVisitation_time() { return visitation_time; }
     public void setVisitation_time(String visitation_time) { this.visitation_time = visitation_time; }
