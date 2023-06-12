@@ -145,8 +145,8 @@ public class TravelVehicleListAdapter extends RecyclerView.Adapter<RecyclerView.
                                     Database.mVehicleHasTravelDao.deleteVehicleHasTravel(vehicleHasTravel.getId());
                                     // TODO - Remove transport of itinerary has transport
                                     mVehicleHasTravel.remove(position-show_header);
-                                    notifyItemRemoved(position-show_header);
-                                    notifyItemRangeChanged(position-show_header, mVehicleHasTravel.size());
+                                    notifyItemRemoved(position);
+                                    notifyItemRangeChanged(position, mVehicleHasTravel.size());
                                 } catch (Exception e) {
                                     Toast.makeText(context, context.getString(R.string.Error_Deleting_Data) + "\n" + e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
                                 }

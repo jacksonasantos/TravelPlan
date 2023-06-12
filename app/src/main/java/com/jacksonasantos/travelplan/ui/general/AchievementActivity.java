@@ -60,7 +60,7 @@ public class AchievementActivity extends AppCompatActivity {
     private EditText etAchievement_Note;
     private ImageButton imgStatusAchievement;
     private Integer nrStatusAchievement = 0;
-    private RecyclerView rvAchievementTravel;
+    private RecyclerView rvAchievementTravel;  // TODO - Mostrar as viagem que possuem Marker relacionado a Conquista
 
     private boolean opInsert = true;
     private Achievement achievement;

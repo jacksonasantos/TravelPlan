@@ -171,8 +171,8 @@ public class ReservationListAdapter extends RecyclerView.Adapter<RecyclerView.Vi
                         try {
                             Database.mReservationDao.deleteReservation(reservation.getId());
                             mReservation.remove(position-show_header);
-                            notifyItemRemoved(position-show_header);
-                            notifyItemRangeChanged(position-show_header, mReservation.size());
+                            notifyItemRemoved(position);
+                            notifyItemRangeChanged(position, mReservation.size());
                         } catch (Exception e) {
                             Toast.makeText(context, context.getString(R.string.Error_Deleting_Data) + "\n" + e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
                         }

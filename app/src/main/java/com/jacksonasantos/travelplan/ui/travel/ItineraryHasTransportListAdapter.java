@@ -118,8 +118,8 @@ public class ItineraryHasTransportListAdapter extends RecyclerView.Adapter<Recyc
                             // TODO - Deletar Vehicle_has_Travel quando for o ultimo cadastrado cadastrado como condutor
                             Database.mItineraryHasTransportDao.deleteItineraryHasTransport(mItineraryHasTransport.get(position - show_header).getId());
                             mItineraryHasTransport.remove(position - show_header);
-                            notifyItemRemoved(position - show_header);
-                            notifyItemRangeChanged(position - show_header, mItineraryHasTransport.size());
+                            notifyItemRemoved(position );
+                            notifyItemRangeChanged(position , mItineraryHasTransport.size());
                         } catch (Exception e) {
                             Toast.makeText(context, context.getString(R.string.Error_Deleting_Data) + "\n" + e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
                         }

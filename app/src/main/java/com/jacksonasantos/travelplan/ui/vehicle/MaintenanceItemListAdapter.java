@@ -104,7 +104,7 @@ public class MaintenanceItemListAdapter extends RecyclerView.Adapter<RecyclerVie
                                 Database.mPendingVehicleDao.updatePendingVehicle(pendingVehicle);
                             }
                             Database.mMaintenanceItemDao.deleteMaintenanceItem(maintenanceItem.getMaintenance_id(), maintenanceItem.getId());
-                            mMaintenanceItem.remove(position-1);
+                            mMaintenanceItem.remove(position-show_header);
                             notifyItemRemoved(position);
                             notifyItemRangeChanged(position, mMaintenanceItem.size());
                         } catch (Exception e) {

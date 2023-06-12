@@ -180,8 +180,8 @@ public class TravelExpensesListAdapter extends RecyclerView.Adapter<RecyclerView
                         try {
                             Database.mTravelExpensesDao.deleteTravelExpenses(travelExpenses.getId());
                             mTravelExpenses.remove(position-show_header);
-                            notifyItemRemoved(position-show_header);
-                            notifyItemRangeChanged(position-show_header , mTravelExpenses.size());
+                            notifyItemRemoved(position);
+                            notifyItemRangeChanged(position , mTravelExpenses.size());
                         } catch (Exception e) {
                             Toast.makeText(context, context.getString(R.string.Error_Deleting_Data) + "\n" + e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
                         }
