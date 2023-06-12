@@ -284,8 +284,6 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
         zoomMarkers();
     }
 
-
-
     private boolean registryMarker(@NonNull final LatLng point) {
         Intent intent = new Intent (requireContext(), MarkerActivity.class);
         intent.putExtra("travel_id", nrTravel_Id);
@@ -298,8 +296,6 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
         drawItinerary(nrTravel_Id);
         return true;
     }
-
-
 
     private Bitmap addBorder(Bitmap bmp, int borderSize) {
         int width = bmp.getWidth();
@@ -430,6 +426,7 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
     @SuppressLint("DefaultLocale")
     private void drawItinerary(Integer travel_id){
         List<Itinerary> cItinerary = Database.mItineraryDao.fetchAllItineraryByTravel(travel_id);
+        boolean hasMarker = false;
         if (!clearMap) {
             clearItinerary();
             builder = new LatLngBounds.Builder();
@@ -439,6 +436,7 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
                 List<Marker> cMarker = Database.mMarkerDao.fetchMarkerByTravelItineraryId(travel_id, itinerary.getId());
                 if (cMarker.size() > 0) {
                     for (int x = 0; x < cMarker.size(); x++) {
+                        hasMarker = true;
                         Marker marker = cMarker.get(x);
                         LatLng latlng = new LatLng(Double.parseDouble(marker.getLatitude()), Double.parseDouble(marker.getLongitude()));
                         drawMarker(latlng, marker.getName(), ContextCompat.getColor(requireContext(), R.color.colorMarker), Marker.getMarker_typeImage(marker.getMarker_type()));
@@ -446,10 +444,11 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
                     routeClass.drawRoute(googleMap, getContext(), pointsRoute, false, lang, false, "Itinerary", nrTravel_Id, itinerary.getSequence(), nrItinerary_Id, false, itinerary.getTravel_mode());
                 }
                 List<Tour> cTour = Database.mTourDao.fetchAllTourByTravelItinerary(travel_id, itinerary.getId());
-                if (cTour.size()>0) {
+                if (cTour.size() > 0) {
                     Marker lastMarker = Database.mMarkerDao.fetchLastMarkerByTravelItinerary(travel_id, itinerary.getId());
                     LatLng lastPoint = new LatLng(Double.parseDouble(lastMarker.getLatitude()), Double.parseDouble(lastMarker.getLongitude()));
                     for (int x=0; x < cTour.size(); x++) {
+                        hasMarker = true;
                         pointsRoute.clear();
                         pointsRoute.add(lastPoint);
                         String[] point = cTour.get(x).getLatlng_tour().split(",");
@@ -464,15 +463,16 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
                 }
                 pointsRoute.clear();
                 cTour = Database.mTourDao.fetchAllTourByTravelItinerary(travel_id, null);
-                if (cTour.size()>0) {
+                if (cTour.size() > 0) {
                     for (int x=0; x < cTour.size(); x++) {
+                        hasMarker = true;
                         String[] point = cTour.get(x).getLatlng_tour().split(",");
                         LatLng latlng = new LatLng(Double.parseDouble(point[0]), Double.parseDouble(point[1]));
                         drawMarker(latlng, cTour.get(x).getNote(), ContextCompat.getColor(requireContext(), R.color.colorAccent), Marker.getMarker_typeImage(6));
                     }
                 }
             }
-            zoomMarkers();
+            if ( hasMarker ) zoomMarkers();
             MarkerListAdapter adapterTmp;
             if (nrItinerary_Id == null) {
                 adapterTmp = new MarkerListAdapter(Database.mMarkerDao.fetchMarkerByTravelId(nrTravel_Id), requireContext(), 0, 0, true, nrTravel_Id, null);

@@ -363,7 +363,7 @@ public class MarkerActivity extends AppCompatActivity implements MarkerTypeListA
                 if (!opInsert) {
                     try {
                         m1.setId(marker.getId());
-                        if (nrSpinMarkerAchievement != null && nrSpinMarkerAchievement > 0 ) {
+                        /*if (nrSpinMarkerAchievement != null && nrSpinMarkerAchievement > 0 ) {
                             // Changes the achievement raising awareness to Travel and Itinerary
                             Achievement a = Database.mAchievementDao.fetchAchievementById(marker.getAchievement_id());
                             a.setTravel_id(null);
@@ -375,7 +375,7 @@ public class MarkerActivity extends AppCompatActivity implements MarkerTypeListA
                             a.setTravel_id(a.getTravel_id()==null?travel.getId():a.getTravel_id());
                             a.setItinerary_id(a.getItinerary_id()==null ?nrSpinMarkerAchievement:a.getItinerary_id());
                             isSave = Database.mAchievementDao.updateAchievement(a);
-                        }
+                        }*/
                         // Changes TravelExpenses
                         TravelExpenses te = Database.mTravelExpensesDao.fetchTravelExpensesByTravelMarker(m1.getTravel_id(), m1.getId());
                         etExpectedValue.setText(etExpectedValue.getText().toString().isEmpty() ? "0.00" : etExpectedValue.getText().toString());
@@ -411,7 +411,7 @@ public class MarkerActivity extends AppCompatActivity implements MarkerTypeListA
                     try {
                         // Adjusts the marker in the sequence position
                         isSave = adjustMarker(travel.getId(), nrSpinItinerary, m1.getSequence(), true);
-                        if ( nrSpinMarkerAchievement != null && nrSpinMarkerAchievement > 0 ) {
+                        /*if ( nrSpinMarkerAchievement != null && nrSpinMarkerAchievement > 0 ) {
                             // Changes the achievement raising awareness to Travel and Itinerary
                             Achievement a = Database.mAchievementDao.fetchAchievementById(nrSpinMarkerAchievement);
                             a.setLatlng_achievement(tvLat.getText().toString() + "," + tvLng.getText().toString());
@@ -433,9 +433,8 @@ public class MarkerActivity extends AppCompatActivity implements MarkerTypeListA
                                 a.setStatus_achievement(0);
                                 Integer nrIdAchievement = Database.mAchievementDao.addAchievement(a);
                                 isSave = (nrIdAchievement > 0);
-                                m1.setAchievement_id(nrIdAchievement);
                             }
-                        }
+                        }*/
                         // Adds new Marker
                         Integer nrIdMarker = Database.mMarkerDao.addMarker(m1);
                         if (!etExpectedValue.getText().toString().equals("") && Double.parseDouble(etExpectedValue.getText().toString()) > 0) {
@@ -486,12 +485,12 @@ public class MarkerActivity extends AppCompatActivity implements MarkerTypeListA
         boolean result;
         try {
             Marker m = Database.mMarkerDao.fetchMarkerByPoint( nrTravel_Id, point);
-            if (m.getAchievement_id()!=null && m.getAchievement_id()>0){
+            /*if (m.getAchievement_id()!=null && m.getAchievement_id()>0){
                 Achievement a = Database.mAchievementDao.fetchAchievementById(m.getAchievement_id());
                 a.setItinerary_id(null);
                 a.setTravel_id(null);
                 Database.mAchievementDao.updateAchievement(a);
-            }
+            }*/
             TravelExpenses te = Database.mTravelExpensesDao.fetchTravelExpensesByTravelMarker(nrTravel_Id, m.getId() );
             result = Database.mTravelExpensesDao.deleteTravelExpenses(te.getId());
             if ( Database.mMarkerDao.deleteMarker(nrTravel_Id, String.valueOf(point.latitude), String.valueOf(point.longitude)) ) {

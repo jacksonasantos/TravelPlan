@@ -15,7 +15,6 @@ import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.result.ActivityResult;
@@ -26,6 +25,7 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.jacksonasantos.travelplan.R;
 import com.jacksonasantos.travelplan.dao.Achievement;
@@ -58,10 +58,9 @@ public class AchievementActivity extends AppCompatActivity {
     private EditText etAchievement_Latlng_Achievement;
     private EditText etAchievement_Length_Achievement;
     private EditText etAchievement_Note;
-    private TextView txTravelAchievement;
-    private TextView txItineraryAchievement;
     private ImageButton imgStatusAchievement;
     private Integer nrStatusAchievement = 0;
+    private RecyclerView rvAchievementTravel;
 
     private boolean opInsert = true;
     private Achievement achievement;
@@ -123,9 +122,8 @@ public class AchievementActivity extends AppCompatActivity {
         etAchievement_Latlng_Achievement = findViewById(R.id.etAchievement_Latlng_Achievement);
         etAchievement_Length_Achievement = findViewById(R.id.etAchievement_Length_Achievement);
         etAchievement_Note = findViewById(R.id.etAchievement_Note);
-        txTravelAchievement = findViewById(R.id.txTravelAchievement);
-        txItineraryAchievement = findViewById(R.id.txItineraryAchievement);
         imgStatusAchievement = findViewById(R.id.imgStatusAchievement);
+        rvAchievementTravel = findViewById(R.id.rvAchievementTravel);
 
         btLocation.setOnClickListener(view -> {
            Intent intent = new Intent (getBaseContext(), MaintenanceItineraryActivity.class);
@@ -175,8 +173,6 @@ public class AchievementActivity extends AppCompatActivity {
             etAchievement_Latlng_Achievement.setText(achievement.getLatlng_achievement());
             etAchievement_Length_Achievement.setText(String.valueOf(achievement.getLength_achievement()));
             etAchievement_Note.setText(achievement.getNote());
-            txTravelAchievement.setText(Database.mTravelDao.fetchTravelById(achievement.getTravel_id()).getDescription());
-            txItineraryAchievement.setText(Database.mItineraryDao.fetchItineraryById(achievement.getItinerary_id()).toString());
             nrStatusAchievement = achievement.getStatus_achievement();
             if (nrStatusAchievement == 1){
                 imgStatusAchievement.setBackgroundColor(Color.GREEN);
@@ -304,16 +300,6 @@ public class AchievementActivity extends AppCompatActivity {
                 a1.setLength_achievement(Double.parseDouble(etAchievement_Length_Achievement.getText().toString().isEmpty()?"0":etAchievement_Length_Achievement.getText().toString()));
                 a1.setNote(etAchievement_Note.getText().toString());
                 a1.setStatus_achievement(nrStatusAchievement);
-                if (txTravelAchievement.getText().toString().equals("")) {
-                    a1.setTravel_id(null);
-                } else {
-                    a1.setTravel_id(achievement.getTravel_id());
-                }
-                if (txItineraryAchievement.getText().toString().equals("")) {
-                    a1.setItinerary_id(null);
-                } else {
-                    a1.setItinerary_id(achievement.getItinerary_id());
-                }
                 if (!opInsert) {
                      try {
                         a1.setId(achievement.getId());

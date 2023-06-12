@@ -170,7 +170,7 @@ public class HomeTravelFragment extends Fragment implements View.OnClickListener
         spTravel.setAdapter(adapterTravel);
 
         if (travels.size()>0) {
-            for (int x = 0; x <= travels.size(); x++) {
+            for (int x = 0; x < travels.size(); x++) {
                 if (travels.get(x).getId().equals(g.getIdTravel())) {
                     spTravel.setSelection(x);
                     break;

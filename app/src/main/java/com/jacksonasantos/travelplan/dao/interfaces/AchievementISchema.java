@@ -5,8 +5,6 @@ public interface AchievementISchema {
     String ACHIEVEMENT_TABLE = "achievement";
 
     String ACHIEVEMENT_ID = "id";
-    String ACHIEVEMENT_TRAVEL_ID = "travel_id";
-    String ACHIEVEMENT_ITINERARY_ID = "itinerary_id";
     String ACHIEVEMENT_SHORT_NAME = "short_name";
     String ACHIEVEMENT_NAME = "name";
     String ACHIEVEMENT_IMAGE = "image";
@@ -36,9 +34,6 @@ public interface AchievementISchema {
             + ACHIEVEMENT_LATLNG_ACHIEVEMENT + " TEXT "
             + ")";
 
-    // Version 38
-    String ALTER_TABLE_ACHIEVEMENT_V38 = "ALTER TABLE " + ACHIEVEMENT_TABLE
-            + " ADD COLUMN " + ACHIEVEMENT_TRAVEL_ID + " INTEGER REFERENCES " + TravelISchema.TRAVEL_TABLE + " ("+TravelISchema.TRAVEL_ID+") ";
     // Version 39
     String ALTER_TABLE_ACHIEVEMENT_V39 = "ALTER TABLE " + ACHIEVEMENT_TABLE
             + " ADD COLUMN " + ACHIEVEMENT_STATUS_ACHIEVEMENT + " INTEGER DEFAULT 0 ";
@@ -49,9 +44,6 @@ public interface AchievementISchema {
             + " ADD COLUMN " + ACHIEVEMENT_CITY_END + " TEXT ";
     String ALTER_TABLE_ACHIEVEMENT_V46_3 = "ALTER TABLE " + ACHIEVEMENT_TABLE
             + " ADD COLUMN " + ACHIEVEMENT_STATE_END + " TEXT ";
-    // Version 51
-    String ALTER_TABLE_ACHIEVEMENT_V51 = "ALTER TABLE " + ACHIEVEMENT_TABLE
-            + " ADD COLUMN " + ACHIEVEMENT_ITINERARY_ID + " INTEGER REFERENCES " + ItineraryISchema.ITINERARY_TABLE + " ("+ItineraryISchema.ITINERARY_ID+") ";
     // Version 52
     String ALTER_TABLE_ACHIEVEMENT_V55_1 = "ALTER TABLE " + ACHIEVEMENT_TABLE
             + " ADD COLUMN " + ACHIEVEMENT_LATLNG_SOURCE + " TEXT ";
@@ -60,8 +52,6 @@ public interface AchievementISchema {
 
     String[] ACHIEVEMENT_COLUMNS = new String[] {
             ACHIEVEMENT_ID,
-            ACHIEVEMENT_TRAVEL_ID,
-            ACHIEVEMENT_ITINERARY_ID,
             ACHIEVEMENT_SHORT_NAME,
             ACHIEVEMENT_NAME,
             ACHIEVEMENT_IMAGE,

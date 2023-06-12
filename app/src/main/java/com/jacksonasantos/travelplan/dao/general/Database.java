@@ -225,7 +225,6 @@ public class Database {
             db.execSQL(MarkerISchema.ALTER_TABLE_MARKER_V34); Log.w("Table "+MarkerISchema.MARKER_TABLE,"V34 - Alter Table...");
             db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V35); Log.w("Table "+VehicleISchema.VEHICLE_TABLE,"V35 - Alter Table...");
             db.execSQL(AchievementISchema.CREATE_TABLE_ACHIEVEMENT_V36); Log.w("Table "+AchievementISchema.ACHIEVEMENT_TABLE,"V36 - Create Table...");
-            db.execSQL(AchievementISchema.ALTER_TABLE_ACHIEVEMENT_V38); Log.w("Table "+AchievementISchema.ACHIEVEMENT_TABLE,"V38 - Alter Table...");
             db.execSQL(AchievementISchema.ALTER_TABLE_ACHIEVEMENT_V39); Log.w("Table "+AchievementISchema.ACHIEVEMENT_TABLE,"V39 - Alter Table...");
             db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V40); Log.w("Table "+VehicleISchema.VEHICLE_TABLE,"V40 - Alter Table...");
             db.execSQL(TravelExpensesISchema.ALTER_TABLE_TRAVEL_EXPENSES_V43); Log.w("Table "+TravelExpensesISchema.TRAVEL_EXPENSES_TABLE,"V43 - Alter Table...");
@@ -238,7 +237,6 @@ public class Database {
             db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V48); Log.w("Table "+VehicleISchema.VEHICLE_TABLE,"V48 - Alter Table...");
             db.execSQL(VehicleHasTravelISchema.ALTER_TABLE_VEHICLE_HAS_TRAVEL_V49);Log.w("Table "+VehicleHasTravelISchema.VEHICLE_HAS_TRAVEL_TABLE,"V49 - Alter Table...");
             db.execSQL(MarkerISchema.ALTER_TABLE_MARKER_V50);Log.w("Table "+MarkerISchema.MARKER_TABLE,"V50 - Create Table...");
-            db.execSQL(AchievementISchema.ALTER_TABLE_ACHIEVEMENT_V51);Log.w("Table "+AchievementISchema.ACHIEVEMENT_TABLE,"V51 - Alter Table...");
             db.execSQL(VehicleHasTravelISchema.ALTER_TABLE_VEHICLE_HAS_TRAVEL_V52_1);Log.w("Table "+VehicleHasTravelISchema.VEHICLE_HAS_TRAVEL_TABLE,"V52_1 - Alter Table...");
             db.execSQL(VehicleHasTravelISchema.ALTER_TABLE_VEHICLE_HAS_TRAVEL_V52_2);Log.w("Table "+VehicleHasTravelISchema.VEHICLE_HAS_TRAVEL_TABLE,"V52_2 - Alter Table...");
             db.execSQL(PendingVehicleISchema.CREATE_TABLE_PENDING_VEHICLE_V53); Log.w("Table "+PendingVehicleISchema.PENDING_VEHICLE_TABLE,"V53 - Create Table...");
@@ -399,9 +397,6 @@ public class Database {
                     case 36:
                         db.execSQL(AchievementISchema.CREATE_TABLE_ACHIEVEMENT_V36);
                         break;
-                    case 38:
-                        db.execSQL(AchievementISchema.ALTER_TABLE_ACHIEVEMENT_V38);
-                        break;
                     case 39:
                         db.execSQL(AchievementISchema.ALTER_TABLE_ACHIEVEMENT_V39);
                         break;
@@ -431,9 +426,6 @@ public class Database {
                         break;
                     case 50:
                         db.execSQL(MarkerISchema.ALTER_TABLE_MARKER_V50);
-                        break;
-                    case 51:
-                        db.execSQL(AchievementISchema.ALTER_TABLE_ACHIEVEMENT_V51);
                         break;
                     case 52:
                         db.execSQL(VehicleHasTravelISchema.ALTER_TABLE_VEHICLE_HAS_TRAVEL_V52_1);

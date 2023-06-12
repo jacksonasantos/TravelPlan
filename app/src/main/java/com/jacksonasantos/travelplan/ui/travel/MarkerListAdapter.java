@@ -118,8 +118,8 @@ public class MarkerListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                         try {
                             MarkerActivity.removeMarker(context, marker.getTravel_id(), new LatLng(Double.parseDouble(marker.getLatitude()), Double.parseDouble(marker.getLongitude())));
                             mMarker.remove(position-show_header);
-                            notifyItemRemoved(position-show_header);
-                            notifyItemRangeChanged(position-show_header, mMarker.size());
+                            notifyItemRemoved(position);
+                            notifyItemRangeChanged(position, mMarker.size());
                         } catch (Exception e) {
                             Toast.makeText(context, context.getString(R.string.Error_Deleting_Data) + "\n" + e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
                         }

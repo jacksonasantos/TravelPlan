@@ -316,24 +316,15 @@
                 android:layout_height="wrap_content"
                 android:padding="@dimen/labels_margin"
                 android:orientation="horizontal">
-                <TextView
-                    android:id="@+id/txTravelAchievement"
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvAchievementTravel"
                     android:layout_width="0dp"
-                    android:layout_height="20dp"
-                    android:gravity="center_vertical"
-                    app:layout_constraintEnd_toStartOf="@+id/imgStatusAchievement"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-                <TextView
-                    android:id="@+id/txItineraryAchievement"
-                    android:layout_width="0dp"
-                    android:layout_height="20dp"
-                    android:gravity="center_vertical"
+                    android:layout_height="wrap_content"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/imgStatusAchievement"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/txTravelAchievement" />
-
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:itemCount="2" />
                 <ImageButton
                     android:id="@+id/imgStatusAchievement"
                     android:layout_width="40dp"
