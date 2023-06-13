@@ -63,7 +63,8 @@ public class TravelAchievementListAdapter extends RecyclerView.Adapter<RecyclerV
             headerViewHolder.txtShortNameAchievement.setText(R.string.Achievement_Short_Name);
             headerViewHolder.txtSequenceAchievement.setText(R.string.Itinerary_Sequence);
             headerViewHolder.btnAddAchievement.setImageResource(R.drawable.ic_button_add);
-            headerViewHolder.btnAddAchievement.setOnClickListener(v -> {  }); // TODO- Implement relationship on achievement and travel
+            headerViewHolder.btnAddAchievement.setOnClickListener(v -> {  });
+            // TODO- Implement relationship on achievement and travel
         }
         else if (holder instanceof ItemViewHolder) {
             final ItemViewHolder itemViewHolder = (ItemViewHolder) holder;

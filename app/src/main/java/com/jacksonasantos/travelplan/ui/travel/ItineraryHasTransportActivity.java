@@ -305,7 +305,8 @@ public class ItineraryHasTransportActivity extends AppCompatActivity implements 
         adapterP.notifyDataSetChanged();
 
         btAddTransport.setOnClickListener(v -> {
-            Intent intent = new Intent (v.getContext(), TransportActivity.class); // TODO - marcar o tipo no cadastro do transporte
+            Intent intent = new Intent (v.getContext(), TransportActivity.class);
+            // TODO - marcar o tipo no cadastro do transporte
             intent.putExtra("op_result", true);
             intent.putExtra("travel_id", nrTravel);
             intent.putExtra("transport_type", nrTransportType);

@@ -339,7 +339,8 @@ public class TourActivity extends AppCompatActivity implements TourTypeListAdapt
                 t1.setState_tour(etStateTour.getText().toString());
                 t1.setCountry_tour(etCountryTour.getText().toString());
                 t1.setLatlng_tour(etLatLngTour.getText().toString());
-                t1.setAchievement_id(nrSpAchievement); // TODO - Atualizar Conquistas com o vinculo FK da viagem planejada
+                t1.setAchievement_id(nrSpAchievement);
+                // TODO - Atualizar Conquistas com o vinculo FK da viagem planejada
                 if (!opInsert) {
                     try {
                         t1.setId(tour.getId());

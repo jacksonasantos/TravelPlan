@@ -183,7 +183,8 @@ public class MainActivity extends AppCompatActivity {
             g.setIdVehicle(Integer.valueOf(vehicle_pref));
         }
         else {
-            g.setIdVehicle(1); // TODO - Adjust for when there is no defined preference
+            // TODO - Adjust for when there is no defined preference
+            g.setIdVehicle(1);
         }
 
         String travel_pref = settings.getString("travel_default", String.valueOf(0));
@@ -191,7 +192,8 @@ public class MainActivity extends AppCompatActivity {
             g.setIdTravel(Integer.valueOf(travel_pref));
         }
         else {
-            g.setIdTravel(1);  // TODO - Adjust for when there is no defined preference
+            // TODO - Adjust for when there is no defined preference
+            g.setIdTravel(1);
         }
 
         String lang = settings.getString("language", "");
