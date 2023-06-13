@@ -83,7 +83,8 @@ public class MaintenanceDAO extends DbContentProvider implements MaintenanceISch
         Maintenance m = new Maintenance();
         if (c != null) {
             if (c.getColumnIndex(MAINTENANCE_ID) != -1)              {m.setId(c.getInt(c.getColumnIndexOrThrow(MAINTENANCE_ID))); }
-            if (c.getColumnIndex(MAINTENANCE_VEHICLE_ID) != -1)      {m.setVehicle_id(c.getInt(c.getColumnIndexOrThrow(MAINTENANCE_VEHICLE_ID))); }
+            if (c.getColumnIndex(MAINTENANCE_VEHICLE_ID) != -1)      if (c.getInt(c.getColumnIndexOrThrow(MAINTENANCE_VEHICLE_ID)) == 0) m.setVehicle_id(null);
+                                                                     else m.setVehicle_id(c.getInt(c.getColumnIndexOrThrow(MAINTENANCE_VEHICLE_ID)));
             if (c.getColumnIndex(MAINTENANCE_DETAIL) != -1)          {m.setDetail(c.getString(c.getColumnIndexOrThrow(MAINTENANCE_DETAIL))); }
             if (c.getColumnIndex(MAINTENANCE_DATE) != -1)            {m.setDate(Utils.dateParse(c.getString(c.getColumnIndexOrThrow(MAINTENANCE_DATE)))); }
             if (c.getColumnIndex(MAINTENANCE_ODOMETER) != -1)        {m.setOdometer(c.getInt(c.getColumnIndexOrThrow(MAINTENANCE_ODOMETER))); }

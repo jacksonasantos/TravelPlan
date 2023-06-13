@@ -56,7 +56,8 @@ public class TravelItemExpensesDAO extends DbContentProvider implements TravelIt
             if (c.getColumnIndex(TRAVEL_ITEM_EXPENSES_EXPENSE_DATE) != -1)       {t.setExpense_date(Utils.dateParse(c.getString(c.getColumnIndexOrThrow(TRAVEL_ITEM_EXPENSES_EXPENSE_DATE)))); }
             if (c.getColumnIndex(TRAVEL_ITEM_EXPENSES_REALIZED_VALUE) != -1)     {t.setRealized_value(c.getDouble(c.getColumnIndexOrThrow(TRAVEL_ITEM_EXPENSES_REALIZED_VALUE))); }
             if (c.getColumnIndex(TRAVEL_ITEM_EXPENSES_NOTE) != -1 )              {t.setNote(c.getString(c.getColumnIndexOrThrow(TRAVEL_ITEM_EXPENSES_NOTE))); }
-            if (c.getColumnIndex(TRAVEL_ITEM_EXPENSES_TRAVEL_ID) != -1)          {t.setTravel_id(c.getInt(c.getColumnIndexOrThrow(TRAVEL_ITEM_EXPENSES_TRAVEL_ID))); }
+            if (c.getColumnIndex(TRAVEL_ITEM_EXPENSES_TRAVEL_ID) != -1)          if (c.getInt(c.getColumnIndexOrThrow(TRAVEL_ITEM_EXPENSES_TRAVEL_ID)) == 0) t.setTravel_id(null);
+                                                                                 else t.setTravel_id(c.getInt(c.getColumnIndexOrThrow(TRAVEL_ITEM_EXPENSES_TRAVEL_ID)));
         }
         return t;
     }

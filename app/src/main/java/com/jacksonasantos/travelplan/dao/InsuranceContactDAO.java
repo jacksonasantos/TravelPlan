@@ -51,7 +51,8 @@ public class InsuranceContactDAO extends DbContentProvider implements InsuranceC
         InsuranceContact iC = new InsuranceContact();
         if (c != null) {
             if (c.getColumnIndex(INSURANCE_CONTACT_ID) != -1)                  {iC.setId(c.getInt(c.getColumnIndexOrThrow(INSURANCE_CONTACT_ID)));}
-            if (c.getColumnIndex(INSURANCE_CONTACT_INSURANCE_ID) != -1)        {iC.setInsurance_id(c.getInt(c.getColumnIndexOrThrow(INSURANCE_CONTACT_INSURANCE_ID))); }
+            if (c.getColumnIndex(INSURANCE_CONTACT_INSURANCE_ID) != -1)        if (c.getInt(c.getColumnIndexOrThrow(INSURANCE_CONTACT_INSURANCE_ID)) == 0) iC.setInsurance_id(null);
+                                                                               else iC.setInsurance_id(c.getInt(c.getColumnIndexOrThrow(INSURANCE_CONTACT_INSURANCE_ID)));
             if (c.getColumnIndex(INSURANCE_CONTACT_TYPE_CONTACT) != -1)        {iC.setType_contact(c.getString(c.getColumnIndexOrThrow(INSURANCE_CONTACT_TYPE_CONTACT))); }
             if (c.getColumnIndex(INSURANCE_CONTACT_DESCRIPTION_CONTACT) != -1) {iC.setDescription_contact(c.getString(c.getColumnIndexOrThrow(INSURANCE_CONTACT_DESCRIPTION_CONTACT)));}
             if (c.getColumnIndex(INSURANCE_CONTACT_DETAIL_CONTACT) != -1)      {iC.setDetail_contact(c.getString(c.getColumnIndexOrThrow(INSURANCE_CONTACT_DETAIL_CONTACT))); }

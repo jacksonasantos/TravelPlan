@@ -57,7 +57,8 @@ public class MaintenancePlanHasVehicleTypeDAO extends DbContentProvider implemen
         MaintenancePlanHasVehicleType mPVT = new MaintenancePlanHasVehicleType();
         if (c != null) {
             if (c.getColumnIndex(MAINTENANCE_PLAN_HAS_VEHICLE_TYPE_ID) != -1)                  {mPVT.setId(c.getInt(c.getColumnIndexOrThrow(MAINTENANCE_PLAN_HAS_VEHICLE_TYPE_ID))); }
-            if (c.getColumnIndex(MAINTENANCE_PLAN_HAS_VEHICLE_TYPE_MAINTENANCE_PLAN_ID) != -1) {mPVT.setMaintenance_plan_id(c.getInt(c.getColumnIndexOrThrow(MAINTENANCE_PLAN_HAS_VEHICLE_TYPE_MAINTENANCE_PLAN_ID))); }
+            if (c.getColumnIndex(MAINTENANCE_PLAN_HAS_VEHICLE_TYPE_MAINTENANCE_PLAN_ID) != -1) if (c.getInt(c.getColumnIndexOrThrow(MAINTENANCE_PLAN_HAS_VEHICLE_TYPE_MAINTENANCE_PLAN_ID)) == 0) mPVT.setMaintenance_plan_id(null);
+                                                                                               else mPVT.setMaintenance_plan_id(c.getInt(c.getColumnIndexOrThrow(MAINTENANCE_PLAN_HAS_VEHICLE_TYPE_MAINTENANCE_PLAN_ID)));
             if (c.getColumnIndex(MAINTENANCE_PLAN_HAS_VEHICLE_TYPE_VEHICLE_TYPE) != -1)        {mPVT.setVehicle_type(c.getInt(c.getColumnIndexOrThrow(MAINTENANCE_PLAN_HAS_VEHICLE_TYPE_VEHICLE_TYPE))); }
             if (c.getColumnIndex(MAINTENANCE_PLAN_HAS_VEHICLE_TYPE_RECURRING_SERVICE) != -1)   {mPVT.setRecurring_service(c.getInt(c.getColumnIndexOrThrow(MAINTENANCE_PLAN_HAS_VEHICLE_TYPE_RECURRING_SERVICE))); }
         }

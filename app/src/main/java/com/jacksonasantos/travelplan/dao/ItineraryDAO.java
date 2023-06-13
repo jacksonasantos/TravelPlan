@@ -147,7 +147,8 @@ public class ItineraryDAO extends DbContentProvider implements ItineraryISchema,
         Itinerary i = new Itinerary();
         if (c != null) {
             if (c.getColumnIndex(ITINERARY_ID) != -1)               {i.setId(c.getInt(c.getColumnIndexOrThrow(ITINERARY_ID))); }
-            if (c.getColumnIndex(ITINERARY_TRAVEL_ID) != -1)        {i.setTravel_id(c.getInt(c.getColumnIndexOrThrow(ITINERARY_TRAVEL_ID))); }
+            if (c.getColumnIndex(ITINERARY_TRAVEL_ID) != -1)        if (c.getInt(c.getColumnIndexOrThrow(ITINERARY_TRAVEL_ID)) == 0) i.setTravel_id(null);
+                                                                    else i.setTravel_id(c.getInt(c.getColumnIndexOrThrow(ITINERARY_TRAVEL_ID)));
             if (c.getColumnIndex(ITINERARY_SEQUENCE) != -1)         {i.setSequence(c.getInt(c.getColumnIndexOrThrow(ITINERARY_SEQUENCE))); }
             if (c.getColumnIndex(ITINERARY_ORIG_LOCATION) != -1)    {i.setOrig_location(c.getString(c.getColumnIndexOrThrow(ITINERARY_ORIG_LOCATION))); }
             if (c.getColumnIndex(ITINERARY_DEST_LOCATION) != -1)    {i.setDest_location(c.getString(c.getColumnIndexOrThrow(ITINERARY_DEST_LOCATION))); }

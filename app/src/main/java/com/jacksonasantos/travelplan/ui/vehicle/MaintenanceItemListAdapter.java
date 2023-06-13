@@ -50,15 +50,12 @@ public class MaintenanceItemListAdapter extends RecyclerView.Adapter<RecyclerVie
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View maintenanceItemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.activity_maintenance_item_list, parent, false);
+        View maintenanceItemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_maintenance_item_list, parent, false);
         measureArray = parent.getResources().getStringArray(R.array.measure_plan);
-        if (viewType == TYPE_HEADER) {
-            return new HeaderViewHolder(maintenanceItemView);
-        } else return new ItemViewHolder(maintenanceItemView);
+        if (viewType == TYPE_HEADER) return new HeaderViewHolder(maintenanceItemView);
+        else return new ItemViewHolder(maintenanceItemView);
     }
 
-    // Replace the contents of a view (invoked by the layout manager)
     @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull final RecyclerView.ViewHolder holder, final int position) {
@@ -78,7 +75,6 @@ public class MaintenanceItemListAdapter extends RecyclerView.Adapter<RecyclerVie
             final MaintenanceItem maintenanceItem = mMaintenanceItem.get(position-show_header);
 
             String x = Database.mMaintenancePlanDao.fetchMaintenancePlanById(maintenanceItem.getMaintenance_plan_id()).getDescription();
-
             itemViewHolder.imgServiceType.setImageResource(maintenanceItem.getServiceTypeImage(maintenanceItem.getService_type()));
             itemViewHolder.txtMaintenancePlanItem.setText(x);
             if (!maintenanceItem.getNote().isEmpty()) {
@@ -98,7 +94,7 @@ public class MaintenanceItemListAdapter extends RecyclerView.Adapter<RecyclerVie
                     .setMessage(R.string.Msg_Confirm)
                     .setPositiveButton(R.string.Yes, (dialogInterface, i) -> {
                         try {
-                            if (maintenanceItem.getPending_vehicle_id()>0) {
+                            if (maintenanceItem.getPending_vehicle_id()!=null) {
                                 PendingVehicle pendingVehicle = Database.mPendingVehicleDao.fetchPendingVehicleById(maintenanceItem.getPending_vehicle_id());
                                 pendingVehicle.setStatus_pending(0);
                                 Database.mPendingVehicleDao.updatePendingVehicle(pendingVehicle);
@@ -117,9 +113,7 @@ public class MaintenanceItemListAdapter extends RecyclerView.Adapter<RecyclerVie
     }
     @Override
     public int getItemViewType(int position) {
-        if (position == 0 && show_header == 1) {
-            return TYPE_HEADER;
-        }
+        if (position == 0 && show_header == 1) return TYPE_HEADER;
         return TYPE_ITEM;
     }
 

@@ -112,8 +112,10 @@ public class VehicleHasPlanDAO extends DbContentProvider implements VehicleHasPl
         VehicleHasPlan vHP = new VehicleHasPlan();
         if (c != null) {
             if (c.getColumnIndex(VEHICLE_HAS_PLAN_ID) != -1)                   {vHP.setId(c.getInt(c.getColumnIndexOrThrow(VEHICLE_HAS_PLAN_ID))); }
-            if (c.getColumnIndex(VEHICLE_HAS_PLAN_VEHICLE_ID) != -1)           {vHP.setVehicle_id(c.getInt(c.getColumnIndexOrThrow(VEHICLE_HAS_PLAN_VEHICLE_ID))); }
-            if (c.getColumnIndex(VEHICLE_HAS_PLAN_MAINTENANCE_PLAN_ID) != -1)  {vHP.setMaintenance_plan_id(c.getInt(c.getColumnIndexOrThrow(VEHICLE_HAS_PLAN_MAINTENANCE_PLAN_ID))); }
+            if (c.getColumnIndex(VEHICLE_HAS_PLAN_VEHICLE_ID) != -1)           if (c.getInt(c.getColumnIndexOrThrow(VEHICLE_HAS_PLAN_VEHICLE_ID)) == 0) vHP.setVehicle_id(null);
+                                                                               else vHP.setVehicle_id(c.getInt(c.getColumnIndexOrThrow(VEHICLE_HAS_PLAN_VEHICLE_ID)));
+            if (c.getColumnIndex(VEHICLE_HAS_PLAN_MAINTENANCE_PLAN_ID) != -1)  if (c.getInt(c.getColumnIndexOrThrow(VEHICLE_HAS_PLAN_MAINTENANCE_PLAN_ID)) == 0) vHP.setMaintenance_plan_id(null);
+                                                                               else vHP.setMaintenance_plan_id(c.getInt(c.getColumnIndexOrThrow(VEHICLE_HAS_PLAN_MAINTENANCE_PLAN_ID)));
             if (c.getColumnIndex(VEHICLE_HAS_PLAN_EXPIRATION) != -1)           {vHP.setExpiration(c.getInt(c.getColumnIndexOrThrow(VEHICLE_HAS_PLAN_EXPIRATION))); }
         }
         return vHP;
@@ -123,8 +125,10 @@ public class VehicleHasPlanDAO extends DbContentProvider implements VehicleHasPl
         VehicleHasPlanQuery vHPq = new VehicleHasPlanQuery();
         if (c != null) {
             if (c.getColumnIndex(VEHICLE_HAS_PLAN_ID) != -1)                   {vHPq.setId(c.getInt(c.getColumnIndexOrThrow(VEHICLE_HAS_PLAN_ID))); }
-            if (c.getColumnIndex(VEHICLE_HAS_PLAN_VEHICLE_ID) != -1)           {vHPq.setVehicle_id(c.getInt(c.getColumnIndexOrThrow(VEHICLE_HAS_PLAN_VEHICLE_ID))); }
-            if (c.getColumnIndex(VEHICLE_HAS_PLAN_MAINTENANCE_PLAN_ID) != -1)  {vHPq.setMaintenance_plan_id(c.getInt(c.getColumnIndexOrThrow(VEHICLE_HAS_PLAN_MAINTENANCE_PLAN_ID))); }
+            if (c.getColumnIndex(VEHICLE_HAS_PLAN_VEHICLE_ID) != -1)           if (c.getInt(c.getColumnIndexOrThrow(VEHICLE_HAS_PLAN_VEHICLE_ID)) == 0) vHPq.setVehicle_id(null);
+                                                                               else vHPq.setVehicle_id(c.getInt(c.getColumnIndexOrThrow(VEHICLE_HAS_PLAN_VEHICLE_ID)));
+            if (c.getColumnIndex(VEHICLE_HAS_PLAN_MAINTENANCE_PLAN_ID) != -1)  if (c.getInt(c.getColumnIndexOrThrow(VEHICLE_HAS_PLAN_MAINTENANCE_PLAN_ID)) == 0) vHPq.setMaintenance_plan_id(null);
+                                                                               else vHPq.setMaintenance_plan_id(c.getInt(c.getColumnIndexOrThrow(VEHICLE_HAS_PLAN_MAINTENANCE_PLAN_ID)));
             if (c.getColumnIndex(VEHICLE_HAS_PLAN_EXPIRATION) != -1)           {vHPq.setExpiration(c.getInt(c.getColumnIndexOrThrow(VEHICLE_HAS_PLAN_EXPIRATION))); }
             if (c.getColumnIndex(VEHICLE_HAS_PLAN_EXPIRATION_DEFAULT) != -1)   {vHPq.setExpiration_default(c.getInt(c.getColumnIndexOrThrow(VEHICLE_HAS_PLAN_EXPIRATION_DEFAULT))); }
             if (c.getColumnIndex(VEHICLE_HAS_PLAN_RECURRING_SERVICE) != -1)    {vHPq.setRecurring_service(c.getInt(c.getColumnIndexOrThrow(VEHICLE_HAS_PLAN_RECURRING_SERVICE))); }

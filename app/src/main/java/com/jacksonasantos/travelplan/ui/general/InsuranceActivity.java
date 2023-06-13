@@ -355,8 +355,10 @@ public  class InsuranceActivity extends AppCompatActivity {
                 i1.setBonus_class(Integer.parseInt(etBonus_Class.getText().toString()));
                 i1.setNote(etNote.getText().toString());
                 i1.setStatus(nrStatus);
-                i1.setTravel_id(nrSpinTravel==0 ? null : nrSpinTravel);
-                i1.setVehicle_id(nrSpinVehicle == 0 ? null : nrSpinVehicle);
+                //i1.setTravel_id(nrSpinTravel==0 ? null : nrSpinTravel);
+                //i1.setVehicle_id(nrSpinVehicle == 0 ? null : nrSpinVehicle);
+                i1.setTravel_id(nrSpinTravel);
+                i1.setVehicle_id(nrSpinVehicle);
 
                 try {
                     if (!opInsert) {

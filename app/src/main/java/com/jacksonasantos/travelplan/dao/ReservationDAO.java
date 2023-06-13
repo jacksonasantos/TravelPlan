@@ -74,8 +74,10 @@ public class ReservationDAO extends DbContentProvider implements ReservationISch
         Reservation r = new Reservation();
         if (c != null) {
             if (c.getColumnIndex(RESERVATION_ID) != -1)                 {r.setId(c.getInt(c.getColumnIndexOrThrow(RESERVATION_ID))); }
-            if (c.getColumnIndex(RESERVATION_TRAVEL_ID) != -1)          {r.setTravel_id(c.getInt(c.getColumnIndexOrThrow(RESERVATION_TRAVEL_ID))); }
-            if (c.getColumnIndex(RESERVATION_ACCOMMODATION_ID) != -1)   {r.setAccommodation_id(c.getInt(c.getColumnIndexOrThrow(RESERVATION_ACCOMMODATION_ID))); }
+            if (c.getColumnIndex(RESERVATION_TRAVEL_ID) != -1)          if (c.getInt(c.getColumnIndexOrThrow(RESERVATION_TRAVEL_ID)) == 0) r.setTravel_id(null);
+                                                                        else r.setTravel_id(c.getInt(c.getColumnIndexOrThrow(RESERVATION_TRAVEL_ID)));
+            if (c.getColumnIndex(RESERVATION_ACCOMMODATION_ID) != -1)   if (c.getInt(c.getColumnIndexOrThrow(RESERVATION_ACCOMMODATION_ID)) == 0) r.setAccommodation_id(null);
+                                                                        else r.setAccommodation_id(c.getInt(c.getColumnIndexOrThrow(RESERVATION_ACCOMMODATION_ID)));
             if (c.getColumnIndex(RESERVATION_VOUCHER_NUMBER) != -1)     {r.setVoucher_number(c.getString(c.getColumnIndexOrThrow(RESERVATION_VOUCHER_NUMBER))); }
             if (c.getColumnIndex(RESERVATION_CHECKIN_DATE) != -1)       {r.setCheckin_date(Utils.dateParse(c.getString(c.getColumnIndexOrThrow(RESERVATION_CHECKIN_DATE)))); }
             if (c.getColumnIndex(RESERVATION_CHECKOUT_DATE) != -1)      {r.setCheckout_date(Utils.dateParse(c.getString(c.getColumnIndexOrThrow(RESERVATION_CHECKOUT_DATE)))); }

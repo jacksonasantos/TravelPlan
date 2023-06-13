@@ -62,7 +62,8 @@ public class VehicleMaintenanceItemDAO extends DbContentProvider implements Vehi
     protected VehicleMaintenanceItem cursorToEntity(Cursor c) {
         VehicleMaintenanceItem vS = new VehicleMaintenanceItem();
         if (c != null) {
-            if (c.getColumnIndex(VEHICLE_MAINTENANCE_ITEM_VEHICLE_ID) != -1)   {vS.setVehicle_id(c.getInt(c.getColumnIndexOrThrow(VEHICLE_MAINTENANCE_ITEM_VEHICLE_ID))); }
+            if (c.getColumnIndex(VEHICLE_MAINTENANCE_ITEM_VEHICLE_ID) != -1)   if (c.getInt(c.getColumnIndexOrThrow(VEHICLE_MAINTENANCE_ITEM_VEHICLE_ID)) == 0) vS.setVehicle_id(null);
+                                                                               else vS.setVehicle_id(c.getInt(c.getColumnIndexOrThrow(VEHICLE_MAINTENANCE_ITEM_VEHICLE_ID)));
             if (c.getColumnIndex(VEHICLE_MAINTENANCE_ITEM_SERVICE_TYPE) != -1) {vS.setService_type(c.getInt(c.getColumnIndexOrThrow(VEHICLE_MAINTENANCE_ITEM_SERVICE_TYPE))); }
             if (c.getColumnIndex(VEHICLE_MAINTENANCE_ITEM_DATE) != -1)         {vS.setDate(Utils.dateParse(c.getString(c.getColumnIndexOrThrow(VEHICLE_MAINTENANCE_ITEM_DATE)))); }
             if (c.getColumnIndex(VEHICLE_MAINTENANCE_ITEM_ODOMETER) != -1)     {vS.setOdometer(c.getInt(c.getColumnIndexOrThrow(VEHICLE_MAINTENANCE_ITEM_ODOMETER))); }

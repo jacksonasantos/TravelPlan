@@ -141,7 +141,8 @@ public class VehicleDAO extends DbContentProvider implements VehicleISchema, Veh
             if (c.getColumnIndex(VEHICLE_NAME) != -1)                       {v.setName(c.getString(c.getColumnIndexOrThrow(VEHICLE_NAME))); }
             if (c.getColumnIndex(VEHICLE_SHORT_NAME) != -1)                 {v.setShort_name(c.getString( c.getColumnIndexOrThrow(VEHICLE_SHORT_NAME))); }
             if (c.getColumnIndex(VEHICLE_LICENCE_PLATE) != -1)              {v.setLicense_plate(c.getString(c.getColumnIndexOrThrow(VEHICLE_LICENCE_PLATE))); }
-            if (c.getColumnIndex(VEHICLE_VEHICLE_OWNER_ID) != -1)           {v.setVehicle_owner_id(c.getInt(c.getColumnIndexOrThrow(VEHICLE_VEHICLE_OWNER_ID))); }
+            if (c.getColumnIndex(VEHICLE_VEHICLE_OWNER_ID) != -1)           if (c.getInt(c.getColumnIndexOrThrow(VEHICLE_VEHICLE_OWNER_ID)) == 0) v.setVehicle_owner_id(null);
+                                                                            else v.setVehicle_owner_id(c.getInt(c.getColumnIndexOrThrow(VEHICLE_VEHICLE_OWNER_ID)));
             if (c.getColumnIndex(VEHICLE_FULL_CAPACITY) != -1)              {v.setFull_capacity(c.getInt(c.getColumnIndexOrThrow(VEHICLE_FULL_CAPACITY))); }
             if (c.getColumnIndex(VEHICLE_AVG_CONSUMPTION) != -1)            {v.setAvg_consumption(c.getFloat(c.getColumnIndexOrThrow(VEHICLE_AVG_CONSUMPTION))); }
             if (c.getColumnIndex(VEHICLE_AVG_COST_LITRE) != -1)             {v.setAvg_cost_litre(c.getFloat(c.getColumnIndexOrThrow(VEHICLE_AVG_COST_LITRE))); }

@@ -114,11 +114,16 @@ public class ItineraryHasTransportDAO extends DbContentProvider implements Itine
         ItineraryHasTransport i = new ItineraryHasTransport();
         if (c != null) {
             if (c.getColumnIndex(ITINERARY_HAS_TRANSPORT_ID) != -1)               {i.setId(c.getInt(c.getColumnIndexOrThrow(ITINERARY_HAS_TRANSPORT_ID))); }
-            if (c.getColumnIndex(ITINERARY_HAS_TRANSPORT_TRAVEL_ID) != -1)        {i.setTravel_id(c.getInt(c.getColumnIndexOrThrow(ITINERARY_HAS_TRANSPORT_TRAVEL_ID))); }
-            if (c.getColumnIndex(ITINERARY_HAS_TRANSPORT_TRANSPORT_ID) != -1)     {i.setTransport_id(c.getInt(c.getColumnIndexOrThrow(ITINERARY_HAS_TRANSPORT_TRANSPORT_ID))); }
-            if (c.getColumnIndex(ITINERARY_HAS_TRANSPORT_VEHICLE_ID) != -1)       {i.setVehicle_id(c.getInt(c.getColumnIndexOrThrow(ITINERARY_HAS_TRANSPORT_VEHICLE_ID))); }
-            if (c.getColumnIndex(ITINERARY_HAS_TRANSPORT_ITINERARY_ID) != -1)     {i.setItinerary_id(c.getInt(c.getColumnIndexOrThrow(ITINERARY_HAS_TRANSPORT_ITINERARY_ID))); }
-            if (c.getColumnIndex(ITINERARY_HAS_TRANSPORT_PERSON_ID) != -1)        {i.setPerson_id(c.getInt(c.getColumnIndexOrThrow(ITINERARY_HAS_TRANSPORT_PERSON_ID))); }
+            if (c.getColumnIndex(ITINERARY_HAS_TRANSPORT_TRAVEL_ID) != -1)        if (c.getInt(c.getColumnIndexOrThrow(ITINERARY_HAS_TRANSPORT_TRAVEL_ID)) == 0) i.setTravel_id(null);
+                                                                                  else i.setTravel_id(c.getInt(c.getColumnIndexOrThrow(ITINERARY_HAS_TRANSPORT_TRAVEL_ID)));
+            if (c.getColumnIndex(ITINERARY_HAS_TRANSPORT_TRANSPORT_ID) != -1)     if (c.getInt(c.getColumnIndexOrThrow(ITINERARY_HAS_TRANSPORT_TRANSPORT_ID)) == 0) i.setTransport_id(null);
+                                                                                  else i.setTransport_id(c.getInt(c.getColumnIndexOrThrow(ITINERARY_HAS_TRANSPORT_TRANSPORT_ID)));
+            if (c.getColumnIndex(ITINERARY_HAS_TRANSPORT_VEHICLE_ID) != -1)       if (c.getInt(c.getColumnIndexOrThrow(ITINERARY_HAS_TRANSPORT_VEHICLE_ID)) == 0) i.setVehicle_id(null);
+                                                                                  else i.setVehicle_id(c.getInt(c.getColumnIndexOrThrow(ITINERARY_HAS_TRANSPORT_VEHICLE_ID)));
+            if (c.getColumnIndex(ITINERARY_HAS_TRANSPORT_ITINERARY_ID) != -1)     if (c.getInt(c.getColumnIndexOrThrow(ITINERARY_HAS_TRANSPORT_ITINERARY_ID)) == 0) i.setItinerary_id(null);
+                                                                                  else i.setItinerary_id(c.getInt(c.getColumnIndexOrThrow(ITINERARY_HAS_TRANSPORT_ITINERARY_ID)));
+            if (c.getColumnIndex(ITINERARY_HAS_TRANSPORT_PERSON_ID) != -1)        if (c.getInt(c.getColumnIndexOrThrow(ITINERARY_HAS_TRANSPORT_PERSON_ID)) == 0) i.setPerson_id(null);
+                                                                                  else i.setPerson_id(c.getInt(c.getColumnIndexOrThrow(ITINERARY_HAS_TRANSPORT_PERSON_ID)));
             if (c.getColumnIndex(ITINERARY_HAS_TRANSPORT_TRANSPORT_TYPE) != -1)   {i.setTransport_type(c.getInt(c.getColumnIndexOrThrow(ITINERARY_HAS_TRANSPORT_TRANSPORT_TYPE))); }
             if (c.getColumnIndex(ITINERARY_HAS_TRANSPORT_DRIVER) != -1)           {i.setDriver(c.getInt(c.getColumnIndexOrThrow(ITINERARY_HAS_TRANSPORT_DRIVER))); }
             if (c.getColumnIndex(ITINERARY_HAS_TRANSPORT_SEQUENCE_ITINERARY)!=-1) {i.setSequence_itinerary(c.getInt(c.getColumnIndexOrThrow(ITINERARY_HAS_TRANSPORT_SEQUENCE_ITINERARY))); }

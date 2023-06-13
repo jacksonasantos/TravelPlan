@@ -112,8 +112,10 @@ public class InsuranceDAO extends DbContentProvider implements InsuranceISchema,
         Insurance i = new Insurance();
         if (c != null) {
             if (c.getColumnIndex(INSURANCE_ID) != -1)                      {i.setId(c.getInt(c.getColumnIndexOrThrow(INSURANCE_ID))); }
-            if (c.getColumnIndex(INSURANCE_INSURANCE_COMPANY_ID) != -1)    {i.setInsurance_company_id(c.getInt(c.getColumnIndexOrThrow(INSURANCE_INSURANCE_COMPANY_ID))); }
-            if (c.getColumnIndex(INSURANCE_BROKER_ID) != -1)               {i.setBroker_id(c.getInt(c.getColumnIndexOrThrow(INSURANCE_BROKER_ID))); }
+            if (c.getColumnIndex(INSURANCE_INSURANCE_COMPANY_ID) != -1)    if (c.getInt(c.getColumnIndexOrThrow(INSURANCE_INSURANCE_COMPANY_ID)) == 0) i.setInsurance_company_id(null);
+                                                                           else i.setInsurance_company_id(c.getInt(c.getColumnIndexOrThrow(INSURANCE_INSURANCE_COMPANY_ID)));
+            if (c.getColumnIndex(INSURANCE_BROKER_ID) != -1)               if (c.getInt(c.getColumnIndexOrThrow(INSURANCE_BROKER_ID)) == 0) i.setBroker_id(null);
+                                                                           else i.setBroker_id(c.getInt(c.getColumnIndexOrThrow(INSURANCE_BROKER_ID)));
             if (c.getColumnIndex(INSURANCE_INSURANCE_TYPE) != -1)          {i.setInsurance_type(c.getInt(c.getColumnIndexOrThrow(INSURANCE_INSURANCE_TYPE))); }
             if (c.getColumnIndex(INSURANCE_DESCRIPTION) != -1)             {i.setDescription(c.getString(c.getColumnIndexOrThrow(INSURANCE_DESCRIPTION))); }
             if (c.getColumnIndex(INSURANCE_INSURANCE_POLICY) != -1)        {i.setInsurance_policy(c.getString(c.getColumnIndexOrThrow(INSURANCE_INSURANCE_POLICY))); }
@@ -127,8 +129,10 @@ public class InsuranceDAO extends DbContentProvider implements InsuranceISchema,
             if (c.getColumnIndex(INSURANCE_BONUS_CLASS) != -1)             {i.setBonus_class(c.getInt(c.getColumnIndexOrThrow(INSURANCE_BONUS_CLASS))); }
             if (c.getColumnIndex(INSURANCE_NOTE) != -1)                    {i.setNote(c.getString(c.getColumnIndexOrThrow(INSURANCE_NOTE))); }
             if (c.getColumnIndex(INSURANCE_STATUS) != -1)                  {i.setStatus(c.getInt(c.getColumnIndexOrThrow(INSURANCE_STATUS))); }
-            if (c.getColumnIndex(INSURANCE_TRAVEL_ID) != -1)               {i.setTravel_id(c.getInt(c.getColumnIndexOrThrow(INSURANCE_TRAVEL_ID))); }
-            if (c.getColumnIndex(INSURANCE_VEHICLE_ID) != -1)              {i.setVehicle_id(c.getInt( c.getColumnIndexOrThrow(INSURANCE_VEHICLE_ID))); }
+            if (c.getColumnIndex(INSURANCE_TRAVEL_ID) != -1)               if (c.getInt(c.getColumnIndexOrThrow(INSURANCE_TRAVEL_ID)) == 0) i.setTravel_id(null);
+                                                                           else i.setTravel_id(c.getInt(c.getColumnIndexOrThrow(INSURANCE_TRAVEL_ID)));
+            if (c.getColumnIndex(INSURANCE_VEHICLE_ID) != -1)              if (c.getInt(c.getColumnIndexOrThrow(INSURANCE_VEHICLE_ID)) == 0) i.setVehicle_id(null);
+                                                                           else i.setVehicle_id(c.getInt(c.getColumnIndexOrThrow(INSURANCE_VEHICLE_ID)));
         }
         return i;
     }

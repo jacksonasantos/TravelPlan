@@ -177,7 +177,7 @@ public class FuelSupplyActivity extends AppCompatActivity implements PlacesAdapt
             if (extras.getInt( "fuel_supply_id") > 0) {
                 fuelSupply.setId(extras.getInt("fuel_supply_id"));
                 fuelSupply = Database.mFuelSupplyDao.fetchFuelSupplyById(fuelSupply.getId());
-
+                nrSpAssociatedTravelId = fuelSupply.getAssociated_travel_id();
                 CurrencyQuote c1 = Database.mCurrencyQuoteDao.findQuoteDay(fuelSupply.currency_type, fuelSupply.supply_date);
                 if ( c1.getId() != null && c1.getId() != 0 ) {
                     nrCurrencyQuoteId = c1.getId();

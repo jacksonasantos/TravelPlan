@@ -109,11 +109,13 @@ public class TravelExpensesDAO extends DbContentProvider implements TravelExpens
         TravelExpenses t = new TravelExpenses();
         if (c != null) {
             if (c.getColumnIndex(TRAVEL_EXPENSES_ID) != -1)             {t.setId(c.getInt(c.getColumnIndexOrThrow(TRAVEL_EXPENSES_ID))); }
-            if (c.getColumnIndex(TRAVEL_EXPENSES_TRAVEL_ID) != -1)      {t.setTravel_id(c.getInt(c.getColumnIndexOrThrow(TRAVEL_EXPENSES_TRAVEL_ID))); }
+            if (c.getColumnIndex(TRAVEL_EXPENSES_TRAVEL_ID) != -1)      if (c.getInt(c.getColumnIndexOrThrow(TRAVEL_EXPENSES_TRAVEL_ID)) == 0) t.setTravel_id(null);
+                                                                        else t.setTravel_id(c.getInt(c.getColumnIndexOrThrow(TRAVEL_EXPENSES_TRAVEL_ID)));
             if (c.getColumnIndex(TRAVEL_EXPENSES_EXPENSE_TYPE) != -1)   {t.setExpense_type(c.getInt(c.getColumnIndexOrThrow(TRAVEL_EXPENSES_EXPENSE_TYPE))); }
             if (c.getColumnIndex(TRAVEL_EXPENSES_EXPECTED_VALUE) != -1) {t.setExpected_value(c.getDouble(c.getColumnIndexOrThrow(TRAVEL_EXPENSES_EXPECTED_VALUE))); }
             if (c.getColumnIndex(TRAVEL_EXPENSES_NOTE) != -1 )          {t.setNote(c.getString(c.getColumnIndexOrThrow(TRAVEL_EXPENSES_NOTE))); }
-            if (c.getColumnIndex(TRAVEL_EXPENSES_MARKER_ID) != -1)      {t.setMarker_id(c.getInt(c.getColumnIndexOrThrow(TRAVEL_EXPENSES_MARKER_ID))); }
+            if (c.getColumnIndex(TRAVEL_EXPENSES_MARKER_ID) != -1)      if (c.getInt(c.getColumnIndexOrThrow(TRAVEL_EXPENSES_MARKER_ID)) == 0) t.setMarker_id(null);
+                                                                        else t.setMarker_id(c.getInt(c.getColumnIndexOrThrow(TRAVEL_EXPENSES_MARKER_ID)));
         }
         return t;
     }

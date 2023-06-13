@@ -127,7 +127,8 @@ public class PendingVehicleDAO extends DbContentProvider implements PendingVehic
         PendingVehicle mP = new PendingVehicle();
         if (c != null) {
             if (c.getColumnIndex(PENDING_VEHICLE_ID) != -1)                 {mP.setId(c.getInt(c.getColumnIndexOrThrow(PENDING_VEHICLE_ID))); }
-            if (c.getColumnIndex(PENDING_VEHICLE_VEHICLE_ID) != -1)         {mP.setVehicle_id(c.getInt(c.getColumnIndexOrThrow(PENDING_VEHICLE_VEHICLE_ID))); }
+            if (c.getColumnIndex(PENDING_VEHICLE_VEHICLE_ID) != -1)         if (c.getInt(c.getColumnIndexOrThrow(PENDING_VEHICLE_VEHICLE_ID)) == 0) mP.setVehicle_id(null);
+                                                                            else mP.setVehicle_id(c.getInt(c.getColumnIndexOrThrow(PENDING_VEHICLE_VEHICLE_ID)));
             if (c.getColumnIndex(PENDING_VEHICLE_SERVICE_TYPE) != -1)       {mP.setService_type(c.getInt(c.getColumnIndexOrThrow(PENDING_VEHICLE_SERVICE_TYPE))); }
             if (c.getColumnIndex(PENDING_VEHICLE_NOTE) != -1)               {mP.setNote(c.getString(c.getColumnIndexOrThrow(PENDING_VEHICLE_NOTE))); }
             if (c.getColumnIndex(PENDING_VEHICLE_EXPECTED_VALUE) != -1)     {mP.setExpected_value(c.getDouble(c.getColumnIndexOrThrow(PENDING_VEHICLE_EXPECTED_VALUE))); }

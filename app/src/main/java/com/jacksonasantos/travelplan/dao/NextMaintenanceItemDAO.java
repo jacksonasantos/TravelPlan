@@ -73,7 +73,8 @@ public class NextMaintenanceItemDAO extends DbContentProvider implements NextMai
         NextMaintenanceItem m = new NextMaintenanceItem();
         if (c != null) {
             if (c.getColumnIndex(NEXT_MAINTENANCE_ITEM_SERVICE_ITEM) != -1)        {m.setService_type(c.getInt(c.getColumnIndexOrThrow(NEXT_MAINTENANCE_ITEM_SERVICE_ITEM))); }
-            if (c.getColumnIndex(NEXT_MAINTENANCE_ITEM_MAINTENANCE_PLAN_ID) != -1) {m.setMaintenance_plan_id(c.getInt(c.getColumnIndexOrThrow(NEXT_MAINTENANCE_ITEM_MAINTENANCE_PLAN_ID))); }
+            if (c.getColumnIndex(NEXT_MAINTENANCE_ITEM_MAINTENANCE_PLAN_ID) != -1) if (c.getInt(c.getColumnIndexOrThrow(NEXT_MAINTENANCE_ITEM_MAINTENANCE_PLAN_ID)) == 0) m.setMaintenance_plan_id(null);
+                                                                                   else m.setMaintenance_plan_id(c.getInt(c.getColumnIndexOrThrow(NEXT_MAINTENANCE_ITEM_MAINTENANCE_PLAN_ID)));
             if (c.getColumnIndex(NEXT_MAINTENANCE_ITEM_DESCRIPTION) != -1)         {m.setDescription(c.getString(c.getColumnIndexOrThrow(NEXT_MAINTENANCE_ITEM_DESCRIPTION))); }
             if (c.getColumnIndex(NEXT_MAINTENANCE_ITEM_MEASURE) != -1)             {m.setMeasure(c.getInt(c.getColumnIndexOrThrow(NEXT_MAINTENANCE_ITEM_MEASURE))); }
             if (c.getColumnIndex(NEXT_MAINTENANCE_ITEM_NEXT_SERVICE) != -1)        {m.setNext_service(c.getString(c.getColumnIndexOrThrow(NEXT_MAINTENANCE_ITEM_NEXT_SERVICE))); }

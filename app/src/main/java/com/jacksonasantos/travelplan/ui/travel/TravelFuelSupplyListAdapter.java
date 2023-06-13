@@ -58,13 +58,10 @@ public class TravelFuelSupplyListAdapter extends RecyclerView.Adapter<RecyclerVi
         } else return new ItemViewHolder(fuelSupplyView);
     }
 
-    // Replace the contents of a view (invoked by the layout manager)
-    @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull final RecyclerView.ViewHolder holder, @SuppressLint("RecyclerView") final int position) {
         if (holder instanceof HeaderViewHolder){
             HeaderViewHolder headerViewHolder = (HeaderViewHolder) holder;
-
             headerViewHolder.llVehicleTravelItem.setBackgroundColor(Utils.getColorWithAlpha(R.color.colorItemList,0.1f));
             headerViewHolder.txtVehicle.setText(R.string.Vehicle);
             headerViewHolder.txtSupplyDate.setText(R.string.Home_Travel_Date);
@@ -76,14 +73,13 @@ public class TravelFuelSupplyListAdapter extends RecyclerView.Adapter<RecyclerVi
         else if (holder instanceof ItemViewHolder) {
             final ItemViewHolder itemViewHolder = (ItemViewHolder) holder;
             final FuelSupply fuelSupplyHasTravel = mFuelSupplyHasTravel.get(position-show_header);
-            if (fuelSupplyHasTravel.getVehicle_id() >0) {
+            if (fuelSupplyHasTravel.getVehicle_id() != null) {
                 final Vehicle vehicle = Database.mVehicleDao.fetchVehicleById(fuelSupplyHasTravel.getVehicle_id());
                 itemViewHolder.txtVehicle.setText(vehicle.getShort_name());
             } else {
                 final Transport transport = Database.mTransportDao.fetchTransportById(fuelSupplyHasTravel.getTransport_id());
                 itemViewHolder.txtVehicle.setText(transport.getDescription());
             }
-
             itemViewHolder.txtSupplyDate.setText(Utils.dateToString(fuelSupplyHasTravel.getSupply_date()));
             itemViewHolder.txtLocation.setText(fuelSupplyHasTravel.getGas_station_location());
             itemViewHolder.txtNumberLiters.setText(String.valueOf(fuelSupplyHasTravel.getNumber_liters()));

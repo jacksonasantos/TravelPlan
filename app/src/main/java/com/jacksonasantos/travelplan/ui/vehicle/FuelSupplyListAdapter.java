@@ -89,7 +89,7 @@ public class FuelSupplyListAdapter extends RecyclerView.Adapter<FuelSupplyListAd
         final FuelSupply fuelSupply = mFuelSupply.get(position);
 
         holder.txtSupplyDate.setText(Utils.dateToString(fuelSupply.getSupply_date()));
-        if (fuelSupply.getVehicle_id() >0) {
+        if (fuelSupply.getVehicle_id() != null) {
             final Vehicle v = Database.mVehicleDao.fetchVehicleById(fuelSupply.getVehicle_id());
             holder.txtVehicleShortName.setText(v.getShort_name());
         } else {

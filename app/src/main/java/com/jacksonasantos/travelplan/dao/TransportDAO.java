@@ -87,7 +87,8 @@ public class TransportDAO extends DbContentProvider implements TransportISchema,
         Transport t = new Transport();
         if (c != null) {
             if (c.getColumnIndex(TRANSPORT_ID) != -1)              {t.setId(c.getInt(c.getColumnIndexOrThrow(TRANSPORT_ID))); }
-            if (c.getColumnIndex(TRANSPORT_TRAVEL_ID) != -1)       {t.setTravel_id(c.getInt(c.getColumnIndexOrThrow(TRANSPORT_TRAVEL_ID))); }
+            if (c.getColumnIndex(TRANSPORT_TRAVEL_ID) != -1)       if (c.getInt(c.getColumnIndexOrThrow(TRANSPORT_TRAVEL_ID)) == 0) t.setTravel_id(null);
+                                                                   else t.setTravel_id(c.getInt(c.getColumnIndexOrThrow(TRANSPORT_TRAVEL_ID)));
             if (c.getColumnIndex(TRANSPORT_TRANSPORT_TYPE) != -1)  {t.setTransport_type(c.getInt(c.getColumnIndexOrThrow(TRANSPORT_TRANSPORT_TYPE))); }
             if (c.getColumnIndex(TRANSPORT_IDENTIFIER) != -1)      {t.setIdentifier(c.getString(c.getColumnIndexOrThrow(TRANSPORT_IDENTIFIER))); }
             if (c.getColumnIndex(TRANSPORT_DESCRIPTION) != -1)     {t.setDescription(c.getString(c.getColumnIndexOrThrow(TRANSPORT_DESCRIPTION))); }
