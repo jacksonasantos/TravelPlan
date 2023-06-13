@@ -26,7 +26,7 @@ import java.text.NumberFormat;
 import java.util.List;
 import java.util.Locale;
 
-public class TravelExpensesListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class TravelExpensesExpectedListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private static final int TYPE_HEADER = 0;
     private static final int TYPE_ITEM = 1;
@@ -44,7 +44,7 @@ public class TravelExpensesListAdapter extends RecyclerView.Adapter<RecyclerView
     final NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(locale);
     Double vExpectedValue = 0.0;
 
-    public TravelExpensesListAdapter(Integer travel_id, List<TravelExpenses> travelExpenses, Context context, int show_header, int show_footer, Boolean isHome) {
+    public TravelExpensesExpectedListAdapter(Integer travel_id, List<TravelExpenses> travelExpenses, Context context, int show_header, int show_footer, Boolean isHome) {
         this.mTravelExpenses = travelExpenses;
         this.context = context;
         this.show_header = show_header>=1?1:0;
@@ -76,7 +76,7 @@ public class TravelExpensesListAdapter extends RecyclerView.Adapter<RecyclerView
             headerViewHolder.btnEdit.setVisibility(View.INVISIBLE);
             headerViewHolder.btnAddExpenses.setOnClickListener(v -> {
                 LayoutInflater li = LayoutInflater.from(v.getContext());
-                View promptsView = li.inflate(R.layout.dialog_travel_expenses, null);
+                View promptsView = li.inflate(R.layout.dialog_travel_expenses_expected, null);
                 final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(v.getContext());
                 alertDialogBuilder.setView(promptsView);
                 final Spinner spinExpenseType = promptsView.findViewById(R.id.spinExpenseType);
@@ -131,7 +131,7 @@ public class TravelExpensesListAdapter extends RecyclerView.Adapter<RecyclerView
             itemViewHolder.txtNote.setText(travelExpenses.getNote());
             itemViewHolder.btnEdit.setOnClickListener(v -> {
                 LayoutInflater li = LayoutInflater.from(v.getContext());
-                View promptsView = li.inflate(R.layout.dialog_travel_expenses, null);
+                View promptsView = li.inflate(R.layout.dialog_travel_expenses_expected, null);
 
                 final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(v.getContext());
 

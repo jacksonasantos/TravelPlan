@@ -22,7 +22,6 @@ public class HomeMessageListAdapter extends RecyclerView.Adapter<RecyclerView.Vi
 
     public HomeMessageListAdapter(List<String> message, Context context) {
         this.mMessage = message;
-
         Database mdb = new Database(context);
         mdb.open();
     }
@@ -30,15 +29,12 @@ public class HomeMessageListAdapter extends RecyclerView.Adapter<RecyclerView.Vi
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View messageView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.fragment_home_item_message, parent, false);
-
+        View messageView = LayoutInflater.from(parent.getContext()).inflate(R.layout.fragment_home_item_message, parent, false);
         return new ItemViewHolder(messageView);
     }
 
     @Override
     public void onBindViewHolder(@NonNull final RecyclerView.ViewHolder holder, final int position) {
-
         final ItemViewHolder itemViewHolder = (ItemViewHolder) holder;
         itemViewHolder.llMessageItem.setBackgroundColor(Color.WHITE);
         itemViewHolder.txtMessage.setText(mMessage.get(position));

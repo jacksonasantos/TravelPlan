@@ -96,7 +96,7 @@ public class HomeVehiclePendingVehicleListAdapter extends RecyclerView.Adapter<R
                     .setPositiveButton(R.string.Yes, (dialogInterface, i) -> {
                         try {
                             Database.mPendingVehicleDao.deletePendingVehicle(pendingVehicle.getId());
-                            mPendingVehicle.remove(position);
+                            mPendingVehicle.remove(position-show_header);
                             notifyItemRemoved(position);
                             notifyItemRangeChanged(position, mPendingVehicle.size());
                         } catch (Exception e) {

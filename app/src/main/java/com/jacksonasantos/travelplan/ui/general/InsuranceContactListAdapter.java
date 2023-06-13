@@ -26,20 +26,17 @@ public class InsuranceContactListAdapter extends RecyclerView.Adapter<RecyclerVi
 
     private static final int TYPE_HEADER = 0;
     private static final int TYPE_ITEM = 1;
-    private static final int TYPE_FOOTER = 2;
 
     public final List<InsuranceContact> mInsuranceContact;
     final Context context;
     final int show_header;
-    final int show_footer;
     final Integer insurance_id;
     final boolean show_button;
 
-    public InsuranceContactListAdapter(Integer insurance_id, List<InsuranceContact> insuranceContact, Context context, int show_header, int show_footer, boolean show_button) {
+    public InsuranceContactListAdapter(Integer insurance_id, List<InsuranceContact> insuranceContact, Context context, int show_header, boolean show_button) {
         this.mInsuranceContact = insuranceContact;
         this.context = context;
         this.show_header = show_header>=1?1:0;
-        this.show_footer = show_footer>=1?1:0;
         this.insurance_id = insurance_id;
         this.show_button = show_button;
     }
@@ -47,14 +44,9 @@ public class InsuranceContactListAdapter extends RecyclerView.Adapter<RecyclerVi
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View insuranceContactView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.fragment_item_insurance_contact, parent, false);
-
-        if (viewType == TYPE_HEADER) {
-            return new HeaderViewHolder(insuranceContactView);
-        } else if (viewType == TYPE_FOOTER) {
-            return new FooterViewHolder(insuranceContactView);
-        } else return new ItemViewHolder(insuranceContactView);
+        View insuranceContactView = LayoutInflater.from(parent.getContext()).inflate(R.layout.fragment_item_insurance_contact, parent, false);
+        if (viewType == TYPE_HEADER) return new HeaderViewHolder(insuranceContactView);
+        else return new ItemViewHolder(insuranceContactView);
     }
 
     @SuppressLint({"SetTextI18n", "DefaultLocale"})
@@ -62,7 +54,6 @@ public class InsuranceContactListAdapter extends RecyclerView.Adapter<RecyclerVi
     public void onBindViewHolder(@NonNull final RecyclerView.ViewHolder holder, final int position) {
         if (holder instanceof HeaderViewHolder) {
             HeaderViewHolder headerViewHolder = (HeaderViewHolder) holder;
-
             headerViewHolder.llItemInsuranceContact.setBackgroundColor(Color.LTGRAY);
             headerViewHolder.txtTypeContact.setText(R.string.Insurance_Contact_Type);
             headerViewHolder.txtDescriptionContact.setText(R.string.Insurance_Contact_Description);
@@ -72,26 +63,20 @@ public class InsuranceContactListAdapter extends RecyclerView.Adapter<RecyclerVi
                 headerViewHolder.btnAddInsuranceContact.setOnClickListener(v -> {
                     LayoutInflater li = LayoutInflater.from(v.getContext());
                     View promptsView = li.inflate(R.layout.dialog_insurance_contact, null);
-
                     final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(v.getContext());
-
                     alertDialogBuilder.setView(promptsView);
                     final EditText etType_Contact = promptsView.findViewById(R.id.etType_Contact);
                     final EditText etDescription_Contact = promptsView.findViewById(R.id.etDescription_Contact);
                     final EditText etDetail_Contact = promptsView.findViewById(R.id.etDetail_Contact);
-
                     alertDialogBuilder
                             .setCancelable(false)
                             .setPositiveButton(R.string.OK, (dialog, id) -> {
                                 boolean isSave = false;
-
                                 InsuranceContact IC = new InsuranceContact();
-
                                 IC.setInsurance_id(insurance_id);
                                 IC.setType_contact(etType_Contact.getText().toString());
                                 IC.setDescription_contact(etDescription_Contact.getText().toString());
                                 IC.setDetail_contact(etDetail_Contact.getText().toString());
-
                                 try {
                                     isSave = Database.mInsuranceContactDao.addInsuranceContact(IC);
                                 } catch (Exception e) {
@@ -113,10 +98,8 @@ public class InsuranceContactListAdapter extends RecyclerView.Adapter<RecyclerVi
             }
         }
         else if (holder instanceof ItemViewHolder) {
-
             final ItemViewHolder itemViewHolder = (ItemViewHolder) holder;
             final InsuranceContact insuranceContact = mInsuranceContact.get(position-show_header);
-
             itemViewHolder.txtTypeContact.setText(insuranceContact.getType_contact());
             itemViewHolder.txtDescriptionContact.setText(insuranceContact.getDescription_contact());
             itemViewHolder.txtDetailContact.setText(insuranceContact.getDetail_contact());
@@ -129,8 +112,8 @@ public class InsuranceContactListAdapter extends RecyclerView.Adapter<RecyclerVi
                             try {
                                 Database.mInsuranceContactDao.deleteInsuranceContact(insuranceContact.getId());
                                 mInsuranceContact.remove(position - show_header);
-                                notifyItemRemoved(position - show_header);
-                                notifyItemRangeChanged(position - show_header, mInsuranceContact.size());
+                                notifyItemRemoved(position);
+                                notifyItemRangeChanged(position, mInsuranceContact.size());
                             } catch (Exception e) {
                                 Toast.makeText(context, context.getString(R.string.Error_Deleting_Data) + "\n" + e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
                             }
@@ -143,17 +126,13 @@ public class InsuranceContactListAdapter extends RecyclerView.Adapter<RecyclerVi
     }
     @Override
     public int getItemViewType(int position) {
-        if (position == 0 && show_header == 1) {
-            return TYPE_HEADER;
-        } if (position == mInsuranceContact.size()+show_header && show_footer == 1) {
-            return TYPE_FOOTER;
-        }
-        return TYPE_ITEM;
+        if (position == 0 && show_header == 1) return TYPE_HEADER;
+        else return TYPE_ITEM;
     }
 
     @Override
     public int getItemCount() {
-        return mInsuranceContact.size()+show_header+show_footer;
+        return mInsuranceContact.size()+show_header;
     }
 
     private static class HeaderViewHolder extends RecyclerView.ViewHolder {
@@ -181,23 +160,6 @@ public class InsuranceContactListAdapter extends RecyclerView.Adapter<RecyclerVi
 
         public ItemViewHolder(View v) {
             super(v);
-            txtTypeContact = v.findViewById(R.id.txtTypeContact);
-            txtDescriptionContact = v.findViewById(R.id.txtDescriptionContact);
-            txtDetailContact = v.findViewById(R.id.txtDetailContact);
-            btnDelete = v.findViewById(R.id.btnDelete);
-        }
-    }
-
-    public static class FooterViewHolder extends RecyclerView.ViewHolder {
-        private final LinearLayout llItemInsuranceContact;
-        private final TextView txtTypeContact;
-        private final TextView txtDescriptionContact;
-        private final TextView txtDetailContact;
-        private final ImageButton btnDelete;
-
-        public FooterViewHolder(View v) {
-            super(v);
-            llItemInsuranceContact = v.findViewById(R.id.llItemInsuranceContact);
             txtTypeContact = v.findViewById(R.id.txtTypeContact);
             txtDescriptionContact = v.findViewById(R.id.txtDescriptionContact);
             txtDetailContact = v.findViewById(R.id.txtDetailContact);

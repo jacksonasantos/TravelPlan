@@ -322,7 +322,7 @@ public  class InsuranceActivity extends AppCompatActivity {
                     }
                 }
             }
-            adapterInsuranceContact = new InsuranceContactListAdapter(insurance.getId(), Database.mInsuranceContactDao.fetchInsuranceContactByInsurance(insurance.getId()), getApplicationContext(),1,0, true);
+            adapterInsuranceContact = new InsuranceContactListAdapter(insurance.getId(), Database.mInsuranceContactDao.fetchInsuranceContactByInsurance(insurance.getId()), getApplicationContext(),1,true);
             rvInsuranceContact.setAdapter(adapterInsuranceContact);
             rvInsuranceContact.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
             adapterInsuranceContact.notifyDataSetChanged();
@@ -339,7 +339,6 @@ public  class InsuranceActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), R.string.Error_Data_Validation, Toast.LENGTH_LONG).show();
             } else {
                 final Insurance i1 = new Insurance();
-
                 i1.setInsurance_type(rbInsuranceType);
                 i1.setInsurance_company_id(nrSpinInsurance_Company);
                 i1.setDescription(etDescription.getText().toString());
@@ -355,8 +354,6 @@ public  class InsuranceActivity extends AppCompatActivity {
                 i1.setBonus_class(Integer.parseInt(etBonus_Class.getText().toString()));
                 i1.setNote(etNote.getText().toString());
                 i1.setStatus(nrStatus);
-                //i1.setTravel_id(nrSpinTravel==0 ? null : nrSpinTravel);
-                //i1.setVehicle_id(nrSpinVehicle == 0 ? null : nrSpinVehicle);
                 i1.setTravel_id(nrSpinTravel);
                 i1.setVehicle_id(nrSpinVehicle);
 

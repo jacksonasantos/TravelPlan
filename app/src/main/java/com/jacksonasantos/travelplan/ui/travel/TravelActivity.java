@@ -38,7 +38,7 @@ public class TravelActivity extends AppCompatActivity {
     private TravelVehicleListAdapter adapterVehicleTravel;
     private TourListAdapter adapterTourTravel;
     private TravelAchievementListAdapter adapterAchievementTravel;
-    private TravelExpensesListAdapter adapterTravelExpenses;
+    private TravelExpensesExpectedListAdapter adapterTravelExpenses;
 
     private boolean opInsert = true;
     private Travel travel;
@@ -123,7 +123,7 @@ public class TravelActivity extends AppCompatActivity {
             rvAchievementTravel.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
             adapterAchievementTravel.notifyDataSetChanged();
 
-            adapterTravelExpenses = new TravelExpensesListAdapter(travel.getId(), Database.mTravelExpensesDao.fetchAllTravelExpensesByTravel(travel.getId()), getApplicationContext(),1,0, false);
+            adapterTravelExpenses = new TravelExpensesExpectedListAdapter(travel.getId(), Database.mTravelExpensesDao.fetchAllTravelExpensesByTravel(travel.getId()), getApplicationContext(),1,0, false);
             rvTravelExpenses.setAdapter(adapterTravelExpenses);
             rvTravelExpenses.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
             adapterTravelExpenses.notifyDataSetChanged();

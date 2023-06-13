@@ -1,4 +1,4 @@
-package com.jacksonasantos.travelplan.ui.home;
+package com.jacksonasantos.travelplan.ui.travel;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -26,7 +26,7 @@ import java.text.NumberFormat;
 import java.util.List;
 import java.util.Locale;
 
-public class HomeTravelItemExpensesListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class TravelExpensesRealizedListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private static final int TYPE_HEADER = 0;
     private static final int TYPE_ITEM = 1;
@@ -44,7 +44,7 @@ public class HomeTravelItemExpensesListAdapter extends RecyclerView.Adapter<Recy
     final Locale locale = new Locale(g.getLanguage(), g.getCountry());
     final NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(locale);
 
-    public HomeTravelItemExpensesListAdapter(List<TravelItemExpenses> travelItemExpenses, Context context, int show_header, int show_footer, Integer travel_id, int expense_type) {
+    public TravelExpensesRealizedListAdapter(List<TravelItemExpenses> travelItemExpenses, Context context, int show_header, int show_footer, Integer travel_id, int expense_type) {
         this.mTravelItemExpenses = travelItemExpenses;
         this.context = context;
         this.show_header = show_header >= 1 ? 1 : 0;
@@ -74,7 +74,7 @@ public class HomeTravelItemExpensesListAdapter extends RecyclerView.Adapter<Recy
             headerViewHolder.btnAdd.setImageResource(R.drawable.ic_button_add);
             headerViewHolder.btnAdd.setOnClickListener(v -> {
                 LayoutInflater li = LayoutInflater.from(v.getContext());
-                View promptsView = li.inflate(R.layout.dialog_item_expenses, null);
+                View promptsView = li.inflate(R.layout.dialog_travel_expenses_realized, null);
                 final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(v.getContext());
                 alertDialogBuilder.setView(promptsView);
                 final EditText etExpenseDate = promptsView.findViewById(R.id.etExpenseDate);
@@ -130,8 +130,8 @@ public class HomeTravelItemExpensesListAdapter extends RecyclerView.Adapter<Recy
                         try {
                             Database.mTravelItemExpensesDao.deleteTravelItemExpenses(travelItemExpenses.getId());
                             mTravelItemExpenses.remove(position - show_header);
-                            notifyItemRemoved(position - show_header);
-                            notifyItemRangeChanged(position - show_header, mTravelItemExpenses.size());
+                            notifyItemRemoved(position );
+                            notifyItemRangeChanged(position, mTravelItemExpenses.size());
                         } catch (Exception e) {
                             Toast.makeText(context, context.getString(R.string.Error_Deleting_Data) + "\n" + e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
                         }

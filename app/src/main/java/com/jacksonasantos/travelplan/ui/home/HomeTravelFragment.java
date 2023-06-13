@@ -35,7 +35,8 @@ import com.jacksonasantos.travelplan.ui.travel.ReservationActivity;
 import com.jacksonasantos.travelplan.ui.travel.ReservationListAdapter;
 import com.jacksonasantos.travelplan.ui.travel.TourActivity;
 import com.jacksonasantos.travelplan.ui.travel.TravelAchievementListAdapter;
-import com.jacksonasantos.travelplan.ui.travel.TravelExpensesListAdapter;
+import com.jacksonasantos.travelplan.ui.travel.TravelExpensesExpectedListAdapter;
+import com.jacksonasantos.travelplan.ui.travel.TravelExpensesRealizedListAdapter;
 import com.jacksonasantos.travelplan.ui.travel.TravelFuelSupplyListAdapter;
 import com.jacksonasantos.travelplan.ui.travel.TravelRouteFragment;
 import com.jacksonasantos.travelplan.ui.travel.TourListAdapter;
@@ -459,23 +460,23 @@ public class HomeTravelFragment extends Fragment implements View.OnClickListener
                 // TODO - show items registered in other tables to choose from and link to the executed expense, changing or marking the status of the expenses incurred
                 // TODO - show the markers for each type to choose from in the expense record
                 LayoutInflater li = LayoutInflater.from(v.getContext());
-                View promptsView = li.inflate(R.layout.dialog_travel_item_expenses, null);
+                View promptsView = li.inflate(R.layout.dialog_travel_expenses_itens, null);
 
                 final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(v.getContext());
                 alertDialogBuilder.setView(promptsView);
 
-                final HomeTravelItemExpensesListAdapter[] adapterTravelItemExpenses = new HomeTravelItemExpensesListAdapter[1];
+                final TravelExpensesRealizedListAdapter[] adapterTravelItemExpenses = new TravelExpensesRealizedListAdapter[1];
                 final TextView txtExpenseType = promptsView.findViewById(R.id.txtExpenseType);
                 final RecyclerView rvTravelExpenseExpected = promptsView.findViewById(R.id.rvTravelExpenseExpected);
                 final RecyclerView rvTravelExpenseItem = promptsView.findViewById(R.id.rvTravelExpenseItem);
 
                 txtExpenseType.setText(getResources().getStringArray(R.array.expenses_type_array)[expense_type]);
 
-                TravelExpensesListAdapter adapterTravelExpenses = new TravelExpensesListAdapter(travel[0].getId(), Database.mTravelExpensesDao.fetchAllTravelExpensesByTravelType(travel[0].getId(), expense_type), requireContext(), 1, 1, true);
+                TravelExpensesExpectedListAdapter adapterTravelExpenses = new TravelExpensesExpectedListAdapter(travel[0].getId(), Database.mTravelExpensesDao.fetchAllTravelExpensesByTravelType(travel[0].getId(), expense_type), requireContext(), 1, 1, true);
                 rvTravelExpenseExpected.setAdapter(adapterTravelExpenses);
                 rvTravelExpenseExpected.setLayoutManager(new LinearLayoutManager(requireContext()));
 
-                adapterTravelItemExpenses[0] = new HomeTravelItemExpensesListAdapter(Database.mTravelItemExpensesDao.fetchTravelItemExpensesByExpenseType( travel[0].getId(), expense_type), requireContext(),1,1, travel[0].getId(), expense_type);
+                adapterTravelItemExpenses[0] = new TravelExpensesRealizedListAdapter(Database.mTravelItemExpensesDao.fetchTravelItemExpensesByExpenseType( travel[0].getId(), expense_type), requireContext(),1,1, travel[0].getId(), expense_type);
                 rvTravelExpenseItem.setAdapter(adapterTravelItemExpenses[0]);
                 rvTravelExpenseItem.setLayoutManager(new LinearLayoutManager(requireContext()));
 
