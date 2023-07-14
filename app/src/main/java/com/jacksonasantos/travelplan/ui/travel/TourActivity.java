@@ -340,7 +340,6 @@ public class TourActivity extends AppCompatActivity implements TourTypeListAdapt
                 t1.setCountry_tour(etCountryTour.getText().toString());
                 t1.setLatlng_tour(etLatLngTour.getText().toString());
                 t1.setAchievement_id(nrSpAchievement);
-                // TODO - Atualizar Conquistas com o vinculo FK da viagem planejada
                 if (!opInsert) {
                     try {
                         t1.setId(tour.getId());
@@ -358,6 +357,9 @@ public class TourActivity extends AppCompatActivity implements TourTypeListAdapt
 
                 setResult(isSave ? 1 : 0);
                 if (isSave) {
+                    Intent i = new Intent();
+                    i.putExtra("resulted_value", t1.toString());
+                    setResult(128, i);
                     finish();
                 } else {
                     Toast.makeText(getApplicationContext(), R.string.Error_Saving_Data, Toast.LENGTH_LONG).show();

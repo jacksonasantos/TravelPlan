@@ -499,6 +499,7 @@
 
     <!-- Achievement Fragment -->
     <string name="Achievement">Achievement</string>
+    <string name="add_new_achievement">ADD New Achievement</string>
     <string name="Achievement_Deleting">Deleting Achievement</string>
 
     <string name="Achievement_Short_Name">Short Name</string>

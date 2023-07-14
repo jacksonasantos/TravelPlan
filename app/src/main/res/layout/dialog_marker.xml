@@ -76,23 +76,30 @@
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="2"
+                    android:layout_weight="2.2"
                     android:text="@string/marker_achievement"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:textSize="10sp"
                     android:layout_gravity="center"
                     tools:ignore="SmallSp" />
-
                 <Spinner
                     android:id="@+id/spinMarkerAchievement"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="8"
+                    android:layout_weight="7.8"
+                    android:layout_gravity="center"
                     android:text="@string/marker_achievement"
                     android:textSize="10sp"
                     tools:ignore="SmallSp">
-
                 </Spinner>
+                <ImageButton
+                    android:id="@+id/btAddAchievement"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:layout_gravity="center"
+                    android:contentDescription="@string/add_new_achievement"
+                    android:scaleType="centerCrop"
+                    app:srcCompat="@drawable/ic_button_add_circle" />
             </LinearLayout>
 
             <LinearLayout
@@ -104,22 +111,29 @@
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="2"
+                    android:layout_weight="2.2"
+                    android:layout_gravity="center"
                     android:text="@string/Tour"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:textSize="10sp"
-                    android:layout_gravity="center"
                     tools:ignore="SmallSp" />
-
                 <Spinner
                     android:id="@+id/spinTour"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="8"
+                    android:layout_weight="7.8"
+                    android:layout_gravity="center"
                     android:textSize="10sp"
                     tools:ignore="SmallSp">
-
                 </Spinner>
+                <ImageButton
+                    android:id="@+id/btAddTour"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:layout_gravity="center"
+                    android:contentDescription="@string/add_new_achievement"
+                    android:scaleType="centerCrop"
+                    app:srcCompat="@drawable/ic_button_add_circle" />
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"

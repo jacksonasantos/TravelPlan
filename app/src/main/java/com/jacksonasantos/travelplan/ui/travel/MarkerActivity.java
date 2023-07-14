@@ -40,6 +40,7 @@ import com.jacksonasantos.travelplan.dao.Tour;
 import com.jacksonasantos.travelplan.dao.Travel;
 import com.jacksonasantos.travelplan.dao.TravelExpenses;
 import com.jacksonasantos.travelplan.dao.general.Database;
+import com.jacksonasantos.travelplan.ui.general.AchievementActivity;
 import com.jacksonasantos.travelplan.ui.utility.Abbreviations;
 import com.jacksonasantos.travelplan.ui.utility.Utils;
 
@@ -54,21 +55,21 @@ public class MarkerActivity extends AppCompatActivity implements MarkerTypeListA
     private boolean opInsert = true;
 
     private Marker marker;
+    Travel travel;
 
     private TextView tvLat, tvLng, tvName, tvAddress, tvCity, tvState, tvAbbrCountry, tvCountry;
     private Spinner spinItinerary, spinMarkerAchievement, spinTour;
     private Integer nrSpinItinerary, nrSpinMarkerAchievement, nrSpinTour;
     private EditText etSeq, etDescription, etExpectedValue ;
-    private ImageButton btLocation;
+    private ImageButton btLocation, btAddAchievement, btAddTour;
     private RecyclerView rvListMarkers, rvMarkerType;
     private LinearLayout llItinerary, llAchievement, llTour;
     private int nrMarkerType = -1;
 
-    // TODO - Include ADD Tour Button
-    // TODO - Include ADD Achievement Button
     public MarkerTypeListAdapter adapterMarkerType;
 
-    Travel travel;
+    protected ArrayAdapter<Tour> adapterT = null;
+
     @SuppressLint("ResourceType")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,7 +82,7 @@ public class MarkerActivity extends AppCompatActivity implements MarkerTypeListA
         setContentView(R.layout.dialog_marker);
 
         if (ActivityCompat.checkSelfPermission(getBaseContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
-                ActivityCompat.checkSelfPermission(getBaseContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.checkSelfPermission(getBaseContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             requestPermissionLauncher.launch(Manifest.permission.ACCESS_FINE_LOCATION);
             requestPermissionLauncher.launch(Manifest.permission.ACCESS_COARSE_LOCATION);
         }
@@ -95,6 +96,8 @@ public class MarkerActivity extends AppCompatActivity implements MarkerTypeListA
         tvAbbrCountry = findViewById(R.id.tvAbbrCountry);
         tvCountry = findViewById(R.id.tvCountry);
         btLocation = findViewById(R.id.btLocation);
+        btAddAchievement = findViewById(R.id.btAddAchievement);
+        btAddTour = findViewById(R.id.btAddTour);
         spinItinerary = findViewById(R.id.spinItinerary);
         spinMarkerAchievement = findViewById(R.id.spinMarkerAchievement);
         spinTour =findViewById(R.id.spinTour);
@@ -166,6 +169,17 @@ public class MarkerActivity extends AppCompatActivity implements MarkerTypeListA
             myActivityResultLauncher.launch(intent);
         });
 
+        btAddAchievement.setOnClickListener(view -> {
+            Intent intent = new Intent (getBaseContext(), AchievementActivity.class);
+            myActivityResultLauncher.launch(intent);
+        });
+
+        btAddTour.setOnClickListener(view -> {
+            Intent intent = new Intent (getBaseContext(), TourActivity.class);
+            intent.putExtra("travel_id", marker.getTravel_id());
+            myActivityResultLauncher.launch(intent);
+        });
+
         final List<Itinerary> itineraries =  Database.mItineraryDao.fetchAllItineraryByTravel(travel.getId());
         itineraries.add(0, new Itinerary());
         ArrayAdapter<Itinerary> adapterA = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, itineraries);
@@ -200,9 +214,9 @@ public class MarkerActivity extends AppCompatActivity implements MarkerTypeListA
             public void onNothingSelected(AdapterView<?> adapterView) {nrSpinMarkerAchievement = -1;}
         });
 
-        final List<Tour> tours =  Database.mTourDao.fetchAllTour();
+        final List<Tour> tours =  Database.mTourDao.fetchAllTourByTravel(marker.getTravel_id());
         tours.add(0, new Tour());
-        ArrayAdapter<Tour> adapterT = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, tours);
+        adapterT = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, tours);
         adapterT.setDropDownViewResource( android.R.layout.simple_spinner_dropdown_item);
         spinTour.setAdapter(adapterT);
         nrSpinTour = marker.getTour_id();
@@ -328,6 +342,15 @@ public class MarkerActivity extends AppCompatActivity implements MarkerTypeListA
                             tvCity.setText(data.getStringExtra("resulted_city"));
                             tvState.setText(data.getStringExtra("resulted_state"));
                             tvCountry.setText(data.getStringExtra("resulted_country"));
+                        }
+                    } else {
+                        if (result.getResultCode() == 128) {
+                            final List<Tour> tours =  Database.mTourDao.fetchAllTourByTravel(marker.getTravel_id());
+                            tours.add(0, new Tour());
+                            adapterT.clear();
+                            adapterT.addAll(tours);
+                            adapterT.notifyDataSetChanged() ;
+                            spinTour.requestFocus();
                         }
                     }
                 }
