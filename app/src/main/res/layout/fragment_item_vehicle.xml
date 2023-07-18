@@ -3,6 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/llVehicle"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
@@ -61,12 +62,6 @@
         android:contentDescription="@string/bt_Refuel"
         app:srcCompat="@drawable/ic_supply" />
 
-    <ImageButton
-        android:id="@+id/btnEdit"
-        android:layout_width="35dp"
-        android:layout_height="35dp"
-        android:contentDescription="@string/bt_Edit"
-        app:srcCompat="@drawable/ic_button_edit" />
 
     <ImageButton
         android:id="@+id/btnDelete"

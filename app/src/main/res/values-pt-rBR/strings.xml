@@ -36,7 +36,7 @@
     <string name="Vehicle_Type">Tipo de Veículo</string>
     <string name="Vehicle_Id">Identificação do Veículo</string>
     <string name="FuelSupply_Gas_Station">Posto de Abastecimento</string>
-    <string name="FuelSupply_Vehicle">Veículo do Abastecimento</string>
+    <string name="FuelSupply_Vehicle">Abastecimento do Veículo</string>
     <string name="FuelSupply_Deleting">Excluindo Abastecimento de Combustível</string>
     <string name="FuelSupply_Gas_Station_Location">Localização do Posto de Abastecimento</string>
     <string name="gasoline_common">Gasolina Comum</string>

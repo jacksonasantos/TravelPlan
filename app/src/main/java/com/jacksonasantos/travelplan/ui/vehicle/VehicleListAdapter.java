@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -34,7 +35,7 @@ public class VehicleListAdapter extends RecyclerView.Adapter<VehicleListAdapter.
         public final ImageView imVehicleType;
         public final TextView txtPlate;
         public final TextView txtShortName;
-        public final ImageButton btnEdit;
+        public final LinearLayout llVehicle;
         public final ImageButton btnDelete;
         public final ImageButton btnRefuel;
         public final ImageButton btnPlan;
@@ -45,12 +46,11 @@ public class VehicleListAdapter extends RecyclerView.Adapter<VehicleListAdapter.
             imVehicleType = v.findViewById(R.id.imVehicleType);
             txtPlate = v.findViewById(R.id.txtPlate);
             txtShortName = v.findViewById(R.id.txtShortName);
-            btnEdit = v.findViewById(R.id.btnEdit);
+            llVehicle = v.findViewById(R.id.llVehicle);
             btnDelete = v.findViewById(R.id.btnDelete);
             btnRefuel = v.findViewById(R.id.btnRefuel);
             btnPlan = v.findViewById(R.id.btnPlan);
             btnMaintenance = v.findViewById(R.id.btnMaintenance);
-            btnEdit.setOnClickListener(this);
             btnDelete.setOnClickListener(this);
             btnRefuel.setOnClickListener(this);
             btnPlan.setOnClickListener(this);
@@ -65,7 +65,6 @@ public class VehicleListAdapter extends RecyclerView.Adapter<VehicleListAdapter.
     public VehicleListAdapter(List<Vehicle> vehicles, Context context) {
         this.mVehicle = vehicles;
         this.context = context;
-
         Database mdb = new Database(context);
         mdb.open();
     }
@@ -114,11 +113,12 @@ public class VehicleListAdapter extends RecyclerView.Adapter<VehicleListAdapter.
             context.startActivity(intent);
         });
 
-        // btnEdit
-        holder.btnEdit.setOnClickListener (v -> {
+        // Edit
+        holder.llVehicle.setOnClickListener (v -> {
             Intent intent = new Intent (v.getContext(), VehicleActivity.class);
             intent.putExtra("id", vehicle.getId());
             context.startActivity(intent);
+            mVehicle.set(position,vehicle);
             notifyItemChanged(position);
         });
 
