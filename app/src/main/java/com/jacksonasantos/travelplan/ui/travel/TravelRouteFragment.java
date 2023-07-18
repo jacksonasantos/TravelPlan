@@ -448,13 +448,13 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
                     Marker lastMarker = Database.mMarkerDao.fetchLastMarkerByTravelItinerary(travel_id, itinerary.getId());
                     LatLng lastPoint = new LatLng(Double.parseDouble(lastMarker.getLatitude()), Double.parseDouble(lastMarker.getLongitude()));
                     for (int x=0; x < cTour.size(); x++) {
-                        hasMarker = true;
                         pointsRoute.clear();
                         pointsRoute.add(lastPoint);
                         String[] point = cTour.get(x).getLatlng_tour().split(",");
                         LatLng latlng = new LatLng(Double.parseDouble(point[0]), Double.parseDouble(point[1]));
                         drawMarker(latlng, cTour.get(x).getNote(), ContextCompat.getColor(requireContext(), R.color.colorMarker), Marker.getMarker_typeImage(6));
                         if (x==cTour.size()-1) {
+                            hasMarker = true;
                             pointsRoute.add(new LatLng(Double.parseDouble(lastMarker.getLatitude()), Double.parseDouble(lastMarker.getLongitude())));
                         }
                         routeClass.drawRoute(googleMap, getContext(), pointsRoute, false, lang, false, "Tour", cTour.get(x).getId(), itinerary.getSequence(), null, false, 2);
@@ -465,10 +465,12 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
                 cTour = Database.mTourDao.fetchAllTourByTravelItinerary(travel_id, null);
                 if (cTour.size() > 0) {
                     for (int x=0; x < cTour.size(); x++) {
-                        hasMarker = true;
-                        String[] point = cTour.get(x).getLatlng_tour().split(",");
-                        LatLng latlng = new LatLng(Double.parseDouble(point[0]), Double.parseDouble(point[1]));
-                        drawMarker(latlng, cTour.get(x).getNote(), ContextCompat.getColor(requireContext(), R.color.colorAccent), Marker.getMarker_typeImage(6));
+                        if (!cTour.get(x).getLatlng_tour().isEmpty()) {
+                            hasMarker = true;
+                            String[] point = cTour.get(x).getLatlng_tour().split(",");
+                            LatLng latlng = new LatLng(Double.parseDouble(point[0]), Double.parseDouble(point[1]));
+                            drawMarker(latlng, cTour.get(x).getNote(), ContextCompat.getColor(requireContext(), R.color.colorAccent), Marker.getMarker_typeImage(6));
+                        }
                     }
                 }
             }
@@ -670,6 +672,15 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
                                     itinerary.getDest_location())
                             .setPositiveButton(R.string.Yes, (dialogInterface, i) -> {
                                 try {
+                                    List<Tour> tours = Database.mTourDao.fetchAllTourByTravelItinerary(itinerary.getTravel_id(), itinerary.getId());
+                                    for (int x=0; x < tours.size(); x++) {
+                                        Database.mTourDao.deleteTour(tours.get(x).getId());
+                                    }
+                                    List<Marker> markers = Database.mMarkerDao.fetchMarkerByTravelItineraryId(itinerary.getTravel_id(), itinerary.getId());
+                                    for (int x=0; x < markers.size(); x++) {
+                                        Database.mTravelExpensesDao.deleteTravelExpenses(Database.mTravelExpensesDao.fetchTravelExpensesByTravelMarker(markers.get(x).getTravel_id(), markers.get(x).getId()).getId());
+                                        Database.mMarkerDao.deleteMarker(markers.get(x).getId());
+                                    }
                                     Database.mItineraryDao.deleteItinerary(itinerary.getId());
                                     ItineraryActivity.adjustItinerary( itinerary.getTravel_id(), itinerary.getSequence(), false);
                                     mItinerary = Database.mItineraryDao.fetchAllItineraryByTravel(nrTravel_Id);

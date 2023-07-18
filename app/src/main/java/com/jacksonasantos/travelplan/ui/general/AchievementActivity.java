@@ -1,6 +1,7 @@
 package com.jacksonasantos.travelplan.ui.general;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -25,6 +26,7 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.jacksonasantos.travelplan.R;
@@ -67,6 +69,7 @@ public class AchievementActivity extends AppCompatActivity {
     private boolean opInsert = true;
     private Achievement achievement;
 
+    @SuppressLint("NotifyDataSetChanged")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -78,7 +81,7 @@ public class AchievementActivity extends AppCompatActivity {
         setContentView(R.layout.activity_achievement);
 
         if (ActivityCompat.checkSelfPermission(getBaseContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
-                ActivityCompat.checkSelfPermission(getBaseContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.checkSelfPermission(getBaseContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             requestPermissionLauncher.launch(Manifest.permission.ACCESS_FINE_LOCATION);
             requestPermissionLauncher.launch(Manifest.permission.ACCESS_COARSE_LOCATION);
         }
@@ -181,6 +184,10 @@ public class AchievementActivity extends AppCompatActivity {
             } else {
                 imgStatusAchievement.setBackgroundColor(Color.LTGRAY);
             }
+            AchievementTravelListAdapter adapterAchievementTravel = new AchievementTravelListAdapter(Database.mAchievementDao.fetchAllAchievementWithTravel(achievement.getId()), getApplicationContext(), 1);
+            rvAchievementTravel.setAdapter(adapterAchievementTravel);
+            rvAchievementTravel.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+            adapterAchievementTravel.notifyDataSetChanged();
         }
     }
 
