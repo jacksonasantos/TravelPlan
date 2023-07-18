@@ -18,10 +18,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.jacksonasantos.travelplan.R;
 import com.jacksonasantos.travelplan.dao.Achievement;
+import com.jacksonasantos.travelplan.dao.Itinerary;
+import com.jacksonasantos.travelplan.dao.Marker;
 import com.jacksonasantos.travelplan.dao.general.Database;
 import com.jacksonasantos.travelplan.ui.utility.Utils;
 
 import java.util.List;
+import java.util.Objects;
 
 public class TravelAchievementListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
@@ -39,7 +42,7 @@ public class TravelAchievementListAdapter extends RecyclerView.Adapter<RecyclerV
         this.mTravel_id = travel_id;
         this.context = context;
         this.form = form;
-        this.show_header = show_header; // 0 - NO SHOW HEADER | 1 - SHOW HEADER
+        this.show_header = show_header;
     }
 
     @NonNull
@@ -61,10 +64,8 @@ public class TravelAchievementListAdapter extends RecyclerView.Adapter<RecyclerV
             headerViewHolder.imgAchievement.setImageBitmap(null);
             headerViewHolder.txtNameAchievement.setText(R.string.Achievement);
             headerViewHolder.txtShortNameAchievement.setText(R.string.Achievement_Short_Name);
-            headerViewHolder.txtSequenceAchievement.setText(R.string.Itinerary_Sequence);
-            headerViewHolder.btnAddAchievement.setImageResource(R.drawable.ic_button_add);
-            headerViewHolder.btnAddAchievement.setOnClickListener(v -> {  });
-            // TODO- Implement relationship on achievement and travel
+            headerViewHolder.txtSequenceAchievement.setText(R.string.Itinerary_Label);
+            headerViewHolder.btnAddAchievement.setVisibility(View.INVISIBLE);
         }
         else if (holder instanceof ItemViewHolder) {
             final ItemViewHolder itemViewHolder = (ItemViewHolder) holder;
@@ -79,7 +80,13 @@ public class TravelAchievementListAdapter extends RecyclerView.Adapter<RecyclerV
                     itemViewHolder.imgAchievement.setAlpha(0.5f);
                 }
             }
-            //itemViewHolder.txtSequenceAchievement.setText(String.valueOf(Database.mItineraryDao.fetchItineraryById(achievement.getItinerary_id()).getSequence()));
+            List<Marker> achievements = Database.mAchievementDao.fetchAllAchievementWithTravel(achievement.getId());
+            for (int i=0; i<achievements.size(); i++){
+                if (Objects.equals(achievements.get(i).getTravel_id(), mTravel_id)){
+                    Itinerary itinerary = Database.mItineraryDao.fetchItineraryById(achievements.get(i).getItinerary_id());
+                    itemViewHolder.txtSequenceAchievement.setText(String.valueOf(itinerary.getSequence()));
+                }
+            }
             itemViewHolder.txtNameAchievement.setText(achievement.getName());
             itemViewHolder.txtShortNameAchievement.setText(achievement.getShort_name());
 

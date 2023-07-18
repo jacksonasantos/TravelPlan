@@ -424,6 +424,7 @@
     <!-- Itinerary Fragment -->
     <string name="Itinerary">Itinerary</string>
 
+    <string name="Itinerary_Label" translatable="false">Itin</string>
     <string name="Itinerary_Sequence">Sequence</string>
     <string name="Itinerary_Date">Date</string>
     <string name="Itinerary_Source">Source</string>
