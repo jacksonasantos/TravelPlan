@@ -15,7 +15,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.jacksonasantos.travelplan.R;
 import com.jacksonasantos.travelplan.dao.Transport;
-import com.jacksonasantos.travelplan.dao.general.Database;
 import com.jacksonasantos.travelplan.ui.utility.Utils;
 
 import java.util.List;
@@ -24,7 +23,14 @@ public class TransportTypeListAdapter extends RecyclerView.Adapter<TransportType
 
     public final List<Integer> mTransportType;
     final Context context;
+    private static int nrTransportType =0;
     private ItemClickListener mItemClickListener;
+
+    public TransportTypeListAdapter(List<Integer> transportType, Context context, int nrTransportType) {
+        this.mTransportType = transportType;
+        this.context = context;
+        TransportTypeListAdapter.nrTransportType = nrTransportType;
+    }
 
     public static class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
@@ -38,9 +44,10 @@ public class TransportTypeListAdapter extends RecyclerView.Adapter<TransportType
             img_transport_type = v.findViewById(R.id.img_transport_type);
             img_transport_type.setOnClickListener(this);
             tv_transport_type = v.findViewById(R.id.tv_transport_type);
+            Utils.selected_position = nrTransportType;
         }
         void bindItem(int pos) {
-            if(Utils.selected_position==pos){
+            if (Utils.selected_position==pos) {
                 ll_transport_type.setBackgroundColor(Color.LTGRAY);
             } else {
                 ll_transport_type.setBackgroundColor(Color.WHITE);
@@ -49,14 +56,6 @@ public class TransportTypeListAdapter extends RecyclerView.Adapter<TransportType
         @Override
         public void onClick(View view) {
         }
-    }
-
-    public TransportTypeListAdapter(List<Integer> transportType, Context context) {
-        this.mTransportType = transportType;
-        this.context = context;
-
-        Database mdb = new Database(context);
-        mdb.open();
     }
 
     @NonNull
@@ -72,6 +71,7 @@ public class TransportTypeListAdapter extends RecyclerView.Adapter<TransportType
         mItemClickListener = listener;
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     @Override
     public void onBindViewHolder(@NonNull final MyViewHolder holder, @SuppressLint("RecyclerView") final int position) {
         holder.bindItem(position);

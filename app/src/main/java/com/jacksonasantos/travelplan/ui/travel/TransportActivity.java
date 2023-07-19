@@ -92,6 +92,13 @@ public class TransportActivity extends AppCompatActivity implements TransportTyp
         setTitle(R.string.Transport);
         setContentView(R.layout.dialog_transport);
 
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
+
+        addListenerOnButtonSave();
+
         Bundle extras = getIntent().getExtras();
         transport = new Transport();
         transport.setService_value(0.0);
@@ -99,45 +106,6 @@ public class TransportActivity extends AppCompatActivity implements TransportTyp
         transport.setAmount_paid(0.0);
         llTransportTypeOwn = findViewById(R.id.llTransportTypeOwn);
         llTransportType = findViewById(R.id.llTransportType);
-
-        if (nrTransportType==-1) {
-            llTransportTypeOwn.setVisibility(View.VISIBLE);
-            llTransportType.setVisibility(View.GONE);
-        }
-        if (extras != null) {
-            if (extras.getBoolean("op_result")) {
-                opResult = true;
-            }
-            if (extras.getInt( "transport_id") > 0) {
-                transport.setId(extras.getInt("transport_id"));
-                transport = Database.mTransportDao.fetchTransportById(transport.getId());
-                opInsert = false;
-                nrTransportType = transport.getTransport_type();
-                llTransportTypeOwn.setVisibility(View.GONE);
-                llTransportType.setVisibility(View.GONE);
-            }
-            if (extras.getInt( "travel_id") > 0) {
-                transport.setTravel_id(extras.getInt("travel_id"));
-            }
-            if (extras.getInt( "transport_type") > 0) {
-                nrTransportType = extras.getInt("transport_type");
-                llTransportTypeOwn.setVisibility(View.GONE);
-                llTransportType.setVisibility(View.GONE);
-            }
-        }
-
-        if (nrTransportType==0) {
-            llTransportTypeOwn.setVisibility(View.VISIBLE);
-        } else {
-            llTransportType.setVisibility(View.VISIBLE);
-        }
-
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.setDisplayHomeAsUpEnabled(true);
-        }
-
-        addListenerOnButtonSave();
 
         tvTravel = findViewById(R.id.tvTravel);
         rvTransportType = findViewById(R.id.rvTransportType);
@@ -172,16 +140,47 @@ public class TransportActivity extends AppCompatActivity implements TransportTyp
         tvTransportPerson = findViewById(R.id.tvTransportPerson);
         rvTransportPerson = findViewById(R.id.rvTransportPerson);
 
-        //nrTransportType = -1;
+        if (nrTransportType==-1) {
+            llTransportTypeOwn.setVisibility(View.VISIBLE);
+            llTransportType.setVisibility(View.GONE);
+        }
+        if (extras != null) {
+            if (extras.getBoolean("op_result")) {
+                opResult = true;
+            }
+            if (extras.getInt( "transport_id") > 0) {
+                transport.setId(extras.getInt("transport_id"));
+                transport = Database.mTransportDao.fetchTransportById(transport.getId());
+                opInsert = false;
+                nrTransportType = transport.getTransport_type();
+                llTransportTypeOwn.setVisibility(View.GONE);
+                llTransportType.setVisibility(View.GONE);
+            }
+            if (extras.getInt( "travel_id") > 0) {
+                transport.setTravel_id(extras.getInt("travel_id"));
+            }
+            if (extras.getInt( "transport_type") > 0) {
+                nrTransportType = extras.getInt("transport_type");
+                llTransportTypeOwn.setVisibility(View.GONE);
+                llTransportType.setVisibility(View.GONE);
+                presentLabels();
+            }
+        }
+
+        if (nrTransportType==0) {
+            llTransportTypeOwn.setVisibility(View.VISIBLE);
+        } else {
+            llTransportType.setVisibility(View.VISIBLE);
+        }
+
         List<Integer> vTransportType = new ArrayList<>();
         for(int i = 0; i < getApplicationContext().getResources().getStringArray(R.array.transport_type_array).length; i++) {
             vTransportType.add(i);
         }
-
         Utils.selected_position = nrTransportType;
         linearLayoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.HORIZONTAL, false);
         rvTransportType.setLayoutManager(linearLayoutManager);
-        adapterTransportType = new TransportTypeListAdapter(vTransportType, this);
+        adapterTransportType = new TransportTypeListAdapter(vTransportType, this, nrTransportType);
         adapterTransportType.addItemClickListener(this);
         rvTransportType.setAdapter(adapterTransportType);
 
@@ -278,28 +277,8 @@ public class TransportActivity extends AppCompatActivity implements TransportTyp
         }
     }
 
-    @SuppressLint("NotifyDataSetChanged")
-    @Override
-    public void onItemClick(int position) {
-        if (nrTransportType != position) {
-            nrTransportType = position;
-        }
-        else nrTransportType = -1;
-
-        Utils.selected_position = nrTransportType;
-
-        if (!opInsert) {
-            final int Show_Header_ItineraryHasTransport = 1;
-            adapterItineraryHasTransport = new ItineraryHasTransportListAdapter(Database.mItineraryHasTransportDao.fetchAllItineraryHasTransportByTravelType(transport.getTravel_id(), nrTransportType), getApplicationContext(), "Home", Show_Header_ItineraryHasTransport, transport.getTravel_id());
-            llItineraryHasTransport.setVisibility(View.VISIBLE);
-            rvTransportPerson.setAdapter(adapterItineraryHasTransport);
-            rvTransportPerson.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-            adapterItineraryHasTransport.notifyDataSetChanged();
-        } else {
-            llItineraryHasTransport.setVisibility(View.INVISIBLE);
-        }
-
-        switch(nrTransportType) {
+    public void presentLabels() {
+        switch (nrTransportType) {
             case -1: {
                 llTransportTypeOwn.setVisibility(View.GONE);
                 llTransportType.setVisibility(View.GONE);
@@ -360,6 +339,26 @@ public class TransportActivity extends AppCompatActivity implements TransportTyp
                 break;
             }
         }
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    @Override
+    public void onItemClick(int position) {
+        nrTransportType = nrTransportType != position ? position : -1;
+
+        Utils.selected_position = nrTransportType;
+
+        if (!opInsert) {
+            final int Show_Header_ItineraryHasTransport = 1;
+            adapterItineraryHasTransport = new ItineraryHasTransportListAdapter(Database.mItineraryHasTransportDao.fetchAllItineraryHasTransportByTravelType(transport.getTravel_id(), nrTransportType), getApplicationContext(), "Home", Show_Header_ItineraryHasTransport, transport.getTravel_id());
+            llItineraryHasTransport.setVisibility(View.VISIBLE);
+            rvTransportPerson.setAdapter(adapterItineraryHasTransport);
+            rvTransportPerson.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+            adapterItineraryHasTransport.notifyDataSetChanged();
+        } else {
+            llItineraryHasTransport.setVisibility(View.INVISIBLE);
+        }
+        presentLabels();
     }
 
     public void addListenerOnButtonSave() {

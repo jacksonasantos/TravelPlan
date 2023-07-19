@@ -170,7 +170,7 @@ public class ItineraryHasTransportActivity extends AppCompatActivity implements 
         Travel travel = Database.mTravelDao.fetchTravelById(nrTravel);
         tvTravel.setText(travel.getDescription());
         rvTransportType = findViewById(R.id.rvTransportType);
-        nrTransportType = -1;
+        nrTransportType = 0;
 
         List<Integer> vTransportType = new ArrayList<>();
         for(int i = 0; i < getApplicationContext().getResources().getStringArray(R.array.transport_type_array).length; i++) {
@@ -178,7 +178,7 @@ public class ItineraryHasTransportActivity extends AppCompatActivity implements 
         }
         linearLayoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.HORIZONTAL, false);
         rvTransportType.setLayoutManager(linearLayoutManager);
-        adapterTransportType = new TransportTypeListAdapter(vTransportType, this);
+        adapterTransportType = new TransportTypeListAdapter(vTransportType, this, nrTransportType);
         adapterTransportType.addItemClickListener(this);
         rvTransportType.setAdapter(adapterTransportType);
 
@@ -306,7 +306,6 @@ public class ItineraryHasTransportActivity extends AppCompatActivity implements 
 
         btAddTransport.setOnClickListener(v -> {
             Intent intent = new Intent (v.getContext(), TransportActivity.class);
-            // TODO - marcar o tipo no cadastro do transporte
             intent.putExtra("op_result", true);
             intent.putExtra("travel_id", nrTravel);
             intent.putExtra("transport_type", nrTransportType);
