@@ -48,6 +48,7 @@ public class AchievementActivity extends AppCompatActivity {
     // TODO - Adjust image search and conversion (directory or internet)
     Bitmap raw;
     private byte[] imgArray = null;
+    private EditText etAchievement_Country;
     private EditText etAchievement_City;
     private EditText etAchievement_State;
     private ImageButton btLocationSource;
@@ -56,7 +57,6 @@ public class AchievementActivity extends AppCompatActivity {
     private EditText etAchievement_State_End;
     private ImageButton btLocationTarget;
     private EditText etAchievement_Latlng_Target;
-    private EditText etAchievement_Country;
     private ImageButton btLocation;
     private EditText etAchievement_Latlng_Achievement;
     private EditText etAchievement_Length_Achievement;
@@ -93,10 +93,16 @@ public class AchievementActivity extends AppCompatActivity {
                 achievement.setId(extras.getInt("achievement_id"));
                 achievement = Database.mAchievementDao.fetchAchievementById(achievement.getId());
                 opInsert = false;
-            }
-            if (extras.getInt( "Latlng_Achievement") > 0) {
-                achievement.setLatlng_achievement(extras.getString("Latlng_Achievement"));
-                opInsert = true;
+            } else {
+                if (!Objects.equals(extras.getString("Latlng_Achievement"), "")) {
+                    achievement.setLatlng_achievement(extras.getString("Latlng_Achievement"));
+                    achievement.setName(extras.getString("feature_marker"));
+                    achievement.setShort_name(extras.getString("address_marker"));
+                    achievement.setState(extras.getString("state_marker"));
+                    achievement.setCity(extras.getString("city_marker"));
+                    achievement.setCountry(extras.getString("country_marker"));
+                    opInsert = true;
+                }
             }
         }
 

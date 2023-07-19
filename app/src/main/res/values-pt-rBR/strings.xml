@@ -522,4 +522,7 @@
     <string name="Tour_Sequence">Sequência</string>
     <string name="Tour_Itinerary">Itinerário</string>
     <string name="add_new_achievement">Adicionar Nova Conquista</string>
+    <string name="Msg_Select_Option">Selecione a Opção desejada</string>
+    <string name="Achievement_Delete">Excluir Conquista</string>
+    <string name="Achievement_Edit">Editar Conquista</string>
 </resources>

@@ -336,7 +336,6 @@ public class HomeTravelFragment extends Fragment implements View.OnClickListener
                     startActivity(intent);
                 });
                 btnTransport.setOnClickListener (v -> {
-                    // TODO - Criar tela mais pratica para vincular os Veiculos aos Itinerarios
                     Intent intent = new Intent(v.getContext(), ItineraryHasTransportActivity.class);
                     intent.putExtra("travel_id", travel[0].id);
                     startActivity(intent);
@@ -457,8 +456,6 @@ public class HomeTravelFragment extends Fragment implements View.OnClickListener
 
             public void TravelItemExpenses(View v, int expense_type ) {
 
-                // TODO - show items registered in other tables to choose from and link to the executed expense, changing or marking the status of the expenses incurred
-                // TODO - show the markers for each type to choose from in the expense record
                 LayoutInflater li = LayoutInflater.from(v.getContext());
                 View promptsView = li.inflate(R.layout.dialog_travel_expenses_itens, null);
 

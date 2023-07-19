@@ -178,7 +178,15 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
                             }
                         } else {
                             Intent intent = new Intent(getContext(), AchievementActivity.class);
-                            intent.putExtra("Latlng_Achievement", point.latitude+","+point.longitude);
+                            intent.putExtra("Latlng_Achievement", point.latitude + "," + point.longitude);
+                            Geocoder geocoder = new Geocoder(requireContext());
+                            List<Address> addresses = geocoder.getFromLocation(point.latitude, point.longitude, 1);
+                            Address address = Objects.requireNonNull(addresses).get(0);
+                            intent.putExtra("feature_marker", address.getFeatureName());
+                            intent.putExtra("address_marker", address.getThoroughfare()+", "+address.getSubThoroughfare());
+                            intent.putExtra("state_marker", getAbbreviationFromState(address.getAdminArea()));
+                            intent.putExtra("city_marker", address.getSubAdminArea());
+                            intent.putExtra("country_marker", address.getCountryName());
                             myActivityResultLauncher.launch(intent);
                         }
                     } else {
@@ -214,10 +222,30 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
                         drawItinerary(nrTravel_Id);
                     }
                 } else {
-                    Intent intent = new Intent(getContext(), AchievementActivity.class);
-                    Integer nrMarkerAchievement = (Integer) marker.getTag();
-                    intent.putExtra("achievement_id", nrMarkerAchievement);
-                    myActivityResultLauncher.launch(intent);
+                    AlertDialog.Builder builder2 = new AlertDialog.Builder(rootView.getContext());
+                    builder2.setTitle(R.string.Achievement)
+                            .setMessage(R.string.Msg_Select_Option)
+                            .setPositiveButton(R.string.Achievement_Edit, (dialog, which) -> {
+                                try {
+                                    Intent intent = new Intent(getContext(), AchievementActivity.class);
+                                    Integer nrMarkerAchievement = (Integer) marker.getTag();
+                                    intent.putExtra("achievement_id", nrMarkerAchievement);
+                                    myActivityResultLauncher.launch(intent);
+                                } catch (Exception e) {
+                                    Toast.makeText(context, context.getString(R.string.Error_Changing_Data) + "\n" + e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+                                }
+                            })
+                            .setNegativeButton(R.string.Achievement_Delete, (dialog, which) -> {
+                                try {
+                                    Database.mAchievementDao.deleteAchievement((Integer) marker.getTag());
+                                    drawAchievement();
+                                } catch (Exception e) {
+                                    Toast.makeText(context, context.getString(R.string.Error_Deleting_Data) + "\n" + e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+                                }
+                            })
+                            .setNeutralButton(R.string.Cancel, ((dialog, which) -> dialog.dismiss()));
+                    builder2.setCancelable(false);
+                    builder2.show();
                 }
                 return true;
             });
@@ -374,9 +402,8 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
 
     private void drawAchievement() {
         List<Achievement> cAchievement = Database.mAchievementDao.fetchAllAchievement();
-        // TODO - Implement erasure of achievements in MAP mode
         builder = new LatLngBounds.Builder();
-
+        clearItinerary();
         for (int i = 0; i < cAchievement.size(); i++) {
             Achievement achievement = cAchievement.get(i);
 

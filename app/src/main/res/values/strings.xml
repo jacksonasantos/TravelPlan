@@ -28,6 +28,7 @@
 
     <!-- Messages -->
     <string name="Msg_Confirm">Are you sure you want to perform the operation?</string>
+    <string name="Msg_Select_Option">Select Option</string>
     <string name="Data_Validator_Error">Data Validator Error</string>
     <string name="Error_Saving_Data">Error Saving Data</string>
     <string name="Error_Including_Data">Error Including Data</string>
@@ -502,6 +503,8 @@
     <string name="Achievement">Achievement</string>
     <string name="add_new_achievement">ADD New Achievement</string>
     <string name="Achievement_Deleting">Deleting Achievement</string>
+    <string name="Achievement_Delete">Deleting Achievement</string>
+    <string name="Achievement_Edit">Editing Achievement</string>
 
     <string name="Achievement_Short_Name">Short Name</string>
     <string name="Achievement_Name">Name</string>
