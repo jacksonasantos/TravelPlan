@@ -676,7 +676,6 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
                         if (position != RecyclerView.NO_POSITION) {
                             nrItinerary_Id = !itinerary.getId().equals(nrItinerary_Id) ? itinerary.getId() : null;
                             lClick = true;
-                            // TODO - Update the Map when choosing an itinerary (thickening the line for example)
                             notifyDataSetChanged();
                         }
                         return true;
