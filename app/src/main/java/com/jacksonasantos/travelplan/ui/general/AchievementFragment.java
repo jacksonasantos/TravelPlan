@@ -44,57 +44,58 @@ public class AchievementFragment extends Fragment {
 
         if (mViewMode.equals("list")) {
             mLayout = R.layout.fragment_generic_list;
+
+            requireActivity().addMenuProvider(new MenuProvider() {
+                private Menu mMenu;
+
+                @Override
+                public void onCreateMenu(@NonNull Menu menu, @NonNull MenuInflater menuInflater) {
+                    menu.clear();
+                    menuInflater.inflate(R.menu.main, menu);
+
+                    this.mMenu = menu;
+                    MenuItem m1 = menu.findItem(R.id.add_menu);
+                    MenuItem m2 = menu.findItem(R.id.save_menu);
+                    MenuItem m3 = menu.findItem(R.id.filter_menu);
+                    m1.setVisible(true);
+                    m2.setVisible(false);
+                    m3.setVisible(true);
+                }
+
+                @SuppressLint({"UseCompatLoadingForDrawables", "NonConstantResourceId"})
+                @Override
+                public boolean onMenuItemSelected(@NonNull MenuItem item) {
+                    Intent intent;
+
+                    switch(item.getItemId()) {
+                        case R.id.add_menu:
+                            intent = new Intent( getContext(), AchievementActivity.class );
+                            startActivity( intent );
+                            break;
+
+                        case R.id.filter_menu:
+                            flgFilterAchievement=!flgFilterAchievement;
+                            if ( flgFilterAchievement ) {
+                                this.mMenu.getItem(0).setIcon(R.drawable.ic_button_filter);
+                                vs_status = 0;
+                            } else {
+                                this.mMenu.getItem(0).setIcon(R.drawable.ic_button_filter_no);
+                                vs_status = null;
+                            }
+                            adapter = new AchievementListAdapter(Database.mAchievementDao.fetchAllAchievementByStatusAchievement(vs_status), getContext());
+                            listAchievement.setAdapter(adapter);
+                            break;
+
+                        default:
+                            return false;
+                    }
+                    return true;
+                }
+            }, getViewLifecycleOwner(), Lifecycle.State.RESUMED);
+
         } else {
             mLayout = R.layout.activity_itinerary;
         }
-
-        requireActivity().addMenuProvider(new MenuProvider() {
-            private Menu mMenu;
-
-            @Override
-            public void onCreateMenu(@NonNull Menu menu, @NonNull MenuInflater menuInflater) {
-                menu.clear();
-                menuInflater.inflate(R.menu.main, menu);
-
-                this.mMenu = menu;
-                MenuItem m1 = menu.findItem(R.id.add_menu);
-                MenuItem m2 = menu.findItem(R.id.save_menu);
-                MenuItem m3 = menu.findItem(R.id.filter_menu);
-                m1.setVisible(true);
-                m2.setVisible(false);
-                m3.setVisible(true);
-            }
-
-            @SuppressLint({"UseCompatLoadingForDrawables", "NonConstantResourceId"})
-            @Override
-            public boolean onMenuItemSelected(@NonNull MenuItem item) {
-                Intent intent;
-
-                switch(item.getItemId()) {
-                    case R.id.add_menu:
-                        intent = new Intent( getContext(), AchievementActivity.class );
-                        startActivity( intent );
-                        break;
-
-                    case R.id.filter_menu:
-                        flgFilterAchievement=!flgFilterAchievement;
-                        if ( flgFilterAchievement ) {
-                            this.mMenu.getItem(0).setIcon(R.drawable.ic_button_filter);
-                            vs_status = 0;
-                        } else {
-                            this.mMenu.getItem(0).setIcon(R.drawable.ic_button_filter_no);
-                            vs_status = null;
-                        }
-                        adapter = new AchievementListAdapter(Database.mAchievementDao.fetchAllAchievementByStatusAchievement(vs_status), getContext());
-                        listAchievement.setAdapter(adapter);
-                       break;
-
-                    default:
-                        return false;
-                }
-                return true;
-            }
-        }, getViewLifecycleOwner(), Lifecycle.State.RESUMED);
 
         return inflater.inflate(mLayout, container, false);
     }
@@ -107,17 +108,23 @@ public class AchievementFragment extends Fragment {
         Database mDb = new Database(getContext());
         mDb.open();
 
-        if (mViewMode.equals("list")) {
-            listAchievement = this.requireView().findViewById(R.id.list);
-            adapter = new AchievementListAdapter(Database.mAchievementDao.fetchAllAchievementByStatusAchievement(vs_status), getContext());
-            listAchievement.setAdapter(adapter);
-            listAchievement.setLayoutManager(new LinearLayoutManager(getContext()));
-            listAchievement.addItemDecoration(new DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL));
-            adapter.notifyDataSetChanged();
-        } else if (mViewMode.equals("map")) {
-            Intent intent = new Intent(getContext(), MaintenanceItineraryActivity.class);
-            intent.putExtra("flg_achievement", true);
-            myActivityResultLauncher.launch(intent);
+        switch (mViewMode) {
+            case "list":
+                listAchievement = this.requireView().findViewById(R.id.list);
+                adapter = new AchievementListAdapter(Database.mAchievementDao.fetchAllAchievementByStatusAchievement(vs_status), getContext());
+                listAchievement.setAdapter(adapter);
+                listAchievement.setLayoutManager(new LinearLayoutManager(getContext()));
+                listAchievement.addItemDecoration(new DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL));
+                adapter.notifyDataSetChanged();
+                break;
+            case "map":
+                Intent intent = new Intent(getContext(), MaintenanceItineraryActivity.class);
+                intent.putExtra("flg_achievement", true);
+                myActivityResultLauncher.launch(intent);
+                break;
+            case "return":
+                getParentFragmentManager().popBackStack();
+                break;
         }
     }
 

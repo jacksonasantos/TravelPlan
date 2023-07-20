@@ -34,7 +34,6 @@ public class MaintenanceItineraryActivity extends AppCompatActivity {
         if (extras != null) {
             if (extras.getBoolean("flg_achievement")){
                 flgAchievement = true;
-                setTitle(R.string.Achievement);
             }
             if (extras.getInt( "travel_id") > 0) {
                 travel.setId(extras.getInt("travel_id"));
@@ -68,7 +67,6 @@ public class MaintenanceItineraryActivity extends AppCompatActivity {
                                                                                txtSearch,
                                                                                flgAchievement),
                                                      "Tag");
-
         fragmentTransaction.commit();
     }
 
