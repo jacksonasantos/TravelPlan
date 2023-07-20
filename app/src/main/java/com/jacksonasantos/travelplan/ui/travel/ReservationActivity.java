@@ -61,7 +61,7 @@ public class ReservationActivity extends AppCompatActivity {
     private boolean opInsert = true;
     private Reservation reservation;
 
-    protected ArrayAdapter<Accommodation> adapterA = null;
+    protected final ArrayAdapter<Accommodation> adapterA = null;
     private List<Accommodation> accommodations;
 
     @SuppressLint({"WrongViewCast", "SetTextI18n"})

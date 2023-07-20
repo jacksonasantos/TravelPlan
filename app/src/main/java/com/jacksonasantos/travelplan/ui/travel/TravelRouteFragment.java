@@ -74,7 +74,7 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
     public boolean clearMap;
     public final boolean flgModeAchievement;
     public final String txt_Search;
-    public Context context;
+    public final Context context;
 
     public static Integer nrTravel_Id;
     public static Integer nrItinerary_Id;
