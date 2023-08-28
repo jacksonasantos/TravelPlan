@@ -422,21 +422,22 @@ public class ItineraryHasTransportActivity extends AppCompatActivity implements 
         Button btnSave = findViewById(R.id.btnSave);
 
         btnSave.setOnClickListener(v -> {
-            boolean isSave = false;
+            boolean isSave = true;
 
             if (!validateData()) {
                 Toast.makeText(getApplicationContext(), R.string.Error_Data_Validation, Toast.LENGTH_LONG).show();
             } else {
-                final ItineraryHasTransport it1 = new ItineraryHasTransport();
-                it1.setTravel_id(nrTravel);
-                it1.setTransport_type(nrTransportType);
-                it1.setVehicle_id(nrOwnVehicle);
-                it1.setTransport_id(nrTransport);
-                it1.setItinerary_id(nrItinerary);
-                it1.setPerson_id(nrPerson);
-                it1.setDriver(cbDriver.isChecked()?1:0);
-                it1.setSequence_itinerary(Integer.parseInt(tvSequenceItinerary.getText().toString()));
-
+                ItineraryHasTransport it1 = new ItineraryHasTransport();
+                if (nrItinerary != null && nrItinerary>0) {
+                    it1.setTravel_id(nrTravel);
+                    it1.setTransport_type(nrTransportType);
+                    it1.setVehicle_id(nrOwnVehicle);
+                    it1.setTransport_id(nrTransport);
+                    it1.setItinerary_id(nrItinerary);
+                    it1.setPerson_id(nrPerson);
+                    it1.setDriver(cbDriver.isChecked() ? 1 : 0);
+                    it1.setSequence_itinerary(Integer.parseInt(tvSequenceItinerary.getText().toString()));
+                }
                 VehicleHasTravel vt1;
                 if (nrOwnVehicle == null || nrOwnVehicle == 0) {
                     vt1 = Database.mVehicleHasTravelDao.findVehicleHasTravelByTravelTransport(nrTravel, nrTransport);
@@ -458,8 +459,10 @@ public class ItineraryHasTransportActivity extends AppCompatActivity implements 
 
                 if (!opInsert) {
                     try {
-                        it1.setId(itineraryHasTransport.getId());
-                        isSave = Database.mItineraryHasTransportDao.updateItineraryHasTransport(it1);
+                        if (nrItinerary != null && nrItinerary>0) {
+                            it1.setId(itineraryHasTransport.getId());
+                            isSave = Database.mItineraryHasTransportDao.updateItineraryHasTransport(it1);
+                        }
                         if (cbDriver.isChecked() && isSave) {
                             isSave = Database.mVehicleHasTravelDao.updateVehicleHasTravel(vt1);
                         }
@@ -468,7 +471,9 @@ public class ItineraryHasTransportActivity extends AppCompatActivity implements 
                     }
                 } else {
                     try {
-                        isSave = Database.mItineraryHasTransportDao.addItineraryHasTransport(it1);
+                        if (nrItinerary != null && nrItinerary>0) {
+                            isSave = Database.mItineraryHasTransportDao.addItineraryHasTransport(it1);
+                        }
                         if (cbDriver.isChecked() && isSave) {
                             if(vt1.getId()==null || vt1.getId()==0){
                                 isSave = Database.mVehicleHasTravelDao.addVehicleHasTravel(vt1);
@@ -496,7 +501,7 @@ public class ItineraryHasTransportActivity extends AppCompatActivity implements 
             if (nrTransportType == -1 ||
                 nrTravel == 0 ||
                 (nrTransportType==0 ? nrOwnVehicle == 0 : nrTransport == 0) ||
-                nrItinerary == 0 ||
+                //nrItinerary == 0 ||
                 nrPerson == 0 )
             {
                 isValid = false;
