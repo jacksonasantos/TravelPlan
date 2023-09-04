@@ -60,7 +60,7 @@ public class MarkerActivity extends AppCompatActivity implements MarkerTypeListA
     private TextView tvLat, tvLng, tvName, tvAddress, tvCity, tvState, tvAbbrCountry, tvCountry;
     private Spinner spinItinerary, spinMarkerAchievement, spinTour;
     private Integer nrSpinItinerary, nrSpinMarkerAchievement, nrSpinTour;
-    private EditText etSeq, etDescription, etExpectedValue ;
+    private EditText etSeq, etDescription, etExpectedValue, etPredictedStopTime ;
     private ImageButton btLocation, btAddAchievement, btAddTour;
     private RecyclerView rvListMarkers, rvMarkerType;
     private LinearLayout llItinerary, llAchievement, llTour;
@@ -104,6 +104,7 @@ public class MarkerActivity extends AppCompatActivity implements MarkerTypeListA
         etSeq = findViewById(R.id.etSeq);
         etDescription = findViewById(R.id.etDescription);
         etExpectedValue = findViewById(R.id.etExpectedValue);
+        etPredictedStopTime = findViewById(R.id.etPredictedStopTime);
         rvListMarkers = findViewById(R.id.rvListMarkers);
         rvMarkerType = findViewById(R.id.rvMarkerType);
         llItinerary = findViewById(R.id.llItinerary);
@@ -275,6 +276,8 @@ public class MarkerActivity extends AppCompatActivity implements MarkerTypeListA
             showLayers(nrMarkerType);
             TravelExpenses te1 = Database.mTravelExpensesDao.fetchTravelExpensesByTravelMarker(travel.getId(), marker.getId());
             etExpectedValue.setText(te1.getExpected_value() == null ? "0.00" : te1.getExpected_value().toString());
+            //marker.setDuration_Predicted_stop_time(marker.getPredicted_stop_time() == 0 ? 0 : marker.getMarker_typePredictedTime(marker.getMarker_typePredictedTime(nrMarkerType)));
+            etPredictedStopTime.setText(marker.getDuration_Predicted_stop_time());
         }
         etExpectedValue.setOnFocusChangeListener((v, hasFocus) -> etExpectedValue.setText(""));
         if (nrSpinItinerary != null && nrSpinItinerary > 0) {
@@ -324,6 +327,7 @@ public class MarkerActivity extends AppCompatActivity implements MarkerTypeListA
         Utils.selected_position = nrMarkerType;
         showLayers(nrMarkerType);
         etExpectedValue.setText(String.valueOf(marker.getMarker_typeExpectedValue(nrMarkerType)==null? (Double) 0.00 :marker.getMarker_typeExpectedValue(nrMarkerType)));
+        etPredictedStopTime.setText(marker.getDuration_Predicted_stop_time(marker.getMarker_typePredictedTime(nrMarkerType)));
     }
 
     final ActivityResultLauncher<Intent> myActivityResultLauncher = registerForActivityResult(
@@ -382,6 +386,7 @@ public class MarkerActivity extends AppCompatActivity implements MarkerTypeListA
                 m1.setMarker_type(nrMarkerType);
                 m1.setSequence(Integer.valueOf(etSeq.getText().toString()));
                 m1.setDescription(etDescription.getText().toString());
+                m1.setDuration_Predicted_stop_time(etPredictedStopTime.getText().toString());
 
                 if (!opInsert) {
                     try {
@@ -558,6 +563,7 @@ public class MarkerActivity extends AppCompatActivity implements MarkerTypeListA
                 etSeq.getText().toString().trim().isEmpty()
                 //etDescription.getText().toString().trim().isEmpty()
                 //etExpectedValue.setText(String.valueOf(0));
+                //etPredictedTime.getText().toString().trim().isEmpty()
             ){
                 isValid = false;
             }

@@ -525,4 +525,5 @@
     <string name="Msg_Select_Option">Selecione a Opção desejada</string>
     <string name="Achievement_Delete">Excluir Conquista</string>
     <string name="Achievement_Edit">Editar Conquista</string>
+    <string name="marker_predicted_stop_time">Parada Prevista</string>
 </resources>

@@ -20,6 +20,7 @@ public interface MarkerISchema {
     String MARKER_DESCRIPTION = "description";
     String MARKER_LATITUDE = "latitude";
     String MARKER_LONGITUDE = "longitude";
+    String MARKER_PREDICTED_STOP_TIME = "predicted_stop_time";
 
     // Version 26
     String CREATE_TABLE_MARKER_V26 = "CREATE TABLE IF NOT EXISTS "
@@ -54,6 +55,10 @@ public interface MarkerISchema {
     String ALTER_TABLE_MARKER_V70 = "ALTER TABLE " + MARKER_TABLE
             + " ADD COLUMN " + MARKER_TOUR_ID + " INTEGER REFERENCES " +TourISchema.TOUR_TABLE + " ("+TourISchema.TOUR_ID+") ";
 
+    // Version 75
+    String ALTER_TABLE_MARKER_V75 = "ALTER TABLE " + MARKER_TABLE
+            + " ADD COLUMN " + MARKER_PREDICTED_STOP_TIME + " INT ";
+
     String[] MARKER_COLUMNS = new String[] {
             MARKER_ID,
             MARKER_TRAVEL_ID,
@@ -70,6 +75,7 @@ public interface MarkerISchema {
             MARKER_ABBR_COUNTRY,
             MARKER_DESCRIPTION,
             MARKER_LATITUDE,
-            MARKER_LONGITUDE
+            MARKER_LONGITUDE,
+            MARKER_PREDICTED_STOP_TIME
     };
 }

@@ -47,12 +47,13 @@ public class RouteClass {
     String typeUpdate;
     Integer nrTravel_Id, nrKey_Id;
     boolean isAlpha = false;
+    int predicted_stop_time;
 
     private static final String GOOGLE_API_KEY =  MainActivity.getAppResources().getString(R.string.google_maps_key);
     private final ExecutorService myExecutor = Executors.newSingleThreadExecutor();
     private final Handler myHandler = new Handler(Looper.getMainLooper());
 
-    public void drawRoute(GoogleMap map, Context context, ArrayList<LatLng> points, boolean withIndications, String language, boolean optimize, String typeUpdateTable, Integer id, int sequence, Integer sequenceSelected, boolean alpha, int travel_mode) {
+    public void drawRoute(GoogleMap map, Context context, ArrayList<LatLng> points, boolean withIndications, String language, boolean optimize, String typeUpdateTable, Integer id, int sequence, Integer sequenceSelected, boolean alpha, int travel_mode, int predicted_stop_time) {
         this.mMap = map;
         this.context = context;
         this.lang = language;
@@ -60,6 +61,7 @@ public class RouteClass {
         this.nrTravel_Id = null;
         this.nrKey_Id = null;
         this.isAlpha = alpha;
+        this.predicted_stop_time = predicted_stop_time;
 
         String url = null;
 
@@ -79,7 +81,7 @@ public class RouteClass {
         } else if (points.size() > 2) {
             url = makeURL(points, mode, optimize);
         }
-        connectAsyncTask(url, withIndications, sequence, sequenceSelected, typeUpdate, nrKey_Id);
+        connectAsyncTask(url, withIndications, sequence, sequenceSelected, typeUpdate, nrKey_Id, predicted_stop_time);
     }
 
     private String makeURL(ArrayList<LatLng> points, String mode, boolean optimize) {
@@ -135,19 +137,19 @@ public class RouteClass {
         return urlString.toString();
     }
 
-    private void connectAsyncTask(String urlPass, boolean withSteps,int sequence, Integer sequenceSelected, String typeUpdate, Integer nrKey_Id ) {
+    private void connectAsyncTask(String urlPass, boolean withSteps,int sequence, Integer sequenceSelected, String typeUpdate, Integer nrKey_Id, int predicted_stop_time ) {
         myExecutor.execute(() -> {
             JSONParser jParser = new JSONParser();
             String r = jParser.getJSONFromUrl(urlPass);
             myHandler.post(() -> {
                 if (r != null && !r.equals("")) {
-                    drawPath(r, withSteps, sequence, sequenceSelected, typeUpdate, nrKey_Id);
+                    drawPath(r, withSteps, sequence, sequenceSelected, typeUpdate, nrKey_Id, predicted_stop_time);
                 }
             });
         });
     }
 
-    private void drawPath(String result, boolean withSteps, int nrSequence, Integer nrSequenceSelected, String typeUpdate, Integer nrKey_Id) {
+    private void drawPath(String result, boolean withSteps, int nrSequence, Integer nrSequenceSelected, String typeUpdate, Integer nrKey_Id, int predicted_stop_time) {
 
         final List<PatternItem> PATTERN_DRIVING = Collections.singletonList(new Dash(1));
         final List<PatternItem> PATTERN_WALKING = Arrays.asList(new Dot(), new Gap(10), new Dash(20), new Gap(10));
@@ -232,7 +234,7 @@ public class RouteClass {
                 if (Database.mItineraryDao.fetchItineraryByTravelId(nrTravel_Id, nrSequence).getTravel_mode() < 4) {
                     Itinerary itinerary = Database.mItineraryDao.fetchItineraryByTravelId(nrTravel_Id, nrSequence);
                     itinerary.setDistance(nrDistance);
-                    itinerary.setTime(nrDuration);
+                    itinerary.setTime(nrDuration + predicted_stop_time);
                     Database.mItineraryDao.updateItinerary(itinerary);
                 }
             } else if (Objects.equals(typeUpdate, "Achievement")) {

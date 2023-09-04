@@ -443,7 +443,7 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
                drawMarker(latlngTarget, null, ContextCompat.getColor(requireContext(), R.color.colorMarker), 0);
 
             if (achievementRoute) {
-                routeClass.drawRoute(googleMap, getContext(), pointsRoute, false, lang, false, "Achievement", achievement.getId(), i, null, isAlpha, 0);
+                routeClass.drawRoute(googleMap, getContext(), pointsRoute, false, lang, false, "Achievement", achievement.getId(), i, null, isAlpha, 0, 0);
             }
 
         }
@@ -462,13 +462,15 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
                 pointsRoute.clear();
                 List<Marker> cMarker = Database.mMarkerDao.fetchMarkerByTravelItineraryId(travel_id, itinerary.getId());
                 if (cMarker.size() > 0) {
+                    int predictedStopTime = 0;
                     for (int x = 0; x < cMarker.size(); x++) {
                         hasMarker = true;
                         Marker marker = cMarker.get(x);
                         LatLng latlng = new LatLng(Double.parseDouble(marker.getLatitude()), Double.parseDouble(marker.getLongitude()));
                         drawMarker(latlng, marker.getName(), ContextCompat.getColor(requireContext(), R.color.colorMarker), Marker.getMarker_typeImage(marker.getMarker_type()));
+                        predictedStopTime += marker.getPredicted_stop_time();
                     }
-                    routeClass.drawRoute(googleMap, getContext(), pointsRoute, false, lang, false, "Itinerary", nrTravel_Id, itinerary.getSequence(), nrItinerary_Id, false, itinerary.getTravel_mode());
+                    routeClass.drawRoute(googleMap, getContext(), pointsRoute, false, lang, false, "Itinerary", nrTravel_Id, itinerary.getSequence(), nrItinerary_Id, false, itinerary.getTravel_mode(), predictedStopTime);
                 }
                 List<Tour> cTour = Database.mTourDao.fetchAllTourByTravelItinerary(travel_id, itinerary.getId());
                 if (cTour.size() > 0) {
@@ -484,7 +486,7 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
                             hasMarker = true;
                             pointsRoute.add(new LatLng(Double.parseDouble(lastMarker.getLatitude()), Double.parseDouble(lastMarker.getLongitude())));
                         }
-                        routeClass.drawRoute(googleMap, getContext(), pointsRoute, false, lang, false, "Tour", cTour.get(x).getId(), itinerary.getSequence(), null, false, 2);
+                        routeClass.drawRoute(googleMap, getContext(), pointsRoute, false, lang, false, "Tour", cTour.get(x).getId(), itinerary.getSequence(), null, false, 2, 0);
                         lastPoint = latlng;
                     }
                 }

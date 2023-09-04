@@ -1,9 +1,13 @@
 package com.jacksonasantos.travelplan.dao;
 
+import android.annotation.SuppressLint;
+
 import androidx.annotation.NonNull;
 
 import com.jacksonasantos.travelplan.R;
 import com.jacksonasantos.travelplan.ui.utility.Globals;
+
+import java.util.Objects;
 
 public class Marker {
     public Integer id;
@@ -22,6 +26,7 @@ public class Marker {
     public String description;
     public String latitude;
     public String longitude;
+    public int predicted_stop_time;
 
     public Marker() {
     }
@@ -64,6 +69,21 @@ public class Marker {
             default: draw = R.drawable.ic_error; break;
         }
         return draw;
+    }
+
+    public int getMarker_typePredictedTime( int marker_type){
+        int multiplier = 60; // seconds
+        int time = 0;
+        switch(marker_type) {
+            case 2:
+            case 7:
+            case 8: time = 15; break;
+            case 3:
+            case 6: time = 60; break;
+            case 5: time = 5; break;
+            case 9: time = 10; break;
+        }
+        return time*multiplier;
     }
 
     public Double getMarker_typeExpectedValue( int marker_type){
@@ -127,4 +147,28 @@ public class Marker {
 
     public String getLongitude() {return longitude;}
     public void setLongitude(String longitude) { this.longitude = longitude; }
+
+    public int getPredicted_stop_time() { return predicted_stop_time; }
+    public void setPredicted_stop_time(int predicted_stop_time) {this.predicted_stop_time = predicted_stop_time;}
+
+    @SuppressLint("DefaultLocale")
+    public String getDuration_Predicted_stop_time() {
+        int totalHr = getPredicted_stop_time() / 3600;
+        int totalMin = (getPredicted_stop_time()-(totalHr * 3600)) / 60;
+        return String.format("%3d:%02d", totalHr, totalMin);
+    }
+
+    @SuppressLint("DefaultLocale")
+    public String getDuration_Predicted_stop_time(int duration) {
+        int totalHr = duration / 3600;
+        int totalMin = (duration-(totalHr * 3600)) / 60;
+        return String.format("%3d:%02d", totalHr, totalMin);
+    }
+    public void setDuration_Predicted_stop_time( String duration) {
+        if (!Objects.equals(duration, "")) {
+            int totalHr = Integer.parseInt(duration.substring(0, duration.indexOf(":")).trim()) * 3600;
+            int totalMin = Integer.parseInt(duration.substring(duration.length() - 2)) * 60;
+            this.predicted_stop_time = totalHr + totalMin;
+        }
+    }
 }

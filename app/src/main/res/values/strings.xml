@@ -466,6 +466,7 @@
     <string name="marker_state">State</string>
     <string name="marker_country">Country</string>
     <string name="marker_category">Category</string>
+    <string name="marker_predicted_stop_time">Predicted Stop Time</string>
     <string name="marker_sequence_not_informed">Marker Sequence not Informed</string>
 
     <!-- Marker Type -->

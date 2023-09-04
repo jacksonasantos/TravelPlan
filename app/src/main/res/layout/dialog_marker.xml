@@ -1,4 +1,4 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
@@ -6,420 +6,443 @@
     android:orientation="vertical"
     android:background="@color/colorBackgroundDialog"
     android:padding="10dp">
-
-    <androidx.cardview.widget.CardView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/labels_space_top"
-        android:layout_marginBottom="@dimen/labels_space_top"
-        app:cardBackgroundColor="@color/colorBackgroundCard"
-        app:cardCornerRadius="@dimen/cardCornerRadius"
-        app:cardElevation="@dimen/cardElevation">
-
-        <LinearLayout
+        android:orientation="vertical">
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="@dimen/labels_margin">
+            android:layout_marginTop="@dimen/labels_space_top"
+            android:layout_marginBottom="@dimen/labels_space_top"
+            app:cardBackgroundColor="@color/colorBackgroundCard"
+            app:cardCornerRadius="@dimen/cardCornerRadius"
+            app:cardElevation="@dimen/cardElevation">
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/labels_space_top"
-                android:gravity="center"
-                android:text="@string/marker"
-                android:textColor="@color/design_default_color_secondary_variant"
-                android:textSize="14sp" />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rvMarkerType"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/labels_space_top"
-                android:layout_marginBottom="@dimen/labels_space_top"
-                android:layout_gravity="center"
-                tools:itemCount="1" />
-
-            <LinearLayout
-                android:id="@+id/llItinerary"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:weightSum="10">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_weight="2"
-                    android:text="@string/marker_itinerary"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textSize="10sp"
-                    tools:ignore="SmallSp" />
-
-                <Spinner
-                    android:id="@+id/spinItinerary"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="8"
-                    android:text="@string/marker_itinerary"
-                    android:textSize="10sp"
-                    tools:ignore="SmallSp" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/llAchievement"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:weightSum="10">
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="2.2"
-                    android:text="@string/marker_achievement"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textSize="10sp"
-                    android:layout_gravity="center"
-                    tools:ignore="SmallSp" />
-                <Spinner
-                    android:id="@+id/spinMarkerAchievement"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="7.8"
-                    android:layout_gravity="center"
-                    android:text="@string/marker_achievement"
-                    android:textSize="10sp"
-                    tools:ignore="SmallSp">
-                </Spinner>
-                <ImageButton
-                    android:id="@+id/btAddAchievement"
-                    android:layout_width="35dp"
-                    android:layout_height="35dp"
-                    android:layout_gravity="center"
-                    android:contentDescription="@string/add_new_achievement"
-                    android:scaleType="centerCrop"
-                    app:srcCompat="@drawable/ic_button_add_circle" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/llTour"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:weightSum="10">
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="2.2"
-                    android:layout_gravity="center"
-                    android:text="@string/Tour"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textSize="10sp"
-                    tools:ignore="SmallSp" />
-                <Spinner
-                    android:id="@+id/spinTour"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="7.8"
-                    android:layout_gravity="center"
-                    android:textSize="10sp"
-                    tools:ignore="SmallSp">
-                </Spinner>
-                <ImageButton
-                    android:id="@+id/btAddTour"
-                    android:layout_width="35dp"
-                    android:layout_height="35dp"
-                    android:layout_gravity="center"
-                    android:contentDescription="@string/add_new_achievement"
-                    android:scaleType="centerCrop"
-                    app:srcCompat="@drawable/ic_button_add_circle" />
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:weightSum="10">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="2"
-                    android:text="@string/marker_sequence"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textSize="10sp"
-                    tools:ignore="SmallSp" />
-                <EditText
-                    android:id="@+id/etSeq"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="2"
-                    android:gravity="center"
-                    android:autofillHints="no"
-                    android:inputType="number"
-                    tools:ignore="LabelFor,SmallSp"
-                    android:textSize="10sp" />
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:weightSum="10">
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="2"
-                    android:text="@string/marker_description"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textSize="10sp"
-                    tools:ignore="SmallSp" />
-                <EditText
-                    android:id="@+id/etDescription"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="8"
-                    android:autofillHints="no"
-                    android:inputType="textCapSentences"
-                    tools:ignore="LabelFor,SmallSp"
-                    android:textSize="10sp"  />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:weightSum="10">
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="2"
-                    android:text="@string/marker_expected_value"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textSize="10sp"
-                    tools:ignore="SmallSp" />
-                <EditText
-                    android:id="@+id/etExpectedValue"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="3"
-                    android:gravity="end"
-                    android:autofillHints="no"
-                    android:inputType="numberDecimal"
-                    android:textSize="10sp"
-                    tools:ignore="LabelFor,SmallSp" />
-            </LinearLayout>
-        </LinearLayout>
-    </androidx.cardview.widget.CardView>
-
-    <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/labels_space_top"
-        android:layout_marginBottom="@dimen/labels_space_top"
-        app:cardBackgroundColor="@color/colorBackgroundCard"
-        app:cardCornerRadius="@dimen/cardCornerRadius"
-        app:cardElevation="@dimen/cardElevation">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:padding="@dimen/labels_margin">
-            <ImageButton
-                android:id="@+id/btLocation"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_gravity="center"
-                android:contentDescription="@string/Achievement_Latlng_Achievement"
-                android:scaleType="centerCrop"
-                app:srcCompat="@drawable/ic_menu_location" />
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:padding="@dimen/labels_margin">
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:weightSum="10">
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="2"
-                            android:text="@string/marker_latlng"
-                            android:textAppearance="?android:attr/textAppearanceMedium"
-                            android:textSize="10sp"
-                            tools:ignore="SmallSp" />
 
-                        <TextView
-                            android:id="@+id/tvLat"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="4"
-                            android:autofillHints="no"
-                            android:minLines="1"
-                            android:textSize="10sp"
-                            tools:ignore="LabelFor,SmallSp" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/labels_space_top"
+                    android:gravity="center"
+                    android:text="@string/marker"
+                    android:textColor="@color/design_default_color_secondary_variant"
+                    android:textSize="14sp" />
 
-                        <TextView
-                            android:id="@+id/tvLng"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="4"
-                            android:autofillHints="no"
-                            android:textSize="10sp"
-                            tools:ignore="LabelFor,SmallSp" />
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvMarkerType"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/labels_space_top"
+                    android:layout_marginBottom="@dimen/labels_space_top"
+                    android:layout_gravity="center"
+                    tools:itemCount="1" />
 
-                    </LinearLayout>
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:weightSum="10">
+                <LinearLayout
+                    android:id="@+id/llItinerary"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="10">
 
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="2"
-                            android:text="@string/marker_name"
-                            android:textAppearance="?android:attr/textAppearanceMedium"
-                            android:textSize="10sp"
-                            tools:ignore="SmallSp" />
-                        <TextView
-                            android:id="@+id/tvName"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="8"
-                            android:autofillHints="no"
-                            tools:ignore="LabelFor,SmallSp"
-                            android:textSize="10sp" />
-                    </LinearLayout>
-                    <LinearLayout
-                        android:layout_width="match_parent"
+                    <TextView
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:weightSum="10">
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="2"
-                            android:text="@string/marker_address"
-                            android:textAppearance="?android:attr/textAppearanceMedium"
-                            android:textSize="10sp"
-                            tools:ignore="SmallSp" />
-                        <TextView
-                            android:id="@+id/tvAddress"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="8"
-                            android:autofillHints="no"
-                            tools:ignore="LabelFor,SmallSp"
-                            android:textSize="10sp" />
-                    </LinearLayout>
-                    <LinearLayout
-                        android:layout_width="match_parent"
+                        android:layout_gravity="center"
+                        android:layout_weight="2"
+                        android:text="@string/marker_itinerary"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textSize="10sp"
+                        tools:ignore="SmallSp" />
+
+                    <Spinner
+                        android:id="@+id/spinItinerary"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:weightSum="10">
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="2"
-                            android:text="@string/marker_city"
-                            android:textAppearance="?android:attr/textAppearanceMedium"
-                            android:textSize="10sp"
-                            tools:ignore="SmallSp" />
-                        <TextView
-                            android:id="@+id/tvCity"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="8"
-                            android:autofillHints="no"
-                            tools:ignore="LabelFor,SmallSp"
-                            android:textSize="10sp" />
-                    </LinearLayout>
-                    <LinearLayout
-                        android:layout_width="match_parent"
+                        android:layout_weight="8"
+                        android:text="@string/marker_itinerary"
+                        android:textSize="10sp"
+                        tools:ignore="SmallSp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/llAchievement"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="10">
+                    <TextView
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:weightSum="10">
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="2"
-                            android:text="@string/marker_state"
-                            android:textAppearance="?android:attr/textAppearanceMedium"
-                            android:textSize="10sp"
-                            tools:ignore="SmallSp" />
-                        <TextView
-                            android:id="@+id/tvState"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="8"
-                            android:autofillHints="no"
-                            tools:ignore="LabelFor,SmallSp"
-                            android:textSize="10sp" />
-                    </LinearLayout>
-                    <LinearLayout
-                        android:layout_width="match_parent"
+                        android:layout_weight="2.2"
+                        android:text="@string/marker_achievement"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textSize="10sp"
+                        android:layout_gravity="center"
+                        tools:ignore="SmallSp" />
+                    <Spinner
+                        android:id="@+id/spinMarkerAchievement"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:weightSum="10">
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="2"
-                            android:text="@string/marker_country"
-                            android:textAppearance="?android:attr/textAppearanceMedium"
-                            android:textSize="10sp"
-                            tools:ignore="SmallSp" />
-                        <TextView
-                            android:id="@+id/tvAbbrCountry"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="2"
-                            android:autofillHints="no"
-                            tools:ignore="LabelFor,SmallSp"
-                            android:textSize="10sp" />
-                        <TextView
-                            android:id="@+id/tvCountry"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="6"
-                            android:autofillHints="no"
-                            tools:ignore="LabelFor,SmallSp"
-                            android:textSize="10sp" />
-                    </LinearLayout>
+                        android:layout_weight="7.8"
+                        android:layout_gravity="center"
+                        android:text="@string/marker_achievement"
+                        android:textSize="10sp"
+                        tools:ignore="SmallSp">
+                    </Spinner>
+                    <ImageButton
+                        android:id="@+id/btAddAchievement"
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
+                        android:layout_gravity="center"
+                        android:contentDescription="@string/add_new_achievement"
+                        android:scaleType="centerCrop"
+                        app:srcCompat="@drawable/ic_button_add_circle" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/llTour"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="10">
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2.2"
+                        android:layout_gravity="center"
+                        android:text="@string/Tour"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textSize="10sp"
+                        tools:ignore="SmallSp" />
+                    <Spinner
+                        android:id="@+id/spinTour"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="7.8"
+                        android:layout_gravity="center"
+                        android:textSize="10sp"
+                        tools:ignore="SmallSp">
+                    </Spinner>
+                    <ImageButton
+                        android:id="@+id/btAddTour"
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
+                        android:layout_gravity="center"
+                        android:contentDescription="@string/add_new_achievement"
+                        android:scaleType="centerCrop"
+                        app:srcCompat="@drawable/ic_button_add_circle" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="10">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:text="@string/marker_sequence"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textSize="10sp"
+                        tools:ignore="SmallSp" />
+                    <EditText
+                        android:id="@+id/etSeq"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:gravity="center"
+                        android:autofillHints="no"
+                        android:inputType="number"
+                        tools:ignore="LabelFor,SmallSp"
+                        android:textSize="10sp" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="10">
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:text="@string/marker_description"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textSize="10sp"
+                        tools:ignore="SmallSp" />
+                    <EditText
+                        android:id="@+id/etDescription"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="8"
+                        android:autofillHints="no"
+                        android:inputType="textCapSentences"
+                        tools:ignore="LabelFor,SmallSp"
+                        android:textSize="10sp"  />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="10">
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:text="@string/marker_expected_value"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textSize="10sp"
+                        tools:ignore="SmallSp" />
+
+                    <EditText
+                        android:id="@+id/etExpectedValue"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="3"
+                        android:autofillHints="no"
+                        android:gravity="end"
+                        android:inputType="numberDecimal"
+                        android:textSize="10sp"
+                        tools:ignore="LabelFor,SmallSp" />
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:text="@string/marker_predicted_stop_time"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textSize="10sp"
+                        tools:ignore="SmallSp" />
+                    <EditText
+                        android:id="@+id/etPredictedStopTime"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="3"
+                        android:gravity="end"
+                        android:autofillHints="no"
+                        android:inputType="text"
+                        android:textSize="10sp"
+                        tools:ignore="LabelFor,SmallSp" />
+                </LinearLayout>
             </LinearLayout>
-        </LinearLayout>
-    </androidx.cardview.widget.CardView>
+        </androidx.cardview.widget.CardView>
 
-    <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/labels_space_top"
-        app:cardBackgroundColor="@color/colorBackgroundCard"
-        app:cardCornerRadius="@dimen/cardCornerRadius"
-        app:cardElevation="@dimen/cardElevation">
-        <LinearLayout
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="@dimen/labels_margin">
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rvListMarkers"
+            android:layout_marginTop="@dimen/labels_space_top"
+            android:layout_marginBottom="@dimen/labels_space_top"
+            app:cardBackgroundColor="@color/colorBackgroundCard"
+            app:cardCornerRadius="@dimen/cardCornerRadius"
+            app:cardElevation="@dimen/cardElevation">
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="12sp"/>
+                android:orientation="horizontal"
+                android:padding="@dimen/labels_margin">
+                <ImageButton
+                    android:id="@+id/btLocation"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center"
+                    android:contentDescription="@string/Achievement_Latlng_Achievement"
+                    android:scaleType="centerCrop"
+                    app:srcCompat="@drawable/ic_menu_location" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="@dimen/labels_margin">
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:weightSum="10">
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="2"
+                                android:text="@string/marker_latlng"
+                                android:textAppearance="?android:attr/textAppearanceMedium"
+                                android:textSize="10sp"
+                                tools:ignore="SmallSp" />
 
-        </LinearLayout>
-    </androidx.cardview.widget.CardView>
-    <Button
-        android:id="@+id/btnSave"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="8dp"
-        android:text="@string/bt_Save" />
-</LinearLayout>
+                            <TextView
+                                android:id="@+id/tvLat"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="4"
+                                android:autofillHints="no"
+                                android:minLines="1"
+                                android:textSize="10sp"
+                                tools:ignore="LabelFor,SmallSp" />
+
+                            <TextView
+                                android:id="@+id/tvLng"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="4"
+                                android:autofillHints="no"
+                                android:textSize="10sp"
+                                tools:ignore="LabelFor,SmallSp" />
+
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:weightSum="10">
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="2"
+                                android:text="@string/marker_name"
+                                android:textAppearance="?android:attr/textAppearanceMedium"
+                                android:textSize="10sp"
+                                tools:ignore="SmallSp" />
+                            <TextView
+                                android:id="@+id/tvName"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="8"
+                                android:autofillHints="no"
+                                tools:ignore="LabelFor,SmallSp"
+                                android:textSize="10sp" />
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:weightSum="10">
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="2"
+                                android:text="@string/marker_address"
+                                android:textAppearance="?android:attr/textAppearanceMedium"
+                                android:textSize="10sp"
+                                tools:ignore="SmallSp" />
+                            <TextView
+                                android:id="@+id/tvAddress"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="8"
+                                android:autofillHints="no"
+                                tools:ignore="LabelFor,SmallSp"
+                                android:textSize="10sp" />
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:weightSum="10">
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="2"
+                                android:text="@string/marker_city"
+                                android:textAppearance="?android:attr/textAppearanceMedium"
+                                android:textSize="10sp"
+                                tools:ignore="SmallSp" />
+                            <TextView
+                                android:id="@+id/tvCity"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="8"
+                                android:autofillHints="no"
+                                tools:ignore="LabelFor,SmallSp"
+                                android:textSize="10sp" />
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:weightSum="10">
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="2"
+                                android:text="@string/marker_state"
+                                android:textAppearance="?android:attr/textAppearanceMedium"
+                                android:textSize="10sp"
+                                tools:ignore="SmallSp" />
+                            <TextView
+                                android:id="@+id/tvState"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="8"
+                                android:autofillHints="no"
+                                tools:ignore="LabelFor,SmallSp"
+                                android:textSize="10sp" />
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:weightSum="10">
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="2"
+                                android:text="@string/marker_country"
+                                android:textAppearance="?android:attr/textAppearanceMedium"
+                                android:textSize="10sp"
+                                tools:ignore="SmallSp" />
+                            <TextView
+                                android:id="@+id/tvAbbrCountry"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="2"
+                                android:autofillHints="no"
+                                tools:ignore="LabelFor,SmallSp"
+                                android:textSize="10sp" />
+                            <TextView
+                                android:id="@+id/tvCountry"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="6"
+                                android:autofillHints="no"
+                                tools:ignore="LabelFor,SmallSp"
+                                android:textSize="10sp" />
+                        </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/labels_space_top"
+            app:cardBackgroundColor="@color/colorBackgroundCard"
+            app:cardCornerRadius="@dimen/cardCornerRadius"
+            app:cardElevation="@dimen/cardElevation">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/labels_margin">
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvListMarkers"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="12sp"/>
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+        <Button
+            android:id="@+id/btnSave"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="8dp"
+            android:text="@string/bt_Save" />
+    </LinearLayout>
+</ScrollView>

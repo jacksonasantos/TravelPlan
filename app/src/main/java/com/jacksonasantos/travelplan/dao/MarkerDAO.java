@@ -151,26 +151,28 @@ public class MarkerDAO extends DbContentProvider implements MarkerISchema, Marke
     public Marker cursorToEntity(Cursor c) {
         Marker m = new Marker();
         if (c != null) {
-            if (c.getColumnIndex(MARKER_ID) != -1)             {m.setId(c.getInt(c.getColumnIndexOrThrow(MARKER_ID))); }
-            if (c.getColumnIndex(MARKER_TRAVEL_ID) != -1)      if (c.getInt(c.getColumnIndexOrThrow(MARKER_TRAVEL_ID)) == 0) m.setTravel_id(null);
-                                                               else m.setTravel_id(c.getInt(c.getColumnIndexOrThrow(MARKER_TRAVEL_ID)));
-            if (c.getColumnIndex(MARKER_ITINERARY_ID) != -1)   if (c.getInt(c.getColumnIndexOrThrow(MARKER_ITINERARY_ID)) == 0) m.setItinerary_id(null);
-                                                               else m.setItinerary_id(c.getInt(c.getColumnIndexOrThrow(MARKER_ITINERARY_ID)));
-            if (c.getColumnIndex(MARKER_ACHIEVEMENT_ID) != -1) if (c.getInt(c.getColumnIndexOrThrow(MARKER_ACHIEVEMENT_ID)) == 0) m.setAchievement_id(null);
-                                                               else m.setAchievement_id(c.getInt(c.getColumnIndexOrThrow(MARKER_ACHIEVEMENT_ID)));
-            if (c.getColumnIndex(MARKER_TOUR_ID) != -1)        if (c.getInt(c.getColumnIndexOrThrow(MARKER_TOUR_ID)) == 0) m.setTour_id(null);
-                                                               else m.setTour_id(c.getInt(c.getColumnIndexOrThrow(MARKER_TOUR_ID)));
-            if (c.getColumnIndex(MARKER_MARKER_TYPE) != -1)    {m.setMarker_type(c.getInt(c.getColumnIndexOrThrow(MARKER_MARKER_TYPE))); }
-            if (c.getColumnIndex(MARKER_SEQUENCE) != -1)       {m.setSequence(c.getInt(c.getColumnIndexOrThrow(MARKER_SEQUENCE))); }
-            if (c.getColumnIndex(MARKER_NAME) != -1)           {m.setName(c.getString(c.getColumnIndexOrThrow(MARKER_NAME))); }
-            if (c.getColumnIndex(MARKER_ADDRESS) != -1)        {m.setAddress(c.getString(c.getColumnIndexOrThrow(MARKER_ADDRESS))); }
-            if (c.getColumnIndex(MARKER_CITY) != -1)           {m.setCity(c.getString(c.getColumnIndexOrThrow(MARKER_CITY))); }
-            if (c.getColumnIndex(MARKER_STATE) != -1)          {m.setState(c.getString(c.getColumnIndexOrThrow(MARKER_STATE))); }
-            if (c.getColumnIndex(MARKER_COUNTRY) != -1)        {m.setCountry(c.getString(c.getColumnIndexOrThrow(MARKER_COUNTRY))); }
-            if (c.getColumnIndex(MARKER_ABBR_COUNTRY) != -1)   {m.setAbbr_country(c.getString(c.getColumnIndexOrThrow(MARKER_ABBR_COUNTRY))); }
-            if (c.getColumnIndex(MARKER_DESCRIPTION) != -1)    {m.setDescription(c.getString(c.getColumnIndexOrThrow(MARKER_DESCRIPTION))); }
-            if (c.getColumnIndex(MARKER_LATITUDE) != -1)       {m.setLatitude(c.getString(c.getColumnIndexOrThrow(MARKER_LATITUDE))); }
-            if (c.getColumnIndex(MARKER_LONGITUDE) != -1)      {m.setLongitude(c.getString(c.getColumnIndexOrThrow(MARKER_LONGITUDE))); }
+            if (c.getColumnIndex(MARKER_ID) != -1)                  {m.setId(c.getInt(c.getColumnIndexOrThrow(MARKER_ID))); }
+            if (c.getColumnIndex(MARKER_TRAVEL_ID) != -1)           if (c.getInt(c.getColumnIndexOrThrow(MARKER_TRAVEL_ID)) == 0) m.setTravel_id(null);
+                                                                    else m.setTravel_id(c.getInt(c.getColumnIndexOrThrow(MARKER_TRAVEL_ID)));
+            if (c.getColumnIndex(MARKER_ITINERARY_ID) != -1)        if (c.getInt(c.getColumnIndexOrThrow(MARKER_ITINERARY_ID)) == 0) m.setItinerary_id(null);
+                                                                    else m.setItinerary_id(c.getInt(c.getColumnIndexOrThrow(MARKER_ITINERARY_ID)));
+            if (c.getColumnIndex(MARKER_ACHIEVEMENT_ID) != -1)      if (c.getInt(c.getColumnIndexOrThrow(MARKER_ACHIEVEMENT_ID)) == 0) m.setAchievement_id(null);
+                                                                    else m.setAchievement_id(c.getInt(c.getColumnIndexOrThrow(MARKER_ACHIEVEMENT_ID)));
+            if (c.getColumnIndex(MARKER_TOUR_ID) != -1)             if (c.getInt(c.getColumnIndexOrThrow(MARKER_TOUR_ID)) == 0) m.setTour_id(null);
+                                                                    else m.setTour_id(c.getInt(c.getColumnIndexOrThrow(MARKER_TOUR_ID)));
+            if (c.getColumnIndex(MARKER_MARKER_TYPE) != -1)         {m.setMarker_type(c.getInt(c.getColumnIndexOrThrow(MARKER_MARKER_TYPE))); }
+            if (c.getColumnIndex(MARKER_SEQUENCE) != -1)            {m.setSequence(c.getInt(c.getColumnIndexOrThrow(MARKER_SEQUENCE))); }
+            if (c.getColumnIndex(MARKER_NAME) != -1)                {m.setName(c.getString(c.getColumnIndexOrThrow(MARKER_NAME))); }
+            if (c.getColumnIndex(MARKER_ADDRESS) != -1)             {m.setAddress(c.getString(c.getColumnIndexOrThrow(MARKER_ADDRESS))); }
+            if (c.getColumnIndex(MARKER_CITY) != -1)                {m.setCity(c.getString(c.getColumnIndexOrThrow(MARKER_CITY))); }
+            if (c.getColumnIndex(MARKER_STATE) != -1)               {m.setState(c.getString(c.getColumnIndexOrThrow(MARKER_STATE))); }
+            if (c.getColumnIndex(MARKER_COUNTRY) != -1)             {m.setCountry(c.getString(c.getColumnIndexOrThrow(MARKER_COUNTRY))); }
+            if (c.getColumnIndex(MARKER_ABBR_COUNTRY) != -1)        {m.setAbbr_country(c.getString(c.getColumnIndexOrThrow(MARKER_ABBR_COUNTRY))); }
+            if (c.getColumnIndex(MARKER_DESCRIPTION) != -1)         {m.setDescription(c.getString(c.getColumnIndexOrThrow(MARKER_DESCRIPTION))); }
+            if (c.getColumnIndex(MARKER_LATITUDE) != -1)            {m.setLatitude(c.getString(c.getColumnIndexOrThrow(MARKER_LATITUDE))); }
+            if (c.getColumnIndex(MARKER_LONGITUDE) != -1)           {m.setLongitude(c.getString(c.getColumnIndexOrThrow(MARKER_LONGITUDE))); }
+            if (c.getColumnIndex(MARKER_PREDICTED_STOP_TIME) != -1) {m.setPredicted_stop_time(c.getInt(c.getColumnIndexOrThrow(MARKER_PREDICTED_STOP_TIME)));
+            }
         }
         return m;
     }
@@ -193,6 +195,7 @@ public class MarkerDAO extends DbContentProvider implements MarkerISchema, Marke
         initialValues.put(MARKER_DESCRIPTION, m.description);
         initialValues.put(MARKER_LATITUDE, m.latitude);
         initialValues.put(MARKER_LONGITUDE, m.longitude);
+        initialValues.put(MARKER_PREDICTED_STOP_TIME, m.predicted_stop_time);
     }
 
     private ContentValues getContentValue() {
