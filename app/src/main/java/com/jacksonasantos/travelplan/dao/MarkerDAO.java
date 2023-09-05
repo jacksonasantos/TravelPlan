@@ -158,8 +158,6 @@ public class MarkerDAO extends DbContentProvider implements MarkerISchema, Marke
                                                                     else m.setItinerary_id(c.getInt(c.getColumnIndexOrThrow(MARKER_ITINERARY_ID)));
             if (c.getColumnIndex(MARKER_ACHIEVEMENT_ID) != -1)      if (c.getInt(c.getColumnIndexOrThrow(MARKER_ACHIEVEMENT_ID)) == 0) m.setAchievement_id(null);
                                                                     else m.setAchievement_id(c.getInt(c.getColumnIndexOrThrow(MARKER_ACHIEVEMENT_ID)));
-            if (c.getColumnIndex(MARKER_TOUR_ID) != -1)             if (c.getInt(c.getColumnIndexOrThrow(MARKER_TOUR_ID)) == 0) m.setTour_id(null);
-                                                                    else m.setTour_id(c.getInt(c.getColumnIndexOrThrow(MARKER_TOUR_ID)));
             if (c.getColumnIndex(MARKER_MARKER_TYPE) != -1)         {m.setMarker_type(c.getInt(c.getColumnIndexOrThrow(MARKER_MARKER_TYPE))); }
             if (c.getColumnIndex(MARKER_SEQUENCE) != -1)            {m.setSequence(c.getInt(c.getColumnIndexOrThrow(MARKER_SEQUENCE))); }
             if (c.getColumnIndex(MARKER_NAME) != -1)                {m.setName(c.getString(c.getColumnIndexOrThrow(MARKER_NAME))); }
@@ -183,7 +181,6 @@ public class MarkerDAO extends DbContentProvider implements MarkerISchema, Marke
         initialValues.put(MARKER_TRAVEL_ID, m.travel_id);
         initialValues.put(MARKER_ITINERARY_ID, m.itinerary_id);
         initialValues.put(MARKER_ACHIEVEMENT_ID, m.achievement_id);
-        initialValues.put(MARKER_TOUR_ID, m.tour_id);
         initialValues.put(MARKER_MARKER_TYPE, m.marker_type);
         initialValues.put(MARKER_SEQUENCE, m.sequence);
         initialValues.put(MARKER_NAME, m.name);

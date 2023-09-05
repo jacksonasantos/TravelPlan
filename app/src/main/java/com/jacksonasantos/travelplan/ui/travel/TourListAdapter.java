@@ -79,7 +79,9 @@ public class TourListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             final Tour tour = mTour.get(position-show_header);
             final Itinerary itinerary = Database.mItineraryDao.fetchItineraryById(tour.getItinerary_id());
             itemViewHolder.imgTourType.setImageResource(Tour.getTourTypeImage(tour.getTour_type()));
-            itemViewHolder.txtTourDate.setText(Objects.requireNonNull(Utils.dateToString(tour.getTour_date())).substring(0,5));
+            if (tour.getTour_date()!=null) {
+                itemViewHolder.txtTourDate.setText(Objects.requireNonNull(Utils.dateToString(tour.getTour_date())).substring(0, 5));
+            }
             itemViewHolder.txtTourSequence.setText(itinerary.getSequence() + "." + tour.getTour_sequence());
             itemViewHolder.txtLocalTour.setText(tour.getLocal_tour());
             itemViewHolder.txtDistance.setText(Integer.toString(tour.getDistanceMeasureIndex()));

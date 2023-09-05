@@ -58,12 +58,12 @@ public class MarkerActivity extends AppCompatActivity implements MarkerTypeListA
     Travel travel;
 
     private TextView tvLat, tvLng, tvName, tvAddress, tvCity, tvState, tvAbbrCountry, tvCountry;
-    private Spinner spinItinerary, spinMarkerAchievement, spinTour;
-    private Integer nrSpinItinerary, nrSpinMarkerAchievement, nrSpinTour;
+    private Spinner spinItinerary, spinMarkerAchievement;
+    private Integer nrSpinItinerary, nrSpinMarkerAchievement;
     private EditText etSeq, etDescription, etExpectedValue, etPredictedStopTime ;
-    private ImageButton btLocation, btAddAchievement, btAddTour;
+    private ImageButton btLocation, btAddAchievement;
     private RecyclerView rvListMarkers, rvMarkerType;
-    private LinearLayout llItinerary, llAchievement, llTour;
+    private LinearLayout llItinerary, llAchievement;
     private int nrMarkerType = -1;
 
     public MarkerTypeListAdapter adapterMarkerType;
@@ -97,10 +97,8 @@ public class MarkerActivity extends AppCompatActivity implements MarkerTypeListA
         tvCountry = findViewById(R.id.tvCountry);
         btLocation = findViewById(R.id.btLocation);
         btAddAchievement = findViewById(R.id.btAddAchievement);
-        btAddTour = findViewById(R.id.btAddTour);
         spinItinerary = findViewById(R.id.spinItinerary);
         spinMarkerAchievement = findViewById(R.id.spinMarkerAchievement);
-        spinTour =findViewById(R.id.spinTour);
         etSeq = findViewById(R.id.etSeq);
         etDescription = findViewById(R.id.etDescription);
         etExpectedValue = findViewById(R.id.etExpectedValue);
@@ -109,7 +107,6 @@ public class MarkerActivity extends AppCompatActivity implements MarkerTypeListA
         rvMarkerType = findViewById(R.id.rvMarkerType);
         llItinerary = findViewById(R.id.llItinerary);
         llAchievement = findViewById(R.id.llAchievement);
-        llTour = findViewById(R.id.llTour);
 
         Bundle extras = getIntent().getExtras();
         marker = new Marker();
@@ -175,12 +172,6 @@ public class MarkerActivity extends AppCompatActivity implements MarkerTypeListA
             myActivityResultLauncher.launch(intent);
         });
 
-        btAddTour.setOnClickListener(view -> {
-            Intent intent = new Intent (getBaseContext(), TourActivity.class);
-            intent.putExtra("travel_id", marker.getTravel_id());
-            myActivityResultLauncher.launch(intent);
-        });
-
         final List<Itinerary> itineraries =  Database.mItineraryDao.fetchAllItineraryByTravel(travel.getId());
         itineraries.add(0, new Itinerary());
         ArrayAdapter<Itinerary> adapterA = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, itineraries);
@@ -215,21 +206,7 @@ public class MarkerActivity extends AppCompatActivity implements MarkerTypeListA
             public void onNothingSelected(AdapterView<?> adapterView) {nrSpinMarkerAchievement = -1;}
         });
 
-        final List<Tour> tours =  Database.mTourDao.fetchAllTourByTravel(marker.getTravel_id());
-        tours.add(0, new Tour());
-        adapterT = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, tours);
-        adapterT.setDropDownViewResource( android.R.layout.simple_spinner_dropdown_item);
-        spinTour.setAdapter(adapterT);
-        nrSpinTour = marker.getTour_id();
-        spinTour.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long idx) {
-                nrSpinTour = ((Tour) parent.getItemAtPosition(position)).getId();
-                spinTour.setSelection(position);
-            }
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {nrSpinTour = -1;}
-        });
+
 
         nrMarkerType = -1;
         List<Integer> vMarkerType = new ArrayList<>();
@@ -270,7 +247,6 @@ public class MarkerActivity extends AppCompatActivity implements MarkerTypeListA
             etDescription.setText(marker.getDescription());
             nrSpinItinerary = marker.getItinerary_id();
             nrSpinMarkerAchievement = marker.getAchievement_id();
-            nrSpinTour = marker.getTour_id();
             nrMarkerType = marker.getMarker_type();
             Utils.selected_position = nrMarkerType;
             showLayers(nrMarkerType);
@@ -298,25 +274,15 @@ public class MarkerActivity extends AppCompatActivity implements MarkerTypeListA
                 }
             }
         }
-        if (nrSpinTour != null && nrSpinTour > 0) {
-            Tour t1 = Database.mTourDao.fetchTourById(nrSpinTour);
-            for (int x = 1; x <= spinTour.getAdapter().getCount(); x++) {
-                if (spinTour.getAdapter().getItem(x).toString().equals(t1.toString())) {
-                    spinTour.setSelection(x);
-                    break;
-                }
-            }
-        }
     }
 
     private void showLayers(int nrMarkerType) {
         llItinerary.setVisibility(View.VISIBLE);
-        llTour.setVisibility(View.GONE);
         llAchievement.setVisibility(View.GONE);
 
-        switch (nrMarkerType) {
-            case 6: llTour.setVisibility(View.VISIBLE); nrSpinTour=null; break;
-            case 9: llAchievement.setVisibility(View.VISIBLE); nrSpinMarkerAchievement=null; break;
+        if (nrMarkerType == 9) {
+            llAchievement.setVisibility(View.VISIBLE);
+            nrSpinMarkerAchievement = null;
         }
     }
 
@@ -354,7 +320,6 @@ public class MarkerActivity extends AppCompatActivity implements MarkerTypeListA
                             adapterT.clear();
                             adapterT.addAll(tours);
                             adapterT.notifyDataSetChanged() ;
-                            spinTour.requestFocus();
                         }
                     }
                 }
@@ -382,7 +347,6 @@ public class MarkerActivity extends AppCompatActivity implements MarkerTypeListA
                 m1.setCountry(tvCountry.getText().toString());
                 m1.setItinerary_id(nrSpinItinerary);
                 m1.setAchievement_id(nrSpinMarkerAchievement);
-                m1.setTour_id(nrSpinTour);
                 m1.setMarker_type(nrMarkerType);
                 m1.setSequence(Integer.valueOf(etSeq.getText().toString()));
                 m1.setDescription(etDescription.getText().toString());

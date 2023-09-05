@@ -93,78 +93,84 @@ public class MainActivity extends AppCompatActivity {
         mDb = new Database( ctx );
         mDb.open();
 
-        // Load of InsuranceCompany
-        // TODO - Load files in directory in install app
         try {
-            AssetManager assetManager = ctx.getAssets();
-            InputStreamReader isr = new InputStreamReader(assetManager.open("seguradoras.csv"), StandardCharsets.UTF_8);
-            BufferedReader reader = new BufferedReader(isr);
-            String lineStr;
+            // Load of InsuranceCompany
+            // TODO - Load files in directory in install app
+            try {
+                AssetManager assetManager = ctx.getAssets();
+                InputStreamReader isr = new InputStreamReader(assetManager.open("seguradoras.csv"), StandardCharsets.UTF_8);
+                BufferedReader reader = new BufferedReader(isr);
+                String lineStr;
 
-            while ((lineStr = reader.readLine()) != null) {
-                String[] dataLine = lineStr.split(";");
-                InsuranceCompany insuranceCompany = Database.mInsuranceCompanyDao.fetchInsuranceCompanyByCNPJ(dataLine[1]);
-                insuranceCompany.setCompany_name(dataLine[0]);
-                insuranceCompany.setCnpj(dataLine[1]);
-                insuranceCompany.setFip_code(dataLine[2]);
-                insuranceCompany.setAddress(dataLine[3]);
-                insuranceCompany.setCity(dataLine[4]);
-                insuranceCompany.setState(dataLine[5]);
-                insuranceCompany.setZip_code(dataLine[6]);
-                insuranceCompany.setTelephone(dataLine[7]);
-                if (dataLine.length>8 && !dataLine[8].isEmpty()) {
-                    insuranceCompany.setAuthorization_date(Utils.stringToDate(dataLine[8]));
-                }
-                if (insuranceCompany.getId() != null) {
-                    if (!Database.mInsuranceCompanyDao.updateInsuranceCompany(insuranceCompany)) {
-                        Toast.makeText(ctx, R.string.Error_Changing_Data + Arrays.toString(dataLine), Toast.LENGTH_LONG).show();
+                while ((lineStr = reader.readLine()) != null) {
+                    String[] dataLine = lineStr.split(";");
+                    InsuranceCompany insuranceCompany = Database.mInsuranceCompanyDao.fetchInsuranceCompanyByCNPJ(dataLine[1]);
+                    insuranceCompany.setCompany_name(dataLine[0]);
+                    insuranceCompany.setCnpj(dataLine[1]);
+                    insuranceCompany.setFip_code(dataLine[2]);
+                    insuranceCompany.setAddress(dataLine[3]);
+                    insuranceCompany.setCity(dataLine[4]);
+                    insuranceCompany.setState(dataLine[5]);
+                    insuranceCompany.setZip_code(dataLine[6]);
+                    insuranceCompany.setTelephone(dataLine[7]);
+                    if (dataLine.length>8 && !dataLine[8].isEmpty()) {
+                        insuranceCompany.setAuthorization_date(Utils.stringToDate(dataLine[8]));
                     }
-                } else {
-                    if (!Database.mInsuranceCompanyDao.addInsuranceCompany(insuranceCompany)) {
-                        Toast.makeText(ctx, R.string.Error_Including_Data + Arrays.toString(dataLine), Toast.LENGTH_LONG).show();
+                    if (insuranceCompany.getId() != null) {
+                        if (!Database.mInsuranceCompanyDao.updateInsuranceCompany(insuranceCompany)) {
+                            Toast.makeText(ctx, R.string.Error_Changing_Data + Arrays.toString(dataLine), Toast.LENGTH_LONG).show();
+                        }
+                    } else {
+                        if (!Database.mInsuranceCompanyDao.addInsuranceCompany(insuranceCompany)) {
+                            Toast.makeText(ctx, R.string.Error_Including_Data + Arrays.toString(dataLine), Toast.LENGTH_LONG).show();
+                        }
                     }
                 }
+                isr.close();
+            } catch (IOException ex) {
+                Log.i("debug", "Error load 'Seguradoras': " + ex.getMessage());
             }
-            isr.close();
-        } catch (IOException ex) {
-            Log.i("debug", "Error load 'Seguradoras': " + ex.getMessage());
-        }
-        // Maintenance Plan Load
-        try {
-            AssetManager assetManager = ctx.getAssets();
-            InputStreamReader is = new InputStreamReader(assetManager.open("service_type.csv"), StandardCharsets.UTF_8);
-            BufferedReader reader = new BufferedReader(is);
-            String lineStr;
+            // Maintenance Plan Load
+            try {
+                AssetManager assetManager = ctx.getAssets();
+                InputStreamReader is = new InputStreamReader(assetManager.open("service_type.csv"), StandardCharsets.UTF_8);
+                BufferedReader reader = new BufferedReader(is);
+                String lineStr;
 
-            while ((lineStr = reader.readLine()) != null) {
-                String[] dataLine = lineStr.split(";");
-                MaintenancePlan maintenancePlan = Database.mMaintenancePlanDao.fetchMaintenancePlanByService(Integer.parseInt(dataLine[0]),dataLine[1]);
-                maintenancePlan.setService_type(Integer.parseInt(dataLine[0]));
-                maintenancePlan.setDescription(dataLine[1]);
-                int x;
-                switch(dataLine[2]) {
-                    case "km":   x = 1; break;
-                    case "dias": x = 2; break;
-                    default:     x = 0;
-                }
-                maintenancePlan.setMeasure(x);
-                if (dataLine[3] != null && !dataLine[3].isEmpty()){
-                    maintenancePlan.setExpiration_default(Integer.parseInt(dataLine[3].replace(".","")));
-                }
-                maintenancePlan.setRecommendation(dataLine[4]);
-                if (maintenancePlan.getId() != null) {
-                    if (!Database.mMaintenancePlanDao.updateMaintenancePlan(maintenancePlan)) {
-                        Toast.makeText(ctx, R.string.Error_Changing_Data + Arrays.toString(dataLine), Toast.LENGTH_LONG).show();
+                while ((lineStr = reader.readLine()) != null) {
+                    String[] dataLine = lineStr.split(";");
+                    MaintenancePlan maintenancePlan = Database.mMaintenancePlanDao.fetchMaintenancePlanByService(Integer.parseInt(dataLine[0]),dataLine[1]);
+                    maintenancePlan.setService_type(Integer.parseInt(dataLine[0]));
+                    maintenancePlan.setDescription(dataLine[1]);
+                    int x;
+                    switch(dataLine[2]) {
+                        case "km":   x = 1; break;
+                        case "dias": x = 2; break;
+                        default:     x = 0;
                     }
-                } else {
-                    if (Database.mMaintenancePlanDao.addMaintenancePlan(maintenancePlan)==null) {
-                        Toast.makeText(ctx, R.string.Error_Including_Data + Arrays.toString(dataLine), Toast.LENGTH_LONG).show();
+                    maintenancePlan.setMeasure(x);
+                    if (dataLine[3] != null && !dataLine[3].isEmpty()){
+                        maintenancePlan.setExpiration_default(Integer.parseInt(dataLine[3].replace(".","")));
+                    }
+                    maintenancePlan.setRecommendation(dataLine[4]);
+                    if (maintenancePlan.getId() != null) {
+                        if (!Database.mMaintenancePlanDao.updateMaintenancePlan(maintenancePlan)) {
+                            Toast.makeText(ctx, R.string.Error_Changing_Data + Arrays.toString(dataLine), Toast.LENGTH_LONG).show();
+                        }
+                    } else {
+                        if (Database.mMaintenancePlanDao.addMaintenancePlan(maintenancePlan)==null) {
+                            Toast.makeText(ctx, R.string.Error_Including_Data + Arrays.toString(dataLine), Toast.LENGTH_LONG).show();
+                        }
                     }
                 }
+                is.close();
+            } catch (IOException ex) {
+                Log.i("debug", "Error load 'Plano de Manutenção': " + ex.getMessage());
             }
-            is.close();
-        } catch (IOException ex) {
-            Log.i("debug", "Error load 'Plano de Manutenção': " + ex.getMessage());
+
+        } catch (Exception x) {
+            Log.i("debug", "Error : " + x.getMessage());
+            finish();
         }
         mDb.close();
     }

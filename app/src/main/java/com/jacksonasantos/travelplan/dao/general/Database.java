@@ -70,7 +70,7 @@ public class Database {
     private final Context mContext;
 
     private static final String DATABASE_NAME = "TravelPlan.db";
-    private static final int DATABASE_VERSION = 75;
+    private static final int DATABASE_VERSION = 77;
 
     public static AccommodationDAO mAccommodationDao;
     public static AchievementDAO mAchievementDao;
@@ -269,6 +269,14 @@ public class Database {
             db.execSQL(TourISchema.ALTER_TABLE_TOUR_V73);Log.w("Table "+TourISchema.TOUR_TABLE,"V73 - Alter Table...");
             db.execSQL(TourISchema.ALTER_TABLE_TOUR_V74);Log.w("Table "+TourISchema.TOUR_TABLE,"V74 - Alter Table...");
             db.execSQL(MarkerISchema.ALTER_TABLE_MARKER_V75);Log.w("Table "+MarkerISchema.MARKER_TABLE,"V75 - Alter Table...");
+            db.execSQL(MarkerISchema.ALTER_TABLE_MARKER_V77_1);Log.w("Table "+MarkerISchema.MARKER_TABLE,"V77.1 - Alter Table...");
+            db.execSQL(MarkerISchema.ALTER_TABLE_MARKER_V77_2);Log.w("Table "+MarkerISchema.MARKER_TABLE,"V77.2 - Alter Table...");
+            db.execSQL(MarkerISchema.ALTER_TABLE_MARKER_V77_3);Log.w("Table "+MarkerISchema.MARKER_TABLE,"V77.3 - Alter Table...");
+            db.execSQL(MarkerISchema.ALTER_TABLE_MARKER_V77_4);Log.w("Table "+MarkerISchema.MARKER_TABLE,"V77.4 - Alter Table...");
+            db.execSQL(MarkerISchema.ALTER_TABLE_MARKER_V77_5);Log.w("Table "+MarkerISchema.MARKER_TABLE,"V77.5 - Alter Table...");
+            db.execSQL(MarkerISchema.ALTER_TABLE_MARKER_V77_6);Log.w("Table "+MarkerISchema.MARKER_TABLE,"V77.6 - Alter Table...");
+            //db.execSQL(MarkerISchema.ALTER_TABLE_MARKER_V77_7);Log.w("Table "+MarkerISchema.MARKER_TABLE,"V77.7 - Alter Table...");
+            db.execSQL(MarkerISchema.ALTER_TABLE_MARKER_V77_8);Log.w("Table "+MarkerISchema.MARKER_TABLE,"V77.8 - Alter Table...");
         }
 
         @SuppressLint("SQLiteString")
@@ -504,6 +512,16 @@ public class Database {
                         break;
                     case 75:
                         db.execSQL(MarkerISchema.ALTER_TABLE_MARKER_V75);
+                        break;
+                    case 77:
+                        db.execSQL(MarkerISchema.ALTER_TABLE_MARKER_V77_1);Log.w("Table "+MarkerISchema.MARKER_TABLE,"V77.1 - Alter Table...");
+                        db.execSQL(MarkerISchema.ALTER_TABLE_MARKER_V77_2);Log.w("Table "+MarkerISchema.MARKER_TABLE,"V77.2 - Alter Table...");
+                        db.execSQL(MarkerISchema.ALTER_TABLE_MARKER_V77_3);Log.w("Table "+MarkerISchema.MARKER_TABLE,"V77.3 - Alter Table...");
+                        db.execSQL(MarkerISchema.ALTER_TABLE_MARKER_V77_4);Log.w("Table "+MarkerISchema.MARKER_TABLE,"V77.4 - Alter Table...");
+                        db.execSQL(MarkerISchema.ALTER_TABLE_MARKER_V77_5);Log.w("Table "+MarkerISchema.MARKER_TABLE,"V77.5 - Alter Table...");
+                        db.execSQL(MarkerISchema.ALTER_TABLE_MARKER_V77_6);Log.w("Table "+MarkerISchema.MARKER_TABLE,"V77.6 - Alter Table...");
+                        //db.execSQL(MarkerISchema.ALTER_TABLE_MARKER_V77_7);Log.w("Table "+MarkerISchema.MARKER_TABLE,"V77.7 - Alter Table...");
+                        db.execSQL(MarkerISchema.ALTER_TABLE_MARKER_V77_8);Log.w("Table "+MarkerISchema.MARKER_TABLE,"V77.8 - Alter Table...");
                         break;
                     default:
                         break;

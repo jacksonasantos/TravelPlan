@@ -346,6 +346,7 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
         canvas.drawBitmap(bmp, borderSize, borderSize, null);
         return bmpWithBorder;
     }
+
     private void drawMarker(LatLng point, String title, Bitmap drawableIcon, boolean isAlpha, Integer id, boolean drawRoute) {
         int height = 100;
         int width = 100;
@@ -472,7 +473,7 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
                     }
                     routeClass.drawRoute(googleMap, getContext(), pointsRoute, false, lang, false, "Itinerary", nrTravel_Id, itinerary.getSequence(), nrItinerary_Id, false, itinerary.getTravel_mode(), predictedStopTime);
                 }
-                List<Tour> cTour = Database.mTourDao.fetchAllTourByTravelItinerary(travel_id, itinerary.getId());
+                /*List<Tour> cTour = Database.mTourDao.fetchAllTourByTravelItinerary(travel_id, itinerary.getId());
                 if (cTour.size() > 0) {
                     Marker lastMarker = Database.mMarkerDao.fetchLastMarkerByTravelItinerary(travel_id, itinerary.getId());
                     LatLng lastPoint = new LatLng(Double.parseDouble(lastMarker.getLatitude()), Double.parseDouble(lastMarker.getLongitude()));
@@ -489,9 +490,9 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
                         routeClass.drawRoute(googleMap, getContext(), pointsRoute, false, lang, false, "Tour", cTour.get(x).getId(), itinerary.getSequence(), null, false, 2, 0);
                         lastPoint = latlng;
                     }
-                }
+                }*/
                 pointsRoute.clear();
-                cTour = Database.mTourDao.fetchAllTourByTravelItinerary(travel_id, null);
+                List<Tour> cTour = Database.mTourDao.fetchAllTourByTravelItinerary(travel_id, null);
                 if (cTour.size() > 0) {
                     for (int x=0; x < cTour.size(); x++) {
                         if (!cTour.get(x).getLatlng_tour().isEmpty()) {
