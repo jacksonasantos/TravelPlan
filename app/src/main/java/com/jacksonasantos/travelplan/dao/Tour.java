@@ -11,6 +11,7 @@ public class Tour {
     public Integer id;
     public Integer travel_id;
     public Integer itinerary_id;
+    public Integer marker_id;
     public int tour_type;
     public String local_tour;
     public int currency_type;
@@ -48,6 +49,9 @@ public class Tour {
 
     public Integer getItinerary_id() { return itinerary_id; }
     public void setItinerary_id(Integer itinerary_id) { this.itinerary_id = itinerary_id; }
+
+    public Integer getMarker_id() { return marker_id; }
+    public void setMarker_id(Integer marker_id) { this.marker_id = marker_id; }
 
     public String getLocal_tour() { return local_tour; }
     public void setLocal_tour(String local_tour) { this.local_tour = local_tour; }

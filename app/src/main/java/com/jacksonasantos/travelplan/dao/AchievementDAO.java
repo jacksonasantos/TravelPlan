@@ -54,12 +54,18 @@ public class AchievementDAO extends DbContentProvider implements AchievementISch
     }
 
     public List<Marker> fetchAllAchievementWithTravel(Integer achievement_id ) {
-        final String[] selectionArgs = { String.valueOf(achievement_id) };
+        final String[] selectionArgs = { String.valueOf(achievement_id), String.valueOf(achievement_id) };
         List<Marker> markerList = new ArrayList<>();
         cursor = super.rawQuery("SELECT m.* " +
                                       " FROM " + MarkerDAO.MARKER_TABLE + " m " +
                                       " JOIN " + ACHIEVEMENT_TABLE + " a ON M." + MarkerDAO.MARKER_ACHIEVEMENT_ID + " = a." + ACHIEVEMENT_ID +
-                                     " WHERE m." + MarkerDAO.MARKER_ACHIEVEMENT_ID + " = ? ", selectionArgs);
+                                     " WHERE m." + MarkerDAO.MARKER_ACHIEVEMENT_ID + " = ? " +
+                                     " UNION " +
+                                     " SELECT m.* " +
+                                     " FROM " + MarkerDAO.MARKER_TABLE + " m " +
+                                     " JOIN " + TourDAO.TOUR_TABLE + " t ON M." + MarkerDAO.MARKER_ID + " = t." + TourDAO.TOUR_MARKER_ID +
+                                     " WHERE t." + TourDAO.TOUR_ACHIEVEMENT_ID + " = ? "
+                , selectionArgs);
         if (cursor.moveToFirst()) {
             do {
                 Marker marker = Database.mMarkerDao.cursorToEntity(cursor);
@@ -71,13 +77,21 @@ public class AchievementDAO extends DbContentProvider implements AchievementISch
     }
 
    public List<Achievement> fetchAllAchievementByTravel( Integer travel_id ) {
-       final String[] selectionArgs = { String.valueOf(travel_id) };
+       final String[] selectionArgs = { String.valueOf(travel_id), String.valueOf(travel_id) };
        List<Achievement> achievementList = new ArrayList<>();
-       cursor = super.rawQuery("SELECT a.* " +
-               " FROM " + MarkerDAO.MARKER_TABLE + " m " +
-               " JOIN " + ACHIEVEMENT_TABLE + " a ON M." + MarkerDAO.MARKER_ACHIEVEMENT_ID + " = a." + ACHIEVEMENT_ID +
+       cursor = super.rawQuery(
+           "SELECT a.* " +
+                " FROM " + MarkerDAO.MARKER_TABLE + " m " +
+                " JOIN " + ACHIEVEMENT_TABLE + " a ON M." + MarkerDAO.MARKER_ACHIEVEMENT_ID + " = a." + ACHIEVEMENT_ID +
                " WHERE m." + MarkerDAO.MARKER_TRAVEL_ID + " = ? " +
-               " AND m." + MarkerDAO.MARKER_ACHIEVEMENT_ID + " IS NOT NULL", selectionArgs);
+                 " AND m." + MarkerDAO.MARKER_ACHIEVEMENT_ID + " IS NOT NULL" +
+               " UNION " +
+              " SELECT a.* " +
+                " FROM " + TourDAO.TOUR_TABLE + " t " +
+                " JOIN " + ACHIEVEMENT_TABLE + " a ON t." + TourDAO.TOUR_ACHIEVEMENT_ID + " = a." + ACHIEVEMENT_ID +
+               " WHERE t." + TourDAO.TOUR_TRAVEL_ID + " = ? " +
+                 " AND t." + TourDAO.TOUR_ACHIEVEMENT_ID + " IS NOT NULL"
+               , selectionArgs);
        if (cursor.moveToFirst()) {
            do {
                Achievement achievement = cursorToEntity(cursor);

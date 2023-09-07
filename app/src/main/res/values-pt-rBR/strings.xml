@@ -397,7 +397,7 @@
     <string name="Vehicle_Vehicle_Owner">Proprietário</string>
     <string name="Tour">Passeio</string>
     <string name="Tour_Deleting">Excluindo Passeio</string>
-    <string name="Tour_Marker">Itinerário</string>
+    <string name="Tour_Marker">Marcador</string>
     <string name="Tour_Tour_Type">Tipo Passeio</string>
     <string name="Tour_Currency_Type">Tipo Moeda</string>
     <string name="Tour_Value_Adult">Valor Adulto</string>

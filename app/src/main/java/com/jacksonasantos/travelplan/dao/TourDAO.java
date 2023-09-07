@@ -130,6 +130,8 @@ public class TourDAO extends DbContentProvider implements TourISchema, TourIDAO 
                                                               else t.setTravel_id(c.getInt(c.getColumnIndexOrThrow(TOUR_TRAVEL_ID)));
             if (c.getColumnIndex(TOUR_ITINERARY_ID) != -1)    if (c.getInt(c.getColumnIndexOrThrow(TOUR_ITINERARY_ID)) == 0) t.setItinerary_id(null);
                                                               else t.setItinerary_id(c.getInt(c.getColumnIndexOrThrow(TOUR_ITINERARY_ID)));
+            if (c.getColumnIndex(TOUR_MARKER_ID) != -1)       if (c.getInt(c.getColumnIndexOrThrow(TOUR_MARKER_ID)) == 0) t.setMarker_id(null);
+                                                              else t.setMarker_id(c.getInt(c.getColumnIndexOrThrow(TOUR_MARKER_ID)));
             if (c.getColumnIndex(TOUR_TOUR_TYPE) != -1)       {t.setTour_type(c.getInt(c.getColumnIndexOrThrow(TOUR_TOUR_TYPE))); }
             if (c.getColumnIndex(TOUR_LOCAL_TOUR) != -1)      {t.setLocal_tour(c.getString(c.getColumnIndexOrThrow(TOUR_LOCAL_TOUR))); }
             if (c.getColumnIndex(TOUR_CURRENCY_TYPE) != -1)   {t.setCurrency_type(c.getInt(c.getColumnIndexOrThrow(TOUR_CURRENCY_TYPE))); }
@@ -159,6 +161,7 @@ public class TourDAO extends DbContentProvider implements TourISchema, TourIDAO 
         initialValues.put(TOUR_ID, t.id);
         initialValues.put(TOUR_TRAVEL_ID, t.travel_id);
         initialValues.put(TOUR_ITINERARY_ID, t.itinerary_id);
+        initialValues.put(TOUR_MARKER_ID, t.marker_id);
         initialValues.put(TOUR_TOUR_TYPE, t.tour_type);
         initialValues.put(TOUR_LOCAL_TOUR, t.local_tour);
         initialValues.put(TOUR_CURRENCY_TYPE, t.currency_type);

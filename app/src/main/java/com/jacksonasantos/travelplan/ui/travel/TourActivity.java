@@ -25,6 +25,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.jacksonasantos.travelplan.R;
 import com.jacksonasantos.travelplan.dao.Achievement;
 import com.jacksonasantos.travelplan.dao.Itinerary;
+import com.jacksonasantos.travelplan.dao.Marker;
 import com.jacksonasantos.travelplan.dao.Tour;
 import com.jacksonasantos.travelplan.dao.Travel;
 import com.jacksonasantos.travelplan.dao.general.Database;
@@ -49,6 +50,8 @@ public class TourActivity extends AppCompatActivity implements TourTypeListAdapt
     private Integer nrSpAchievement;
     private Spinner spItinerary;
     private Integer nrSpItinerary;
+    private Spinner spMarker;
+    private Integer nrSpMarker;
     private EditText etLocalTour ;
     private EditText etDate ;
     private EditText etSequence;
@@ -108,6 +111,7 @@ public class TourActivity extends AppCompatActivity implements TourTypeListAdapt
         rvTourType = findViewById(R.id.rvTourType);
         spAchievement = findViewById(R.id.spAchievement);
         spItinerary = findViewById(R.id.spItinerary);
+        spMarker = findViewById(R.id.spMarker);
         etLocalTour = findViewById(R.id.etLocalTour);
         etDate = findViewById(R.id.etDate);
         etSequence = findViewById(R.id.etSequence);
@@ -194,6 +198,24 @@ public class TourActivity extends AppCompatActivity implements TourTypeListAdapt
             }
         });
 
+        final List<Marker> markers =  Database.mMarkerDao.fetchMarkerByTravelItineraryId(tour.getTravel_id(), tour.getItinerary_id());
+        markers.add(0, new Marker());
+        ArrayAdapter<Marker> adapterM = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, markers);
+        adapterM.setDropDownViewResource( android.R.layout.simple_spinner_dropdown_item);
+        spMarker.setAdapter(adapterM);
+        nrSpMarker = tour.getMarker_id();
+        spMarker.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long idx) {
+                nrSpMarker = ((Marker) parent.getItemAtPosition(position)).getId();
+                spMarker.setSelection(position);
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                nrSpMarker = 0;
+            }
+        });
+
         Utils.createSpinnerResources(R.array.currency_array, spCurrencyType, this);
         nrSpCurrencyType = tour.getCurrency_type();
         spCurrencyType.setSelection(nrSpCurrencyType);
@@ -263,6 +285,16 @@ public class TourActivity extends AppCompatActivity implements TourTypeListAdapt
                     }
                 }
             }
+            nrSpMarker= tour.getMarker_id();
+            if (nrSpMarker != null && nrSpMarker > 0) {
+                Marker m1 = Database.mMarkerDao.fetchMarkerById(nrSpMarker);
+                for (int x = 1; x <= spMarker.getAdapter().getCount(); x++) {
+                    if (spMarker.getAdapter().getItem(x).toString().equals(m1.toString())) {
+                        spMarker.setSelection(x);
+                        break;
+                    }
+                }
+            }
             etLocalTour.setText(tour.getLocal_tour());
             etDate.setText(Utils.dateToString(tour.getTour_date()));
             etSequence.setText(String.valueOf(tour.getTour_sequence()));
@@ -321,6 +353,7 @@ public class TourActivity extends AppCompatActivity implements TourTypeListAdapt
                 final Tour t1 = new Tour();
                 t1.setTravel_id(tour.getTravel_id());
                 t1.setItinerary_id(nrSpItinerary);
+                t1.setMarker_id(nrSpMarker);
                 t1.setTour_type(nrTourType);
                 t1.setLocal_tour(etLocalTour.getText().toString());
                 t1.setCurrency_type(nrSpCurrencyType);
@@ -375,7 +408,8 @@ public class TourActivity extends AppCompatActivity implements TourTypeListAdapt
             if (d1 !=null &&
                 (nrTourType == -1 ||
                  //nrSpAchievement == -1 ||
-                 //nrSpItinerary == -1 ||
+                 // nrSpItinerary == -1 ||
+                 //nrSpMarker == -1 ||
                  etLocalTour.getText().toString().trim().isEmpty() ||
                  etDate.getText().toString().trim().isEmpty() ||
                  etSequence.getText().toString().trim().isEmpty() ||

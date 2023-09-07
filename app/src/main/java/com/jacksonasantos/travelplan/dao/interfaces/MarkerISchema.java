@@ -84,7 +84,8 @@ public interface MarkerISchema {
                                             + ") ";
     String ALTER_TABLE_MARKER_V77_5 = "INSERT INTO " + MARKER_TABLE + " SELECT id,travel_id,itinerary_id,achievement_id,marker_type,sequence,name,address,city,state,country,abbr_country,description,latitude,longitude,predicted_stop_time FROM _table1_old ";
     String ALTER_TABLE_MARKER_V77_6 = "COMMIT ";
-    //String ALTER_TABLE_MARKER_V77_7 = "DROP TABLE _table1_old ";
+    /*String ALTER_TABLE_MARKER_V77_71 = "DELETE TABLE _table1_old ";
+    String ALTER_TABLE_MARKER_V77_72 = "DROP TABLE _table1_old ";*/
     String ALTER_TABLE_MARKER_V77_8 = "PRAGMA foreign_keys=on ";
 
     String[] MARKER_COLUMNS = new String[] {
