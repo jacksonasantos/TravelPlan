@@ -224,7 +224,6 @@ public class TourActivity extends AppCompatActivity implements TourTypeListAdapt
             public void onItemSelected(AdapterView<?> parent, View view, int position, long idx) {
                 nrSpCurrencyType = position;
                 spCurrencyType.setSelection(nrSpCurrencyType);
-
             }
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {

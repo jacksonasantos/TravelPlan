@@ -279,7 +279,7 @@ public class HomeTravelFragment extends Fragment implements View.OnClickListener
                     startActivity(intent);
                 });
                 btnAccommodation.setOnClickListener (v -> {
-                    Intent intent = new Intent(v.getContext(), ReservationActivity.class);
+                    Intent intent = new Intent(v.getContext(), ReservationActivity.class); // TODO - Implementar inclusão da acomodação não existente quando fazer uma reserva
                     intent.putExtra("travel_id", travel[0].id);
                     startActivity(intent);
                 });

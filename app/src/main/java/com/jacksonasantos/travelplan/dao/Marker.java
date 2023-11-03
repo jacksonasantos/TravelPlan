@@ -32,7 +32,7 @@ public class Marker {
 
     @NonNull
     @Override
-    public String toString() { return sequence==null||sequence==0?"":sequence+"-"+name; }
+    public String toString() { return sequence==null||sequence==0?"":sequence+"-"+marker_type+"-"+city; } // TODO - Alterar o marker_typepelo texto do array  - context.getResources().getStringArray(R.array.marker_type_array)[marker_type];
 
     public Integer getId() {return id;}
     public void setId(Integer id) {this.id = id;}
