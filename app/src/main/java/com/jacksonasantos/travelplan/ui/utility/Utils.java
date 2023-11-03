@@ -148,7 +148,8 @@ public class Utils extends AppCompatActivity  {
     public static String returnDayWeek(Date d, Context context) {
         Calendar cal = Calendar.getInstance();
         cal.setTime(d);
-        return context.getResources().getStringArray(R.array.day_week_array)[cal.get(Calendar.DAY_OF_WEEK)-1];
+        int pos = cal.get(Calendar.DAY_OF_WEEK)-1;
+        return context.getResources().getStringArray(R.array.day_week_array)[pos];
     }
 
     public static String dateToString(Date d) {

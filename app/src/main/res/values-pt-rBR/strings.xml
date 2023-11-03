@@ -508,9 +508,9 @@
     <string name="Reservation_Invalid_Accommodation_Details">Dados da Acomodação Inválidos</string>
     <string name="sunday">Domingo</string>
     <string name="monday">Segunda</string>
-    <string name="thursday">Terça</string>
+    <string name="tuesday">Terça</string>
     <string name="wednesday">Quarta</string>
-    <string name="tuesday">Quinta</string>
+    <string name="thursday">Quinta</string>
     <string name="friday">Sexta</string>
     <string name="saturday">Sábado</string>
     <string name="FuelSupply_Supply_Date_must_be_less">Data do Abastecimento precisa ser menor que a data atual</string>
