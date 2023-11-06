@@ -24,7 +24,7 @@ import com.jacksonasantos.travelplan.ui.travel.MaintenanceItineraryActivity;
 import com.jacksonasantos.travelplan.ui.utility.Utils;
 
 public class AccommodationActivity extends AppCompatActivity {
-    private EditText etAccommodationName;
+    private EditText etAccommodation_Name;
     private EditText etAccommodation_Address;
     private EditText etAccommodation_City;
     private EditText etAccommodation_State;
@@ -72,7 +72,7 @@ public class AccommodationActivity extends AppCompatActivity {
 
         addListenerOnButtonSave();
 
-        etAccommodationName = findViewById(R.id.etAccommodationName);
+        etAccommodation_Name = findViewById(R.id.etAccommodation_Name);
         etAccommodation_Address = findViewById(R.id.etAccommodation_Address);
         etAccommodation_City = findViewById(R.id.etAccommodation_City);
         etAccommodation_State = findViewById(R.id.etAccommodation_State);
@@ -90,7 +90,7 @@ public class AccommodationActivity extends AppCompatActivity {
             if (!etAccommodation_Latlng_Accommodation.getText().toString().equals("")) {
                 intent.putExtra("local_search", etAccommodation_Latlng_Accommodation.getText().toString());
             } else {
-                intent.putExtra("local_search", etAccommodationName.getText().toString() + "," +
+                intent.putExtra("local_search", etAccommodation_Name.getText().toString() + "," +
                                                             etAccommodation_Address.getText().toString()+ "," +
                                                             etAccommodation_City.getText().toString()+ "," +
                                                             etAccommodation_State.getText().toString()+ "," +
@@ -113,7 +113,7 @@ public class AccommodationActivity extends AppCompatActivity {
         });
 
         if (accommodation != null) {
-            etAccommodationName.setText(accommodation.getName());
+            etAccommodation_Name.setText(accommodation.getName());
             etAccommodation_Address.setText(accommodation.getAddress());
             etAccommodation_City.setText(accommodation.getCity());
             etAccommodation_State.setText(accommodation.getState());
@@ -158,7 +158,7 @@ public class AccommodationActivity extends AppCompatActivity {
             } else {
                 final Accommodation a1 = new Accommodation();
 
-                a1.setName(etAccommodationName.getText().toString());
+                a1.setName(etAccommodation_Name.getText().toString());
                 a1.setAddress(etAccommodation_Address.getText().toString());
                 a1.setCity(etAccommodation_City.getText().toString());
                 a1.setState(etAccommodation_State.getText().toString());
@@ -203,7 +203,7 @@ public class AccommodationActivity extends AppCompatActivity {
         boolean isValid = true;
 
         try {
-            if (etAccommodationName.getText().toString().trim().isEmpty() ||
+            if (etAccommodation_Name.getText().toString().trim().isEmpty() ||
                 etAccommodation_Address.getText().toString().trim().isEmpty() ||
                 etAccommodation_City.getText().toString().trim().isEmpty() ||
                 etAccommodation_State.getText().toString().trim().isEmpty() ||
