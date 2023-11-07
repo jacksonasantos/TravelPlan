@@ -111,6 +111,8 @@ public class ReservationListAdapter extends RecyclerView.Adapter<RecyclerView.Vi
                 final TextView tvReservation_Amount = promptsView.findViewById(R.id.tvReservation_Amount);
                 final TextView tvAptType = promptsView.findViewById(R.id.tvAptType);
                 final TextView tvNote = promptsView.findViewById(R.id.tvNote);
+                final TextView tvAmountPaid = promptsView.findViewById(R.id.tvAmountPaid);
+                final TextView tvBalancePay = promptsView.findViewById(R.id.tvBalancePay);
                 final Spinner spinStatusReservation = promptsView.findViewById(R.id.spinStatusReservation);
                 final EditText etAmountPaid = promptsView.findViewById(R.id.etAmountPaid);
 
@@ -125,6 +127,8 @@ public class ReservationListAdapter extends RecyclerView.Adapter<RecyclerView.Vi
                 tvReservation_Amount.setText(Double.toString(reservation.getReservation_amount()));
                 tvAptType.setText(reservation.getApt_type());
                 tvNote.setText(reservation.getNote());
+                tvAmountPaid.setText(String.valueOf(reservation.getAmount_paid()));
+                tvBalancePay.setText(String.valueOf((reservation.getRates()*reservation.getDaily_rate())+reservation.getOther_rate()-reservation.getAmount_paid()));
 
                 spinStatusReservation.setSelection(reservation.getStatus_reservation());
                 etAmountPaid.setText(String.valueOf(reservation.getAmount_paid()));

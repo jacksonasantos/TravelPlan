@@ -492,6 +492,8 @@
     <string name="Reservation_Other_Rate">Other Rate</string>
     <string name="Reservation_Reservation_Amount">Reservation Amount</string>
     <string name="Reservation_Amount_Paid">Amount Paid</string>
+    <string name="Reservation_New_Amount_Paid">New Amount Paid</string>
+    <string name="Reservation_Balance_to_Pay">Reservation_Balance_to_Pay</string>
     <string name="Reservation_Note">Note</string>
     <string name="Reservation_Status_Reservation">Status Reservation</string>
     <string name="Reservation_Daily">Daily</string>
@@ -673,4 +675,5 @@
     <string name="friday">Friday</string>
     <string name="saturday">Saturday</string>
     <string name="sunday">Sunday</string>
+    <string name="Reservation_Short_Rates">Days</string>
 </resources>

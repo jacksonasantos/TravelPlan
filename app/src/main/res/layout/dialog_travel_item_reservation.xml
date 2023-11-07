@@ -117,7 +117,28 @@
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="3.3"
+                    android:layout_weight="2.5"
+                    android:text="@string/Reservation_Note"
+                    android:textStyle="bold"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textSize="12sp" />
+                <TextView
+                    android:id="@+id/tvNote"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="7.5"
+                    android:textSize="12sp" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/labels_marginLeft"
+                android:orientation="horizontal"
+                android:weightSum="10">
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="5"
                     android:gravity="center"
                     android:text="@string/Reservation_Checkin_Date"
                     android:textStyle="bold"
@@ -126,18 +147,9 @@
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="3.3"
+                    android:layout_weight="5"
                     android:gravity="center"
                     android:text="@string/Reservation_Checkout_Date"
-                    android:textStyle="bold"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textSize="12sp" />
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="3.3"
-                    android:gravity="center"
-                    android:text="@string/Reservation_Rates"
                     android:textStyle="bold"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:textSize="12sp" />
@@ -151,24 +163,15 @@
                     android:id="@+id/tvCheckin_Date"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="3.3"
+                    android:layout_weight="5"
                     android:gravity="center"
                     android:textSize="12sp" />
                 <TextView
                     android:id="@+id/tvCheckout_Date"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="3.3"
+                    android:layout_weight="5"
                     android:gravity="center"
-                    android:textSize="12sp" />
-                <TextView
-                    android:id="@+id/tvRates"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="3.3"
-                    android:layout_gravity="center"
-                    android:gravity="center"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
                     android:textSize="12sp" />
             </LinearLayout>
             <LinearLayout
@@ -181,8 +184,17 @@
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="3.3"
-                    android:gravity="end"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@string/Reservation_Short_Rates"
+                    android:textStyle="bold"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textSize="12sp" />
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
+                    android:gravity="center"
                     android:text="@string/Reservation_Daily_Rate"
                     android:textStyle="bold"
                     android:textAppearance="?android:attr/textAppearanceMedium"
@@ -190,8 +202,8 @@
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="3.3"
-                    android:gravity="end"
+                    android:layout_weight="3"
+                    android:gravity="center"
                     android:text="@string/Reservation_Other_Rate"
                     android:textStyle="bold"
                     android:textAppearance="?android:attr/textAppearanceMedium"
@@ -199,8 +211,8 @@
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="3.3"
-                    android:gravity="end"
+                    android:layout_weight="3"
+                    android:gravity="center"
                     android:text="@string/Reservation_Reservation_Amount"
                     android:textStyle="bold"
                     android:textAppearance="?android:attr/textAppearanceMedium"
@@ -212,25 +224,80 @@
                 android:orientation="horizontal"
                 android:weightSum="10">
                 <TextView
+                    android:id="@+id/tvRates"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textSize="12sp" />
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.2"
+                    android:gravity="center"
+                    android:text="*"
+                    android:textSize="12sp"/>
+                <TextView
                     android:id="@+id/tvDaily_Rate"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="3.3"
-                    android:gravity="end"
+                    android:layout_weight="2.8"
+                    android:gravity="center"
+                    android:textSize="12sp"/>
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.2"
+                    android:gravity="center"
+                    android:text="+"
                     android:textSize="12sp"/>
                 <TextView
                     android:id="@+id/tvOther_Rate"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="3.3"
-                    android:gravity="end"
+                    android:layout_weight="2.8"
+                    android:gravity="center"
                     android:textSize="12sp" />
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.2"
+                    android:gravity="center"
+                    android:text="="
+                    android:textSize="12sp"/>
                 <TextView
                     android:id="@+id/tvReservation_Amount"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="3.3"
-                    android:gravity="end"
+                    android:layout_weight="2.8"
+                    android:gravity="center"
+                    android:textSize="12sp" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/labels_margin"
+                android:orientation="horizontal"
+                android:weightSum="10">
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="5"
+                    android:gravity="center"
+                    android:text="@string/Reservation_Amount_Paid"
+                    android:textStyle="bold"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textSize="12sp" />
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="5"
+                    android:gravity="center"
+                    android:text="@string/Reservation_Balance_to_Pay"
+                    android:textStyle="bold"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
                     android:textSize="12sp" />
             </LinearLayout>
             <LinearLayout
@@ -239,18 +306,18 @@
                 android:orientation="horizontal"
                 android:weightSum="10">
                 <TextView
+                    android:id="@+id/tvAmountPaid"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="2.5"
-                    android:text="@string/Reservation_Note"
-                    android:textStyle="bold"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:layout_weight="5"
+                    android:gravity="center"
                     android:textSize="12sp" />
                 <TextView
-                    android:id="@+id/tvNote"
+                    android:id="@+id/tvBalancePay"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="7.5"
+                    android:layout_weight="5"
+                    android:gravity="center"
                     android:textSize="12sp" />
             </LinearLayout>
         </LinearLayout>
@@ -299,7 +366,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.40"
-                    android:text="@string/Reservation_Amount_Paid"
+                    android:text="@string/Reservation_New_Amount_Paid"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:textSize="16sp" />
                 <EditText

@@ -214,6 +214,7 @@
     <string name="Reservation_Other_Rate">Valor Outros</string>
     <string name="Reservation_Reservation_Amount">Valor Reserva</string>
     <string name="Reservation_Amount_Paid">Valor Pago</string>
+    <string name="Reservation_Balance_to_Pay">Saldo a Pagar</string>
     <string name="Reservation_Note">Observação</string>
     <string name="Reservation_Status_Reservation">Status Reserva</string>
     <string name="Reservation">Reserva</string>
@@ -493,6 +494,7 @@
     <string name="Itinerary_has_Transport_Driver">Condutor</string>
     <string name="Itinerary_has_Transport_Sequence_Itinerary">Sequência</string>
     <string name="Insurance_Termination">Confirma o encerramento do seguro?</string>
+    <string name="Reservation_Short_Rates">Dias</string>
     <string name="Reservation_Rates">Diárias</string>
     <string name="Itinerary_Travel_Mode">Modo Viagem</string>
     <string name="driving">Dirigindo</string>
@@ -526,4 +528,5 @@
     <string name="Achievement_Delete">Excluir Conquista</string>
     <string name="Achievement_Edit">Editar Conquista</string>
     <string name="marker_predicted_stop_time">Parada Prevista</string>
+    <string name="Reservation_New_Amount_Paid">Novo Valor Pago</string>
 </resources>
