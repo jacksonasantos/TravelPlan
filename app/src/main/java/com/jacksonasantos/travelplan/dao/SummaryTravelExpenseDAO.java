@@ -67,8 +67,8 @@ public class SummaryTravelExpenseDAO extends DbContentProvider implements Summar
                              " WHERE " + ReservationISchema.RESERVATION_TRAVEL_ID + " = ? " +
                             " UNION " +
                             " SELECT 3 "+ SummaryTravelExpenseISchema.SUMMARY_TRAVEL_EXPENSE_EXPENSE_TYPE + ", " +  // Tour
-                                   " SUM((" + TourISchema.TOUR_VALUE_ADULT + "*" + TourISchema.TOUR_NUMBER_ADULT +")+("+TourISchema.TOUR_VALUE_CHILD + "*" + TourISchema.TOUR_NUMBER_CHILD + ")) " + SummaryTravelExpenseISchema.SUMMARY_TRAVEL_EXPENSE_REALIZED_VALUE + ", " +
-                                   " 0 " + SummaryTravelExpenseISchema.SUMMARY_TRAVEL_EXPENSE_EXPECTED_VALUE +
+                                   " SUM((" + TourISchema.TOUR_VALUE_ADULT + "*" + TourISchema.TOUR_NUMBER_ADULT +")+("+TourISchema.TOUR_VALUE_CHILD + "*" + TourISchema.TOUR_NUMBER_CHILD + ")) " + SummaryTravelExpenseISchema.SUMMARY_TRAVEL_EXPENSE_EXPECTED_VALUE + ", " +
+                                   " 0 " + SummaryTravelExpenseISchema.SUMMARY_TRAVEL_EXPENSE_REALIZED_VALUE +
                               " FROM " + TourISchema.TOUR_TABLE +
                              " WHERE " + TourISchema.TOUR_TRAVEL_ID + " = ? " +
                             " UNION " +                                                                             // Travel Expenses
@@ -83,20 +83,23 @@ public class SummaryTravelExpenseDAO extends DbContentProvider implements Summar
                                    " SUM(" + TransportISchema.TRANSPORT_AMOUNT_PAID + ") " + SummaryTravelExpenseISchema.SUMMARY_TRAVEL_EXPENSE_REALIZED_VALUE +
                               " FROM " + TransportISchema.TRANSPORT_TABLE +
                              " WHERE " + TransportISchema.TRANSPORT_TRAVEL_ID + " = ? " +
-                            " UNION " +                                                                             // Travel Expenses
+                            " UNION " +                                                                             // Travel Expenses EXPECTED_VALUE
                             " SELECT " + TravelExpensesISchema.TRAVEL_EXPENSES_EXPENSE_TYPE + " " + SummaryTravelExpenseISchema.SUMMARY_TRAVEL_EXPENSE_EXPENSE_TYPE + ", " +
                                    " SUM(" + TravelExpensesISchema.TRAVEL_EXPENSES_EXPECTED_VALUE + ") " + SummaryTravelExpenseISchema.SUMMARY_TRAVEL_EXPENSE_EXPECTED_VALUE + ", " +
-                                   " [IFNULL]( (SELECT SUM(tie." + TravelItemExpensesISchema.TRAVEL_ITEM_EXPENSES_REALIZED_VALUE+") " +
-                                                " FROM " + TravelItemExpensesISchema.TRAVEL_ITEM_EXPENSES_TABLE+" tie " +
-                                               " WHERE tie." + TravelItemExpensesISchema.TRAVEL_ITEM_EXPENSES_TRAVEL_ID + " = " + TravelExpensesISchema.TRAVEL_EXPENSES_TABLE +"."+TravelExpensesISchema.TRAVEL_EXPENSES_TRAVEL_ID +
-                                               " AND tie." + TravelItemExpensesISchema.TRAVEL_ITEM_EXPENSES_EXPENSE_TYPE + " = " + TravelExpensesISchema.TRAVEL_EXPENSES_TABLE +"."+TravelExpensesISchema.TRAVEL_EXPENSES_EXPENSE_TYPE + " )" +
-                                            ", 0) " + SummaryTravelExpenseISchema.SUMMARY_TRAVEL_EXPENSE_REALIZED_VALUE +
+                                   " 0 " + SummaryTravelExpenseISchema.SUMMARY_TRAVEL_EXPENSE_REALIZED_VALUE +
                               " FROM " + TravelExpensesISchema.TRAVEL_EXPENSES_TABLE +
                              " WHERE " + TravelExpensesISchema.TRAVEL_EXPENSES_TRAVEL_ID + " = ? " +
                              " GROUP BY " + TravelExpensesISchema.TRAVEL_EXPENSES_EXPENSE_TYPE + " " +
+                            " UNION " +                                                                             // Travel Expenses REALIZED_VALUE
+                            " SELECT " + TravelItemExpensesISchema.TRAVEL_ITEM_EXPENSES_EXPENSE_TYPE + " " + SummaryTravelExpenseISchema.SUMMARY_TRAVEL_EXPENSE_EXPENSE_TYPE + ", " +
+                                   " 0 " + SummaryTravelExpenseISchema.SUMMARY_TRAVEL_EXPENSE_EXPECTED_VALUE + ", " +
+                                   " SUM(" + TravelItemExpensesISchema.TRAVEL_ITEM_EXPENSES_REALIZED_VALUE+") " + SummaryTravelExpenseISchema.SUMMARY_TRAVEL_EXPENSE_REALIZED_VALUE +
+                              " FROM " + TravelItemExpensesISchema.TRAVEL_ITEM_EXPENSES_TABLE + " tie " +
+                             " WHERE " + TravelItemExpensesISchema.TRAVEL_ITEM_EXPENSES_TRAVEL_ID + " = ? " +
+                             " GROUP BY " + TravelItemExpensesISchema.TRAVEL_ITEM_EXPENSES_EXPENSE_TYPE + " " +
                            ") " +
                   " GROUP BY " + TravelExpensesISchema.TRAVEL_EXPENSES_EXPENSE_TYPE,
-        new String[] { String.valueOf(travel_id), String.valueOf(travel_id), String.valueOf(travel_id), String.valueOf(travel_id), String.valueOf(travel_id), String.valueOf(travel_id), String.valueOf(travel_id)});
+        new String[] { String.valueOf(travel_id), String.valueOf(travel_id), String.valueOf(travel_id), String.valueOf(travel_id), String.valueOf(travel_id), String.valueOf(travel_id), String.valueOf(travel_id), String.valueOf(travel_id)});
         if (null != cursor) {
             if (cursor.moveToFirst()) {
                 do {

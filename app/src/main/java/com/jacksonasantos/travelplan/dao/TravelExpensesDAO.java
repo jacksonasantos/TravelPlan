@@ -5,6 +5,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.jacksonasantos.travelplan.dao.general.DbContentProvider;
+import com.jacksonasantos.travelplan.dao.interfaces.TourISchema;
 import com.jacksonasantos.travelplan.dao.interfaces.TravelExpensesIDAO;
 import com.jacksonasantos.travelplan.dao.interfaces.TravelExpensesISchema;
 
@@ -36,17 +37,38 @@ public class TravelExpensesDAO extends DbContentProvider implements TravelExpens
         return travelExpensesList;
     }
 
-    public List<TravelExpenses> fetchAllTravelExpensesByTravelType( Integer travel_id, Integer expense_type) {
-        final String[] selectionArgs = { String.valueOf(travel_id), String.valueOf(expense_type) };
-        final String selection = TRAVEL_EXPENSES_TRAVEL_ID + " = ? AND " + TRAVEL_EXPENSES_EXPENSE_TYPE + " = ? ";
+    public List<TravelExpenses> fetchAllTravelExpensesByTravelType(Integer travel_id, Integer expense_type) {
         List<TravelExpenses> travelExpensesList = new ArrayList<>();
-
-        cursor = super.query(TRAVEL_EXPENSES_TABLE, TRAVEL_EXPENSES_COLUMNS, selection, selectionArgs, null);
-        if (cursor.moveToFirst()) {
-            do {
-                TravelExpenses travelExpenses = cursorToEntity(cursor);
-                travelExpensesList.add(travelExpenses);
-            } while (cursor.moveToNext());
+        String str_te = "SELECT te." + TravelExpensesISchema.TRAVEL_EXPENSES_ID + " " + TravelExpensesISchema.TRAVEL_EXPENSES_ID + ", " +
+                              " te." + TravelExpensesISchema.TRAVEL_EXPENSES_TRAVEL_ID + " " + TravelExpensesISchema.TRAVEL_EXPENSES_TRAVEL_ID + ", " +
+                              " te." + TravelExpensesISchema.TRAVEL_EXPENSES_EXPENSE_TYPE + " " + TravelExpensesISchema.TRAVEL_EXPENSES_EXPENSE_TYPE + ", " +
+                              " te." + TravelExpensesISchema.TRAVEL_EXPENSES_EXPECTED_VALUE + " " + TravelExpensesISchema.TRAVEL_EXPENSES_EXPECTED_VALUE + ", " +
+                              " te." + TravelExpensesISchema.TRAVEL_EXPENSES_NOTE + " " + TravelExpensesISchema.TRAVEL_EXPENSES_NOTE + ", " +
+                              " te." + TravelExpensesISchema.TRAVEL_EXPENSES_MARKER_ID + " " + TravelExpensesISchema.TRAVEL_EXPENSES_MARKER_ID +
+                         " FROM " + TravelExpensesISchema.TRAVEL_EXPENSES_TABLE + " te " +
+                        " WHERE " + TravelExpensesISchema.TRAVEL_EXPENSES_TRAVEL_ID + " = ? " +
+                          " AND te." + TravelExpensesISchema.TRAVEL_EXPENSES_EXPENSE_TYPE + " = ? ";
+        String str_tour = "";
+        if(expense_type == 3) {
+            str_tour = " UNION "+
+                      " SELECT t." + TourISchema.TOUR_ID + " " + TravelExpensesISchema.TRAVEL_EXPENSES_ID + ", " +
+                             " t." + TourISchema.TOUR_TRAVEL_ID + " " + TravelExpensesISchema.TRAVEL_EXPENSES_TRAVEL_ID + ", " +
+                             " 3 " + TravelExpensesISchema.TRAVEL_EXPENSES_EXPENSE_TYPE + ", " +
+                             " (t." + TourISchema.TOUR_NUMBER_ADULT + " * t." + TourISchema.TOUR_VALUE_ADULT + ") + (t." + TourISchema.TOUR_NUMBER_CHILD + " * t." + TourISchema.TOUR_VALUE_CHILD + ") " + TravelExpensesISchema.TRAVEL_EXPENSES_EXPECTED_VALUE + ", " +
+                             " t." + TourISchema.TOUR_NOTE + " " + TravelExpensesISchema.TRAVEL_EXPENSES_NOTE + ", " +
+                             " t." + TourISchema.TOUR_MARKER_ID + " " + TravelExpensesISchema.TRAVEL_EXPENSES_MARKER_ID +
+                        " FROM " + TourISchema.TOUR_TABLE + " t " +
+                       " WHERE " + TourISchema.TOUR_TRAVEL_ID + " = " + travel_id;
+        }
+        cursor = super.rawQuery( str_te + str_tour,
+                new String[] { String.valueOf(travel_id), String.valueOf(expense_type)});
+        if (null != cursor) {
+            if (cursor.moveToFirst()) {
+                do {
+                    TravelExpenses travelExpenses = cursorToEntity(cursor);
+                    travelExpensesList.add(travelExpenses);
+                } while (cursor.moveToNext());
+            }
             cursor.close();
         }
         return travelExpensesList;
