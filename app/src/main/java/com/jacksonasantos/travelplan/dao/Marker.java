@@ -86,6 +86,7 @@ public class Marker {
         final Globals g = Globals.getInstance();
         Double value;
         switch(marker_type) {
+            case 2:
             case 3:
             case 8: value = g.getExpectedValueRestaurant(); break;
             case 4: value = g.getExpectedValueAccommodation(); break;
@@ -101,6 +102,7 @@ public class Marker {
         /* Get for translate of Type Marker for Type Expense */
         int value ;
         switch(marker_type) {
+            case 2:                     // 2-fuel          -> 1-food
             case 3:                     // 3-food          -> 1-food
             case 8: value = 1; break;   // 8-waypoints     -> 1-food
             case 4: value = 4; break;   // 4-Accommodation -> 4-accommodation

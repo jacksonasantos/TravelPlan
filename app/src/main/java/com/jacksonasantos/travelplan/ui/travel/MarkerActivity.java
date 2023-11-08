@@ -206,8 +206,6 @@ public class MarkerActivity extends AppCompatActivity implements MarkerTypeListA
             public void onNothingSelected(AdapterView<?> adapterView) {nrSpinMarkerAchievement = -1;}
         });
 
-
-
         nrMarkerType = -1;
         List<Integer> vMarkerType = new ArrayList<>();
         for(int i = 0; i < getApplicationContext().getResources().getStringArray(R.array.marker_type_array).length; i++) {
@@ -255,7 +253,6 @@ public class MarkerActivity extends AppCompatActivity implements MarkerTypeListA
             //marker.setDuration_Predicted_stop_time(marker.getPredicted_stop_time() == 0 ? 0 : marker.getMarker_typePredictedTime(marker.getMarker_typePredictedTime(nrMarkerType)));
             etPredictedStopTime.setText(marker.getDuration_Predicted_stop_time());
         }
-        etExpectedValue.setOnFocusChangeListener((v, hasFocus) -> etExpectedValue.setText(""));
         if (nrSpinItinerary != null && nrSpinItinerary > 0) {
             Itinerary i1 = Database.mItineraryDao.fetchItineraryById(nrSpinItinerary);
             for (int x = 1; x <= spinItinerary.getAdapter().getCount(); x++) {
