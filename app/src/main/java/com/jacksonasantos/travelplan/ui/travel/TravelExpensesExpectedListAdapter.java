@@ -122,72 +122,78 @@ public class TravelExpensesExpectedListAdapter extends RecyclerView.Adapter<Recy
             footerViewHolder.btnDelete.setVisibility(View.INVISIBLE);
         }
         else if (holder instanceof ItemViewHolder) {
-                final ItemViewHolder itemViewHolder = (ItemViewHolder) holder;
-                final TravelExpenses travelExpenses = mTravelExpenses.get(position-show_header);
+            final ItemViewHolder itemViewHolder = (ItemViewHolder) holder;
+            final TravelExpenses travelExpenses = mTravelExpenses.get(position-show_header);
             if (isHome) itemViewHolder.txtExpenseType.setVisibility(View.GONE);
             else itemViewHolder.txtExpenseType.setText(context.getResources().getStringArray(R.array.expenses_type_array)[travelExpenses.getExpense_type()]);
             itemViewHolder.txtExpectedValue.setText(currencyFormatter.format(travelExpenses.getExpected_value()));
             vExpectedValue += travelExpenses.getExpected_value();
             itemViewHolder.txtNote.setText(travelExpenses.getNote());
-            itemViewHolder.btnEdit.setOnClickListener(v -> {
-                LayoutInflater li = LayoutInflater.from(v.getContext());
-                View promptsView = li.inflate(R.layout.dialog_travel_expenses_expected, null);
+            if (travelExpenses.getId()==0) {
+                itemViewHolder.btnEdit.setVisibility(View.INVISIBLE);
+                itemViewHolder.btnDelete.setVisibility(View.INVISIBLE);
+            } else {
+                itemViewHolder.btnEdit.setOnClickListener(v -> {
+                    LayoutInflater li = LayoutInflater.from(v.getContext());
+                    View promptsView = li.inflate(R.layout.dialog_travel_expenses_expected, null);
 
-                final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(v.getContext());
+                    final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(v.getContext());
+                    alertDialogBuilder.setView(promptsView);
 
-                alertDialogBuilder.setView(promptsView);
-                final Spinner spinExpenseType = promptsView.findViewById(R.id.spinExpenseType);
-                final EditText etExpectedValue = promptsView.findViewById(R.id.etExpectedValue);
-                final EditText etNote = promptsView.findViewById(R.id.etNote);
-                TravelExpenses TE = Database.mTravelExpensesDao.fetchTravelExpensesById(travelExpenses.getId());
-                spinExpenseType.setSelection(TE.getExpense_type());
-                etExpectedValue.setText(TE.getExpected_value().toString());
-                etNote.setText(TE.getNote());
+                    final Spinner spinExpenseType = promptsView.findViewById(R.id.spinExpenseType);
+                    final EditText etExpectedValue = promptsView.findViewById(R.id.etExpectedValue);
+                    final EditText etNote = promptsView.findViewById(R.id.etNote);
 
-                alertDialogBuilder
-                        .setCancelable(false)
-                        .setPositiveButton(R.string.OK, (dialog, id) -> {
-                            boolean isSave = false;
+                    spinExpenseType.setSelection(travelExpenses.getExpense_type());
+                    etExpectedValue.setText(Double.toString(travelExpenses.getExpected_value() == null ? 0 : travelExpenses.getExpected_value()));
+                    etNote.setText(travelExpenses.getNote());
 
-                            TE.setTravel_id(travel_id);
-                            TE.setMarker_id(TE.getMarker_id()==0?null:TE.getMarker_id());
-                            TE.setExpense_type(spinExpenseType.getSelectedItemPosition());
-                            if (!etExpectedValue.getText().toString().isEmpty()) {
-                                TE.setExpected_value(Double.parseDouble(etExpectedValue.getText().toString()));
-                            }
-                            TE.setNote(etNote.getText().toString());
+                    alertDialogBuilder
+                            .setCancelable(false)
+                            .setPositiveButton(R.string.OK, (dialog, id) -> {
+                                boolean isSave = false;
+                                TravelExpenses TE = new TravelExpenses();
+                                TE.setId(travelExpenses.getId());
+                                TE.setTravel_id(travel_id);
+                                TE.setMarker_id(TE.getMarker_id() == 0 ? null : TE.getMarker_id());
+                                TE.setExpense_type(spinExpenseType.getSelectedItemPosition());
+                                if (!etExpectedValue.getText().toString().isEmpty()) {
+                                    TE.setExpected_value(Double.parseDouble(etExpectedValue.getText().toString()));
+                                }
+                                TE.setNote(etNote.getText().toString());
 
+                                try {
+                                    isSave = Database.mTravelExpensesDao.updateTravelExpenses(TE);
+                                } catch (Exception e) {
+                                    Toast.makeText(context, R.string.Error_Changing_Data + e.getMessage(), Toast.LENGTH_LONG).show();
+                                }
+                                if (!isSave) {
+                                    Toast.makeText(context, R.string.Error_Saving_Data, Toast.LENGTH_LONG).show();
+                                } else {
+                                    mTravelExpenses.set(position - show_header, TE);
+                                    notifyItemRangeChanged(position - show_header, mTravelExpenses.size());
+                                }
+                            })
+                            .setNegativeButton(R.string.Cancel, (dialog, id) -> dialog.cancel());
+                    AlertDialog alertDialog = alertDialogBuilder.create();
+                    alertDialog.show();
+                });
+                itemViewHolder.btnDelete.setOnClickListener(v -> new AlertDialog.Builder(v.getContext())
+                        .setTitle(R.string.Travel_Expenses_Deleting)
+                        .setMessage(R.string.Msg_Confirm)
+                        .setPositiveButton(R.string.Yes, (dialogInterface, i) -> {
                             try {
-                                isSave = Database.mTravelExpensesDao.updateTravelExpenses(TE);
+                                Database.mTravelExpensesDao.deleteTravelExpenses(travelExpenses.getId());
+                                mTravelExpenses.remove(position - show_header);
+                                notifyItemRemoved(position);
+                                notifyItemRangeChanged(position, mTravelExpenses.size());
                             } catch (Exception e) {
-                                Toast.makeText(context, R.string.Error_Changing_Data + e.getMessage(), Toast.LENGTH_LONG).show();
+                                Toast.makeText(context, context.getString(R.string.Error_Deleting_Data) + "\n" + e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
                             }
-                            if (!isSave) {
-                                Toast.makeText(context, R.string.Error_Saving_Data, Toast.LENGTH_LONG).show();
-                            } else {
-                                mTravelExpenses.set(position-show_header, TE);
-                                notifyItemRangeChanged(position-show_header, mTravelExpenses.size());
-                            }
-                        })
-                        .setNegativeButton(R.string.Cancel, (dialog, id) -> dialog.cancel());
-                AlertDialog alertDialog = alertDialogBuilder.create();
-                alertDialog.show();
-            });
-            itemViewHolder.btnDelete.setOnClickListener (v -> new AlertDialog.Builder(v.getContext())
-                    .setTitle(R.string.Travel_Expenses_Deleting)
-                    .setMessage(R.string.Msg_Confirm)
-                    .setPositiveButton(R.string.Yes, (dialogInterface, i) -> {
-                        try {
-                            Database.mTravelExpensesDao.deleteTravelExpenses(travelExpenses.getId());
-                            mTravelExpenses.remove(position-show_header);
-                            notifyItemRemoved(position);
-                            notifyItemRangeChanged(position , mTravelExpenses.size());
-                        } catch (Exception e) {
-                            Toast.makeText(context, context.getString(R.string.Error_Deleting_Data) + "\n" + e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
-                        }
-                    }).setNegativeButton(R.string.No, null)
-                    .show()
-            );
+                        }).setNegativeButton(R.string.No, null)
+                        .show()
+                );
+            }
         }
     }
     @Override

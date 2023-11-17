@@ -59,7 +59,7 @@ public class MarkerActivity extends AppCompatActivity implements MarkerTypeListA
 
     private TextView tvLat, tvLng, tvName, tvAddress, tvCity, tvState, tvAbbrCountry, tvCountry;
     private Spinner spinItinerary, spinMarkerAchievement;
-    private Integer nrSpinItinerary, nrSpinMarkerAchievement;
+    private Integer nrSpinItinerary, nrSeqItinerary, nrSpinMarkerAchievement;
     private EditText etSeq, etDescription, etExpectedValue, etPredictedStopTime ;
     private ImageButton btLocation, btAddAchievement;
     private RecyclerView rvListMarkers, rvMarkerType;
@@ -182,6 +182,7 @@ public class MarkerActivity extends AppCompatActivity implements MarkerTypeListA
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long idx) {
                 nrSpinItinerary = ((Itinerary) parent.getItemAtPosition(position)).getId();
+                nrSeqItinerary =  ((Itinerary) parent.getItemAtPosition(position)).getSequence();
                 spinItinerary.setSelection(position);
                 MarkerListAdapter adapterMarker = new MarkerListAdapter(Database.mMarkerDao.fetchMarkerByTravelItineraryId(travel.getId(), nrSpinItinerary), getApplicationContext(), 1, 0, false, travel.getId(), nrSpinItinerary);
                 rvListMarkers.setAdapter(adapterMarker);
@@ -257,6 +258,7 @@ public class MarkerActivity extends AppCompatActivity implements MarkerTypeListA
             Itinerary i1 = Database.mItineraryDao.fetchItineraryById(nrSpinItinerary);
             for (int x = 1; x <= spinItinerary.getAdapter().getCount(); x++) {
                 if (spinItinerary.getAdapter().getItem(x).toString().equals(i1.toString())) {
+                    nrSeqItinerary = i1.getSequence();
                     spinItinerary.setSelection(x);
                     break;
                 }
@@ -372,7 +374,7 @@ public class MarkerActivity extends AppCompatActivity implements MarkerTypeListA
                             if (Double.parseDouble(etExpectedValue.getText().toString()) > 0) {
                                 te.setExpense_type(m1.getMarker_typeExpenseType(nrMarkerType));
                                 te.setExpected_value(Double.parseDouble(etExpectedValue.getText().toString()));
-                                te.setNote(getResources().getString(R.string.marker_itinerary) + ": " + nrSpinItinerary);
+                                te.setNote(getResources().getString(R.string.marker_itinerary) + ": " + nrSeqItinerary);
                                 // Change existing TravelExpenses data
                                 isSave = Database.mTravelExpensesDao.updateTravelExpenses(te);
                             } else {

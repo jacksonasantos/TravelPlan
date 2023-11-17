@@ -25,13 +25,32 @@
                 android:orientation="vertical"
                 android:padding="@dimen/labels_margin">
 
-                <TextView
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:textStyle="bold"
-                    android:textSize="18sp"
-                    android:text="@string/Reservation"/>
+                    android:orientation="horizontal"
+                    android:padding="@dimen/labels_margin">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="9"
+                        android:gravity="center"
+                        android:text="@string/Reservation"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                    <ImageButton
+                        android:id="@+id/btFileDownload"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:contentDescription="@string/Reservation_FileDownload"
+                        app:srcCompat="@drawable/ic_file_download"/>
+
+                </LinearLayout>
+
                 <Spinner
                     android:id="@+id/spinTravel"
                     android:layout_width="match_parent"

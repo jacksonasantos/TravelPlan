@@ -64,9 +64,11 @@ import com.jacksonasantos.travelplan.ui.utility.Globals;
 import com.jacksonasantos.travelplan.ui.utility.Utils;
 
 import java.io.IOException;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.Objects;
 
 public class TravelRouteFragment extends Fragment implements LocationListener {
@@ -608,6 +610,10 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
         final boolean show_home;
         boolean lClick = false;
 
+        final Globals g = Globals.getInstance();
+        final Locale locale = new Locale(g.getLanguage(), g.getCountry());
+        final NumberFormat numberFormatter = NumberFormat.getNumberInstance(locale);
+
         public HomeTravelItineraryListAdapter(List<Itinerary> itinerary, Context context, int show_header, int show_footer, boolean show_home, Integer travel_id) {
             this.mItinerary = itinerary;
             this.context = context;
@@ -651,8 +657,11 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
             }
             else if (holder instanceof FooterViewHolder) {
                 FooterViewHolder footerViewHolder = (FooterViewHolder) holder;
+                long vTotMinute = (totalHr * 60) + totalMin;
+                long vAverageSpeed = vTotDistance / (vTotMinute/60);
                 footerViewHolder.llItineraryItem.setBackgroundColor(Utils.getColorWithAlpha(R.color.colorItemList,0.5f));
                 footerViewHolder.txtSource.setText(R.string.HomeTravelTotal);
+                footerViewHolder.txtTarget.setText(String.format("%s %s", numberFormatter.format(vAverageSpeed), g.getMeasureSpeed()));
                 footerViewHolder.txtDaily.setText(Long.toString(vTotDaily));
                 footerViewHolder.txtDistance.setText(Long.toString(vTotDistance));
                 footerViewHolder.txtTime.setText(String.format("%3d:%02d", totalHr, totalMin));
@@ -801,6 +810,7 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
         public static class FooterViewHolder extends RecyclerView.ViewHolder {
             private final LinearLayout llItineraryItem;
             private final TextView txtSource;
+            private final TextView txtTarget;
             private final TextView txtDaily;
             private final TextView txtDistance;
             private final TextView txtTime;
@@ -810,6 +820,7 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
                 super(v);
                 llItineraryItem = v.findViewById(R.id.llItineraryItem);
                 txtSource = v.findViewById(R.id.txtSource);
+                txtTarget = v.findViewById(R.id.txtTarget);
                 txtDaily = v.findViewById(R.id.txtDaily);
                 txtDistance = v.findViewById(R.id.txtDistance);
                 txtTime = v.findViewById(R.id.txtTime);

@@ -13,6 +13,7 @@
     <string name="Cancel">Cancel</string>
     <string name="choose_color">Choose Color</string>
     <string name="choose">Choose</string>
+    <string name="site" translatable="false">Site</string>
 
     <string name="bt_Save">Save</string>
     <string name="bt_Delete">Delete</string>
@@ -403,6 +404,7 @@
     <string name="location_not_found">Location not Found</string>
 
     <!-- Accommodation Fragment -->
+    <string name="download_reservation">Download Reservation</string>
     <string name="add_new_accommodation">ADD New Accommodation</string>
     <string name="Accommodation_Deleting">Deleting Accommodation</string>
 
@@ -676,4 +678,5 @@
     <string name="saturday">Saturday</string>
     <string name="sunday">Sunday</string>
     <string name="Reservation_Short_Rates">Days</string>
+    <string name="Reservation_FileDownload">download PDF file of reservation</string>
 </resources>

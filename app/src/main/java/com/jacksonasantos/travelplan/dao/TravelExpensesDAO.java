@@ -51,7 +51,8 @@ public class TravelExpensesDAO extends DbContentProvider implements TravelExpens
         String str_tour = "";
         if(expense_type == 3) {
             str_tour = " UNION "+
-                      " SELECT t." + TourISchema.TOUR_ID + " " + TravelExpensesISchema.TRAVEL_EXPENSES_ID + ", " +
+                    //" SELECT t." + TourISchema.TOUR_ID + " " + TravelExpensesISchema.TRAVEL_EXPENSES_ID + ", " +
+                    " SELECT 0 " + TravelExpensesISchema.TRAVEL_EXPENSES_ID + ", " +
                              " t." + TourISchema.TOUR_TRAVEL_ID + " " + TravelExpensesISchema.TRAVEL_EXPENSES_TRAVEL_ID + ", " +
                              " 3 " + TravelExpensesISchema.TRAVEL_EXPENSES_EXPENSE_TYPE + ", " +
                              " (t." + TourISchema.TOUR_NUMBER_ADULT + " * t." + TourISchema.TOUR_VALUE_ADULT + ") + (t." + TourISchema.TOUR_NUMBER_CHILD + " * t." + TourISchema.TOUR_VALUE_CHILD + ") " + TravelExpensesISchema.TRAVEL_EXPENSES_EXPECTED_VALUE + ", " +

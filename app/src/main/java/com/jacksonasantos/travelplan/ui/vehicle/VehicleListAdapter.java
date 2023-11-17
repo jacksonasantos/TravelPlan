@@ -15,7 +15,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -78,12 +77,15 @@ public class VehicleListAdapter extends RecyclerView.Adapter<VehicleListAdapter.
         return new MyViewHolder(vehicleView);
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.Q)
     @Override
     public void onBindViewHolder(@NonNull final MyViewHolder holder, final int position) {
         final Vehicle vehicle = mVehicle.get(position);
 
-        holder.imVehicleType.setColorFilter(new BlendModeColorFilter(vehicle.getColor_code(), BlendMode.SRC_ATOP));
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            holder.imVehicleType.setColorFilter(new BlendModeColorFilter(vehicle.getColor_code(), BlendMode.SRC_ATOP));
+        } else {
+            holder.imVehicleType.setColorFilter(vehicle.getColor_code());
+        }
         if (vehicle.getDt_sale() != null ) {
             holder.imVehicleType.setImageResource( R.drawable.ic_block );
         } else {

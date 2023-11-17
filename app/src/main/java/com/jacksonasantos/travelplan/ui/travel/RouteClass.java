@@ -1,5 +1,6 @@
 package com.jacksonasantos.travelplan.ui.travel;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Handler;
@@ -23,6 +24,7 @@ import com.jacksonasantos.travelplan.dao.Achievement;
 import com.jacksonasantos.travelplan.dao.Itinerary;
 import com.jacksonasantos.travelplan.dao.Marker;
 import com.jacksonasantos.travelplan.dao.Tour;
+import com.jacksonasantos.travelplan.dao.TravelExpenses;
 import com.jacksonasantos.travelplan.dao.general.Database;
 import com.jacksonasantos.travelplan.ui.utility.JSONParser;
 
@@ -149,6 +151,7 @@ public class RouteClass {
         });
     }
 
+    @SuppressLint("ResourceType")
     private void drawPath(String result, boolean withSteps, int nrSequence, Integer nrSequenceSelected, String typeUpdate, Integer nrKey_Id, int predicted_stop_time) {
 
         final List<PatternItem> PATTERN_DRIVING = Collections.singletonList(new Dash(1));
@@ -161,6 +164,8 @@ public class RouteClass {
             JSONArray routeArray = json.getJSONArray("routes");
             JSONObject routes = routeArray.getJSONObject(0);
             JSONArray arrayLegs = routes.getJSONArray("legs");
+
+            long totalFare = 0;
             int nrDuration = 0, nrDistance = 0;
             for (int y = 0; y < arrayLegs.length(); y++) {
                 JSONObject legs = arrayLegs.getJSONObject(y);
@@ -168,6 +173,9 @@ public class RouteClass {
 
                 nrDuration += legs.getJSONObject("duration").getInt("value");
                 nrDistance += legs.getJSONObject("distance").getInt("value");
+                try {
+                    totalFare += legs.getJSONObject("fare").getInt("value");
+                } catch (Exception ignored) {}
 
                 for (int i = 0; i < stepsArray.length(); i++) {
                     String polyline = (String) ((JSONObject) ((JSONObject) stepsArray.get(i)).get("polyline")).get("points");
@@ -229,6 +237,14 @@ public class RouteClass {
                                 .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
                     }
                 }
+            }
+            if (totalFare > 0) {
+                TravelExpenses te = new TravelExpenses();
+                te.setTravel_id(nrTravel_Id);
+                te.setExpense_type(2);
+                te.setExpected_value((double) totalFare);
+                te.setNote(context.getResources().getString(R.string.toll)+" Seq."+nrSequence);
+                Database.mTravelExpensesDao.addTravelExpenses(te);
             }
             if (Objects.equals(typeUpdate, "Itinerary")) {
                 if (Database.mItineraryDao.fetchItineraryByTravelId(nrTravel_Id, nrSequence).getTravel_mode() < 4) {

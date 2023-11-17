@@ -247,7 +247,8 @@ public class Database {
             db.execSQL(MaintenancePlanHasVehicleTypeDAO.CREATE_TABLE_MAINTENANCE_PLAN_HAS_VEHICLE_TYPE_V57); Log.w("Table "+MaintenancePlanHasVehicleTypeDAO.MAINTENANCE_PLAN_HAS_VEHICLE_TYPE_TABLE,"V57 - Create Table...");
             db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V58); Log.w("Table "+VehicleISchema.VEHICLE_TABLE,"V58 - Alter Table...");
             db.execSQL(PersonISchema.CREATE_TABLE_PERSON_V59);Log.w("Table "+PersonISchema.PERSON_TABLE,"V59 - Create Table...");
-            db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V60_1); Log.w("Table "+VehicleISchema.VEHICLE_TABLE,"V60_1 - Alter Table...");
+            db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V60_2); Log.w("Table "+VehicleISchema.VEHICLE_TABLE,"V60_2 - Alter Table...");
+           // db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V60_3); Log.w("Table "+VehicleISchema.VEHICLE_TABLE,"V60_3 - Alter Table...");
             db.execSQL(TourISchema.CREATE_TABLE_TOUR_V61);Log.w("Table "+TourISchema.TOUR_TABLE,"V61 - Create Table...");
             db.execSQL(TransportISchema.CREATE_TABLE_TRANSPORT_V62);Log.w("Table "+TransportISchema.TRANSPORT_TABLE,"V62 - Create Table...");
             db.execSQL(TourISchema.ALTER_TABLE_TOUR_V63_1); Log.w("Table "+TourISchema.TOUR_TABLE,"V63_1 - Alter Table...");
@@ -273,7 +274,7 @@ public class Database {
             db.execSQL(MarkerISchema.ALTER_TABLE_MARKER_V77_2);Log.w("Table "+MarkerISchema.MARKER_TABLE,"V77.2 - Alter Table...");
             db.execSQL(MarkerISchema.ALTER_TABLE_MARKER_V77_3);Log.w("Table "+MarkerISchema.MARKER_TABLE,"V77.3 - Alter Table...");
             db.execSQL(MarkerISchema.ALTER_TABLE_MARKER_V77_4);Log.w("Table "+MarkerISchema.MARKER_TABLE,"V77.4 - Alter Table...");
-            db.execSQL(MarkerISchema.ALTER_TABLE_MARKER_V77_5);Log.w("Table "+MarkerISchema.MARKER_TABLE,"V77.5 - Alter Table...");
+            //db.execSQL(MarkerISchema.ALTER_TABLE_MARKER_V77_5);Log.w("Table "+MarkerISchema.MARKER_TABLE,"V77.5 - Alter Table...");
             db.execSQL(MarkerISchema.ALTER_TABLE_MARKER_V77_6);Log.w("Table "+MarkerISchema.MARKER_TABLE,"V77.6 - Alter Table...");
             //db.execSQL(MarkerISchema.ALTER_TABLE_MARKER_V77_7);Log.w("Table "+MarkerISchema.MARKER_TABLE,"V77.7 - Alter Table...");
             db.execSQL(MarkerISchema.ALTER_TABLE_MARKER_V77_8);Log.w("Table "+MarkerISchema.MARKER_TABLE,"V77.8 - Alter Table...");
@@ -461,7 +462,8 @@ public class Database {
                         db.execSQL(PersonDAO.CREATE_TABLE_PERSON_V59);
                         break;
                     case 60:
-                        db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V60_1);
+                        db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V60_2);
+                        db.execSQL(VehicleISchema.ALTER_TABLE_VEHICLE_V60_3);
                         break;
                     case 61:
                         db.execSQL(TourISchema.CREATE_TABLE_TOUR_V61);

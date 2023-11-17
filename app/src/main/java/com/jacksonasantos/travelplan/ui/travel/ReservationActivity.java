@@ -18,6 +18,7 @@ import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.jacksonasantos.travelplan.R;
@@ -32,7 +33,8 @@ import com.jacksonasantos.travelplan.ui.utility.Utils;
 import java.util.List;
 
 public class ReservationActivity extends AppCompatActivity {
-    
+
+    private ImageButton btFileDownload;
     private Spinner spinTravel;
     private Integer nrSpinTravel;
     private Spinner spinAccommodation;
@@ -57,6 +59,7 @@ public class ReservationActivity extends AppCompatActivity {
     private EditText etNote;
     private TextView tvStatus_Reservation;
     private int nrStatus_Reservation;
+    private Button btSaveReservation;
 
     private boolean opInsert = true;
     private Reservation reservation;
@@ -94,11 +97,10 @@ public class ReservationActivity extends AppCompatActivity {
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
 
-        addListenerOnButtonSave();
-        addListenerOnButtonAddAccommodation();
-
+        btFileDownload = findViewById(R.id.btFileDownload);
         spinTravel = findViewById(R.id.spinTravel);
         spinAccommodation = findViewById(R.id.spinAccommodation);
+        btAddAccommodation = findViewById(R.id.btAddAccommodation);
         tvAccommodation_Address = findViewById(R.id.tvAccommodation_Address);
         tvAccommodation_CityStateCountry = findViewById(R.id.tvAccommodation_CityStateCountry);
         tvAccommodation_LatLng = findViewById(R.id.tvAccommodation_LatLng);
@@ -118,6 +120,11 @@ public class ReservationActivity extends AppCompatActivity {
         etNote = findViewById(R.id.etNote);
         tvStatus_Reservation = findViewById(R.id.tvStatus_Reservation);
         nrStatus_Reservation = 0;
+        btSaveReservation = findViewById(R.id.btSaveReservation);
+
+        addListenerOnButtonSave();
+        addListenerOnButtonAddAccommodation();
+        addListenerOnButtonFileDownload();
 
         final List<Travel> travels =  Database.mTravelDao.fetchArrayTravel();
         travels.add(0, new Travel());
@@ -249,11 +256,36 @@ public class ReservationActivity extends AppCompatActivity {
     }
 
     public void addListenerOnButtonAddAccommodation() {
-        btAddAccommodation = findViewById(R.id.btAddAccommodation);
         btAddAccommodation.setOnClickListener(v -> {
             Intent intent = new Intent (v.getContext(), AccommodationActivity.class);
             intent.putExtra("op_result", true);
             myActivityResultLauncher.launch(intent);
+        });
+    }
+
+    public void addListenerOnButtonFileDownload() {
+        btFileDownload.setOnClickListener(v -> {
+            try {
+                AlertDialog.Builder alertDialog = new AlertDialog.Builder(v.getContext());
+                alertDialog.setIcon(R.drawable.ic_file_download);
+                alertDialog.setTitle(getString(R.string.choose) + " " + getString(R.string.of) + " " + getString(R.string.site));
+                String[] aSites = getApplicationContext().getResources().getStringArray(R.array.sites_reservation_array);
+                alertDialog.setSingleChoiceItems(aSites, -1, (dialog, which) -> {
+                    // TODO- Implementar leitura de PDF da reserva para o cadastramento no sistema
+                    if (which == 0) {
+                        Toast.makeText(getApplicationContext(), aSites[which], Toast.LENGTH_LONG).show();
+                    } else {
+                        Toast.makeText(getApplicationContext(), aSites[which], Toast.LENGTH_LONG).show();
+                    }
+                    dialog.dismiss();
+                });
+                alertDialog.setNeutralButton("Ok", (dialog, which) -> {
+                });
+                AlertDialog customAlertDialog = alertDialog.create();
+                customAlertDialog.show();
+            } catch (Exception e) {
+                Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
+            }
         });
     }
 
@@ -277,7 +309,6 @@ public class ReservationActivity extends AppCompatActivity {
     );
 
     public void addListenerOnButtonSave() {
-        Button btSaveReservation = findViewById(R.id.btSaveReservation);
 
         btSaveReservation.setOnClickListener(v -> {
             boolean isSave = false;

@@ -2,11 +2,11 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 33
-    buildToolsVersion '30.0.3'
+    buildToolsVersion '33.0.1'
 
     defaultConfig {
         applicationId "com.jacksonasantos.travelplan"
-        minSdk 24
+        minSdk 27
         targetSdkVersion 33
         versionCode 2
         versionName "2.0"
@@ -38,25 +38,24 @@ android {
 
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
-    implementation 'androidx.appcompat:appcompat:1.5.1'
-    implementation 'androidx.activity:activity-ktx:1.6.1'
-    implementation 'androidx.fragment:fragment-ktx:1.5.5'
+    implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation 'androidx.activity:activity-ktx:1.8.0'
+    implementation 'androidx.fragment:fragment-ktx:1.6.2'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
-    implementation 'androidx.navigation:navigation-fragment:2.5.3'
-    implementation 'androidx.navigation:navigation-ui:2.5.3'
+    implementation 'androidx.navigation:navigation-fragment:2.7.5'
+    implementation 'androidx.navigation:navigation-ui:2.7.5'
     implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
-    implementation 'androidx.preference:preference:1.2.0'
-    implementation 'androidx.annotation:annotation:1.5.0'
+    implementation 'androidx.preference:preference:1.2.1'
+    implementation 'androidx.annotation:annotation:1.7.0'
     implementation 'androidx.cardview:cardview:1.0.0'
-    implementation 'com.google.android.material:material:1.7.0'
-    implementation 'com.google.android.gms:play-services-base:18.1.0'
-    implementation 'com.google.android.gms:play-services-maps:18.1.0'
-    implementation 'com.google.android.libraries.places:places:3.0.0'
+    implementation 'com.google.android.material:material:1.10.0'
+    implementation 'com.google.android.gms:play-services-base:18.2.0'
+    implementation 'com.google.android.gms:play-services-maps:18.2.0'
+    implementation 'com.google.android.libraries.places:places:3.2.0'
     implementation 'com.jjoe64:graphview:4.2.2'
     implementation 'org.jetbrains:annotations:23.0.0'
     implementation 'com.github.QuadFlask:colorpicker:0.0.15'
     implementation 'junit:junit:4.12'
     implementation 'junit:junit:4.12'
-    testImplementation 'org.junit.jupiter:junit-jupiter'
 }

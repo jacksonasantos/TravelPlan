@@ -20,7 +20,7 @@ public interface VehicleHasTravelISchema {
             + VEHICLE_HAS_TRAVEL_TABLE + " ("
             + VEHICLE_HAS_TRAVEL_ID + " INTEGER PRIMARY KEY, "
             + VEHICLE_HAS_TRAVEL_VEHICLE_ID + " INTEGER REFERENCES " + VehicleISchema.VEHICLE_TABLE + " ("+VehicleISchema.VEHICLE_ID+"), "
-            + VEHICLE_HAS_TRAVEL_TRAVEL_ID + " INTEGER REFERENCES " + TravelISchema.TRAVEL_TABLE + " ("+TravelISchema.TRAVEL_ID+"), "
+            + VEHICLE_HAS_TRAVEL_TRAVEL_ID + " INTEGER REFERENCES " + TravelISchema.TRAVEL_TABLE + " ("+TravelISchema.TRAVEL_ID+") "
             + ")";
 
     // Version 49

@@ -3,6 +3,7 @@ package com.jacksonasantos.travelplan.dao;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.os.Build;
 
 import com.jacksonasantos.travelplan.R;
 import com.jacksonasantos.travelplan.dao.general.DbContentProvider;
@@ -27,10 +28,16 @@ public class VehicleStatisticsDAO extends DbContentProvider implements VehicleSt
     public List<String> findMessages (Context context) {
         List<String> messagesList = new ArrayList<>();
         // driver registration expiration
+        String strExpiration;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            strExpiration = "IIF(d." + PersonISchema.PERSON_LICENSE_EXPIRATION_DATE + " < DATE('now'),' " + context.getString(R.string.expired) + " ',' " + context.getString(R.string.expiring) + " ') || ";
+        } else {
+            strExpiration = "' com vencimento' || ";
+        }
         cursor = super.rawQuery("SELECT '"+context.getString(R.string.Person_Driving_Record)+"' ||" +
                                             "' " + context.getString(R.string.of) + " ' ||"+
                                             "d." + PersonISchema.PERSON_NAME + " ||"+
-                                            "IIF(d." + PersonISchema.PERSON_LICENSE_EXPIRATION_DATE + " < DATE('now'),' "+context.getString(R.string.expired)+" ',' "+context.getString(R.string.expiring)+" ') || " +
+                                            strExpiration +
                                             "' "+context.getString(R.string.in)+" ' || " +
                                             "strftime('%d/%m/%Y',d." + PersonISchema.PERSON_LICENSE_EXPIRATION_DATE + ") message " +
                                       "FROM "+PersonISchema.PERSON_TABLE+" d "+
@@ -45,9 +52,15 @@ public class VehicleStatisticsDAO extends DbContentProvider implements VehicleSt
             cursor.close();
         }
         // insurance expiration
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            strExpiration = "IIF(s."+InsuranceISchema.INSURANCE_FINAL_EFFECTIVE_DATE+"<DATE('now'),' "+context.getString(R.string.expired)+" ',' "+context.getString(R.string.expiring)+" ') || ";
+        } else {
+            strExpiration = "' com vencimento' || ";
+        }
         cursor = super.rawQuery("SELECT '"+context.getString(R.string.insurance)+" ' || " +
                                             "s." + InsuranceISchema.INSURANCE_DESCRIPTION + " || " +
-                                            "IIF(s."+InsuranceISchema.INSURANCE_FINAL_EFFECTIVE_DATE+"<DATE('now'),' "+context.getString(R.string.expired)+" ',' "+context.getString(R.string.expiring)+" ') || " +
+                                            strExpiration +
                                             "' "+context.getString(R.string.in)+" ' || " +
                                             "strftime('%d/%m/%Y',s."+InsuranceISchema.INSURANCE_FINAL_EFFECTIVE_DATE+") " +
                                       "FROM "+InsuranceISchema.INSURANCE_TABLE +" s " +

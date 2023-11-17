@@ -14,6 +14,7 @@ public class Globals {
     private int nrMeasureIndexInMeter;
     private String txMeasureCapacity;
     private String txMeasureConsumption;
+    private String txMeasureSpeed;
     private String txDateFormat;
     private int nrKMsPreviousAlert;
     private int nrDaysPreviousAlert;
@@ -45,6 +46,9 @@ public class Globals {
 
     public String getMeasureConsumption() { return this.txMeasureConsumption; }
     public void setMeasureConsumption(String MeasureConsumption) { this.txMeasureConsumption = MeasureConsumption; }
+
+    public String getMeasureSpeed() { return this.txMeasureSpeed; }
+    public void setMeasureSpeed(String MeasureSpeed) { this.txMeasureSpeed = MeasureSpeed; }
 
     public String getMeasureCost() { return this.txMeasureCost; }
     public void setMeasureCost(String MeasureCost) { this.txMeasureCost = MeasureCost; }

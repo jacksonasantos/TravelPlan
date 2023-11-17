@@ -529,4 +529,6 @@
     <string name="Achievement_Edit">Editar Conquista</string>
     <string name="marker_predicted_stop_time">Parada Prevista</string>
     <string name="Reservation_New_Amount_Paid">Novo Valor Pago</string>
+    <string name="download_reservation">Baixar Reserva da Internet</string>
+    <string name="Reservation_FileDownload">Baixar arquivo PDF da reserva</string>
 </resources>

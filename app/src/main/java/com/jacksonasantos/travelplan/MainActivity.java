@@ -220,6 +220,7 @@ public class MainActivity extends AppCompatActivity {
         g.setMeasureIndexInMeter(1000);
         g.setMeasureCapacity("l");
         g.setMeasureConsumption(g.getMeasureCost()+"/"+g.getMeasureCapacity());
+        g.setMeasureSpeed(g.getMeasureCost()+"/"+"h");
         g.setDateFormat("yyyy-MM-dd HH:mm:ss");
 
         g.setKMsPreviousAlert(1000);
