@@ -107,8 +107,8 @@ public class InsuranceDialog {
                          newInsurance.setInitial_effective_date(i1.getFinal_effective_date());
                          newInsurance.setInsurance_policy("99999");
                          newInsurance.setIssuance_date(i1.getFinal_effective_date());
-                         newInsurance.setVehicle_id(newInsurance.getVehicle_id() == 0 ? null : newInsurance.getVehicle_id());
-                         newInsurance.setTravel_id(newInsurance.getTravel_id() == 0 ? null : newInsurance.getTravel_id());
+                         newInsurance.setVehicle_id(i1.getVehicle_id());
+                         newInsurance.setTravel_id( i1.getTravel_id());
                          try {
                              isSave = Database.mInsuranceDao.addInsurance(newInsurance);
                          } catch (Exception e) {
@@ -125,8 +125,8 @@ public class InsuranceDialog {
                              }
 
                              i1.setStatus(insurance.getStatus() == 0 ? 1 : 0);
-                             i1.setVehicle_id(insurance.getVehicle_id() == 0 ? null : insurance.getVehicle_id());
-                             i1.setTravel_id(insurance.getTravel_id() == 0 ? null : insurance.getTravel_id());
+                             i1.setVehicle_id(insurance.getVehicle_id());
+                             i1.setTravel_id(insurance.getTravel_id());
                              Database.mInsuranceDao.updateInsurance(i1);
 
                              Intent intent = new Intent(context, InsuranceActivity.class);
