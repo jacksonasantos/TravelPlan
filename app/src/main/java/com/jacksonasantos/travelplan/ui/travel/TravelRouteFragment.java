@@ -658,7 +658,10 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
             else if (holder instanceof FooterViewHolder) {
                 FooterViewHolder footerViewHolder = (FooterViewHolder) holder;
                 long vTotMinute = (totalHr * 60) + totalMin;
-                long vAverageSpeed = vTotDistance / (vTotMinute/60);
+                long vAverageSpeed = 0;
+                if (vTotMinute > 0) {
+                   vAverageSpeed = vTotDistance / (vTotMinute/60);
+                }
                 footerViewHolder.llItineraryItem.setBackgroundColor(Utils.getColorWithAlpha(R.color.colorItemList,0.5f));
                 footerViewHolder.txtSource.setText(R.string.HomeTravelTotal);
                 footerViewHolder.txtTarget.setText(String.format("%s %s", numberFormatter.format(vAverageSpeed), g.getMeasureSpeed()));
