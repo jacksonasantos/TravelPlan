@@ -239,6 +239,7 @@
     <string name="Next_VehicleMaintenance">Próxima Manutenção do Veículo</string>
     <string name="date">Data</string>
     <string name="Travel_Expenses_Deleting">Excluindo Despesas de Viagem</string>
+    <string name="Travel_Status_Running">A viagem deve estar em status de \"Em Execução\"</string>
     <string name="TravelExpenses_ExpenseType">Tipo Despesa</string>
     <string name="TravelExpenses_ExpectedValue">Valor Previsto</string>
     <string name="TravelExpenses_Note">Observação</string>
@@ -531,4 +532,5 @@
     <string name="Reservation_New_Amount_Paid">Novo Valor Pago</string>
     <string name="download_reservation">Baixar Reserva da Internet</string>
     <string name="Reservation_FileDownload">Baixar arquivo PDF da reserva</string>
+    <string name="Travel_Status_Planning">A viagem deve estar em status de \"Em Planejamento\"</string>
 </resources>

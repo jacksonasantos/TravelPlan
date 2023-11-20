@@ -15,6 +15,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.jacksonasantos.travelplan.R;
+import com.jacksonasantos.travelplan.dao.Travel;
 import com.jacksonasantos.travelplan.dao.TravelItemExpenses;
 import com.jacksonasantos.travelplan.dao.general.Database;
 import com.jacksonasantos.travelplan.ui.utility.DateInputMask;
@@ -67,44 +68,49 @@ public class TravelExpensesRealizedListAdapter extends RecyclerView.Adapter<Recy
     public void onBindViewHolder(@NonNull final RecyclerView.ViewHolder holder, final int position) {
         if (holder instanceof HeaderViewHolder) {
             HeaderViewHolder headerViewHolder = (HeaderViewHolder) holder;
+            Travel mTravel = Database.mTravelDao.fetchTravelById(mTravel_id);
             headerViewHolder.llTravelExpenses.setBackgroundColor(Utils.getColorWithAlpha(R.color.colorItemList,0.1f));
             headerViewHolder.txtExpenseDate.setText(R.string.TravelItemExpenses_Date);
             headerViewHolder.txtRealizedValue.setText(R.string.TravelItemExpenses_Value);
             headerViewHolder.txtNote.setText(R.string.TravelExpenses_Note);
             headerViewHolder.btnAdd.setImageResource(R.drawable.ic_button_add);
             headerViewHolder.btnAdd.setOnClickListener(v -> {
-                LayoutInflater li = LayoutInflater.from(v.getContext());
-                View promptsView = li.inflate(R.layout.dialog_travel_expenses_realized, null);
-                final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(v.getContext());
-                alertDialogBuilder.setView(promptsView);
-                final EditText etExpenseDate = promptsView.findViewById(R.id.etExpenseDate);
-                final EditText etExpenseItemRealizedValue = promptsView.findViewById(R.id.etExpenseItemRealizedValue);
-                final EditText etExpenseItemNote = promptsView.findViewById(R.id.etExpenseItemNote);
-                etExpenseDate.addTextChangedListener(new DateInputMask(etExpenseDate));
-                alertDialogBuilder
-                        .setCancelable(false)
-                        .setPositiveButton(R.string.OK, (dialog, id1) -> {
-                            boolean isSave = true;
-                            try {
-                                TravelItemExpenses tie = new TravelItemExpenses();
-                                tie.setTravel_id(mTravel_id);
-                                tie.setExpense_type(mExpense_type);
-                                tie.setExpense_date(Utils.stringToDate(etExpenseDate.getText().toString()));
-                                if (!etExpenseItemRealizedValue.getText().toString().isEmpty()) {
-                                    tie.setRealized_value(Double.parseDouble(etExpenseItemRealizedValue.getText().toString()));
+                if (mTravel.getStatus() < 2) {
+                    Toast.makeText(context, R.string.Travel_Status_Planning, Toast.LENGTH_LONG).show();
+                } else {
+                    LayoutInflater li = LayoutInflater.from(v.getContext());
+                    View promptsView = li.inflate(R.layout.dialog_travel_expenses_realized, null);
+                    final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(v.getContext());
+                    alertDialogBuilder.setView(promptsView);
+                    final EditText etExpenseDate = promptsView.findViewById(R.id.etExpenseDate);
+                    final EditText etExpenseItemRealizedValue = promptsView.findViewById(R.id.etExpenseItemRealizedValue);
+                    final EditText etExpenseItemNote = promptsView.findViewById(R.id.etExpenseItemNote);
+                    etExpenseDate.addTextChangedListener(new DateInputMask(etExpenseDate));
+                    alertDialogBuilder
+                            .setCancelable(false)
+                            .setPositiveButton(R.string.OK, (dialog, id1) -> {
+                                boolean isSave = true;
+                                try {
+                                    TravelItemExpenses tie = new TravelItemExpenses();
+                                    tie.setTravel_id(mTravel_id);
+                                    tie.setExpense_type(mExpense_type);
+                                    tie.setExpense_date(Utils.stringToDate(etExpenseDate.getText().toString()));
+                                    if (!etExpenseItemRealizedValue.getText().toString().isEmpty()) {
+                                        tie.setRealized_value(Double.parseDouble(etExpenseItemRealizedValue.getText().toString()));
+                                    }
+                                    tie.setNote(etExpenseItemNote.getText().toString());
+                                    isSave = Database.mTravelItemExpensesDao.addTravelItemExpenses(tie);
+                                } catch (Exception e) {
+                                    Toast.makeText(context, R.string.Error_Including_Data + e.getMessage(), Toast.LENGTH_LONG).show();
                                 }
-                                tie.setNote(etExpenseItemNote.getText().toString());
-                                isSave = Database.mTravelItemExpensesDao.addTravelItemExpenses(tie);
-                            } catch (Exception e) {
-                                Toast.makeText(context, R.string.Error_Including_Data + e.getMessage(), Toast.LENGTH_LONG).show();
-                            }
-                            if (!isSave) {
-                                Toast.makeText(context, R.string.Error_Saving_Data, Toast.LENGTH_LONG).show();
-                            }
-                        })
-                        .setNegativeButton(R.string.Cancel, (dialog, id1) -> dialog.cancel());
-                AlertDialog alertDialog = alertDialogBuilder.create();
-                alertDialog.show();
+                                if (!isSave) {
+                                    Toast.makeText(context, R.string.Error_Saving_Data, Toast.LENGTH_LONG).show();
+                                }
+                            })
+                            .setNegativeButton(R.string.Cancel, (dialog, id1) -> dialog.cancel());
+                    AlertDialog alertDialog = alertDialogBuilder.create();
+                    alertDialog.show();
+                }
             });
 
         } else if (holder instanceof FooterViewHolder) {

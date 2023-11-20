@@ -84,10 +84,10 @@
     </string-array>
     <!-- Travel Status -->
     <string-array name="travel_status_array">
-        <item>@string/registered</item>         <!-- GRAY -->
-        <item>@string/planning</item>           <!-- YELLOW -->
-        <item>@string/running</item>            <!-- GREEN -->
-        <item>@string/executed</item>           <!-- BLUE -->
+        <item>@string/registered</item>         <!-- 0-GRAY -->
+        <item>@string/planning</item>           <!-- 1-YELLOW -->
+        <item>@string/running</item>            <!-- 2-GREEN -->
+        <item>@string/executed</item>           <!-- 3-BLUE -->
     </string-array>
     <!-- Travel Mode -->
     <string-array name="travel_mode_array">

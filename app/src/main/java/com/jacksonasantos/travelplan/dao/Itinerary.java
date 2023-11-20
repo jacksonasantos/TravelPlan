@@ -31,12 +31,18 @@ public class Itinerary {
 
     public static int getColorItinerary(int sequence){
         int color;
-        switch(sequence % 5) {
+        switch(sequence % 10) {
             case 0: color = Color.BLUE; break;
             case 1: color = Color.GRAY; break;
             case 2: color = Color.RED; break;
             case 3: color = Color.GREEN; break;
-            default: color = Color.MAGENTA; break;
+            case 4: color = Color.MAGENTA; break;
+            case 5: color = Color.CYAN; break;
+            case 6: color = Color.DKGRAY; break;
+            case 7: color = Color.LTGRAY; break;
+            case 8: color = Color.WHITE; break;
+            case 9: color = Color.YELLOW; break;
+            default: color = Color.BLACK; break;
         }
         return color;
     }

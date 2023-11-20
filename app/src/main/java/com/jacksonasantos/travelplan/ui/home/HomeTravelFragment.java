@@ -268,77 +268,93 @@ public class HomeTravelFragment extends Fragment implements View.OnClickListener
                     AlertDialog alertDialog = alertDialogBuilder.create();
                     alertDialog.show();
                 });
-
-                btnFood.setOnClickListener (v -> TravelItemExpenses(v,1));
-                btnTolls.setOnClickListener (v -> TravelItemExpenses(v,2));
-                btnTour.setOnClickListener (v -> TravelItemExpenses(v,3));
-                btnExtra.setOnClickListener (v -> TravelItemExpenses(v,5));
                 btnItinerary.setOnClickListener (v -> {
-                    Intent intent = new Intent(v.getContext(), MaintenanceItineraryActivity.class);
-                    intent.putExtra("travel_id", travel[0].id);
-                    startActivity(intent);
-                });
-                btnAccommodation.setOnClickListener (v -> {
-                    Intent intent = new Intent(v.getContext(), ReservationActivity.class); // TODO - Implementar inclusão da acomodação não existente quando fazer uma reserva
-                    intent.putExtra("travel_id", travel[0].id);
-                    startActivity(intent);
-                });
-                btnFuel.setOnClickListener (v -> {
-                    Intent intent = new Intent(v.getContext(), FuelSupplyActivity.class);
-                    intent.putExtra("travel_id", travel[0].id);
-                    List<VehicleHasTravel> vehicleHasTravel = Database.mVehicleHasTravelDao.fetchAllVehicleHasTravelByTravelForFuel(travel[0].getId());
-                    if (vehicleHasTravel.size() > 0) {
-                        if (vehicleHasTravel.size() == 1) {
-                            if (vehicleHasTravel.get(0).getVehicle_id()!=null) {
-                                intent.putExtra("vehicle_id", vehicleHasTravel.get(0).getVehicle_id());
-                            }
-                            if (vehicleHasTravel.get(0).getTransport_id()!=null) {
-                                intent.putExtra("transport_id", vehicleHasTravel.get(0).getTransport_id());
-                            }
-                            startActivity(intent);
-                        } else {
-                            AlertDialog.Builder alertDialog = new AlertDialog.Builder(requireContext());
-                            alertDialog.setIcon(R.drawable.ic_menu_vehicle);
-                            alertDialog.setTitle(getString(R.string.choose)+" "+getString(R.string.of)+" "+getString(R.string.vehicle));
-
-                            String[] listItems = new String[vehicleHasTravel.size()];
-                            for (int i = 0; i<vehicleHasTravel.size(); i++){
-                                if (vehicleHasTravel.get(i).getVehicle_id()==null){
-                                    listItems[i] = Database.mTransportDao.fetchTransportById(vehicleHasTravel.get(i).getTransport_id()).getDescription();
-                                } else {
-                                    listItems[i] = Database.mVehicleDao.fetchVehicleById(vehicleHasTravel.get(i).getVehicle_id()).getName();
-                                }
-                            }
-
-                            final int[] checkedItem = {-1};
-                            alertDialog.setSingleChoiceItems(listItems, checkedItem[0], (dialog, which) -> {
-                                if (vehicleHasTravel.get(which).getVehicle_id()!=null) {
-                                    intent.putExtra("vehicle_id", vehicleHasTravel.get(which).getVehicle_id());
-                                }
-                                if (vehicleHasTravel.get(which).getTransport_id()!=null) {
-                                    intent.putExtra("transport_id", vehicleHasTravel.get(which).getTransport_id());
-                                }
-                                dialog.dismiss();
-                                startActivity(intent);
-                            });
-
-                            alertDialog.setNegativeButton("Cancel", (dialog, which) -> { });
-                            AlertDialog customAlertDialog = alertDialog.create();
-                            customAlertDialog.show();
-                        }
+                    if (travel[0].getStatus() != 1) {
+                        Toast.makeText(v.getContext(), R.string.Travel_Status_Planning, Toast.LENGTH_LONG).show();
                     } else {
+                        Intent intent = new Intent(v.getContext(), MaintenanceItineraryActivity.class);
+                        intent.putExtra("travel_id", travel[0].id);
                         startActivity(intent);
                     }
                 });
-                btnInsurance.setOnClickListener (v -> {
-                    Intent intent = new Intent(v.getContext(), InsuranceActivity.class);
+                btnAccommodation.setOnClickListener (v -> {
+                    Intent intent = new Intent(v.getContext(), ReservationActivity.class); // TODO - Implementar alteração na inclusão da acomodação não existente quando fazer uma reserva
                     intent.putExtra("travel_id", travel[0].id);
                     startActivity(intent);
                 });
+                btnFood.setOnClickListener (v -> TravelItemExpenses(v,1));
+                btnFuel.setOnClickListener (v -> {
+                    if (travel[0].getStatus() < 2) {
+                        Toast.makeText(v.getContext(), R.string.Travel_Status_Running, Toast.LENGTH_LONG).show();
+                    } else {
+                        Intent intent = new Intent(v.getContext(), FuelSupplyActivity.class);
+                        intent.putExtra("travel_id", travel[0].id);
+                        List<VehicleHasTravel> vehicleHasTravel = Database.mVehicleHasTravelDao.fetchAllVehicleHasTravelByTravelForFuel(travel[0].getId());
+                        if (vehicleHasTravel.size() > 0) {
+                            if (vehicleHasTravel.size() == 1) {
+                                if (vehicleHasTravel.get(0).getVehicle_id() != null) {
+                                    intent.putExtra("vehicle_id", vehicleHasTravel.get(0).getVehicle_id());
+                                }
+                                if (vehicleHasTravel.get(0).getTransport_id() != null) {
+                                    intent.putExtra("transport_id", vehicleHasTravel.get(0).getTransport_id());
+                                }
+                                startActivity(intent);
+                            } else {
+                                AlertDialog.Builder alertDialog = new AlertDialog.Builder(requireContext());
+                                alertDialog.setIcon(R.drawable.ic_menu_vehicle);
+                                alertDialog.setTitle(getString(R.string.choose) + " " + getString(R.string.of) + " " + getString(R.string.vehicle));
+
+                                String[] listItems = new String[vehicleHasTravel.size()];
+                                for (int i = 0; i < vehicleHasTravel.size(); i++) {
+                                    if (vehicleHasTravel.get(i).getVehicle_id() == null) {
+                                        listItems[i] = Database.mTransportDao.fetchTransportById(vehicleHasTravel.get(i).getTransport_id()).getDescription();
+                                    } else {
+                                        listItems[i] = Database.mVehicleDao.fetchVehicleById(vehicleHasTravel.get(i).getVehicle_id()).getName();
+                                    }
+                                }
+
+                                final int[] checkedItem = {-1};
+                                alertDialog.setSingleChoiceItems(listItems, checkedItem[0], (dialog, which) -> {
+                                    if (vehicleHasTravel.get(which).getVehicle_id() != null) {
+                                        intent.putExtra("vehicle_id", vehicleHasTravel.get(which).getVehicle_id());
+                                    }
+                                    if (vehicleHasTravel.get(which).getTransport_id() != null) {
+                                        intent.putExtra("transport_id", vehicleHasTravel.get(which).getTransport_id());
+                                    }
+                                    dialog.dismiss();
+                                    startActivity(intent);
+                                });
+
+                                alertDialog.setNegativeButton("Cancel", (dialog, which) -> {
+                                });
+                                AlertDialog customAlertDialog = alertDialog.create();
+                                customAlertDialog.show();
+                            }
+                        } else {
+                            startActivity(intent);
+                        }
+                    }
+                });
+                btnExtra.setOnClickListener (v -> TravelItemExpenses(v,5));
+                btnTour.setOnClickListener (v -> TravelItemExpenses(v,3));
+                btnTolls.setOnClickListener (v -> TravelItemExpenses(v,2));
+                btnInsurance.setOnClickListener (v -> {
+                    if (travel[0].getStatus() != 1) {
+                        Toast.makeText(v.getContext(), R.string.Travel_Status_Planning, Toast.LENGTH_LONG).show();
+                    } else {
+                        Intent intent = new Intent(v.getContext(), InsuranceActivity.class);
+                        intent.putExtra("travel_id", travel[0].id);
+                        startActivity(intent);
+                    }
+                });
                 btnTransport.setOnClickListener (v -> {
-                    Intent intent = new Intent(v.getContext(), ItineraryHasTransportActivity.class);
-                    intent.putExtra("travel_id", travel[0].id);
-                    startActivity(intent);
+                    if (travel[0].getStatus() != 1) {
+                        Toast.makeText(v.getContext(), R.string.Travel_Status_Planning, Toast.LENGTH_LONG).show();
+                    } else {
+                        Intent intent = new Intent(v.getContext(), ItineraryHasTransportActivity.class);
+                        intent.putExtra("travel_id", travel[0].id);
+                        startActivity(intent);
+                    }
                 });
 
                 // Expenses - LayerExpense
