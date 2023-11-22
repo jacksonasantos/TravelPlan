@@ -148,7 +148,7 @@
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1.5"
+                        android:layout_weight="1"
                         android:gravity="center_vertical"
                         android:text="@string/Insurance_Nr"
                         android:textAppearance="?android:attr/textAppearanceMedium"
@@ -158,9 +158,14 @@
                         android:id="@+id/txtInsurancePolicy"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="3.5"
+                        android:layout_weight="4"
                         android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:textSize="12sp" />
+                        android:textSize="12sp"
+                        android:gravity="center"
+                        android:autoSizeMaxTextSize="12sp"
+                        android:autoSizeMinTextSize="5sp"
+                        android:autoSizeStepGranularity="1sp"
+                        android:autoSizeTextType="uniform"/>
 
                     <TextView
                         android:layout_width="0dp"

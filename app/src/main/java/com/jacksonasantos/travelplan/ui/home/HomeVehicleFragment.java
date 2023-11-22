@@ -35,6 +35,7 @@ import com.jacksonasantos.travelplan.ui.general.InsuranceDialog;
 import com.jacksonasantos.travelplan.ui.utility.Globals;
 import com.jacksonasantos.travelplan.ui.utility.Utils;
 import com.jacksonasantos.travelplan.ui.vehicle.FuelSupplyActivity;
+import com.jacksonasantos.travelplan.ui.vehicle.MaintenanceActivity;
 import com.jacksonasantos.travelplan.ui.vehicle.PendingVehicleActivity;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.GridLabelRenderer;
@@ -84,6 +85,7 @@ public class HomeVehicleFragment extends Fragment implements View.OnClickListene
     private RecyclerView pendingVehicleList;
 
     private ConstraintLayout layerMaintenanceItemVehicle;
+    private ImageView imgAddMaintenanceVehicle;
     private RecyclerView nextVehicleMaintenanceList;
 
     int tamHorizontalLabels = 3;
@@ -136,6 +138,7 @@ public class HomeVehicleFragment extends Fragment implements View.OnClickListene
         pendingVehicleList = v.findViewById(R.id.pendingVehicleList);
 
         layerMaintenanceItemVehicle = v.findViewById(R.id.layerMaintenanceItemVehicle);
+        imgAddMaintenanceVehicle = v.findViewById(R.id.imgAddMaintenanceVehicle);
         nextVehicleMaintenanceList = v.findViewById(R.id.listNextVehicleMaintenance);
 
         layerFuelSupply.setOnClickListener(v1 -> {
@@ -301,6 +304,11 @@ public class HomeVehicleFragment extends Fragment implements View.OnClickListene
                     layerMaintenanceItemVehicle.setVisibility(View.VISIBLE);
                     nextVehicleMaintenanceList.setAdapter(adapterNextMaintenance);
                     nextVehicleMaintenanceList.setLayoutManager(new LinearLayoutManager(getContext()));
+                    imgAddMaintenanceVehicle.setOnClickListener(v -> {
+                        Intent intent = new Intent(v.getContext(), MaintenanceActivity.class);
+                        intent.putExtra("vehicle_id", g.getIdVehicle());
+                        startActivity(intent);
+                    });
                 } else {
                     layerMaintenanceItemVehicle.setVisibility(View.GONE);
                 }

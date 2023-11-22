@@ -292,7 +292,7 @@
                 android:text="@string/VehicleStatistics"
                 android:textAlignment="center"
                 android:textColor="@color/design_default_color_secondary_variant"
-                android:textSize="12sp"
+                android:textSize="14sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/buttonSeparator2" />
@@ -414,7 +414,6 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/ic_button_add" />
 
-
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/pendingVehicleList"
                 android:layout_width="match_parent"
@@ -462,6 +461,16 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/imgAddMaintenanceVehicle"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:contentDescription="@string/Maintenance_Vehicle"
+                app:layout_constraintBottom_toTopOf="@+id/listNextVehicleMaintenance"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_button_add" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/listNextVehicleMaintenance"

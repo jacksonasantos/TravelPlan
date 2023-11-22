@@ -17,6 +17,8 @@ import com.jacksonasantos.travelplan.R;
 import com.jacksonasantos.travelplan.dao.Broker;
 import com.jacksonasantos.travelplan.dao.Insurance;
 import com.jacksonasantos.travelplan.dao.InsuranceContact;
+import com.jacksonasantos.travelplan.dao.Travel;
+import com.jacksonasantos.travelplan.dao.Vehicle;
 import com.jacksonasantos.travelplan.dao.general.Database;
 import com.jacksonasantos.travelplan.dao.general.DialogHeader;
 import com.jacksonasantos.travelplan.dao.general.DialogItem;
@@ -90,8 +92,14 @@ public class InsuranceDialog {
         rvContact.setAdapter(adapterInsuranceContact);
         adapterInsuranceContact.notifyDataSetChanged();
 
-        txtInsuranceVehicle.setText(Database.mVehicleDao.fetchVehicleById(insurance.getVehicle_id()).getName());
-        txtInsuranceTravel.setText((Database.mTravelDao.fetchTravelById(insurance.getTravel_id()).getDescription()));
+        Vehicle v1 = Database.mVehicleDao.fetchVehicleById(insurance.getVehicle_id());
+        Travel t1 = Database.mTravelDao.fetchTravelById(insurance.getTravel_id());
+        if (v1.getName() != null) {
+            txtInsuranceVehicle.setText(String.format("%s: %s - %s", promptsView.getResources().getString(R.string.vehicle), v1.getName(), v1.getLicense_plate()));
+        }
+        if (t1.getDeparture_date() != null) {
+            txtInsuranceTravel.setText(String.format("%s: %s - %s a %s", promptsView.getResources().getString(R.string.travel), t1.getDescription(), t1.getDeparture_date(), t1.getReturn_date()));
+        }
 
         Insurance i1 = Database.mInsuranceDao.fetchInsuranceById(insurance.getId());
         final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(v.getContext(), R.style.MyDialogStyle);
