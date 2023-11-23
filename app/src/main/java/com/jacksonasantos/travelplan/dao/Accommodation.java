@@ -22,7 +22,7 @@ public class Accommodation {
 
     @NonNull
     @Override
-    public String toString() { return name==null?"":name+"\n"+city+"/"+state; }
+    public String toString() { return name==null?"":name+"\n  "+city+"/"+state; }
 
     public Integer getId() {return id;}
     public void setId(Integer id) {this.id = id;}

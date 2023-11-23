@@ -173,8 +173,10 @@ public class RouteClass {
 
                 nrDuration += legs.getJSONObject("duration").getInt("value");
                 nrDistance += legs.getJSONObject("distance").getInt("value");
+
                 try {
                     totalFare += legs.getJSONObject("fare").getInt("value");
+                    // TODO - Avaliar a inclusão do marker do pedágio quando a viajem estiver em planejamento
                 } catch (Exception ignored) {}
 
                 for (int i = 0; i < stepsArray.length(); i++) {
@@ -239,6 +241,7 @@ public class RouteClass {
                 }
             }
             if (totalFare > 0) {
+                // TODO - ajustar valor para os veiculos da viajem se estiver em planejamento
                 TravelExpenses te = new TravelExpenses();
                 te.setTravel_id(nrTravel_Id);
                 te.setExpense_type(2);

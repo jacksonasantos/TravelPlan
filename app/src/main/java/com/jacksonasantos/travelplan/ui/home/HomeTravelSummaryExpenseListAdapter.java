@@ -1,7 +1,6 @@
 package com.jacksonasantos.travelplan.ui.home;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -67,7 +66,7 @@ public class HomeTravelSummaryExpenseListAdapter extends RecyclerView.Adapter<Re
     public void onBindViewHolder(@NonNull final RecyclerView.ViewHolder holder, final int position) {
         if (holder instanceof HeaderViewHolder){
             HeaderViewHolder headerViewHolder = ( HeaderViewHolder) holder;
-            headerViewHolder.llExpenseItem.setBackgroundColor(Color.LTGRAY);
+            headerViewHolder.llExpenseItem.setBackgroundColor(Utils.getColorWithAlpha(R.color.colorItemList,0.1f));
             headerViewHolder.imgExpense.setVisibility(View.INVISIBLE);
             headerViewHolder.txtExpense.setText("");
             headerViewHolder.txtExpectedValue.setText(R.string.expected);
@@ -75,7 +74,7 @@ public class HomeTravelSummaryExpenseListAdapter extends RecyclerView.Adapter<Re
         }
         else if (holder instanceof FooterViewHolder) {
             FooterViewHolder footerViewHolder = ( FooterViewHolder ) holder;
-            footerViewHolder.llExpenseItem.setBackgroundColor(Utils.getColorWithAlpha(R.color.colorItemList,0.7f));
+            footerViewHolder.llExpenseItem.setBackgroundColor(Utils.getColorWithAlpha(R.color.colorItemList,0.5f));
             footerViewHolder.imgExpense.setVisibility(View.INVISIBLE);
             footerViewHolder.txtExpense.setText(R.string.HomeTravelTotal);
             footerViewHolder.txtExpectedValue.setText(currencyFormatter.format(vTotExpected==null? BigDecimal.ZERO: vTotExpected));
@@ -84,7 +83,9 @@ public class HomeTravelSummaryExpenseListAdapter extends RecyclerView.Adapter<Re
         else if (holder instanceof ItemViewHolder) {
             final ItemViewHolder itemViewHolder = (ItemViewHolder) holder;
             final SummaryTravelExpense summaryTravelExpense = mSummaryTravelExpense.get(position-show_header);
-            itemViewHolder.llExpenseItem.setBackgroundColor(Utils.getColorWithAlpha(R.color.colorItemList,0.1f));
+            if(position%2==0) {
+                itemViewHolder.llExpenseItem.setBackgroundColor(Utils.getColorWithAlpha(R.color.colorItemList, 0.05f));
+            }
             itemViewHolder.imgExpense.setImageResource(summaryTravelExpense.getExpense_type_image(summaryTravelExpense.getExpense_type()));
             itemViewHolder.txtExpense.setText(context.getResources().getStringArray(R.array.expenses_type_array)[summaryTravelExpense.getExpense_type()]);
             itemViewHolder.txtExpectedValue.setText(currencyFormatter.format(summaryTravelExpense.getExpected_value()==null? BigDecimal.ZERO: summaryTravelExpense.getExpected_value()));
