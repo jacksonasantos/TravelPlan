@@ -60,6 +60,7 @@ public class HomeTravelFragment extends Fragment implements View.OnClickListener
     private TextView tvReturn;
     private TextView tvDays;
 
+    private ConstraintLayout layerBtnMenu;
     private ImageButton btnItinerary;
     private ImageButton btnAccommodation;
     private ImageButton btnFood;
@@ -114,6 +115,7 @@ public class HomeTravelFragment extends Fragment implements View.OnClickListener
         tvReturn = v.findViewById(R.id.tvReturn);
         tvDays = v.findViewById(R.id.tvDays);
 
+        layerBtnMenu = v.findViewById(R.id.layerBtnMenu);
         btnItinerary = v.findViewById(R.id.btnItinerary);
         btnAccommodation = v.findViewById(R.id.btnAccommodation);
         btnFood = v.findViewById(R.id.btnFood);
@@ -155,6 +157,17 @@ public class HomeTravelFragment extends Fragment implements View.OnClickListener
         layerHomeTravel.setFocusableInTouchMode(true);
         layerHomeTravel.setDescendantFocusability(ViewGroup.FOCUS_BEFORE_DESCENDANTS);
 
+        layerBtnMenu.setVisibility(View.INVISIBLE);
+        layerExpense.setVisibility(View.INVISIBLE);
+        layerItineraryHasTransport.setVisibility(View.INVISIBLE);
+        layerVehicle.setVisibility(View.INVISIBLE);
+        layerTour.setVisibility(View.INVISIBLE);
+        layerFuelSupply.setVisibility(View.INVISIBLE);
+        layerAchievement.setVisibility(View.INVISIBLE);
+        layerItinerary.setVisibility(View.INVISIBLE);
+        layerReservation.setVisibility(View.INVISIBLE);
+        layerInsurance.setVisibility(View.INVISIBLE);
+
         onResume();
         return v;
     }
@@ -189,6 +202,7 @@ public class HomeTravelFragment extends Fragment implements View.OnClickListener
                 g.setIdTravel(travel[0].getId());
 
                 layerTravel.setVisibility(View.VISIBLE);
+                layerBtnMenu.setVisibility(View.VISIBLE);
                 imTravelStatus.setImageResource(R.drawable.ic_ball );
                 imTravelStatus.setColorFilter(travel[0].getColorStatus(), PorterDuff.Mode.MULTIPLY);
                 tvNote.setText(travel[0].getNote());

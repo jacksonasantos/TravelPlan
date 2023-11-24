@@ -22,7 +22,7 @@ public interface ItineraryISchema {
             + ITINERARY_SEQUENCE + " INT, "
             + ITINERARY_ORIG_LOCATION + " TEXT, "
             + ITINERARY_DEST_LOCATION + " TEXT, "
-            + ITINERARY_DAILY + "INT, "
+            + ITINERARY_DAILY + " INT, "
             + ITINERARY_DISTANCE + " INT, "
             + ITINERARY_TIME + " INT "
             + ")";
