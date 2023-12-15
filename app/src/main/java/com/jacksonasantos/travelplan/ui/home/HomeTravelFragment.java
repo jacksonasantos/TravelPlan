@@ -283,7 +283,7 @@ public class HomeTravelFragment extends Fragment implements View.OnClickListener
                     alertDialog.show();
                 });
                 btnItinerary.setOnClickListener (v -> {
-                    if (travel[0].getStatus() != 1) {
+                    if (travel[0].getStatus() < 1) {
                         Toast.makeText(v.getContext(), R.string.Travel_Status_Planning, Toast.LENGTH_LONG).show();
                     } else {
                         Intent intent = new Intent(v.getContext(), MaintenanceItineraryActivity.class);

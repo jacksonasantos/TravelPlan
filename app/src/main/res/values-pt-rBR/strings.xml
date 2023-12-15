@@ -532,5 +532,5 @@
     <string name="Reservation_New_Amount_Paid">Novo Valor Pago</string>
     <string name="download_reservation">Baixar Reserva da Internet</string>
     <string name="Reservation_FileDownload">Baixar arquivo PDF da reserva</string>
-    <string name="Travel_Status_Planning">A viagem deve estar em status de \"Em Planejamento\"</string>
+    <string name="Travel_Status_Planning">A viagem deve estar em status mínimo de \"Em Planejamento\"</string>
 </resources>
