@@ -51,6 +51,14 @@
         app:autoSizeStepGranularity="1sp"
         app:autoSizeTextType="uniform" />
 
+    <ImageView
+        android:id="@+id/imgTypeAchievement"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_gravity="center"
+        android:layout_marginEnd="@dimen/labels_margin"
+        android:contentDescription="@string/Achievement_Image" />
+
     <ImageButton
         android:id="@+id/btnDelete"
         android:layout_width="20dp"

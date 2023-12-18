@@ -62,6 +62,7 @@ public class TravelAchievementListAdapter extends RecyclerView.Adapter<RecyclerV
 
             headerViewHolder.llAchievementTravelItem.setBackgroundColor(Utils.getColorWithAlpha(R.color.colorItemList,0.1f));
             headerViewHolder.imgAchievement.setImageBitmap(null);
+            headerViewHolder.imgTypeAchievement.setImageBitmap(null);
             headerViewHolder.txtNameAchievement.setText(R.string.Achievement);
             headerViewHolder.txtShortNameAchievement.setText(R.string.Achievement_Short_Name);
             headerViewHolder.txtSequenceAchievement.setText(R.string.Itinerary_Label);
@@ -96,6 +97,7 @@ public class TravelAchievementListAdapter extends RecyclerView.Adapter<RecyclerV
                 itemViewHolder.btnDelete.setVisibility(View.VISIBLE);
             }
 
+            itemViewHolder.imgTypeAchievement.setImageResource(achievement.getAchievement_typeImage(achievement.getType_achievement()));
             itemViewHolder.imgAchievement.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -133,6 +135,7 @@ public class TravelAchievementListAdapter extends RecyclerView.Adapter<RecyclerV
     private static class HeaderViewHolder extends RecyclerView.ViewHolder {
         public final LinearLayout llAchievementTravelItem;
         public final ImageView imgAchievement;
+        public final ImageView imgTypeAchievement;
         public final TextView txtNameAchievement;
         public final TextView txtShortNameAchievement;
         public final TextView txtSequenceAchievement;
@@ -142,6 +145,7 @@ public class TravelAchievementListAdapter extends RecyclerView.Adapter<RecyclerV
             super(v);
             llAchievementTravelItem = v.findViewById(R.id.llAchievementTravelItem);
             imgAchievement = v.findViewById(R.id.imgAchievement);
+            imgTypeAchievement = v.findViewById(R.id.imgTypeAchievement);
             txtNameAchievement = v.findViewById(R.id.txtNameAchievement);
             txtShortNameAchievement = v.findViewById(R.id.txtShortNameAchievement);
             txtSequenceAchievement = v.findViewById(R.id.txtSequenceAchievement);
@@ -152,6 +156,7 @@ public class TravelAchievementListAdapter extends RecyclerView.Adapter<RecyclerV
     public static class ItemViewHolder extends RecyclerView.ViewHolder {
         public final LinearLayout llAchievementTravelItem;
         public final ImageView imgAchievement;
+        public final ImageView imgTypeAchievement;
         public final TextView txtNameAchievement;
         public final TextView txtShortNameAchievement;
         public final TextView txtSequenceAchievement;
@@ -161,6 +166,7 @@ public class TravelAchievementListAdapter extends RecyclerView.Adapter<RecyclerV
             super(v);
             llAchievementTravelItem = v.findViewById(R.id.llAchievementTravelItem);
             imgAchievement = v.findViewById(R.id.imgAchievement);
+            imgTypeAchievement = v.findViewById(R.id.imgTypeAchievement);
             txtNameAchievement = v.findViewById(R.id.txtNameAchievement);
             txtShortNameAchievement = v.findViewById(R.id.txtShortNameAchievement);
             txtSequenceAchievement = v.findViewById(R.id.txtSequenceAchievement);
