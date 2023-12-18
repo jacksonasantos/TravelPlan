@@ -56,6 +56,9 @@
     <string name="menu_fuel_supply">Abastecimento</string>
     <string name="city">Cidade</string>
     <string name="road">Estrada</string>
+    <string name="cave">Caverna</string>
+    <string name="mountain_range">Serra</string>
+    <string name="tourist_spot">Ponto Turístico</string>
     <string name="FuelSupply_Reason_Type">Tipo de Razão do Abastecimento</string>
     <string name="language">Linguagem</string>
     <string name="Error_Data_Validation">Erro na validação dos dados</string>
@@ -533,4 +536,5 @@
     <string name="download_reservation">Baixar Reserva da Internet</string>
     <string name="Reservation_FileDownload">Baixar arquivo PDF da reserva</string>
     <string name="Travel_Status_Planning">A viagem deve estar em status mínimo de \"Em Planejamento\"</string>
+    <string name="Achievement_Type">Tipo Conquista</string>
 </resources>

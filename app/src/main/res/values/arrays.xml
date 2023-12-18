@@ -89,6 +89,13 @@
         <item>@string/running</item>            <!-- 2-GREEN -->
         <item>@string/executed</item>           <!-- 3-BLUE -->
     </string-array>
+    <!-- Achievement Type  -->
+    <string-array name="achievement_type_array">
+        <item>@string/mountain_range</item>
+        <item>@string/road</item>
+        <item>@string/cave</item>
+        <item>@string/tourist_spot</item>
+    </string-array>
     <!-- Travel Mode -->
     <string-array name="travel_mode_array">
         <item>@string/driving</item>

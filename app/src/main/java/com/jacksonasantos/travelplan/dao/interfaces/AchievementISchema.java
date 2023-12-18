@@ -19,6 +19,7 @@ public interface AchievementISchema {
     String ACHIEVEMENT_LATLNG_ACHIEVEMENT = "latlng_achievement";
     String ACHIEVEMENT_LENGTH_ACHIEVEMENT = "length_achievement";
     String ACHIEVEMENT_STATUS_ACHIEVEMENT = "status_achievement";
+    String ACHIEVEMENT_TYPE_ACHIEVEMENT = "types_achievement";
 
     // Version 36
     String CREATE_TABLE_ACHIEVEMENT_V36 = "CREATE TABLE IF NOT EXISTS "
@@ -50,6 +51,9 @@ public interface AchievementISchema {
     String ALTER_TABLE_ACHIEVEMENT_V55_2 = "ALTER TABLE " + ACHIEVEMENT_TABLE
             + " ADD COLUMN " + ACHIEVEMENT_LATLNG_TARGET + " TEXT ";
 
+    String ALTER_TABLE_ACHIEVEMENT_V79 = "ALTER TABLE " + ACHIEVEMENT_TABLE
+            + " ADD COLUMN " + ACHIEVEMENT_TYPE_ACHIEVEMENT + " INT ";
+
     String[] ACHIEVEMENT_COLUMNS = new String[] {
             ACHIEVEMENT_ID,
             ACHIEVEMENT_SHORT_NAME,
@@ -65,6 +69,7 @@ public interface AchievementISchema {
             ACHIEVEMENT_NOTE,
             ACHIEVEMENT_LATLNG_ACHIEVEMENT,
             ACHIEVEMENT_LENGTH_ACHIEVEMENT,
-            ACHIEVEMENT_STATUS_ACHIEVEMENT
+            ACHIEVEMENT_STATUS_ACHIEVEMENT,
+            ACHIEVEMENT_TYPE_ACHIEVEMENT
     };
 }

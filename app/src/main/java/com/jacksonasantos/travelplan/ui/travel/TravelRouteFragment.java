@@ -27,6 +27,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -64,11 +65,9 @@ import com.jacksonasantos.travelplan.ui.utility.Globals;
 import com.jacksonasantos.travelplan.ui.utility.Utils;
 
 import java.io.IOException;
-import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 import java.util.Objects;
 
 public class TravelRouteFragment extends Fragment implements LocationListener {
@@ -83,6 +82,7 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
 
     private Button buttonSeparator;
     private TextView tvTravel;
+    private ScrollView listItineraryScroll;
     private RecyclerView listItinerary;
     private MapView mMapView;
     private static GoogleMap googleMap;
@@ -120,6 +120,7 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
 
         tvTravel = rootView.findViewById(R.id.tvTravel);
         listItinerary = rootView.findViewById(R.id.listItinerary);
+        listItineraryScroll = rootView.findViewById(R.id.listItineraryScroll);
         buttonSeparator = rootView.findViewById(R.id.buttonSeparator);
         mMapView = rootView.findViewById(R.id.mapView);
         etSearch = rootView.findViewById(R.id.etSearch);
@@ -129,6 +130,7 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
         if (flgModeAchievement) {
             tvTravel.setVisibility(View.GONE);
             listItinerary.setVisibility(View.GONE);
+            listItineraryScroll.setVisibility(View.GONE);
             buttonSeparator.setVisibility(View.GONE);
             listMarkers.setVisibility(View.GONE);
         }
@@ -136,6 +138,7 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
         if (txt_Search!=null) {
             tvTravel.setVisibility(View.GONE);
             listItinerary.setVisibility(View.GONE);
+            listItineraryScroll.setVisibility(View.GONE);
             listMarkers.setVisibility(View.GONE);
             etSearch.setText(txt_Search);
         }
@@ -611,8 +614,6 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
         boolean lClick = false;
 
         final Globals g = Globals.getInstance();
-        final Locale locale = new Locale(g.getLanguage(), g.getCountry());
-        final NumberFormat numberFormatter = NumberFormat.getNumberInstance(locale);
 
         public HomeTravelItineraryListAdapter(List<Itinerary> itinerary, Context context, int show_header, int show_footer, boolean show_home, Integer travel_id) {
             this.mItinerary = itinerary;
@@ -657,14 +658,14 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
             }
             else if (holder instanceof FooterViewHolder) {
                 FooterViewHolder footerViewHolder = (FooterViewHolder) holder;
-                long vTotMinute = (totalHr * 60) + totalMin;
-                long vAverageSpeed = 0;
+                float vTotMinute = (totalHr * 60) + totalMin;
+                float vAverageSpeed = 0;
                 if (vTotMinute > 0) {
-                   vAverageSpeed = vTotDistance / (vTotMinute/60);
+                   vAverageSpeed = (vTotDistance / (vTotMinute/60));
                 }
                 footerViewHolder.llItineraryItem.setBackgroundColor(Utils.getColorWithAlpha(R.color.colorItemList,0.5f));
                 footerViewHolder.txtSource.setText(R.string.HomeTravelTotal);
-                footerViewHolder.txtTarget.setText(String.format("%s %s", numberFormatter.format(vAverageSpeed), g.getMeasureSpeed()));
+                footerViewHolder.txtTarget.setText(String.format("%3.0f %s", vAverageSpeed, g.getMeasureSpeed()));
                 footerViewHolder.txtDaily.setText(Long.toString(vTotDaily));
                 footerViewHolder.txtDistance.setText(Long.toString(vTotDistance));
                 footerViewHolder.txtTime.setText(String.format("%3d:%02d", totalHr, totalMin));

@@ -70,7 +70,7 @@ public class Database {
     private final Context mContext;
 
     private static final String DATABASE_NAME = "TravelPlan.db";
-    private static final int DATABASE_VERSION = 78;
+    private static final int DATABASE_VERSION = 79;
 
     public static AccommodationDAO mAccommodationDao;
     public static AchievementDAO mAchievementDao;
@@ -279,6 +279,7 @@ public class Database {
             //db.execSQL(MarkerISchema.ALTER_TABLE_MARKER_V77_7);Log.w("Table "+MarkerISchema.MARKER_TABLE,"V77.7 - Alter Table...");
             db.execSQL(MarkerISchema.ALTER_TABLE_MARKER_V77_8);Log.w("Table "+MarkerISchema.MARKER_TABLE,"V77.8 - Alter Table...");
             db.execSQL(TourISchema.ALTER_TABLE_TOUR_V78);Log.w("Table "+TourISchema.TOUR_TABLE,"V78 - Alter Table...");
+            db.execSQL(AchievementISchema.ALTER_TABLE_ACHIEVEMENT_V79);Log.w("Table "+AchievementISchema.ACHIEVEMENT_TABLE,"V79 - Alter Table...");
         }
 
         @SuppressLint("SQLiteString")
@@ -528,6 +529,9 @@ public class Database {
                         break;
                     case 78:
                         db.execSQL(TourISchema.ALTER_TABLE_TOUR_V78);Log.w("Table "+TourISchema.TOUR_TABLE,"V78 - Alter Table...");
+                        break;
+                    case 79:
+                        db.execSQL(AchievementISchema.ALTER_TABLE_ACHIEVEMENT_V79);Log.w("Table "+AchievementISchema.ACHIEVEMENT_TABLE,"V79 - Alter Table...");
                         break;
                     default:
                         break;

@@ -333,6 +333,11 @@
     <string name="mixed">Mixed</string>
     <string name="general">General</string>
 
+    <!-- Arrays Type Achievement -->
+    <string name="cave">Cave</string>
+    <string name="mountain_range">Mountain Range</string>
+    <string name="tourist_spot">Tourist Spot</string>
+
     <!-- Arrays Services -->
     <string name="alignment">Alignment</string>
     <string name="balancing">Balancing</string>
@@ -680,4 +685,5 @@
     <string name="sunday">Sunday</string>
     <string name="Reservation_Short_Rates">Days</string>
     <string name="Reservation_FileDownload">download PDF file of reservation</string>
+    <string name="Achievement_Type">Type</string>
 </resources>

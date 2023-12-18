@@ -57,14 +57,14 @@ public class AchievementDAO extends DbContentProvider implements AchievementISch
         final String[] selectionArgs = { String.valueOf(achievement_id), String.valueOf(achievement_id) };
         List<Marker> markerList = new ArrayList<>();
         cursor = super.rawQuery("SELECT m.* " +
-                                      " FROM " + MarkerDAO.MARKER_TABLE + " m " +
-                                      " JOIN " + ACHIEVEMENT_TABLE + " a ON M." + MarkerDAO.MARKER_ACHIEVEMENT_ID + " = a." + ACHIEVEMENT_ID +
-                                     " WHERE m." + MarkerDAO.MARKER_ACHIEVEMENT_ID + " = ? " +
-                                     " UNION " +
-                                     " SELECT m.* " +
+                                     " FROM " + MarkerDAO.MARKER_TABLE + " m " +
+                                     " JOIN " + ACHIEVEMENT_TABLE + " a ON M." + MarkerDAO.MARKER_ACHIEVEMENT_ID + " = a." + ACHIEVEMENT_ID +
+                                    " WHERE m." + MarkerDAO.MARKER_ACHIEVEMENT_ID + " = ? " +
+                                    " UNION " +
+                                   " SELECT m.* " +
                                      " FROM " + MarkerDAO.MARKER_TABLE + " m " +
                                      " JOIN " + TourDAO.TOUR_TABLE + " t ON M." + MarkerDAO.MARKER_ID + " = t." + TourDAO.TOUR_MARKER_ID +
-                                     " WHERE t." + TourDAO.TOUR_ACHIEVEMENT_ID + " = ? "
+                                    " WHERE t." + TourDAO.TOUR_ACHIEVEMENT_ID + " = ? "
                 , selectionArgs);
         if (cursor.moveToFirst()) {
             do {
@@ -171,6 +171,7 @@ public class AchievementDAO extends DbContentProvider implements AchievementISch
             if (c.getColumnIndex(ACHIEVEMENT_LATLNG_ACHIEVEMENT) != -1)   {a.setLatlng_achievement(c.getString(c.getColumnIndexOrThrow(ACHIEVEMENT_LATLNG_ACHIEVEMENT))); }
             if (c.getColumnIndex(ACHIEVEMENT_LENGTH_ACHIEVEMENT) != -1)   {a.setLength_achievement(c.getDouble(c.getColumnIndexOrThrow(ACHIEVEMENT_LENGTH_ACHIEVEMENT))); }
             if (c.getColumnIndex(ACHIEVEMENT_STATUS_ACHIEVEMENT) != -1)   {a.setStatus_achievement(c.getInt(c.getColumnIndexOrThrow(ACHIEVEMENT_STATUS_ACHIEVEMENT))); }
+            if (c.getColumnIndex(ACHIEVEMENT_TYPE_ACHIEVEMENT) != -1)     {a.setType_achievement(c.getInt(c.getColumnIndexOrThrow(ACHIEVEMENT_TYPE_ACHIEVEMENT))); }
         }
         return a;
     }
@@ -192,6 +193,7 @@ public class AchievementDAO extends DbContentProvider implements AchievementISch
         initialValues.put(ACHIEVEMENT_LATLNG_ACHIEVEMENT, a.latlng_achievement);
         initialValues.put(ACHIEVEMENT_LENGTH_ACHIEVEMENT, a.length_achievement);
         initialValues.put(ACHIEVEMENT_STATUS_ACHIEVEMENT, a.status_achievement);
+        initialValues.put(ACHIEVEMENT_TYPE_ACHIEVEMENT, a.type_achievement);
     }
 
     private ContentValues getContentValue() {

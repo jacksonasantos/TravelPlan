@@ -18,6 +18,7 @@ public class Achievement {
     public String latlng_achievement;
     public double length_achievement;
     public int status_achievement;
+    public int type_achievement;
 
     public Achievement() {
     }
@@ -71,4 +72,7 @@ public class Achievement {
 
     public int getStatus_achievement() {return status_achievement;}
     public void setStatus_achievement(int status_achievement) {this.status_achievement = status_achievement;}
+
+    public int getType_achievement() {return type_achievement;}
+    public void setType_achievement(int type_achievement) {this.type_achievement = type_achievement;}
 }
