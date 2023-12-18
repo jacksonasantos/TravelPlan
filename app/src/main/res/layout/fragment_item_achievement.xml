@@ -3,6 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/llAchievement"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     tools:context=".ui.general.AccommodationFragment">
@@ -17,14 +18,26 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <ImageView
+        android:id="@+id/imgTypeAchievement"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_gravity="center"
+        android:layout_marginStart="@dimen/labels_margin"
+        android:contentDescription="@string/Achievement_Image"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/imgAchievement"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
         android:id="@+id/txtShortNameAchievement"
         android:layout_width="100dp"
         android:layout_height="match_parent"
+        android:layout_marginStart="@dimen/labels_margin"
         android:gravity="center_horizontal|center_vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/txtNameAchievement"
-        app:layout_constraintStart_toEndOf="@+id/imgAchievement"
+        app:layout_constraintStart_toEndOf="@+id/imgTypeAchievement"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
@@ -33,27 +46,19 @@
         android:layout_height="match_parent"
         android:gravity="center_horizontal|center_vertical"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/btnEdit"
+        app:layout_constraintEnd_toStartOf="@+id/btnDelete"
         app:layout_constraintStart_toEndOf="@+id/txtShortNameAchievement"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageButton
-        android:id="@+id/btnEdit"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:contentDescription="@string/bt_Edit"
-        app:layout_constraintEnd_toStartOf="@+id/btnDelete"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_button_edit" />
 
     <ImageButton
         android:id="@+id/btnDelete"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:contentDescription="@string/bt_Delete"
-        app:layout_constraintBottom_toBottomOf="@+id/btnEdit"
+        app:layout_constraintBottom_toBottomOf="@+id/txtNameAchievement"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/btnEdit"
+        app:layout_constraintTop_toTopOf="@+id/txtNameAchievement"
         app:srcCompat="@drawable/ic_button_delete" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -2,6 +2,8 @@ package com.jacksonasantos.travelplan.dao;
 
 import androidx.annotation.NonNull;
 
+import com.jacksonasantos.travelplan.R;
+
 public class Achievement {
     public Integer id;
     public String short_name;
@@ -26,7 +28,6 @@ public class Achievement {
     @NonNull
     @Override
     public String toString() { return name; }
-
 
     public Integer getId() {return id;}
     public void setId(Integer id) {this.id = id;}
@@ -75,4 +76,16 @@ public class Achievement {
 
     public int getType_achievement() {return type_achievement;}
     public void setType_achievement(int type_achievement) {this.type_achievement = type_achievement;}
+
+    public int getAchievement_typeImage( int type_achievement ) {
+        int draw;
+        switch(type_achievement) {
+            case 1: draw = R.drawable.ic_mountain_range; break;
+            case 2: draw = R.drawable.ic_road; break;
+            case 3: draw = R.drawable.ic_cave; break;
+            case 4: draw = R.drawable.ic_tourist_spot; break;
+            default: draw = R.drawable.ic_error; break;
+        }
+        return draw;
+    }
 }

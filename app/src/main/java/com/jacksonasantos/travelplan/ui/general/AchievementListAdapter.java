@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.jacksonasantos.travelplan.R;
@@ -29,20 +30,21 @@ public class AchievementListAdapter extends RecyclerView.Adapter<AchievementList
 
     public static class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
+        public final ConstraintLayout llAchievement;
         public final ImageView imgAchievement;
+        public final ImageView imgTypeAchievement;
         public final TextView txtShortNameAchievement;
         public final TextView txtNameAchievement;
-        public final ImageButton btnEdit;
         public final ImageButton btnDelete;
 
         public MyViewHolder(View v) {
             super(v);
+            llAchievement = v.findViewById(R.id.llAchievement);
             imgAchievement = v.findViewById(R.id.imgAchievement);
+            imgTypeAchievement = v.findViewById(R.id.imgTypeAchievement);
             txtShortNameAchievement = v.findViewById(R.id.txtShortNameAchievement);
             txtNameAchievement = v.findViewById(R.id.txtNameAchievement);
-            btnEdit = v.findViewById(R.id.btnEdit);
             btnDelete = v.findViewById(R.id.btnDelete);
-            btnEdit.setOnClickListener(this);
             btnDelete.setOnClickListener(this);
         }
 
@@ -82,10 +84,11 @@ public class AchievementListAdapter extends RecyclerView.Adapter<AchievementList
                 holder.imgAchievement.setAlpha(0.5f);
             }
         }
+        holder.imgTypeAchievement.setImageResource(achievement.getAchievement_typeImage(achievement.getType_achievement()));
         holder.txtShortNameAchievement.setText(achievement.getShort_name());
         holder.txtNameAchievement.setText(achievement.getName());
         // btnEdit
-        holder.btnEdit.setOnClickListener (v -> {
+        holder.llAchievement.setOnClickListener (v -> {
             Intent intent = new Intent (v.getContext(), AchievementActivity.class);
             intent.putExtra("achievement_id", achievement.getId());
             context.startActivity(intent);
