@@ -48,17 +48,6 @@
         app:autoSizeTextType="uniform" />
 
     <ImageButton
-        android:id="@+id/btnEdit"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        android:contentDescription="@string/bt_Edit"
-        android:padding="7dp"
-        android:scaleType="fitCenter"
-        android:scaleX="1.5"
-        android:scaleY="1.5"
-        app:srcCompat="@drawable/ic_button_edit" />
-
-    <ImageButton
         android:id="@+id/btnDelete"
         android:layout_width="20dp"
         android:layout_height="20dp"

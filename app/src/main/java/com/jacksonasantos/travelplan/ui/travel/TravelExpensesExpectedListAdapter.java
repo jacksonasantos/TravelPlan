@@ -23,8 +23,10 @@ import com.jacksonasantos.travelplan.ui.utility.Globals;
 import com.jacksonasantos.travelplan.ui.utility.Utils;
 
 import java.text.NumberFormat;
+import java.text.ParseException;
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 
 public class TravelExpensesExpectedListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
@@ -43,6 +45,7 @@ public class TravelExpensesExpectedListAdapter extends RecyclerView.Adapter<Recy
     final Locale locale = new Locale(g.getLanguage(), g.getCountry());
     final NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(locale);
     Double vExpectedValue = 0.0;
+    Integer nPositionChanged = null;
 
     public TravelExpensesExpectedListAdapter(Integer travel_id, List<TravelExpenses> travelExpenses, Context context, int show_header, int show_footer, Boolean isHome) {
         this.mTravelExpenses = travelExpenses;
@@ -64,7 +67,7 @@ public class TravelExpensesExpectedListAdapter extends RecyclerView.Adapter<Recy
 
     @SuppressLint("SetTextI18n")
     @Override
-    public void onBindViewHolder(@NonNull final RecyclerView.ViewHolder holder, final int position) {
+    public void onBindViewHolder(@NonNull final RecyclerView.ViewHolder holder, @SuppressLint("RecyclerView") int position) {
         if (holder instanceof HeaderViewHolder) {
             HeaderViewHolder headerViewHolder = (HeaderViewHolder) holder;
             headerViewHolder.llItemTravelExpense.setBackgroundColor(Utils.getColorWithAlpha(R.color.colorItemList,0.1f));
@@ -73,7 +76,6 @@ public class TravelExpensesExpectedListAdapter extends RecyclerView.Adapter<Recy
             headerViewHolder.txtExpectedValue.setText(R.string.TravelExpenses_ExpectedValue);
             headerViewHolder.txtNote.setText(R.string.TravelExpenses_Note);
             headerViewHolder.btnAddExpenses.setImageResource(R.drawable.ic_button_add);
-            headerViewHolder.btnEdit.setVisibility(View.INVISIBLE);
             headerViewHolder.btnAddExpenses.setOnClickListener(v -> {
                 LayoutInflater li = LayoutInflater.from(v.getContext());
                 View promptsView = li.inflate(R.layout.dialog_travel_expenses_expected, null);
@@ -104,7 +106,7 @@ public class TravelExpensesExpectedListAdapter extends RecyclerView.Adapter<Recy
                                 Toast.makeText(context, R.string.Error_Saving_Data, Toast.LENGTH_LONG).show();
                             } else {
                                 mTravelExpenses.add(TE);
-                                notifyItemInserted(mTravelExpenses.size());
+                                notifyItemInserted(mTravelExpenses.size()+show_header+show_footer);
                             }
                         })
                         .setNegativeButton(R.string.Cancel, (dialog, id) -> dialog.cancel());
@@ -118,7 +120,6 @@ public class TravelExpensesExpectedListAdapter extends RecyclerView.Adapter<Recy
             footerViewHolder.txtExpenseType.setVisibility(View.GONE);
             footerViewHolder.txtExpectedValue.setText(currencyFormatter.format(vExpectedValue));
             footerViewHolder.txtNote.setText("");
-            footerViewHolder.btnEdit.setVisibility(View.INVISIBLE);
             footerViewHolder.btnDelete.setVisibility(View.INVISIBLE);
         }
         else if (holder instanceof ItemViewHolder) {
@@ -126,14 +127,27 @@ public class TravelExpensesExpectedListAdapter extends RecyclerView.Adapter<Recy
             final TravelExpenses travelExpenses = mTravelExpenses.get(position-show_header);
             if (isHome) itemViewHolder.txtExpenseType.setVisibility(View.GONE);
             else itemViewHolder.txtExpenseType.setText(context.getResources().getStringArray(R.array.expenses_type_array)[travelExpenses.getExpense_type()]);
-            itemViewHolder.txtExpectedValue.setText(currencyFormatter.format(travelExpenses.getExpected_value()));
+
             vExpectedValue += travelExpenses.getExpected_value();
+            if (nPositionChanged!=null && position==nPositionChanged) {
+                try {
+                    vExpectedValue -= Double.parseDouble(Objects.requireNonNull(currencyFormatter.parse(itemViewHolder.txtExpectedValue.getText().toString())).toString());
+                } catch (ParseException e) {
+                    throw new RuntimeException(e);
+                }
+                vExpectedValue += travelExpenses.getExpected_value();
+                nPositionChanged = 0;
+            }
+            if (nPositionChanged!=null && position!=nPositionChanged) {
+                vExpectedValue -= travelExpenses.getExpected_value();
+            }
+            itemViewHolder.txtExpectedValue.setText(currencyFormatter.format(travelExpenses.getExpected_value()));
+
             itemViewHolder.txtNote.setText(travelExpenses.getNote());
             if (travelExpenses.getId()==0) {
-                itemViewHolder.btnEdit.setVisibility(View.INVISIBLE);
                 itemViewHolder.btnDelete.setVisibility(View.INVISIBLE);
             } else {
-                itemViewHolder.btnEdit.setOnClickListener(v -> {
+                itemViewHolder.llItemTravelExpense.setOnClickListener(v -> {
                     LayoutInflater li = LayoutInflater.from(v.getContext());
                     View promptsView = li.inflate(R.layout.dialog_travel_expenses_expected, null);
 
@@ -155,7 +169,7 @@ public class TravelExpensesExpectedListAdapter extends RecyclerView.Adapter<Recy
                                 TravelExpenses TE = new TravelExpenses();
                                 TE.setId(travelExpenses.getId());
                                 TE.setTravel_id(travel_id);
-                                TE.setMarker_id(TE.getMarker_id() == 0 ? null : TE.getMarker_id());
+                                TE.setMarker_id(TE.getMarker_id());
                                 TE.setExpense_type(spinExpenseType.getSelectedItemPosition());
                                 if (!etExpectedValue.getText().toString().isEmpty()) {
                                     TE.setExpected_value(Double.parseDouble(etExpectedValue.getText().toString()));
@@ -170,8 +184,9 @@ public class TravelExpensesExpectedListAdapter extends RecyclerView.Adapter<Recy
                                 if (!isSave) {
                                     Toast.makeText(context, R.string.Error_Saving_Data, Toast.LENGTH_LONG).show();
                                 } else {
+                                    nPositionChanged = position;
                                     mTravelExpenses.set(position - show_header, TE);
-                                    notifyItemRangeChanged(position - show_header, mTravelExpenses.size());
+                                    notifyItemRangeChanged(position - show_header, mTravelExpenses.size()+show_header+show_footer,mTravelExpenses);
                                 }
                             })
                             .setNegativeButton(R.string.Cancel, (dialog, id) -> dialog.cancel());
@@ -186,7 +201,7 @@ public class TravelExpensesExpectedListAdapter extends RecyclerView.Adapter<Recy
                                 Database.mTravelExpensesDao.deleteTravelExpenses(travelExpenses.getId());
                                 mTravelExpenses.remove(position - show_header);
                                 notifyItemRemoved(position);
-                                notifyItemRangeChanged(position, mTravelExpenses.size());
+                                notifyItemRangeChanged(position, mTravelExpenses.size()+show_header+show_footer);
                             } catch (Exception e) {
                                 Toast.makeText(context, context.getString(R.string.Error_Deleting_Data) + "\n" + e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
                             }
@@ -216,7 +231,6 @@ public class TravelExpensesExpectedListAdapter extends RecyclerView.Adapter<Recy
         public final TextView txtExpectedValue;
         public final TextView txtNote;
         public final ImageButton btnAddExpenses;
-        public final ImageButton btnEdit;
 
         public HeaderViewHolder(View v) {
             super(v);
@@ -225,23 +239,22 @@ public class TravelExpensesExpectedListAdapter extends RecyclerView.Adapter<Recy
             txtExpectedValue = v.findViewById(R.id.txtExpectedValue);
             txtNote = v.findViewById(R.id.txtNote);
             btnAddExpenses = v.findViewById(R.id.btnDelete);
-            btnEdit = v.findViewById(R.id.btnEdit);
         }
     }
 
     public static class ItemViewHolder extends RecyclerView.ViewHolder {
+        public final LinearLayout llItemTravelExpense;
         public final TextView txtExpenseType;
         public final TextView txtExpectedValue;
         public final TextView txtNote;
-        public final ImageButton btnEdit;
         public final ImageButton btnDelete;
 
         public ItemViewHolder(View v) {
             super(v);
+            llItemTravelExpense = v.findViewById(R.id.llItemTravelExpense);
             txtExpenseType = v.findViewById(R.id.txtExpenseType);
             txtExpectedValue = v.findViewById(R.id.txtExpectedValue);
             txtNote = v.findViewById(R.id.txtNote);
-            btnEdit = v.findViewById(R.id.btnEdit);
             btnDelete = v.findViewById(R.id.btnDelete);
         }
     }
@@ -251,7 +264,6 @@ public class TravelExpensesExpectedListAdapter extends RecyclerView.Adapter<Recy
         public final TextView txtExpenseType;
         public final TextView txtExpectedValue;
         public final TextView txtNote;
-        public final ImageButton btnEdit;
         public final ImageButton btnDelete;
 
         public FooterViewHolder(View v) {
@@ -260,7 +272,6 @@ public class TravelExpensesExpectedListAdapter extends RecyclerView.Adapter<Recy
             txtExpenseType = v.findViewById(R.id.txtExpenseType);
             txtExpectedValue = v.findViewById(R.id.txtExpectedValue);
             txtNote = v.findViewById(R.id.txtNote);
-            btnEdit = v.findViewById(R.id.btnEdit);
             btnDelete = v.findViewById(R.id.btnDelete);
         }
     }

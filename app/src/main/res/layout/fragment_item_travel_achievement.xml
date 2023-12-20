@@ -63,6 +63,7 @@
         android:id="@+id/btnDelete"
         android:layout_width="20dp"
         android:layout_height="20dp"
+        android:layout_gravity="center"
         android:contentDescription="@string/bt_Delete"
         android:padding="7dp"
         android:scaleType="fitCenter"

@@ -1,5 +1,6 @@
 package com.jacksonasantos.travelplan.ui.travel;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,10 +23,11 @@ import com.jacksonasantos.travelplan.ui.utility.DateInputMask;
 import com.jacksonasantos.travelplan.ui.utility.Globals;
 import com.jacksonasantos.travelplan.ui.utility.Utils;
 
-import java.math.BigDecimal;
 import java.text.NumberFormat;
+import java.text.ParseException;
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 
 public class TravelExpensesRealizedListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
@@ -39,7 +41,8 @@ public class TravelExpensesRealizedListAdapter extends RecyclerView.Adapter<Recy
     final int show_footer;
     final Integer mTravel_id;
     final int mExpense_type;
-    Double vTotal;
+    Double vTotal = 0.0;
+    Integer nPositionChanged = null;
 
     final Globals g = Globals.getInstance();
     final Locale locale = new Locale(g.getLanguage(), g.getCountry());
@@ -52,7 +55,6 @@ public class TravelExpensesRealizedListAdapter extends RecyclerView.Adapter<Recy
         this.show_footer = show_footer >= 1 ? 1 : 0;
         this.mTravel_id = travel_id;
         this.mExpense_type = expense_type;
-        vTotal = 0.0;
     }
 
     @NonNull
@@ -65,7 +67,7 @@ public class TravelExpensesRealizedListAdapter extends RecyclerView.Adapter<Recy
     }
 
     @Override
-    public void onBindViewHolder(@NonNull final RecyclerView.ViewHolder holder, final int position) {
+    public void onBindViewHolder(@NonNull final RecyclerView.ViewHolder holder, @SuppressLint("RecyclerView") int position) {
         if (holder instanceof HeaderViewHolder) {
             HeaderViewHolder headerViewHolder = (HeaderViewHolder) holder;
             Travel mTravel = Database.mTravelDao.fetchTravelById(mTravel_id);
@@ -90,8 +92,8 @@ public class TravelExpensesRealizedListAdapter extends RecyclerView.Adapter<Recy
                             .setCancelable(false)
                             .setPositiveButton(R.string.OK, (dialog, id1) -> {
                                 boolean isSave = true;
+                                TravelItemExpenses tie = new TravelItemExpenses();
                                 try {
-                                    TravelItemExpenses tie = new TravelItemExpenses();
                                     tie.setTravel_id(mTravel_id);
                                     tie.setExpense_type(mExpense_type);
                                     tie.setExpense_date(Utils.stringToDate(etExpenseDate.getText().toString()));
@@ -105,6 +107,9 @@ public class TravelExpensesRealizedListAdapter extends RecyclerView.Adapter<Recy
                                 }
                                 if (!isSave) {
                                     Toast.makeText(context, R.string.Error_Saving_Data, Toast.LENGTH_LONG).show();
+                                }else {
+                                    mTravelItemExpenses.add(tie);
+                                    notifyItemInserted(mTravelItemExpenses.size()+show_header+show_footer);
                                 }
                             })
                             .setNegativeButton(R.string.Cancel, (dialog, id1) -> dialog.cancel());
@@ -122,12 +127,70 @@ public class TravelExpensesRealizedListAdapter extends RecyclerView.Adapter<Recy
             footerViewHolder.btnDelete.setVisibility(View.INVISIBLE);
 
         } else if (holder instanceof ItemViewHolder) {
-            ItemViewHolder itemViewHolder = (ItemViewHolder) holder;
+            final ItemViewHolder itemViewHolder = (ItemViewHolder) holder;
             final TravelItemExpenses travelItemExpenses = mTravelItemExpenses.get(position - show_header);
             itemViewHolder.txtExpenseDate.setText(Utils.dateToString(travelItemExpenses.getExpense_date()));
-            itemViewHolder.txtRealizedValue.setText(currencyFormatter.format(travelItemExpenses.getRealized_value() == null ? BigDecimal.ZERO : travelItemExpenses.getRealized_value()));
             itemViewHolder.txtNote.setText(travelItemExpenses.getNote());
+
             vTotal += travelItemExpenses.getRealized_value();
+            if (nPositionChanged!=null && position==nPositionChanged ) {
+                try {
+                    vTotal -= Double.parseDouble(Objects.requireNonNull(currencyFormatter.parse(itemViewHolder.txtRealizedValue.getText().toString())).toString());
+                } catch (ParseException e) {
+                    throw new RuntimeException(e);
+                }
+                vTotal += travelItemExpenses.getRealized_value();
+                nPositionChanged = 0;
+            }
+            if (nPositionChanged!=null && position!=nPositionChanged) {
+                vTotal -= travelItemExpenses.getRealized_value();
+            }
+            itemViewHolder.txtRealizedValue.setText(currencyFormatter.format(travelItemExpenses.getRealized_value()));
+
+            itemViewHolder.llTravelExpenses.setOnClickListener(v -> {
+                LayoutInflater li = LayoutInflater.from(v.getContext());
+                View promptsView = li.inflate(R.layout.dialog_travel_expenses_realized, null);
+                final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(v.getContext());
+                alertDialogBuilder.setView(promptsView);
+                final EditText etExpenseDate = promptsView.findViewById(R.id.etExpenseDate);
+                final EditText etExpenseItemRealizedValue = promptsView.findViewById(R.id.etExpenseItemRealizedValue);
+                final EditText etExpenseItemNote = promptsView.findViewById(R.id.etExpenseItemNote);
+
+                etExpenseDate.setText(Utils.dateToString(travelItemExpenses.getExpense_date()));
+                etExpenseItemRealizedValue.setText(String.valueOf(travelItemExpenses.getRealized_value()));
+                etExpenseItemNote.setText(travelItemExpenses.getNote());
+
+                etExpenseDate.addTextChangedListener(new DateInputMask(etExpenseDate));
+                alertDialogBuilder
+                        .setCancelable(false)
+                        .setPositiveButton(R.string.OK, (dialog, id1) -> {
+                            boolean isSave = true;
+                            TravelItemExpenses tie = new TravelItemExpenses();
+                            try {
+                                tie.setId(travelItemExpenses.getId());
+                                tie.setTravel_id(mTravel_id);
+                                tie.setExpense_type(mExpense_type);
+                                tie.setExpense_date(Utils.stringToDate(etExpenseDate.getText().toString()));
+                                if (!etExpenseItemRealizedValue.getText().toString().isEmpty()) {
+                                    tie.setRealized_value(Double.parseDouble(etExpenseItemRealizedValue.getText().toString()));
+                                }
+                                tie.setNote(etExpenseItemNote.getText().toString());
+                                isSave = Database.mTravelItemExpensesDao.updateTravelItemExpenses(tie);
+                            } catch (Exception e) {
+                                Toast.makeText(context, R.string.Error_Changing_Data + e.getMessage(), Toast.LENGTH_LONG).show();
+                            }
+                            if (!isSave) {
+                                Toast.makeText(context, R.string.Error_Saving_Data, Toast.LENGTH_LONG).show();
+                            } else {
+                                nPositionChanged = position;
+                                mTravelItemExpenses.set(position - show_header, tie);
+                                notifyItemRangeChanged(position - show_header, mTravelItemExpenses.size()+show_header+show_footer,mTravelItemExpenses);
+                            }
+                        })
+                        .setNegativeButton(R.string.Cancel, (dialog, id1) -> dialog.cancel());
+                AlertDialog alertDialog = alertDialogBuilder.create();
+                alertDialog.show();
+            });
             // btnDelete
             itemViewHolder.btnDelete.setOnClickListener(v -> new AlertDialog.Builder(v.getContext())
                     .setTitle(R.string.TravelItemExpenses_Deleting)
@@ -137,7 +200,7 @@ public class TravelExpensesRealizedListAdapter extends RecyclerView.Adapter<Recy
                             Database.mTravelItemExpensesDao.deleteTravelItemExpenses(travelItemExpenses.getId());
                             mTravelItemExpenses.remove(position - show_header);
                             notifyItemRemoved(position );
-                            notifyItemRangeChanged(position, mTravelItemExpenses.size());
+                            notifyItemRangeChanged(position, mTravelItemExpenses.size()+show_header+show_footer);
                         } catch (Exception e) {
                             Toast.makeText(context, context.getString(R.string.Error_Deleting_Data) + "\n" + e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
                         }
@@ -174,6 +237,7 @@ public class TravelExpensesRealizedListAdapter extends RecyclerView.Adapter<Recy
     }
 
     public static class ItemViewHolder extends RecyclerView.ViewHolder {
+        private final LinearLayout llTravelExpenses;
         private final TextView txtExpenseDate;
         private final TextView txtRealizedValue;
         private final TextView txtNote;
@@ -181,6 +245,7 @@ public class TravelExpensesRealizedListAdapter extends RecyclerView.Adapter<Recy
 
         public ItemViewHolder(View v) {
             super(v);
+            llTravelExpenses = v.findViewById(R.id.llTravelExpenses);
             txtExpenseDate = v.findViewById(R.id.txtExpenseDate);
             txtRealizedValue = v.findViewById(R.id.txtRealizedValue);
             txtNote = v.findViewById(R.id.txtNote);

@@ -36,6 +36,12 @@ public class TravelItemExpensesDAO extends DbContentProvider implements TravelIt
         return travelItemExpensesList;
     }
 
+    public boolean updateTravelItemExpenses(TravelItemExpenses travelItemExpenses) {
+        setContentValue(travelItemExpenses);
+        final String[] selectionArgs = { String.valueOf(travelItemExpenses.getId()) };
+        final String selection = TRAVEL_ITEM_EXPENSES_ID + " = ?";
+        return (super.update(TRAVEL_ITEM_EXPENSES_TABLE, getContentValue(), selection, selectionArgs) >0);
+    }
 
     public void deleteTravelItemExpenses(Integer id) {
         final String[] selectionArgs = { String.valueOf(id) };
