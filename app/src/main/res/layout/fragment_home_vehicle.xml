@@ -50,8 +50,8 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/layerMessage">
 
-            <Spinner
-                android:id="@+id/spVehicle"
+            <TextView
+                android:id="@+id/txVehicle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
@@ -61,15 +61,29 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <ImageView
-                android:id="@+id/imVehicleType"
+            <LinearLayout
+                android:id="@+id/llVehicle"
                 android:layout_width="120dp"
                 android:layout_height="105dp"
-                android:contentDescription="@string/Vehicle_Type"
+                android:orientation="vertical"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.498"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/spVehicle" />
+                app:layout_constraintTop_toBottomOf="@+id/txVehicle">
+
+                <ImageView
+                    android:id="@+id/imVehicleType"
+                    android:layout_width="120dp"
+                    android:layout_height="95dp"
+                    android:contentDescription="@string/Vehicle_Image" />
+
+                <SeekBar
+                    android:id="@+id/sbVehicle"
+                    android:layout_width="120dp"
+                    android:layout_height="10dp"
+                    android:progressTint="#666666"
+                    android:thumb="@drawable/ic_ball" />
+
+            </LinearLayout>
 
             <TextView
                 android:id="@+id/tvLicencePlate"
@@ -80,17 +94,19 @@
                 android:textSize="14sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imVehicleType" />
+                app:layout_constraintTop_toBottomOf="@+id/llVehicle"
+                app:layout_constraintVertical_bias="0.0" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/layerInsuranceVehicle"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                app:layout_constraintBottom_toBottomOf="@+id/imVehicleType"
+                app:layout_constraintBottom_toBottomOf="@+id/llVehicle"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/imVehicleType"
-                app:layout_constraintTop_toBottomOf="@+id/spVehicle">
+                app:layout_constraintStart_toEndOf="@+id/llVehicle"
+                app:layout_constraintTop_toBottomOf="@+id/txVehicle">
 
                 <ImageView
                     android:id="@+id/imInsuranceType"
@@ -122,10 +138,10 @@
                 android:id="@+id/layerFuelSupply"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                app:layout_constraintBottom_toBottomOf="@+id/imVehicleType"
-                app:layout_constraintEnd_toStartOf="@+id/imVehicleType"
+                app:layout_constraintBottom_toBottomOf="@+id/llVehicle"
+                app:layout_constraintEnd_toStartOf="@+id/llVehicle"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/spVehicle"
+                app:layout_constraintTop_toBottomOf="@+id/txVehicle"
                 tools:ignore="NestedWeights">
 
                 <ImageView
@@ -244,6 +260,7 @@
                     app:layout_constraintStart_toEndOf="@+id/imgConsumption"
                     app:layout_constraintTop_toBottomOf="@+id/tvFuelSupplyValue" />
             </androidx.constraintlayout.widget.ConstraintLayout>
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <LinearLayout

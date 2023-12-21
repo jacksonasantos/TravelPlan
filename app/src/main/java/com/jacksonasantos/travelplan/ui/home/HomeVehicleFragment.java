@@ -12,11 +12,9 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ScrollView;
-import android.widget.Spinner;
+import android.widget.SeekBar;
 import android.widget.TextView;
 
 import androidx.cardview.widget.CardView;
@@ -37,6 +35,7 @@ import com.jacksonasantos.travelplan.ui.utility.Utils;
 import com.jacksonasantos.travelplan.ui.vehicle.FuelSupplyActivity;
 import com.jacksonasantos.travelplan.ui.vehicle.MaintenanceActivity;
 import com.jacksonasantos.travelplan.ui.vehicle.PendingVehicleActivity;
+import com.jacksonasantos.travelplan.ui.vehicle.VehicleActivity;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.GridLabelRenderer;
 import com.jjoe64.graphview.helper.DateAsXAxisLabelFormatter;
@@ -58,9 +57,10 @@ public class HomeVehicleFragment extends Fragment implements View.OnClickListene
     private CardView layerMessage;
     private RecyclerView listMessage;
 
-    private Spinner spVehicle;
+    private TextView txVehicle;
     private TextView tvLicencePlate;
     private ImageView imVehicleType;
+    private SeekBar sbVehicle;
 
     private ConstraintLayout layerFuelSupply;
     private TextView tvFuelSupplyDate;
@@ -95,11 +95,14 @@ public class HomeVehicleFragment extends Fragment implements View.OnClickListene
     double vMinY = 0;
     double vMaxY = 0;
 
+    private int elementPosition = 0;
     final Globals g = Globals.getInstance();
 
     final Locale locale = new Locale(g.getLanguage(), g.getCountry());
     final NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(locale);
     final NumberFormat numberFormatter = NumberFormat.getNumberInstance(locale);
+
+    List<Vehicle> vehicles = null;
 
     @Override
     public View onCreateView(final LayoutInflater inflater,
@@ -112,8 +115,9 @@ public class HomeVehicleFragment extends Fragment implements View.OnClickListene
         listMessage = v.findViewById((R.id.listMessage));
 
         imVehicleType = v.findViewById(R.id.imVehicleType);
-        spVehicle =v.findViewById(R.id.spVehicle);
+        txVehicle =v.findViewById(R.id.txVehicle);
         tvLicencePlate = v.findViewById(R.id.tvLicencePlate);
+        sbVehicle = v.findViewById(R.id.sbVehicle);
 
         layerFuelSupply = v.findViewById(R.id.layerFuelSupply);
         tvFuelSupplyDate = v.findViewById(R.id.tvFuelSupplyDate);
@@ -151,15 +155,23 @@ public class HomeVehicleFragment extends Fragment implements View.OnClickListene
         layerHomeVehicle.setFocusableInTouchMode(true);
         layerHomeVehicle.setDescendantFocusability(ViewGroup.FOCUS_BEFORE_DESCENDANTS);
 
+        Database mDb = new Database(getActivity());
+        mDb.open();
+
+        vehicles =  Database.mVehicleDao.fetchArrayVehicles();
+        for (int i=0;i<vehicles.size();i++){
+            if (g.getIdVehicle().equals(vehicles.get(i).getId())){
+                elementPosition=i;
+            }
+        }
+        sbVehicle.setMax(vehicles.size()-1);
         return v;
     }
 
+    @SuppressLint({"SetTextI18n", "NotifyDataSetChanged", "SimpleDateFormat"})
     @Override
     public void onResume() {
         super.onResume();
-
-        Database mDb = new Database(getActivity());
-        mDb.open();
 
         HomeMessageListAdapter adapterMessage = new HomeMessageListAdapter(Database.mVehicleStatisticsDao.findMessages(requireContext()), getContext());
         if (adapterMessage.getItemCount() > 0) {
@@ -170,22 +182,7 @@ public class HomeVehicleFragment extends Fragment implements View.OnClickListene
             layerMessage.setVisibility(View.GONE);
         }
 
-        final List<Vehicle> vehicles =  Database.mVehicleDao.fetchArrayVehicles();
-        ArrayAdapter<Vehicle> adapter = new ArrayAdapter<>(requireActivity(), android.R.layout.simple_spinner_item, vehicles);
-        adapter.setDropDownViewResource( android.R.layout.simple_spinner_dropdown_item);
-        spVehicle.setAdapter(adapter);
-
         if (vehicles.size()>0) {
-            for (int x = 0; x <= vehicles.size(); x++) {
-                if (vehicles.get(x).getId().equals(g.getIdVehicle())) {
-                    spVehicle.setSelection(x);
-                    break;
-                }
-                else
-                {
-                    spVehicle.setSelection(x);
-                }
-            }
             layerFuelSupply.setVisibility(View.VISIBLE);
         } else {
             layerMessage.setVisibility(View.GONE);
@@ -195,131 +192,141 @@ public class HomeVehicleFragment extends Fragment implements View.OnClickListene
             layerPendingVehicle.setVisibility(View.GONE);
             layerMaintenanceItemVehicle.setVisibility(View.GONE);
         }
+
         final Vehicle[] vehicle = {new Vehicle()};
-        spVehicle.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @SuppressLint({"SetTextI18n", "SimpleDateFormat", "NotifyDataSetChanged"})
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long idx) {
 
-                // Retrieves data from the vehicle selected in Spinner - layerVehicle
-                vehicle[0] = (Vehicle) parent.getItemAtPosition(position);
-                tvLicencePlate.setText(vehicle[0].getLicense_plate());
-                byte[] imgArray = vehicle[0].getImage();
-                if (imgArray!=null){
-                    Bitmap raw = BitmapFactory.decodeByteArray(imgArray, 0, imgArray.length);
-                    imVehicleType.setImageBitmap(raw);
-                } else {
-                    imVehicleType.setImageResource(vehicle[0].getVehicleTypeImage(vehicle[0].getVehicle_type()));
+        if (vehicles.size() > 0) {
+
+            sbVehicle.setProgress(elementPosition);
+            sbVehicle.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+                int progressChangedValue = 0;
+                public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) { progressChangedValue = progress; }
+                public void onStartTrackingTouch(SeekBar seekBar) { }
+                public void onStopTrackingTouch(SeekBar seekBar) {
+                    elementPosition=progressChangedValue;
+                    onResume();
                 }
+            });
 
-                g.setIdVehicle(vehicle[0].getId());
-
-                // Last Fuel Supply of Vehicle in Global selection - layerFuelSupply
-                FuelSupply fuelSupply = Database.mFuelSupplyDao.findLastFuelSupply( g.getIdVehicle() );
-                tvFuelSupplyDate.setText(Utils.dateToString(fuelSupply.getSupply_date()));
-                tvFuelSupplyLastOdometer.setText(numberFormatter.format(fuelSupply.getVehicle_odometer()));
-                tvFuelSupplyNumberLiters.setText(fuelSupply.getNumber_liters()==0? "0 "+g.getMeasureCapacity() :fuelSupply.getNumber_liters() +" "+g.getMeasureCapacity());
-                tvFuelSupplyValue.setText(currencyFormatter.format(fuelSupply.getSupply_value()==0?BigDecimal.ZERO:fuelSupply.getSupply_value()));
-                tvConsumption.setText(numberFormatter.format(fuelSupply.getStat_avg_fuel_consumption()) + " " + g.getMeasureConsumption());
-
-                // Insurance - layerInsuranceVehicle
-                List<Insurance> insurance = Database.mInsuranceDao.findReminderInsurance("V", g.getIdVehicle() );
-                if (!insurance.isEmpty()) {
-                    layerInsuranceVehicle.setVisibility(View.VISIBLE);
-                    imInsuranceType.setImageResource(insurance.get(0).getInsurance_typeImage(insurance.get(0).getInsurance_type()));
-                    imInsuranceType.setColorFilter(insurance.get(0).getColorInsuranceStatus(), PorterDuff.Mode.MULTIPLY);
-                    txtInsuranceFinalEffectiveDate.setText(Utils.dateToString(insurance.get(0).getFinal_effective_date()));
-
-                    layerInsuranceVehicle.setOnClickListener(v -> {
-                        Insurance x = InsuranceDialog.InsuranceClass(insurance.get(0), v);
-                        imInsuranceType.setColorFilter(x.getColorInsuranceStatus(), PorterDuff.Mode.MULTIPLY);
-                    });
-                } else {
-                    layerInsuranceVehicle.setVisibility(View.INVISIBLE);
-                }
-
-                // Statistics of Vehicle in Global selection - layerStatisticsVehicle
-                HomeVehicleStatisticsListAdapter adapterLastVehicleStatistics = new HomeVehicleStatisticsListAdapter(Database.mVehicleStatisticsDao.findVehicleFuelingStatistics(g.getIdVehicle()), getContext());
-                if (adapterLastVehicleStatistics.getItemCount() > 0 ) {
-                    layerStatisticsVehicle.setVisibility(View.VISIBLE);
-
-                    // Graph Statistics Vehicle - https://github.com/jjoe64/GraphView
-                    vMinX = 0; vMaxX = 0; vMinY = 0; vMaxY = 0;
-                    tamHorizontalLabels = 3;
-                    tamVerticalLabels = 5;
-                    graphStatistics.clearSecondScale();
-                    graphStatistics.removeAllSeries();                              // Clear the Graph
-                    graphStatistics.onDataChanged(true, false);
-                    graphStatistics.getGridLabelRenderer().resetStyles();
-
-                    addDataSeries();
-
-                    graphStatistics.getViewport().setScalable(true);                // activate horizontal zooming and scrolling
-                    graphStatistics.getViewport().setScrollable(true);              // activate horizontal scrolling
-                    graphStatistics.getViewport().setScalableY(true);               // activate horizontal and vertical zooming and scrolling
-                    graphStatistics.getViewport().setScrollableY(true);             // activate vertical scrolling
-                    graphStatistics.getViewport().setXAxisBoundsManual(true);
-                    graphStatistics.getViewport().setMinX(vMinX);
-                    graphStatistics.getViewport().setMaxX(vMaxX);
-                    graphStatistics.getViewport().setYAxisBoundsManual(true);
-                    graphStatistics.getViewport().setMinY(vMinY);
-                    graphStatistics.getViewport().setMaxY(vMaxY);
-
-                    graphStatistics.getGridLabelRenderer().setVerticalLabelsColor(Color.BLUE);
-                    graphStatistics.getGridLabelRenderer().setHorizontalLabelsColor(Color.BLUE);
-                    graphStatistics.getGridLabelRenderer().setTextSize(20);
-                    graphStatistics.getGridLabelRenderer().setGridStyle(GridLabelRenderer.GridStyle.BOTH);
-                    graphStatistics.getGridLabelRenderer().setHumanRounding(false,false);
-                    graphStatistics.getGridLabelRenderer().setNumHorizontalLabels(tamHorizontalLabels);
-                    graphStatistics.getGridLabelRenderer().setNumVerticalLabels(tamVerticalLabels);
-                    graphStatistics.getGridLabelRenderer().setVerticalAxisTitleTextSize(24);
-                    graphStatistics.getGridLabelRenderer().setVerticalAxisTitleColor(Color.DKGRAY);
-                    graphStatistics.getGridLabelRenderer().setVerticalAxisTitle(g.getMeasureConsumption());
-                    graphStatistics.getGridLabelRenderer().setLabelFormatter(new DateAsXAxisLabelFormatter(graphStatistics.getContext(), new SimpleDateFormat("MM/yy")));
-
-                    graphStatistics.refreshDrawableState();
-                    adapterLastVehicleStatistics.notifyDataSetChanged();
-                } else {
-                    layerStatisticsVehicle.setVisibility(View.GONE);
-                }
-
-                 // Pending Vehicle - layerPendingVehicle
-                HomeVehiclePendingVehicleListAdapter adapterPendingVehicle = new HomeVehiclePendingVehicleListAdapter(Database.mPendingVehicleDao.fetchAllPendingVehicle( g.getIdVehicle(), 0 ), getContext(),0);
-                if (adapterPendingVehicle.getItemCount() > 0) {
-                    layerPendingVehicle.setVisibility(View.VISIBLE);
-                    pendingVehicleList.setAdapter(adapterPendingVehicle);
-                    pendingVehicleList.setLayoutManager(new LinearLayoutManager(getContext()));
-
-                    imgAddPendingVehicle.setOnClickListener(v -> {
-                        Intent intent = new Intent(v.getContext(), PendingVehicleActivity.class);
-                        intent.putExtra("vehicle_id", g.getIdVehicle());
-                        startActivity(intent);
-                    });
-                    adapterPendingVehicle.notifyDataSetChanged();
-                }
-
-                // Next Vehicle Maintenance - layerMaintenanceItemVehicle
-                HomeVehicleNextMaintenanceListAdapter adapterNextMaintenance = new HomeVehicleNextMaintenanceListAdapter(Database.mNextMaintenanceItemDao.findNextMaintenanceItem( g.getIdVehicle() ), getContext(),0);
-                if (adapterNextMaintenance.getItemCount() > 0) {
-                    layerMaintenanceItemVehicle.setVisibility(View.VISIBLE);
-                    nextVehicleMaintenanceList.setAdapter(adapterNextMaintenance);
-                    nextVehicleMaintenanceList.setLayoutManager(new LinearLayoutManager(getContext()));
-                    imgAddMaintenanceVehicle.setOnClickListener(v -> {
-                        Intent intent = new Intent(v.getContext(), MaintenanceActivity.class);
-                        intent.putExtra("vehicle_id", g.getIdVehicle());
-                        startActivity(intent);
-                    });
-                } else {
-                    layerMaintenanceItemVehicle.setVisibility(View.GONE);
-                }
-                adapterNextMaintenance.notifyDataSetChanged();
-                adapter.notifyDataSetChanged();
+            vehicle[0] = vehicles.get(elementPosition);
+            g.setIdVehicle(vehicles.get(elementPosition).getId());
+            txVehicle.setText(vehicle[0].getName());
+            tvLicencePlate.setText(vehicle[0].getLicense_plate());
+            byte[] imgArray = vehicle[0].getImage();
+            if (imgArray!=null){
+                Bitmap raw = BitmapFactory.decodeByteArray(imgArray, 0, imgArray.length);
+                imVehicleType.setImageBitmap(raw);
+            } else {
+                imVehicleType.setImageResource(vehicle[0].getVehicleTypeImage(vehicle[0].getVehicle_type()));
             }
 
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) { vehicle[0] = null; }
-        });
-        adapter.notifyDataSetChanged();
+            imVehicleType.setOnLongClickListener(view -> {
+                Intent intent = new Intent (view.getContext(), VehicleActivity.class);
+                intent.putExtra("id", vehicle[0].getId());
+                this.startActivity(intent);
+                return true;
+            });
+
+            // Last Fuel Supply of Vehicle in Global selection - layerFuelSupply
+            FuelSupply fuelSupply = Database.mFuelSupplyDao.findLastFuelSupply( g.getIdVehicle() );
+            tvFuelSupplyDate.setText(Utils.dateToString(fuelSupply.getSupply_date()));
+            tvFuelSupplyLastOdometer.setText(numberFormatter.format(fuelSupply.getVehicle_odometer()));
+            tvFuelSupplyNumberLiters.setText(fuelSupply.getNumber_liters()==0? "0 "+g.getMeasureCapacity() :fuelSupply.getNumber_liters() +" "+g.getMeasureCapacity());
+            tvFuelSupplyValue.setText(currencyFormatter.format(fuelSupply.getSupply_value()==0?BigDecimal.ZERO:fuelSupply.getSupply_value()));
+            tvConsumption.setText(numberFormatter.format(fuelSupply.getStat_avg_fuel_consumption()) + " " + g.getMeasureConsumption());
+
+            // Insurance - layerInsuranceVehicle
+            List<Insurance> insurance = Database.mInsuranceDao.findReminderInsurance("V", g.getIdVehicle() );
+            if (!insurance.isEmpty()) {
+                layerInsuranceVehicle.setVisibility(View.VISIBLE);
+                imInsuranceType.setImageResource(insurance.get(0).getInsurance_typeImage(insurance.get(0).getInsurance_type()));
+                imInsuranceType.setColorFilter(insurance.get(0).getColorInsuranceStatus(), PorterDuff.Mode.MULTIPLY);
+                txtInsuranceFinalEffectiveDate.setText(Utils.dateToString(insurance.get(0).getFinal_effective_date()));
+
+                layerInsuranceVehicle.setOnClickListener(v -> {
+                    Insurance x = InsuranceDialog.InsuranceClass(insurance.get(0), v);
+                    imInsuranceType.setColorFilter(x.getColorInsuranceStatus(), PorterDuff.Mode.MULTIPLY);
+                });
+            } else {
+                layerInsuranceVehicle.setVisibility(View.INVISIBLE);
+            }
+
+            // Statistics of Vehicle in Global selection - layerStatisticsVehicle
+            HomeVehicleStatisticsListAdapter adapterLastVehicleStatistics = new HomeVehicleStatisticsListAdapter(Database.mVehicleStatisticsDao.findVehicleFuelingStatistics(g.getIdVehicle()), getContext());
+            if (adapterLastVehicleStatistics.getItemCount() > 0 ) {
+                layerStatisticsVehicle.setVisibility(View.VISIBLE);
+
+                // Graph Statistics Vehicle - https://github.com/jjoe64/GraphView
+                vMinX = 0; vMaxX = 0; vMinY = 0; vMaxY = 0;
+                tamHorizontalLabels = 3;
+                tamVerticalLabels = 5;
+                graphStatistics.clearSecondScale();
+                graphStatistics.removeAllSeries();                              // Clear the Graph
+                graphStatistics.onDataChanged(true, false);
+                graphStatistics.getGridLabelRenderer().resetStyles();
+
+                addDataSeries();
+
+                graphStatistics.getViewport().setScalable(true);                // activate horizontal zooming and scrolling
+                graphStatistics.getViewport().setScrollable(true);              // activate horizontal scrolling
+                graphStatistics.getViewport().setScalableY(true);               // activate horizontal and vertical zooming and scrolling
+                graphStatistics.getViewport().setScrollableY(true);             // activate vertical scrolling
+                graphStatistics.getViewport().setXAxisBoundsManual(true);
+                graphStatistics.getViewport().setMinX(vMinX);
+                graphStatistics.getViewport().setMaxX(vMaxX);
+                graphStatistics.getViewport().setYAxisBoundsManual(true);
+                graphStatistics.getViewport().setMinY(vMinY);
+                graphStatistics.getViewport().setMaxY(vMaxY);
+
+                graphStatistics.getGridLabelRenderer().setVerticalLabelsColor(Color.BLUE);
+                graphStatistics.getGridLabelRenderer().setHorizontalLabelsColor(Color.BLUE);
+                graphStatistics.getGridLabelRenderer().setTextSize(20);
+                graphStatistics.getGridLabelRenderer().setGridStyle(GridLabelRenderer.GridStyle.BOTH);
+                graphStatistics.getGridLabelRenderer().setHumanRounding(false,false);
+                graphStatistics.getGridLabelRenderer().setNumHorizontalLabels(tamHorizontalLabels);
+                graphStatistics.getGridLabelRenderer().setNumVerticalLabels(tamVerticalLabels);
+                graphStatistics.getGridLabelRenderer().setVerticalAxisTitleTextSize(24);
+                graphStatistics.getGridLabelRenderer().setVerticalAxisTitleColor(Color.DKGRAY);
+                graphStatistics.getGridLabelRenderer().setVerticalAxisTitle(g.getMeasureConsumption());
+                graphStatistics.getGridLabelRenderer().setLabelFormatter(new DateAsXAxisLabelFormatter(graphStatistics.getContext(), new SimpleDateFormat("MM/yy")));
+
+                graphStatistics.refreshDrawableState();
+                adapterLastVehicleStatistics.notifyDataSetChanged();
+            } else {
+                layerStatisticsVehicle.setVisibility(View.GONE);
+            }
+
+             // Pending Vehicle - layerPendingVehicle
+            HomeVehiclePendingVehicleListAdapter adapterPendingVehicle = new HomeVehiclePendingVehicleListAdapter(Database.mPendingVehicleDao.fetchAllPendingVehicle( g.getIdVehicle(), 0 ), getContext(),0);
+            if (adapterPendingVehicle.getItemCount() > 0) {
+                layerPendingVehicle.setVisibility(View.VISIBLE);
+                pendingVehicleList.setAdapter(adapterPendingVehicle);
+                pendingVehicleList.setLayoutManager(new LinearLayoutManager(getContext()));
+
+                imgAddPendingVehicle.setOnClickListener(v -> {
+                    Intent intent = new Intent(v.getContext(), PendingVehicleActivity.class);
+                    intent.putExtra("vehicle_id", g.getIdVehicle());
+                    startActivity(intent);
+                });
+                adapterPendingVehicle.notifyDataSetChanged();
+            }
+
+            // Next Vehicle Maintenance - layerMaintenanceItemVehicle
+            HomeVehicleNextMaintenanceListAdapter adapterNextMaintenance = new HomeVehicleNextMaintenanceListAdapter(Database.mNextMaintenanceItemDao.findNextMaintenanceItem( g.getIdVehicle() ), getContext(),0);
+            if (adapterNextMaintenance.getItemCount() > 0) {
+                layerMaintenanceItemVehicle.setVisibility(View.VISIBLE);
+                nextVehicleMaintenanceList.setAdapter(adapterNextMaintenance);
+                nextVehicleMaintenanceList.setLayoutManager(new LinearLayoutManager(getContext()));
+                imgAddMaintenanceVehicle.setOnClickListener(v -> {
+                    Intent intent = new Intent(v.getContext(), MaintenanceActivity.class);
+                    intent.putExtra("vehicle_id", g.getIdVehicle());
+                    startActivity(intent);
+                });
+            } else {
+                layerMaintenanceItemVehicle.setVisibility(View.GONE);
+            }
+            adapterNextMaintenance.notifyDataSetChanged();
+        }
     }
 
     private void addDataSeries() {
