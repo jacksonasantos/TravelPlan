@@ -200,12 +200,14 @@ public class HomeVehicleFragment extends Fragment implements View.OnClickListene
             sbVehicle.setProgress(elementPosition);
             sbVehicle.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
                 int progressChangedValue = 0;
-                public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) { progressChangedValue = progress; }
-                public void onStartTrackingTouch(SeekBar seekBar) { }
+                public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                    progressChangedValue = progress; }
+                public void onStartTrackingTouch(SeekBar seekBar) {
+                    elementPosition=progressChangedValue;
+                    onResume(); }
                 public void onStopTrackingTouch(SeekBar seekBar) {
                     elementPosition=progressChangedValue;
-                    onResume();
-                }
+                    onResume(); }
             });
 
             vehicle[0] = vehicles.get(elementPosition);
