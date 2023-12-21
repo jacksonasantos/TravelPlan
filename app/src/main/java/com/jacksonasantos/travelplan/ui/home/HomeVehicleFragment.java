@@ -199,7 +199,7 @@ public class HomeVehicleFragment extends Fragment implements View.OnClickListene
 
             sbVehicle.setProgress(elementPosition);
             sbVehicle.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-                int progressChangedValue = 0;
+                int progressChangedValue = elementPosition;
                 public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                     progressChangedValue = progress; }
                 public void onStartTrackingTouch(SeekBar seekBar) {
