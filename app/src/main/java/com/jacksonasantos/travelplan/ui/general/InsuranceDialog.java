@@ -102,7 +102,7 @@ public class InsuranceDialog {
         }
 
         Insurance i1 = Database.mInsuranceDao.fetchInsuranceById(insurance.getId());
-        final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(v.getContext(), R.style.MyDialogStyle);
+        final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(v.getContext());
         alertDialogBuilder.setView(promptsView);
         alertDialogBuilder.setCancelable(false)
                 .setPositiveButton(R.string.OK, (dialog, id) -> {
