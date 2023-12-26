@@ -72,6 +72,8 @@ public class TourActivity extends AppCompatActivity implements TourTypeListAdapt
     private ImageButton btLocationTour;
 
     public TourTypeListAdapter adapterTourType;
+    public List<Marker> markers;
+    public ArrayAdapter<Marker> adapterM;
 
     Travel travel;
     @SuppressLint("ResourceType")
@@ -191,6 +193,9 @@ public class TourActivity extends AppCompatActivity implements TourTypeListAdapt
             public void onItemSelected(AdapterView<?> parent, View view, int position, long idx) {
                 nrSpItinerary = ((Itinerary) parent.getItemAtPosition(position)).getId();
                 spItinerary.setSelection(position);
+                markers = Database.mMarkerDao.fetchMarkerByTravelItineraryId(tour.getTravel_id(),nrSpItinerary);  // TODO - Atualizar adapter Marker com markers do itinerary
+                adapterM.notifyDataSetChanged();
+                spMarker.setAdapter(adapterM);
             }
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
@@ -198,9 +203,9 @@ public class TourActivity extends AppCompatActivity implements TourTypeListAdapt
             }
         });
 
-        final List<Marker> markers =  Database.mMarkerDao.fetchMarkerByTravelItineraryId(tour.getTravel_id(), tour.getItinerary_id());
+        markers = Database.mMarkerDao.fetchMarkerByTravelId(tour.getTravel_id());
         markers.add(0, new Marker());
-        ArrayAdapter<Marker> adapterM = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, markers);
+        adapterM = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, markers);
         adapterM.setDropDownViewResource( android.R.layout.simple_spinner_dropdown_item);
         spMarker.setAdapter(adapterM);
         nrSpMarker = tour.getMarker_id();

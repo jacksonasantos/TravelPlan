@@ -273,7 +273,7 @@ public class AchievementActivity extends AppCompatActivity {
     private void addListenerOnDeleteImageAchievement() {
         ImageView imgDelete_Image = findViewById(R.id.imgDelete_Image);
         imgAchievement_Image = findViewById(R.id.imgAchievement_Image);
-        imgDelete_Image.setOnClickListener(view -> imgAchievement_Image.setImageResource(R.drawable.ic_menu_achievement));
+        imgDelete_Image.setOnClickListener(view -> imgAchievement_Image.setImageResource(R.drawable.ic_achievement));
     }
 
     private void addListenerOnButtonStatusAchievement() {

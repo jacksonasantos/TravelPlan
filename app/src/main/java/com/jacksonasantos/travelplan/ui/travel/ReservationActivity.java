@@ -271,15 +271,12 @@ public class ReservationActivity extends AppCompatActivity {
                 alertDialog.setTitle(getString(R.string.choose) + " " + getString(R.string.of) + " " + getString(R.string.site));
                 String[] aSites = getApplicationContext().getResources().getStringArray(R.array.sites_reservation_array);
                 alertDialog.setSingleChoiceItems(aSites, -1, (dialog, which) -> {
-                    // TODO- Implementar leitura de PDF da reserva para o cadastramento no sistema
-                    if (which == 0) {
-                        Toast.makeText(getApplicationContext(), aSites[which], Toast.LENGTH_LONG).show();
-                    } else {
-                        Toast.makeText(getApplicationContext(), aSites[which], Toast.LENGTH_LONG).show();
-                    }
+                    // TODO - Implementar leitura de PDF da reserva para o cadastramento no sistema
+                    Toast.makeText(getApplicationContext(), aSites[which], Toast.LENGTH_LONG).show();
+
                     dialog.dismiss();
                 });
-                alertDialog.setNeutralButton("Ok", (dialog, which) -> {
+                alertDialog.setNegativeButton(getString(R.string.Cancel), (dialog, which) -> {
                 });
                 AlertDialog customAlertDialog = alertDialog.create();
                 customAlertDialog.show();

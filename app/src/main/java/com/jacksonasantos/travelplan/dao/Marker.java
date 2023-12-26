@@ -61,7 +61,7 @@ public class Marker {
             case 6: draw = R.drawable.ic_tour; break;
             case 7: draw = R.drawable.ic_landmark; break;
             case 8: draw = R.drawable.ic_waypoints; break;
-            case 9: draw = R.drawable.ic_menu_achievement; break;
+            case 9: draw = R.drawable.ic_achievement; break;
             default: draw = R.drawable.ic_error; break;
         }
         return draw;

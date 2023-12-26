@@ -10,7 +10,7 @@
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:contentDescription="@string/Achievement_Image"
-        android:src="@drawable/ic_menu_achievement" />
+        android:src="@drawable/ic_achievement" />
 
     <TextView
         android:id="@+id/grid_item_label"
