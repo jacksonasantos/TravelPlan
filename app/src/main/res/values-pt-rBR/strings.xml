@@ -175,7 +175,7 @@
     <string name="Maintenance_Plan_Deleting">Excluindo Plano de Manutenção</string>
     <string name="bt_Maintenance_Plan">Plano de Manutenção</string>
     <string name="bt_Add">Adicionar</string>
-    <string name="bt_Filter">Filtro por Veículo</string>
+    <string name="bt_Filter">por Veículo</string>
     <string name="Currency_Quote_Value">Valor da Cotação</string>
     <string name="Currency_Quote_Date">Data da Cotação</string>
     <string name="Currency_Quote_Type">Tipo de Moeda</string>
@@ -537,4 +537,10 @@
     <string name="Reservation_FileDownload">Baixar arquivo PDF da reserva</string>
     <string name="Travel_Status_Planning">A viagem deve estar em status mínimo de \"Em Planejamento\"</string>
     <string name="Achievement_Type">Tipo Conquista</string>
+    <string name="bt_Filter_noType">sem Tipo</string>
+    <string name="bt_Filter_touristSpot">por Pontos Turísticos</string>
+    <string name="bt_Filter_cave">por Cavernas</string>
+    <string name="bt_Filter_road">por Estradas</string>
+    <string name="bt_Filter_mountainRange">por Serras</string>
+    <string name="bt_Filter_allType">Todos Tipos</string>
 </resources>

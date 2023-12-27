@@ -102,7 +102,7 @@ public class AchievementDAO extends DbContentProvider implements AchievementISch
        return achievementList;
     }
 
-    public List<Achievement> fetchAllAchievementByStatusAchievement( Integer status ) {
+   public List<Achievement> fetchAllAchievementByStatusAchievement( Integer status ) {
         final String[] selectionArgs = status==null ? null : new String[]{String.valueOf(status)};
         final String selection = status==null ? null : ACHIEVEMENT_STATUS_ACHIEVEMENT + " = ?";
         List<Achievement> achievementList = new ArrayList<>();
@@ -115,15 +115,42 @@ public class AchievementDAO extends DbContentProvider implements AchievementISch
             cursor.close();
         }
         return achievementList;
-    }
+   }
 
-    public Cursor fetchArrayAchievement() {
+   public List<Achievement> fetchAllAchievementByTypeAchievement( Integer type ) {
+        final String[] selectionArgs;
+        final String selection;
+
+        if (type==null) {
+            selectionArgs =  null;
+            selection = null;
+        } else if (type==0) {
+            selectionArgs = null;
+            selection = ACHIEVEMENT_TYPE_ACHIEVEMENT + " IS NULL";
+        } else {
+            selectionArgs = new String[]{String.valueOf(type)};
+            selection = ACHIEVEMENT_TYPE_ACHIEVEMENT + " = ?";
+            }
+
+        List<Achievement> achievementList = new ArrayList<>();
+        cursor = super.query(ACHIEVEMENT_TABLE, ACHIEVEMENT_COLUMNS, selection, selectionArgs, ACHIEVEMENT_NAME);
+        if (cursor.moveToFirst()) {
+            do {
+                Achievement achievement = cursorToEntity(cursor);
+                achievementList.add(achievement);
+            } while (cursor.moveToNext());
+            cursor.close();
+        }
+        return achievementList;
+   }
+
+   public Cursor fetchArrayAchievement() {
         return super.rawQuery( "SELECT '' _id, '' text1 UNION " +
                                    "SELECT " + ACHIEVEMENT_ID + ", " +
                                               ACHIEVEMENT_NAME + " " +
                                     "FROM " + ACHIEVEMENT_TABLE + " " +
                                 "ORDER BY " + ACHIEVEMENT_NAME, null);
-    }
+   }
 
     public void deleteAchievement(Integer id) {
         final String[] selectionArgs = { String.valueOf(id) };

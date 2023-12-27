@@ -57,9 +57,12 @@ public class AchievementFragment extends Fragment {
                     MenuItem m1 = menu.findItem(R.id.add_menu);
                     MenuItem m2 = menu.findItem(R.id.save_menu);
                     MenuItem m3 = menu.findItem(R.id.filter_menu);
+                    MenuItem m4 = menu.findItem(R.id.filter_type_menu);
+
                     m1.setVisible(true);
                     m2.setVisible(false);
-                    m3.setVisible(true);
+                    m3.setVisible(false);
+                    m4.setVisible(true);
                 }
 
                 @SuppressLint({"UseCompatLoadingForDrawables", "NonConstantResourceId"})
@@ -71,6 +74,36 @@ public class AchievementFragment extends Fragment {
                         case R.id.add_menu:
                             intent = new Intent( getContext(), AchievementActivity.class );
                             startActivity( intent );
+                            break;
+
+                        case R.id.filter_allType_menu:
+                            adapter = new AchievementListAdapter(Database.mAchievementDao.fetchAllAchievementByTypeAchievement(null), getContext());
+                            listAchievement.setAdapter(adapter);
+                            break;
+
+                        case R.id.filter_noType_menu:
+                            adapter = new AchievementListAdapter(Database.mAchievementDao.fetchAllAchievementByTypeAchievement(0), getContext());
+                            listAchievement.setAdapter(adapter);
+                            break;
+
+                        case R.id.filter_mountainRange_menu:
+                            adapter = new AchievementListAdapter(Database.mAchievementDao.fetchAllAchievementByTypeAchievement(1), getContext());
+                            listAchievement.setAdapter(adapter);
+                            break;
+
+                        case R.id.filter_road_menu:
+                            adapter = new AchievementListAdapter(Database.mAchievementDao.fetchAllAchievementByTypeAchievement(2), getContext());
+                            listAchievement.setAdapter(adapter);
+                            break;
+
+                        case R.id.filter_cave_menu:
+                            adapter = new AchievementListAdapter(Database.mAchievementDao.fetchAllAchievementByTypeAchievement(3), getContext());
+                            listAchievement.setAdapter(adapter);
+                            break;
+
+                        case R.id.filter_touristSpot_menu:
+                            adapter = new AchievementListAdapter(Database.mAchievementDao.fetchAllAchievementByTypeAchievement(4), getContext());
+                            listAchievement.setAdapter(adapter);
                             break;
 
                         case R.id.filter_menu:
@@ -91,6 +124,8 @@ public class AchievementFragment extends Fragment {
                     }
                     return true;
                 }
+
+
             }, getViewLifecycleOwner(), Lifecycle.State.RESUMED);
 
         } else {

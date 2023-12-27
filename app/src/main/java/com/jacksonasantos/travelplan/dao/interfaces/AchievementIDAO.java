@@ -13,6 +13,7 @@ public interface AchievementIDAO {
     List<Marker> fetchAllAchievementWithTravel(Integer achievement_id );
     List<Achievement> fetchAllAchievementByTravel( Integer travel_id );
     List<Achievement> fetchAllAchievementByStatusAchievement( Integer status );
+    List<Achievement> fetchAllAchievementByTypeAchievement( Integer type );
     Cursor fetchArrayAchievement();
     Integer addAchievement(Achievement achievement);
     void deleteAchievement(Integer id);

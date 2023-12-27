@@ -7,7 +7,51 @@
             android:icon="@drawable/ic_button_filter_no"
             android:title="@string/bt_Filter"
             android:visible="true"
-            app:showAsAction="ifRoom|withText" />
+            app:showAsAction="ifRoom|withText"/>
+        <item
+            android:id="@+id/filter_type_menu"
+            android:icon="@drawable/ic_button_filter"
+            android:title="@string/bt_Filter_allType"
+            android:visible="false"
+            app:showAsAction="ifRoom|withText">
+            <menu>
+                <item
+                    android:id="@+id/filter_allType_menu"
+                    android:title="@string/bt_Filter_allType"
+                    android:visible="true"
+                    app:showAsAction="ifRoom|withText" />
+                <item
+                    android:id="@+id/filter_noType_menu"
+                    android:icon="@drawable/ic_error"
+                    android:title="@string/bt_Filter_noType"
+                    android:visible="true"
+                    app:showAsAction="ifRoom|withText" />
+                <item
+                    android:id="@+id/filter_mountainRange_menu"
+                    android:icon="@drawable/ic_mountain_range"
+                    android:title="@string/bt_Filter_mountainRange"
+                    android:visible="true"
+                    app:showAsAction="ifRoom|withText" />
+                <item
+                    android:id="@+id/filter_road_menu"
+                    android:icon="@drawable/ic_road"
+                    android:title="@string/bt_Filter_road"
+                    android:visible="true"
+                    app:showAsAction="ifRoom|withText" />
+                <item
+                    android:id="@+id/filter_cave_menu"
+                    android:icon="@drawable/ic_cave"
+                    android:title="@string/bt_Filter_cave"
+                    android:visible="true"
+                    app:showAsAction="ifRoom|withText" />
+                <item
+                    android:id="@+id/filter_touristSpot_menu"
+                    android:icon="@drawable/ic_tourist_spot"
+                    android:title="@string/bt_Filter_touristSpot"
+                    android:visible="true"
+                    app:showAsAction="ifRoom|withText" />
+            </menu>
+        </item>
         <item
             android:id="@+id/save_menu"
             android:icon="@drawable/ic_button_save"

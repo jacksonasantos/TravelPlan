@@ -23,7 +23,13 @@
     <string name="bt_Maintenance_Plan">Maintenance Plan</string>
     <string name="bt_Maintenance_Item">Maintenance Item</string>
     <string name="bt_Add">Add</string>
-    <string name="bt_Filter">Vehicle Filter</string>
+    <string name="bt_Filter">by Vehicle</string>
+    <string name="bt_Filter_allType">all Type</string>
+    <string name="bt_Filter_noType">no Type</string>
+    <string name="bt_Filter_mountainRange">by Mountain Range</string>
+    <string name="bt_Filter_road">by Road</string>
+    <string name="bt_Filter_cave">by Cave</string>
+    <string name="bt_Filter_touristSpot">by TouristSpot</string>
     <string name="bt_List">List</string>
     <string name="bt_Map">Map</string>
 
