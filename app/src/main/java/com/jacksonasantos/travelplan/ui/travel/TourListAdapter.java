@@ -107,6 +107,7 @@ public class TourListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                             .setPositiveButton(R.string.Yes, (dialogInterface, i) -> {
                                 try {
                                     Database.mTourDao.deleteTour(tour.getId());
+                                    Database.mMarkerDao.deleteMarker(tour.getMarker_id());
                                     mTour.remove(position-show_header);
                                     notifyItemRemoved(position);
                                     notifyItemRangeChanged(position, mTour.size());

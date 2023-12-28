@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -80,8 +81,12 @@ public class AchievementListAdapter extends RecyclerView.Adapter<AchievementList
             holder.imgAchievement.setImageBitmap(raw);
             if (achievement.getStatus_achievement() == 1){
                 holder.imgAchievement.setAlpha(1f);
+                holder.txtNameAchievement.setTextColor(Color.BLACK);
+                holder.txtShortNameAchievement.setTextColor(Color.BLACK);
             } else {
                 holder.imgAchievement.setAlpha(0.5f);
+                holder.txtNameAchievement.setTextColor(Color.LTGRAY);
+                holder.txtShortNameAchievement.setTextColor(Color.LTGRAY);
             }
         }
         holder.imgTypeAchievement.setImageResource(achievement.getAchievement_typeImage(achievement.getType_achievement()));

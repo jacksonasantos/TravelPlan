@@ -354,6 +354,28 @@ public class TourActivity extends AppCompatActivity implements TourTypeListAdapt
             if (!validateData()) {
                 Toast.makeText(getApplicationContext(), R.string.Error_Data_Validation, Toast.LENGTH_LONG).show();
             } else {
+                if (nrSpMarker == null) {
+                    final Marker m = new Marker();
+                    String[] lat_long = etLatLngTour.getText().toString().split(",");
+                    m.setTravel_id(tour.getTravel_id());
+                    m.setItinerary_id(nrSpItinerary);
+                    m.setAchievement_id(nrSpAchievement);
+                    m.setMarker_type(9);
+                    m.setLatitude(lat_long[0]);
+                    m.setLongitude(lat_long[1]);
+                    m.setAddress(etAddressTour.getText().toString());
+                    m.setCity(etCityTour.getText().toString());
+                    m.setState(etStateTour.getText().toString());
+                    m.setCountry(etCountryTour.getText().toString());
+                    m.setPredicted_stop_time(0);
+
+                    try {
+                        nrSpMarker = Database.mMarkerDao.addMarker(m);
+                    } catch (Exception e) {
+                        Toast.makeText(getApplicationContext(), R.string.Error_Including_Data + e.getMessage(), Toast.LENGTH_LONG).show();
+                    }
+                    if (nrSpMarker>0) isSave= true;
+                }
                 final Tour t1 = new Tour();
                 t1.setTravel_id(tour.getTravel_id());
                 t1.setItinerary_id(nrSpItinerary);
@@ -418,7 +440,7 @@ public class TourActivity extends AppCompatActivity implements TourTypeListAdapt
                  etDate.getText().toString().trim().isEmpty() ||
                  etSequence.getText().toString().trim().isEmpty() ||
                  d1.before(travel.getDeparture_date()) ||
-                 d1.after(travel.getReturn_date()))
+                 d1.after(travel.getReturn_date()) ||
                 //etValueAdult.getText().toString().trim().isEmpty() ||
                 //etValueChild.getText().toString().trim().isEmpty() ||
                 //etNumberAdult.getText().toString().trim().isEmpty() ||
@@ -431,7 +453,7 @@ public class TourActivity extends AppCompatActivity implements TourTypeListAdapt
                 //etCityTour.getText().toString().trim().isEmpty()||
                 //etStateTour.getText().toString().trim().isEmpty()||
                 //etCountryTour.getText().toString().trim().isEmpty()||
-                //etLatLngTour.getText().toString().trim().isEmpty()
+                etLatLngTour.getText().toString().trim().isEmpty())
             ){
                 isValid = false;
             }
