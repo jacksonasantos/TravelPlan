@@ -358,6 +358,7 @@ public class TourActivity extends AppCompatActivity implements TourTypeListAdapt
                     final Marker m = new Marker();
                     String[] lat_long = etLatLngTour.getText().toString().split(",");
                     m.setTravel_id(tour.getTravel_id());
+                    m.setName(etLocalTour.getText().toString());
                     m.setItinerary_id(nrSpItinerary);
                     m.setAchievement_id(nrSpAchievement);
                     m.setMarker_type(9);
