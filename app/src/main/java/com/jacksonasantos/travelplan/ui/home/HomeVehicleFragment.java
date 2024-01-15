@@ -2,6 +2,7 @@ package com.jacksonasantos.travelplan.ui.home;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -9,10 +10,15 @@ import android.graphics.DashPathEffect;
 import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.RadioGroup;
 import android.widget.ScrollView;
 import android.widget.SeekBar;
 import android.widget.TextView;
@@ -20,16 +26,19 @@ import android.widget.TextView;
 import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
+import androidx.preference.PreferenceManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.jacksonasantos.travelplan.R;
 import com.jacksonasantos.travelplan.dao.FuelSupply;
 import com.jacksonasantos.travelplan.dao.Insurance;
+import com.jacksonasantos.travelplan.dao.Person;
 import com.jacksonasantos.travelplan.dao.Vehicle;
 import com.jacksonasantos.travelplan.dao.VehicleStatistics;
 import com.jacksonasantos.travelplan.dao.general.Database;
 import com.jacksonasantos.travelplan.ui.general.InsuranceDialog;
+import com.jacksonasantos.travelplan.ui.general.PersonActivity;
 import com.jacksonasantos.travelplan.ui.utility.Globals;
 import com.jacksonasantos.travelplan.ui.utility.Utils;
 import com.jacksonasantos.travelplan.ui.vehicle.FuelSupplyActivity;
@@ -51,11 +60,20 @@ import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Locale;
 
-public class HomeVehicleFragment extends Fragment implements View.OnClickListener {
+public class HomeVehicleFragment extends Fragment {
 
     private ScrollView layerHomeVehicle;
     private CardView layerMessage;
     private RecyclerView listMessage;
+
+    private ConstraintLayout layerWizard;
+    private ImageButton btPerson;
+    private ImageButton btVehicle;
+    private EditText settingName;
+    private EditText settingAge;
+    private RadioGroup settingRGGender;
+    private int settingRBGender;
+    private EditText settingSignature;
 
     private TextView txVehicle;
     private TextView tvLicencePlate;
@@ -88,6 +106,10 @@ public class HomeVehicleFragment extends Fragment implements View.OnClickListene
     private ImageView imgAddMaintenanceVehicle;
     private RecyclerView nextVehicleMaintenanceList;
 
+    boolean bSetting = false;
+    boolean bPerson = false;
+    boolean bVehicle = false;
+
     int tamHorizontalLabels = 3;
     int tamVerticalLabels = 3;
     double vMinX = 0;
@@ -103,6 +125,9 @@ public class HomeVehicleFragment extends Fragment implements View.OnClickListene
     final NumberFormat numberFormatter = NumberFormat.getNumberInstance(locale);
 
     List<Vehicle> vehicles = null;
+    List<Person> vPerson = null;
+    List<Vehicle> vVehicle = null;
+    SharedPreferences settings;
 
     @Override
     public View onCreateView(final LayoutInflater inflater,
@@ -113,6 +138,14 @@ public class HomeVehicleFragment extends Fragment implements View.OnClickListene
 
         layerMessage = v.findViewById((R.id.layerMessage));
         listMessage = v.findViewById((R.id.listMessage));
+
+        layerWizard = v.findViewById((R.id.layerWizard));
+        settingName = v.findViewById((R.id.settingName));
+        settingAge = v.findViewById((R.id.settingAge));
+        settingRGGender = v.findViewById((R.id.settingRGGender));
+        settingSignature = v.findViewById((R.id.settingSignature));
+        btPerson = v.findViewById(R.id.btPerson);
+        btVehicle = v.findViewById(R.id.btVehicle);
 
         imVehicleType = v.findViewById(R.id.imVehicleType);
         txVehicle =v.findViewById(R.id.txVehicle);
@@ -159,12 +192,20 @@ public class HomeVehicleFragment extends Fragment implements View.OnClickListene
         mDb.open();
 
         vehicles =  Database.mVehicleDao.fetchArrayVehicles();
-        for (int i=0;i<vehicles.size();i++){
-            if (g.getIdVehicle().equals(vehicles.get(i).getId())){
-                elementPosition=i;
+        if (vehicles.size()>0) {
+            for (int i=0;i<vehicles.size();i++){
+                if (g.getIdVehicle().equals(vehicles.get(i).getId())){
+                    elementPosition=i;
+                }
             }
+            sbVehicle.setMax(vehicles.size() - 1);
+            layerWizard.setVisibility(View.GONE);
+            layerFuelSupply.setVisibility(View.VISIBLE);
         }
-        sbVehicle.setMax(vehicles.size()-1);
+        Utils.addRadioButtonResources(R.array.gender, settingRGGender, requireContext());
+
+        settings = PreferenceManager.getDefaultSharedPreferences(requireContext());
+        statusValid();
         return v;
     }
 
@@ -172,6 +213,81 @@ public class HomeVehicleFragment extends Fragment implements View.OnClickListene
     @Override
     public void onResume() {
         super.onResume();
+
+        if (vehicles.size()>0) {
+            layerWizard.setVisibility(View.GONE);
+            layerFuelSupply.setVisibility(View.VISIBLE);
+        } else {
+            sbVehicle.setVisibility(View.INVISIBLE);
+
+            layerWizard.setVisibility(View.VISIBLE);
+            layerMessage.setVisibility(View.GONE);
+            layerFuelSupply.setVisibility(View.GONE);
+            layerInsuranceVehicle.setVisibility(View.GONE);
+            layerStatisticsVehicle.setVisibility(View.GONE);
+            layerPendingVehicle.setVisibility(View.GONE);
+            layerMaintenanceItemVehicle.setVisibility(View.GONE);
+
+            settings = PreferenceManager.getDefaultSharedPreferences(requireContext());
+            settingName.setText(settings.getString("personal_name",""));
+            settingAge.setText(settings.getString("personal_age",""));
+            settingSignature.setText(settings.getString("signature",""));
+            settingRBGender = Integer.parseInt(settings.getString("gender", "0"));
+
+            settingRGGender.setOnCheckedChangeListener((group, checkedId) -> {
+                settingRBGender = checkedId;
+                settings.edit().putString("gender", String.valueOf(settingRBGender-1)).apply();
+                statusValid();
+            });
+            settingRGGender.check(settingRBGender+1);
+            settingName.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+                    settings.edit().putString("personal_name", settingName.getText().toString()).apply();
+                    statusValid();
+                }
+                @Override
+                public void afterTextChanged(Editable editable) {  }
+            });
+            settingAge.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+                    settings.edit().putString("personal_age", settingAge.getText().toString()).apply();
+                    statusValid();
+                }
+                @Override
+                public void afterTextChanged(Editable editable) {}
+            });
+            settingSignature.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+                    settings.edit().putString("signature", settingSignature.getText().toString()).apply();
+                    statusValid();
+                }
+                @Override
+                public void afterTextChanged(Editable editable) {
+                }
+            });
+            btPerson.setOnClickListener(view -> {
+                Intent intent = new Intent(view.getContext(), PersonActivity.class);
+                view.getContext().startActivity(intent);
+                statusValid();
+            });
+            btVehicle.setOnClickListener(view -> {
+                Intent intent = new Intent(view.getContext(), VehicleActivity.class);
+                view.getContext().startActivity(intent);
+                statusValid();
+            });
+
+            statusValid();
+
+        }
 
         HomeMessageListAdapter adapterMessage = new HomeMessageListAdapter(Database.mVehicleStatisticsDao.findMessages(requireContext()), getContext());
         if (adapterMessage.getItemCount() > 0) {
@@ -182,21 +298,10 @@ public class HomeVehicleFragment extends Fragment implements View.OnClickListene
             layerMessage.setVisibility(View.GONE);
         }
 
-        if (vehicles.size()>0) {
-            layerFuelSupply.setVisibility(View.VISIBLE);
-        } else {
-            layerMessage.setVisibility(View.GONE);
-            layerFuelSupply.setVisibility(View.GONE);
-            layerInsuranceVehicle.setVisibility(View.GONE);
-            layerStatisticsVehicle.setVisibility(View.GONE);
-            layerPendingVehicle.setVisibility(View.GONE);
-            layerMaintenanceItemVehicle.setVisibility(View.GONE);
-        }
-
         final Vehicle[] vehicle = {new Vehicle()};
 
         if (vehicles.size() > 0) {
-
+            sbVehicle.setVisibility(View.VISIBLE);
             sbVehicle.setProgress(elementPosition);
             sbVehicle.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
                 int progressChangedValue = elementPosition;
@@ -204,10 +309,12 @@ public class HomeVehicleFragment extends Fragment implements View.OnClickListene
                     progressChangedValue = progress; }
                 public void onStartTrackingTouch(SeekBar seekBar) {
                     elementPosition=progressChangedValue;
-                    onResume(); }
+                    onResume();
+                }
                 public void onStopTrackingTouch(SeekBar seekBar) {
                     elementPosition=progressChangedValue;
-                    onResume(); }
+                    onResume();
+                }
             });
 
             vehicle[0] = vehicles.get(elementPosition);
@@ -416,6 +523,25 @@ public class HomeVehicleFragment extends Fragment implements View.OnClickListene
         }
     }
 
-    @Override
-    public void onClick(View view) {}
+    private void statusValid() {
+        if (!settings.getString("personal_name", "").equals("") &&
+            !settings.getString("personal_age", "").equals("") &&
+            !settings.getString("signature", "").equals("") &&
+            !settings.getString("gender", "").equals("")) {
+            vPerson = Database.mPersonDao.fetchAllPerson();
+            bSetting = true;
+            btPerson.setClickable(true);
+            btPerson.setAlpha(1F);
+            btVehicle.setClickable(false);
+            btVehicle.setAlpha(0.5F);
+            if (vPerson!=null && vPerson.size()>0) {
+                bPerson = true;
+                bVehicle = false;
+                vVehicle = Database.mVehicleDao.fetchAllVehicles();
+                if (vVehicle.size() > 0) bVehicle = true;
+                btVehicle.setClickable(true);
+                btVehicle.setAlpha(1F);
+            }
+        }
+    }
 }

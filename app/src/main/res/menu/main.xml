@@ -9,6 +9,12 @@
             android:visible="true"
             app:showAsAction="ifRoom|withText"/>
         <item
+            android:id="@+id/save_menu"
+            android:icon="@drawable/ic_button_save"
+            android:title="@string/bt_Save"
+            android:visible="true"
+            app:showAsAction="ifRoom|withText" />
+        <item
             android:id="@+id/filter_type_menu"
             android:icon="@drawable/ic_button_filter"
             android:title="@string/bt_Filter_allType"
@@ -52,12 +58,6 @@
                     app:showAsAction="ifRoom|withText" />
             </menu>
         </item>
-        <item
-            android:id="@+id/save_menu"
-            android:icon="@drawable/ic_button_save"
-            android:title="@string/bt_Save"
-            android:visible="true"
-            app:showAsAction="ifRoom|withText" />
         <item
             android:id="@+id/add_menu"
             android:icon="@drawable/ic_button_add_circle"

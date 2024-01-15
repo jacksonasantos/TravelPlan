@@ -33,8 +33,8 @@ public class AchievementFragment extends Fragment {
 
     private RecyclerView listAchievement;
     private AchievementListAdapter adapter;
-    private boolean flgFilterAchievement;
-    private Integer vs_status;
+
+    Integer v_filter_type = null;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -46,19 +46,16 @@ public class AchievementFragment extends Fragment {
             mLayout = R.layout.fragment_generic_list;
 
             requireActivity().addMenuProvider(new MenuProvider() {
-                private Menu mMenu;
 
                 @Override
                 public void onCreateMenu(@NonNull Menu menu, @NonNull MenuInflater menuInflater) {
                     menu.clear();
                     menuInflater.inflate(R.menu.main, menu);
 
-                    this.mMenu = menu;
                     MenuItem m1 = menu.findItem(R.id.add_menu);
                     MenuItem m2 = menu.findItem(R.id.save_menu);
                     MenuItem m3 = menu.findItem(R.id.filter_menu);
                     MenuItem m4 = menu.findItem(R.id.filter_type_menu);
-
                     m1.setVisible(true);
                     m2.setVisible(false);
                     m3.setVisible(false);
@@ -77,45 +74,38 @@ public class AchievementFragment extends Fragment {
                             break;
 
                         case R.id.filter_allType_menu:
+                            v_filter_type = null;
                             adapter = new AchievementListAdapter(Database.mAchievementDao.fetchAllAchievementByTypeAchievement(null), getContext());
                             listAchievement.setAdapter(adapter);
                             break;
 
                         case R.id.filter_noType_menu:
+                            v_filter_type = 0;
                             adapter = new AchievementListAdapter(Database.mAchievementDao.fetchAllAchievementByTypeAchievement(0), getContext());
                             listAchievement.setAdapter(adapter);
                             break;
 
                         case R.id.filter_mountainRange_menu:
+                            v_filter_type = 1;
                             adapter = new AchievementListAdapter(Database.mAchievementDao.fetchAllAchievementByTypeAchievement(1), getContext());
                             listAchievement.setAdapter(adapter);
                             break;
 
                         case R.id.filter_road_menu:
+                            v_filter_type = 2;
                             adapter = new AchievementListAdapter(Database.mAchievementDao.fetchAllAchievementByTypeAchievement(2), getContext());
                             listAchievement.setAdapter(adapter);
                             break;
 
                         case R.id.filter_cave_menu:
+                            v_filter_type = 3;
                             adapter = new AchievementListAdapter(Database.mAchievementDao.fetchAllAchievementByTypeAchievement(3), getContext());
                             listAchievement.setAdapter(adapter);
                             break;
 
                         case R.id.filter_touristSpot_menu:
+                            v_filter_type = 4;
                             adapter = new AchievementListAdapter(Database.mAchievementDao.fetchAllAchievementByTypeAchievement(4), getContext());
-                            listAchievement.setAdapter(adapter);
-                            break;
-
-                        case R.id.filter_menu:
-                            flgFilterAchievement=!flgFilterAchievement;
-                            if ( flgFilterAchievement ) {
-                                this.mMenu.getItem(0).setIcon(R.drawable.ic_button_filter);
-                                vs_status = 0;
-                            } else {
-                                this.mMenu.getItem(0).setIcon(R.drawable.ic_button_filter_no);
-                                vs_status = null;
-                            }
-                            adapter = new AchievementListAdapter(Database.mAchievementDao.fetchAllAchievementByStatusAchievement(vs_status), getContext());
                             listAchievement.setAdapter(adapter);
                             break;
 
@@ -146,7 +136,7 @@ public class AchievementFragment extends Fragment {
         switch (mViewMode) {
             case "list":
                 listAchievement = this.requireView().findViewById(R.id.list);
-                adapter = new AchievementListAdapter(Database.mAchievementDao.fetchAllAchievementByStatusAchievement(vs_status), getContext());
+                adapter = new AchievementListAdapter(Database.mAchievementDao.fetchAllAchievementByTypeAchievement(v_filter_type), getContext());
                 listAchievement.setAdapter(adapter);
                 listAchievement.setLayoutManager(new LinearLayoutManager(getContext()));
                 listAchievement.addItemDecoration(new DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL));

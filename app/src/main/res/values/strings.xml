@@ -14,6 +14,8 @@
     <string name="choose_color">Choose Color</string>
     <string name="choose">Choose</string>
     <string name="site" translatable="false">Site</string>
+    <string name="Wizard">Wizard</string>
+    <string name="WizardDescription">Welcome to the APP\n\nWe offer you the opportunity to manage your fleet of Vehicles and your Travels. Feel free to use all the options in this solution.</string>
 
     <string name="bt_Save">Save</string>
     <string name="bt_Delete">Delete</string>
@@ -89,8 +91,9 @@
 
     <!-- Vehicle Fragment -->
     <string name="Vehicle">Vehicle</string>
+    <string name="Vehicle_Register">Register Vehicle</string>
     <string name="Vehicle_Deleting">Deleting Vehicle</string>
-
+    <string name="A_vehicle_needs_to_be_selected">A vehicle needs to be selected</string>
     <string name="car">Car</string>
     <string name="motorcycle">Motorcycle</string>
     <string name="suv">SUV</string>
@@ -372,6 +375,7 @@
 
     <!-- Travel Fragment -->
     <string name="Travel">Travel</string>
+    <string name="Travel_Register">Register Travel</string>
     <string name="Travel_Deleting">Deleting Travel</string>
 
     <string name="Travel_Description">Description</string>
@@ -546,6 +550,7 @@
 
     <!-- Person -->
     <string name="Person">Person</string>
+    <string name="Person_Register">Register Person</string>
     <string name="Person_Deleting">Deleting Person</string>
 
     <string name="Person_Name">Name</string>

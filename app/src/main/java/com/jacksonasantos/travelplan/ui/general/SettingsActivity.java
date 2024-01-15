@@ -32,12 +32,14 @@ public class SettingsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_settings);
-        getSupportFragmentManager().beginTransaction().replace(R.id.nav_settings, new SettingsFragment()).commit();
 
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
+
+        getSupportFragmentManager().beginTransaction().replace(R.id.nav_settings, new SettingsFragment()).commit();
+
     }
 
     public static class SettingsFragment extends PreferenceFragmentCompat {

@@ -124,9 +124,9 @@ public class AchievementDAO extends DbContentProvider implements AchievementISch
         if (type==null) {
             selectionArgs =  null;
             selection = null;
-        } else if (type==0) {
-            selectionArgs = null;
-            selection = ACHIEVEMENT_TYPE_ACHIEVEMENT + " IS NULL";
+        //} else if (type==0) {
+        //    selectionArgs = null;
+        //    selection = ACHIEVEMENT_TYPE_ACHIEVEMENT + " IS NULL";
         } else {
             selectionArgs = new String[]{String.valueOf(type)};
             selection = ACHIEVEMENT_TYPE_ACHIEVEMENT + " = ?";

@@ -267,6 +267,7 @@
     <string name="Insurance_Contact_Detail">Detalhe</string>
     <string name="Insurance_Contact_Deleting">Excluindo Contatos do Seguro</string>
     <string name="unregistered_bookmark">Marcador não Registrado</string>
+    <string name="A_vehicle_needs_to_be_selected">Um Veículo precisa ser selecionado</string>
     <string name="car">Carro</string>
     <string name="motorcycle">Motocicleta</string>
     <string name="suv">SUV</string>
@@ -543,4 +544,9 @@
     <string name="bt_Filter_road">por Estradas</string>
     <string name="bt_Filter_mountainRange">por Serras</string>
     <string name="bt_Filter_allType">Todos Tipos</string>
+    <string name="Wizard">Configurações Iniciais</string>
+    <string name="WizardDescription">"Bem-vindo ao APP\n\nNós lhe oferecemos a oportunidade de gerir a sua frota de Veículos e das suas Viagens. Sinta-se à vontade para usar todas as opções desta solução. "</string>
+    <string name="Person_Register">Cadastrar Pessoa</string>
+    <string name="Vehicle_Register">Cadastrar Veículo</string>
+    <string name="Travel_Register">Cadastrar Viagem</string>
 </resources>

@@ -106,6 +106,10 @@ public class MaintenanceActivity extends AppCompatActivity {
         } else {
             nrVehicle_id = maintenance.getVehicle_id();
         }
+        if (nrVehicle_id==null){
+            Toast.makeText(getApplicationContext(), getResources().getString(R.string.A_vehicle_needs_to_be_selected), Toast.LENGTH_LONG).show();
+            finish();
+        }
         vehicle = Database.mVehicleDao.fetchVehicleById(nrVehicle_id);
         txVehicleName.setText(vehicle.getName());
         txVehicleLicencePlate.setText(vehicle.getLicense_plate());

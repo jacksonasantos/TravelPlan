@@ -34,12 +34,13 @@ import com.jacksonasantos.travelplan.ui.travel.MaintenanceItineraryActivity;
 import com.jacksonasantos.travelplan.ui.travel.ReservationActivity;
 import com.jacksonasantos.travelplan.ui.travel.ReservationListAdapter;
 import com.jacksonasantos.travelplan.ui.travel.TourActivity;
+import com.jacksonasantos.travelplan.ui.travel.TourListAdapter;
 import com.jacksonasantos.travelplan.ui.travel.TravelAchievementListAdapter;
+import com.jacksonasantos.travelplan.ui.travel.TravelActivity;
 import com.jacksonasantos.travelplan.ui.travel.TravelExpensesExpectedListAdapter;
 import com.jacksonasantos.travelplan.ui.travel.TravelExpensesRealizedListAdapter;
 import com.jacksonasantos.travelplan.ui.travel.TravelFuelSupplyListAdapter;
 import com.jacksonasantos.travelplan.ui.travel.TravelRouteFragment;
-import com.jacksonasantos.travelplan.ui.travel.TourListAdapter;
 import com.jacksonasantos.travelplan.ui.travel.TravelVehicleListAdapter;
 import com.jacksonasantos.travelplan.ui.travel.TravelVehicleStatusListAdapter;
 import com.jacksonasantos.travelplan.ui.utility.Globals;
@@ -51,6 +52,9 @@ import java.util.List;
 public class HomeTravelFragment extends Fragment implements View.OnClickListener {
 
     private ScrollView layerHomeTravel;
+    private ConstraintLayout layerWizard;
+    private ImageButton btTravel;
+
     private ConstraintLayout layerTravel;
     private ImageView imTravelStatus;
     private int rbTravelStatus;
@@ -108,6 +112,9 @@ public class HomeTravelFragment extends Fragment implements View.OnClickListener
 
         layerHomeTravel = v.findViewById(R.id.layerHomeTravel);
         layerTravel = v.findViewById(R.id.layerTravel);
+        layerWizard = v.findViewById(R.id.layerWizard);
+        btTravel = v.findViewById(R.id.btTravel);
+
         spTravel = v.findViewById(R.id.spTravel);
         imTravelStatus = v.findViewById(R.id.imTravelStatus);
         tvNote = v.findViewById(R.id.tvNote);
@@ -157,6 +164,7 @@ public class HomeTravelFragment extends Fragment implements View.OnClickListener
         layerHomeTravel.setFocusableInTouchMode(true);
         layerHomeTravel.setDescendantFocusability(ViewGroup.FOCUS_BEFORE_DESCENDANTS);
 
+        layerTravel.setVisibility(View.INVISIBLE);
         layerBtnMenu.setVisibility(View.INVISIBLE);
         layerExpense.setVisibility(View.INVISIBLE);
         layerItineraryHasTransport.setVisibility(View.INVISIBLE);
@@ -184,11 +192,37 @@ public class HomeTravelFragment extends Fragment implements View.OnClickListener
         spTravel.setAdapter(adapterTravel);
 
         if (travels.size()>0) {
+            layerTravel.setVisibility(View.VISIBLE);
+            layerBtnMenu.setVisibility(View.VISIBLE);
+            layerWizard.setVisibility(View.GONE);
             for (int x = 0; x < travels.size(); x++) {
                 if (travels.get(x).getId().equals(g.getIdTravel())) {
                     spTravel.setSelection(x);
                     break;
                 }
+            }
+        } else {
+            layerWizard.setVisibility(View.VISIBLE);
+            layerTravel.setVisibility(View.GONE);
+            layerBtnMenu.setVisibility(View.GONE);
+            layerExpense.setVisibility(View.GONE);
+            layerItineraryHasTransport.setVisibility(View.GONE);
+            layerVehicle.setVisibility(View.GONE);
+            layerTour.setVisibility(View.GONE);
+            layerFuelSupply.setVisibility(View.GONE);
+            layerAchievement.setVisibility(View.GONE);
+            layerItinerary.setVisibility(View.GONE);
+            layerReservation.setVisibility(View.GONE);
+            layerInsurance.setVisibility(View.GONE);
+
+            List<Travel> vTravel = Database.mTravelDao.fetchAllTravel();
+            if (vTravel.size()>0) {
+                btTravel.setAlpha(0.3F);
+            } else {
+                btTravel.setOnClickListener(view -> {
+                    Intent intent = new Intent (view.getContext(), TravelActivity.class);
+                    view.getContext().startActivity(intent);
+                });
             }
         }
 

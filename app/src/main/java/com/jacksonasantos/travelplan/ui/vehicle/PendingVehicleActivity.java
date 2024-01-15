@@ -72,6 +72,10 @@ public class PendingVehicleActivity extends AppCompatActivity {
             nrVehicleId = pendingVehicle.getVehicle_id();
         }
 
+        if (nrVehicleId==null){
+            Toast.makeText(getApplicationContext(), getResources().getString(R.string.A_vehicle_needs_to_be_selected), Toast.LENGTH_LONG).show();
+            finish();
+        }
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);

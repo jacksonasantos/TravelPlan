@@ -43,12 +43,175 @@
         </androidx.cardview.widget.CardView>
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layerWizard"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/default_margin_top"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/layerMessage">
+
+            <TextView
+                android:id="@+id/txWizard"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:text="@string/Wizard"
+                android:textAlignment="center"
+                android:textColor="@color/design_default_color_secondary_variant"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/txWizardDescription"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/default_margin_top"
+                android:layout_marginTop="@dimen/default_margin_top"
+                android:layout_marginEnd="@dimen/default_margin_top"
+                android:gravity="center"
+                android:text="@string/WizardDescription"
+                android:textAlignment="gravity"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txWizard" />
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardView"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginStart="@dimen/default_margin_top"
+                android:layout_marginTop="@dimen/default_margin_top"
+                android:layout_marginEnd="@dimen/default_margin_top"
+                app:cardBackgroundColor="@color/colorBackgroundDialog"
+                app:cardCornerRadius="@dimen/cardCornerRadius"
+                app:cardElevation="@dimen/cardElevation"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txWizardDescription">
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/labels_marginLeft"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="@string/personal_header"
+                        android:textColor="@color/design_default_color_secondary_variant"
+                        android:textSize="14sp" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/personal_name" />
+                    <EditText
+                        android:id="@+id/settingName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:autofillHints="@string/personal_name"
+                        android:inputType="text|textCapWords"
+                        tools:ignore="LabelFor"
+                        android:textSize="12sp"  />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/personal_age" />
+                    <EditText
+                        android:id="@+id/settingAge"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:autofillHints="@string/personal_age"
+                        android:inputType="number"
+                        tools:ignore="LabelFor"
+                        android:textSize="12sp"  />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/personal_gender" />
+                    <RadioGroup
+                        android:id="@+id/settingRGGender"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_horizontal"
+                        android:hint="@string/personal_gender"
+                        android:orientation="horizontal"
+                        android:textSize="12sp" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/signature_title" />
+                    <EditText
+                        android:id="@+id/settingSignature"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:autofillHints="@string/signature_title"
+                        android:inputType="text|textEmailAddress"
+                        tools:ignore="LabelFor"
+                        android:textSize="12sp" />
+                </androidx.appcompat.widget.LinearLayoutCompat>
+            </androidx.cardview.widget.CardView>
+
+            <ImageButton
+                android:id="@+id/btPerson"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_marginTop="@dimen/default_margin_top"
+                android:contentDescription="@string/Person"
+                app:layout_constraintEnd_toStartOf="@+id/btVehicle"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cardView"
+                app:srcCompat="@drawable/ic_person" />
+
+            <TextView
+                android:id="@+id/lbPerson"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:text="@string/Person_Register"
+                android:textAlignment="center"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toEndOf="@+id/btPerson"
+                app:layout_constraintStart_toStartOf="@+id/btPerson"
+                app:layout_constraintTop_toBottomOf="@+id/btPerson" />
+
+            <ImageButton
+                android:id="@+id/btVehicle"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_marginTop="@dimen/default_margin_top"
+                android:contentDescription="@string/Vehicle"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/btPerson"
+                app:layout_constraintTop_toBottomOf="@+id/cardView"
+                app:srcCompat="@drawable/ic_menu_vehicle" />
+
+            <TextView
+                android:id="@+id/lbVehicle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:text="@string/Vehicle_Register"
+                android:textAlignment="center"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toEndOf="@+id/btVehicle"
+                app:layout_constraintStart_toStartOf="@+id/btVehicle"
+                app:layout_constraintTop_toBottomOf="@+id/btVehicle" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/layerVehicle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/layerMessage">
+            app:layout_constraintTop_toBottomOf="@+id/layerWizard">
 
             <TextView
                 android:id="@+id/txVehicle"

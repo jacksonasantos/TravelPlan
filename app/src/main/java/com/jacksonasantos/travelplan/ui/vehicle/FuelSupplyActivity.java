@@ -266,6 +266,9 @@ public class FuelSupplyActivity extends AppCompatActivity implements PlacesAdapt
                 txTransportIdentifier.setText(transport.getIdentifier());
                 imTransportType.setImageResource(Transport.getTransportTypeImage(transport.getTransport_type()));
                 cvTransport.setVisibility(View.VISIBLE);
+            } else {
+                Toast.makeText(getApplicationContext(), getResources().getString(R.string.A_vehicle_needs_to_be_selected), Toast.LENGTH_LONG).show();
+                finish();
             }
             cvVehicle.setVisibility(View.GONE);
             cvStatistics.setVisibility(View.GONE);

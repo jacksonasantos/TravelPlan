@@ -12,7 +12,7 @@
         <ListPreference
             app:defaultValue="gender"
             app:entries="@array/gender"
-            app:entryValues="@array/gender"
+            app:entryValues="@array/gender_data"
             app:key="gender"
             app:title="@string/personal_gender"
             app:useSimpleSummaryProvider="true" />

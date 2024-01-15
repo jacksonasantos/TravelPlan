@@ -17,6 +17,10 @@
         <item>@string/male</item>
         <item>@string/female</item>
     </string-array>
+    <string-array name="gender_data">
+        <item>0</item>
+        <item>1</item>
+    </string-array>
     <!-- Achievement View Mode Preference -->
     <string-array name="achievement_view_mode">
         <item name="list">@string/bt_List</item>

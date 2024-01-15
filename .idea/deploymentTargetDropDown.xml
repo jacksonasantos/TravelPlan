@@ -6,17 +6,8 @@
         <type value="RUNNING_DEVICE_TARGET" />
         <deviceKey>
           <Key>
-            <type value="SERIAL_NUMBER" />
-            <value value="RQCT40036JF" />
-          </Key>
-        </deviceKey>
-      </Target>
-      <Target>
-        <type value="RUNNING_DEVICE_TARGET" />
-        <deviceKey>
-          <Key>
             <type value="VIRTUAL_DEVICE_PATH" />
-            <value value="C:\Users\jacks\.android\avd\Pixel_4_API_33.avd" />
+            <value value="C:\Users\jacks\.android\avd\Pixel_2_API_33.avd" />
           </Key>
         </deviceKey>
       </Target>

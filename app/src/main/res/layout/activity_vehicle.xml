@@ -327,6 +327,7 @@
 
                     <Button
                         android:id="@+id/btColorCode"
+                        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                         android:layout_width="0dp"
                         android:layout_height="37dp"
                         android:layout_weight="3"
