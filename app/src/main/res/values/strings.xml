@@ -384,6 +384,14 @@
     <string name="Travel_Note">Travel Note</string>
     <string name="Travel_Status">Travel Status</string>
 
+    <!-- Travel Cash Dialog -->
+
+    <string name="TravelCash_Deleting">Deleting Travel Cash</string>
+    <string name="TravelCash_Currency">Currency</string>
+    <string name="TravelCash_Values">Travel Cash Values</string>
+    <string name="TravelCash_DateCash">Date Cash</string>
+    <string name="TravelCash_AmountCash">Amount Cash</string>
+
     <string name="closed">Closed</string>
 
     <!-- Travel Expenses Fragment -->

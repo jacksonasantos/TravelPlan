@@ -549,4 +549,9 @@
     <string name="Person_Register">Cadastrar Pessoa</string>
     <string name="Vehicle_Register">Cadastrar Veículo</string>
     <string name="Travel_Register">Cadastrar Viagem</string>
+    <string name="TravelCash_Values">Valores de Depósito de Viagem</string>
+    <string name="TravelCash_Currency">Moeda</string>
+    <string name="TravelCash_DateCash">Data Depósito</string>
+    <string name="TravelCash_AmountCash">Valor Depósito</string>
+    <string name="TravelCash_Deleting">Deletando Valores de Viagem</string>
 </resources>

@@ -37,6 +37,7 @@ import com.jacksonasantos.travelplan.ui.travel.TourActivity;
 import com.jacksonasantos.travelplan.ui.travel.TourListAdapter;
 import com.jacksonasantos.travelplan.ui.travel.TravelAchievementListAdapter;
 import com.jacksonasantos.travelplan.ui.travel.TravelActivity;
+import com.jacksonasantos.travelplan.ui.travel.TravelCashListAdapter;
 import com.jacksonasantos.travelplan.ui.travel.TravelExpensesExpectedListAdapter;
 import com.jacksonasantos.travelplan.ui.travel.TravelExpensesRealizedListAdapter;
 import com.jacksonasantos.travelplan.ui.travel.TravelFuelSupplyListAdapter;
@@ -266,6 +267,7 @@ public class HomeTravelFragment extends Fragment implements View.OnClickListener
 
                     final RadioGroup rgTravelStatus = promptsView.findViewById(R.id.rgTravelStatus);
                     final RecyclerView rvVehicles = promptsView.findViewById(R.id.rvVehicles);
+                    final RecyclerView rvCash = promptsView.findViewById(R.id.rvCash);
 
                     Utils.addRadioButtonResources(R.array.travel_status_array, rgTravelStatus, requireContext());
                     rgTravelStatus.setOnCheckedChangeListener((group, checkedId) -> rbTravelStatus = checkedId);
@@ -277,6 +279,11 @@ public class HomeTravelFragment extends Fragment implements View.OnClickListener
                         rvVehicles.setAdapter(adapterTravelVehicleStatus);
                         rvVehicles.setLayoutManager(new LinearLayoutManager(getContext()));
                     }
+
+                    final int Show_Header_TravelCash = 1  ;
+                    TravelCashListAdapter adapterTravelCash = new TravelCashListAdapter(Database.mTravelCashDao.fetchAllTravelCashByTravel(travel[0].getId() ), getContext(), "Home", Show_Header_TravelCash);
+                    rvCash.setAdapter(adapterTravelCash);
+                    rvCash.setLayoutManager(new LinearLayoutManager(getContext()));
 
                     alertDialogBuilder
                             .setCancelable(false)
