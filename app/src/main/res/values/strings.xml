@@ -53,6 +53,7 @@
     <string name="menu_achievement">Achievement</string>
     <string name="menu_fuel_supply">Fuel Supply</string>
     <string name="menu_driver">Driver</string>
+    <string name="menu_account">Account</string>
     <string name="menu_person">Person</string>
     <string name="menu_maintenance_plan">Maintenance Plan</string>
     <string name="menu_maintenance">Maintenance Service</string>
@@ -387,6 +388,7 @@
     <!-- Travel Cash Dialog -->
 
     <string name="TravelCash_Deleting">Deleting Travel Cash</string>
+    <string name="TravelCash_Account">Account</string>
     <string name="TravelCash_Currency">Currency</string>
     <string name="TravelCash_Values">Travel Cash Values</string>
     <string name="TravelCash_DateCash">Date Cash</string>
@@ -705,4 +707,14 @@
     <string name="Reservation_Short_Rates">Days</string>
     <string name="Reservation_FileDownload">download PDF file of reservation</string>
     <string name="Achievement_Type">Type</string>
+
+    <!-- Account  -->
+    <string name="cash" translatable="false">Cash</string>
+    <string name="debit">Debit</string>
+    <string name="credit">Credit</string>
+
+    <string name="account">Account</string>
+    <string name="Account_Deleting">Account Deleting</string>
+    <string name="Account_Account_Type">Account Type</string>
+    <string name="Account_Description">Description</string>
 </resources>

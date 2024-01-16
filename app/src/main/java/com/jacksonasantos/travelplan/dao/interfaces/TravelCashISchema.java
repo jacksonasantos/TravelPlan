@@ -5,6 +5,7 @@ public interface TravelCashISchema {
     String TRAVEL_CASH_TABLE = "travel_cash";
 
     String TRAVEL_CASH_ID = "id";
+    String TRAVEL_CASH_ACCOUNT_ID = "account_id";
     String TRAVEL_CASH_TRAVEL_ID = "travel_id";
     String TRAVEL_CASH_CURRENCY_ID = "currency_id";
     String TRAVEL_CASH_CASH_DEPOSIT = "cash_deposit";
@@ -20,8 +21,13 @@ public interface TravelCashISchema {
             + TRAVEL_CASH_AMOUNT_DEPOSIT + " DOUBLE "
             + ")";
 
+    // Version 81_2
+    String ALTER_TABLE_TRAVEL_CASH_V81_2 = "ALTER TABLE " + TRAVEL_CASH_TABLE
+            + " ADD COLUMN " + TRAVEL_CASH_ACCOUNT_ID + " INTEGER REFERENCES " + AccountISchema.ACCOUNT_TABLE + " ("+AccountISchema.ACCOUNT_ID+") ";
+
     String[] TRAVEL_CASH_COLUMNS = new String[] {
             TRAVEL_CASH_ID,
+            TRAVEL_CASH_ACCOUNT_ID,
             TRAVEL_CASH_TRAVEL_ID,
             TRAVEL_CASH_CURRENCY_ID,
             TRAVEL_CASH_CASH_DEPOSIT,

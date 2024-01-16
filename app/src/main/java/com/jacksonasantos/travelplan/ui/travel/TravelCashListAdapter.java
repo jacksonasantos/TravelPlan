@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -18,6 +19,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.jacksonasantos.travelplan.R;
+import com.jacksonasantos.travelplan.dao.Account;
 import com.jacksonasantos.travelplan.dao.TravelCash;
 import com.jacksonasantos.travelplan.dao.general.Database;
 import com.jacksonasantos.travelplan.ui.utility.DateInputMask;
@@ -64,6 +66,7 @@ public class TravelCashListAdapter extends RecyclerView.Adapter<RecyclerView.Vie
             HeaderViewHolder headerViewHolder = (HeaderViewHolder) holder;
 
             headerViewHolder.llItemCash.setBackgroundColor(Utils.getColorWithAlpha(R.color.colorItemList,0.1f));
+            headerViewHolder.txtAccount.setText(R.string.TravelCash_Account);
             headerViewHolder.txtCurrency.setText(R.string.TravelCash_Currency);
             headerViewHolder.txtDtCash.setText(R.string.TravelCash_DateCash);
             headerViewHolder.txtVlrCash.setText(R.string.TravelCash_AmountCash);
@@ -74,12 +77,44 @@ public class TravelCashListAdapter extends RecyclerView.Adapter<RecyclerView.Vie
                 View promptsView = li.inflate(R.layout.dialog_travel_cash, null);
                 final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(v.getContext());
                 alertDialogBuilder.setView(promptsView);
+                final Spinner spinAccount = promptsView.findViewById(R.id.spinAccount);
                 final Spinner spinCurrency = promptsView.findViewById(R.id.spinCurrency);
                 final int[] nrSpCurrency = new int[1];
                 final EditText etDateCash = promptsView.findViewById(R.id.etDateCash);
                 final EditText etAmountCash = promptsView.findViewById(R.id.etAmountCash);
+                final Integer[] nrSpinAccount = {null};
 
                 etDateCash.addTextChangedListener(new DateInputMask(etDateCash));
+
+                final List<Account> accounts =  Database.mAccountDao.fetchAllAccount();
+                accounts.add(0, new Account());
+                ArrayAdapter<Account> adapterA = new ArrayAdapter<>(v.getContext(), android.R.layout.simple_spinner_item, accounts);
+                adapterA.setDropDownViewResource( android.R.layout.simple_spinner_dropdown_item);
+                spinAccount.setAdapter(adapterA);
+                if (nrSpinAccount[0] != null && nrSpinAccount[0] > 0) {
+                    Account acc1 = Database.mAccountDao.fetchAccountById(nrSpinAccount[0]);
+                    for (int x = 1; x <= spinAccount.getAdapter().getCount(); x++) {
+                        if (spinAccount.getAdapter().getItem(x).toString().equals(acc1.getDescription())) {
+                            spinAccount.setSelection(x);
+                            nrSpinAccount[0] = acc1.getId();
+                            break;
+                        }
+                    }
+                }
+                final Account[] a1 = {new Account()};
+                spinAccount.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> parent, View view, int position, long idx) {
+                        a1[0] = (Account) parent.getItemAtPosition(position);
+                        nrSpinAccount[0] = a1[0].getId();
+                    }
+                    @Override
+                    public void onNothingSelected(AdapterView<?> adapterView) {
+                        nrSpinAccount[0] = null;
+                    }
+                });
+                adapterA.notifyDataSetChanged();
+
                 Utils.createSpinnerResources(R.array.currency_array, spinCurrency, context);
                 spinCurrency.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                     @Override
@@ -98,6 +133,7 @@ public class TravelCashListAdapter extends RecyclerView.Adapter<RecyclerView.Vie
                         .setPositiveButton(R.string.OK, (dialog, id) -> {
                             boolean isSave = false;
                             TravelCash TC = new TravelCash();
+                            TC.setAccount_id(nrSpinAccount[0]);
                             TC.setTravel_id(g.getIdTravel());
                             TC.setCurrency_id(spinCurrency.getSelectedItemPosition());
                             TC.setCash_deposit(Utils.stringToDate(etDateCash.getText().toString()));
@@ -126,6 +162,7 @@ public class TravelCashListAdapter extends RecyclerView.Adapter<RecyclerView.Vie
             final ItemViewHolder itemViewHolder = (ItemViewHolder) holder;
             final TravelCash travelCash = mTravelCash.get(position-show_header);
 
+            itemViewHolder.txtAccount.setText(Database.mAccountDao.fetchAccountById(travelCash.getAccount_id()).getDescription());
             itemViewHolder.txtCurrency.setText(context.getResources().getStringArray(R.array.currency_array)[travelCash.getCurrency_id()]);
             itemViewHolder.txtDtCash.setText(Utils.dateToString(travelCash.getCash_deposit()));
             itemViewHolder.txtVlrCash.setText(Double.toString(travelCash.getAmount_deposit()));
@@ -154,12 +191,43 @@ public class TravelCashListAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 
                 alertDialogBuilder.setView(promptsView);
 
+                final Spinner spinAccount = promptsView.findViewById(R.id.spinAccount);
                 final Spinner spinCurrency = promptsView.findViewById(R.id.spinCurrency);
                 final int[] nrSpCurrency = new int[1];
                 final EditText etDateCash = promptsView.findViewById(R.id.etDateCash);
                 final EditText etAmountCash = promptsView.findViewById(R.id.etAmountCash);
+                final Integer[] nrSpinAccount = {travelCash.getAccount_id()};
 
                 etDateCash.addTextChangedListener(new DateInputMask(etDateCash));
+
+                final List<Account> accounts =  Database.mAccountDao.fetchAllAccount();
+                accounts.add(0, new Account());
+                ArrayAdapter<Account> adapterA = new ArrayAdapter<>(v.getContext(), android.R.layout.simple_spinner_item, accounts);
+                adapterA.setDropDownViewResource( android.R.layout.simple_spinner_dropdown_item);
+                spinAccount.setAdapter(adapterA);
+                if (nrSpinAccount[0] != null && nrSpinAccount[0] > 0) {
+                    Account acc1 = Database.mAccountDao.fetchAccountById(nrSpinAccount[0]);
+                    for (int x = 1; x <= spinAccount.getAdapter().getCount(); x++) {
+                        if (spinAccount.getAdapter().getItem(x).toString().equals(acc1.getDescription())) {
+                            spinAccount.setSelection(x);
+                            nrSpinAccount[0] = acc1.getId();
+                            break;
+                        }
+                    }
+                }
+                final Account[] a1 = {new Account()};
+                spinAccount.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> parent, View view, int position, long idx) {
+                        a1[0] = (Account) parent.getItemAtPosition(position);
+                        nrSpinAccount[0] = a1[0].getId();
+                    }
+                    @Override
+                    public void onNothingSelected(AdapterView<?> adapterView) {
+                        nrSpinAccount[0] = null;
+                    }
+                });
+                adapterA.notifyDataSetChanged();
 
                 Utils.createSpinnerResources(R.array.currency_array, spinCurrency, context);
                 spinCurrency.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -183,6 +251,7 @@ public class TravelCashListAdapter extends RecyclerView.Adapter<RecyclerView.Vie
                         .setPositiveButton(R.string.OK, (dialog, id) -> {
                             boolean isSave = false;
 
+                            travelCash.setAccount_id(nrSpinAccount[0]);
                             travelCash.setCurrency_id(nrSpCurrency[0]);
                             travelCash.setCash_deposit(Utils.stringToDate(etDateCash.getText().toString()));
                             travelCash.setAmount_deposit(Double.parseDouble(etAmountCash.getText().toString()));
@@ -221,6 +290,7 @@ public class TravelCashListAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 
     private static class HeaderViewHolder extends RecyclerView.ViewHolder {
         public final LinearLayout llItemCash;
+        public final TextView txtAccount;
         public final TextView txtCurrency;
         public final TextView txtDtCash;
         public final TextView txtVlrCash;
@@ -229,6 +299,7 @@ public class TravelCashListAdapter extends RecyclerView.Adapter<RecyclerView.Vie
         public HeaderViewHolder(View v) {
             super(v);
             llItemCash = v.findViewById(R.id.llItemCash);
+            txtAccount = v.findViewById(R.id.txtAccount);
             txtCurrency = v.findViewById(R.id.txtCurrency);
             txtDtCash = v.findViewById(R.id.txtDtCash);
             txtVlrCash = v.findViewById(R.id.txtVlrCash);
@@ -238,6 +309,7 @@ public class TravelCashListAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 
     public static class ItemViewHolder extends RecyclerView.ViewHolder {
         public final LinearLayout llItemCash;
+        public final TextView txtAccount;
         public final TextView txtCurrency;
         public final TextView txtDtCash;
         public final TextView txtVlrCash;
@@ -246,6 +318,7 @@ public class TravelCashListAdapter extends RecyclerView.Adapter<RecyclerView.Vie
         public ItemViewHolder(View v) {
             super(v);
             llItemCash = v.findViewById(R.id.llItemCash);
+            txtAccount = v.findViewById(R.id.txtAccount);
             txtCurrency = v.findViewById(R.id.txtCurrency);
             txtDtCash = v.findViewById(R.id.txtDtCash);
             txtVlrCash = v.findViewById(R.id.txtVlrCash);

@@ -66,6 +66,9 @@
             android:name=".ui.general.PersonActivity"
             android:label="@string/Person" />
         <activity
+            android:name=".ui.general.AccountActivity"
+            android:label="@string/account" />
+        <activity
             android:name=".ui.general.MaintenancePlanActivity"
             android:label="@string/Maintenance_Plan" />
         <activity

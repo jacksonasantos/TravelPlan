@@ -4,6 +4,7 @@ import java.util.Date;
 
 public class TravelCash {
     public Integer id;
+    public Integer account_id;
     public Integer travel_id;
     public int currency_id;
     public Date cash_deposit;
@@ -14,6 +15,9 @@ public class TravelCash {
 
     public Integer getId() { return id; }
     public void setId(Integer id) { this.id = id; }
+
+    public Integer getAccount_id() { return account_id; }
+    public void setAccount_id(Integer account_id) { this.account_id = account_id; }
 
     public Integer getTravel_id() { return travel_id; }
     public void setTravel_id(Integer travel_id) { this.travel_id = travel_id; }

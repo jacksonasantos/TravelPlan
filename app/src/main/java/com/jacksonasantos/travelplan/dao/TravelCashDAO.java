@@ -91,6 +91,7 @@ public class TravelCashDAO extends DbContentProvider implements TravelCashISchem
         TravelCash tc = new TravelCash();
         if (c != null) {
             if (c.getColumnIndex(TRAVEL_CASH_ID) != -1)                  {tc.id = c.getInt(c.getColumnIndexOrThrow(TRAVEL_CASH_ID)); }
+            if (c.getColumnIndex(TRAVEL_CASH_ACCOUNT_ID) != -1)          {tc.account_id = c.getInt(c.getColumnIndexOrThrow(TRAVEL_CASH_ACCOUNT_ID)); }
             if (c.getColumnIndex(TRAVEL_CASH_TRAVEL_ID) != -1)           {tc.travel_id = c.getInt(c.getColumnIndexOrThrow(TRAVEL_CASH_TRAVEL_ID)); }
             if (c.getColumnIndex(TRAVEL_CASH_CURRENCY_ID) != -1)         {tc.currency_id = c.getInt(c.getColumnIndexOrThrow(TRAVEL_CASH_CURRENCY_ID)); }
             if (c.getColumnIndex(TRAVEL_CASH_CASH_DEPOSIT) != -1)        {tc.cash_deposit = Utils.dateParse(c.getString(c.getColumnIndexOrThrow(TRAVEL_CASH_CASH_DEPOSIT))); }
@@ -102,6 +103,7 @@ public class TravelCashDAO extends DbContentProvider implements TravelCashISchem
     private void setContentValue(TravelCash tc) {
         initialValues = new ContentValues();
         initialValues.put(TRAVEL_CASH_ID, tc.id);
+        initialValues.put(TRAVEL_CASH_ACCOUNT_ID, tc.account_id);
         initialValues.put(TRAVEL_CASH_TRAVEL_ID, tc.travel_id);
         initialValues.put(TRAVEL_CASH_CURRENCY_ID, tc.currency_id);
         initialValues.put(TRAVEL_CASH_CASH_DEPOSIT, Utils.dateFormat(tc.cash_deposit));

@@ -30,14 +30,14 @@
                     android:id="@+id/rgTravelStatus"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="0.55"
+                    android:layout_weight="0.6"
                     android:orientation="vertical"
                     android:text="@string/Travel_Status"
                     tools:ignore="SmallSp" />
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="0.45"
+                    android:layout_weight="0.4"
                     android:orientation="vertical">
                     <TextView
                         android:layout_width="match_parent"

@@ -9,10 +9,20 @@
     tools:context=".ui.home.HomeTravelFragment">
 
     <TextView
+        android:id="@+id/txtAccount"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="2.5"
+        android:layout_gravity="center"
+        android:gravity="start|center_vertical"
+        android:textSize="9sp"
+        tools:ignore="SmallSp" />
+
+    <TextView
         android:id="@+id/txtCurrency"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="3"
+        android:layout_weight="2"
         android:layout_gravity="center"
         android:gravity="start|center_vertical"
         android:textSize="9sp"
@@ -22,7 +32,7 @@
         android:id="@+id/txtDtCash"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="4"
+        android:layout_weight="3"
         android:layout_gravity="center"
         android:gravity="center"
         android:textSize="9sp"
@@ -31,9 +41,9 @@
         android:id="@+id/txtVlrCash"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="3"
+        android:layout_weight="2.5"
         android:layout_gravity="center"
-        android:gravity="center"
+        android:gravity="end"
         android:textSize="9sp"
         tools:ignore="SmallSp" />
 

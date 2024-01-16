@@ -554,4 +554,12 @@
     <string name="TravelCash_DateCash">Data Depósito</string>
     <string name="TravelCash_AmountCash">Valor Depósito</string>
     <string name="TravelCash_Deleting">Deletando Valores de Viagem</string>
+    <string name="debit">Débito</string>
+    <string name="credit">Crédito</string>
+    <string name="Account_Account_Type">Tipo Conta</string>
+    <string name="Account_Description">Descrição</string>
+    <string name="account">Contas</string>
+    <string name="Account_Deleting">Deletando Conta</string>
+    <string name="menu_account">Conta</string>
+    <string name="TravelCash_Account">Conta</string>
 </resources>

@@ -8,6 +8,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.jacksonasantos.travelplan.dao.AccommodationDAO;
+import com.jacksonasantos.travelplan.dao.AccountDAO;
 import com.jacksonasantos.travelplan.dao.AchievementDAO;
 import com.jacksonasantos.travelplan.dao.BrokerDAO;
 import com.jacksonasantos.travelplan.dao.CurrencyQuoteDAO;
@@ -71,9 +72,10 @@ public class Database {
     private final Context mContext;
 
     private static final String DATABASE_NAME = "TravelPlan.db";
-    private static final int DATABASE_VERSION = 80;
+    private static final int DATABASE_VERSION = 81;
 
     public static AccommodationDAO mAccommodationDao;
+    public static AccountDAO mAccountDao;
     public static AchievementDAO mAchievementDao;
     public static BrokerDAO mBrokerDao;
     public static CurrencyQuoteDAO mCurrencyQuoteDao;
@@ -149,6 +151,7 @@ public class Database {
             mPersonDao = new PersonDAO(mDb);
             mItineraryHasTransportDao = new ItineraryHasTransportDAO(mDb);
             mTravelCashDao = new TravelCashDAO(mDb);
+            mAccountDao = new AccountDAO(mDb);
         } catch (Exception e) {
             Log.i("Open Database ", "Error : " + e.getMessage());
             Toast.makeText(mContext, "Error Open Database : " + e.getMessage(), Toast.LENGTH_LONG).show();
@@ -284,6 +287,8 @@ public class Database {
             db.execSQL(TourISchema.ALTER_TABLE_TOUR_V78);Log.w("Table "+TourISchema.TOUR_TABLE,"V78 - Alter Table...");
             db.execSQL(AchievementISchema.ALTER_TABLE_ACHIEVEMENT_V79);Log.w("Table "+AchievementISchema.ACHIEVEMENT_TABLE,"V79 - Alter Table...");
             db.execSQL(TravelCashDAO.CREATE_TABLE_TRAVEL_CASH_V80);Log.w("Table "+TravelCashDAO.TRAVEL_CASH_TABLE,"V80 - Create Table...");
+            db.execSQL(AccountDAO.CREATE_TABLE_ACCOUNT_V81_1);Log.w("Table "+AccountDAO.ACCOUNT_TABLE,"V81.1 - Create Table...");
+            db.execSQL(TravelCashDAO.ALTER_TABLE_TRAVEL_CASH_V81_2);Log.w("Table "+TravelCashDAO.TRAVEL_CASH_TABLE,"V81.2 - Create Table...");
         }
 
         @SuppressLint("SQLiteString")
@@ -539,6 +544,10 @@ public class Database {
                         break;
                     case 80:
                         db.execSQL(TravelCashDAO.CREATE_TABLE_TRAVEL_CASH_V80);Log.w("Table "+TravelCashDAO.TRAVEL_CASH_TABLE,"V80 - Create Table...");
+                        break;
+                    case 81:
+                        db.execSQL(AccountDAO.CREATE_TABLE_ACCOUNT_V81_1);Log.w("Table "+AccountDAO.ACCOUNT_TABLE,"V81.1 - Create Table...");
+                        db.execSQL(TravelCashDAO.ALTER_TABLE_TRAVEL_CASH_V81_2);Log.w("Table "+TravelCashDAO.TRAVEL_CASH_TABLE,"V81.2 - Create Table...");
                         break;
                     default:
                         break;
