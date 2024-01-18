@@ -40,6 +40,7 @@ import com.jacksonasantos.travelplan.ui.travel.TravelActivity;
 import com.jacksonasantos.travelplan.ui.travel.TravelCashListAdapter;
 import com.jacksonasantos.travelplan.ui.travel.TravelExpensesExpectedListAdapter;
 import com.jacksonasantos.travelplan.ui.travel.TravelExpensesRealizedListAdapter;
+import com.jacksonasantos.travelplan.ui.travel.TravelFinancialStatementListAdapter;
 import com.jacksonasantos.travelplan.ui.travel.TravelFuelSupplyListAdapter;
 import com.jacksonasantos.travelplan.ui.travel.TravelRouteFragment;
 import com.jacksonasantos.travelplan.ui.travel.TravelVehicleListAdapter;
@@ -78,6 +79,10 @@ public class HomeTravelFragment extends Fragment implements View.OnClickListener
 
     private ConstraintLayout layerExpense;
     private RecyclerView listTravelExpenses;
+
+    private ConstraintLayout layerFinancial;
+    private RecyclerView listTravelFinancialStatement;
+    private ImageButton btnMinimizeFinancial;
 
     private ConstraintLayout layerVehicle;
     private RecyclerView listVehicle;
@@ -137,6 +142,10 @@ public class HomeTravelFragment extends Fragment implements View.OnClickListener
         layerExpense = v.findViewById(R.id.layerExpense);
         listTravelExpenses = v.findViewById(R.id.listTravelExpenses);
 
+        layerFinancial = v.findViewById(R.id.layerFinancial);
+        listTravelFinancialStatement = v.findViewById(R.id.listTravelFinancialStatement);
+        btnMinimizeFinancial = v.findViewById(R.id.btnMinimizeFinancial);
+
         layerItineraryHasTransport = v.findViewById(R.id.layerItineraryHasTransport);
         listItineraryHasTransport = v.findViewById(R.id.listItineraryHasTransport);
 
@@ -168,6 +177,7 @@ public class HomeTravelFragment extends Fragment implements View.OnClickListener
         layerTravel.setVisibility(View.INVISIBLE);
         layerBtnMenu.setVisibility(View.INVISIBLE);
         layerExpense.setVisibility(View.INVISIBLE);
+        layerFinancial.setVisibility(View.INVISIBLE);
         layerItineraryHasTransport.setVisibility(View.INVISIBLE);
         layerVehicle.setVisibility(View.INVISIBLE);
         layerTour.setVisibility(View.INVISIBLE);
@@ -207,6 +217,7 @@ public class HomeTravelFragment extends Fragment implements View.OnClickListener
             layerTravel.setVisibility(View.GONE);
             layerBtnMenu.setVisibility(View.GONE);
             layerExpense.setVisibility(View.GONE);
+            layerFinancial.setVisibility(View.GONE);
             layerItineraryHasTransport.setVisibility(View.GONE);
             layerVehicle.setVisibility(View.GONE);
             layerTour.setVisibility(View.GONE);
@@ -229,7 +240,7 @@ public class HomeTravelFragment extends Fragment implements View.OnClickListener
 
         final Travel[] travel = {new Travel()};
         spTravel.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @SuppressLint({"SetTextI18n", "NotifyDataSetChanged"})
+            @SuppressLint({"SetTextI18n", "NotifyDataSetChanged", "WrongConstant"})
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
@@ -413,8 +424,8 @@ public class HomeTravelFragment extends Fragment implements View.OnClickListener
                 });
 
                 // Expenses - LayerExpense
-                final int Show_Header_SummaryExpense = 1; // 0 - NO SHOW HEADER | 1 - SHOW HEADER
-                final int Show_Footer_SummaryExpense = 1; // 0 - NO SHOW FOOTER | 1 - SHOW FOOTER
+                final int Show_Header_SummaryExpense = 1;
+                final int Show_Footer_SummaryExpense = 1;
                 HomeTravelSummaryExpenseListAdapter adapterTravelExpense = new HomeTravelSummaryExpenseListAdapter( Database.mSummaryTravelExpenseDao.findTravelExpense(travel[0].getId() ), getContext(), Show_Header_SummaryExpense, Show_Footer_SummaryExpense);
                 if ( adapterTravelExpense.getItemCount() > Show_Header_SummaryExpense+Show_Footer_SummaryExpense){
                     layerExpense.setVisibility(View.VISIBLE);
@@ -422,6 +433,20 @@ public class HomeTravelFragment extends Fragment implements View.OnClickListener
                     listTravelExpenses.setLayoutManager(new LinearLayoutManager(getContext()));
                 } else {
                     layerExpense.setVisibility(View.GONE);
+                }
+
+                // Financial Statement - LayerFinancial
+                final int Show_Header_FinancialStatement = 1;
+                TravelFinancialStatementListAdapter adapterFinancialStatement = new TravelFinancialStatementListAdapter( travel[0].getId(), Database.mTravelItemExpensesDao.findTravelFinancialStatement(travel[0].getId() ), getContext(), Show_Header_FinancialStatement, true);
+                if ( adapterFinancialStatement.getItemCount() > Show_Header_FinancialStatement){
+                    btnMinimizeFinancial.setOnClickListener(v -> {
+                        listTravelFinancialStatement.setVisibility(listTravelFinancialStatement.getVisibility() ^ View.GONE);
+                    });
+                    layerFinancial.setVisibility(View.VISIBLE);
+                    listTravelFinancialStatement.setAdapter(adapterFinancialStatement);
+                    listTravelFinancialStatement.setLayoutManager(new LinearLayoutManager(getContext()));
+                } else {
+                    layerFinancial.setVisibility(View.GONE);
                 }
 
                 // Itinerary
@@ -515,6 +540,7 @@ public class HomeTravelFragment extends Fragment implements View.OnClickListener
                 }
 
                 adapterTravelExpense.notifyDataSetChanged();
+                adapterFinancialStatement.notifyDataSetChanged();
                 adapterItinerary.notifyDataSetChanged();
                 adapterVehicleTravel.notifyDataSetChanged();
                 adapterItineraryHasTransport.notifyDataSetChanged();

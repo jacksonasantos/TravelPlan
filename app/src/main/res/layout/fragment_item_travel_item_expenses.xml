@@ -12,9 +12,20 @@
     tools:context=".ui.travel.TravelActivity">
 
     <TextView
+        android:id="@+id/txtAccount"
+        android:layout_width="0dp"
+        android:layout_height="20dp"
+        android:gravity="start|center_vertical"
+        android:layout_weight="0.30"
+        app:autoSizeMaxTextSize="12sp"
+        app:autoSizeMinTextSize="6sp"
+        app:autoSizeStepGranularity="1sp"
+        app:autoSizeTextType="uniform" />
+
+    <TextView
         android:id="@+id/txtExpenseDate"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="20dp"
         android:gravity="start|center_vertical"
         android:layout_weight="0.30"
         app:autoSizeMaxTextSize="12sp"
@@ -25,7 +36,7 @@
     <TextView
         android:id="@+id/txtRealizedValue"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="20dp"
         android:layout_marginStart="@dimen/labels_margin"
         android:gravity="end|center_vertical"
         android:layout_weight="0.25"
@@ -37,7 +48,7 @@
     <TextView
         android:id="@+id/txtNote"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="20dp"
         android:layout_marginStart="@dimen/labels_margin"
         android:gravity="start|center_vertical"
         android:layout_weight="0.45"

@@ -247,8 +247,8 @@
     <string name="TravelExpenses_ExpectedValue">Valor Previsto</string>
     <string name="TravelExpenses_Note">Observação</string>
     <string name="TravelItemExpenses_Note">Observação</string>
-    <string name="TravelItemExpenses_RealizedValue">Valor Realizado</string>
-    <string name="TravelItemExpenses_ExpenseDate">Data Despesa</string>
+    <string name="TravelItemExpenses_RealizedValue">Valor</string>
+    <string name="TravelItemExpenses_ExpenseDate">Date</string>
     <string name="TravelItemExpenses_Deleting">Excluindo Item de Despesa de Viagem</string>
     <string name="Reservation_Daily">Dias</string>
     <string name="Itinerary_Source">Origem</string>
@@ -562,4 +562,9 @@
     <string name="Account_Deleting">Deletando Conta</string>
     <string name="menu_account">Conta</string>
     <string name="TravelCash_Account">Conta</string>
+    <string name="TravelItemExpenses_Account">Conta</string>
+    <string name="TravelItemExpenses_Currency">Moeda</string>
+    <string name="Travel_Status_Executing">A viagem deve estar em status mínimo de \"Em Execução\"</string>
+    <string name="Travel_FinancialStatement">Extrato Financeiro da Viagem</string>
+    <string name="TravelItemExpenses_RealizedBalance">Saldo</string>
 </resources>

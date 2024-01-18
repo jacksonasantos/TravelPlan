@@ -322,6 +322,59 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layerFinancial"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginStart="@dimen/labels_margin"
+            android:layout_marginLeft="@dimen/labels_margin"
+            android:layout_marginEnd="@dimen/labels_margin"
+            android:layout_marginRight="@dimen/labels_margin"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/layerExpense">
+
+            <TextView
+                android:id="@+id/tvFinancialStatement"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/Travel_FinancialStatement"
+                android:textColor="@color/design_default_color_secondary_variant"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageButton
+                android:id="@+id/btnMinimizeFinancial"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:contentDescription="@string/Travel_FinancialStatement"
+                app:layout_constraintBottom_toBottomOf="@+id/tvFinancialStatement"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_minimize" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/listTravelFinancialStatement"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:scrollbars="vertical"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvFinancialStatement"
+                tools:itemCount="2" />
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="16dp"
+                android:clickable="false"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/listTravelFinancialStatement" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/layerItinerary"
             android:layout_width="match_parent"
             android:layout_height="0dp"
@@ -329,7 +382,7 @@
             android:layout_marginEnd="@dimen/labels_margin"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/layerExpense">
+            app:layout_constraintTop_toBottomOf="@+id/layerFinancial">
 
             <TextView
                 android:id="@+id/tvItinerary"
