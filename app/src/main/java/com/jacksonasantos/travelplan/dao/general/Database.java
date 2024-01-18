@@ -72,7 +72,7 @@ public class Database {
     private final Context mContext;
 
     private static final String DATABASE_NAME = "TravelPlan.db";
-    private static final int DATABASE_VERSION = 81;
+    private static final int DATABASE_VERSION = 82;
 
     public static AccommodationDAO mAccommodationDao;
     public static AccountDAO mAccountDao;
@@ -289,6 +289,8 @@ public class Database {
             db.execSQL(TravelCashDAO.CREATE_TABLE_TRAVEL_CASH_V80);Log.w("Table "+TravelCashDAO.TRAVEL_CASH_TABLE,"V80 - Create Table...");
             db.execSQL(AccountDAO.CREATE_TABLE_ACCOUNT_V81_1);Log.w("Table "+AccountDAO.ACCOUNT_TABLE,"V81.1 - Create Table...");
             db.execSQL(TravelCashDAO.ALTER_TABLE_TRAVEL_CASH_V81_2);Log.w("Table "+TravelCashDAO.TRAVEL_CASH_TABLE,"V81.2 - Create Table...");
+            db.execSQL(TravelItemExpensesISchema.ALTER_TABLE_TRAVEL_ITEM_EXPENSES_V82_1); Log.w("Ta "+TravelItemExpensesISchema.TRAVEL_ITEM_EXPENSES_TABLE,"V82.1 - Alter Table...");
+            db.execSQL(TravelItemExpensesISchema.ALTER_TABLE_TRAVEL_ITEM_EXPENSES_V82_2); Log.w("Ta "+TravelItemExpensesISchema.TRAVEL_ITEM_EXPENSES_TABLE,"V82.2 - Alter Table...");
         }
 
         @SuppressLint("SQLiteString")
@@ -548,6 +550,10 @@ public class Database {
                     case 81:
                         db.execSQL(AccountDAO.CREATE_TABLE_ACCOUNT_V81_1);Log.w("Table "+AccountDAO.ACCOUNT_TABLE,"V81.1 - Create Table...");
                         db.execSQL(TravelCashDAO.ALTER_TABLE_TRAVEL_CASH_V81_2);Log.w("Table "+TravelCashDAO.TRAVEL_CASH_TABLE,"V81.2 - Create Table...");
+                        break;
+                    case 82:
+                        db.execSQL(TravelItemExpensesISchema.ALTER_TABLE_TRAVEL_ITEM_EXPENSES_V82_1); Log.w("Ta "+TravelItemExpensesISchema.TRAVEL_ITEM_EXPENSES_TABLE,"V82.1 - Alter Table...");
+                        db.execSQL(TravelItemExpensesISchema.ALTER_TABLE_TRAVEL_ITEM_EXPENSES_V82_2); Log.w("Ta "+TravelItemExpensesISchema.TRAVEL_ITEM_EXPENSES_TABLE,"V82.2 - Alter Table...");
                         break;
                     default:
                         break;

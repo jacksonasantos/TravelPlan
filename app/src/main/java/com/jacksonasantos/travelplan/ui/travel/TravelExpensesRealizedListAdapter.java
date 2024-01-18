@@ -5,9 +5,12 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -16,6 +19,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.jacksonasantos.travelplan.R;
+import com.jacksonasantos.travelplan.dao.Account;
 import com.jacksonasantos.travelplan.dao.Travel;
 import com.jacksonasantos.travelplan.dao.TravelItemExpenses;
 import com.jacksonasantos.travelplan.dao.general.Database;
@@ -72,6 +76,7 @@ public class TravelExpensesRealizedListAdapter extends RecyclerView.Adapter<Recy
             HeaderViewHolder headerViewHolder = (HeaderViewHolder) holder;
             Travel mTravel = Database.mTravelDao.fetchTravelById(mTravel_id);
             headerViewHolder.llTravelExpenses.setBackgroundColor(Utils.getColorWithAlpha(R.color.colorItemList,0.1f));
+            headerViewHolder.txtAccount.setText(R.string.TravelItemExpenses_Account);
             headerViewHolder.txtExpenseDate.setText(R.string.TravelItemExpenses_Date);
             headerViewHolder.txtRealizedValue.setText(R.string.TravelItemExpenses_Value);
             headerViewHolder.txtNote.setText(R.string.TravelExpenses_Note);
@@ -84,10 +89,57 @@ public class TravelExpensesRealizedListAdapter extends RecyclerView.Adapter<Recy
                     View promptsView = li.inflate(R.layout.dialog_travel_expenses_realized, null);
                     final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(v.getContext());
                     alertDialogBuilder.setView(promptsView);
+                    final Spinner spinAccount = promptsView.findViewById(R.id.spinAccount);
+                    final Spinner spinCurrency = promptsView.findViewById(R.id.spinCurrency);
                     final EditText etExpenseDate = promptsView.findViewById(R.id.etExpenseDate);
                     final EditText etExpenseItemRealizedValue = promptsView.findViewById(R.id.etExpenseItemRealizedValue);
                     final EditText etExpenseItemNote = promptsView.findViewById(R.id.etExpenseItemNote);
                     etExpenseDate.addTextChangedListener(new DateInputMask(etExpenseDate));
+                    final int[] nrSpCurrency = new int[1];
+                    final Integer[] nrSpinAccount = {null};
+                    final List<Account> accounts =  Database.mAccountDao.fetchAllAccount();
+                    accounts.add(0, new Account());
+                    ArrayAdapter<Account> adapterA = new ArrayAdapter<>(v.getContext(), android.R.layout.simple_spinner_item, accounts);
+                    adapterA.setDropDownViewResource( android.R.layout.simple_spinner_dropdown_item);
+                    spinAccount.setAdapter(adapterA);
+                    if (nrSpinAccount[0] != null && nrSpinAccount[0] > 0) {
+                        Account acc1 = Database.mAccountDao.fetchAccountById(nrSpinAccount[0]);
+                        for (int x = 1; x <= spinAccount.getAdapter().getCount(); x++) {
+                            if (spinAccount.getAdapter().getItem(x).toString().equals(acc1.getDescription())) {
+                                spinAccount.setSelection(x);
+                                nrSpinAccount[0] = acc1.getId();
+                                break;
+                            }
+                        }
+                    }
+                    final Account[] a1 = {new Account()};
+                    spinAccount.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                        @Override
+                        public void onItemSelected(AdapterView<?> parent, View view, int position, long idx) {
+                            a1[0] = (Account) parent.getItemAtPosition(position);
+                            nrSpinAccount[0] = a1[0].getId();
+                        }
+                        @Override
+                        public void onNothingSelected(AdapterView<?> adapterView) {
+                            nrSpinAccount[0] = null;
+                        }
+                    });
+                    adapterA.notifyDataSetChanged();
+
+                    Utils.createSpinnerResources(R.array.currency_array, spinCurrency, context);
+                    spinCurrency.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                        @Override
+                        public void onItemSelected(AdapterView<?> parent, View view, int position, long idx) {
+                            nrSpCurrency[0] = position;
+                            spinCurrency.setSelection(nrSpCurrency[0]);
+                        }
+                        @Override
+                        public void onNothingSelected(AdapterView<?> adapterView) {
+                            nrSpCurrency[0] =0;
+                        }
+                    });
+
+
                     alertDialogBuilder
                             .setCancelable(false)
                             .setPositiveButton(R.string.OK, (dialog, id1) -> {
@@ -95,6 +147,8 @@ public class TravelExpensesRealizedListAdapter extends RecyclerView.Adapter<Recy
                                 TravelItemExpenses tie = new TravelItemExpenses();
                                 try {
                                     tie.setTravel_id(mTravel_id);
+                                    tie.setAccount_id(nrSpinAccount[0]);
+                                    tie.setCurrency_id(nrSpCurrency[0]);
                                     tie.setExpense_type(mExpense_type);
                                     tie.setExpense_date(Utils.stringToDate(etExpenseDate.getText().toString()));
                                     if (!etExpenseItemRealizedValue.getText().toString().isEmpty()) {
@@ -121,6 +175,7 @@ public class TravelExpensesRealizedListAdapter extends RecyclerView.Adapter<Recy
         } else if (holder instanceof FooterViewHolder) {
             FooterViewHolder footerViewHolder = (FooterViewHolder) holder;
             footerViewHolder.llTravelExpenses.setBackgroundColor(Utils.getColorWithAlpha(R.color.colorItemList,0.1f));
+            footerViewHolder.txtAccount.setText("");
             footerViewHolder.txtExpenseDate.setText(R.string.TravelExpenses_Sum);
             footerViewHolder.txtRealizedValue.setText(currencyFormatter.format(vTotal));
             footerViewHolder.txtNote.setText("");
@@ -129,6 +184,7 @@ public class TravelExpensesRealizedListAdapter extends RecyclerView.Adapter<Recy
         } else if (holder instanceof ItemViewHolder) {
             final ItemViewHolder itemViewHolder = (ItemViewHolder) holder;
             final TravelItemExpenses travelItemExpenses = mTravelItemExpenses.get(position - show_header);
+            itemViewHolder.txtAccount.setText(Database.mAccountDao.fetchAccountById(travelItemExpenses.getAccount_id()).getDescription());
             itemViewHolder.txtExpenseDate.setText(Utils.dateToString(travelItemExpenses.getExpense_date()));
             itemViewHolder.txtNote.setText(travelItemExpenses.getNote());
 
@@ -152,9 +208,57 @@ public class TravelExpensesRealizedListAdapter extends RecyclerView.Adapter<Recy
                 View promptsView = li.inflate(R.layout.dialog_travel_expenses_realized, null);
                 final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(v.getContext());
                 alertDialogBuilder.setView(promptsView);
+                final Spinner spinAccount = promptsView.findViewById(R.id.spinAccount);
+                final Spinner spinCurrency = promptsView.findViewById(R.id.spinCurrency);
                 final EditText etExpenseDate = promptsView.findViewById(R.id.etExpenseDate);
                 final EditText etExpenseItemRealizedValue = promptsView.findViewById(R.id.etExpenseItemRealizedValue);
                 final EditText etExpenseItemNote = promptsView.findViewById(R.id.etExpenseItemNote);
+
+                final int[] nrSpCurrency = new int[1];
+                final Integer[] nrSpinAccount = {travelItemExpenses.getAccount_id()};
+                final List<Account> accounts =  Database.mAccountDao.fetchAllAccount();
+                accounts.add(0, new Account());
+                ArrayAdapter<Account> adapterA = new ArrayAdapter<>(v.getContext(), android.R.layout.simple_spinner_item, accounts);
+                adapterA.setDropDownViewResource( android.R.layout.simple_spinner_dropdown_item);
+                spinAccount.setAdapter(adapterA);
+                if (nrSpinAccount[0] != null && nrSpinAccount[0] > 0) {
+                    Account acc1 = Database.mAccountDao.fetchAccountById(nrSpinAccount[0]);
+                    for (int x = 1; x <= spinAccount.getAdapter().getCount(); x++) {
+                        if (spinAccount.getAdapter().getItem(x).toString().equals(acc1.getDescription())) {
+                            spinAccount.setSelection(x);
+                            nrSpinAccount[0] = acc1.getId();
+                            break;
+                        }
+                    }
+                }
+                final Account[] a1 = {new Account()};
+                spinAccount.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> parent, View view, int position, long idx) {
+                        a1[0] = (Account) parent.getItemAtPosition(position);
+                        nrSpinAccount[0] = a1[0].getId();
+                    }
+                    @Override
+                    public void onNothingSelected(AdapterView<?> adapterView) {
+                        nrSpinAccount[0] = null;
+                    }
+                });
+                adapterA.notifyDataSetChanged();
+
+                Utils.createSpinnerResources(R.array.currency_array, spinCurrency, context);
+                spinCurrency.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> parent, View view, int position, long idx) {
+                        nrSpCurrency[0] = position;
+                        spinCurrency.setSelection(nrSpCurrency[0]);
+                    }
+                    @Override
+                    public void onNothingSelected(AdapterView<?> adapterView) {
+                        nrSpCurrency[0] =0;
+                    }
+                });
+
+                spinCurrency.setSelection(travelItemExpenses.getCurrency_id());
 
                 etExpenseDate.setText(Utils.dateToString(travelItemExpenses.getExpense_date()));
                 etExpenseItemRealizedValue.setText(String.valueOf(travelItemExpenses.getRealized_value()));
@@ -169,6 +273,8 @@ public class TravelExpensesRealizedListAdapter extends RecyclerView.Adapter<Recy
                             try {
                                 tie.setId(travelItemExpenses.getId());
                                 tie.setTravel_id(mTravel_id);
+                                tie.setAccount_id(nrSpinAccount[0]);
+                                tie.setCurrency_id(nrSpCurrency[0]);
                                 tie.setExpense_type(mExpense_type);
                                 tie.setExpense_date(Utils.stringToDate(etExpenseDate.getText().toString()));
                                 if (!etExpenseItemRealizedValue.getText().toString().isEmpty()) {
@@ -221,6 +327,7 @@ public class TravelExpensesRealizedListAdapter extends RecyclerView.Adapter<Recy
 
     private static class HeaderViewHolder extends RecyclerView.ViewHolder {
         private final LinearLayout llTravelExpenses;
+        private final TextView txtAccount;
         private final TextView txtExpenseDate;
         private final TextView txtRealizedValue;
         private final TextView txtNote;
@@ -229,6 +336,7 @@ public class TravelExpensesRealizedListAdapter extends RecyclerView.Adapter<Recy
         public HeaderViewHolder(View v) {
             super(v);
             llTravelExpenses = v.findViewById(R.id.llTravelExpenses);
+            txtAccount = v.findViewById(R.id.txtAccount);
             txtExpenseDate = v.findViewById(R.id.txtExpenseDate);
             txtRealizedValue = v.findViewById(R.id.txtRealizedValue);
             txtNote = v.findViewById(R.id.txtNote);
@@ -238,6 +346,7 @@ public class TravelExpensesRealizedListAdapter extends RecyclerView.Adapter<Recy
 
     public static class ItemViewHolder extends RecyclerView.ViewHolder {
         private final LinearLayout llTravelExpenses;
+        private final TextView txtAccount;
         private final TextView txtExpenseDate;
         private final TextView txtRealizedValue;
         private final TextView txtNote;
@@ -246,6 +355,7 @@ public class TravelExpensesRealizedListAdapter extends RecyclerView.Adapter<Recy
         public ItemViewHolder(View v) {
             super(v);
             llTravelExpenses = v.findViewById(R.id.llTravelExpenses);
+            txtAccount = v.findViewById(R.id.txtAccount);
             txtExpenseDate = v.findViewById(R.id.txtExpenseDate);
             txtRealizedValue = v.findViewById(R.id.txtRealizedValue);
             txtNote = v.findViewById(R.id.txtNote);
@@ -255,6 +365,7 @@ public class TravelExpensesRealizedListAdapter extends RecyclerView.Adapter<Recy
 
     public static class FooterViewHolder extends RecyclerView.ViewHolder {
         private final LinearLayout llTravelExpenses;
+        private final TextView txtAccount;
         private final TextView txtExpenseDate;
         private final TextView txtRealizedValue;
         private final TextView txtNote;
@@ -263,6 +374,7 @@ public class TravelExpensesRealizedListAdapter extends RecyclerView.Adapter<Recy
         public FooterViewHolder(View v) {
             super(v);
             llTravelExpenses = v.findViewById(R.id.llTravelExpenses);
+            txtAccount = v.findViewById(R.id.txtAccount);
             txtExpenseDate = v.findViewById(R.id.txtExpenseDate);
             txtRealizedValue = v.findViewById(R.id.txtRealizedValue);
             txtNote = v.findViewById(R.id.txtNote);

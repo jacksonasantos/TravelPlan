@@ -9,6 +9,8 @@ public class TravelItemExpenses {
     public Double realized_value;
     public String note;
     public Integer travel_id;
+    public Integer account_id;
+    public int currency_id;
 
     public TravelItemExpenses() {
     }
@@ -30,4 +32,10 @@ public class TravelItemExpenses {
 
     public Integer getTravel_id() { return travel_id; }
     public void setTravel_id(Integer travel_id) { this.travel_id = travel_id; }
+
+    public Integer getAccount_id() { return account_id; }
+    public void setAccount_id(Integer account_id) { this.account_id = account_id; }
+
+    public int getCurrency_id() { return currency_id; }
+    public void setCurrency_id(int currency_id) { this.currency_id = currency_id; }
 }
