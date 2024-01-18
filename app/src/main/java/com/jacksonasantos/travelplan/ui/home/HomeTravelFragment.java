@@ -439,10 +439,9 @@ public class HomeTravelFragment extends Fragment implements View.OnClickListener
                 final int Show_Header_FinancialStatement = 1;
                 TravelFinancialStatementListAdapter adapterFinancialStatement = new TravelFinancialStatementListAdapter( travel[0].getId(), Database.mTravelItemExpensesDao.findTravelFinancialStatement(travel[0].getId() ), getContext(), Show_Header_FinancialStatement, true);
                 if ( adapterFinancialStatement.getItemCount() > Show_Header_FinancialStatement){
-                    btnMinimizeFinancial.setOnClickListener(v -> {
-                        listTravelFinancialStatement.setVisibility(listTravelFinancialStatement.getVisibility() ^ View.GONE);
-                    });
+                    btnMinimizeFinancial.setOnClickListener(v -> listTravelFinancialStatement.setVisibility(listTravelFinancialStatement.getVisibility() ^ View.GONE));
                     layerFinancial.setVisibility(View.VISIBLE);
+                    listTravelFinancialStatement.setVisibility(View.GONE);
                     listTravelFinancialStatement.setAdapter(adapterFinancialStatement);
                     listTravelFinancialStatement.setLayoutManager(new LinearLayoutManager(getContext()));
                 } else {
