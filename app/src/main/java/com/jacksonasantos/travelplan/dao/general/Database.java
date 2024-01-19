@@ -72,7 +72,7 @@ public class Database {
     private final Context mContext;
 
     private static final String DATABASE_NAME = "TravelPlan.db";
-    private static final int DATABASE_VERSION = 82;
+    private static final int DATABASE_VERSION = 83;
 
     public static AccommodationDAO mAccommodationDao;
     public static AccountDAO mAccountDao;
@@ -291,6 +291,7 @@ public class Database {
             db.execSQL(TravelCashDAO.ALTER_TABLE_TRAVEL_CASH_V81_2);Log.w("Table "+TravelCashDAO.TRAVEL_CASH_TABLE,"V81.2 - Create Table...");
             db.execSQL(TravelItemExpensesISchema.ALTER_TABLE_TRAVEL_ITEM_EXPENSES_V82_1); Log.w("Ta "+TravelItemExpensesISchema.TRAVEL_ITEM_EXPENSES_TABLE,"V82.1 - Alter Table...");
             db.execSQL(TravelItemExpensesISchema.ALTER_TABLE_TRAVEL_ITEM_EXPENSES_V82_2); Log.w("Ta "+TravelItemExpensesISchema.TRAVEL_ITEM_EXPENSES_TABLE,"V82.2 - Alter Table...");
+            db.execSQL(FuelSupplyISchema.ALTER_TABLE_FUEL_SUPPLY_V83);Log.w("Table "+FuelSupplyISchema.FUEL_SUPPLY_TABLE,"V83 - Alter Table...");
         }
 
         @SuppressLint("SQLiteString")
@@ -554,6 +555,9 @@ public class Database {
                     case 82:
                         db.execSQL(TravelItemExpensesISchema.ALTER_TABLE_TRAVEL_ITEM_EXPENSES_V82_1); Log.w("Ta "+TravelItemExpensesISchema.TRAVEL_ITEM_EXPENSES_TABLE,"V82.1 - Alter Table...");
                         db.execSQL(TravelItemExpensesISchema.ALTER_TABLE_TRAVEL_ITEM_EXPENSES_V82_2); Log.w("Ta "+TravelItemExpensesISchema.TRAVEL_ITEM_EXPENSES_TABLE,"V82.2 - Alter Table...");
+                        break;
+                    case 83:
+                        db.execSQL(FuelSupplyISchema.ALTER_TABLE_FUEL_SUPPLY_V83);Log.w("Table "+FuelSupplyISchema.FUEL_SUPPLY_TABLE,"V83 - Alter Table...");
                         break;
                     default:
                         break;

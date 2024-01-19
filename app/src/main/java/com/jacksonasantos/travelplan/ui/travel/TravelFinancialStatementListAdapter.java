@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -13,6 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.jacksonasantos.travelplan.R;
+import com.jacksonasantos.travelplan.dao.SummaryTravelExpense;
 import com.jacksonasantos.travelplan.dao.TravelItemExpenses;
 import com.jacksonasantos.travelplan.dao.general.Database;
 import com.jacksonasantos.travelplan.ui.utility.Globals;
@@ -74,6 +76,7 @@ public class TravelFinancialStatementListAdapter extends RecyclerView.Adapter<Re
         else if (holder instanceof ItemViewHolder) {
             final ItemViewHolder itemViewHolder = (ItemViewHolder) holder;
             final TravelItemExpenses travelItemExpenses = mTravelItemExpenses.get(position-show_header);
+            final SummaryTravelExpense summaryTravelExpense = new SummaryTravelExpense();
             if (!Objects.equals(last_account, travelItemExpenses.getAccount_id()) ||
                 !Objects.equals(last_currency, travelItemExpenses.getCurrency_id()) ) {
                 last_account = travelItemExpenses.getAccount_id();
@@ -88,6 +91,7 @@ public class TravelFinancialStatementListAdapter extends RecyclerView.Adapter<Re
             itemViewHolder.txtAccount.setText(Database.mAccountDao.fetchAccountById(travelItemExpenses.getAccount_id()).getDescription());
             itemViewHolder.txtCurrency.setText(context.getResources().getStringArray(R.array.currency_array)[travelItemExpenses.getCurrency_id()]);
             itemViewHolder.txtExpenseDate.setText(Utils.dateToString(travelItemExpenses.getExpense_date()));
+            itemViewHolder.imgType.setImageResource(summaryTravelExpense.getExpense_type_image(travelItemExpenses.getExpense_type()));
             if (travelItemExpenses.getRealized_value()<0) {
                 itemViewHolder.txtRealizedValue.setTextColor(Color.RED);
             } else {
@@ -119,6 +123,7 @@ public class TravelFinancialStatementListAdapter extends RecyclerView.Adapter<Re
         public final LinearLayout llTravelFinancialStatement;
         public final TextView txtAccount;
         public final TextView txtCurrency;
+        public final ImageView imgType;
         public final TextView txtExpenseDate;
         public final TextView txtRealizedValue;
         public final TextView txtRealizedBalance;
@@ -129,6 +134,7 @@ public class TravelFinancialStatementListAdapter extends RecyclerView.Adapter<Re
             llTravelFinancialStatement = v.findViewById(R.id.llTravelFinancialStatement);
             txtAccount = v.findViewById(R.id.txtAccount);
             txtCurrency = v.findViewById(R.id.txtCurrency);
+            imgType = v.findViewById(R.id.imgType);
             txtExpenseDate = v.findViewById(R.id.txtExpenseDate);
             txtRealizedValue = v.findViewById(R.id.txtRealizedValue);
             txtRealizedBalance = v.findViewById(R.id.txtRealizedBalance);
@@ -140,6 +146,7 @@ public class TravelFinancialStatementListAdapter extends RecyclerView.Adapter<Re
         public final LinearLayout llTravelFinancialStatement;
         public final TextView txtAccount;
         public final TextView txtCurrency;
+        public final ImageView imgType;
         public final TextView txtExpenseDate;
         public final TextView txtRealizedValue;
         public final TextView txtRealizedBalance;
@@ -150,6 +157,7 @@ public class TravelFinancialStatementListAdapter extends RecyclerView.Adapter<Re
             llTravelFinancialStatement = v.findViewById(R.id.llTravelFinancialStatement);
             txtAccount = v.findViewById(R.id.txtAccount);
             txtCurrency = v.findViewById(R.id.txtCurrency);
+            imgType = v.findViewById(R.id.imgType);
             txtExpenseDate = v.findViewById(R.id.txtExpenseDate);
             txtRealizedValue = v.findViewById(R.id.txtRealizedValue);
             txtRealizedBalance = v.findViewById(R.id.txtRealizedBalance);

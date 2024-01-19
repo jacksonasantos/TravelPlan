@@ -5,6 +5,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.jacksonasantos.travelplan.dao.general.DbContentProvider;
+import com.jacksonasantos.travelplan.dao.interfaces.FuelSupplyISchema;
 import com.jacksonasantos.travelplan.dao.interfaces.TravelCashISchema;
 import com.jacksonasantos.travelplan.dao.interfaces.TravelItemExpensesIDAO;
 import com.jacksonasantos.travelplan.dao.interfaces.TravelItemExpensesISchema;
@@ -57,19 +58,29 @@ public class TravelItemExpensesDAO extends DbContentProvider implements TravelIt
                           "FROM " + TravelItemExpensesISchema.TRAVEL_ITEM_EXPENSES_TABLE + " tie " +
                          "WHERE tie." + TravelItemExpensesISchema.TRAVEL_ITEM_EXPENSES_TRAVEL_ID + " = ? " +
                          "UNION " +
+                        "SELECT f." + FuelSupplyISchema.FUEL_SUPPLY_ASSOCIATED_TRAVEL_ID + ", " +
+                               "f." + FuelSupplyISchema.FUEL_SUPPLY_ACCOUNT_ID + ", " +
+                               "f." + FuelSupplyISchema.FUEL_SUPPLY_CURRENCY_TYPE + ", " +
+                               "f." + FuelSupplyISchema.FUEL_SUPPLY_SUPPLY_DATE + ", " +
+                               "f." + FuelSupplyISchema.FUEL_SUPPLY_SUPPLY_VALUE + "*-1 " + FuelSupplyISchema.FUEL_SUPPLY_SUPPLY_VALUE + ", " +
+                               "0," +
+                               "''" +
+                          "FROM " + FuelSupplyISchema.FUEL_SUPPLY_TABLE + " f " +
+                         "WHERE f." + FuelSupplyISchema.FUEL_SUPPLY_ASSOCIATED_TRAVEL_ID + " = ? " +
+                         "UNION " +
                         "SELECT tc." + TravelCashISchema.TRAVEL_CASH_TRAVEL_ID + ", " +
                                "tc." + TravelCashISchema.TRAVEL_CASH_ACCOUNT_ID + ", " +
                                "tc." + TravelCashISchema.TRAVEL_CASH_CURRENCY_ID + ", " +
                                "tc." + TravelCashISchema.TRAVEL_CASH_CASH_DEPOSIT + ", " +
                                "tc." + TravelCashISchema.TRAVEL_CASH_AMOUNT_DEPOSIT + ", " +
-                               "0, " +
+                               "8, " +  // Type de Expenses Item para os deposito em uma Conta
                                "''" +
                           "FROM " + TravelCashISchema.TRAVEL_CASH_TABLE + " tc " +
                          "WHERE tc." + TravelCashISchema.TRAVEL_CASH_TRAVEL_ID + " = ? ) a " +
                " ORDER BY a." + TravelItemExpensesISchema.TRAVEL_ITEM_EXPENSES_ACCOUNT_ID + ", " +
                          "a." + TravelItemExpensesISchema.TRAVEL_ITEM_EXPENSES_CURRENCY_ID + ", " +
                          "a." + TravelItemExpensesISchema.TRAVEL_ITEM_EXPENSES_EXPENSE_DATE,
-                new String[] { String.valueOf(travel_id), String.valueOf(travel_id)});
+                new String[] { String.valueOf(travel_id), String.valueOf(travel_id), String.valueOf(travel_id)});
         if (null != cursor) {
             if (cursor.moveToFirst()) {
                 do {

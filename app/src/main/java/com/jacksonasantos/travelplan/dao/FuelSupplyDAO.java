@@ -190,6 +190,8 @@ public class FuelSupplyDAO extends DbContentProvider implements FuelSupplyISchem
             if (c.getColumnIndex(FUEL_SUPPLY_SUPPLY_REASON) != -1)              {fS.setSupply_reason(c.getString(c.getColumnIndexOrThrow(FUEL_SUPPLY_SUPPLY_REASON))); }
             if (c.getColumnIndex(FUEL_SUPPLY_ASSOCIATED_TRAVEL_ID) != -1)       if (c.getInt(c.getColumnIndexOrThrow(FUEL_SUPPLY_ASSOCIATED_TRAVEL_ID)) == 0) fS.setAssociated_travel_id(null);
                                                                                 else fS.setAssociated_travel_id(c.getInt(c.getColumnIndexOrThrow(FUEL_SUPPLY_ASSOCIATED_TRAVEL_ID)));
+            if (c.getColumnIndex(FUEL_SUPPLY_ACCOUNT_ID) != -1)                 if (c.getInt(c.getColumnIndexOrThrow(FUEL_SUPPLY_ACCOUNT_ID)) == 0) fS.setAccount_id(null);
+                                                                                else fS.setAccount_id(c.getInt(c.getColumnIndexOrThrow(FUEL_SUPPLY_ACCOUNT_ID)));
         }
         return fS;
     }
@@ -218,6 +220,7 @@ public class FuelSupplyDAO extends DbContentProvider implements FuelSupplyISchem
         initialValues.put(FUEL_SUPPLY_SUPPLY_REASON_TYPE, fS.supply_reason_type);
         initialValues.put(FUEL_SUPPLY_SUPPLY_REASON, fS.supply_reason);
         initialValues.put(FUEL_SUPPLY_ASSOCIATED_TRAVEL_ID, fS.associated_travel_id);
+        initialValues.put(FUEL_SUPPLY_ACCOUNT_ID, fS.account_id);
     }
 
     private ContentValues getContentValue() {

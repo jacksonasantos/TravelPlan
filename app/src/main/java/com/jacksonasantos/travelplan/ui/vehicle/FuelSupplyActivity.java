@@ -41,6 +41,7 @@ import com.google.android.libraries.places.api.net.PlacesClient;
 import com.google.android.material.switchmaterial.SwitchMaterial;
 import com.jacksonasantos.travelplan.MainActivity;
 import com.jacksonasantos.travelplan.R;
+import com.jacksonasantos.travelplan.dao.Account;
 import com.jacksonasantos.travelplan.dao.CurrencyQuote;
 import com.jacksonasantos.travelplan.dao.FuelSupply;
 import com.jacksonasantos.travelplan.dao.Transport;
@@ -89,6 +90,8 @@ public class FuelSupplyActivity extends AppCompatActivity implements PlacesAdapt
     private int vlFullTank = 0;
     private Spinner spCombustible;
     private int nrSpCombustible;
+    private Spinner spAccount;
+    private Integer nrSpAccountId;
     private EditText etNumberLiters;
     private Spinner spCurrencyType;
     private int nrSpCurrencyType;
@@ -142,7 +145,7 @@ public class FuelSupplyActivity extends AppCompatActivity implements PlacesAdapt
             Place.Field.LAT_LNG,
             Place.Field.ADDRESS);
 
-    private static final String GOOGLE_API_KEY =  MainActivity.getAppResources().getString(R.string.google_maps_key); 
+    private static final String GOOGLE_API_KEY =  MainActivity.getAppResources().getString(R.string.google_maps_key);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -217,6 +220,7 @@ public class FuelSupplyActivity extends AppCompatActivity implements PlacesAdapt
         etGasStation = findViewById(R.id.etGasStation);
         etGasStationLocation = findViewById(R.id.etGasStationLocation);
         spCombustible = findViewById(R.id.spCombustible);
+        spAccount = findViewById(R.id.spAccount);
         etSupplyDate = findViewById(R.id.etSupplyDate);
         cbFullTank = findViewById(R.id.cbFullTank);
         spCurrencyType = findViewById(R.id.spCurrencyType);
@@ -454,6 +458,35 @@ public class FuelSupplyActivity extends AppCompatActivity implements PlacesAdapt
         });
         adapterT.notifyDataSetChanged();
 
+        final List<Account> accounts =  Database.mAccountDao.fetchAllAccount();
+        accounts.add(0, new Account());
+        ArrayAdapter<Account> adapterA = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, accounts);
+        adapterA.setDropDownViewResource( android.R.layout.simple_spinner_dropdown_item);
+        spAccount.setAdapter(adapterA);
+        if (nrSpAccountId != null && nrSpAccountId > 0) {
+            Account account1 = Database.mAccountDao.fetchAccountById(nrSpAccountId);
+            for (int x = 1; x <= spAccount.getAdapter().getCount(); x++) {
+                if (spAccount.getAdapter().getItem(x).toString().equals(account1.getDescription())) {
+                    spAccount.setSelection(x);
+                    nrSpAccountId = account1.getId();
+                    break;
+                }
+            }
+        }
+        final Account[] a1 = {new Account()};
+        spAccount.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long idx) {
+                a1[0] = (Account) parent.getItemAtPosition(position);
+                nrSpAccountId = a1[0].getId();
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                nrSpAccountId = null;
+            }
+        });
+        adapterA.notifyDataSetChanged();
+
         if (fuelSupply != null) {
             etGasStation.setText(fuelSupply.getGas_station());
             etGasStationLocation.setText(fuelSupply.getGas_station_location());
@@ -493,6 +526,16 @@ public class FuelSupplyActivity extends AppCompatActivity implements PlacesAdapt
                 for (int x = 1; x <= spAssociatedTravelId.getAdapter().getCount(); x++) {
                     if (spAssociatedTravelId.getAdapter().getItem(x).toString().equals(trip1.getDescription())) {
                         spAssociatedTravelId.setSelection(x);
+                        break;
+                    }
+                }
+            }
+            nrSpAccountId=fuelSupply.getAccount_id();
+            if (nrSpAccountId != null && nrSpAccountId > 0) {
+                Account account1 = Database.mAccountDao.fetchAccountById(nrSpAccountId);
+                for (int x = 1; x <= spAccount.getAdapter().getCount(); x++) {
+                    if (spAccount.getAdapter().getItem(x).toString().equals(account1.getDescription())) {
+                        spAccount.setSelection(x);
                         break;
                     }
                 }
@@ -587,6 +630,7 @@ public class FuelSupplyActivity extends AppCompatActivity implements PlacesAdapt
                 f1.setSupply_reason_type(findViewById(rbSupplyReasonType).getId());
                 f1.setSupply_reason(etSupplyReason.getText().toString());
                 f1.setAssociated_travel_id(nrSpAssociatedTravelId);
+                f1.setAccount_id(nrSpAccountId);
                 if (nrVehicleId != null || nrTransportId!=null ) {
                     if (!etVehicleOdometer.getText().toString().isEmpty()) {
                         f1.setVehicle_odometer(Integer.parseInt(etVehicleOdometer.getText().toString()));
@@ -696,6 +740,7 @@ public class FuelSupplyActivity extends AppCompatActivity implements PlacesAdapt
                 && !String.valueOf(findViewById(rbSupplyReasonType).getId()).trim().isEmpty()
                 //&& !etSupplyReason.getText().toString().trim().isEmpty()
                 //&& !String.valueOf(nrSpinAssociatedTrip).trim().isEmpty()
+                //&& !String.valueOf(nrSpAccountId).trim().isEmpty()
                )
             {
                 isValid = true;

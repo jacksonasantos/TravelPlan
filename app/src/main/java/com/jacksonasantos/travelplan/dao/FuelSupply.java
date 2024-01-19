@@ -25,6 +25,7 @@ public class FuelSupply {
     public int supply_reason_type;
     public String supply_reason;
     public Integer associated_travel_id;
+    public Integer account_id;
 
     public FuelSupply() { }
 
@@ -93,4 +94,7 @@ public class FuelSupply {
 
     public Integer getAssociated_travel_id() {return associated_travel_id;}
     public void setAssociated_travel_id(Integer associated_travel_id) {this.associated_travel_id = associated_travel_id; }
+
+    public Integer getAccount_id() {return account_id;}
+    public void setAccount_id(Integer account_id) {this.account_id = account_id; }
 }

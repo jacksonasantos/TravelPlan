@@ -26,6 +26,7 @@ public interface FuelSupplyISchema {
     String FUEL_SUPPLY_SUPPLY_REASON_TYPE = "supply_reason_type";
     String FUEL_SUPPLY_SUPPLY_REASON = "supply_reason";
     String FUEL_SUPPLY_ASSOCIATED_TRAVEL_ID = "associated_travel_id";
+    String FUEL_SUPPLY_ACCOUNT_ID = "account_id";
 
     // Version 8
     String CREATE_TABLE_FUEL_SUPPLY_V8 = "CREATE TABLE IF NOT EXISTS "
@@ -69,6 +70,10 @@ public interface FuelSupplyISchema {
     String ALTER_TABLE_FUEL_SUPPLY_V71 = "ALTER TABLE " + FUEL_SUPPLY_TABLE
             + " ADD COLUMN " + FUEL_SUPPLY_TRANSPORT_ID + " INTEGER REFERENCES " + TransportISchema.TRANSPORT_TABLE + " ("+TransportISchema.TRANSPORT_ID+") ";
 
+    // Version 83
+    String ALTER_TABLE_FUEL_SUPPLY_V83 = "ALTER TABLE " + FUEL_SUPPLY_TABLE
+            + " ADD COLUMN " + FUEL_SUPPLY_ACCOUNT_ID + " INTEGER REFERENCES " + AccountISchema.ACCOUNT_TABLE + " ("+AccountISchema.ACCOUNT_ID+") ";
+
     String[] FUEL_SUPPLY_COLUMNS = new String[] {
             FUEL_SUPPLY_ID,
             FUEL_SUPPLY_VEHICLE_ID,
@@ -91,6 +96,7 @@ public interface FuelSupplyISchema {
             FUEL_SUPPLY_STAT_COST_PER_LITRE,
             FUEL_SUPPLY_SUPPLY_REASON_TYPE,
             FUEL_SUPPLY_SUPPLY_REASON,
-            FUEL_SUPPLY_ASSOCIATED_TRAVEL_ID
+            FUEL_SUPPLY_ASSOCIATED_TRAVEL_ID,
+            FUEL_SUPPLY_ACCOUNT_ID
     };
 }

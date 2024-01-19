@@ -131,6 +131,7 @@
         <item>@string/extras</item>
         <item>@string/insurance</item>
         <item>@string/Transport</item>
+        <item>@string/account</item>
     </string-array>
     <!-- Vehicle Services -->
     <string-array name="vehicle_services">

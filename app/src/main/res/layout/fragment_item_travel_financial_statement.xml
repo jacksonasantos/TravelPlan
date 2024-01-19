@@ -25,12 +25,18 @@
         android:id="@+id/txtExpenseDate"
         android:layout_width="0dp"
         android:layout_height="20dp"
-        android:layout_weight="0.20"
+        android:layout_weight="0.18"
         android:gravity="start|center_vertical"
         app:autoSizeMaxTextSize="12sp"
         app:autoSizeMinTextSize="6sp"
         app:autoSizeStepGranularity="1sp"
         app:autoSizeTextType="uniform" />
+
+    <ImageView
+        android:id="@+id/imgType"
+        android:layout_width="22sp"
+        android:layout_height="22sp"
+        android:contentDescription="@string/TravelItemExpenses_Type" />
 
     <TextView
         android:id="@+id/txtCurrency"
@@ -70,7 +76,7 @@
         android:layout_width="0dp"
         android:layout_height="20dp"
         android:layout_marginStart="@dimen/labels_margin"
-        android:layout_weight="0.2"
+        android:layout_weight="0.22"
         android:gravity="start|center_vertical"
         app:autoSizeMaxTextSize="12sp"
         app:autoSizeMinTextSize="6sp"

@@ -210,6 +210,7 @@
     <string name="FuelSupply_Gas_Station">Gas Station</string>
     <string name="FuelSupply_Gas_Station_Location">Fuel Supply Gas Station Location</string>
     <string name="FuelSupply_Combustible">Combustible</string>
+    <string name="FuelSupply_Account">Account</string>
     <string name="FuelSupply_Supply_Date">Date</string>
     <string name="FuelSupply_Number_Liters">Number of Liters</string>
     <string name="FuelSupply_Currency_Type">Currency Type</string>
@@ -722,4 +723,5 @@
     <string name="Account_Deleting">Account Deleting</string>
     <string name="Account_Account_Type">Account Type</string>
     <string name="Account_Description">Description</string>
+    <string name="TravelItemExpenses_Type">Type</string>
 </resources>
