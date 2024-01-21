@@ -100,7 +100,6 @@ public class TransportDAO extends DbContentProvider implements TransportISchema,
             if (c.getColumnIndex(TRANSPORT_END_DATE) != -1)        {t.setEnd_date(Utils.dateParse(c.getString(c.getColumnIndexOrThrow(TRANSPORT_END_DATE)))); }
             if (c.getColumnIndex(TRANSPORT_SERVICE_VALUE) != -1)   {t.setService_value(c.getDouble(c.getColumnIndexOrThrow(TRANSPORT_SERVICE_VALUE))); }
             if (c.getColumnIndex(TRANSPORT_SERVICE_TAX) != -1)     {t.setService_tax(c.getDouble(c.getColumnIndexOrThrow(TRANSPORT_SERVICE_TAX))); }
-            if (c.getColumnIndex(TRANSPORT_AMOUNT_PAID) != -1)     {t.setAmount_paid(c.getDouble(c.getColumnIndexOrThrow(TRANSPORT_AMOUNT_PAID))); }
             if (c.getColumnIndex(TRANSPORT_NOTE) != -1)            {t.setNote(c.getString(c.getColumnIndexOrThrow(TRANSPORT_NOTE))); }
         }
         return t;
@@ -121,7 +120,6 @@ public class TransportDAO extends DbContentProvider implements TransportISchema,
         initialValues.put(TRANSPORT_END_DATE, Utils.dateFormat(t.end_date));
         initialValues.put(TRANSPORT_SERVICE_VALUE, t.service_value);
         initialValues.put(TRANSPORT_SERVICE_TAX, t.service_tax);
-        initialValues.put(TRANSPORT_AMOUNT_PAID, t.amount_paid);
         initialValues.put(TRANSPORT_NOTE, t.note);
     }
     private ContentValues getContentValue() {

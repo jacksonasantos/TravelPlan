@@ -62,7 +62,7 @@ public class SummaryTravelExpenseDAO extends DbContentProvider implements Summar
                             " UNION " +
                             " SELECT 4 " + SummaryTravelExpenseISchema.SUMMARY_TRAVEL_EXPENSE_EXPENSE_TYPE + ", " + // Accommodation
                                    " SUM(" + ReservationISchema.RESERVATION_RESERVATION_AMOUNT + ") " + SummaryTravelExpenseISchema.SUMMARY_TRAVEL_EXPENSE_EXPECTED_VALUE + ", " +
-                                   " SUM(" + ReservationISchema.RESERVATION_AMOUNT_PAID + ") " + SummaryTravelExpenseISchema.SUMMARY_TRAVEL_EXPENSE_REALIZED_VALUE +
+                                   " 0 " + SummaryTravelExpenseISchema.SUMMARY_TRAVEL_EXPENSE_REALIZED_VALUE +
                               " FROM " + ReservationISchema.RESERVATION_TABLE +
                              " WHERE " + ReservationISchema.RESERVATION_TRAVEL_ID + " = ? " +
                             " UNION " +
@@ -71,16 +71,16 @@ public class SummaryTravelExpenseDAO extends DbContentProvider implements Summar
                                    " 0 " + SummaryTravelExpenseISchema.SUMMARY_TRAVEL_EXPENSE_REALIZED_VALUE +
                               " FROM " + TourISchema.TOUR_TABLE +
                              " WHERE " + TourISchema.TOUR_TRAVEL_ID + " = ? " +
-                            " UNION " +                                                                             // Travel Expenses
+                            " UNION " +
                             " SELECT 6 "+ SummaryTravelExpenseISchema.SUMMARY_TRAVEL_EXPENSE_EXPENSE_TYPE + ", " +  // Insurance
-                                   " 0 " + SummaryTravelExpenseISchema.SUMMARY_TRAVEL_EXPENSE_EXPECTED_VALUE + ", " +
-                                   " SUM(" + InsuranceISchema.INSURANCE_TOTAL_PREMIUM_VALUE + ") " + SummaryTravelExpenseISchema.SUMMARY_TRAVEL_EXPENSE_REALIZED_VALUE +
+                                   " SUM(" + InsuranceISchema.INSURANCE_TOTAL_PREMIUM_VALUE + ") " + SummaryTravelExpenseISchema.SUMMARY_TRAVEL_EXPENSE_EXPECTED_VALUE + ", " +
+                                   " 0 " + SummaryTravelExpenseISchema.SUMMARY_TRAVEL_EXPENSE_REALIZED_VALUE +
                               " FROM " + InsuranceISchema.INSURANCE_TABLE +
                              " WHERE " + InsuranceISchema.INSURANCE_TRAVEL_ID + " = ? " +
                             " UNION " +
                             " SELECT 7 "+ SummaryTravelExpenseISchema.SUMMARY_TRAVEL_EXPENSE_EXPENSE_TYPE + ", " +  // Transport
                                    " SUM(" + TransportISchema.TRANSPORT_SERVICE_VALUE +"+"+ TransportISchema.TRANSPORT_SERVICE_TAX+ ") "+ SummaryTravelExpenseISchema.SUMMARY_TRAVEL_EXPENSE_EXPECTED_VALUE + ", " +
-                                   " SUM(" + TransportISchema.TRANSPORT_AMOUNT_PAID + ") " + SummaryTravelExpenseISchema.SUMMARY_TRAVEL_EXPENSE_REALIZED_VALUE +
+                                   " 0 " + SummaryTravelExpenseISchema.SUMMARY_TRAVEL_EXPENSE_REALIZED_VALUE +
                               " FROM " + TransportISchema.TRANSPORT_TABLE +
                              " WHERE " + TransportISchema.TRANSPORT_TRAVEL_ID + " = ? " +
                             " UNION " +                                                                             // Travel Expenses EXPECTED_VALUE

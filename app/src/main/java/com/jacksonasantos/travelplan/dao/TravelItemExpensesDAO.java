@@ -37,6 +37,20 @@ public class TravelItemExpensesDAO extends DbContentProvider implements TravelIt
         }
         return travelItemExpensesList;
     }
+    public List<TravelItemExpenses> fetchTravelItemExpensesByExpenseTypeKey(Integer travel_id, Integer expense_type, String key) {
+        final String[] selectionArgs = { String.valueOf(travel_id), String.valueOf(expense_type), key };
+        final String selection = TRAVEL_ITEM_EXPENSES_TRAVEL_ID + " = ? AND " + TRAVEL_ITEM_EXPENSES_EXPENSE_TYPE + " = ? AND "+TRAVEL_ITEM_EXPENSES_EXPENSE_TYPE_KEY + " = ?";
+        List<TravelItemExpenses> travelItemExpensesList = new ArrayList<>();
+        cursor = super.query(TRAVEL_ITEM_EXPENSES_TABLE, TRAVEL_ITEM_EXPENSES_COLUMNS, selection, selectionArgs, TRAVEL_ITEM_EXPENSES_EXPENSE_DATE+", "+TRAVEL_ITEM_EXPENSES_ID);
+        if (cursor.moveToFirst()) {
+            do {
+                TravelItemExpenses travelItemExpenses = cursorToEntity(cursor);
+                travelItemExpensesList.add(travelItemExpenses);
+            } while (cursor.moveToNext());
+            cursor.close();
+        }
+        return travelItemExpensesList;
+    }
 
     public List<TravelItemExpenses> findTravelFinancialStatement(Integer travel_id) {
         List<TravelItemExpenses> travelItemExpensesList = new ArrayList<>();
@@ -48,7 +62,7 @@ public class TravelItemExpensesDAO extends DbContentProvider implements TravelIt
                       "a." + TravelItemExpensesISchema.TRAVEL_ITEM_EXPENSES_REALIZED_VALUE + ", " +
                       "a." + TravelItemExpensesISchema.TRAVEL_ITEM_EXPENSES_EXPENSE_TYPE + ", " +
                       "a." + TravelItemExpensesISchema.TRAVEL_ITEM_EXPENSES_NOTE + " " +
-                 "FROM ( SELECT tie." + TravelItemExpensesISchema.TRAVEL_ITEM_EXPENSES_TRAVEL_ID + ", " +
+                 "FROM ( SELECT 2 tipo, tie." + TravelItemExpensesISchema.TRAVEL_ITEM_EXPENSES_TRAVEL_ID + ", " +
                                "tie." + TravelItemExpensesISchema.TRAVEL_ITEM_EXPENSES_ACCOUNT_ID + ", " +
                                "tie." + TravelItemExpensesISchema.TRAVEL_ITEM_EXPENSES_CURRENCY_ID + ", " +
                                "tie." + TravelItemExpensesISchema.TRAVEL_ITEM_EXPENSES_EXPENSE_DATE + ", " +
@@ -58,7 +72,7 @@ public class TravelItemExpensesDAO extends DbContentProvider implements TravelIt
                           "FROM " + TravelItemExpensesISchema.TRAVEL_ITEM_EXPENSES_TABLE + " tie " +
                          "WHERE tie." + TravelItemExpensesISchema.TRAVEL_ITEM_EXPENSES_TRAVEL_ID + " = ? " +
                          "UNION " +
-                        "SELECT f." + FuelSupplyISchema.FUEL_SUPPLY_ASSOCIATED_TRAVEL_ID + ", " +
+                        "SELECT 1 , f." + FuelSupplyISchema.FUEL_SUPPLY_ASSOCIATED_TRAVEL_ID + ", " +
                                "f." + FuelSupplyISchema.FUEL_SUPPLY_ACCOUNT_ID + ", " +
                                "f." + FuelSupplyISchema.FUEL_SUPPLY_CURRENCY_TYPE + ", " +
                                "f." + FuelSupplyISchema.FUEL_SUPPLY_SUPPLY_DATE + ", " +
@@ -68,7 +82,7 @@ public class TravelItemExpensesDAO extends DbContentProvider implements TravelIt
                           "FROM " + FuelSupplyISchema.FUEL_SUPPLY_TABLE + " f " +
                          "WHERE f." + FuelSupplyISchema.FUEL_SUPPLY_ASSOCIATED_TRAVEL_ID + " = ? " +
                          "UNION " +
-                        "SELECT tc." + TravelCashISchema.TRAVEL_CASH_TRAVEL_ID + ", " +
+                        "SELECT 0, tc." + TravelCashISchema.TRAVEL_CASH_TRAVEL_ID + ", " +
                                "tc." + TravelCashISchema.TRAVEL_CASH_ACCOUNT_ID + ", " +
                                "tc." + TravelCashISchema.TRAVEL_CASH_CURRENCY_ID + ", " +
                                "tc." + TravelCashISchema.TRAVEL_CASH_CASH_DEPOSIT + ", " +
@@ -78,7 +92,7 @@ public class TravelItemExpensesDAO extends DbContentProvider implements TravelIt
                           "FROM " + TravelCashISchema.TRAVEL_CASH_TABLE + " tc " +
                          "WHERE tc." + TravelCashISchema.TRAVEL_CASH_TRAVEL_ID + " = ? ) a " +
                " ORDER BY a." + TravelItemExpensesISchema.TRAVEL_ITEM_EXPENSES_ACCOUNT_ID + ", " +
-                         "a." + TravelItemExpensesISchema.TRAVEL_ITEM_EXPENSES_CURRENCY_ID + ", " +
+                         "a." + TravelItemExpensesISchema.TRAVEL_ITEM_EXPENSES_CURRENCY_ID + ", a.tipo, " +
                          "a." + TravelItemExpensesISchema.TRAVEL_ITEM_EXPENSES_EXPENSE_DATE,
                 new String[] { String.valueOf(travel_id), String.valueOf(travel_id), String.valueOf(travel_id)});
         if (null != cursor) {
@@ -124,6 +138,7 @@ public class TravelItemExpensesDAO extends DbContentProvider implements TravelIt
             if (c.getColumnIndex(TRAVEL_ITEM_EXPENSES_ACCOUNT_ID) != -1)         {if (c.getInt(c.getColumnIndexOrThrow(TRAVEL_ITEM_EXPENSES_ACCOUNT_ID)) == 0) t.setAccount_id(null);
                                                                                   else t.setAccount_id(c.getInt(c.getColumnIndexOrThrow(TRAVEL_ITEM_EXPENSES_ACCOUNT_ID)));}
             if (c.getColumnIndex(TRAVEL_ITEM_EXPENSES_CURRENCY_ID) != -1)        {t.setCurrency_id(c.getInt(c.getColumnIndexOrThrow(TRAVEL_ITEM_EXPENSES_CURRENCY_ID))); }
+            if (c.getColumnIndex(TRAVEL_ITEM_EXPENSES_EXPENSE_TYPE_KEY) != -1 )  {t.setExpense_type_key(c.getString(c.getColumnIndexOrThrow(TRAVEL_ITEM_EXPENSES_EXPENSE_TYPE_KEY))); }
         }
         return t;
     }
@@ -138,6 +153,7 @@ public class TravelItemExpensesDAO extends DbContentProvider implements TravelIt
         initialValues.put(TRAVEL_ITEM_EXPENSES_TRAVEL_ID, t.travel_id);
         initialValues.put(TRAVEL_ITEM_EXPENSES_ACCOUNT_ID, t.account_id);
         initialValues.put(TRAVEL_ITEM_EXPENSES_CURRENCY_ID, t.currency_id);
+        initialValues.put(TRAVEL_ITEM_EXPENSES_EXPENSE_TYPE_KEY, t.expense_type_key);
     }
 
     private ContentValues getContentValue() {

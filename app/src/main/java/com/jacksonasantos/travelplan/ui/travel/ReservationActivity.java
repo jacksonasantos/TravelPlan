@@ -20,6 +20,8 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.jacksonasantos.travelplan.R;
 import com.jacksonasantos.travelplan.dao.Accommodation;
@@ -55,11 +57,13 @@ public class ReservationActivity extends AppCompatActivity {
     private EditText etDaily_Rate;
     private EditText etOther_Rate;
     private EditText etReservation_Amount;
-    private EditText etAmount_Paid;
     private EditText etNote;
     private TextView tvStatus_Reservation;
     private int nrStatus_Reservation;
     private Button btSaveReservation;
+
+    private RecyclerView rvExpenseRealized;
+    private TravelExpensesRealizedListAdapter adapterExpenseRealized;
 
     private boolean opInsert = true;
     private Reservation reservation;
@@ -67,7 +71,7 @@ public class ReservationActivity extends AppCompatActivity {
     protected final ArrayAdapter<Accommodation> adapterA = null;
     private List<Accommodation> accommodations;
 
-    @SuppressLint({"WrongViewCast", "SetTextI18n"})
+    @SuppressLint({"WrongViewCast", "SetTextI18n", "NotifyDataSetChanged"})
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -116,11 +120,11 @@ public class ReservationActivity extends AppCompatActivity {
         etDaily_Rate = findViewById(R.id.etDaily_Rate);
         etOther_Rate = findViewById(R.id.etOther_Rate);
         etReservation_Amount = findViewById(R.id.etReservation_Amount);
-        etAmount_Paid = findViewById(R.id.etAmount_Paid);
         etNote = findViewById(R.id.etNote);
         tvStatus_Reservation = findViewById(R.id.tvStatus_Reservation);
         nrStatus_Reservation = 0;
         btSaveReservation = findViewById(R.id.btSaveReservation);
+        rvExpenseRealized = findViewById(R.id.rvExpenseRealized);
 
         addListenerOnButtonSave();
         addListenerOnButtonAddAccommodation();
@@ -249,9 +253,13 @@ public class ReservationActivity extends AppCompatActivity {
             etDaily_Rate.setText(String.valueOf(reservation.getDaily_rate()));
             etOther_Rate.setText(String.valueOf(reservation.getOther_rate()));
             etReservation_Amount.setText(String.valueOf(reservation.getReservation_amount()));
-            etAmount_Paid.setText(String.valueOf(reservation.getAmount_paid()));
             etNote.setText(reservation.getNote());
             tvStatus_Reservation.setText(getResources().getStringArray(R.array.reservation_status_array)[nrStatus_Reservation]);
+
+            adapterExpenseRealized = new TravelExpensesRealizedListAdapter(Database.mTravelItemExpensesDao.fetchTravelItemExpensesByExpenseTypeKey(nrSpinTravel, 4, "reservation_id = "+reservation.getId()), getApplicationContext(), 1, 1, nrSpinTravel, 4, "reservation_id = "+reservation.getId());
+            rvExpenseRealized.setAdapter(adapterExpenseRealized);
+            rvExpenseRealized.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+            adapterExpenseRealized.notifyDataSetChanged();
         }
     }
 
@@ -324,7 +332,6 @@ public class ReservationActivity extends AppCompatActivity {
                 r1.setDaily_rate(Double.parseDouble(etDaily_Rate.getText().toString()));
                 r1.setOther_rate(Double.parseDouble(etOther_Rate.getText().toString()));
                 r1.setReservation_amount(Double.parseDouble(etReservation_Amount.getText().toString()));
-                r1.setAmount_paid(Double.parseDouble(etAmount_Paid.getText().toString()));
                 r1.setNote(etNote.getText().toString());
                 r1.setStatus_reservation(nrStatus_Reservation);
 
@@ -365,7 +372,6 @@ public class ReservationActivity extends AppCompatActivity {
                 etDaily_Rate.getText().toString().trim().isEmpty() ||
                 etOther_Rate.getText().toString().trim().isEmpty() ||
                 etReservation_Amount.getText().toString().trim().isEmpty() //||
-                //etAmount_Paid.getText().toString().trim().isEmpty() ||
                 //etNote.getText().toString().trim().isEmpty() ||
                 //etStatus_Reservation.getText().toString().trim().isEmpty()
             ){

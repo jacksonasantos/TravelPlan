@@ -569,7 +569,7 @@ public class HomeTravelFragment extends Fragment implements View.OnClickListener
                 rvTravelExpenseExpected.setAdapter(adapterTravelExpenses);
                 rvTravelExpenseExpected.setLayoutManager(new LinearLayoutManager(requireContext()));
 
-                adapterTravelItemExpenses[0] = new TravelExpensesRealizedListAdapter(Database.mTravelItemExpensesDao.fetchTravelItemExpensesByExpenseType( travel[0].getId(), expense_type), requireContext(),1,1, travel[0].getId(), expense_type);
+                adapterTravelItemExpenses[0] = new TravelExpensesRealizedListAdapter(Database.mTravelItemExpensesDao.fetchTravelItemExpensesByExpenseType( travel[0].getId(), expense_type), requireContext(),1,1, travel[0].getId(), expense_type, "");
                 rvTravelExpenseItem.setAdapter(adapterTravelItemExpenses[0]);
                 rvTravelExpenseItem.setLayoutManager(new LinearLayoutManager(requireContext()));
 

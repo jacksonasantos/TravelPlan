@@ -24,6 +24,7 @@ import com.jacksonasantos.travelplan.dao.InsuranceCompany;
 import com.jacksonasantos.travelplan.dao.Travel;
 import com.jacksonasantos.travelplan.dao.Vehicle;
 import com.jacksonasantos.travelplan.dao.general.Database;
+import com.jacksonasantos.travelplan.ui.travel.TravelExpensesRealizedListAdapter;
 import com.jacksonasantos.travelplan.ui.utility.DateInputMask;
 import com.jacksonasantos.travelplan.ui.utility.Utils;
 
@@ -57,8 +58,10 @@ public  class InsuranceActivity extends AppCompatActivity {
     private LinearLayout input_layout_spinVehicle;
     private LinearLayout input_layout_spinTravel;
     private RecyclerView rvInsuranceContact;
+    private RecyclerView rvExpenseRealized;
 
     private InsuranceContactListAdapter adapterInsuranceContact;
+    private TravelExpensesRealizedListAdapter adapterExpenseRealized;
 
     private boolean opInsert = true;
     private Insurance insurance;
@@ -122,6 +125,7 @@ public  class InsuranceActivity extends AppCompatActivity {
         input_layout_spinVehicle = findViewById(R.id.input_layout_spinVehicle);
         input_layout_spinTravel = findViewById(R.id.input_layout_spinTravel);
         rvInsuranceContact = findViewById(R.id.rvInsuranceContact);
+        rvExpenseRealized = findViewById(R.id.rvExpenseRealized);
 
         Utils.addRadioButtonResources(R.array.insurance_type_array, rgInsuranceType, this);
         rgInsuranceType.setOnCheckedChangeListener((group, checkedId) -> {
@@ -326,6 +330,11 @@ public  class InsuranceActivity extends AppCompatActivity {
             rvInsuranceContact.setAdapter(adapterInsuranceContact);
             rvInsuranceContact.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
             adapterInsuranceContact.notifyDataSetChanged();
+
+            adapterExpenseRealized = new TravelExpensesRealizedListAdapter(Database.mTravelItemExpensesDao.fetchTravelItemExpensesByExpenseType(nrSpinTravel, 6), getApplicationContext(), 1, 0, nrSpinTravel, 6, "insurance_id = "+insurance.getId());
+            rvExpenseRealized.setAdapter(adapterExpenseRealized);
+            rvExpenseRealized.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+            adapterExpenseRealized.notifyDataSetChanged();
         }
     }
 
@@ -354,9 +363,10 @@ public  class InsuranceActivity extends AppCompatActivity {
                 i1.setBonus_class(Integer.parseInt(etBonus_Class.getText().toString()));
                 i1.setNote(etNote.getText().toString());
                 i1.setStatus(nrStatus);
+                if(nrSpinTravel==0) nrSpinTravel=null;
                 i1.setTravel_id(nrSpinTravel);
+                if(nrSpinVehicle==0) nrSpinVehicle=null;
                 i1.setVehicle_id(nrSpinVehicle);
-
                 try {
                     if (!opInsert) {
                         try {

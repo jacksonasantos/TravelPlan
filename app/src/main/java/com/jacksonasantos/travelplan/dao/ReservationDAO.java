@@ -85,7 +85,6 @@ public class ReservationDAO extends DbContentProvider implements ReservationISch
             if (c.getColumnIndex(RESERVATION_DAILY_RATE) != -1)         {r.setDaily_rate(c.getDouble(c.getColumnIndexOrThrow(RESERVATION_DAILY_RATE))); }
             if (c.getColumnIndex(RESERVATION_OTHER_RATE) != -1)         {r.setOther_rate(c.getDouble(c.getColumnIndexOrThrow(RESERVATION_OTHER_RATE))); }
             if (c.getColumnIndex(RESERVATION_RESERVATION_AMOUNT) != -1) {r.setReservation_amount(c.getDouble(c.getColumnIndexOrThrow(RESERVATION_RESERVATION_AMOUNT))); }
-            if (c.getColumnIndex(RESERVATION_AMOUNT_PAID) != -1)        {r.setAmount_paid(c.getDouble(c.getColumnIndexOrThrow(RESERVATION_AMOUNT_PAID))); }
             if (c.getColumnIndex(RESERVATION_NOTE) != -1)               {r.setNote(c.getString(c.getColumnIndexOrThrow(RESERVATION_NOTE))); }
             if (c.getColumnIndex(RESERVATION_STATUS_RESERVATION) != -1) {r.setStatus_reservation(c.getInt(c.getColumnIndexOrThrow(RESERVATION_STATUS_RESERVATION))); }
         }
@@ -104,7 +103,6 @@ public class ReservationDAO extends DbContentProvider implements ReservationISch
         initialValues.put(RESERVATION_DAILY_RATE, r.daily_rate);
         initialValues.put(RESERVATION_OTHER_RATE, r.other_rate);
         initialValues.put(RESERVATION_RESERVATION_AMOUNT, r.reservation_amount);
-        initialValues.put(RESERVATION_AMOUNT_PAID, r.amount_paid);
         initialValues.put(RESERVATION_NOTE, r.note);
         initialValues.put(RESERVATION_STATUS_RESERVATION, r.status_reservation);
     }

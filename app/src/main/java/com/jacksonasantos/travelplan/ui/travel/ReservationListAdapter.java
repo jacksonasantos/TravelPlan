@@ -7,7 +7,6 @@ import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -17,10 +16,12 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.jacksonasantos.travelplan.R;
 import com.jacksonasantos.travelplan.dao.Reservation;
+import com.jacksonasantos.travelplan.dao.TravelItemExpenses;
 import com.jacksonasantos.travelplan.dao.general.Database;
 import com.jacksonasantos.travelplan.ui.utility.Utils;
 
@@ -59,7 +60,7 @@ public class ReservationListAdapter extends RecyclerView.Adapter<RecyclerView.Vi
         else return new ItemViewHolder(reservationView);
     }
 
-    @SuppressLint("SetTextI18n")
+    @SuppressLint({"SetTextI18n", "NotifyDataSetChanged"})
     @Override
     public void onBindViewHolder(@NonNull final RecyclerView.ViewHolder holder, final int position) {
         if (holder instanceof HeaderViewHolder){
@@ -114,7 +115,9 @@ public class ReservationListAdapter extends RecyclerView.Adapter<RecyclerView.Vi
                 final TextView tvAmountPaid = promptsView.findViewById(R.id.tvAmountPaid);
                 final TextView tvBalancePay = promptsView.findViewById(R.id.tvBalancePay);
                 final Spinner spinStatusReservation = promptsView.findViewById(R.id.spinStatusReservation);
-                final EditText etAmountPaid = promptsView.findViewById(R.id.etAmountPaid);
+                final RecyclerView rvExpenseRealized = promptsView.findViewById(R.id.rvExpenseRealized);
+
+                TravelExpensesRealizedListAdapter adapterExpenseRealized;
 
                 tvTravel.setText(Database.mTravelDao.fetchTravelById(reservation.getTravel_id()).getDescription());
                 tvAccommodation.setText(Database.mAccommodationDao.fetchAccommodationById(reservation.getAccommodation_id()).getName());
@@ -127,11 +130,20 @@ public class ReservationListAdapter extends RecyclerView.Adapter<RecyclerView.Vi
                 tvReservation_Amount.setText(Double.toString(reservation.getReservation_amount()));
                 tvAptType.setText(reservation.getApt_type());
                 tvNote.setText(reservation.getNote());
-                tvAmountPaid.setText(String.valueOf(reservation.getAmount_paid()));
-                tvBalancePay.setText(String.valueOf((reservation.getRates()*reservation.getDaily_rate())+reservation.getOther_rate()-reservation.getAmount_paid()));
+                double vReservationAmountPaid= 0.0;
+                List<TravelItemExpenses> listTravelItemExpenses = Database.mTravelItemExpensesDao.fetchTravelItemExpensesByExpenseTypeKey(reservation.getTravel_id(), 4, "reservation_id = " + reservation.getId());
+                for( int i = 1; i <= listTravelItemExpenses.size(); i++) {
+                    vReservationAmountPaid += listTravelItemExpenses.get(i-1).getRealized_value();
+                }
+                tvAmountPaid.setText(String.valueOf(vReservationAmountPaid));
+                tvBalancePay.setText(String.valueOf((reservation.getRates()*reservation.getDaily_rate())+reservation.getOther_rate()-vReservationAmountPaid));
+
+                adapterExpenseRealized = new TravelExpensesRealizedListAdapter(Database.mTravelItemExpensesDao.fetchTravelItemExpensesByExpenseTypeKey(reservation.getTravel_id(), 4, "reservation_id = "+reservation.getId()), context, 1, 1, reservation.getTravel_id(), 4, "reservation_id = "+reservation.getId());
+                rvExpenseRealized.setAdapter(adapterExpenseRealized);
+                rvExpenseRealized.setLayoutManager(new LinearLayoutManager(context));
+                adapterExpenseRealized.notifyDataSetChanged();
 
                 spinStatusReservation.setSelection(reservation.getStatus_reservation());
-                etAmountPaid.setText(String.valueOf(reservation.getAmount_paid()));
 
                 alertDialogBuilder
                         .setCancelable(false)
@@ -140,9 +152,7 @@ public class ReservationListAdapter extends RecyclerView.Adapter<RecyclerView.Vi
                             if (reservation.getAccommodation_id()==0) {
                                 Toast.makeText(context, R.string.Reservation_Invalid_Accommodation_Details, Toast.LENGTH_LONG).show();
                             } else {
-                                if (!etAmountPaid.getText().toString().isEmpty()) {
-                                    reservation.setAmount_paid(Double.parseDouble(etAmountPaid.getText().toString()));
-                                }
+
                                 reservation.setStatus_reservation(spinStatusReservation.getSelectedItemPosition());
 
                                 try {

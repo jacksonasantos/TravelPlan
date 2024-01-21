@@ -322,7 +322,35 @@
             </LinearLayout>
         </LinearLayout>
     </androidx.cardview.widget.CardView>
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/labels_space_top"
+        android:layout_marginBottom="@dimen/labels_space_top"
+        app:cardBackgroundColor="@color/colorBackgroundCard"
+        app:cardCornerRadius="@dimen/cardCornerRadius"
+        app:cardElevation="@dimen/cardElevation">
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/labels_margin">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:text="@string/TravelExpenseItems"
+                android:textSize="14sp" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvExpenseRealized"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:itemCount="2" />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -330,55 +358,30 @@
         app:cardBackgroundColor="@color/colorBackgroundCard"
         app:cardCornerRadius="@dimen/cardCornerRadius"
         app:cardElevation="@dimen/cardElevation">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
+            android:orientation="horizontal"
             android:padding="@dimen/labels_margin">
-            <LinearLayout
-                android:layout_width="match_parent"
+            <TextView
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.40"
-                    android:text="@string/Reservation_Status_Reservation"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textSize="16sp" />
-                <Spinner
-                    android:id="@+id/spinStatusReservation"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.50"
-                    android:clickable="false"
-                    android:enabled="false"
-                    android:entries="@array/reservation_status_array"
-                    android:text="@string/Reservation_Status_Reservation">
-                </Spinner>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_weight="0.40"
+                android:text="@string/Reservation_Status_Reservation"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textSize="16sp" />
+            <Spinner
+                android:id="@+id/spinStatusReservation"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.40"
-                    android:text="@string/Reservation_New_Amount_Paid"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textSize="16sp" />
-                <EditText
-                    android:id="@+id/etAmountPaid"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.50"
-                    android:autofillHints="no"
-                    android:gravity="end"
-                    android:inputType="numberDecimal"
-                    tools:ignore="LabelFor" />
-            </LinearLayout>
+                android:layout_weight="0.50"
+                android:clickable="false"
+                android:enabled="false"
+                android:entries="@array/reservation_status_array"
+                android:text="@string/Reservation_Status_Reservation">
+            </Spinner>
         </LinearLayout>
+
     </androidx.cardview.widget.CardView>
 </LinearLayout>

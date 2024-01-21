@@ -45,6 +45,7 @@ public class TravelExpensesRealizedListAdapter extends RecyclerView.Adapter<Recy
     final int show_footer;
     final Integer mTravel_id;
     final int mExpense_type;
+    final String mKey_id;
     Double vTotal = 0.0;
     Integer nPositionChanged = null;
 
@@ -52,13 +53,14 @@ public class TravelExpensesRealizedListAdapter extends RecyclerView.Adapter<Recy
     final Locale locale = new Locale(g.getLanguage(), g.getCountry());
     final NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(locale);
 
-    public TravelExpensesRealizedListAdapter(List<TravelItemExpenses> travelItemExpenses, Context context, int show_header, int show_footer, Integer travel_id, int expense_type) {
+    public TravelExpensesRealizedListAdapter(List<TravelItemExpenses> travelItemExpenses, Context context, int show_header, int show_footer, Integer travel_id, int expense_type, String key_id) {
         this.mTravelItemExpenses = travelItemExpenses;
         this.context = context;
         this.show_header = show_header >= 1 ? 1 : 0;
         this.show_footer = show_footer >= 1 ? 1 : 0;
         this.mTravel_id = travel_id;
         this.mExpense_type = expense_type;
+        this.mKey_id = key_id;
     }
 
     @NonNull
@@ -82,7 +84,7 @@ public class TravelExpensesRealizedListAdapter extends RecyclerView.Adapter<Recy
             headerViewHolder.txtNote.setText(R.string.TravelExpenses_Note);
             headerViewHolder.btnAdd.setImageResource(R.drawable.ic_button_add);
             headerViewHolder.btnAdd.setOnClickListener(v -> {
-                if (mTravel.getStatus() < 2) {
+                if (mTravel.getStatus() < 1) {
                     Toast.makeText(context, R.string.Travel_Status_Planning, Toast.LENGTH_LONG).show();
                 } else {
                     LayoutInflater li = LayoutInflater.from(v.getContext());
@@ -146,6 +148,7 @@ public class TravelExpensesRealizedListAdapter extends RecyclerView.Adapter<Recy
                                 boolean isSave = true;
                                 TravelItemExpenses tie = new TravelItemExpenses();
                                 try {
+                                    tie.setExpense_type_key(mKey_id);
                                     tie.setTravel_id(mTravel_id);
                                     tie.setAccount_id(nrSpinAccount[0]);
                                     tie.setCurrency_id(nrSpCurrency[0]);

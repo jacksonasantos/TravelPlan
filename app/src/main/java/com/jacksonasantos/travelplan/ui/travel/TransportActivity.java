@@ -44,6 +44,7 @@ public class TransportActivity extends AppCompatActivity implements TransportTyp
     private int nrTransportType= -1;
     public TransportTypeListAdapter adapterTransportType;
     public ItineraryHasTransportListAdapter adapterItineraryHasTransport;
+    public TravelExpensesRealizedListAdapter adapterExpenseRealized;
 
     private LinearLayout llTransportTypeOwn;
     private Spinner spOwnVehicle;
@@ -60,7 +61,6 @@ public class TransportActivity extends AppCompatActivity implements TransportTyp
     private TextView tvEndLocation ;
     private TextView tvServiceValue;
     private TextView tvServiceTax;
-    private TextView tvAmountPaid;
     private TextView tvNote;
     private EditText etIdentifier ;
     private EditText etDescription ;
@@ -72,7 +72,7 @@ public class TransportActivity extends AppCompatActivity implements TransportTyp
     private EditText etEndDate;
     private EditText etServiceValue;
     private EditText etServiceTax;
-    private EditText etAmountPaid;
+    private TextView tvServiceTotal;
     private EditText etNote;
 
     private boolean opResult;
@@ -80,6 +80,8 @@ public class TransportActivity extends AppCompatActivity implements TransportTyp
     private LinearLayout llItineraryHasTransport;
     private RecyclerView rvTransportPerson;
     private TextView tvTransportPerson;
+
+    private RecyclerView rvExpenseRealized;
 
     @SuppressLint("NotifyDataSetChanged")
     @Override
@@ -103,7 +105,6 @@ public class TransportActivity extends AppCompatActivity implements TransportTyp
         transport = new Transport();
         transport.setService_value(0.0);
         transport.setService_tax(0.0);
-        transport.setAmount_paid(0.0);
         llTransportTypeOwn = findViewById(R.id.llTransportTypeOwn);
         llTransportType = findViewById(R.id.llTransportType);
 
@@ -120,7 +121,6 @@ public class TransportActivity extends AppCompatActivity implements TransportTyp
         tvEndLocation = findViewById(R.id.tvEndLocation);
         tvServiceValue = findViewById(R.id.tvServiceValue);
         tvServiceTax = findViewById(R.id.tvServiceTax);
-        tvAmountPaid = findViewById(R.id.tvAmountPaid);
         tvNote = findViewById(R.id.tvNote);
 
         etIdentifier = findViewById(R.id.etIdentifier);
@@ -133,12 +133,14 @@ public class TransportActivity extends AppCompatActivity implements TransportTyp
         etEndDate = findViewById(R.id.etEndLocationDate);
         etServiceValue = findViewById(R.id.etServiceValue);
         etServiceTax = findViewById(R.id.etServiceTax);
-        etAmountPaid = findViewById(R.id.etAmountPaid);
+        tvServiceTotal = findViewById(R.id.tvServiceTotal);
         etNote = findViewById(R.id.etNote);
 
         llItineraryHasTransport = findViewById(R.id.llItineraryHasTransport);
         tvTransportPerson = findViewById(R.id.tvTransportPerson);
         rvTransportPerson = findViewById(R.id.rvTransportPerson);
+
+        rvExpenseRealized = findViewById(R.id.rvExpenseRealized);
 
         if (nrTransportType==-1) {
             llTransportTypeOwn.setVisibility(View.VISIBLE);
@@ -186,6 +188,18 @@ public class TransportActivity extends AppCompatActivity implements TransportTyp
 
         etStartDate.addTextChangedListener(new DateTimeInputMask(etStartDate));
         etEndDate.addTextChangedListener(new DateTimeInputMask(etEndDate));
+        tvServiceTotal.setText(String.valueOf(transport.getService_value() + transport.getService_tax()));
+
+        etServiceValue.setOnFocusChangeListener((view, b) -> {
+            if (!b) {
+                tvServiceTotal.setText(String.valueOf(Double.parseDouble(etServiceValue.getText().toString()) + Double.parseDouble(etServiceTax.getText().toString())));
+            }
+        });
+        etServiceTax.setOnFocusChangeListener((view, b) -> {
+            if (!b) {
+                tvServiceTotal.setText(String.valueOf(Double.parseDouble(etServiceValue.getText().toString()) + Double.parseDouble(etServiceTax.getText().toString())));
+            }
+        });
 
         final List<Vehicle> vehicles =  Database.mVehicleDao.fetchArrayVehicles();
         vehicles.add(0, new Vehicle());
@@ -260,7 +274,6 @@ public class TransportActivity extends AppCompatActivity implements TransportTyp
             etEndDate.setText(Utils.dateTimeToString(transport.getEnd_date()));
             etServiceValue.setText(String.valueOf(transport.getService_value()));
             etServiceTax.setText(String.valueOf(transport.getService_tax()));
-            etAmountPaid.setText(String.valueOf(transport.getAmount_paid()));
             etNote.setText(transport.getNote());
 
             if (!opInsert) {
@@ -274,9 +287,13 @@ public class TransportActivity extends AppCompatActivity implements TransportTyp
                 llItineraryHasTransport.setVisibility(View.INVISIBLE);
             }
 
+            adapterExpenseRealized = new TravelExpensesRealizedListAdapter(Database.mTravelItemExpensesDao.fetchTravelItemExpensesByExpenseTypeKey(transport.getTravel_id(), 7, "transport_id = "+transport.getId()), getApplicationContext(), 1, 1, transport.getTravel_id(), 7, "transport_id = "+transport.getId());
+            rvExpenseRealized.setAdapter(adapterExpenseRealized);
+            rvExpenseRealized.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+            adapterExpenseRealized.notifyDataSetChanged();
+
         }
     }
-
     public void presentLabels() {
         switch (nrTransportType) {
             case -1: {
@@ -301,7 +318,6 @@ public class TransportActivity extends AppCompatActivity implements TransportTyp
                 tvEndLocation.setText(getResources().getString(R.string.Transport_Voo_Arrival));
                 tvServiceValue.setText(getResources().getString(R.string.Transport_Voo_Value_Ticket));
                 tvServiceTax.setText(getResources().getString(R.string.Transport_Voo_Value_Tax));
-                tvAmountPaid.setText(getResources().getString(R.string.Transport_Voo_Amount_Paid));
                 tvNote.setText(getResources().getString(R.string.Transport_Voo_Note));
                 tvTransportPerson.setText(getResources().getString(R.string.Traveler));
                 break;
@@ -317,7 +333,6 @@ public class TransportActivity extends AppCompatActivity implements TransportTyp
                 tvEndLocation.setText(getResources().getString(R.string.Transport_Rental_Return_Location));
                 tvServiceValue.setText(getResources().getString(R.string.Transport_Rental_Reserve_Value));
                 tvServiceTax.setText(getResources().getString(R.string.Transport_Rental_Value_Tax));
-                tvAmountPaid.setText(getResources().getString(R.string.Transport_Rental_Amount_Paid));
                 tvNote.setText(getResources().getString(R.string.Transport_Rental_Note));
                 tvTransportPerson.setText(getResources().getString(R.string.Renter));
                 break;
@@ -333,7 +348,6 @@ public class TransportActivity extends AppCompatActivity implements TransportTyp
                 tvEndLocation.setText(getResources().getString(R.string.Transport_Hiring_End_Location));
                 tvServiceValue.setText(getResources().getString(R.string.Transport_Hiring_Service_Value));
                 tvServiceTax.setText(getResources().getString(R.string.Transport_Hiring_Service_Tax));
-                tvAmountPaid.setText(getResources().getString(R.string.Transport_Hiring_Amount_Paid));
                 tvNote.setText(getResources().getString(R.string.Transport_Hiring_Note));
                 tvTransportPerson.setText(getResources().getString(R.string.Traveler));
                 break;
@@ -381,7 +395,6 @@ public class TransportActivity extends AppCompatActivity implements TransportTyp
                 t1.setEnd_date(Utils.stringToDateTime(etEndDate.getText().toString()));
                 t1.setService_value(Double.parseDouble(etServiceValue.getText().toString()));
                 t1.setService_tax(Double.parseDouble(etServiceTax.getText().toString()));
-                t1.setAmount_paid(Double.parseDouble(etAmountPaid.getText().toString()));
                 t1.setNote(etNote.getText().toString());
 
                 final VehicleHasTravel vht = new VehicleHasTravel();
@@ -441,10 +454,9 @@ public class TransportActivity extends AppCompatActivity implements TransportTyp
                     etStartDate.getText().toString().trim().isEmpty() ||
                     //etEndLocation.getText().toString().trim().isEmpty() ||
                     //etEndDate.getText().toString().trim().isEmpty() ||
-                    etServiceValue.getText().toString().trim().isEmpty() ||
+                    etServiceValue.getText().toString().trim().isEmpty() //||
                     //etServiceTax.getText().toString().trim().isEmpty() ||
-                    //etAmountPaid.getText().toString().trim().isEmpty() ||
-                    etNote.getText().toString().trim().isEmpty()
+                    //etNote.getText().toString().trim().isEmpty()
                 ) {
                     isValid = false;
                 }

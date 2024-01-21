@@ -414,21 +414,27 @@
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="5"
+                        android:layout_weight="3.3"
                         android:gravity="end"
                         android:text="@string/Reservation_Daily_Rate"
                         android:textAppearance="?android:attr/textAppearanceMedium"
                         android:textSize="14sp" />
-
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="5"
+                        android:layout_weight="3.3"
                         android:gravity="end"
                         android:text="@string/Reservation_Other_Rate"
                         android:textAppearance="?android:attr/textAppearanceMedium"
                         android:textSize="14sp" />
-
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="3.4"
+                        android:gravity="end"
+                        android:text="@string/Reservation_Reservation_Amount"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textSize="14sp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -442,7 +448,7 @@
                         android:id="@+id/etDaily_Rate"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="5"
+                        android:layout_weight="3.3"
                         android:gravity="end"
                         android:autofillHints="no"
                         android:inputType="numberDecimal"
@@ -453,7 +459,7 @@
                         android:id="@+id/etOther_Rate"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="5"
+                        android:layout_weight="3.3"
                         android:gravity="end"
                         android:autofillHints="no"
                         android:cursorVisible="true"
@@ -461,64 +467,16 @@
                         android:nextFocusDown="@+id/etReservation_Amount"
                         android:textSize="14sp"
                         tools:ignore="LabelFor" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:weightSum="10"
-                    android:baselineAligned="false">
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="5"
-                        android:gravity="end"
-                        android:text="@string/Reservation_Reservation_Amount"
-                        android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:textSize="14sp" />
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="5"
-                        android:gravity="end"
-                        android:text="@string/Reservation_Amount_Paid"
-                        android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:textSize="14sp" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:weightSum="10"
-                    android:baselineAligned="false">
-
                     <EditText
                         android:id="@+id/etReservation_Amount"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="5"
+                        android:layout_weight="3.4"
                         android:gravity="end"
                         android:autofillHints="no"
                         android:inputType="numberDecimal"
                         android:textAllCaps="true"
                         android:nextFocusDown="@+id/etAmount_Paid"
-                        android:textSize="14sp"
-                        tools:ignore="LabelFor" />
-
-                    <EditText
-                        android:id="@+id/etAmount_Paid"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="5"
-                        android:gravity="end"
-                        android:autofillHints="no"
-                        android:inputType="numberDecimal"
-                        android:nextFocusDown="@+id/etNote"
                         android:textSize="14sp"
                         tools:ignore="LabelFor" />
                 </LinearLayout>
@@ -567,7 +525,34 @@
 
             </LinearLayout>
         </androidx.cardview.widget.CardView>
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/labels_space_top"
+            app:cardBackgroundColor="@color/colorBackgroundCard"
+            app:cardCornerRadius="@dimen/cardCornerRadius"
+            app:cardElevation="@dimen/cardElevation">
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/labels_margin">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/TravelExpenseItems"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvExpenseRealized"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:itemCount="2" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
         <Button
             android:id="@+id/btSaveReservation"
             android:layout_width="wrap_content"

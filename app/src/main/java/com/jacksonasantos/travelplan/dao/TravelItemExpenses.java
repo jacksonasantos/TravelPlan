@@ -11,6 +11,7 @@ public class TravelItemExpenses {
     public Integer travel_id;
     public Integer account_id;
     public int currency_id;
+    public String expense_type_key;  // Atributo utilizado para identificar a origem do lancamento de realização de pagamento. Ex.: "transport_id = 1"
 
     public TravelItemExpenses() {
     }
@@ -38,4 +39,7 @@ public class TravelItemExpenses {
 
     public int getCurrency_id() { return currency_id; }
     public void setCurrency_id(int currency_id) { this.currency_id = currency_id; }
+
+    public String getExpense_type_key() {return expense_type_key;}
+    public void setExpense_type_key(String expense_type_key) {this.expense_type_key = expense_type_key;}
 }

@@ -20,7 +20,6 @@ public class Transport {
     public Date end_date;
     public Double service_value;
     public Double service_tax;
-    public Double amount_paid;
     public String note;
 
     public Transport() { }
@@ -88,9 +87,6 @@ public class Transport {
 
     public Double getService_tax() {return service_tax;}
     public void setService_tax(Double service_tax) {this.service_tax = service_tax;}
-
-    public Double getAmount_paid() {return amount_paid;}
-    public void setAmount_paid(Double amount_paid) {this.amount_paid = amount_paid;}
 
     public String getNote() {return note;}
     public void setNote(String note) {this.note = note;}

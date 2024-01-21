@@ -12,6 +12,7 @@ public interface TravelItemExpensesISchema {
     String TRAVEL_ITEM_EXPENSES_TRAVEL_ID = "travel_id";
     String TRAVEL_ITEM_EXPENSES_ACCOUNT_ID = "account_id";
     String TRAVEL_ITEM_EXPENSES_CURRENCY_ID = "currency_id";
+    String TRAVEL_ITEM_EXPENSES_EXPENSE_TYPE_KEY = "expense_type_key";
 
     // Version 31
     String CREATE_TABLE_TRAVEL_ITEM_EXPENSES_V31 = "CREATE TABLE IF NOT EXISTS "
@@ -38,6 +39,10 @@ public interface TravelItemExpensesISchema {
     String ALTER_TABLE_TRAVEL_ITEM_EXPENSES_V82_2 = "ALTER TABLE " + TRAVEL_ITEM_EXPENSES_TABLE
             + " ADD COLUMN " + TRAVEL_ITEM_EXPENSES_CURRENCY_ID + " INT ";
 
+    // Version 84
+    String ALTER_TABLE_TRAVEL_ITEM_EXPENSES_V84 = "ALTER TABLE " + TRAVEL_ITEM_EXPENSES_TABLE
+            + " ADD COLUMN " + TRAVEL_ITEM_EXPENSES_EXPENSE_TYPE_KEY + " TEXT ";
+
     String[] TRAVEL_ITEM_EXPENSES_COLUMNS = new String[] {
             TRAVEL_ITEM_EXPENSES_ID,
             TRAVEL_ITEM_EXPENSES_EXPENSE_TYPE,
@@ -46,6 +51,7 @@ public interface TravelItemExpensesISchema {
             TRAVEL_ITEM_EXPENSES_NOTE,
             TRAVEL_ITEM_EXPENSES_TRAVEL_ID,
             TRAVEL_ITEM_EXPENSES_ACCOUNT_ID,
-            TRAVEL_ITEM_EXPENSES_CURRENCY_ID
+            TRAVEL_ITEM_EXPENSES_CURRENCY_ID,
+            TRAVEL_ITEM_EXPENSES_EXPENSE_TYPE_KEY
    };
 }

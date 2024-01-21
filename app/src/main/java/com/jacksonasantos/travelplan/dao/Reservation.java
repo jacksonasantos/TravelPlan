@@ -16,7 +16,6 @@ public class Reservation {
     public double daily_rate;
     public double other_rate;
     public double reservation_amount;
-    public double amount_paid;
     public String note;
     public int status_reservation;
 
@@ -52,9 +51,6 @@ public class Reservation {
 
     public double getReservation_amount() {return reservation_amount; }
     public void setReservation_amount(double reservation_amount) { this.reservation_amount = reservation_amount;}
-
-    public double getAmount_paid() {return amount_paid; }
-    public void setAmount_paid(double amount_paid) { this.amount_paid = amount_paid;}
 
     public String getNote() {return note;}
     public void setNote(String note) {this.note = note;}

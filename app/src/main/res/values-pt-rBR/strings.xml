@@ -432,7 +432,6 @@
     <string name="Onw">Próprio</string>
     <string name="Traveler">Viajante</string>
     <string name="Transport_Voo_Contact">Contato</string>
-    <string name="Transport_Voo_Amount_Paid">Valor Pago</string>
     <string name="Transport_Voo_Note">Observação</string>
     <string name="Transport_Voo_Reserve">Reserva</string>
     <string name="Transport_Voo_Company">Companhia</string>
@@ -453,12 +452,10 @@
     <string name="Transport_Hiring_End_Date">Data Final</string>
     <string name="Transport_Hiring_Service_Value">Valor</string>
     <string name="Transport_Hiring_Service_Tax">Taxas</string>
-    <string name="Transport_Hiring_Amount_Paid">Valor Pago</string>
     <string name="Transport_Hiring_Note">Observação</string>
     <string name="Transport_Rental_Description">Descrição</string>
     <string name="Transport_Rental_Company">Locadora</string>
     <string name="Transport_Rental_Contact">Contato</string>
-    <string name="Transport_Rental_Amount_Paid">Valor Pago</string>
     <string name="Transport_Rental_Note">Observação</string>
     <string name="Transport_Rental_Voucher">Voucher</string>
     <string name="Transport_Rental_PickUp_Location">Retirada</string>
@@ -569,4 +566,7 @@
     <string name="TravelItemExpenses_RealizedBalance">Saldo</string>
     <string name="FuelSupply_Account">Conta</string>
     <string name="TravelItemExpenses_Type">Tipo</string>
+    <string name="Transport_Voo_Value_Total">Total</string>
+    <string name="Transport_Rental_Reserve_total">Total</string>
+    <string name="Transport_Hiring_Service_Total">Total</string>
 </resources>

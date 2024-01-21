@@ -70,13 +70,15 @@ public class TourActivity extends AppCompatActivity implements TourTypeListAdapt
     private EditText etCountryTour;
     private EditText etLatLngTour;
     private ImageButton btLocationTour;
+    private RecyclerView rvExpenseRealized;
 
+    public TravelExpensesRealizedListAdapter adapterExpenseRealized;
     public TourTypeListAdapter adapterTourType;
     public List<Marker> markers;
     public ArrayAdapter<Marker> adapterM;
 
     Travel travel;
-    @SuppressLint("ResourceType")
+    @SuppressLint({"ResourceType", "NotifyDataSetChanged"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -131,6 +133,7 @@ public class TourActivity extends AppCompatActivity implements TourTypeListAdapt
         etCountryTour = findViewById(R.id.etCountryTour);
         etLatLngTour = findViewById(R.id.etLatLngTour);
         btLocationTour = findViewById(R.id.btLocationTour);
+        rvExpenseRealized = findViewById(R.id.rvExpenseRealized);
 
         btLocationTour.setOnClickListener(view -> {
             Intent intent = new Intent (getBaseContext(), MaintenanceItineraryActivity.class);
@@ -292,7 +295,7 @@ public class TourActivity extends AppCompatActivity implements TourTypeListAdapt
             nrSpMarker= tour.getMarker_id();
             if (nrSpMarker != null && nrSpMarker > 0) {
                 Marker m1 = Database.mMarkerDao.fetchMarkerById(nrSpMarker);
-                for (int x = 1; x <= spMarker.getAdapter().getCount(); x++) {
+                for (int x = 0; x <= spMarker.getAdapter().getCount(); x++) {
                     if (spMarker.getAdapter().getItem(x).toString().equals(m1.toString())) {
                         spMarker.setSelection(x);
                         break;
@@ -316,6 +319,12 @@ public class TourActivity extends AppCompatActivity implements TourTypeListAdapt
             etStateTour.setText(tour.getState_tour());
             etCountryTour.setText(tour.getCountry_tour());
             etLatLngTour.setText(tour.getLatlng_tour());
+
+            adapterExpenseRealized = new TravelExpensesRealizedListAdapter(Database.mTravelItemExpensesDao.fetchTravelItemExpensesByExpenseType(tour.getTravel_id(), 3), getApplicationContext(), 1, 0, tour.getTravel_id(), 3, "tour_id = "+tour.getId());
+            rvExpenseRealized.setAdapter(adapterExpenseRealized);
+            rvExpenseRealized.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+            adapterExpenseRealized.notifyDataSetChanged();
+
         }
     }
 

@@ -17,7 +17,6 @@ public interface TransportISchema {
     String TRANSPORT_END_DATE = "end_date";
     String TRANSPORT_SERVICE_VALUE = "service_value";
     String TRANSPORT_SERVICE_TAX = "service_tax";
-    String TRANSPORT_AMOUNT_PAID = "amount_paid";
     String TRANSPORT_NOTE = "note";
 
 
@@ -37,7 +36,6 @@ public interface TransportISchema {
             + TRANSPORT_END_DATE + " DATE, "
             + TRANSPORT_SERVICE_VALUE + " DOUBLE, "
             + TRANSPORT_SERVICE_TAX + " DOUBLE, "
-            + TRANSPORT_AMOUNT_PAID + " DOUBLE, "
             + TRANSPORT_NOTE + " TEXT "
             + ")";
 
@@ -55,7 +53,6 @@ public interface TransportISchema {
             TRANSPORT_END_DATE,
             TRANSPORT_SERVICE_VALUE,
             TRANSPORT_SERVICE_TAX,
-            TRANSPORT_AMOUNT_PAID,
             TRANSPORT_NOTE
    };
 }
