@@ -451,7 +451,7 @@
     <string name="Accommodation_Email">E-mail</string>
     <string name="Accommodation_Site">Site</string>
     <string name="Accommodation_Latlng_Accommodation">Lat/Lng</string>
-    <string name="Accommodation_Accommodation_Type">Accommodation Type</string>
+    <string name="Accommodation_Accommodation_Type">Type</string>
 
     <string name="hotel">Hotel</string>
     <string name="roost">Roost</string>

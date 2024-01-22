@@ -98,6 +98,30 @@
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="2.5"
+                        android:text="@string/Accommodation_Accommodation_Type"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textSize="14sp" />
+                    <TextView
+                        android:id="@+id/tvAccommodation_Type"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="7.5"
+                        android:autofillHints="no"
+                        android:textSize="12sp" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/activity_horizontal_margin"
+                    android:orientation="horizontal"
+                    android:weightSum="10">
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
                         android:layout_weight="2.5"
                         android:text="@string/Accommodation_Address"
                         android:textAppearance="?android:attr/textAppearanceMedium"
@@ -106,12 +130,10 @@
                         android:id="@+id/tvAccommodation_Address"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="bottom"
+                        android:layout_gravity="center"
                         android:layout_weight="7.5"
                         android:autofillHints="no"
-                        android:textIsSelectable="true"
-                        android:textSize="12sp"
-                        tools:ignore="LabelFor,TextFields" />
+                        android:textSize="12sp" />
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -122,19 +144,35 @@
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center"
                         android:layout_weight="2.5"
                         android:textAppearance="?android:attr/textAppearanceMedium"
                         android:textSize="14sp" />
                     <TextView
-                        android:id="@+id/tvAccommodation_CityStateCountry"
+                        android:id="@+id/tvAccommodation_City"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="bottom"
-                        android:layout_weight="7.5"
+                        android:layout_gravity="center"
+                        android:layout_weight="4.5"
                         android:autofillHints="no"
-                        android:textIsSelectable="true"
+                        android:textSize="12sp" />
+                    <TextView
+                        android:id="@+id/tvAccommodation_State"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1.5"
+                        android:autofillHints="no"
                         android:textSize="12sp"
                         tools:ignore="LabelFor,TextFields" />
+                    <TextView
+                        android:id="@+id/tvAccommodation_Country"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1.5"
+                        android:autofillHints="no"
+                        android:textSize="12sp" />
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -145,6 +183,7 @@
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center"
                         android:layout_weight="2.5"
                         android:text="@string/Accommodation_Latlng_Accommodation"
                         android:textAppearance="?android:attr/textAppearanceMedium"
@@ -153,12 +192,10 @@
                         android:id="@+id/tvAccommodation_LatLng"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="bottom"
+                        android:layout_gravity="center"
                         android:layout_weight="7.5"
                         android:autofillHints="no"
-                        android:textIsSelectable="true"
-                        android:textSize="12sp"
-                        tools:ignore="LabelFor" />
+                        android:textSize="12sp" />
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -169,6 +206,7 @@
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center"
                         android:layout_weight="2.5"
                         android:text="@string/Accommodation_Contact"
                         android:textAppearance="?android:attr/textAppearanceMedium"
@@ -177,12 +215,10 @@
                         android:id="@+id/tvAccommodation_Contact"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="bottom"
+                        android:layout_gravity="center"
                         android:layout_weight="7.5"
                         android:autofillHints="no"
-                        android:textIsSelectable="true"
-                        android:textSize="12sp"
-                        tools:ignore="LabelFor,TextFields" />
+                        android:textSize="12sp"/>
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -193,6 +229,7 @@
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center"
                         android:layout_weight="2.5"
                         android:text="@string/Accommodation_Phone"
                         android:textAppearance="?android:attr/textAppearanceMedium"
@@ -202,12 +239,10 @@
                         android:id="@+id/tvAccommodation_Phone"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="bottom"
+                        android:layout_gravity="center"
                         android:layout_weight="7.5"
                         android:autofillHints="no"
-                        android:textIsSelectable="true"
-                        android:textSize="12sp"
-                        tools:ignore="LabelFor,TextFields" />
+                        android:textSize="12sp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -219,6 +254,7 @@
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center"
                         android:layout_weight="2.5"
                         android:text="@string/Accommodation_Email"
                         android:textAppearance="?android:attr/textAppearanceMedium"
@@ -227,12 +263,10 @@
                         android:id="@+id/tvAccommodation_Email"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="bottom"
+                        android:layout_gravity="center"
                         android:layout_weight="7.5"
                         android:autofillHints="no"
-                        android:textIsSelectable="true"
-                        android:textSize="12sp"
-                        tools:ignore="LabelFor,TextFields" />
+                        android:textSize="12sp" />
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -243,6 +277,7 @@
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center"
                         android:layout_weight="2.5"
                         android:text="@string/Accommodation_Site"
                         android:textAppearance="?android:attr/textAppearanceMedium"
@@ -251,12 +286,10 @@
                         android:id="@+id/tvAccommodation_Site"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="bottom"
+                        android:layout_gravity="center"
                         android:layout_weight="7.5"
                         android:autofillHints="no"
-                        android:textIsSelectable="true"
-                        android:textSize="12sp"
-                        tools:ignore="LabelFor,TextFields" />
+                        android:textSize="12sp" />
                 </LinearLayout>
             </LinearLayout>
         </androidx.cardview.widget.CardView>

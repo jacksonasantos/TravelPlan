@@ -204,7 +204,7 @@
     <string name="Accommodation_Email">E-mail</string>
     <string name="Accommodation_Site">Site</string>
     <string name="Accommodation_Latlng_Accommodation">Lat/Lng</string>
-    <string name="Accommodation_Accommodation_Type">Tipo de Acomodação</string>
+    <string name="Accommodation_Accommodation_Type">Tipo</string>
     <string name="menu_accommodation">Hospedagem</string>
     <string name="hotel">Hotel</string>
     <string name="roost">Pousada</string>

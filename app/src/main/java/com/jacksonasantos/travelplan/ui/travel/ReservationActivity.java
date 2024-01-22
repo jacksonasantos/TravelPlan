@@ -41,8 +41,11 @@ public class ReservationActivity extends AppCompatActivity {
     private Integer nrSpinTravel;
     private Spinner spinAccommodation;
     private Integer nrSpinAccommodation;
+    private TextView tvAccommodation_Type;
     private TextView tvAccommodation_Address;
-    private TextView tvAccommodation_CityStateCountry;
+    private TextView tvAccommodation_City;
+    private TextView tvAccommodation_State;
+    private TextView tvAccommodation_Country;
     private TextView tvAccommodation_LatLng;
     private TextView tvAccommodation_Contact;
     private TextView tvAccommodation_Phone;
@@ -68,7 +71,7 @@ public class ReservationActivity extends AppCompatActivity {
     private boolean opInsert = true;
     private Reservation reservation;
 
-    protected final ArrayAdapter<Accommodation> adapterA = null;
+    protected ArrayAdapter<Accommodation> adapterA = null;
     private List<Accommodation> accommodations;
 
     @SuppressLint({"WrongViewCast", "SetTextI18n", "NotifyDataSetChanged"})
@@ -105,8 +108,11 @@ public class ReservationActivity extends AppCompatActivity {
         spinTravel = findViewById(R.id.spinTravel);
         spinAccommodation = findViewById(R.id.spinAccommodation);
         btAddAccommodation = findViewById(R.id.btAddAccommodation);
+        tvAccommodation_Type = findViewById(R.id.tvAccommodation_Type);
         tvAccommodation_Address = findViewById(R.id.tvAccommodation_Address);
-        tvAccommodation_CityStateCountry = findViewById(R.id.tvAccommodation_CityStateCountry);
+        tvAccommodation_City = findViewById(R.id.tvAccommodation_City);
+        tvAccommodation_State = findViewById(R.id.tvAccommodation_State);
+        tvAccommodation_Country = findViewById(R.id.tvAccommodation_Country);
         tvAccommodation_LatLng = findViewById(R.id.tvAccommodation_LatLng);
         tvAccommodation_Contact = findViewById(R.id.tvAccommodation_Contact);
         tvAccommodation_Phone = findViewById(R.id.tvAccommodation_Phone);
@@ -178,7 +184,7 @@ public class ReservationActivity extends AppCompatActivity {
 
         final List<Accommodation> accommodations =  Database.mAccommodationDao.fetchArrayAccommodation();
         accommodations.add(0, new Accommodation());
-        ArrayAdapter<Accommodation> adapterA = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, accommodations);
+        adapterA = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, accommodations);
         adapterA.setDropDownViewResource( R.layout._multi_spinner_dropdown_item);
         spinAccommodation.setAdapter(adapterA);
 
@@ -188,11 +194,16 @@ public class ReservationActivity extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long idx) {
                 a1[0] = (Accommodation) parent.getItemAtPosition(position);
                 nrSpinAccommodation = a1[0].getId();
+                tvAccommodation_Type.setText(getResources().getStringArray(R.array.accommodation_type_array)[a1[0].getAccommodation_type()]);
                 tvAccommodation_Address.setText(a1[0].getAddress());
                 if (a1[0].getCity()!=null) {
-                    tvAccommodation_CityStateCountry.setText(String.format("%s - %s - %s", a1[0].getCity(), a1[0].getState(), a1[0].getCountry()));
+                    tvAccommodation_City.setText(a1[0].getCity());
+                    tvAccommodation_State.setText(a1[0].getState());
+                    tvAccommodation_Country.setText(a1[0].getCountry());
                 } else {
-                    tvAccommodation_CityStateCountry.setText("");
+                    tvAccommodation_City.setText("");
+                    tvAccommodation_State.setText("");
+                    tvAccommodation_Country.setText("");
                 }
                 tvAccommodation_LatLng.setText(a1[0].getLatlng_accommodation());
                 tvAccommodation_Contact.setText(a1[0].getContact_name());
@@ -227,8 +238,11 @@ public class ReservationActivity extends AppCompatActivity {
                 for (int x = 1; x <= spinAccommodation.getAdapter().getCount(); x++) {
                     if (spinAccommodation.getAdapter().getItem(x).toString().equals(accommodation1.toString())) {
                         spinAccommodation.setSelection(x);
+                        tvAccommodation_Type.setText(getResources().getStringArray(R.array.accommodation_type_array)[accommodation1.getAccommodation_type()]);
                         tvAccommodation_Address.setText(accommodation1.getAddress());
-                        tvAccommodation_CityStateCountry.setText(String.format("%s - %s - %s", accommodation1.getCity(),accommodation1.getState(),accommodation1.getCountry()));
+                        tvAccommodation_City.setText(accommodation1.getCity());
+                        tvAccommodation_State.setText(accommodation1.getState());
+                        tvAccommodation_Country.setText(accommodation1.getCountry());
                         tvAccommodation_LatLng.setText(accommodation1.getLatlng_accommodation());
                         tvAccommodation_Contact.setText(accommodation1.getContact_name());
                         tvAccommodation_Phone.setText(accommodation1.getPhone());
@@ -242,13 +256,6 @@ public class ReservationActivity extends AppCompatActivity {
             etCheckin_Date.setText(Utils.dateToString(reservation.getCheckin_date()));
             etCheckout_Date.setText(Utils.dateToString(reservation.getCheckout_date()));
             tvRates.setText(String.valueOf(reservation.getRates()));
-            /*if (!etCheckin_Date.getText().toString().equals("") &&
-                    !etCheckout_Date.getText().toString().equals("")) {
-                long d1 = Objects.requireNonNull(Utils.stringToDate(etCheckin_Date.getText().toString())).getTime();
-                long d2 = Objects.requireNonNull(Utils.stringToDate(etCheckout_Date.getText().toString())).getTime();
-                int dias = (int) ((d2 - d1) / (24 * 60 * 60 * 1000));
-                tvRates.setText(String.valueOf(dias));
-            }*/
             etApt_Type.setText(reservation.getApt_type());
             etDaily_Rate.setText(String.valueOf(reservation.getDaily_rate()));
             etOther_Rate.setText(String.valueOf(reservation.getOther_rate()));
@@ -279,7 +286,7 @@ public class ReservationActivity extends AppCompatActivity {
                 alertDialog.setTitle(getString(R.string.choose) + " " + getString(R.string.of) + " " + getString(R.string.site));
                 String[] aSites = getApplicationContext().getResources().getStringArray(R.array.sites_reservation_array);
                 alertDialog.setSingleChoiceItems(aSites, -1, (dialog, which) -> {
-                    // TODO - Implementar leitura de PDF da reserva para o cadastramento no sistema
+                    // TODO - Implement PDF reading of the reservation for registration in the system
                     Toast.makeText(getApplicationContext(), aSites[which], Toast.LENGTH_LONG).show();
 
                     dialog.dismiss();
