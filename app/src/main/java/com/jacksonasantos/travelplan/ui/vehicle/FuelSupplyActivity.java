@@ -637,29 +637,11 @@ public class FuelSupplyActivity extends AppCompatActivity implements PlacesAdapt
                         f1.setVehicle_travelled_distance(Integer.parseInt(txVehicleTravelledDistance.getText().toString()));
                         f1.setStat_avg_fuel_consumption(vStatAvgFuelConsumption);
                         f1.setStat_cost_per_litre(vStatCostPerLitre);
-                    } else {
-                    /*
-                        final FuelSupply f2 = new FuelSupply();
-                        // TODO - popular f2 with next supply to receive the accumulated
-                        f2.setAccumulated_Number_liters(f1.getNumber_liters());
-                        f2.setVehicle_travelled_distance(f2.getVehicle_travelled_distance()+f1.getVehicle_travelled_distance());
-                        vStatAvgFuelConsumption = (f2.getVehicle_travelled_distance()+f1.getVehicle_travelled_distance()) / Float.parseFloat(Double.toString(f2.getNumber_liters() + f1.getNumber_liters()));
-                        vStatCostPerLitre = (f2.getVehicle_travelled_distance()+f1.getVehicle_travelled_distance()) / Float.parseFloat(Double.toString(f2.getSupply_value() + f1.getSupply_value()));
-                        f2.setStat_avg_fuel_consumption(vStatAvgFuelConsumption);
-                        f2.setStat_cost_per_litre(vStatCostPerLitre);
-                         */
                     }
                 }
                 try {
                     if (!opInsert) {
                         f1.setId(fuelSupply.getId());
-                        /*
-                        if (Integer.parseInt(etVehicleOdometer.getText().toString()) != f1.getVehicle_odometer()) {
-                            if (etVehicleOdometer.getText().toString().isEmpty()){
-                                isSave = Database.mFuelSupplyDao.updateFuelSupply(f2);
-                            }
-                        }
-                        */
                         isSave = Database.mFuelSupplyDao.updateFuelSupply(f1);
                     } else {
                         isSave = Database.mFuelSupplyDao.addFuelSupply(f1);
