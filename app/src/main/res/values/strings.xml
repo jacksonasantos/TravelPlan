@@ -542,11 +542,13 @@
     <string name="Achievement_Deleting">Deleting Achievement</string>
     <string name="Achievement_Delete">Deleting Achievement</string>
     <string name="Achievement_Edit">Editing Achievement</string>
+    <string name="Achievement_noType">No Type</string>
 
     <string name="Achievement_Short_Name">Short Name</string>
     <string name="Achievement_Name">Name</string>
     <string name="Achievement_Image">Image</string>
     <string name="Achievement_City_Start">City Start</string>
+    <string name="Achievement_State">State</string>
     <string name="Achievement_State_Start">State Start</string>
     <string name="Achievement_Latlng_Source">Lat/Lng Source</string>
     <string name="Achievement_City_End">City End</string>

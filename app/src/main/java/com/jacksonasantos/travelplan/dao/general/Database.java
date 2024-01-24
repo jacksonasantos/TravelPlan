@@ -10,6 +10,7 @@ import android.widget.Toast;
 import com.jacksonasantos.travelplan.dao.AccommodationDAO;
 import com.jacksonasantos.travelplan.dao.AccountDAO;
 import com.jacksonasantos.travelplan.dao.AchievementDAO;
+import com.jacksonasantos.travelplan.dao.AchievementResumeDAO;
 import com.jacksonasantos.travelplan.dao.BrokerDAO;
 import com.jacksonasantos.travelplan.dao.CurrencyQuoteDAO;
 import com.jacksonasantos.travelplan.dao.FuelSupplyDAO;
@@ -108,6 +109,7 @@ public class Database {
     public static VehicleMaintenanceItemDAO mVehicleMaintenanceItemDao;
     public static MaintenancePlanHasVehicleTypeDAO mMaintenancePlanHasVehicleTypeDAO;
     public static ItineraryHasTransportDAO mItineraryHasTransportDao;
+    public static AchievementResumeDAO mAchievementResumeDao;
 
     public Database(Context context) {
         this.mContext = context;
@@ -152,6 +154,7 @@ public class Database {
             mItineraryHasTransportDao = new ItineraryHasTransportDAO(mDb);
             mTravelCashDao = new TravelCashDAO(mDb);
             mAccountDao = new AccountDAO(mDb);
+            mAchievementResumeDao = new AchievementResumeDAO(mDb);
         } catch (Exception e) {
             Log.i("Open Database ", "Error : " + e.getMessage());
             Toast.makeText(mContext, "Error Open Database : " + e.getMessage(), Toast.LENGTH_LONG).show();

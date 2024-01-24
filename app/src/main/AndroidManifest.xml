@@ -114,6 +114,9 @@
             android:name=".ui.general.AchievementActivity"
             android:label="@string/Achievement" />
         <activity
+            android:name=".ui.general.AchievementResumeDialog"
+            android:label="@string/Achievement" />
+        <activity
             android:name=".ui.general.SettingsActivity"
             android:label="@string/action_settings" />
     </application>

@@ -340,6 +340,8 @@
     <string name="Achievement_State_End">Estado Final</string>
     <string name="Achievement_Length">Tamanho</string>
     <string name="Achievement_City_Start">Cidade Inicial</string>
+    <string name="Achievement_noType">sem Tipo</string>
+    <string name="Achievement_State">UF</string>
     <string name="Achievement_State_Start">Estado Inicial</string>
     <string name="FuelSupply_Accumulated">Acumuladores</string>
     <string name="FuelSupply_Accumulated_Number_Liters">Qtde de Litros</string>

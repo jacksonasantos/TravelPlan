@@ -57,7 +57,7 @@ public class AchievementFragment extends Fragment {
                     MenuItem m3 = menu.findItem(R.id.filter_menu);
                     MenuItem m4 = menu.findItem(R.id.filter_type_menu);
                     m1.setVisible(true);
-                    m2.setVisible(false);
+                    m2.setVisible(true).setIcon(R.drawable.ic_resume);
                     m3.setVisible(false);
                     m4.setVisible(true);
                 }
@@ -70,6 +70,11 @@ public class AchievementFragment extends Fragment {
                     switch(item.getItemId()) {
                         case R.id.add_menu:
                             intent = new Intent( getContext(), AchievementActivity.class );
+                            startActivity( intent );
+                            break;
+
+                        case R.id.save_menu:
+                            intent = new Intent( getContext(), AchievementResumeDialog.class );
                             startActivity( intent );
                             break;
 

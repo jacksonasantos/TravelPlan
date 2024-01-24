@@ -57,14 +57,14 @@ public class AchievementDAO extends DbContentProvider implements AchievementISch
         final String[] selectionArgs = { String.valueOf(achievement_id), String.valueOf(achievement_id) };
         List<Marker> markerList = new ArrayList<>();
         cursor = super.rawQuery("SELECT m.* " +
-                                     " FROM " + MarkerDAO.MARKER_TABLE + " m " +
-                                     " JOIN " + ACHIEVEMENT_TABLE + " a ON M." + MarkerDAO.MARKER_ACHIEVEMENT_ID + " = a." + ACHIEVEMENT_ID +
-                                    " WHERE m." + MarkerDAO.MARKER_ACHIEVEMENT_ID + " = ? " +
-                                    " UNION " +
-                                   " SELECT m.* " +
-                                     " FROM " + MarkerDAO.MARKER_TABLE + " m " +
-                                     " JOIN " + TourDAO.TOUR_TABLE + " t ON M." + MarkerDAO.MARKER_ID + " = t." + TourDAO.TOUR_MARKER_ID +
-                                    " WHERE t." + TourDAO.TOUR_ACHIEVEMENT_ID + " = ? "
+                        " FROM " + MarkerDAO.MARKER_TABLE + " m " +
+                        " JOIN " + ACHIEVEMENT_TABLE + " a ON M." + MarkerDAO.MARKER_ACHIEVEMENT_ID + " = a." + ACHIEVEMENT_ID +
+                        " WHERE m." + MarkerDAO.MARKER_ACHIEVEMENT_ID + " = ? " +
+                        " UNION " +
+                        " SELECT m.* " +
+                        " FROM " + MarkerDAO.MARKER_TABLE + " m " +
+                        " JOIN " + TourDAO.TOUR_TABLE + " t ON M." + MarkerDAO.MARKER_ID + " = t." + TourDAO.TOUR_MARKER_ID +
+                        " WHERE t." + TourDAO.TOUR_ACHIEVEMENT_ID + " = ? "
                 , selectionArgs);
         if (cursor.moveToFirst()) {
             do {
@@ -75,11 +75,10 @@ public class AchievementDAO extends DbContentProvider implements AchievementISch
         }
         return markerList;
     }
-
-   public List<Achievement> fetchAllAchievementByTravel( Integer travel_id ) {
-       final String[] selectionArgs = { String.valueOf(travel_id), String.valueOf(travel_id) };
-       List<Achievement> achievementList = new ArrayList<>();
-       cursor = super.rawQuery(
+    public List<Achievement> fetchAllAchievementByTravel( Integer travel_id ) {
+        final String[] selectionArgs = { String.valueOf(travel_id), String.valueOf(travel_id) };
+        List<Achievement> achievementList = new ArrayList<>();
+        cursor = super.rawQuery(
            "SELECT a.* " +
                 " FROM " + MarkerDAO.MARKER_TABLE + " m " +
                 " JOIN " + ACHIEVEMENT_TABLE + " a ON M." + MarkerDAO.MARKER_ACHIEVEMENT_ID + " = a." + ACHIEVEMENT_ID +
@@ -92,17 +91,17 @@ public class AchievementDAO extends DbContentProvider implements AchievementISch
                " WHERE t." + TourDAO.TOUR_TRAVEL_ID + " = ? " +
                  " AND t." + TourDAO.TOUR_ACHIEVEMENT_ID + " IS NOT NULL"
                , selectionArgs);
-       if (cursor.moveToFirst()) {
+        if (cursor.moveToFirst()) {
            do {
                Achievement achievement = cursorToEntity(cursor);
                achievementList.add(achievement);
            } while (cursor.moveToNext());
            cursor.close();
-       }
-       return achievementList;
+        }
+        return achievementList;
     }
 
-   public List<Achievement> fetchAllAchievementByStatusAchievement( Integer status ) {
+    public List<Achievement> fetchAllAchievementByStatusAchievement( Integer status ) {
         final String[] selectionArgs = status==null ? null : new String[]{String.valueOf(status)};
         final String selection = status==null ? null : ACHIEVEMENT_STATUS_ACHIEVEMENT + " = ?";
         List<Achievement> achievementList = new ArrayList<>();
@@ -115,9 +114,9 @@ public class AchievementDAO extends DbContentProvider implements AchievementISch
             cursor.close();
         }
         return achievementList;
-   }
+    }
 
-   public List<Achievement> fetchAllAchievementByTypeAchievement( Integer type ) {
+    public List<Achievement> fetchAllAchievementByTypeAchievement( Integer type ) {
         final String[] selectionArgs;
         final String selection;
 
