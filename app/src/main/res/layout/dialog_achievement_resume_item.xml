@@ -1,14 +1,52 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
-    <TextView
-        android:id="@+id/tvCountry"
+    <LinearLayout
+        android:id="@+id/llResumeHeader"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/labels_marginLeft"
-        android:textStyle="bold"/>
+        android:orientation="horizontal">
+        <TextView
+            android:id="@+id/tvCountry"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="4.5"
+            android:textStyle="bold"/>
+        <ImageView
+            android:id="@+id/imgType0"
+            android:layout_width="0dp"
+            android:layout_height="22dp"
+            android:layout_weight="3"
+            tools:ignore="ContentDescription" />
+        <ImageView
+            android:id="@+id/imgType1"
+            android:layout_width="0dp"
+            android:layout_height="22dp"
+            android:layout_weight="3"
+            tools:ignore="ContentDescription" />
+        <ImageView
+            android:id="@+id/imgType2"
+            android:layout_width="0dp"
+            android:layout_height="22dp"
+            android:layout_weight="3"
+            tools:ignore="ContentDescription" />
+        <ImageView
+            android:id="@+id/imgType3"
+            android:layout_width="0dp"
+            android:layout_height="22dp"
+            android:layout_weight="3"
+            tools:ignore="ContentDescription" />
+        <ImageView
+            android:id="@+id/imgType4"
+            android:layout_width="0dp"
+            android:layout_height="22dp"
+            android:layout_weight="3"
+            tools:ignore="ContentDescription" />
+    </LinearLayout>
     <LinearLayout
         android:id="@+id/llResume"
         android:layout_width="match_parent"
@@ -26,7 +64,6 @@
             android:layout_height="wrap_content"
             android:layout_weight="3"
             android:gravity="center"/>
-
         <TextView
             android:id="@+id/tvType1"
             android:layout_width="0dp"

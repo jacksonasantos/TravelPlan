@@ -5,6 +5,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -12,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.jacksonasantos.travelplan.R;
+import com.jacksonasantos.travelplan.dao.Achievement;
 import com.jacksonasantos.travelplan.dao.AchievementResume;
 import com.jacksonasantos.travelplan.ui.utility.Utils;
 
@@ -48,26 +50,48 @@ public class AchievementResumeListAdapter extends RecyclerView.Adapter<RecyclerV
     @Override
     public void onBindViewHolder(@NonNull final RecyclerView.ViewHolder holder, @SuppressLint("RecyclerView") final int position) {
         if (holder instanceof HeaderViewHolder){
+            Achievement achievement = new Achievement();
+            int nSize = 11;
             HeaderViewHolder headerViewHolder = (HeaderViewHolder) holder;
-            headerViewHolder.tvCountry.setVisibility(View.GONE);
-            headerViewHolder.llResume.setBackgroundColor(Utils.getColorWithAlpha(R.color.colorItemList,0.1f));
+            headerViewHolder.llResumeHeader.setBackgroundColor(Utils.getColorWithAlpha(R.color.colorItemList,0.3f));
+            headerViewHolder.tvCountry.setVisibility(View.VISIBLE);
+            headerViewHolder.llResume.setBackgroundColor(Utils.getColorWithAlpha(R.color.colorItemList,0.3f));
+            headerViewHolder.tvState.setTextSize(nSize);
             headerViewHolder.tvState.setText(R.string.Achievement_State);
+            headerViewHolder.imgType0.setImageResource(achievement.getAchievement_typeImage(0));
+            headerViewHolder.tvType0.setTextSize(nSize);
             headerViewHolder.tvType0.setText(R.string.Achievement_noType);
+            headerViewHolder.imgType1.setImageResource(achievement.getAchievement_typeImage(1));
+            headerViewHolder.tvType1.setTextSize(nSize);
             headerViewHolder.tvType1.setText(context.getResources().getStringArray(R.array.achievement_type_array)[0]);
+            headerViewHolder.imgType2.setImageResource(achievement.getAchievement_typeImage(2));
+            headerViewHolder.tvType2.setTextSize(nSize);
             headerViewHolder.tvType2.setText(context.getResources().getStringArray(R.array.achievement_type_array)[1]);
+            headerViewHolder.imgType3.setImageResource(achievement.getAchievement_typeImage(3));
+            headerViewHolder.tvType3.setTextSize(nSize);
             headerViewHolder.tvType3.setText(context.getResources().getStringArray(R.array.achievement_type_array)[2]);
+            headerViewHolder.imgType4.setImageResource(achievement.getAchievement_typeImage(4));
+            headerViewHolder.tvType4.setTextSize(nSize);
             headerViewHolder.tvType4.setText(context.getResources().getStringArray(R.array.achievement_type_array)[3]);
         }
         else if (holder instanceof ItemViewHolder) {
             final ItemViewHolder itemViewHolder = (ItemViewHolder) holder;
 
             AchievementResume list = mResume.get(position - show_header);
+
+            if (position%2==0) {
+                itemViewHolder.llResume.setBackgroundColor(Utils.getColorWithAlpha(R.color.colorItemList, 0.1f));
+            } else {
+                itemViewHolder.llResume.setBackgroundColor(Utils.getColorWithAlpha(R.color.colorItemList, 0.0f));
+            }
             if (!Objects.equals(vCountry, list.getCountry())) {
+                itemViewHolder.tvCountry.setBackgroundColor(Utils.getColorWithAlpha(R.color.colorItemList, 0.2f));
                 itemViewHolder.tvCountry.setVisibility(View.VISIBLE);
                 itemViewHolder.tvCountry.setText(list.getCountry());
                 vCountry = list.getCountry();
             } else {
                 itemViewHolder.tvCountry.setVisibility(View.GONE);
+                itemViewHolder.llResumeHeader.setVisibility(View.GONE);
             }
             itemViewHolder.tvState.setText(list.getState());
             itemViewHolder.tvType0.setText(list.getVl_noType());
@@ -92,7 +116,13 @@ public class AchievementResumeListAdapter extends RecyclerView.Adapter<RecyclerV
     }
 
     private static class HeaderViewHolder extends RecyclerView.ViewHolder {
+        public final LinearLayout llResumeHeader;
         public final TextView tvCountry;
+        public final ImageView imgType0;
+        public final ImageView imgType1;
+        public final ImageView imgType2;
+        public final ImageView imgType3;
+        public final ImageView imgType4;
         public final LinearLayout llResume;
         public final TextView tvState;
         public final TextView tvType0;
@@ -103,8 +133,14 @@ public class AchievementResumeListAdapter extends RecyclerView.Adapter<RecyclerV
 
         public HeaderViewHolder(View v) {
             super(v);
-            llResume = v.findViewById(R.id.llResume);
+            llResumeHeader = v.findViewById(R.id.llResumeHeader);
             tvCountry = v.findViewById(R.id.tvCountry);
+            imgType0 = v.findViewById(R.id.imgType0);
+            imgType1 = v.findViewById(R.id.imgType1);
+            imgType2 = v.findViewById(R.id.imgType2);
+            imgType3 = v.findViewById(R.id.imgType3);
+            imgType4 = v.findViewById(R.id.imgType4);
+            llResume = v.findViewById(R.id.llResume);
             tvState = v.findViewById(R.id.tvState);
             tvType0 = v.findViewById(R.id.tvType0);
             tvType1 = v.findViewById(R.id.tvType1);
@@ -115,6 +151,7 @@ public class AchievementResumeListAdapter extends RecyclerView.Adapter<RecyclerV
     }
 
     public static class ItemViewHolder extends RecyclerView.ViewHolder {
+        public final LinearLayout llResumeHeader;
         public final TextView tvCountry;
         public final LinearLayout llResume;
         public final TextView tvState;
@@ -126,6 +163,7 @@ public class AchievementResumeListAdapter extends RecyclerView.Adapter<RecyclerV
 
         public ItemViewHolder(View v) {
             super(v);
+            llResumeHeader = v.findViewById(R.id.llResumeHeader);
             llResume = v.findViewById(R.id.llResume);
             tvCountry = v.findViewById(R.id.tvCountry);
             tvState = v.findViewById(R.id.tvState);
