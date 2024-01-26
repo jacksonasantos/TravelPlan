@@ -384,6 +384,10 @@
     <string name="concluded">Concluído</string>
     <string name="menu_pending">Pendências</string>
     <string name="bt_Map">Mapa</string>
+    <string name="bt_Filter_waterfall">por Cachoeira</string>
+    <string name="bt_Filter_church">por Templos</string>
+    <string name="bt_Filter_park">por Parque</string>
+    <string name="bt_Filter_castle">por Castelo</string>
     <string name="bt_List">Lista</string>
     <string name="achievement_view_mode">Modo Vizualização Conquistas</string>
     <string name="Achievement_Latlng_Source">Lat/Lng Origem</string>
@@ -571,4 +575,10 @@
     <string name="Transport_Voo_Value_Total">Total</string>
     <string name="Transport_Rental_Reserve_total">Total</string>
     <string name="Transport_Hiring_Service_Total">Total</string>
+    <string name="waterfall">Cachoeira</string>
+    <string name="church">Templos</string>
+    <string name="park">Parque</string>
+    <string name="castle">Castelo</string>
+    <string name="museum">Museu</string>
+    <string name="bt_Filter_museum">por Museu</string>
 </resources>

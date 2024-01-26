@@ -34,26 +34,56 @@
                     app:showAsAction="ifRoom|withText" />
                 <item
                     android:id="@+id/filter_mountainRange_menu"
-                    android:icon="@drawable/ic_mountain_range"
+                    android:icon="@drawable/ic_achievement_mountain_range"
                     android:title="@string/bt_Filter_mountainRange"
                     android:visible="true"
                     app:showAsAction="ifRoom|withText" />
                 <item
                     android:id="@+id/filter_road_menu"
-                    android:icon="@drawable/ic_road"
+                    android:icon="@drawable/ic_achievement_road"
                     android:title="@string/bt_Filter_road"
                     android:visible="true"
                     app:showAsAction="ifRoom|withText" />
                 <item
                     android:id="@+id/filter_cave_menu"
-                    android:icon="@drawable/ic_cave"
+                    android:icon="@drawable/ic_achievement_cave"
                     android:title="@string/bt_Filter_cave"
                     android:visible="true"
                     app:showAsAction="ifRoom|withText" />
                 <item
                     android:id="@+id/filter_touristSpot_menu"
-                    android:icon="@drawable/ic_tourist_spot"
+                    android:icon="@drawable/ic_achievement_tourist_spot"
                     android:title="@string/bt_Filter_touristSpot"
+                    android:visible="true"
+                    app:showAsAction="ifRoom|withText" />
+                <item
+                    android:id="@+id/filter_waterfall_menu"
+                    android:icon="@drawable/ic_achievement_waterfall"
+                    android:title="@string/bt_Filter_waterfall"
+                    android:visible="true"
+                    app:showAsAction="ifRoom|withText" />
+                <item
+                    android:id="@+id/filter_church_menu"
+                    android:icon="@drawable/ic_achievement_church"
+                    android:title="@string/bt_Filter_church"
+                    android:visible="true"
+                    app:showAsAction="ifRoom|withText" />
+                <item
+                    android:id="@+id/filter_park_menu"
+                    android:icon="@drawable/ic_achievement_park"
+                    android:title="@string/bt_Filter_park"
+                    android:visible="true"
+                    app:showAsAction="ifRoom|withText" />
+                <item
+                    android:id="@+id/filter_castle_menu"
+                    android:icon="@drawable/ic_achievement_castle"
+                    android:title="@string/bt_Filter_castle"
+                    android:visible="true"
+                    app:showAsAction="ifRoom|withText" />
+                <item
+                    android:id="@+id/filter_museum_menu"
+                    android:icon="@drawable/ic_achievement_museum"
+                    android:title="@string/bt_Filter_museum"
                     android:visible="true"
                     app:showAsAction="ifRoom|withText" />
             </menu>

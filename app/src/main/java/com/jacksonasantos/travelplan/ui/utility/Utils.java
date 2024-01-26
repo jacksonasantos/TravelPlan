@@ -26,10 +26,90 @@ import java.util.Locale;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
-public class Utils extends AppCompatActivity  {
+public class Utils extends AppCompatActivity {
 
     private static final Globals g = Globals.getInstance();
     public static int selected_position = RecyclerView.NO_POSITION;
+
+    public static int getFlagResource(String country, String state)
+    {
+        if (!Objects.equals(state.toUpperCase(), "")) {
+            if (country.equalsIgnoreCase("BRASIL")) {
+                switch (state.toUpperCase()) {
+                    case "AC":
+                        return R.drawable.ic_flag_br_ac;
+                    case "AL":
+                        return R.drawable.ic_flag_br_al;
+                    case "AM":
+                        return R.drawable.ic_flag_br_am;
+                    case "AP":
+                        return R.drawable.ic_flag_br_ap;
+                    case "BA":
+                        return R.drawable.ic_flag_br_ba;
+                    case "CE":
+                        return R.drawable.ic_flag_br_ce;
+                    case "DF":
+                        return R.drawable.ic_flag_br_df;
+                    case "ES":
+                        return R.drawable.ic_flag_br_es;
+                    case "GO":
+                        return R.drawable.ic_flag_br_go;
+                    case "MA":
+                        return R.drawable.ic_flag_br_ma;
+                    case "MG":
+                        return R.drawable.ic_flag_br_mg;
+                    case "MS":
+                        return R.drawable.ic_flag_br_ms;
+                    case "MT":
+                        return R.drawable.ic_flag_br_mt;
+                    case "PA":
+                        return R.drawable.ic_flag_br_pa;
+                    case "PB":
+                        return R.drawable.ic_flag_br_pb;
+                    case "PE":
+                        return R.drawable.ic_flag_br_pe;
+                    case "PI":
+                        return R.drawable.ic_flag_br_pi;
+                    case "PR":
+                        return R.drawable.ic_flag_br_pr;
+                    case "RD":
+                        return R.drawable.ic_flag_br_rd;
+                    case "RJ":
+                        return R.drawable.ic_flag_br_rj;
+                    case "RN":
+                        return R.drawable.ic_flag_br_rn;
+                    case "RR":
+                        return R.drawable.ic_flag_br_rr;
+                    case "RS":
+                        return R.drawable.ic_flag_br_rs;
+                    case "SC":
+                        return R.drawable.ic_flag_br_sc;
+                    case "SE":
+                        return R.drawable.ic_flag_br_se;
+                    case "SP":
+                        return R.drawable.ic_flag_br_sp;
+                    case "TO":
+                        return R.drawable.ic_flag_br_to;
+                    default:
+                        return 0;
+                }
+            }
+        } else {
+            switch (country.toUpperCase()) {
+                case "ARGENTINA":
+                    return R.drawable.ic_flag_argentina;
+                case "BRASIL":
+                    return R.drawable.ic_flag_brasil;
+                case "CHILE":
+                    return R.drawable.ic_flag_chile;
+                case "ESTADOS UNIDOS":
+                    return R.drawable.ic_flag_estados_unidos;
+                case "URUGUAI":
+                    return R.drawable.ic_flag_uruguai;
+            }
+        }
+        return 0;
+    }
 
     public static ArrayList<File> imageReader(File root)
     {

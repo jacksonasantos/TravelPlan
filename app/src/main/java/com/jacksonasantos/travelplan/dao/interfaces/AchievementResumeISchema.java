@@ -3,9 +3,8 @@ package com.jacksonasantos.travelplan.dao.interfaces;
 public interface AchievementResumeISchema {
     String ACHIEVEMENT_RESUME_COUNTRY = "country";
     String ACHIEVEMENT_RESUME_STATE = "state";
-    String ACHIEVEMENT_RESUME_VL_NOTYPE = "vl_noType";
-    String ACHIEVEMENT_RESUME_VL_MOUNTAINRANGE = "vl_mountainRange";
-    String ACHIEVEMENT_RESUME_VL_ROAD = "vl_road";
-    String ACHIEVEMENT_RESUME_VL_CAVE = "vl_cave";
-    String ACHIEVEMENT_RESUME_VL_TOURISTSPOT = "vl_touristSpot";
+    String ACHIEVEMENT_RESUME_TYPE_ACHIEVEMENT = "type_achievement";
+    String ACHIEVEMENT_RESUME_VL_CONQUERED = "vl_conquered";
+    String ACHIEVEMENT_RESUME_VL_TOTAL = "vl_total";
+    String ACHIEVEMENT_RESUME_PERC_CONQUERED = "perc_conquered";
 }

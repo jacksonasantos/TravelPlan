@@ -1,18 +1,16 @@
 package com.jacksonasantos.travelplan.ui.general;
 
-
 import android.os.Bundle;
 import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.jacksonasantos.travelplan.R;
 import com.jacksonasantos.travelplan.dao.general.Database;
 
 public class AchievementResumeDialog extends AppCompatActivity {
-    private RecyclerView rvList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,11 +23,18 @@ public class AchievementResumeDialog extends AppCompatActivity {
         setContentView(R.layout.dialog_achievement_resume);
 
         addListenerOnButtonDone();
-        rvList = findViewById(R.id.rvList);
+        RecyclerView rvListSummary = findViewById(R.id.rvListSummary);
+        RecyclerView rvList = findViewById(R.id.rvList);
 
-        AchievementResumeListAdapter adapterAchievementResume = new AchievementResumeListAdapter(Database.mAchievementResumeDao.fetchAchievementResume(), getApplicationContext(), 1);
+        AchievementResumeSummaryListAdapter adapterAchievementResumeSummary = new AchievementResumeSummaryListAdapter(Database.mAchievementResumeDao.fetchAchievementResumeSummary(), getApplicationContext());
+        rvListSummary.setAdapter(adapterAchievementResumeSummary);
+        GridLayoutManager mGridLayoutManagerII = new GridLayoutManager(this, 5);
+        rvListSummary.setLayoutManager(mGridLayoutManagerII);
+
+        AchievementResumeListAdapter adapterAchievementResume = new AchievementResumeListAdapter(Database.mAchievementResumeDao.fetchAchievementResume(), getApplicationContext());
         rvList.setAdapter(adapterAchievementResume);
-        rvList.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+        GridLayoutManager mGridLayoutManager = new GridLayoutManager(this, 3);
+        rvList.setLayoutManager(mGridLayoutManager);
     }
 
     public void addListenerOnButtonDone() {

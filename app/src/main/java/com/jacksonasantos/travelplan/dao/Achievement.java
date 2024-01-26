@@ -80,10 +80,15 @@ public class Achievement {
     public int getAchievement_typeImage( int type_achievement ) {
         int draw;
         switch(type_achievement) {
-            case 1: draw = R.drawable.ic_mountain_range; break;
-            case 2: draw = R.drawable.ic_road; break;
-            case 3: draw = R.drawable.ic_cave; break;
-            case 4: draw = R.drawable.ic_tourist_spot; break;
+            case 1: draw = R.drawable.ic_achievement_mountain_range; break;
+            case 2: draw = R.drawable.ic_achievement_road; break;
+            case 3: draw = R.drawable.ic_achievement_cave; break;
+            case 4: draw = R.drawable.ic_achievement_tourist_spot; break;
+            case 5: draw = R.drawable.ic_achievement_waterfall; break;
+            case 6: draw = R.drawable.ic_achievement_church; break;
+            case 7: draw = R.drawable.ic_achievement_park; break;
+            case 8: draw = R.drawable.ic_achievement_castle; break;
+            case 9: draw = R.drawable.ic_achievement_museum; break;
             default: draw = R.drawable.ic_error; break;
         }
         return draw;

@@ -4,11 +4,10 @@ public class AchievementResume {
 
     public String country;
     public String state;
-    public String vl_noType;
-    public String vl_mountainRange;
-    public String vl_road;
-    public String vl_cave;
-    public String vl_touristSpot;
+    public int type_achievement;
+    public int vl_conquered;
+    public int vl_total;
+    public float perc_conquered;
 
     public AchievementResume() { }
 
@@ -18,19 +17,15 @@ public class AchievementResume {
     public String getState() { return state; }
     public void setState(String state) { this.state = state; }
 
-    public String getVl_noType() { return vl_noType; }
-    public void setVl_noType(String vl_noType) { this.vl_noType = vl_noType; }
+    public int getType_achievement() { return type_achievement; }
+    public void setType_achievement(int type_achievement) { this.type_achievement = type_achievement; }
 
-    public String getVl_mountainRange() { return vl_mountainRange; }
-    public void setVl_mountainRange(String vl_mountainRange) { this.vl_mountainRange = vl_mountainRange; }
+    public int getVl_conquered() { return vl_conquered; }
+    public void setVl_conquered(int vl_conquered) { this.vl_conquered = vl_conquered; }
 
-    public String getVl_road() { return vl_road; }
-    public void setVl_road(String vl_road) {this.vl_road = vl_road; }
+    public int getVl_total() { return vl_total; }
+    public void setVl_total(int vl_total) {this.vl_total = vl_total; }
 
-    public String getVl_cave() { return vl_cave; }
-    public void setVl_cave(String vl_cave) {this.vl_cave = vl_cave; }
-
-    public String getVl_touristSpot() { return vl_touristSpot; }
-    public void setVl_touristSpot(String vl_touristSpot) { this.vl_touristSpot = vl_touristSpot;}
-
+    public float getPerc_conquered() {return perc_conquered; }
+    public void setPerc_conquered(float perc_conquered) {this.perc_conquered = perc_conquered; }
 }

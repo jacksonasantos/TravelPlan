@@ -21,8 +21,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.jacksonasantos.travelplan.R;
 import com.jacksonasantos.travelplan.dao.Achievement;
 import com.jacksonasantos.travelplan.dao.general.Database;
+import com.jacksonasantos.travelplan.ui.utility.Utils;
 
 import java.util.List;
+import java.util.Objects;
 
 public class AchievementListAdapter extends RecyclerView.Adapter<AchievementListAdapter.MyViewHolder> {
 
@@ -35,6 +37,8 @@ public class AchievementListAdapter extends RecyclerView.Adapter<AchievementList
         public final ImageView imgAchievement;
         public final ImageView imgTypeAchievement;
         public final TextView txtShortNameAchievement;
+        public final ImageView imgFlagCountry;
+        public final ImageView imgFlagState;
         public final TextView txtNameAchievement;
         public final ImageButton btnDelete;
 
@@ -44,6 +48,8 @@ public class AchievementListAdapter extends RecyclerView.Adapter<AchievementList
             imgAchievement = v.findViewById(R.id.imgAchievement);
             imgTypeAchievement = v.findViewById(R.id.imgTypeAchievement);
             txtShortNameAchievement = v.findViewById(R.id.txtShortNameAchievement);
+            imgFlagCountry = v.findViewById(R.id.imgFlagCountry);
+            imgFlagState = v.findViewById(R.id.imgFlagState);
             txtNameAchievement = v.findViewById(R.id.txtNameAchievement);
             btnDelete = v.findViewById(R.id.btnDelete);
             btnDelete.setOnClickListener(this);
@@ -89,6 +95,18 @@ public class AchievementListAdapter extends RecyclerView.Adapter<AchievementList
                 holder.txtShortNameAchievement.setTextColor(Color.LTGRAY);
             }
         }
+        String vState;
+        if (!Objects.equals(achievement.getState(), achievement.getState_end()) && Objects.equals(achievement.getState_end(), "")) {
+            vState = achievement.getState();
+        } else {
+            if(!Objects.equals(achievement.getState(), achievement.getState_end())){
+                vState="--";
+            } else {
+                vState= achievement.getState();
+            }
+        }
+        holder.imgFlagCountry.setBackgroundResource(Utils.getFlagResource(achievement.getCountry(), ""));
+        holder.imgFlagState.setBackgroundResource(Utils.getFlagResource(achievement.getCountry(), vState));
         holder.imgTypeAchievement.setImageResource(achievement.getAchievement_typeImage(achievement.getType_achievement()));
         holder.txtShortNameAchievement.setText(achievement.getShort_name());
         holder.txtNameAchievement.setText(achievement.getName());

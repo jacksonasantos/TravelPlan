@@ -99,6 +99,11 @@
         <item>@string/road</item>
         <item>@string/cave</item>
         <item>@string/tourist_spot</item>
+        <item>@string/waterfall</item>
+        <item>@string/church</item>
+        <item>@string/park</item>
+        <item>@string/castle</item>
+        <item>@string/museum</item>
     </string-array>
     <!-- Travel Mode -->
     <string-array name="travel_mode_array">

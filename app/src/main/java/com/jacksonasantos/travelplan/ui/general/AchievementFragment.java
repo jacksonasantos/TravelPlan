@@ -80,37 +80,67 @@ public class AchievementFragment extends Fragment {
 
                         case R.id.filter_allType_menu:
                             v_filter_type = null;
-                            adapter = new AchievementListAdapter(Database.mAchievementDao.fetchAllAchievementByTypeAchievement(null), getContext());
+                            adapter = new AchievementListAdapter(Database.mAchievementDao.fetchAllAchievementByTypeAchievement(v_filter_type), getContext());
                             listAchievement.setAdapter(adapter);
                             break;
 
                         case R.id.filter_noType_menu:
                             v_filter_type = 0;
-                            adapter = new AchievementListAdapter(Database.mAchievementDao.fetchAllAchievementByTypeAchievement(0), getContext());
+                            adapter = new AchievementListAdapter(Database.mAchievementDao.fetchAllAchievementByTypeAchievement(v_filter_type), getContext());
                             listAchievement.setAdapter(adapter);
                             break;
 
                         case R.id.filter_mountainRange_menu:
                             v_filter_type = 1;
-                            adapter = new AchievementListAdapter(Database.mAchievementDao.fetchAllAchievementByTypeAchievement(1), getContext());
+                            adapter = new AchievementListAdapter(Database.mAchievementDao.fetchAllAchievementByTypeAchievement(v_filter_type), getContext());
                             listAchievement.setAdapter(adapter);
                             break;
 
                         case R.id.filter_road_menu:
                             v_filter_type = 2;
-                            adapter = new AchievementListAdapter(Database.mAchievementDao.fetchAllAchievementByTypeAchievement(2), getContext());
+                            adapter = new AchievementListAdapter(Database.mAchievementDao.fetchAllAchievementByTypeAchievement(v_filter_type), getContext());
                             listAchievement.setAdapter(adapter);
                             break;
 
                         case R.id.filter_cave_menu:
                             v_filter_type = 3;
-                            adapter = new AchievementListAdapter(Database.mAchievementDao.fetchAllAchievementByTypeAchievement(3), getContext());
+                            adapter = new AchievementListAdapter(Database.mAchievementDao.fetchAllAchievementByTypeAchievement(v_filter_type), getContext());
                             listAchievement.setAdapter(adapter);
                             break;
 
                         case R.id.filter_touristSpot_menu:
                             v_filter_type = 4;
-                            adapter = new AchievementListAdapter(Database.mAchievementDao.fetchAllAchievementByTypeAchievement(4), getContext());
+                            adapter = new AchievementListAdapter(Database.mAchievementDao.fetchAllAchievementByTypeAchievement(v_filter_type), getContext());
+                            listAchievement.setAdapter(adapter);
+                            break;
+
+                        case R.id.filter_waterfall_menu:
+                            v_filter_type = 5;
+                            adapter = new AchievementListAdapter(Database.mAchievementDao.fetchAllAchievementByTypeAchievement(v_filter_type), getContext());
+                            listAchievement.setAdapter(adapter);
+                            break;
+
+                        case R.id.filter_church_menu:
+                            v_filter_type = 6;
+                            adapter = new AchievementListAdapter(Database.mAchievementDao.fetchAllAchievementByTypeAchievement(v_filter_type), getContext());
+                            listAchievement.setAdapter(adapter);
+                            break;
+
+                        case R.id.filter_park_menu:
+                            v_filter_type = 7;
+                            adapter = new AchievementListAdapter(Database.mAchievementDao.fetchAllAchievementByTypeAchievement(v_filter_type), getContext());
+                            listAchievement.setAdapter(adapter);
+                            break;
+
+                        case R.id.filter_castle_menu:
+                            v_filter_type = 8;
+                            adapter = new AchievementListAdapter(Database.mAchievementDao.fetchAllAchievementByTypeAchievement(v_filter_type), getContext());
+                            listAchievement.setAdapter(adapter);
+                            break;
+
+                        case R.id.filter_museum_menu:
+                            v_filter_type = 9;
+                            adapter = new AchievementListAdapter(Database.mAchievementDao.fetchAllAchievementByTypeAchievement(v_filter_type), getContext());
                             listAchievement.setAdapter(adapter);
                             break;
 

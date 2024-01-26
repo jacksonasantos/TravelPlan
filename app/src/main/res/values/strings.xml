@@ -32,6 +32,11 @@
     <string name="bt_Filter_road">by Road</string>
     <string name="bt_Filter_cave">by Cave</string>
     <string name="bt_Filter_touristSpot">by TouristSpot</string>
+    <string name="bt_Filter_waterfall">by Waterfall</string>
+    <string name="bt_Filter_church">by Church</string>
+    <string name="bt_Filter_park">by Park</string>
+    <string name="bt_Filter_castle">by Castle</string>
+    <string name="bt_Filter_museum">by Museum</string>
     <string name="bt_List">List</string>
     <string name="bt_Map">Map</string>
 
@@ -344,11 +349,6 @@
     <string name="mixed">Mixed</string>
     <string name="general">General</string>
 
-    <!-- Arrays Type Achievement -->
-    <string name="cave">Cave</string>
-    <string name="mountain_range">Mountain Range</string>
-    <string name="tourist_spot">Tourist Spot</string>
-
     <!-- Arrays Services -->
     <string name="alignment">Alignment</string>
     <string name="balancing">Balancing</string>
@@ -535,6 +535,16 @@
     <!-- Array Status reservation -->
     <string name="confirmed">Confirmed</string>
     <string name="pay">Pay</string>
+
+    <!-- Arrays Type Achievement -->
+    <string name="mountain_range">Mountain Range</string>
+    <string name="cave">Cave</string>
+    <string name="tourist_spot">Tourist Spot</string>
+    <string name="waterfall">Waterfall</string>
+    <string name="church">Church</string>
+    <string name="park">Park</string>
+    <string name="castle">Castle</string>
+    <string name="museum">Museum</string>
 
     <!-- Achievement Fragment -->
     <string name="Achievement">Achievement</string>

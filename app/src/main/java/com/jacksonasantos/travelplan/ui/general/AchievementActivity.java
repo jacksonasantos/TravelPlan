@@ -11,12 +11,13 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.RadioGroup;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.activity.result.ActivityResult;
@@ -62,8 +63,8 @@ public class AchievementActivity extends AppCompatActivity {
     private EditText etAchievement_Latlng_Achievement;
     private EditText etAchievement_Length_Achievement;
     private EditText etAchievement_Note;
-    private RadioGroup rgAchievementType;
-    private int rbAchievementType;
+    private Spinner spAchievementType;
+    private int nrSpAchievementType;
     private ImageButton imgStatusAchievement;
     private Integer nrStatusAchievement = 0;
     private RecyclerView rvAchievementTravel;
@@ -89,8 +90,8 @@ public class AchievementActivity extends AppCompatActivity {
         }
 
         Bundle extras = getIntent().getExtras();
+        achievement = new Achievement();
         if (extras != null) {
-            achievement = new Achievement();
             if (extras.getInt( "achievement_id") > 0) {
                 achievement.setId(extras.getInt("achievement_id"));
                 achievement = Database.mAchievementDao.fetchAchievementById(achievement.getId());
@@ -135,12 +136,9 @@ public class AchievementActivity extends AppCompatActivity {
         etAchievement_Latlng_Achievement = findViewById(R.id.etAchievement_Latlng_Achievement);
         etAchievement_Length_Achievement = findViewById(R.id.etAchievement_Length_Achievement);
         etAchievement_Note = findViewById(R.id.etAchievement_Note);
-        rgAchievementType = findViewById(R.id.rgAchievementType);
+        spAchievementType = findViewById(R.id.spAchievementType);
         imgStatusAchievement = findViewById(R.id.imgStatusAchievement);
         rvAchievementTravel = findViewById(R.id.rvAchievementTravel);
-
-        Utils.addRadioButtonResources(R.array.achievement_type_array, rgAchievementType, this);
-        rgAchievementType.setOnCheckedChangeListener((group, checkedId) -> rbAchievementType = checkedId);
 
         btLocation.setOnClickListener(view -> {
            Intent intent = new Intent (getBaseContext(), MaintenanceItineraryActivity.class);
@@ -172,6 +170,19 @@ public class AchievementActivity extends AppCompatActivity {
             myActivityResultLauncher.launch(intent);
         });
 
+        Utils.createSpinnerResources(R.array.achievement_type_array, spAchievementType, this);
+        nrSpAchievementType = achievement.getType_achievement();
+        spAchievementType.setSelection(nrSpAchievementType-1);
+        spAchievementType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long idx) {
+                nrSpAchievementType = position+1;  }
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                nrSpAchievementType=0;
+            }
+        });
+
         if (achievement != null) {
             etAchievement_Name.setText(achievement.getName());
             etAchievement_Short_Name.setText(achievement.getShort_name());
@@ -190,8 +201,7 @@ public class AchievementActivity extends AppCompatActivity {
             etAchievement_Latlng_Achievement.setText(achievement.getLatlng_achievement());
             etAchievement_Length_Achievement.setText(String.valueOf(achievement.getLength_achievement()));
             etAchievement_Note.setText(achievement.getNote());
-            rgAchievementType.check(achievement.getType_achievement());
-            rbAchievementType = achievement.getType_achievement();
+            spAchievementType.setSelection(nrSpAchievementType-1);
             nrStatusAchievement = achievement.getStatus_achievement();
             if (nrStatusAchievement == 1){
                 imgStatusAchievement.setBackgroundColor(Color.GREEN);
@@ -322,7 +332,7 @@ public class AchievementActivity extends AppCompatActivity {
                 a1.setLatlng_achievement(etAchievement_Latlng_Achievement.getText().toString());
                 a1.setLength_achievement(Double.parseDouble(etAchievement_Length_Achievement.getText().toString().isEmpty()?"0":etAchievement_Length_Achievement.getText().toString()));
                 a1.setNote(etAchievement_Note.getText().toString());
-                a1.setType_achievement(rbAchievementType);
+                a1.setType_achievement(nrSpAchievementType);
                 a1.setStatus_achievement(nrStatusAchievement);
                 if (!opInsert) {
                      try {
@@ -377,7 +387,7 @@ public class AchievementActivity extends AppCompatActivity {
                 etAchievement_Latlng_Achievement.getText().toString().trim().isEmpty() //||
                 //etAchievement_Length.getText().toString().trim().isEmpty() ||
                 //etAchievement_Note.getText().toString().trim().isEmpty()
-                //rbAchievementType!=null
+                //nrSpAchievementType!=null
             ){
                 isValid = false;
             }

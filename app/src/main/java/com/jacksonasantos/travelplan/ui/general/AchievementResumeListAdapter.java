@@ -6,7 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -18,160 +17,76 @@ import com.jacksonasantos.travelplan.dao.AchievementResume;
 import com.jacksonasantos.travelplan.ui.utility.Utils;
 
 import java.util.List;
-import java.util.Objects;
 
 public class AchievementResumeListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    private static final int TYPE_HEADER = 0;
     private static final int TYPE_ITEM = 1;
 
     final List<AchievementResume> mResume;
     final Context context;
-    final int show_header;
-    String vCountry = null;
 
-    public AchievementResumeListAdapter(List<AchievementResume> resume, Context context, int show_header) {
+    Achievement achievement = new Achievement();
+
+    public AchievementResumeListAdapter(List<AchievementResume> resume, Context context) {
         this.mResume = resume;
-        this.context = context;
-        this.show_header = show_header;
+        this.context = context;;
     }
 
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View resumeView = LayoutInflater.from(parent.getContext()).inflate(R.layout.dialog_achievement_resume_item, parent, false);
-
-        if (viewType == TYPE_HEADER) {
-            return new HeaderViewHolder(resumeView);
-        } else return new ItemViewHolder(resumeView);
+        return new ItemViewHolder(resumeView);
     }
 
-    @SuppressLint("DefaultLocale")
+    @SuppressLint({"DefaultLocale", "UseCompatLoadingForDrawables"})
     @Override
     public void onBindViewHolder(@NonNull final RecyclerView.ViewHolder holder, @SuppressLint("RecyclerView") final int position) {
-        if (holder instanceof HeaderViewHolder){
-            Achievement achievement = new Achievement();
-            int nSize = 11;
-            HeaderViewHolder headerViewHolder = (HeaderViewHolder) holder;
-            headerViewHolder.llResumeHeader.setBackgroundColor(Utils.getColorWithAlpha(R.color.colorItemList,0.3f));
-            headerViewHolder.tvCountry.setVisibility(View.VISIBLE);
-            headerViewHolder.llResume.setBackgroundColor(Utils.getColorWithAlpha(R.color.colorItemList,0.3f));
-            headerViewHolder.tvState.setTextSize(nSize);
-            headerViewHolder.tvState.setText(R.string.Achievement_State);
-            headerViewHolder.imgType0.setImageResource(achievement.getAchievement_typeImage(0));
-            headerViewHolder.tvType0.setTextSize(nSize);
-            headerViewHolder.tvType0.setText(R.string.Achievement_noType);
-            headerViewHolder.imgType1.setImageResource(achievement.getAchievement_typeImage(1));
-            headerViewHolder.tvType1.setTextSize(nSize);
-            headerViewHolder.tvType1.setText(context.getResources().getStringArray(R.array.achievement_type_array)[0]);
-            headerViewHolder.imgType2.setImageResource(achievement.getAchievement_typeImage(2));
-            headerViewHolder.tvType2.setTextSize(nSize);
-            headerViewHolder.tvType2.setText(context.getResources().getStringArray(R.array.achievement_type_array)[1]);
-            headerViewHolder.imgType3.setImageResource(achievement.getAchievement_typeImage(3));
-            headerViewHolder.tvType3.setTextSize(nSize);
-            headerViewHolder.tvType3.setText(context.getResources().getStringArray(R.array.achievement_type_array)[2]);
-            headerViewHolder.imgType4.setImageResource(achievement.getAchievement_typeImage(4));
-            headerViewHolder.tvType4.setTextSize(nSize);
-            headerViewHolder.tvType4.setText(context.getResources().getStringArray(R.array.achievement_type_array)[3]);
-        }
-        else if (holder instanceof ItemViewHolder) {
+        if (holder instanceof ItemViewHolder) {
             final ItemViewHolder itemViewHolder = (ItemViewHolder) holder;
 
-            AchievementResume list = mResume.get(position - show_header);
-
-            if (position%2==0) {
-                itemViewHolder.llResume.setBackgroundColor(Utils.getColorWithAlpha(R.color.colorItemList, 0.1f));
-            } else {
-                itemViewHolder.llResume.setBackgroundColor(Utils.getColorWithAlpha(R.color.colorItemList, 0.0f));
-            }
-            if (!Objects.equals(vCountry, list.getCountry())) {
-                itemViewHolder.tvCountry.setBackgroundColor(Utils.getColorWithAlpha(R.color.colorItemList, 0.2f));
-                itemViewHolder.tvCountry.setVisibility(View.VISIBLE);
-                itemViewHolder.tvCountry.setText(list.getCountry());
-                vCountry = list.getCountry();
-            } else {
-                itemViewHolder.tvCountry.setVisibility(View.GONE);
-                itemViewHolder.llResumeHeader.setVisibility(View.GONE);
-            }
-            itemViewHolder.tvState.setText(list.getState());
-            itemViewHolder.tvType0.setText(list.getVl_noType());
-            itemViewHolder.tvType1.setText(list.getVl_mountainRange());
-            itemViewHolder.tvType2.setText(list.getVl_road());
-            itemViewHolder.tvType3.setText(list.getVl_cave());
-            itemViewHolder.tvType4.setText(list.getVl_touristSpot());
+            AchievementResume list = mResume.get(position);
+            itemViewHolder.imgFlagCountry.setBackgroundResource(Utils.getFlagResource(list.getCountry(), ""));
+            itemViewHolder.imgFlagState.setBackgroundResource(Utils.getFlagResource(list.getCountry(), list.getState()));
+            itemViewHolder.imgTypeAchievement.setImageResource(achievement.getAchievement_typeImage(list.getType_achievement()));
+            itemViewHolder.txtTypeAchievement.setText(context.getResources().getStringArray(R.array.achievement_type_array)[list.getType_achievement()-1]);
+            itemViewHolder.txtCountry.setText(list.getCountry());
+            itemViewHolder.txtState.setText(list.getState());
+            itemViewHolder.txtVlConquered.setText(String.valueOf(list.getVl_conquered()));
+            itemViewHolder.txtVlTotal.setText(String.valueOf(list.getVl_total()));
         }
     }
 
     @Override
     public int getItemViewType(int position) {
-        if (position == 0 && show_header == 1) {
-            return TYPE_HEADER;
-        }
         return TYPE_ITEM;
     }
 
     @Override
     public int getItemCount() {
-        return mResume.size()+show_header;
-    }
-
-    private static class HeaderViewHolder extends RecyclerView.ViewHolder {
-        public final LinearLayout llResumeHeader;
-        public final TextView tvCountry;
-        public final ImageView imgType0;
-        public final ImageView imgType1;
-        public final ImageView imgType2;
-        public final ImageView imgType3;
-        public final ImageView imgType4;
-        public final LinearLayout llResume;
-        public final TextView tvState;
-        public final TextView tvType0;
-        public final TextView tvType1;
-        public final TextView tvType2;
-        public final TextView tvType3;
-        public final TextView tvType4;
-
-        public HeaderViewHolder(View v) {
-            super(v);
-            llResumeHeader = v.findViewById(R.id.llResumeHeader);
-            tvCountry = v.findViewById(R.id.tvCountry);
-            imgType0 = v.findViewById(R.id.imgType0);
-            imgType1 = v.findViewById(R.id.imgType1);
-            imgType2 = v.findViewById(R.id.imgType2);
-            imgType3 = v.findViewById(R.id.imgType3);
-            imgType4 = v.findViewById(R.id.imgType4);
-            llResume = v.findViewById(R.id.llResume);
-            tvState = v.findViewById(R.id.tvState);
-            tvType0 = v.findViewById(R.id.tvType0);
-            tvType1 = v.findViewById(R.id.tvType1);
-            tvType2 = v.findViewById(R.id.tvType2);
-            tvType3 = v.findViewById(R.id.tvType3);
-            tvType4 = v.findViewById(R.id.tvType4);
-        }
+        return mResume.size();
     }
 
     public static class ItemViewHolder extends RecyclerView.ViewHolder {
-        public final LinearLayout llResumeHeader;
-        public final TextView tvCountry;
-        public final LinearLayout llResume;
-        public final TextView tvState;
-        public final TextView tvType0;
-        public final TextView tvType1;
-        public final TextView tvType2;
-        public final TextView tvType3;
-        public final TextView tvType4;
+        public final ImageView imgFlagCountry;
+        public final ImageView imgFlagState;
+        public final ImageView imgTypeAchievement;
+        public final TextView txtTypeAchievement;
+        public final TextView txtCountry;
+        public final TextView txtState;
+        public final TextView txtVlConquered;
+        public final TextView txtVlTotal;
 
         public ItemViewHolder(View v) {
             super(v);
-            llResumeHeader = v.findViewById(R.id.llResumeHeader);
-            llResume = v.findViewById(R.id.llResume);
-            tvCountry = v.findViewById(R.id.tvCountry);
-            tvState = v.findViewById(R.id.tvState);
-            tvType0 = v.findViewById(R.id.tvType0);
-            tvType1 = v.findViewById(R.id.tvType1);
-            tvType2 = v.findViewById(R.id.tvType2);
-            tvType3 = v.findViewById(R.id.tvType3);
-            tvType4 = v.findViewById(R.id.tvType4);
+            imgFlagCountry = v.findViewById(R.id.imgFlagCountry);
+            imgFlagState = v.findViewById(R.id.imgFlagState);
+            imgTypeAchievement = v.findViewById(R.id.imgTypeAchievement);
+            txtTypeAchievement = v.findViewById(R.id.txtTypeAchievement);
+            txtCountry = v.findViewById(R.id.txtCountry);
+            txtState = v.findViewById(R.id.txtState);
+            txtVlConquered = v.findViewById(R.id.txtVlConquered);
+            txtVlTotal = v.findViewById(R.id.txtVlTotal);
         }
     }
 }
