@@ -229,10 +229,18 @@ public class HomeVehicleFragment extends Fragment {
             layerMaintenanceItemVehicle.setVisibility(View.GONE);
 
             settings = PreferenceManager.getDefaultSharedPreferences(requireContext());
-            settingName.setText(settings.getString("personal_name",""));
-            settingAge.setText(settings.getString("personal_age",""));
-            settingSignature.setText(settings.getString("signature",""));
-            settingRBGender = Integer.parseInt(settings.getString("gender", "0"));
+            if (settings.contains("personal_name")) {
+                settingName.setText(settings.getString("personal_name", ""));
+            }
+            if (settings.contains("personal_age")) {
+                settingAge.setText(settings.getString("personal_age", ""));
+            }
+            if (settings.contains("signature")) {
+                settingSignature.setText(settings.getString("signature", ""));
+            }
+            if (settings.contains("gender")) {
+                settingRBGender = Integer.parseInt(settings.getString("gender", "0"));
+            }
 
             settingRGGender.setOnCheckedChangeListener((group, checkedId) -> {
                 settingRBGender = checkedId;
@@ -407,7 +415,7 @@ public class HomeVehicleFragment extends Fragment {
 
              // Pending Vehicle - layerPendingVehicle
             HomeVehiclePendingVehicleListAdapter adapterPendingVehicle = new HomeVehiclePendingVehicleListAdapter(Database.mPendingVehicleDao.fetchAllPendingVehicle( g.getIdVehicle(), 0 ), getContext(),0);
-            if (adapterPendingVehicle.getItemCount() > 0) {
+            //if (adapterPendingVehicle.getItemCount() > 0) {
                 layerPendingVehicle.setVisibility(View.VISIBLE);
                 pendingVehicleList.setAdapter(adapterPendingVehicle);
                 pendingVehicleList.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -418,11 +426,11 @@ public class HomeVehicleFragment extends Fragment {
                     startActivity(intent);
                 });
                 adapterPendingVehicle.notifyDataSetChanged();
-            }
+            //}
 
             // Next Vehicle Maintenance - layerMaintenanceItemVehicle
             HomeVehicleNextMaintenanceListAdapter adapterNextMaintenance = new HomeVehicleNextMaintenanceListAdapter(Database.mNextMaintenanceItemDao.findNextMaintenanceItem( g.getIdVehicle() ), getContext(),0);
-            if (adapterNextMaintenance.getItemCount() > 0) {
+            //if (adapterNextMaintenance.getItemCount() > 0) {
                 layerMaintenanceItemVehicle.setVisibility(View.VISIBLE);
                 nextVehicleMaintenanceList.setAdapter(adapterNextMaintenance);
                 nextVehicleMaintenanceList.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -431,9 +439,9 @@ public class HomeVehicleFragment extends Fragment {
                     intent.putExtra("vehicle_id", g.getIdVehicle());
                     startActivity(intent);
                 });
-            } else {
-                layerMaintenanceItemVehicle.setVisibility(View.GONE);
-            }
+            //} else {
+            //    layerMaintenanceItemVehicle.setVisibility(View.GONE);
+            //}
             adapterNextMaintenance.notifyDataSetChanged();
         }
     }

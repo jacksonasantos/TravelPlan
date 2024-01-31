@@ -127,7 +127,7 @@ public class MarkerDAO extends DbContentProvider implements MarkerISchema, Marke
         final String[] selectionArgs = { String.valueOf(id) };
         final String selection = MARKER_ID + " = ?";
         super.delete(MARKER_TABLE, selection, selectionArgs);
-        return false;
+        return (super.delete(MARKER_TABLE, selection, selectionArgs) > 0);
     }
 
     public boolean deleteMarker(Integer travel_id, String latitude, String longitude) {

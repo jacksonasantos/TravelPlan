@@ -7,7 +7,7 @@
     android:orientation="vertical"
     android:background="@color/colorBackgroundDialog"
     android:padding="10dp"
-    tools:context=".ui.general.DriverActivity">
+    tools:context=".ui.general.CurrencyQuoteActivity">
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

@@ -10,7 +10,7 @@
             app:title="@string/personal_age"
             app:useSimpleSummaryProvider="true" />
         <ListPreference
-            app:defaultValue="gender"
+            app:defaultValue="male"
             app:entries="@array/gender"
             app:entryValues="@array/gender_data"
             app:key="gender"
@@ -53,7 +53,7 @@
             app:useSimpleSummaryProvider="true" />
 
         <ListPreference
-            app:defaultValue="achievement_view_mode"
+            app:defaultValue="list"
             app:entries="@array/achievement_view_mode"
             app:entryValues="@array/achievement_view_modeValues"
             app:key="achievement_view_mode"

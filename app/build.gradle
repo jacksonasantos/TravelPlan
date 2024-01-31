@@ -1,8 +1,7 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 34
-    buildToolsVersion '33.0.1'
+    compileSdk 34
 
     defaultConfig {
         applicationId "com.jacksonasantos.travelplan"

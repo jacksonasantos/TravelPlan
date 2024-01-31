@@ -40,7 +40,9 @@ public class AchievementFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         int mLayout;
-        mViewMode = PreferenceManager.getDefaultSharedPreferences(requireContext()).getString("achievement_view_mode", String.valueOf(0));
+        mViewMode = PreferenceManager.getDefaultSharedPreferences(requireContext()).getString("achievement_view_mode", "list");
+
+        if (mViewMode.equals("achievement_view_mode")){mViewMode="list";}
 
         if (mViewMode.equals("list")) {
             mLayout = R.layout.fragment_generic_list;

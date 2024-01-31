@@ -24,6 +24,7 @@ import androidx.preference.PreferenceManager;
 import com.google.android.material.navigation.NavigationView;
 import com.jacksonasantos.travelplan.dao.InsuranceCompany;
 import com.jacksonasantos.travelplan.dao.MaintenancePlan;
+import com.jacksonasantos.travelplan.dao.MaintenancePlanHasVehicleType;
 import com.jacksonasantos.travelplan.dao.general.Database;
 import com.jacksonasantos.travelplan.ui.utility.Globals;
 import com.jacksonasantos.travelplan.ui.utility.Utils;
@@ -33,6 +34,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
@@ -46,7 +48,6 @@ public class MainActivity extends AppCompatActivity {
     final Globals g = Globals.getInstance();
 
     // TODO - Authenticate ao APP
-    // TODO - Campos de data incluir botão de calendário
     // TODO - botão de filtro do veiculo verificar a variavel geral e mostrar o icone certo
 
     @SuppressLint("ResourceType")
@@ -130,6 +131,7 @@ public class MainActivity extends AppCompatActivity {
             } catch (IOException ex) {
                 Log.i("debug", "Error load 'Seguradoras': " + ex.getMessage());
             }
+
             // Maintenance Plan Load
             try {
                 AssetManager assetManager = ctx.getAssets();
@@ -166,6 +168,30 @@ public class MainActivity extends AppCompatActivity {
                 is.close();
             } catch (IOException ex) {
                 Log.i("debug", "Error load 'Plano de Manutenção': " + ex.getMessage());
+            }
+
+            // Load data of plans maintenance for all vehicles types
+            String[] array = getResources().getStringArray(R.array.vehicle_type_array);
+
+            for (int i=1 ; i <= array.length ; i++){
+
+                List<MaintenancePlan> maintenance_plan_list = Database.mMaintenancePlanDao.fetchAllMaintenancePlan();
+                for ( MaintenancePlan maintenance_plan : maintenance_plan_list) {
+
+                    MaintenancePlanHasVehicleType maintenancePlanHasVehicleType = Database.mMaintenancePlanHasVehicleTypeDAO.fetchMaintenancePlanHasVehicleTypeByMaintenancePlanIdVehicleId(maintenance_plan.getId(), i);
+                    maintenancePlanHasVehicleType.setVehicle_type(i);
+                    maintenancePlanHasVehicleType.setMaintenance_plan_id(maintenance_plan.getId());
+                    maintenancePlanHasVehicleType.setRecurring_service(1);
+                    if (maintenancePlanHasVehicleType.getId() != null) {
+                        if (!Database.mMaintenancePlanHasVehicleTypeDAO.updateMaintenancePlanHasVehicleType(maintenancePlanHasVehicleType)) {
+                            Toast.makeText(ctx, R.string.Error_Changing_Data , Toast.LENGTH_LONG).show();
+                        }
+                    } else {
+                        if (!Database.mMaintenancePlanHasVehicleTypeDAO.addMaintenancePlanHasVehicleType(maintenancePlanHasVehicleType)) {
+                            Toast.makeText(ctx, R.string.Error_Including_Data , Toast.LENGTH_LONG).show();
+                        }
+                    }
+                }
             }
 
         } catch (Exception x) {

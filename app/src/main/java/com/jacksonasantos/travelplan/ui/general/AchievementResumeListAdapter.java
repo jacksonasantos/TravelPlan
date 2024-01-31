@@ -25,11 +25,11 @@ public class AchievementResumeListAdapter extends RecyclerView.Adapter<RecyclerV
     final List<AchievementResume> mResume;
     final Context context;
 
-    Achievement achievement = new Achievement();
+    final Achievement achievement = new Achievement();
 
     public AchievementResumeListAdapter(List<AchievementResume> resume, Context context) {
         this.mResume = resume;
-        this.context = context;;
+        this.context = context;
     }
 
     @NonNull

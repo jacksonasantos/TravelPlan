@@ -158,10 +158,10 @@ public class TravelVehicleListAdapter extends RecyclerView.Adapter<RecyclerView.
             if (!itemViewHolder.txtPerson.getText().toString().equals("")) {
                 itemViewHolder.btnRefuel.setOnClickListener(v -> {
                     Intent intent = new Intent(v.getContext(), FuelSupplyActivity.class);
-                    if (vehicle != null) {
+                    if (vehicleHasTravel.getVehicle_id() != null) {
                         intent.putExtra("vehicle_id", vehicleHasTravel.getVehicle_id());
                     }
-                    if (transport != null) {
+                    if (vehicleHasTravel.getTransport_id() != null) {
                         intent.putExtra("transport_id", vehicleHasTravel.getTransport_id());
                     }
                     intent.putExtra("travel_id", vehicleHasTravel.getTravel_id());

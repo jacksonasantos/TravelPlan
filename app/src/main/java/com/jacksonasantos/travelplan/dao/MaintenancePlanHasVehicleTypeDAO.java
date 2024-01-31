@@ -20,6 +20,23 @@ public class MaintenancePlanHasVehicleTypeDAO extends DbContentProvider implemen
         super(db);
     }
 
+    public MaintenancePlanHasVehicleType fetchMaintenancePlanHasVehicleTypeByMaintenancePlanIdVehicleId(Integer maintenance_plan_id, Integer vehicle_type) {
+        final String[] selectionArgs = { String.valueOf(maintenance_plan_id), String.valueOf(vehicle_type) };
+        final String selection = MAINTENANCE_PLAN_HAS_VEHICLE_TYPE_MAINTENANCE_PLAN_ID + " = ? AND " + MAINTENANCE_PLAN_HAS_VEHICLE_TYPE_VEHICLE_TYPE +" = ?";
+
+        MaintenancePlanHasVehicleType maintenancePlanHasVehicleType = new MaintenancePlanHasVehicleType();
+        cursor = super.query(MAINTENANCE_PLAN_HAS_VEHICLE_TYPE_TABLE, MAINTENANCE_PLAN_HAS_VEHICLE_TYPE_COLUMNS, selection, selectionArgs, null);
+        if (cursor != null) {
+            cursor.moveToFirst();
+            while (!cursor.isAfterLast()) {
+                maintenancePlanHasVehicleType = cursorToEntity(cursor);
+                cursor.moveToNext();
+            }
+            cursor.close();
+        }
+        return maintenancePlanHasVehicleType;
+    }
+
     public List<MaintenancePlanHasVehicleType> fetchMaintenancePlanHasVehicleTypeByPlan(Integer maintenance_plan_id) {
         final String[] selectionArgs = { String.valueOf(maintenance_plan_id) };
         final String selection = MAINTENANCE_PLAN_HAS_VEHICLE_TYPE_MAINTENANCE_PLAN_ID + " = ?";

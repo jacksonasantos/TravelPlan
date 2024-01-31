@@ -25,12 +25,10 @@ public class AchievementTravelListAdapter extends RecyclerView.Adapter<RecyclerV
     private static final int TYPE_ITEM = 1;
 
     final List<Marker> mMarkers;
-    final Context context;
     final int show_header;
 
     public AchievementTravelListAdapter(List<Marker> markers, Context context, int show_header) {
         this.mMarkers = markers;
-        this.context = context;
         this.show_header = show_header;
     }
 
