@@ -42,9 +42,12 @@ public class AchievementResumeDAO extends DbContentProvider implements Achieveme
                            ", COUNT(*) total " +
                        " FROM " + AchievementISchema.ACHIEVEMENT_TABLE + " a " +
                       " GROUP BY a." + AchievementISchema.ACHIEVEMENT_COUNTRY +
-                              ", IIF(a." + AchievementISchema.ACHIEVEMENT_STATE + "!=a." + AchievementISchema.ACHIEVEMENT_STATE_END + ", " +
-                                     "'--' , "+
-                                     "a." + AchievementISchema.ACHIEVEMENT_STATE + ") " +
+                              ", IIF( (a." + AchievementISchema.ACHIEVEMENT_STATE + "!=a." + AchievementISchema.ACHIEVEMENT_STATE_END +
+                                 " AND a." + AchievementISchema.ACHIEVEMENT_STATE_END + "== '' ), " +
+                                      "a." + AchievementISchema.ACHIEVEMENT_STATE + ","+
+                                      "IIF(a." + AchievementISchema.ACHIEVEMENT_STATE + "!=a." + AchievementISchema.ACHIEVEMENT_STATE_END + ", "+
+                                           "'--' , "+
+                                           "a." + AchievementISchema.ACHIEVEMENT_STATE + ")) " +
                               ", a." + AchievementISchema.ACHIEVEMENT_TYPE_ACHIEVEMENT +
                               ", a." + AchievementISchema.ACHIEVEMENT_STATUS_ACHIEVEMENT + " ) b " +
              " GROUP BY b." + AchievementResumeISchema.ACHIEVEMENT_RESUME_COUNTRY +
