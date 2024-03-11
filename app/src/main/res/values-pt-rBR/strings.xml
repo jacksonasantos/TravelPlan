@@ -581,4 +581,10 @@
     <string name="castle">Castelo</string>
     <string name="museum">Museu</string>
     <string name="bt_Filter_museum">por Museu</string>
+    <string name="PendingVehicle_Currency_Type">Tipo Moeda</string>
+    <string name="Reservation_Currency_Type">Tipo Moeda</string>
+    <string name="Currency_Attention">Atenção</string>
+    <string name="Currency_Quote_JSON_parsing_error">Erro de Análise JSON</string>
+    <string name="Currency_Quote_Failed_access_Web_Service">Falha ao acessar ao Web service</string>
+    <string name="Currency_Quote_Unable_access_AwesomeAPI_information">Não foi possível acessar as informações da API Awesome</string>
 </resources>

@@ -7,6 +7,7 @@ public class PendingVehicle {
     public Integer vehicle_id;
     public int service_type;
     public String note;
+    public int currency_type;
     public Double expected_value;
     public int status_pending;
 
@@ -28,6 +29,9 @@ public class PendingVehicle {
 
     public String getNote() { return note; }
     public void setNote(String note) { this.note = note; }
+
+    public int getCurrency_type() {return currency_type;}
+    public void setCurrency_type(int currency_type) {this.currency_type = currency_type;}
 
     public Double getExpected_value() { return expected_value; }
     public void setExpected_value(Double expected_value) { this.expected_value = expected_value; }

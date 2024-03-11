@@ -5,25 +5,31 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission
+        android:name="android.permission.READ_EXTERNAL_STORAGE"
         android:maxSdkVersion="32" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+    <uses-permission
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
         tools:ignore="ScopedStorage" />
 
     <application
-        android:hardwareAccelerated="true"
-        android:largeHeap="true"
-        android:vmSafeMode="true"
-
         android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_descriptor"
+        android:hardwareAccelerated="true"
         android:icon="@drawable/ic_logo_travelplan"
         android:label="@string/app_name"
+        android:largeHeap="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar"
-        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:vmSafeMode="true"
         tools:targetApi="s">
+        <service
+            android:name=".ws.general.RetrofitService"
+            android:enabled="true"
+            android:exported="true" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
@@ -31,16 +37,16 @@
 
         <activity
             android:name=".SplashActivity"
+            android:exported="true"
             android:theme="@style/Theme.MaterialComponents.NoActionBar"
-            tools:ignore="Instantiatable"
-            android:exported="true">
+            tools:ignore="Instantiatable">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".MainActivity" />
+        <activity android:name=".MainActivity" />
         <activity
             android:name=".ui.general.InsuranceCompanyActivity"
             android:label="@string/Insurance_Company" />

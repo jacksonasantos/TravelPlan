@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import com.jacksonasantos.travelplan.dao.general.DbContentProvider;
 import com.jacksonasantos.travelplan.dao.interfaces.CurrencyQuoteIDAO;
 import com.jacksonasantos.travelplan.dao.interfaces.CurrencyQuoteISchema;
+import com.jacksonasantos.travelplan.dao.interfaces.ReservationISchema;
 import com.jacksonasantos.travelplan.ui.utility.Utils;
 
 import java.util.ArrayList;
@@ -22,7 +23,7 @@ public class CurrencyQuoteDAO extends DbContentProvider implements CurrencyQuote
         super(db);
     }
 
-    public CurrencyQuote findQuoteDay(int currency_type, Date quote_date) {
+    public CurrencyQuote findDayQuote(int currency_type, Date quote_date) {
 
         CurrencyQuote currencyQuote = new CurrencyQuote();
         if (quote_date == null ) {
@@ -41,6 +42,31 @@ public class CurrencyQuoteDAO extends DbContentProvider implements CurrencyQuote
         cursor.close();
         }
         return currencyQuote;
+    }
+
+    public List<Integer> findCurrencyNoQuoteDay() {
+        List<Integer> list = new ArrayList<>();
+        cursor = super.rawQuery(
+                " SELECT DISTINCT r." + ReservationISchema.RESERVATION_CURRENCY_TYPE + " currency_type " +
+                      " FROM " + ReservationISchema.RESERVATION_TABLE + " r " +
+                     " WHERE NOT EXISTS (SELECT 1 " +
+                                         " FROM " + CurrencyQuoteISchema.CURRENCY_QUOTE_TABLE + " cq " +
+                                        " WHERE cq." + CurrencyQuoteISchema.CURRENCY_QUOTE_CURRENCY_TYPE + " = r." + ReservationISchema.RESERVATION_CURRENCY_TYPE +
+                                          " AND DATE(cq." + CurrencyQuoteISchema.CURRENCY_QUOTE_QUOTE_DATE + ") = DATE('NOW')) " +
+                       " AND (r." + ReservationISchema.RESERVATION_CURRENCY_TYPE + " != null OR r." + ReservationISchema.RESERVATION_CURRENCY_TYPE+ " > 0) " +
+                       " AND r." + ReservationISchema.RESERVATION_STATUS_RESERVATION + " != 3 ", null);
+
+        if (cursor != null) {
+            cursor.moveToFirst();
+            while (!cursor.isAfterLast()) {
+                if (cursor.getColumnIndex("currency_type") != -1) {
+                    list.add(cursor.getInt(cursor.getColumnIndexOrThrow("currency_type")));
+                }
+                cursor.moveToNext();
+            }
+            cursor.close();
+        }
+        return list;
     }
 
     public CurrencyQuote fetchCurrencyQuoteById(Integer id) {

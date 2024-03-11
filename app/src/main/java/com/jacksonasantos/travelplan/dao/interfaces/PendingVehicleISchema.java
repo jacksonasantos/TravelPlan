@@ -8,6 +8,7 @@ public interface PendingVehicleISchema {
     String PENDING_VEHICLE_VEHICLE_ID = "vehicle_id";
     String PENDING_VEHICLE_SERVICE_TYPE = "service_type";
     String PENDING_VEHICLE_NOTE = "note";
+    String PENDING_VEHICLE_CURRENCY_TYPE = "currency_type";
     String PENDING_VEHICLE_EXPECTED_VALUE = "expected_value";
     String PENDING_VEHICLE_STATUS_PENDING = "status_pending";
 
@@ -22,11 +23,16 @@ public interface PendingVehicleISchema {
             + PENDING_VEHICLE_STATUS_PENDING + " INT "
             + ")";
 
+    // Version 85
+    String ALTER_TABLE_PENDING_VEHICLE_V85 = "ALTER TABLE " + PENDING_VEHICLE_TABLE
+            + " ADD COLUMN " + PENDING_VEHICLE_CURRENCY_TYPE + " INT ";
+
     String[] PENDING_VEHICLE_COLUMNS = new String[] {
             PENDING_VEHICLE_ID,
             PENDING_VEHICLE_VEHICLE_ID,
             PENDING_VEHICLE_SERVICE_TYPE,
             PENDING_VEHICLE_NOTE,
+            PENDING_VEHICLE_CURRENCY_TYPE,
             PENDING_VEHICLE_EXPECTED_VALUE,
             PENDING_VEHICLE_STATUS_PENDING
     };

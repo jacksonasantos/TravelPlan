@@ -93,10 +93,12 @@ public class FuelSupplyActivity extends AppCompatActivity implements PlacesAdapt
     private Spinner spAccount;
     private Integer nrSpAccountId;
     private EditText etNumberLiters;
+
     private Spinner spCurrencyType;
     private int nrSpCurrencyType;
     private Integer nrCurrencyQuoteId;
     private TextView txCurrencyValue;
+
     private EditText etSupplyValue;
     private EditText etFuelValue;
     private EditText etVehicleOdometer;
@@ -181,7 +183,7 @@ public class FuelSupplyActivity extends AppCompatActivity implements PlacesAdapt
                 fuelSupply.setId(extras.getInt("fuel_supply_id"));
                 fuelSupply = Database.mFuelSupplyDao.fetchFuelSupplyById(fuelSupply.getId());
                 nrSpAssociatedTravelId = fuelSupply.getAssociated_travel_id();
-                CurrencyQuote c1 = Database.mCurrencyQuoteDao.findQuoteDay(fuelSupply.currency_type, fuelSupply.supply_date);
+                CurrencyQuote c1 = Database.mCurrencyQuoteDao.findDayQuote(fuelSupply.currency_type, fuelSupply.supply_date);
                 if ( c1.getId() != null && c1.getId() != 0 ) {
                     nrCurrencyQuoteId = c1.getId();
                 } else {
@@ -334,7 +336,7 @@ public class FuelSupplyActivity extends AppCompatActivity implements PlacesAdapt
             public void onItemSelected(AdapterView<?> parent, View view, int position, long idx) {
                 nrSpCurrencyType = position;
                 nrCurrencyQuoteId = null;
-                CurrencyQuote c1 = Database.mCurrencyQuoteDao.findQuoteDay(nrSpCurrencyType, Utils.stringToDate(etSupplyDate.getText().toString()));
+                CurrencyQuote c1 = Database.mCurrencyQuoteDao.findDayQuote(nrSpCurrencyType, Utils.stringToDate(etSupplyDate.getText().toString()));
                 if (c1.getId()==null && nrSpCurrencyType!=0) {
                     Intent intent = new Intent (getBaseContext(), CurrencyQuoteActivity.class);
                     intent.putExtra("currency_type", nrSpCurrencyType);
@@ -348,7 +350,7 @@ public class FuelSupplyActivity extends AppCompatActivity implements PlacesAdapt
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
                 nrCurrencyQuoteId = null;
-                nrSpCurrencyType =0;
+                nrSpCurrencyType = 0;
             }
 
             final ActivityResultLauncher<Intent> myActivityResultLauncher = registerForActivityResult(
@@ -499,7 +501,7 @@ public class FuelSupplyActivity extends AppCompatActivity implements PlacesAdapt
             spCurrencyType.setSelection(nrSpCurrencyType);
             if (g.getIdCurrency() != nrSpCurrencyType ) {
                 nrCurrencyQuoteId = fuelSupply.getCurrency_quote_id();
-                CurrencyQuote c1 = Database.mCurrencyQuoteDao.findQuoteDay(nrSpCurrencyType,fuelSupply.getSupply_date());
+                CurrencyQuote c1 = Database.mCurrencyQuoteDao.findDayQuote(nrSpCurrencyType,fuelSupply.getSupply_date());
                 nrCurrencyQuoteId = c1.getId();
             } else { nrCurrencyQuoteId = null;}
             etNumberLiters.setText(String.valueOf(fuelSupply.getNumber_liters()==0?"":fuelSupply.getNumber_liters()));

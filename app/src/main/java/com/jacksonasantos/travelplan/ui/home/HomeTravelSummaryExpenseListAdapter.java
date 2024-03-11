@@ -1,5 +1,6 @@
 package com.jacksonasantos.travelplan.ui.home;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,13 +14,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.jacksonasantos.travelplan.R;
 import com.jacksonasantos.travelplan.dao.SummaryTravelExpense;
-import com.jacksonasantos.travelplan.ui.utility.Globals;
 import com.jacksonasantos.travelplan.ui.utility.Utils;
 
 import java.math.BigDecimal;
 import java.text.NumberFormat;
 import java.util.List;
-import java.util.Locale;
 
 public class HomeTravelSummaryExpenseListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
@@ -29,15 +28,15 @@ public class HomeTravelSummaryExpenseListAdapter extends RecyclerView.Adapter<Re
 
     private Double vTotExpected = (double) 0;
     private Double vTotRealized = (double) 0;
+    private int vCurrency = 0;
+    private boolean vUniqueCurrency = true;
 
     public final List<SummaryTravelExpense> mSummaryTravelExpense;
     final Context context;
     final int show_header;
     final int show_footer;
 
-    final Globals g = Globals.getInstance();
-    final Locale locale = new Locale(g.getLanguage(), g.getCountry());
-    final NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(locale);
+    final NumberFormat numberFormatter = NumberFormat.getNumberInstance();
 
     public HomeTravelSummaryExpenseListAdapter(List<SummaryTravelExpense> summaryTravelExpense, Context context,  int show_header, int show_footer) {
         this.mSummaryTravelExpense = summaryTravelExpense;
@@ -54,14 +53,18 @@ public class HomeTravelSummaryExpenseListAdapter extends RecyclerView.Adapter<Re
                 .from(parent.getContext())
                 .inflate(R.layout.fragment_home_travel_item_expense, parent, false);
 
+        numberFormatter.setMaximumFractionDigits(2);
+        numberFormatter.setMinimumFractionDigits(2);
+
         if (viewType == TYPE_HEADER) {
             return new HeaderViewHolder(expenseView);
         } else if (viewType == TYPE_FOOTER) {
-          return new FooterViewHolder(expenseView);
+            return new FooterViewHolder(expenseView);
         }
         else return new ItemViewHolder(expenseView);
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull final RecyclerView.ViewHolder holder, final int position) {
         if (holder instanceof HeaderViewHolder){
@@ -69,6 +72,7 @@ public class HomeTravelSummaryExpenseListAdapter extends RecyclerView.Adapter<Re
             headerViewHolder.llExpenseItem.setBackgroundColor(Utils.getColorWithAlpha(R.color.colorItemList,0.1f));
             headerViewHolder.imgExpense.setVisibility(View.INVISIBLE);
             headerViewHolder.txtExpense.setText("");
+            headerViewHolder.txtCurrencyType.setText("");
             headerViewHolder.txtExpectedValue.setText(R.string.expected);
             headerViewHolder.txtRealizedValue.setText(R.string.realized);
         }
@@ -77,8 +81,12 @@ public class HomeTravelSummaryExpenseListAdapter extends RecyclerView.Adapter<Re
             footerViewHolder.llExpenseItem.setBackgroundColor(Utils.getColorWithAlpha(R.color.colorItemList,0.5f));
             footerViewHolder.imgExpense.setVisibility(View.INVISIBLE);
             footerViewHolder.txtExpense.setText(R.string.HomeTravelTotal);
-            footerViewHolder.txtExpectedValue.setText(currencyFormatter.format(vTotExpected==null? BigDecimal.ZERO: vTotExpected));
-            footerViewHolder.txtRealizedValue.setText(currencyFormatter.format(vTotRealized==null? BigDecimal.ZERO: vTotRealized));
+            footerViewHolder.txtCurrencyType.setText(context.getResources().getStringArray(R.array.currency_array)[vCurrency]);
+            if (!vUniqueCurrency) {
+                footerViewHolder.txtCurrencyType.setText(footerViewHolder.txtCurrencyType.getText()+" *");
+            }
+            footerViewHolder.txtExpectedValue.setText(numberFormatter.format(vTotExpected==null? BigDecimal.ZERO: vTotExpected));
+            footerViewHolder.txtRealizedValue.setText(numberFormatter.format(vTotRealized==null? BigDecimal.ZERO: vTotRealized));
         }
         else if (holder instanceof ItemViewHolder) {
             final ItemViewHolder itemViewHolder = (ItemViewHolder) holder;
@@ -86,10 +94,15 @@ public class HomeTravelSummaryExpenseListAdapter extends RecyclerView.Adapter<Re
             if(position%2==0) {
                 itemViewHolder.llExpenseItem.setBackgroundColor(Utils.getColorWithAlpha(R.color.colorItemList, 0.05f));
             }
+            if (summaryTravelExpense.getCurrency_type() != vCurrency) {
+                vUniqueCurrency = false;
+            }
+            vCurrency = summaryTravelExpense.getCurrency_type();
             itemViewHolder.imgExpense.setImageResource(summaryTravelExpense.getExpense_type_image(summaryTravelExpense.getExpense_type()));
             itemViewHolder.txtExpense.setText(context.getResources().getStringArray(R.array.expenses_type_array)[summaryTravelExpense.getExpense_type()]);
-            itemViewHolder.txtExpectedValue.setText(currencyFormatter.format(summaryTravelExpense.getExpected_value()==null? BigDecimal.ZERO: summaryTravelExpense.getExpected_value()));
-            itemViewHolder.txtRealizedValue.setText(currencyFormatter.format(summaryTravelExpense.getRealized_value()==null? BigDecimal.ZERO: summaryTravelExpense.getRealized_value()));
+            itemViewHolder.txtCurrencyType.setText(context.getResources().getStringArray(R.array.currency_array)[summaryTravelExpense.getCurrency_type()]);
+            itemViewHolder.txtExpectedValue.setText(numberFormatter.format(summaryTravelExpense.getExpected_value()==null? BigDecimal.ZERO: summaryTravelExpense.getExpected_value()));
+            itemViewHolder.txtRealizedValue.setText(numberFormatter.format(summaryTravelExpense.getRealized_value()==null? BigDecimal.ZERO: summaryTravelExpense.getRealized_value()));
             vTotExpected += summaryTravelExpense.getExpected_value();
             vTotRealized += summaryTravelExpense.getRealized_value();
         }
@@ -113,6 +126,7 @@ public class HomeTravelSummaryExpenseListAdapter extends RecyclerView.Adapter<Re
         private final ConstraintLayout llExpenseItem;
         private final ImageView imgExpense;
         private final TextView txtExpense;
+        private final TextView txtCurrencyType;
         private final TextView txtExpectedValue;
         private final TextView txtRealizedValue;
 
@@ -121,6 +135,7 @@ public class HomeTravelSummaryExpenseListAdapter extends RecyclerView.Adapter<Re
             llExpenseItem = v.findViewById(R.id.llExpenseItem);
             imgExpense = v.findViewById(R.id.imgExpense);
             txtExpense = v.findViewById(R.id.txtExpense);
+            txtCurrencyType = v.findViewById(R.id.txtCurrencyType);
             txtExpectedValue = v.findViewById(R.id.txtExpectedValue);
             txtRealizedValue = v.findViewById(R.id.txtRealizedValue);
         }
@@ -130,6 +145,7 @@ public class HomeTravelSummaryExpenseListAdapter extends RecyclerView.Adapter<Re
         private final ConstraintLayout llExpenseItem;
         private final ImageView imgExpense;
         private final TextView txtExpense;
+        private final TextView txtCurrencyType;
         private final TextView txtExpectedValue;
         private final TextView txtRealizedValue;
 
@@ -138,6 +154,7 @@ public class HomeTravelSummaryExpenseListAdapter extends RecyclerView.Adapter<Re
             llExpenseItem = v.findViewById(R.id.llExpenseItem);
             imgExpense = v.findViewById(R.id.imgExpense);
             txtExpense = v.findViewById(R.id.txtExpense);
+            txtCurrencyType = v.findViewById(R.id.txtCurrencyType);
             txtExpectedValue = v.findViewById(R.id.txtExpectedValue);
             txtRealizedValue = v.findViewById(R.id.txtRealizedValue);
         }
@@ -147,6 +164,7 @@ public class HomeTravelSummaryExpenseListAdapter extends RecyclerView.Adapter<Re
         private final ConstraintLayout llExpenseItem;
         private final ImageView imgExpense;
         private final TextView txtExpense;
+        private final TextView txtCurrencyType;
         private final TextView txtExpectedValue;
         private final TextView txtRealizedValue;
 
@@ -155,6 +173,7 @@ public class HomeTravelSummaryExpenseListAdapter extends RecyclerView.Adapter<Re
             llExpenseItem = v.findViewById(R.id.llExpenseItem);
             imgExpense = v.findViewById(R.id.imgExpense);
             txtExpense = v.findViewById(R.id.txtExpense);
+            txtCurrencyType = v.findViewById(R.id.txtCurrencyType);
             txtExpectedValue = v.findViewById(R.id.txtExpectedValue);
             txtRealizedValue = v.findViewById(R.id.txtRealizedValue);
         }

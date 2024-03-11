@@ -426,7 +426,7 @@ public class HomeTravelFragment extends Fragment implements View.OnClickListener
                 // Expenses - LayerExpense
                 final int Show_Header_SummaryExpense = 1;
                 final int Show_Footer_SummaryExpense = 1;
-                HomeTravelSummaryExpenseListAdapter adapterTravelExpense = new HomeTravelSummaryExpenseListAdapter( Database.mSummaryTravelExpenseDao.findTravelExpense(travel[0].getId() ), getContext(), Show_Header_SummaryExpense, Show_Footer_SummaryExpense);
+                HomeTravelSummaryExpenseListAdapter adapterTravelExpense = new HomeTravelSummaryExpenseListAdapter( Database.mSummaryTravelExpenseDao.findTravelExpenseCurrencyType(travel[0].getId() ), getContext(), Show_Header_SummaryExpense, Show_Footer_SummaryExpense);
                 if ( adapterTravelExpense.getItemCount() > Show_Header_SummaryExpense+Show_Footer_SummaryExpense){
                     layerExpense.setVisibility(View.VISIBLE);
                     listTravelExpenses.setAdapter(adapterTravelExpense);

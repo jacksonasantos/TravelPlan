@@ -225,6 +225,26 @@ public class Utils extends AppCompatActivity {
         return null;
     }
 
+    public static Date stringToDateTime2(String dt, boolean truncate) {
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat dateFormatTruncate = new SimpleDateFormat("yyyy-MM-dd");
+        try {
+            Date ret;
+            if(dt==null) {
+                ret = null;
+            } else {
+                if (truncate) {
+                    ret = dateFormatTruncate.parse(dt);
+                } else {
+                    ret = dateFormat.parse(dt);
+                }
+            }
+            return ret;
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
     public static String returnDayWeek(Date d, Context context) {
         Calendar cal = Calendar.getInstance();
         cal.setTime(d);

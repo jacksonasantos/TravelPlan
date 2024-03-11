@@ -60,6 +60,8 @@ public class ReservationActivity extends AppCompatActivity {
     private EditText etDaily_Rate;
     private EditText etOther_Rate;
     private EditText etReservation_Amount;
+    private Spinner spCurrency_Type;
+    private int nrSpCurrency_Type;
     private EditText etNote;
     private TextView tvStatus_Reservation;
     private int nrStatus_Reservation;
@@ -126,6 +128,7 @@ public class ReservationActivity extends AppCompatActivity {
         etDaily_Rate = findViewById(R.id.etDaily_Rate);
         etOther_Rate = findViewById(R.id.etOther_Rate);
         etReservation_Amount = findViewById(R.id.etReservation_Amount);
+        spCurrency_Type = findViewById(R.id.spCurrency_Type);
         etNote = findViewById(R.id.etNote);
         tvStatus_Reservation = findViewById(R.id.tvStatus_Reservation);
         nrStatus_Reservation = 0;
@@ -218,6 +221,21 @@ public class ReservationActivity extends AppCompatActivity {
         });
         adapterA.notifyDataSetChanged();
 
+        Utils.createSpinnerResources(R.array.currency_array, spCurrency_Type, this);
+        nrSpCurrency_Type = reservation.getCurrency_type();
+        spCurrency_Type.setSelection(nrSpCurrency_Type);
+        spCurrency_Type.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long idx) {
+                nrSpCurrency_Type = position;
+                spCurrency_Type.setSelection(nrSpCurrency_Type);
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                nrSpCurrency_Type =0;
+            }
+        });
+
         etCheckin_Date.addTextChangedListener(new DateInputMask(etCheckin_Date));
         etCheckout_Date.addTextChangedListener(new DateInputMask(etCheckout_Date));
 
@@ -260,6 +278,8 @@ public class ReservationActivity extends AppCompatActivity {
             etDaily_Rate.setText(String.valueOf(reservation.getDaily_rate()));
             etOther_Rate.setText(String.valueOf(reservation.getOther_rate()));
             etReservation_Amount.setText(String.valueOf(reservation.getReservation_amount()));
+            nrSpCurrency_Type = reservation.getCurrency_type();
+            spCurrency_Type.setSelection(nrSpCurrency_Type);
             etNote.setText(reservation.getNote());
             tvStatus_Reservation.setText(getResources().getStringArray(R.array.reservation_status_array)[nrStatus_Reservation]);
 
@@ -339,6 +359,7 @@ public class ReservationActivity extends AppCompatActivity {
                 r1.setDaily_rate(Double.parseDouble(etDaily_Rate.getText().toString()));
                 r1.setOther_rate(Double.parseDouble(etOther_Rate.getText().toString()));
                 r1.setReservation_amount(Double.parseDouble(etReservation_Amount.getText().toString()));
+                r1.setCurrency_type(nrSpCurrency_Type);
                 r1.setNote(etNote.getText().toString());
                 r1.setStatus_reservation(nrStatus_Reservation);
 

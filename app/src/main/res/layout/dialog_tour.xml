@@ -53,7 +53,7 @@
                         android:layout_weight="2.5"
                         android:text="@string/Tour_Itinerary"
                         android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:textSize="14sp" />
+                        android:textSize="12sp" />
 
                     <Spinner
                         android:id="@+id/spItinerary"
@@ -78,7 +78,7 @@
                         android:layout_weight="2.5"
                         android:text="@string/Tour_Marker"
                         android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:textSize="14sp" />
+                        android:textSize="12sp" />
 
                     <Spinner
                         android:id="@+id/spMarker"
@@ -111,7 +111,7 @@
                         android:layout_weight="2.5"
                         android:text="@string/Tour_Achievement"
                         android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:textSize="14sp" />
+                        android:textSize="12sp" />
 
                     <Spinner
                         android:id="@+id/spAchievement"
@@ -137,7 +137,7 @@
                         android:layout_gravity="center"
                         android:text="@string/Tour_Local_Tour"
                         android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:textSize="14sp" />
+                        android:textSize="12sp" />
 
                     <EditText
                         android:id="@+id/etLocalTour"
@@ -174,7 +174,7 @@
                         android:layout_weight="2.5"
                         android:text="@string/Tour_LatLng_Tour"
                         android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:textSize="14sp" />
+                        android:textSize="12sp" />
 
                     <EditText
                         android:id="@+id/etLatLngTour"
@@ -202,7 +202,7 @@
                         android:layout_weight="2.5"
                         android:text="@string/Tour_Address_Tour"
                         android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:textSize="14sp" />
+                        android:textSize="12sp" />
 
                     <EditText
                         android:id="@+id/etAddressTour"
@@ -230,7 +230,7 @@
                         android:layout_weight="2.5"
                         android:text="@string/Tour_City_Tour"
                         android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:textSize="14sp" />
+                        android:textSize="12sp" />
 
                     <EditText
                         android:id="@+id/etCityTour"
@@ -280,7 +280,7 @@
                         android:layout_weight="2.5"
                         android:text="@string/Tour_Date"
                         android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:textSize="14sp" />
+                        android:textSize="12sp" />
 
                     <EditText
                         android:id="@+id/etDate"
@@ -300,7 +300,7 @@
                         android:layout_weight="2.5"
                         android:text="@string/Tour_Sequence"
                         android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:textSize="14sp" />
+                        android:textSize="12sp" />
 
                     <EditText
                         android:id="@+id/etSequence"
@@ -324,16 +324,16 @@
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="2.5"
+                        android:layout_weight="2.6"
                         android:text="@string/Tour_Value_Adult"
                         android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:textSize="14sp" />
+                        android:textSize="12sp" />
 
                     <EditText
                         android:id="@+id/etValueAdult"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1.5"
+                        android:layout_weight="1.2"
                         android:gravity="end"
                         android:autofillHints="no"
                         android:inputType="numberDecimal"
@@ -344,15 +344,15 @@
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="2.5"
+                        android:layout_weight="2.6"
                         android:text="@string/Tour_Value_Child"
                         android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:textSize="14sp" />
+                        android:textSize="12sp" />
                     <EditText
                         android:id="@+id/etValueChild"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1.5"
+                        android:layout_weight="1.2"
                         android:gravity="end"
                         android:autofillHints="no"
                         android:inputType="numberDecimal"
@@ -382,16 +382,16 @@
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="2.5"
+                        android:layout_weight="2.6"
                         android:text="@string/Tour_Number_Adult"
                         android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:textSize="14sp" />
+                        android:textSize="12sp" />
 
                     <EditText
                         android:id="@+id/etNumberAdult"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1.5"
+                        android:layout_weight="1.2"
                         android:gravity="end"
                         android:autofillHints="no"
                         android:inputType="number"
@@ -402,15 +402,15 @@
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="2.5"
+                        android:layout_weight="2.6"
                         android:text="@string/Tour_Number_Child"
                         android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:textSize="14sp" />
+                        android:textSize="12sp" />
                     <EditText
                         android:id="@+id/etNumberChild"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1.5"
+                        android:layout_weight="1.2"
                         android:gravity="end"
                         android:autofillHints="no"
                         android:inputType="number"
@@ -458,7 +458,7 @@
                         android:layout_weight="2.5"
                         android:text="@string/Tour_Visitation_Time"
                         android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:textSize="14sp" />
+                        android:textSize="12sp" />
 
                     <EditText
                         android:id="@+id/etVisitationTime"
@@ -484,7 +484,7 @@
                         android:layout_weight="2.5"
                         android:text="@string/Tour_Note"
                         android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:textSize="14sp" />
+                        android:textSize="12sp" />
 
                     <EditText
                         android:id="@+id/etNote"

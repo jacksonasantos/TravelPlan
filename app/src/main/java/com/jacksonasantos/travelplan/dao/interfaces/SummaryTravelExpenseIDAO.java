@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface SummaryTravelExpenseIDAO {
     List<SummaryTravelExpense> findTravelExpense(Integer travel_id);
+    List<SummaryTravelExpense> findTravelExpenseCurrencyType(Integer travel_id);
 }

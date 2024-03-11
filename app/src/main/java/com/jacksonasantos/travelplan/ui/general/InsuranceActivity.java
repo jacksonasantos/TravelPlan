@@ -363,9 +363,9 @@ public  class InsuranceActivity extends AppCompatActivity {
                 i1.setBonus_class(Integer.parseInt(etBonus_Class.getText().toString()));
                 i1.setNote(etNote.getText().toString());
                 i1.setStatus(nrStatus);
-                if(nrSpinTravel==0) nrSpinTravel=null;
+                if(nrSpinTravel == null||nrSpinTravel==0) nrSpinTravel=null;
                 i1.setTravel_id(nrSpinTravel);
-                if(nrSpinVehicle==0) nrSpinVehicle=null;
+                if(nrSpinVehicle== null||nrSpinVehicle==0) nrSpinVehicle=null;
                 i1.setVehicle_id(nrSpinVehicle);
                 try {
                     if (!opInsert) {

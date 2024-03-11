@@ -80,6 +80,14 @@
         <item>@string/chilean_peso</item>
         <item>@string/euro</item>
     </string-array>
+    <string-array name="currency_abbrev_array">
+        <item>"BRL"</item>
+        <item>"USD-BRL"</item>
+        <item>"ARS-BRL"</item>
+        <item>"UYU-BRL"</item>
+        <item>"CLP-BRL"</item>
+        <item>"EUR-BRL"</item>
+    </string-array>
     <!-- Reason Travel Type -->
     <string-array name="supply_reason_type_array">
         <item>@string/city</item>

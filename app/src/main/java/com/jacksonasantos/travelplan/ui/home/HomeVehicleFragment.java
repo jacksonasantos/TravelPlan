@@ -44,6 +44,7 @@ import com.jacksonasantos.travelplan.ui.utility.Utils;
 import com.jacksonasantos.travelplan.ui.vehicle.FuelSupplyActivity;
 import com.jacksonasantos.travelplan.ui.vehicle.MaintenanceActivity;
 import com.jacksonasantos.travelplan.ui.vehicle.PendingVehicleActivity;
+import com.jacksonasantos.travelplan.ui.vehicle.PendingVehicleListAdapter;
 import com.jacksonasantos.travelplan.ui.vehicle.VehicleActivity;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.GridLabelRenderer;
@@ -414,7 +415,7 @@ public class HomeVehicleFragment extends Fragment {
             }
 
              // Pending Vehicle - layerPendingVehicle
-            HomeVehiclePendingVehicleListAdapter adapterPendingVehicle = new HomeVehiclePendingVehicleListAdapter(Database.mPendingVehicleDao.fetchAllPendingVehicle( g.getIdVehicle(), 0 ), getContext(),0);
+            PendingVehicleListAdapter adapterPendingVehicle = new PendingVehicleListAdapter(Database.mPendingVehicleDao.fetchAllPendingVehicle( g.getIdVehicle(), 0 ), getContext(),0, 0);
             //if (adapterPendingVehicle.getItemCount() > 0) {
                 layerPendingVehicle.setVisibility(View.VISIBLE);
                 pendingVehicleList.setAdapter(adapterPendingVehicle);

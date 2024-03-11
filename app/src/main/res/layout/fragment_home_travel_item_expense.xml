@@ -29,19 +29,30 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
+        android:id="@+id/txtCurrencyType"
+        android:layout_width="25dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/labels_margin"
+        android:gravity="start|center_vertical"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/txtExpense"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
         android:id="@+id/txtExpectedValue"
-        android:layout_width="120dp"
+        android:layout_width="110dp"
         android:layout_height="wrap_content"
         android:gravity="end|center_vertical"
         android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/txtRealizedValue"
-        app:layout_constraintStart_toEndOf="@+id/txtExpense"
+        app:layout_constraintStart_toEndOf="@+id/txtCurrencyType"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/txtRealizedValue"
-        android:layout_width="120dp"
+        android:layout_width="110dp"
         android:layout_height="wrap_content"
         android:gravity="center_vertical|end"
         android:textSize="12sp"

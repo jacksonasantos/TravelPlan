@@ -18,7 +18,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class VehicleStatisticsDAO extends DbContentProvider implements VehicleStatisticsISchema, VehicleStatisticsIDAO {
+/*
+select STRFTIME('%Y', f.supply_date) supply_year
+         , f.supply_reason_type
+         , sum(f.vehicle_travelled_distance)
+from fuel_supply f
+where f.vehicle_id= 4
+group by 1,2
 
+ */
     private Cursor cursor;
 
     public VehicleStatisticsDAO(SQLiteDatabase db) {

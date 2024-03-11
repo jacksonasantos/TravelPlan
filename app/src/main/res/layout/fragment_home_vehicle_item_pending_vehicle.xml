@@ -36,7 +36,7 @@
         android:id="@+id/txtVehicleShortName"
         android:layout_width="80dp"
         android:layout_height="wrap_content"
-        android:gravity="end|center_vertical"
+        android:gravity="center|center_vertical"
         app:autoSizeMaxTextSize="12sp"
         app:autoSizeMinTextSize="6sp"
         app:autoSizeStepGranularity="1sp"

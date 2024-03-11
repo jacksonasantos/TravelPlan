@@ -28,6 +28,8 @@ public class PendingVehicleActivity extends AppCompatActivity {
     private int nrSpServiceType = 0;
     private Spinner spServiceType;
     private EditText etNote;
+    private Spinner spCurrencyType;
+    private int nrSpCurrencyType;
     private EditText etExpectedValue;
     private TextView tvStatusPending;
 
@@ -86,6 +88,7 @@ public class PendingVehicleActivity extends AppCompatActivity {
         txVehicleLicencePlate = findViewById(R.id.txVehicleLicencePlate);
         spServiceType = findViewById(R.id.spServiceType);
         etNote = findViewById(R.id.etNote);
+        spCurrencyType = findViewById(R.id.spCurrencyType);
         etExpectedValue = findViewById(R.id.etExpectedValue);
         tvStatusPending = findViewById(R.id.tvStatusPending);
 
@@ -107,11 +110,28 @@ public class PendingVehicleActivity extends AppCompatActivity {
                 nrSpServiceType = 0;
             }
         });
-        
+
+        Utils.createSpinnerResources(R.array.currency_array, spCurrencyType, this);
+        nrSpCurrencyType = pendingVehicle.getCurrency_type();
+        spCurrencyType.setSelection(nrSpCurrencyType);
+        spCurrencyType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long idx) {
+                nrSpCurrencyType = position;
+                spCurrencyType.setSelection(nrSpCurrencyType);
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                nrSpCurrencyType =0;
+            }
+        });
+
         if (pendingVehicle != null) {
             nrSpServiceType=pendingVehicle.getService_type();
             spServiceType.setSelection(nrSpServiceType);
             etNote.setText(pendingVehicle.getNote());
+            nrSpCurrencyType = pendingVehicle.getCurrency_type();
+            spCurrencyType.setSelection(nrSpCurrencyType);
             etExpectedValue.setText(String.valueOf(pendingVehicle.getExpected_value()));
             tvStatusPending.setText(statusArray[pendingVehicle.getStatus_pending()]);
         }
@@ -131,6 +151,7 @@ public class PendingVehicleActivity extends AppCompatActivity {
                 pv1.setVehicle_id(nrVehicleId);
                 pv1.setService_type(nrSpServiceType);
                 pv1.setNote(etNote.getText().toString());
+                pv1.setCurrency_type(nrSpCurrencyType);
                 if (!etExpectedValue.getText().toString().isEmpty()) {
                     pv1.setExpected_value(Double.parseDouble(etExpectedValue.getText().toString()));
                 } else { pv1.setExpected_value((double) 0); }

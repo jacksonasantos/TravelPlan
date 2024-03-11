@@ -4,6 +4,7 @@ import com.jacksonasantos.travelplan.R;
 
 public class SummaryTravelExpense {
     public int expense_type;
+    public int currency_type;
     public Double expected_value;
     public Double realized_value;
 
@@ -29,6 +30,9 @@ public class SummaryTravelExpense {
 
     public int getExpense_type() { return expense_type; }
     public void setExpense_type(int expense_type) { this.expense_type = expense_type; }
+
+    public int getCurrency_type() { return currency_type; }
+    public void setCurrency_type(int currency_type) { this.currency_type = currency_type; }
 
     public Double getExpected_value() { return expected_value; }
     public void setExpected_value(Double expected_value) { this.expected_value = expected_value; }

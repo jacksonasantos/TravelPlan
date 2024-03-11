@@ -12,6 +12,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.jacksonasantos.travelplan.MainActivity;
 import com.jacksonasantos.travelplan.R;
 import com.jacksonasantos.travelplan.dao.CurrencyQuote;
 import com.jacksonasantos.travelplan.dao.general.Database;
@@ -91,6 +92,20 @@ public class CurrencyQuoteActivity extends AppCompatActivity {
             spinCurrencyType.setSelection(nrSpinCurrencyType);
             etQuoteDate.setText(Utils.dateToString(currencyQuote.getQuote_date()));
             etCurrencyValue.setText(String.valueOf(currencyQuote.getCurrency_value()));
+        }
+        if (opInsert) {
+            etCurrencyValue.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+                @Override
+                public void onFocusChange(View view, boolean hasFocus) {
+                    if (hasFocus) {
+                        MainActivity.DownloadCurrencyQuote( nrSpinCurrencyType );
+
+                        //TODO - Receber online o valor da cotação que foi adquirida logo acima de maneira assincrona
+                        CurrencyQuote c1 = Database.mCurrencyQuoteDao.findDayQuote(nrSpinCurrencyType, Utils.stringToDate(etQuoteDate.getText().toString()));
+                        etCurrencyValue.setText(String.valueOf(c1.getCurrency_value()));
+                    }
+                }
+            });
         }
     }
 

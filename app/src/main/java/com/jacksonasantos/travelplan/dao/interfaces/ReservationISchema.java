@@ -14,6 +14,7 @@ public interface ReservationISchema {
     String RESERVATION_DAILY_RATE = "daily_rate";
     String RESERVATION_OTHER_RATE = "other_rate";
     String RESERVATION_RESERVATION_AMOUNT = "reservation_amount";
+    String RESERVATION_CURRENCY_TYPE = "currency_type";
     String RESERVATION_NOTE = "note";
     String RESERVATION_STATUS_RESERVATION = "status_reservation";
 
@@ -34,6 +35,10 @@ public interface ReservationISchema {
             + RESERVATION_STATUS_RESERVATION + " INT "
             + ")";
 
+    // Version 85
+    String ALTER_TABLE_RESERVATION_V86 = "ALTER TABLE " + RESERVATION_TABLE
+            + " ADD COLUMN " + RESERVATION_CURRENCY_TYPE + " INT ";
+
     String[] RESERVATION_COLUMNS = new String[] {
             RESERVATION_ID,
             RESERVATION_TRAVEL_ID,
@@ -45,6 +50,7 @@ public interface ReservationISchema {
             RESERVATION_DAILY_RATE,
             RESERVATION_OTHER_RATE,
             RESERVATION_RESERVATION_AMOUNT,
+            RESERVATION_CURRENCY_TYPE,
             RESERVATION_NOTE,
             RESERVATION_STATUS_RESERVATION
     };

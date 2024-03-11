@@ -18,6 +18,7 @@ import com.jacksonasantos.travelplan.dao.CurrencyQuote;
 import com.jacksonasantos.travelplan.dao.general.Database;
 import com.jacksonasantos.travelplan.ui.utility.Utils;
 
+import java.text.NumberFormat;
 import java.util.List;
 
 public class CurrencyQuoteListAdapter extends RecyclerView.Adapter<CurrencyQuoteListAdapter.MyViewHolder> {
@@ -74,8 +75,9 @@ public class CurrencyQuoteListAdapter extends RecyclerView.Adapter<CurrencyQuote
 
         holder.txtCurrency.setText(currencyArray[currencyQuote.getCurrency_type()]);
         holder.txtDate.setText(Utils.dateToString(currencyQuote.getQuote_date()));
-        //NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(locale);
-        holder.txtQuote.setText(String.valueOf(currencyQuote.getCurrency_value()));
+        NumberFormat cf = NumberFormat.getInstance();
+        cf.setMaximumFractionDigits(8);
+        holder.txtQuote.setText(cf.format(currencyQuote.getCurrency_value()));
 
         // btnEdit
         holder.btnEdit.setOnClickListener (v -> {

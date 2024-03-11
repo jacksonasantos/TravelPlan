@@ -184,6 +184,7 @@
 
     <string name="PendingVehicle_ServiceType">Service Type</string>
     <string name="PendingVehicle_Note">Note</string>
+    <string name="PendingVehicle_Currency_Type">Currency Type</string>
     <string name="PendingVehicle_ExpectedValue">Expected Value</string>
     <string name="PendingVehicle_StatusPending">Status Pending</string>
 
@@ -326,6 +327,11 @@
     <string name="Currency_Quote_Type">Currency Type</string>
     <string name="Currency_Quote_Date">Date</string>
     <string name="Currency_Quote_Value">Quote Value</string>
+
+    <string name="Currency_Attention">Attention</string>
+    <string name="Currency_Quote_JSON_parsing_error">JSON Parsing Error</string>
+    <string name="Currency_Quote_Failed_access_Web_Service">Failed to access the Web Service</string>
+    <string name="Currency_Quote_Unable_access_AwesomeAPI_information">Unable to access Awesome API information</string>
 
     <!-- Arrays Currency -->
     <string name="real" translatable="false">R$</string>
@@ -526,6 +532,7 @@
     <string name="Reservation_Other_Rate">Other Rate</string>
     <string name="Reservation_Reservation_Amount">Reservation Amount</string>
     <string name="Reservation_Amount_Paid">Amount Paid</string>
+    <string name="Reservation_Currency_Type">Currency Type</string>
     <string name="Reservation_New_Amount_Paid">New Amount Paid</string>
     <string name="Reservation_Balance_to_Pay">Reservation_Balance_to_Pay</string>
     <string name="Reservation_Note">Note</string>

@@ -19,7 +19,7 @@ public class JSONParser {
     public JSONParser() {
     }
 
-    public String getJSONFromUrl(String url) {
+    public static String getJSONFromUrl(String url) {
         try {
             URL urlNew = new URL(url);
             HttpURLConnection urlConnection = (HttpURLConnection) urlNew.openConnection();

@@ -62,7 +62,7 @@ public class PendingVehicleFragment extends Fragment  {
                         }
 
                         RecyclerView listPendingVehicles = requireView().findViewById(R.id.list);
-                        PendingVehicleListAdapter adapter = new PendingVehicleListAdapter(Database.mPendingVehicleDao.fetchAllPendingVehicle(), getContext());
+                        PendingVehicleListAdapter adapter = new PendingVehicleListAdapter(Database.mPendingVehicleDao.fetchAllPendingVehicle(), getContext(),1,1);
                         listPendingVehicles.setAdapter(adapter);
                         break;
 
@@ -84,7 +84,7 @@ public class PendingVehicleFragment extends Fragment  {
         mDb.open();
 
         RecyclerView listPendingVehicles = this.requireView().findViewById(R.id.list);
-        PendingVehicleListAdapter adapterPendingVehicle = new PendingVehicleListAdapter(Database.mPendingVehicleDao.fetchAllPendingVehicle(), getContext());
+        PendingVehicleListAdapter adapterPendingVehicle = new PendingVehicleListAdapter(Database.mPendingVehicleDao.fetchAllPendingVehicle(), getContext(),1,1);
         listPendingVehicles.setAdapter(adapterPendingVehicle);
         listPendingVehicles.setLayoutManager(new LinearLayoutManager(getContext()));
         listPendingVehicles.addItemDecoration(new DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL));

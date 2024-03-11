@@ -131,6 +131,7 @@ public class PendingVehicleDAO extends DbContentProvider implements PendingVehic
                                                                             else mP.setVehicle_id(c.getInt(c.getColumnIndexOrThrow(PENDING_VEHICLE_VEHICLE_ID)));
             if (c.getColumnIndex(PENDING_VEHICLE_SERVICE_TYPE) != -1)       {mP.setService_type(c.getInt(c.getColumnIndexOrThrow(PENDING_VEHICLE_SERVICE_TYPE))); }
             if (c.getColumnIndex(PENDING_VEHICLE_NOTE) != -1)               {mP.setNote(c.getString(c.getColumnIndexOrThrow(PENDING_VEHICLE_NOTE))); }
+            if (c.getColumnIndex(PENDING_VEHICLE_CURRENCY_TYPE) != -1)      {mP.setCurrency_type(c.getInt(c.getColumnIndexOrThrow(PENDING_VEHICLE_CURRENCY_TYPE))); }
             if (c.getColumnIndex(PENDING_VEHICLE_EXPECTED_VALUE) != -1)     {mP.setExpected_value(c.getDouble(c.getColumnIndexOrThrow(PENDING_VEHICLE_EXPECTED_VALUE))); }
             if (c.getColumnIndex(PENDING_VEHICLE_STATUS_PENDING) != -1)     {mP.setStatus_pending(c.getInt(c.getColumnIndexOrThrow(PENDING_VEHICLE_STATUS_PENDING))); }
         }
@@ -143,6 +144,7 @@ public class PendingVehicleDAO extends DbContentProvider implements PendingVehic
         initialValues.put(PENDING_VEHICLE_VEHICLE_ID, pV.vehicle_id);
         initialValues.put(PENDING_VEHICLE_SERVICE_TYPE, pV.service_type);
         initialValues.put(PENDING_VEHICLE_NOTE, pV.note);
+        initialValues.put(PENDING_VEHICLE_CURRENCY_TYPE, pV.currency_type);
         initialValues.put(PENDING_VEHICLE_EXPECTED_VALUE, pV.expected_value);
         initialValues.put(PENDING_VEHICLE_STATUS_PENDING, pV.status_pending);
     }

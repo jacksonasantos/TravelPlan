@@ -253,19 +253,19 @@ public class TourActivity extends AppCompatActivity implements TourTypeListAdapt
 
         etValueAdult.setOnFocusChangeListener((v, hasFocus) -> {
             if (hasFocus) {etValueAdult.setText("");}
-            else if(etValueAdult.getText().toString().equals("")) etValueAdult.setText("0");
+            else if(etValueAdult.getText().toString().isEmpty()) etValueAdult.setText("0");
         });
         etValueChild.setOnFocusChangeListener((v, hasFocus) -> {
             if (hasFocus) {etValueChild.setText("");}
-            else if(etValueChild.getText().toString().equals("")) etValueChild.setText("0");
+            else if(etValueChild.getText().toString().isEmpty()) etValueChild.setText("0");
         });
         etNumberAdult.setOnFocusChangeListener((v, hasFocus) -> {
             if (hasFocus) {etNumberAdult.setText("");}
-            else if(etNumberAdult.getText().toString().equals("")) etNumberAdult.setText("0");
+            else if(etNumberAdult.getText().toString().isEmpty()) etNumberAdult.setText("0");
         });
         etNumberChild.setOnFocusChangeListener((v, hasFocus) -> {
             if (hasFocus) {etNumberChild.setText("");}
-            else if(etNumberChild.getText().toString().equals("")) etNumberChild.setText("0");
+            else if(etNumberChild.getText().toString().isEmpty()) etNumberChild.setText("0");
         });
         if (tour != null) {
             travel = Database.mTravelDao.fetchTravelById(tour.getTravel_id());

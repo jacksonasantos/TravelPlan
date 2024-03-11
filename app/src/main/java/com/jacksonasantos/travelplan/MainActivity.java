@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.content.res.AssetManager;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.LocaleList;
 import android.util.DisplayMetrics;
@@ -22,6 +23,8 @@ import androidx.navigation.ui.NavigationUI;
 import androidx.preference.PreferenceManager;
 
 import com.google.android.material.navigation.NavigationView;
+import com.jacksonasantos.travelplan.dao.CurrencyQuote;
+import com.jacksonasantos.travelplan.dao.CurrencyQuoteResponse;
 import com.jacksonasantos.travelplan.dao.InsuranceCompany;
 import com.jacksonasantos.travelplan.dao.MaintenancePlan;
 import com.jacksonasantos.travelplan.dao.MaintenancePlanHasVehicleType;
@@ -29,8 +32,19 @@ import com.jacksonasantos.travelplan.dao.general.Database;
 import com.jacksonasantos.travelplan.ui.utility.Globals;
 import com.jacksonasantos.travelplan.ui.utility.Utils;
 
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.BufferedReader;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
@@ -40,6 +54,7 @@ import java.util.Locale;
 public class MainActivity extends AppCompatActivity {
 
     private static Resources res;
+    public static Context context;
 
     private AppBarConfiguration mAppBarConfiguration;
 
@@ -55,6 +70,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.menu.activity_main);
+
+        context = getApplicationContext();
 
         res = getResources();
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(this);
@@ -83,11 +100,95 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupWithNavController(navigationView, navController);
 
         InitialLoadCSV(getApplicationContext());
+
+        mDb = new Database( this );
+        mDb.open();
+        List list = Database.mCurrencyQuoteDao.findCurrencyNoQuoteDay();
+        if (!list.isEmpty()) {
+            for (int i = 0; i < list.size(); i++) {
+                DownloadCurrencyQuote( Integer.parseInt(list.get(i).toString()) );
+            }
+        }
     }
 
-    public static Resources getAppResources() {
-        return res;
+    public static void DownloadCurrencyQuote(int currency_id) {
+        String v_currency_abbrev = context.getResources().getStringArray(R.array.currency_abbrev_array)[currency_id];
+        String url = String.format("https://economia.awesomeapi.com.br/json/%s", v_currency_abbrev);
+        new DownloadJsonAsyncTask().execute(url, String.valueOf(currency_id));
     }
+
+    static class DownloadJsonAsyncTask extends AsyncTask<String, Void, CurrencyQuoteResponse> {
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        @Override
+        protected CurrencyQuoteResponse doInBackground(String... params) {
+            String urlString = params[0];
+            int currencyId = Integer.parseInt(params[1]);
+
+            try {
+                HttpClient httpClient = new DefaultHttpClient();
+                HttpGet httpGet = new HttpGet(urlString);
+                HttpResponse httpResponse = httpClient.execute(httpGet);
+                HttpEntity httpEntity = httpResponse.getEntity();
+
+                if (httpEntity != null) {
+                    InputStream httpStream = httpEntity.getContent();
+                    String jsonString = toString(httpStream);
+                    httpStream.close();
+
+                    CurrencyQuoteResponse objectQuote = new CurrencyQuoteResponse();
+                    try {
+                        JSONArray trendLists = new JSONArray(jsonString);
+                        JSONObject trendList = trendLists.getJSONObject(0);
+
+                        objectQuote.setCurrency_type(currencyId);
+                        objectQuote.setBid((float) trendList.getDouble("bid"));
+                        objectQuote.setCreate_date(Utils.stringToDateTime2(trendList.getString("create_date"), true));
+
+                        CurrencyQuote currencyQuote = Database.mCurrencyQuoteDao.findDayQuote(objectQuote.getCurrency_type(), objectQuote.getCreate_date());
+                        currencyQuote.setCurrency_type(objectQuote.getCurrency_type());
+                        currencyQuote.setQuote_date(objectQuote.getCreate_date());
+                        currencyQuote.setCurrency_value(objectQuote.getBid());
+                        if (currencyQuote.getId() == null) {
+                            Database.mCurrencyQuoteDao.addCurrencyQuote(currencyQuote);
+                        } else {
+                            Database.mCurrencyQuoteDao.updateCurrencyQuote(currencyQuote);
+                        }
+
+                    } catch (JSONException e) {
+                        Log.i("debug", R.string.Currency_Quote_JSON_parsing_error +"/n"+ e.getMessage());
+                    }
+                    return objectQuote;
+                }
+            } catch (Exception e) {
+                Log.i("debug", R.string.Currency_Quote_Failed_access_Web_Service +"/n"+ e.getMessage());
+            }
+            return null;
+        }
+        @Override
+        protected void onPostExecute(CurrencyQuoteResponse result) {
+            super.onPostExecute(result);
+            if (result==null) {
+                Toast.makeText(context, R.string.Currency_Quote_Unable_access_AwesomeAPI_information, Toast.LENGTH_SHORT).show();
+            }
+        }
+
+        private String toString(InputStream is) throws IOException {
+            byte[] bytes = new byte[1024];
+            ByteArrayOutputStream b = new ByteArrayOutputStream();
+            int l;
+            while ((l = is.read(bytes)) > 0) {
+                b.write(bytes, 0, l);
+            }
+            return b.toString();
+        }
+    }
+
+    public static Resources getAppResources() { return res; }
 
     public void InitialLoadCSV(Context ctx) {
 
