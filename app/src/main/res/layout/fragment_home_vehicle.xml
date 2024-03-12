@@ -487,15 +487,26 @@
                 app:layout_constraintTop_toBottomOf="@+id/buttonSeparator2"
                 app:srcCompat="@drawable/ic_maximize" />
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/listVehicleStatistics"
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardView1"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:scrollbars="vertical"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/labels_margin"
+                android:layout_marginEnd="@dimen/labels_margin"
+                app:cardBackgroundColor="@color/colorBackgroundCard"
+                app:cardCornerRadius="@dimen/cardCornerRadius"
+                app:cardElevation="@dimen/cardElevation"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvVehicleStatistics"
-                tools:itemCount="4" />
+                app:layout_constraintTop_toBottomOf="@+id/tvVehicleStatistics">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/listVehicleStatistics"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:scrollbars="vertical"
+                    tools:itemCount="5" />
+            </androidx.cardview.widget.CardView>
 
             <TextView
                 android:id="@+id/tvAVGType9"
@@ -507,7 +518,7 @@
                 android:textSize="10sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/listVehicleStatistics"
+                app:layout_constraintTop_toBottomOf="@+id/cardView1"
                 tools:ignore="SmallSp" />
 
             <LinearLayout

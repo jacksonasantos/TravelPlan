@@ -73,7 +73,7 @@ public class VehicleStatisticsListAdapter extends RecyclerView.Adapter<RecyclerV
         else if (holder instanceof FooterViewHolder) {
             final FooterViewHolder footerViewHolder = (FooterViewHolder) holder;
             footerViewHolder.llVehicleStatistics.setBackgroundColor(Utils.getColorWithAlpha(R.color.colorItemList,0.4f));
-            footerViewHolder.txtSupplyReasonType.setText(context.getResources().getString(R.string.VehicleStatistics_TotalType) + " (Kms)");
+            footerViewHolder.txtSupplyReasonType.setText(context.getResources().getString(R.string.VehicleStatistics_TotalTypeKm));
             footerViewHolder.txtAno1.setText(numberFormatter.format(vTotal1));
             footerViewHolder.txtAno2.setText(numberFormatter.format(vTotal2));
             footerViewHolder.txtAno3.setText(numberFormatter.format(vTotal3));

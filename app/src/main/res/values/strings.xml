@@ -748,4 +748,5 @@
     <!-- Vehicle Statistics Year  -->
     <string name="VehicleStatistics_TypeRunning">Type Running</string>
     <string name="VehicleStatistics_TotalType">Total</string>
+    <string name="VehicleStatistics_TotalTypeKm">Total (KM)</string>
 </resources>

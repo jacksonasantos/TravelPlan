@@ -12,33 +12,32 @@
         android:id="@+id/txtSupplyReasonType"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="0.3025"
+        android:layout_weight="0.24"
         android:gravity="start|center_vertical"
-        app:autoSizeMaxTextSize="10sp"
+        android:paddingHorizontal="@dimen/labels_margin"
+        app:autoSizeMaxTextSize="9sp"
         app:autoSizeMinTextSize="6sp"
         app:autoSizeStepGranularity="1sp"
         app:autoSizeTextType="uniform" />
-
 
     <TextView
         android:id="@+id/txtAno1"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="0.14"
+        android:layout_weight="0.15"
         android:gravity="end|center_vertical"
-        app:autoSizeMaxTextSize="10sp"
+        app:autoSizeMaxTextSize="9sp"
         app:autoSizeMinTextSize="6sp"
         app:autoSizeStepGranularity="1sp"
         app:autoSizeTextType="uniform" />
-
 
     <TextView
         android:id="@+id/txtAno2"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="0.14"
+        android:layout_weight="0.15"
         android:gravity="end|center_vertical"
-        app:autoSizeMaxTextSize="10sp"
+        app:autoSizeMaxTextSize="9sp"
         app:autoSizeMinTextSize="6sp"
         app:autoSizeStepGranularity="1sp"
         app:autoSizeTextType="uniform" />
@@ -47,9 +46,9 @@
         android:id="@+id/txtAno3"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="0.14"
+        android:layout_weight="0.15"
         android:gravity="end|center_vertical"
-        app:autoSizeMaxTextSize="10sp"
+        app:autoSizeMaxTextSize="9sp"
         app:autoSizeMinTextSize="6sp"
         app:autoSizeStepGranularity="1sp"
         app:autoSizeTextType="uniform" />
@@ -58,9 +57,9 @@
         android:id="@+id/txtAno4"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="0.14"
+        android:layout_weight="0.15"
         android:gravity="end|center_vertical"
-        app:autoSizeMaxTextSize="10sp"
+        app:autoSizeMaxTextSize="9sp"
         app:autoSizeMinTextSize="6sp"
         app:autoSizeStepGranularity="1sp"
         app:autoSizeTextType="uniform" />
@@ -69,9 +68,10 @@
         android:id="@+id/txtTotalType"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="0.14"
+        android:paddingHorizontal="@dimen/labels_margin"
+        android:layout_weight="0.16"
         android:gravity="end|center_vertical"
-        app:autoSizeMaxTextSize="10sp"
+        app:autoSizeMaxTextSize="9sp"
         app:autoSizeMinTextSize="6sp"
         app:autoSizeStepGranularity="1sp"
         app:autoSizeTextType="uniform" />
