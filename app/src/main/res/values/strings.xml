@@ -746,6 +746,6 @@
 
 
     <!-- Vehicle Statistics Year  -->
-    <string name="VehicleStatistics_SupplyReasonType">Reason</string>
+    <string name="VehicleStatistics_TypeRunning">Type Running</string>
     <string name="VehicleStatistics_TotalType">Total</string>
 </resources>

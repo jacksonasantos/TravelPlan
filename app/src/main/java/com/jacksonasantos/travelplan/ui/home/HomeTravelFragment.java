@@ -449,6 +449,7 @@ public class HomeTravelFragment extends Fragment implements View.OnClickListener
                         }
                     });
                     layerFinancial.setVisibility(View.VISIBLE);
+                    btnMinimizeFinancial.setImageResource(R.drawable.ic_maximize);
                     listTravelFinancialStatement.setVisibility(View.GONE);
                     listTravelFinancialStatement.setAdapter(adapterFinancialStatement);
                     listTravelFinancialStatement.setLayoutManager(new LinearLayoutManager(getContext()));

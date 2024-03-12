@@ -58,12 +58,12 @@ public class VehicleStatisticsListAdapter extends RecyclerView.Adapter<RecyclerV
         if (holder instanceof HeaderViewHolder) {
             HeaderViewHolder headerViewHolder = (HeaderViewHolder) holder;
             Calendar cal = Calendar.getInstance();
-            String vAno1 = "<= "+ (cal.get(Calendar.YEAR) - 3);
+            String vAno1 = "<="+ (cal.get(Calendar.YEAR) - 3);
             String vAno2 = String.valueOf(cal.get(Calendar.YEAR) - 2);
             String vAno3 = String.valueOf(cal.get(Calendar.YEAR) - 1);
             String vAno4 = String.valueOf(cal.get(Calendar.YEAR));
             headerViewHolder.llVehicleStatistics.setBackgroundColor(Utils.getColorWithAlpha(R.color.colorItemList,0.2f));
-            headerViewHolder.txtSupplyReasonType.setText(R.string.VehicleStatistics_SupplyReasonType);
+            headerViewHolder.txtSupplyReasonType.setText(R.string.VehicleStatistics_TypeRunning);
             headerViewHolder.txtAno1.setText(vAno1);
             headerViewHolder.txtAno2.setText(vAno2);
             headerViewHolder.txtAno3.setText(vAno3);
@@ -83,7 +83,7 @@ public class VehicleStatisticsListAdapter extends RecyclerView.Adapter<RecyclerV
         else if (holder instanceof ItemViewHolder) {
             final ItemViewHolder itemViewHolder = (ItemViewHolder) holder;
             final VehicleStatisticsYearResponse vehicleStatisticsYearResponses = mVehicleStatisticsYearResponses.get(position-show_header);
-            itemViewHolder.txtSupplyReasonType.setText(context.getResources().getStringArray(R.array.supply_reason_type_array)[vehicleStatisticsYearResponses.getSupply_reason_type()-1]);
+            itemViewHolder.txtSupplyReasonType.setText(context.getResources().getStringArray(R.array.supply_reason_type_array)[vehicleStatisticsYearResponses.getType_running()-1]);
             itemViewHolder.txtAno1.setText(numberFormatter.format(vehicleStatisticsYearResponses.getAno1()));
             itemViewHolder.txtAno2.setText(numberFormatter.format(vehicleStatisticsYearResponses.getAno2()));
             itemViewHolder.txtAno3.setText(numberFormatter.format(vehicleStatisticsYearResponses.getAno3()));

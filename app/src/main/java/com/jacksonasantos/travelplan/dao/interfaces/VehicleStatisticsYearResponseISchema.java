@@ -2,7 +2,7 @@ package com.jacksonasantos.travelplan.dao.interfaces;
 
 public interface VehicleStatisticsYearResponseISchema {
 
-    String VSYR_SUPPLY_REASON_TYPE = "supply_reason_type";
+    String VSYR_TYPE_RUNNING = "type_running";
     String VSYR_ANO1 = "ano1";
     String VSYR_ANO2 = "ano2";
     String VSYR_ANO3 = "ano3";

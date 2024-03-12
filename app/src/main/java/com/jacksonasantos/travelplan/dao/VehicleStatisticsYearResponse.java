@@ -1,7 +1,7 @@
 package com.jacksonasantos.travelplan.dao;
 
 public class VehicleStatisticsYearResponse {
-    public int supply_reason_type;
+    public int type_running;
     public int ano1;
     public int ano2;
     public int ano3;
@@ -10,8 +10,8 @@ public class VehicleStatisticsYearResponse {
 
     public VehicleStatisticsYearResponse() { }
 
-    public int getSupply_reason_type() {return supply_reason_type; }
-    public void setSupply_reason_type(int supply_reason_type) { this.supply_reason_type = supply_reason_type; }
+    public int getType_running() {return type_running; }
+    public void setType_running(int type_running) { this.type_running = type_running; }
 
     public int getAno1() {
         return ano1;

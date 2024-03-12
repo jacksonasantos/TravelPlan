@@ -587,6 +587,6 @@
     <string name="Currency_Quote_JSON_parsing_error">Erro de Análise JSON</string>
     <string name="Currency_Quote_Failed_access_Web_Service">Falha ao acessar ao Web service</string>
     <string name="Currency_Quote_Unable_access_AwesomeAPI_information">Não foi possível acessar as informações da API Awesome</string>
-    <string name="VehicleStatistics_SupplyReasonType">Razão</string>
+    <string name="VehicleStatistics_TypeRunning">Tp Rodagem</string>
     <string name="VehicleStatistics_TotalType">Total</string>
 </resources>

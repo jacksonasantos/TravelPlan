@@ -148,7 +148,7 @@ SELECT b.supply_reason_type
 */
     public List<VehicleStatisticsYearResponse> findVehicleMileageStatisticsYear( Integer vehicle_id) {
         List<VehicleStatisticsYearResponse> vehicleList = new ArrayList<>();
-        cursor = super.rawQuery(" SELECT b." + VehicleStatisticsYearResponseISchema.VSYR_SUPPLY_REASON_TYPE + ", " +
+        cursor = super.rawQuery(" SELECT b." + VehicleStatisticsYearResponseISchema.VSYR_TYPE_RUNNING + ", " +
                                            " SUM(b." + VehicleStatisticsYearResponseISchema.VSYR_ANO1 + ") " + VehicleStatisticsYearResponseISchema.VSYR_ANO1 + ", " +
                                            " SUM(b." + VehicleStatisticsYearResponseISchema.VSYR_ANO2 + ") " + VehicleStatisticsYearResponseISchema.VSYR_ANO2 + ", " +
                                            " SUM(b." + VehicleStatisticsYearResponseISchema.VSYR_ANO3 + ") " + VehicleStatisticsYearResponseISchema.VSYR_ANO3 + ", " +
@@ -157,12 +157,12 @@ SELECT b.supply_reason_type
                                            " SUM(b." + VehicleStatisticsYearResponseISchema.VSYR_ANO2 + ") + " +
                                            " SUM(b." + VehicleStatisticsYearResponseISchema.VSYR_ANO3 + ") + " +
                                            " SUM(b." + VehicleStatisticsYearResponseISchema.VSYR_ANO4 + ") " + VehicleStatisticsYearResponseISchema.VSYR_TOTAL_TYPE +
-                                      " FROM (SELECT a." + VehicleStatisticsYearResponseISchema.VSYR_SUPPLY_REASON_TYPE + ", " +
+                                      " FROM (SELECT a." + VehicleStatisticsYearResponseISchema.VSYR_TYPE_RUNNING + ", " +
                                                    " CASE WHEN a.supply_year = STRFTIME('%Y','now') THEN a.vehicle_travelled_distance  ELSE 0  END " + VehicleStatisticsYearResponseISchema.VSYR_ANO4 + ", "+
                                                    " CASE WHEN a.supply_year = STRFTIME('%Y',DATE('now','-1 year')) THEN a.vehicle_travelled_distance  ELSE 0  END " + VehicleStatisticsYearResponseISchema.VSYR_ANO3 + ", "+
                                                    " CASE WHEN a.supply_year = STRFTIME('%Y',DATE('now','-2 year')) THEN a.vehicle_travelled_distance  ELSE 0  END " + VehicleStatisticsYearResponseISchema.VSYR_ANO2 + ", "+
                                                    " CASE WHEN a.supply_year <= STRFTIME('%Y',DATE('now','-3 year')) THEN a.vehicle_travelled_distance  ELSE 0  END " + VehicleStatisticsYearResponseISchema.VSYR_ANO1 +
-                                              " FROM (SELECT f." + FuelSupplyISchema.FUEL_SUPPLY_SUPPLY_REASON_TYPE + " " + VehicleStatisticsYearResponseISchema.VSYR_SUPPLY_REASON_TYPE + ", " +
+                                              " FROM (SELECT f." + FuelSupplyISchema.FUEL_SUPPLY_SUPPLY_REASON_TYPE + " " + VehicleStatisticsYearResponseISchema.VSYR_TYPE_RUNNING + ", " +
                                                            " STRFTIME('%Y', f."+ FuelSupplyISchema.FUEL_SUPPLY_SUPPLY_DATE+") supply_year, " +
                                                            " SUM(f."+FuelSupplyISchema.FUEL_SUPPLY_VEHICLE_TRAVELLED_DISTANCE + ") vehicle_travelled_distance " +
                                                       " FROM " + FuelSupplyISchema.FUEL_SUPPLY_TABLE + " f " +
@@ -173,7 +173,7 @@ SELECT b.supply_reason_type
             if (cursor.moveToFirst()) {
                 do {
                     VehicleStatisticsYearResponse v1 = new VehicleStatisticsYearResponse();
-                    if (cursor.getColumnIndex(VehicleStatisticsYearResponseISchema.VSYR_SUPPLY_REASON_TYPE) != -1) {v1.setSupply_reason_type(cursor.getInt(cursor.getColumnIndexOrThrow(VehicleStatisticsYearResponseISchema.VSYR_SUPPLY_REASON_TYPE))); }
+                    if (cursor.getColumnIndex(VehicleStatisticsYearResponseISchema.VSYR_TYPE_RUNNING) != -1)       {v1.setType_running(cursor.getInt(cursor.getColumnIndexOrThrow(VehicleStatisticsYearResponseISchema.VSYR_TYPE_RUNNING))); }
                     if (cursor.getColumnIndex(VehicleStatisticsYearResponseISchema.VSYR_ANO1) != -1)               {v1.setAno1(cursor.getInt(cursor.getColumnIndexOrThrow(VehicleStatisticsYearResponseISchema.VSYR_ANO1))); }
                     if (cursor.getColumnIndex(VehicleStatisticsYearResponseISchema.VSYR_ANO2) != -1)               {v1.setAno2(cursor.getInt(cursor.getColumnIndexOrThrow(VehicleStatisticsYearResponseISchema.VSYR_ANO2))); }
                     if (cursor.getColumnIndex(VehicleStatisticsYearResponseISchema.VSYR_ANO3) != -1)               {v1.setAno3(cursor.getInt(cursor.getColumnIndexOrThrow(VehicleStatisticsYearResponseISchema.VSYR_ANO3))); }

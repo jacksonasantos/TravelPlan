@@ -392,6 +392,7 @@ public class HomeVehicleFragment extends Fragment {
                         btnMinimizeVehicleStatistics.setImageResource(R.drawable.ic_maximize);
                     }
                 });
+                btnMinimizeVehicleStatistics.setImageResource(R.drawable.ic_maximize);
                 listVehicleStatistics.setVisibility(View.GONE);
                 listVehicleStatistics.setAdapter(adapterVehicleStatistics);
                 listVehicleStatistics.setLayoutManager(new LinearLayoutManager(getContext()));
