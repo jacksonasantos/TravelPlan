@@ -46,6 +46,7 @@ import com.jacksonasantos.travelplan.ui.vehicle.MaintenanceActivity;
 import com.jacksonasantos.travelplan.ui.vehicle.PendingVehicleActivity;
 import com.jacksonasantos.travelplan.ui.vehicle.PendingVehicleListAdapter;
 import com.jacksonasantos.travelplan.ui.vehicle.VehicleActivity;
+import com.jacksonasantos.travelplan.ui.vehicle.VehicleStatisticsListAdapter;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.GridLabelRenderer;
 import com.jjoe64.graphview.helper.DateAsXAxisLabelFormatter;
@@ -93,6 +94,8 @@ public class HomeVehicleFragment extends Fragment {
     private TextView txtInsuranceFinalEffectiveDate;
 
     private ConstraintLayout layerStatisticsVehicle;
+    private ImageButton btnMinimizeVehicleStatistics;
+    private RecyclerView listVehicleStatistics;
     private TextView tvAVGType9;
     private TextView tvAVGType1;
     private TextView tvAVGType2;
@@ -101,11 +104,11 @@ public class HomeVehicleFragment extends Fragment {
 
     private ConstraintLayout layerPendingVehicle;
     private ImageView imgAddPendingVehicle;
-    private RecyclerView pendingVehicleList;
+    private RecyclerView listPendingVehicle;
 
     private ConstraintLayout layerMaintenanceItemVehicle;
     private ImageView imgAddMaintenanceVehicle;
-    private RecyclerView nextVehicleMaintenanceList;
+    private RecyclerView listNextVehicleMaintenance;
 
     boolean bSetting = false;
     boolean bPerson = false;
@@ -165,6 +168,8 @@ public class HomeVehicleFragment extends Fragment {
         txtInsuranceFinalEffectiveDate = v.findViewById(R.id.txtInsuranceFinalEffectiveDate);
 
         layerStatisticsVehicle = v.findViewById(R.id.layerStatisticsVehicle);
+        btnMinimizeVehicleStatistics = v.findViewById(R.id.btnMinimizeVehicleStatistics);
+        listVehicleStatistics = v.findViewById(R.id.listVehicleStatistics);
         tvAVGType9 = v.findViewById(R.id.tvAVGType9);
         tvAVGType1 = v.findViewById(R.id.tvAVGType1);
         tvAVGType2 = v.findViewById(R.id.tvAVGType2);
@@ -173,11 +178,11 @@ public class HomeVehicleFragment extends Fragment {
 
         layerPendingVehicle = v.findViewById(R.id.layerPendingVehicle);
         imgAddPendingVehicle = v.findViewById(R.id.imgAddPendingVehicle);
-        pendingVehicleList = v.findViewById(R.id.pendingVehicleList);
+        listPendingVehicle = v.findViewById(R.id.listPendingVehicle);
 
         layerMaintenanceItemVehicle = v.findViewById(R.id.layerMaintenanceItemVehicle);
         imgAddMaintenanceVehicle = v.findViewById(R.id.imgAddMaintenanceVehicle);
-        nextVehicleMaintenanceList = v.findViewById(R.id.listNextVehicleMaintenance);
+        listNextVehicleMaintenance = v.findViewById(R.id.listNextVehicleMaintenance);
 
         layerFuelSupply.setOnClickListener(v1 -> {
             Intent intent = new Intent (v1.getContext(), FuelSupplyActivity.class);
@@ -193,7 +198,7 @@ public class HomeVehicleFragment extends Fragment {
         mDb.open();
 
         vehicles =  Database.mVehicleDao.fetchArrayVehicles();
-        if (vehicles.size()>0) {
+        if (!vehicles.isEmpty()) {
             for (int i=0;i<vehicles.size();i++){
                 if (g.getIdVehicle().equals(vehicles.get(i).getId())){
                     elementPosition=i;
@@ -210,12 +215,12 @@ public class HomeVehicleFragment extends Fragment {
         return v;
     }
 
-    @SuppressLint({"SetTextI18n", "NotifyDataSetChanged", "SimpleDateFormat"})
+    @SuppressLint({"SetTextI18n", "NotifyDataSetChanged", "SimpleDateFormat", "WrongConstant"})
     @Override
     public void onResume() {
         super.onResume();
 
-        if (vehicles.size()>0) {
+        if (!vehicles.isEmpty()) {
             layerWizard.setVisibility(View.GONE);
             layerFuelSupply.setVisibility(View.VISIBLE);
         } else {
@@ -309,7 +314,7 @@ public class HomeVehicleFragment extends Fragment {
 
         final Vehicle[] vehicle = {new Vehicle()};
 
-        if (vehicles.size() > 0) {
+        if (!vehicles.isEmpty()) {
             sbVehicle.setVisibility(View.VISIBLE);
             sbVehicle.setProgress(elementPosition);
             sbVehicle.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
@@ -374,6 +379,23 @@ public class HomeVehicleFragment extends Fragment {
             if (adapterLastVehicleStatistics.getItemCount() > 0 ) {
                 layerStatisticsVehicle.setVisibility(View.VISIBLE);
 
+                // Vehicle Statistics -
+                final int Show_Header_VehicleStatistics = 1;
+                final int Show_Footer_VehicleStatistics = 1;
+                VehicleStatisticsListAdapter adapterVehicleStatistics = new VehicleStatisticsListAdapter( Database.mVehicleStatisticsDao.findVehicleMileageStatisticsYear(g.getIdVehicle() ), getContext(), Show_Header_VehicleStatistics, Show_Footer_VehicleStatistics);
+                btnMinimizeVehicleStatistics.setOnClickListener(v -> {
+                    listVehicleStatistics.setVisibility(listVehicleStatistics.getVisibility() ^ View.GONE);
+                    if (listVehicleStatistics.getVisibility() == View.VISIBLE) {
+                        btnMinimizeVehicleStatistics.setImageResource(R.drawable.ic_minimize);
+                    }
+                    else {
+                        btnMinimizeVehicleStatistics.setImageResource(R.drawable.ic_maximize);
+                    }
+                });
+                listVehicleStatistics.setVisibility(View.GONE);
+                listVehicleStatistics.setAdapter(adapterVehicleStatistics);
+                listVehicleStatistics.setLayoutManager(new LinearLayoutManager(getContext()));
+
                 // Graph Statistics Vehicle - https://github.com/jjoe64/GraphView
                 vMinX = 0; vMaxX = 0; vMinY = 0; vMaxY = 0;
                 tamHorizontalLabels = 3;
@@ -418,8 +440,8 @@ public class HomeVehicleFragment extends Fragment {
             PendingVehicleListAdapter adapterPendingVehicle = new PendingVehicleListAdapter(Database.mPendingVehicleDao.fetchAllPendingVehicle( g.getIdVehicle(), 0 ), getContext(),0, 0);
             //if (adapterPendingVehicle.getItemCount() > 0) {
                 layerPendingVehicle.setVisibility(View.VISIBLE);
-                pendingVehicleList.setAdapter(adapterPendingVehicle);
-                pendingVehicleList.setLayoutManager(new LinearLayoutManager(getContext()));
+                listPendingVehicle.setAdapter(adapterPendingVehicle);
+                listPendingVehicle.setLayoutManager(new LinearLayoutManager(getContext()));
 
                 imgAddPendingVehicle.setOnClickListener(v -> {
                     Intent intent = new Intent(v.getContext(), PendingVehicleActivity.class);
@@ -433,8 +455,8 @@ public class HomeVehicleFragment extends Fragment {
             HomeVehicleNextMaintenanceListAdapter adapterNextMaintenance = new HomeVehicleNextMaintenanceListAdapter(Database.mNextMaintenanceItemDao.findNextMaintenanceItem( g.getIdVehicle() ), getContext(),0);
             //if (adapterNextMaintenance.getItemCount() > 0) {
                 layerMaintenanceItemVehicle.setVisibility(View.VISIBLE);
-                nextVehicleMaintenanceList.setAdapter(adapterNextMaintenance);
-                nextVehicleMaintenanceList.setLayoutManager(new LinearLayoutManager(getContext()));
+                listNextVehicleMaintenance.setAdapter(adapterNextMaintenance);
+                listNextVehicleMaintenance.setLayoutManager(new LinearLayoutManager(getContext()));
                 imgAddMaintenanceVehicle.setOnClickListener(v -> {
                     Intent intent = new Intent(v.getContext(), MaintenanceActivity.class);
                     intent.putExtra("vehicle_id", g.getIdVehicle());
@@ -460,7 +482,7 @@ public class HomeVehicleFragment extends Fragment {
         String[] reasonTypeArray = getResources().getStringArray(R.array.supply_reason_type_array);
         for (int type=1; type<=reasonTypeArray.length; type++) {
             List<VehicleStatistics> vehicleStatisticsGraph = Database.mVehicleStatisticsDao.findVehicleFuelingGraphStatistics(g.getIdVehicle(), type);
-            if (vehicleStatisticsGraph.size()>0) {
+            if (!vehicleStatisticsGraph.isEmpty()) {
                 VehicleStatistics vehicleStatisticsAVG = Database.mVehicleStatisticsDao.findVehicleFuelingStatistics(g.getIdVehicle(), type);
                 text = reasonTypeArray[type - 1] + ": " + numberFormatter.format(vehicleStatisticsAVG.getAvg_consumption()) + " " + g.getMeasureConsumption();
                 switch (type) {
@@ -533,21 +555,21 @@ public class HomeVehicleFragment extends Fragment {
     }
 
     private void statusValid() {
-        if (!settings.getString("personal_name", "").equals("") &&
-            !settings.getString("personal_age", "").equals("") &&
-            !settings.getString("signature", "").equals("") &&
-            !settings.getString("gender", "").equals("")) {
+        if (!settings.getString("personal_name", "").isEmpty() &&
+                !settings.getString("personal_age", "").isEmpty() &&
+                !settings.getString("signature", "").isEmpty() &&
+                !settings.getString("gender", "").isEmpty()) {
             vPerson = Database.mPersonDao.fetchAllPerson();
             bSetting = true;
             btPerson.setClickable(true);
             btPerson.setAlpha(1F);
             btVehicle.setClickable(false);
             btVehicle.setAlpha(0.5F);
-            if (vPerson!=null && vPerson.size()>0) {
+            if (vPerson!=null && !vPerson.isEmpty()) {
                 bPerson = true;
                 bVehicle = false;
                 vVehicle = Database.mVehicleDao.fetchAllVehicles();
-                if (vVehicle.size() > 0) bVehicle = true;
+                if (!vVehicle.isEmpty()) bVehicle = true;
                 btVehicle.setClickable(true);
                 btVehicle.setAlpha(1F);
             }

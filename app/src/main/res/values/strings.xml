@@ -743,4 +743,9 @@
     <string name="Account_Account_Type">Account Type</string>
     <string name="Account_Description">Description</string>
     <string name="TravelItemExpenses_Type">Type</string>
+
+
+    <!-- Vehicle Statistics Year  -->
+    <string name="VehicleStatistics_SupplyReasonType">Reason</string>
+    <string name="VehicleStatistics_TotalType">Total</string>
 </resources>

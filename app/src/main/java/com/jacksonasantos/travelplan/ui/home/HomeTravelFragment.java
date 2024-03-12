@@ -202,7 +202,7 @@ public class HomeTravelFragment extends Fragment implements View.OnClickListener
         adapterTravel.setDropDownViewResource( android.R.layout.simple_spinner_dropdown_item);
         spTravel.setAdapter(adapterTravel);
 
-        if (travels.size()>0) {
+        if (!travels.isEmpty()) {
             layerTravel.setVisibility(View.VISIBLE);
             layerBtnMenu.setVisibility(View.VISIBLE);
             layerWizard.setVisibility(View.GONE);
@@ -228,7 +228,7 @@ public class HomeTravelFragment extends Fragment implements View.OnClickListener
             layerInsurance.setVisibility(View.GONE);
 
             List<Travel> vTravel = Database.mTravelDao.fetchAllTravel();
-            if (vTravel.size()>0) {
+            if (!vTravel.isEmpty()) {
                 btTravel.setAlpha(0.3F);
             } else {
                 btTravel.setOnClickListener(view -> {
@@ -356,7 +356,7 @@ public class HomeTravelFragment extends Fragment implements View.OnClickListener
                         Intent intent = new Intent(v.getContext(), FuelSupplyActivity.class);
                         intent.putExtra("travel_id", travel[0].id);
                         List<VehicleHasTravel> vehicleHasTravel = Database.mVehicleHasTravelDao.fetchAllVehicleHasTravelByTravelForFuel(travel[0].getId());
-                        if (vehicleHasTravel.size() > 0) {
+                        if (!vehicleHasTravel.isEmpty()) {
                             if (vehicleHasTravel.size() == 1) {
                                 if (vehicleHasTravel.get(0).getVehicle_id() != null) {
                                     intent.putExtra("vehicle_id", vehicleHasTravel.get(0).getVehicle_id());
@@ -439,7 +439,15 @@ public class HomeTravelFragment extends Fragment implements View.OnClickListener
                 final int Show_Header_FinancialStatement = 1;
                 TravelFinancialStatementListAdapter adapterFinancialStatement = new TravelFinancialStatementListAdapter( travel[0].getId(), Database.mTravelItemExpensesDao.findTravelFinancialStatement(travel[0].getId() ), getContext(), Show_Header_FinancialStatement, true);
                 if ( adapterFinancialStatement.getItemCount() > Show_Header_FinancialStatement){
-                    btnMinimizeFinancial.setOnClickListener(v -> listTravelFinancialStatement.setVisibility(listTravelFinancialStatement.getVisibility() ^ View.GONE));
+                    btnMinimizeFinancial.setOnClickListener(v -> {
+                        listTravelFinancialStatement.setVisibility(listTravelFinancialStatement.getVisibility() ^ View.GONE);
+                        if (listTravelFinancialStatement.getVisibility() == View.VISIBLE) {
+                            btnMinimizeFinancial.setImageResource(R.drawable.ic_minimize);
+                        }
+                        else {
+                            btnMinimizeFinancial.setImageResource(R.drawable.ic_maximize);
+                        }
+                    });
                     layerFinancial.setVisibility(View.VISIBLE);
                     listTravelFinancialStatement.setVisibility(View.GONE);
                     listTravelFinancialStatement.setAdapter(adapterFinancialStatement);

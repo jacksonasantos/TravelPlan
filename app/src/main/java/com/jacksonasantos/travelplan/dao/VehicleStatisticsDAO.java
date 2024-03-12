@@ -7,26 +7,19 @@ import android.os.Build;
 
 import com.jacksonasantos.travelplan.R;
 import com.jacksonasantos.travelplan.dao.general.DbContentProvider;
-import com.jacksonasantos.travelplan.dao.interfaces.PersonISchema;
 import com.jacksonasantos.travelplan.dao.interfaces.FuelSupplyISchema;
 import com.jacksonasantos.travelplan.dao.interfaces.InsuranceISchema;
+import com.jacksonasantos.travelplan.dao.interfaces.PersonISchema;
 import com.jacksonasantos.travelplan.dao.interfaces.VehicleStatisticsIDAO;
 import com.jacksonasantos.travelplan.dao.interfaces.VehicleStatisticsISchema;
+import com.jacksonasantos.travelplan.dao.interfaces.VehicleStatisticsYearResponseISchema;
 import com.jacksonasantos.travelplan.ui.utility.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class VehicleStatisticsDAO extends DbContentProvider implements VehicleStatisticsISchema, VehicleStatisticsIDAO {
-/*
-select STRFTIME('%Y', f.supply_date) supply_year
-         , f.supply_reason_type
-         , sum(f.vehicle_travelled_distance)
-from fuel_supply f
-where f.vehicle_id= 4
-group by 1,2
 
- */
     private Cursor cursor;
 
     public VehicleStatisticsDAO(SQLiteDatabase db) {
@@ -130,6 +123,68 @@ group by 1,2
             cursor.close();
         }
         return vehicleStatisticsList;
+    }
+
+/*
+SELECT b.supply_reason_type
+     , SUM(b.ano_1) ano_1
+     , SUM(b.ano_2) ano_2
+     , SUM(b.ano_3) ano_3
+     , SUM(b.ano_4) ano_4
+     , SUM(b.ano_1) + SUM(b.ano_2) + SUM(b.ano_3) + SUM(b.ano_4) total_type
+  FROM (SELECT a.supply_reason_type,
+               CASE WHEN a.supply_year = STRFTIME('%Y','now') THEN a.vehicle_traveller_distance  ELSE 0  END ano_4,
+               CASE WHEN a.supply_year = STRFTIME('%Y',DATE('now','-1 year')) THEN a.vehicle_traveller_distance  ELSE 0  END ano_3,
+               CASE WHEN a.supply_year = STRFTIME('%Y',DATE('now','-2 year')) THEN a.vehicle_traveller_distance  ELSE 0  END ano_2,
+               CASE WHEN a.supply_year <= STRFTIME('%Y',DATE('now','-3 year')) THEN a.vehicle_traveller_distance  ELSE 0  END ano_1
+          FROM (SELECT f.supply_reason_type supply_reason_type,
+                       STRFTIME('%Y', f.supply_date) supply_year,
+                       SUM(f.vehicle_travelled_distance) vehicle_traveller_distance
+                  FROM fuel_supply f
+                 WHERE f.vehicle_id = ?
+                 GROUP BY 1,2) a
+       ) b
+ GROUP BY 1
+*/
+    public List<VehicleStatisticsYearResponse> findVehicleMileageStatisticsYear( Integer vehicle_id) {
+        List<VehicleStatisticsYearResponse> vehicleList = new ArrayList<>();
+        cursor = super.rawQuery(" SELECT b." + VehicleStatisticsYearResponseISchema.VSYR_SUPPLY_REASON_TYPE + ", " +
+                                           " SUM(b." + VehicleStatisticsYearResponseISchema.VSYR_ANO1 + ") " + VehicleStatisticsYearResponseISchema.VSYR_ANO1 + ", " +
+                                           " SUM(b." + VehicleStatisticsYearResponseISchema.VSYR_ANO2 + ") " + VehicleStatisticsYearResponseISchema.VSYR_ANO2 + ", " +
+                                           " SUM(b." + VehicleStatisticsYearResponseISchema.VSYR_ANO3 + ") " + VehicleStatisticsYearResponseISchema.VSYR_ANO3 + ", " +
+                                           " SUM(b." + VehicleStatisticsYearResponseISchema.VSYR_ANO4 + ") " + VehicleStatisticsYearResponseISchema.VSYR_ANO4 + ", " +
+                                           " SUM(b." + VehicleStatisticsYearResponseISchema.VSYR_ANO1 + ") + " +
+                                           " SUM(b." + VehicleStatisticsYearResponseISchema.VSYR_ANO2 + ") + " +
+                                           " SUM(b." + VehicleStatisticsYearResponseISchema.VSYR_ANO3 + ") + " +
+                                           " SUM(b." + VehicleStatisticsYearResponseISchema.VSYR_ANO4 + ") " + VehicleStatisticsYearResponseISchema.VSYR_TOTAL_TYPE +
+                                      " FROM (SELECT a." + VehicleStatisticsYearResponseISchema.VSYR_SUPPLY_REASON_TYPE + ", " +
+                                                   " CASE WHEN a.supply_year = STRFTIME('%Y','now') THEN a.vehicle_travelled_distance  ELSE 0  END " + VehicleStatisticsYearResponseISchema.VSYR_ANO4 + ", "+
+                                                   " CASE WHEN a.supply_year = STRFTIME('%Y',DATE('now','-1 year')) THEN a.vehicle_travelled_distance  ELSE 0  END " + VehicleStatisticsYearResponseISchema.VSYR_ANO3 + ", "+
+                                                   " CASE WHEN a.supply_year = STRFTIME('%Y',DATE('now','-2 year')) THEN a.vehicle_travelled_distance  ELSE 0  END " + VehicleStatisticsYearResponseISchema.VSYR_ANO2 + ", "+
+                                                   " CASE WHEN a.supply_year <= STRFTIME('%Y',DATE('now','-3 year')) THEN a.vehicle_travelled_distance  ELSE 0  END " + VehicleStatisticsYearResponseISchema.VSYR_ANO1 +
+                                              " FROM (SELECT f." + FuelSupplyISchema.FUEL_SUPPLY_SUPPLY_REASON_TYPE + " " + VehicleStatisticsYearResponseISchema.VSYR_SUPPLY_REASON_TYPE + ", " +
+                                                           " STRFTIME('%Y', f."+ FuelSupplyISchema.FUEL_SUPPLY_SUPPLY_DATE+") supply_year, " +
+                                                           " SUM(f."+FuelSupplyISchema.FUEL_SUPPLY_VEHICLE_TRAVELLED_DISTANCE + ") vehicle_travelled_distance " +
+                                                      " FROM " + FuelSupplyISchema.FUEL_SUPPLY_TABLE + " f " +
+                                                     " WHERE f." + FuelSupplyISchema.FUEL_SUPPLY_VEHICLE_ID + " = ? " +
+                                     " GROUP BY 1, 2 ) a ) b GROUP BY 1 ",
+                new String[] { String.valueOf(vehicle_id) });
+        if (null != cursor) {
+            if (cursor.moveToFirst()) {
+                do {
+                    VehicleStatisticsYearResponse v1 = new VehicleStatisticsYearResponse();
+                    if (cursor.getColumnIndex(VehicleStatisticsYearResponseISchema.VSYR_SUPPLY_REASON_TYPE) != -1) {v1.setSupply_reason_type(cursor.getInt(cursor.getColumnIndexOrThrow(VehicleStatisticsYearResponseISchema.VSYR_SUPPLY_REASON_TYPE))); }
+                    if (cursor.getColumnIndex(VehicleStatisticsYearResponseISchema.VSYR_ANO1) != -1)               {v1.setAno1(cursor.getInt(cursor.getColumnIndexOrThrow(VehicleStatisticsYearResponseISchema.VSYR_ANO1))); }
+                    if (cursor.getColumnIndex(VehicleStatisticsYearResponseISchema.VSYR_ANO2) != -1)               {v1.setAno2(cursor.getInt(cursor.getColumnIndexOrThrow(VehicleStatisticsYearResponseISchema.VSYR_ANO2))); }
+                    if (cursor.getColumnIndex(VehicleStatisticsYearResponseISchema.VSYR_ANO3) != -1)               {v1.setAno3(cursor.getInt(cursor.getColumnIndexOrThrow(VehicleStatisticsYearResponseISchema.VSYR_ANO3))); }
+                    if (cursor.getColumnIndex(VehicleStatisticsYearResponseISchema.VSYR_ANO4) != -1)               {v1.setAno4(cursor.getInt(cursor.getColumnIndexOrThrow(VehicleStatisticsYearResponseISchema.VSYR_ANO4))); }
+                    if (cursor.getColumnIndex(VehicleStatisticsYearResponseISchema.VSYR_TOTAL_TYPE) != -1)         {v1.setTotal_type(cursor.getInt(cursor.getColumnIndexOrThrow(VehicleStatisticsYearResponseISchema.VSYR_TOTAL_TYPE))); }
+                    vehicleList.add(v1);
+                } while (cursor.moveToNext());
+            }
+            cursor.close();
+        }
+        return vehicleList;
     }
 
     public List<VehicleStatistics> findVehicleFuelingStatistics(Integer vehicle_id) {

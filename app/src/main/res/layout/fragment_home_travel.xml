@@ -352,7 +352,7 @@
                 app:layout_constraintBottom_toBottomOf="@+id/tvFinancialStatement"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/ic_minimize" />
+                app:srcCompat="@drawable/ic_maximize" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/listTravelFinancialStatement"

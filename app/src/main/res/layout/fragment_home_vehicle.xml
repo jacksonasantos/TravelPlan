@@ -242,7 +242,7 @@
                 <SeekBar
                     android:id="@+id/sbVehicle"
                     android:layout_width="120dp"
-                    android:layout_height="10dp"
+                    android:layout_height="14dp"
                     android:progressTint="#666666"
                     android:thumb="@drawable/ic_ball" />
 
@@ -477,16 +477,37 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/buttonSeparator2" />
 
+            <ImageButton
+                android:id="@+id/btnMinimizeVehicleStatistics"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:contentDescription="@string/Travel_FinancialStatement"
+                app:layout_constraintBottom_toBottomOf="@+id/tvVehicleStatistics"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/buttonSeparator2"
+                app:srcCompat="@drawable/ic_maximize" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/listVehicleStatistics"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:scrollbars="vertical"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvVehicleStatistics"
+                tools:itemCount="4" />
+
             <TextView
                 android:id="@+id/tvAVGType9"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/labels_margin"
                 android:gravity="center_horizontal"
                 android:textAlignment="center"
                 android:textSize="10sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvVehicleStatistics"
+                app:layout_constraintTop_toBottomOf="@+id/listVehicleStatistics"
                 tools:ignore="SmallSp" />
 
             <LinearLayout
@@ -589,13 +610,13 @@
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:contentDescription="@string/PendingVehicle"
-                app:layout_constraintBottom_toTopOf="@+id/pendingVehicleList"
+                app:layout_constraintBottom_toTopOf="@+id/listPendingVehicle"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/ic_button_add" />
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/pendingVehicleList"
+                android:id="@+id/listPendingVehicle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:scrollbars="vertical"
@@ -614,7 +635,7 @@
                 android:clickable="false"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/pendingVehicleList" />
+                app:layout_constraintTop_toBottomOf="@+id/listPendingVehicle" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
