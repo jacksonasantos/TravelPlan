@@ -15,6 +15,7 @@ public interface TransportISchema {
     String TRANSPORT_START_DATE = "start_date";
     String TRANSPORT_END_LOCATION = "end_location";
     String TRANSPORT_END_DATE = "end_date";
+    String TRANSPORT_CURRENCY_TYPE = "currency_type";
     String TRANSPORT_SERVICE_VALUE = "service_value";
     String TRANSPORT_SERVICE_TAX = "service_tax";
     String TRANSPORT_NOTE = "note";
@@ -39,6 +40,10 @@ public interface TransportISchema {
             + TRANSPORT_NOTE + " TEXT "
             + ")";
 
+    // Version 87
+    String ALTER_TABLE_TRANSPORT_V87 = "ALTER TABLE " + TRANSPORT_TABLE
+            + " ADD COLUMN " + TRANSPORT_CURRENCY_TYPE + " INT ";
+
     String[] TRANSPORT_COLUMNS = new String[] {
             TRANSPORT_ID,
             TRANSPORT_TRAVEL_ID,
@@ -51,6 +56,7 @@ public interface TransportISchema {
             TRANSPORT_START_DATE,
             TRANSPORT_END_LOCATION,
             TRANSPORT_END_DATE,
+            TRANSPORT_CURRENCY_TYPE,
             TRANSPORT_SERVICE_VALUE,
             TRANSPORT_SERVICE_TAX,
             TRANSPORT_NOTE

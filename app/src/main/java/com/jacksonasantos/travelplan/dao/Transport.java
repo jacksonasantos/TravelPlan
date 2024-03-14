@@ -6,7 +6,6 @@ import com.jacksonasantos.travelplan.R;
 
 import java.util.Date;
 
-// TODO - Inclusion currency_type
 public class Transport {
     public Integer id;
     public Integer travel_id;
@@ -19,6 +18,7 @@ public class Transport {
     public Date start_date;
     public String end_location;
     public Date end_date;
+    public int currency_type;
     public Double service_value;
     public Double service_tax;
     public String note;
@@ -82,6 +82,9 @@ public class Transport {
 
     public Date getEnd_date() {return end_date;}
     public void setEnd_date(Date end_date) {this.end_date = end_date;}
+
+    public int getCurrency_type() { return currency_type; }
+    public void setCurrency_type(int currency_type) { this.currency_type = currency_type; }
 
     public Double getService_value() {return service_value;}
     public void setService_value(Double service_value) {this.service_value = service_value;}

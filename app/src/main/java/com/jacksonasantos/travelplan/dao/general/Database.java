@@ -73,7 +73,7 @@ public class Database {
     private final Context mContext;
 
     private static final String DATABASE_NAME = "TravelPlan.db";
-    private static final int DATABASE_VERSION = 86;
+    private static final int DATABASE_VERSION = 87;
 
     public static AccommodationDAO mAccommodationDao;
     public static AccountDAO mAccountDao;
@@ -296,8 +296,9 @@ public class Database {
             db.execSQL(TravelItemExpensesISchema.ALTER_TABLE_TRAVEL_ITEM_EXPENSES_V82_2); Log.w("Ta "+TravelItemExpensesISchema.TRAVEL_ITEM_EXPENSES_TABLE,"V82.2 - Alter Table...");
             db.execSQL(FuelSupplyISchema.ALTER_TABLE_FUEL_SUPPLY_V83);Log.w("Table "+FuelSupplyISchema.FUEL_SUPPLY_TABLE,"V83 - Alter Table...");
             db.execSQL(TravelItemExpensesISchema.ALTER_TABLE_TRAVEL_ITEM_EXPENSES_V84);Log.w("Table "+TravelItemExpensesISchema.TRAVEL_ITEM_EXPENSES_TABLE,"V84 - Alter Table...");
-            db.execSQL(PendingVehicleDAO.ALTER_TABLE_PENDING_VEHICLE_V85);Log.w("Table "+PendingVehicleDAO.PENDING_VEHICLE_TABLE,"V85.1 - Alter Table...");
-            db.execSQL(ReservationDAO.ALTER_TABLE_RESERVATION_V86);Log.w("Table "+ReservationDAO.RESERVATION_TABLE,"V85.2 - Alter Table...");
+            db.execSQL(PendingVehicleISchema.ALTER_TABLE_PENDING_VEHICLE_V85);Log.w("Table "+PendingVehicleISchema.PENDING_VEHICLE_TABLE,"V85 - Alter Table...");
+            db.execSQL(ReservationISchema.ALTER_TABLE_RESERVATION_V86);Log.w("Table "+ReservationDAO.RESERVATION_TABLE,"V86 - Alter Table...");
+            db.execSQL(TransportISchema.ALTER_TABLE_TRANSPORT_V87);Log.w("Table "+TransportISchema.TRANSPORT_TABLE,"V87 - Alter Table...");
         }
 
         @SuppressLint("SQLiteString")
@@ -573,6 +574,9 @@ public class Database {
                         break;
                     case 86:
                         db.execSQL(ReservationDAO.ALTER_TABLE_RESERVATION_V86);Log.w("Table "+ReservationDAO.RESERVATION_TABLE,"V86 - Alter Table...");
+                        break;
+                    case 87:
+                        db.execSQL(TransportISchema.ALTER_TABLE_TRANSPORT_V87);Log.w("Table "+TransportISchema.TRANSPORT_TABLE,"V87 - Alter Table...");
                         break;
                     default:
                         break;

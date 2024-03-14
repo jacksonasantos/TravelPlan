@@ -59,6 +59,7 @@ public class TransportActivity extends AppCompatActivity implements TransportTyp
     private TextView tvContact ;
     private TextView tvStartLocation ;
     private TextView tvEndLocation ;
+    private TextView tvCurrencyType;
     private TextView tvServiceValue;
     private TextView tvServiceTax;
     private TextView tvNote;
@@ -70,6 +71,8 @@ public class TransportActivity extends AppCompatActivity implements TransportTyp
     private EditText etStartDate;
     private EditText etEndLocation ;
     private EditText etEndDate;
+    private Spinner spCurrencyType;
+    private int nrSpCurrencyType;
     private EditText etServiceValue;
     private EditText etServiceTax;
     private TextView tvServiceTotal;
@@ -119,6 +122,7 @@ public class TransportActivity extends AppCompatActivity implements TransportTyp
         tvContact = findViewById(R.id.tvContact);
         tvStartLocation = findViewById(R.id.tvStartLocation);
         tvEndLocation = findViewById(R.id.tvEndLocation);
+        tvCurrencyType = findViewById(R.id.tvCurrencyType);
         tvServiceValue = findViewById(R.id.tvServiceValue);
         tvServiceTax = findViewById(R.id.tvServiceTax);
         tvNote = findViewById(R.id.tvNote);
@@ -131,6 +135,7 @@ public class TransportActivity extends AppCompatActivity implements TransportTyp
         etStartDate = findViewById(R.id.etStartLocationDate);
         etEndLocation = findViewById(R.id.etEndLocation);
         etEndDate = findViewById(R.id.etEndLocationDate);
+        spCurrencyType = findViewById(R.id.spCurrencyType);
         etServiceValue = findViewById(R.id.etServiceValue);
         etServiceTax = findViewById(R.id.etServiceTax);
         tvServiceTotal = findViewById(R.id.tvServiceTotal);
@@ -259,6 +264,21 @@ public class TransportActivity extends AppCompatActivity implements TransportTyp
         });
         adapterP.notifyDataSetChanged();
 
+        Utils.createSpinnerResources(R.array.currency_array, spCurrencyType, this);
+        nrSpCurrencyType = transport.getCurrency_type();
+        spCurrencyType.setSelection(nrSpCurrencyType);
+        spCurrencyType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long idx) {
+                nrSpCurrencyType = position;
+                spCurrencyType.setSelection(nrSpCurrencyType);
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                nrSpCurrencyType =0;
+            }
+        });
+
         if (transport != null) {
             Travel t1 = Database.mTravelDao.fetchTravelById(transport.getTravel_id());
             tvTravel.setText(t1.getDescription());
@@ -272,6 +292,8 @@ public class TransportActivity extends AppCompatActivity implements TransportTyp
             etStartDate.setText(Utils.dateTimeToString(transport.getStart_date()));
             etEndLocation.setText(transport.getEnd_location());
             etEndDate.setText(Utils.dateTimeToString(transport.getEnd_date()));
+            nrSpCurrencyType = transport.getCurrency_type();
+            spCurrencyType.setSelection(nrSpCurrencyType);
             etServiceValue.setText(String.valueOf(transport.getService_value()));
             etServiceTax.setText(String.valueOf(transport.getService_tax()));
             etNote.setText(transport.getNote());
@@ -316,6 +338,7 @@ public class TransportActivity extends AppCompatActivity implements TransportTyp
                 tvContact.setText(getResources().getString(R.string.Transport_Voo_Contact));
                 tvStartLocation.setText(getResources().getString(R.string.Transport_Voo_Departure));
                 tvEndLocation.setText(getResources().getString(R.string.Transport_Voo_Arrival));
+                tvCurrencyType.setText(getResources().getString(R.string.Transport_Voo_Currency_Type));
                 tvServiceValue.setText(getResources().getString(R.string.Transport_Voo_Value_Ticket));
                 tvServiceTax.setText(getResources().getString(R.string.Transport_Voo_Value_Tax));
                 tvNote.setText(getResources().getString(R.string.Transport_Voo_Note));
@@ -331,6 +354,7 @@ public class TransportActivity extends AppCompatActivity implements TransportTyp
                 tvContact.setText(getResources().getString(R.string.Transport_Rental_Contact));
                 tvStartLocation.setText(getResources().getString(R.string.Transport_Rental_PickUp_Location));
                 tvEndLocation.setText(getResources().getString(R.string.Transport_Rental_Return_Location));
+                tvCurrencyType.setText(getResources().getString(R.string.Transport_Rental_Currency_Type));
                 tvServiceValue.setText(getResources().getString(R.string.Transport_Rental_Reserve_Value));
                 tvServiceTax.setText(getResources().getString(R.string.Transport_Rental_Value_Tax));
                 tvNote.setText(getResources().getString(R.string.Transport_Rental_Note));
@@ -346,6 +370,7 @@ public class TransportActivity extends AppCompatActivity implements TransportTyp
                 tvContact.setText(getResources().getString(R.string.Transport_Hiring_Contact));
                 tvStartLocation.setText(getResources().getString(R.string.Transport_Hiring_Start_Location));
                 tvEndLocation.setText(getResources().getString(R.string.Transport_Hiring_End_Location));
+                tvCurrencyType.setText(getResources().getString(R.string.Transport_Hiring_Currency_Type));
                 tvServiceValue.setText(getResources().getString(R.string.Transport_Hiring_Service_Value));
                 tvServiceTax.setText(getResources().getString(R.string.Transport_Hiring_Service_Tax));
                 tvNote.setText(getResources().getString(R.string.Transport_Hiring_Note));
@@ -393,6 +418,7 @@ public class TransportActivity extends AppCompatActivity implements TransportTyp
                 t1.setStart_date(Utils.stringToDateTime(etStartDate.getText().toString()));
                 t1.setEnd_location(etEndLocation.getText().toString());
                 t1.setEnd_date(Utils.stringToDateTime(etEndDate.getText().toString()));
+                t1.setCurrency_type(nrSpCurrencyType);
                 t1.setService_value(Double.parseDouble(etServiceValue.getText().toString()));
                 t1.setService_tax(Double.parseDouble(etServiceTax.getText().toString()));
                 t1.setNote(etNote.getText().toString());
@@ -454,6 +480,7 @@ public class TransportActivity extends AppCompatActivity implements TransportTyp
                     etStartDate.getText().toString().trim().isEmpty() ||
                     //etEndLocation.getText().toString().trim().isEmpty() ||
                     //etEndDate.getText().toString().trim().isEmpty() ||
+                    //nrSpCurrencyType == -1 ||
                     etServiceValue.getText().toString().trim().isEmpty() //||
                     //etServiceTax.getText().toString().trim().isEmpty() ||
                     //etNote.getText().toString().trim().isEmpty()

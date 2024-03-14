@@ -456,6 +456,7 @@
     <string name="Transport_Hiring_Start_Date">Data Inicial</string>
     <string name="Transport_Hiring_End_Location">Local Final</string>
     <string name="Transport_Hiring_End_Date">Data Final</string>
+    <string name="Transport_Hiring_Currency_Type">Tipo Moeda</string>
     <string name="Transport_Hiring_Service_Value">Valor</string>
     <string name="Transport_Hiring_Service_Tax">Taxas</string>
     <string name="Transport_Hiring_Note">Observação</string>
@@ -467,6 +468,7 @@
     <string name="Transport_Rental_PickUp_Location">Retirada</string>
     <string name="Transport_Rental_PickUp_Date">Data Retirada</string>
     <string name="Transport_Rental_Return_Location">Devolução</string>
+    <string name="Transport_Rental_Currency_Type">Tipo Moeda</string>
     <string name="Transport_Rental_Return_Date">Data Devolução</string>
     <string name="Transport_Rental_Reserve_Value">Valor da Reserva</string>
     <string name="Transport_Rental_Value_Tax">Valor Impostos</string>
@@ -590,4 +592,5 @@
     <string name="VehicleStatistics_TypeRunning">Tp Viagem</string>
     <string name="VehicleStatistics_TotalType">Total</string>
     <string name="VehicleStatistics_TotalTypeKm">Total (Km)</string>
+    <string name="Transport_Voo_Currency_Type">Tipo Moeda</string>
 </resources>

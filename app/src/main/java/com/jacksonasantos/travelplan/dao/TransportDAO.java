@@ -98,6 +98,7 @@ public class TransportDAO extends DbContentProvider implements TransportISchema,
             if (c.getColumnIndex(TRANSPORT_START_DATE) != -1)      {t.setStart_date(Utils.dateParse(c.getString(c.getColumnIndexOrThrow(TRANSPORT_START_DATE)))); }
             if (c.getColumnIndex(TRANSPORT_END_LOCATION) != -1)    {t.setEnd_location(c.getString(c.getColumnIndexOrThrow(TRANSPORT_END_LOCATION))); }
             if (c.getColumnIndex(TRANSPORT_END_DATE) != -1)        {t.setEnd_date(Utils.dateParse(c.getString(c.getColumnIndexOrThrow(TRANSPORT_END_DATE)))); }
+            if (c.getColumnIndex(TRANSPORT_CURRENCY_TYPE) != -1)   {t.setCurrency_type(c.getInt(c.getColumnIndexOrThrow(TRANSPORT_CURRENCY_TYPE))); }
             if (c.getColumnIndex(TRANSPORT_SERVICE_VALUE) != -1)   {t.setService_value(c.getDouble(c.getColumnIndexOrThrow(TRANSPORT_SERVICE_VALUE))); }
             if (c.getColumnIndex(TRANSPORT_SERVICE_TAX) != -1)     {t.setService_tax(c.getDouble(c.getColumnIndexOrThrow(TRANSPORT_SERVICE_TAX))); }
             if (c.getColumnIndex(TRANSPORT_NOTE) != -1)            {t.setNote(c.getString(c.getColumnIndexOrThrow(TRANSPORT_NOTE))); }
@@ -118,6 +119,7 @@ public class TransportDAO extends DbContentProvider implements TransportISchema,
         initialValues.put(TRANSPORT_START_DATE, Utils.dateFormat(t.start_date));
         initialValues.put(TRANSPORT_END_LOCATION, t.end_location);
         initialValues.put(TRANSPORT_END_DATE, Utils.dateFormat(t.end_date));
+        initialValues.put(TRANSPORT_CURRENCY_TYPE, t.currency_type);
         initialValues.put(TRANSPORT_SERVICE_VALUE, t.service_value);
         initialValues.put(TRANSPORT_SERVICE_TAX, t.service_tax);
         initialValues.put(TRANSPORT_NOTE, t.note);

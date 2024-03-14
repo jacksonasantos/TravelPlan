@@ -146,6 +146,7 @@ public class SummaryTravelExpenseDAO extends DbContentProvider implements Summar
                         " UNION " +
 /*     SELECT 4 expense_type ,
               CASE WHEN r.currency_type = 0 THEN r.currency_type
+                   WHEN r.currency_type IS NULL THEN 0
                    WHEN r.currency_type = cq.currency_type THEN 0
                    ELSE r.currency_type
                END currency_type,
@@ -159,6 +160,7 @@ public class SummaryTravelExpenseDAO extends DbContentProvider implements Summar
         GROUP BY 1,2*/
                         " SELECT 4 " + SummaryTravelExpenseISchema.SUMMARY_TRAVEL_EXPENSE_EXPENSE_TYPE + ", " + // Accommodation
                                " CASE WHEN r." + ReservationISchema.RESERVATION_CURRENCY_TYPE + " = 0 THEN r."+ReservationISchema.RESERVATION_CURRENCY_TYPE +
+                                    " WHEN r." + ReservationISchema.RESERVATION_CURRENCY_TYPE + " IS NULL THEN 0 " +
                                     " WHEN r." + ReservationISchema.RESERVATION_CURRENCY_TYPE + " = cq."+CurrencyQuoteISchema.CURRENCY_QUOTE_CURRENCY_TYPE + " THEN 0 " +
                                     " ELSE r." + ReservationISchema.RESERVATION_CURRENCY_TYPE +
                                " END " + SummaryTravelExpenseISchema.SUMMARY_TRAVEL_EXPENSE_CURRENCY_TYPE + ", " +
@@ -173,12 +175,13 @@ public class SummaryTravelExpenseDAO extends DbContentProvider implements Summar
                         " UNION " +
 /*     SELECT 3 expense_type ,
               CASE WHEN t.currency_type = 0 THEN t.currency_type
-                       WHEN t.currency_type = cq.currency_type THEN 0
-                         ELSE t.currency_type
+                   WHEN t.currency_type IS NULL THEN 0
+                   WHEN t.currency_type = cq.currency_type THEN 0
+                   ELSE t.currency_type
               END currency_type,
               SUM((t.VALUE_ADULT * t.NUMBER_ADULT )+(t.VALUE_CHILD *t.NUMBER_CHILD )) * ifnull(cq.currency_value,1) expected_value ,
               0 realized_value
-         FROM Tour t
+         FROM tour t
          LEFT JOIN currency_quote cq
                 ON t.currency_type = cq.currency_type
                AND date(cq.quote_date) = date('now')
@@ -186,8 +189,9 @@ public class SummaryTravelExpenseDAO extends DbContentProvider implements Summar
         GROUP BY 1,2*/
                         " SELECT 3 "+ SummaryTravelExpenseISchema.SUMMARY_TRAVEL_EXPENSE_EXPENSE_TYPE + ", " +  // Tour
                                " CASE WHEN t." + TourISchema.TOUR_CURRENCY_TYPE + " = 0 THEN t."+TourISchema.TOUR_CURRENCY_TYPE +
+                                    " WHEN t." + TourISchema.TOUR_CURRENCY_TYPE + " IS NULL THEN 0 " +
                                     " WHEN t." + TourISchema.TOUR_CURRENCY_TYPE + " = cq."+CurrencyQuoteISchema.CURRENCY_QUOTE_CURRENCY_TYPE + " THEN 0 " +
-                                    " ELSE t."+TourISchema.TOUR_CURRENCY_TYPE +
+                                    " ELSE t." + TourISchema.TOUR_CURRENCY_TYPE +
                                " END " + SummaryTravelExpenseISchema.SUMMARY_TRAVEL_EXPENSE_CURRENCY_TYPE + ", " +
                                " SUM((t." + TourISchema.TOUR_VALUE_ADULT + " * t." + TourISchema.TOUR_NUMBER_ADULT +")+(t."+TourISchema.TOUR_VALUE_CHILD + " * t." + TourISchema.TOUR_NUMBER_CHILD + "))"+" * IFNULL(cq."+CurrencyQuoteISchema.CURRENCY_QUOTE_CURRENCY_VALUE+",1)"+" " + SummaryTravelExpenseISchema.SUMMARY_TRAVEL_EXPENSE_EXPECTED_VALUE + ", " +
                                " 0 " + SummaryTravelExpenseISchema.SUMMARY_TRAVEL_EXPENSE_REALIZED_VALUE +
@@ -205,12 +209,34 @@ public class SummaryTravelExpenseDAO extends DbContentProvider implements Summar
                         " FROM " + InsuranceISchema.INSURANCE_TABLE +
                         " WHERE " + InsuranceISchema.INSURANCE_TRAVEL_ID + " = ? " +
                         " UNION " +
+/*     SELECT 7 expense_type,
+              CASE WHEN t.currency_type = 0 THEN t.currency_type
+                   WHEN t.currency_type IS NULL THEN 0
+                   WHEN t.currency_type = cq.currency_type THEN 0
+                   ELSE t.currency_type
+              END currency_type ,
+              SUM((t.service_value + t.service_tax))* IFNULL(cq.currency_value,1)  expected_value,
+              0 realized_value
+         FROM transport t
+         LEFT JOIN currency_quote cq
+                ON t.currency_type = cq.currency_type
+               AND DATE(cq.quote_date) = DATE('now')
+         WHERE t.TRAVEL_ID  = 27
+         GROUP BY 1,2 */
                         " SELECT 7 "+ SummaryTravelExpenseISchema.SUMMARY_TRAVEL_EXPENSE_EXPENSE_TYPE + ", " +  // Transport
-                        " 0 currency_type , " +
-                        " SUM(" + TransportISchema.TRANSPORT_SERVICE_VALUE +"+"+ TransportISchema.TRANSPORT_SERVICE_TAX+ ") "+ SummaryTravelExpenseISchema.SUMMARY_TRAVEL_EXPENSE_EXPECTED_VALUE + ", " +
-                        " 0 " + SummaryTravelExpenseISchema.SUMMARY_TRAVEL_EXPENSE_REALIZED_VALUE +
-                        " FROM " + TransportISchema.TRANSPORT_TABLE +
-                        " WHERE " + TransportISchema.TRANSPORT_TRAVEL_ID + " = ? " +
+                               " CASE WHEN t." + TransportISchema.TRANSPORT_CURRENCY_TYPE + " = 0 THEN t." + TransportISchema.TRANSPORT_CURRENCY_TYPE +
+                                    " WHEN t." + TransportISchema.TRANSPORT_CURRENCY_TYPE + " IS NULL THEN 0 " +
+                                    " WHEN t." + TransportISchema.TRANSPORT_CURRENCY_TYPE + " = cq."+CurrencyQuoteISchema.CURRENCY_QUOTE_CURRENCY_TYPE + " THEN 0 " +
+                                    " ELSE t." + TransportISchema.TRANSPORT_CURRENCY_TYPE +
+                               " END " + SummaryTravelExpenseISchema.SUMMARY_TRAVEL_EXPENSE_CURRENCY_TYPE + ", " +
+                               " SUM(" + TransportISchema.TRANSPORT_SERVICE_VALUE +"+"+ TransportISchema.TRANSPORT_SERVICE_TAX+ ") "+ SummaryTravelExpenseISchema.SUMMARY_TRAVEL_EXPENSE_EXPECTED_VALUE + ", " +
+                               " 0 " + SummaryTravelExpenseISchema.SUMMARY_TRAVEL_EXPENSE_REALIZED_VALUE +
+                          " FROM " + TransportISchema.TRANSPORT_TABLE + " t " +
+                          " LEFT JOIN " + CurrencyQuoteISchema.CURRENCY_QUOTE_TABLE + " cq " +
+                                 " ON t." + TransportISchema.TRANSPORT_CURRENCY_TYPE + " = cq." + CurrencyQuoteISchema.CURRENCY_QUOTE_CURRENCY_TYPE +
+                                " AND DATE(cq."+CurrencyQuoteISchema.CURRENCY_QUOTE_QUOTE_DATE + ") = DATE('now') " +
+                         " WHERE " + TransportISchema.TRANSPORT_TRAVEL_ID + " = ? " +
+                         " GROUP BY 1,2 " +
                         " UNION " +                                                                             // Travel Expenses EXPECTED_VALUE
                         " SELECT " + TravelExpensesISchema.TRAVEL_EXPENSES_EXPENSE_TYPE + " " + SummaryTravelExpenseISchema.SUMMARY_TRAVEL_EXPENSE_EXPENSE_TYPE + ", " +
                         " 0 currency_type , " +

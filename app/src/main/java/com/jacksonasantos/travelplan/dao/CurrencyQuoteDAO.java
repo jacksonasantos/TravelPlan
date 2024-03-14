@@ -8,6 +8,7 @@ import com.jacksonasantos.travelplan.dao.general.DbContentProvider;
 import com.jacksonasantos.travelplan.dao.interfaces.CurrencyQuoteIDAO;
 import com.jacksonasantos.travelplan.dao.interfaces.CurrencyQuoteISchema;
 import com.jacksonasantos.travelplan.dao.interfaces.ReservationISchema;
+import com.jacksonasantos.travelplan.dao.interfaces.TransportISchema;
 import com.jacksonasantos.travelplan.ui.utility.Utils;
 
 import java.util.ArrayList;
@@ -43,7 +44,25 @@ public class CurrencyQuoteDAO extends DbContentProvider implements CurrencyQuote
         }
         return currencyQuote;
     }
-
+/*
+SELECT DISTINCT r.currency_type  currency_type
+  FROM reservation r
+ WHERE NOT EXISTS (SELECT 1
+                     FROM currency_quote cq
+                    WHERE cq.currency_type = r.currency_type
+                      AND DATE(cq.quote_date ) = DATE('NOW'))
+   AND (r.currency_type != null OR r.currency_type > 0)
+   AND r.STATUS_RESERVATION != 3
+union
+SELECT DISTINCT t.currency_type  currency_type
+  FROM transport t
+ WHERE NOT EXISTS (SELECT 1
+                     FROM currency_quote cq
+                    WHERE cq.currency_type = t.currency_type
+                      AND DATE(cq.quote_date ) = DATE('NOW'))
+   AND (t.currency_type != null OR t.currency_type > 0)
+   AND t.end_date >= date('now')
+ */
     public List<Integer> findCurrencyNoQuoteDay() {
         List<Integer> list = new ArrayList<>();
         cursor = super.rawQuery(
@@ -54,8 +73,16 @@ public class CurrencyQuoteDAO extends DbContentProvider implements CurrencyQuote
                                         " WHERE cq." + CurrencyQuoteISchema.CURRENCY_QUOTE_CURRENCY_TYPE + " = r." + ReservationISchema.RESERVATION_CURRENCY_TYPE +
                                           " AND DATE(cq." + CurrencyQuoteISchema.CURRENCY_QUOTE_QUOTE_DATE + ") = DATE('NOW')) " +
                        " AND (r." + ReservationISchema.RESERVATION_CURRENCY_TYPE + " != null OR r." + ReservationISchema.RESERVATION_CURRENCY_TYPE+ " > 0) " +
-                       " AND r." + ReservationISchema.RESERVATION_STATUS_RESERVATION + " != 3 ", null);
-
+                       " AND r." + ReservationISchema.RESERVATION_STATUS_RESERVATION + " != 3 "+
+                    " UNION " +
+                    " SELECT DISTINCT t."+ TransportISchema.TRANSPORT_CURRENCY_TYPE +" currency_type " +
+                      " FROM " + TransportISchema.TRANSPORT_TABLE+ " t " +
+                     " WHERE NOT EXISTS (SELECT 1 " +
+                                         " FROM " + CurrencyQuoteISchema.CURRENCY_QUOTE_TABLE + " cq " +
+                                        " WHERE cq." + CurrencyQuoteISchema.CURRENCY_QUOTE_CURRENCY_TYPE + " = t." + TransportISchema.TRANSPORT_CURRENCY_TYPE +
+                                          " AND DATE(cq." + CurrencyQuoteISchema.CURRENCY_QUOTE_QUOTE_DATE + ") = DATE('NOW')) " +
+                       " AND (t." + TransportISchema.TRANSPORT_CURRENCY_TYPE + " != null OR t." + TransportISchema.TRANSPORT_CURRENCY_TYPE + " > 0) " +
+                       " AND t."+TransportISchema.TRANSPORT_END_DATE + " >= DATE('now')", null);
         if (cursor != null) {
             cursor.moveToFirst();
             while (!cursor.isAfterLast()) {

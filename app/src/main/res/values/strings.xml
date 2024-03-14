@@ -668,6 +668,7 @@
     <string name="Transport_Voo_Departure_Date">Departure Date</string>
     <string name="Transport_Voo_Arrival">Arrival</string>
     <string name="Transport_Voo_Arrival_Date">Arrival Date</string>
+    <string name="Transport_Voo_Currency_Type">Currency Type</string>
     <string name="Transport_Voo_Value_Ticket">Value Ticket</string>
     <string name="Transport_Voo_Value_Tax">Value Tax</string>
     <string name="Transport_Voo_Value_Total">Value Total</string>
@@ -680,6 +681,7 @@
     <string name="Transport_Rental_PickUp_Location">Pick Up</string>
     <string name="Transport_Rental_PickUp_Date">Pick Up Date</string>
     <string name="Transport_Rental_Return_Location">Return</string>
+    <string name="Transport_Rental_Currency_Type">Currency Type</string>
     <string name="Transport_Rental_Return_Date">Return Date</string>
     <string name="Transport_Rental_Reserve_Value">Reserve Value</string>
     <string name="Transport_Rental_Value_Tax">Value Tax</string>
@@ -694,6 +696,7 @@
     <string name="Transport_Hiring_Start_Date">Start Date</string>
     <string name="Transport_Hiring_End_Location">End Location</string>
     <string name="Transport_Hiring_End_Date">End Date</string>
+    <string name="Transport_Hiring_Currency_Type">Currency Type</string>
     <string name="Transport_Hiring_Service_Value">Service Value</string>
     <string name="Transport_Hiring_Service_Tax">Service Tax</string>
     <string name="Transport_Hiring_Service_Total">Service Total</string>
