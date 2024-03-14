@@ -2,6 +2,7 @@ package com.jacksonasantos.travelplan.dao;
 
 import java.util.Date;
 
+// TODO - Inclusion currency_type
 public class Maintenance {
     public Integer id;
     public Integer vehicle_id;

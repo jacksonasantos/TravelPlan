@@ -6,6 +6,7 @@ import com.jacksonasantos.travelplan.R;
 
 import java.util.Date;
 
+// TODO - Inclusion currency_type
 public class Transport {
     public Integer id;
     public Integer travel_id;

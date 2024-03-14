@@ -2,6 +2,7 @@ package com.jacksonasantos.travelplan.dao;
 
 import java.util.Date;
 
+// TODO - Inclusion currency_type
 public class TravelItemExpenses {
     public Integer id;
     public int expense_type;

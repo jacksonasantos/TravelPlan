@@ -1,5 +1,6 @@
 package com.jacksonasantos.travelplan.dao;
 
+// TODO - Inclusion currency_type
 public class TravelExpenses {
     public Integer id;
     public Integer travel_id;

@@ -2,6 +2,7 @@ package com.jacksonasantos.travelplan.dao;
 
 import com.jacksonasantos.travelplan.R;
 
+// TODO - Inclusion currency_type
 public class MaintenanceItem {
     public Integer id;
     public Integer maintenance_plan_id;
