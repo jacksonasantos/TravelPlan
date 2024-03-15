@@ -37,15 +37,16 @@ import java.util.List;
 
 public class MaintenanceActivity extends AppCompatActivity {
 
-    private Integer nrVehicle_id =0;
+    private Integer nrVehicle_id = 0;
     private EditText etDetail;
     private EditText etDate;
     private EditText etOdometer;
+    private Spinner spCurrencyType;
+    private int nrSpCurrencyType;
     private EditText etValue;
     private EditText etLocation;
     private EditText etNote;
 
-    //private ConstraintLayout labelMaintenanceItem;
     private ImageButton btAddMaintenanceItem ;
     private RecyclerView listMaintenanceItem;
 
@@ -90,6 +91,7 @@ public class MaintenanceActivity extends AppCompatActivity {
         etDetail = findViewById(R.id.etDetail);
         etDate = findViewById(R.id.etDate);
         etOdometer = findViewById(R.id.etOdometer);
+        spCurrencyType = findViewById(R.id.spCurrencyType);
         etValue = findViewById(R.id.etValue);
         etLocation = findViewById(R.id.etLocation);
         etNote = findViewById(R.id.etNote);
@@ -115,6 +117,21 @@ public class MaintenanceActivity extends AppCompatActivity {
         txVehicleLicencePlate.setText(vehicle.getLicense_plate());
         imVehicleType.setImageResource(vehicle.getVehicleTypeImage(vehicle.getVehicle_type()));
 
+        Utils.createSpinnerResources(R.array.currency_array, spCurrencyType, this);
+        nrSpCurrencyType = maintenance.getCurrency_type();
+        spCurrencyType.setSelection(nrSpCurrencyType);
+        spCurrencyType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long idx) {
+                nrSpCurrencyType = position;
+                spCurrencyType.setSelection(nrSpCurrencyType);
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                nrSpCurrencyType =0;
+            }
+        });
+
         etDate.addTextChangedListener(new DateInputMask(etDate));
 
         if (!opInsert) {
@@ -132,6 +149,8 @@ public class MaintenanceActivity extends AppCompatActivity {
             etDetail.setText((maintenance.getDetail()));
             etDate.setText(Utils.dateToString(maintenance.getDate()));
             etOdometer.setText(String.valueOf(maintenance.getOdometer()));
+            spCurrencyType.setSelection(nrSpCurrencyType);
+            nrSpCurrencyType = maintenance.getCurrency_type();
             etValue.setText(String.valueOf(maintenance.getValue()));
             etLocation.setText(maintenance.getLocation());
             etNote.setText(maintenance.getNote());
@@ -260,6 +279,7 @@ public class MaintenanceActivity extends AppCompatActivity {
                 m1.setDetail(etDetail.getText().toString());
                 m1.setDate(Utils.stringToDate(etDate.getText().toString()));
                 m1.setOdometer(Integer.parseInt(etOdometer.getText().toString()));
+                m1.setCurrency_type(nrSpCurrencyType);
                 m1.setValue(Double.valueOf(etValue.getText().toString()));
                 m1.setLocation(etLocation.getText().toString());
                 m1.setNote(etNote.getText().toString());
@@ -295,6 +315,7 @@ public class MaintenanceActivity extends AppCompatActivity {
             if (!etDate.getText().toString().trim().isEmpty()
 //                && !etDetail.getText().toString().trim().isEmpty()
                     && !etOdometer.getText().toString().trim().isEmpty()
+//                    && nrSpCurrencyType!=-1
                     && !etValue.getText().toString().trim().isEmpty()
                     && !etLocation.getText().toString().trim().isEmpty()
 //                && !etNote.getText().toString().trim().isEmpty()

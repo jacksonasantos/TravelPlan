@@ -75,112 +75,146 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical"
                 android:padding="@dimen/labels_margin">
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    tools:ignore="UselessParent">
-                    <LinearLayout
+                    android:orientation="horizontal">
+                    <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="5"
-                            android:text="@string/Maintenance_Date" />
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="5"
-                            android:text="@string/Maintenance_Value" />
-                    </LinearLayout>
-                    <LinearLayout
+                        android:layout_weight="5"
+                        android:text="@string/Maintenance_Date" />
+                    <EditText
+                        android:id="@+id/etDate"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:baselineAligned="false">
-                        <EditText
-                            android:id="@+id/etDate"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="5"
-                            android:autofillHints="no"
-                            android:inputType="datetime"
-                            android:nextFocusDown="@+id/etValue"
-                            android:textSize="12sp"
-                            tools:ignore="LabelFor" />
-                        <EditText
-                            android:id="@+id/etValue"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_weight="5"
-                            android:autofillHints="no"
-                            android:inputType="numberDecimal"
-                            android:nextFocusDown="@+id/etOdometer"
-                            android:textSize="12sp"
-                            tools:ignore="LabelFor" />
-                    </LinearLayout>
-                    <LinearLayout
+                        android:layout_weight="5"
+                        android:autofillHints="no"
+                        android:inputType="datetime"
+                        android:nextFocusDown="@+id/etValue"
+                        android:textSize="12sp"
+                        tools:ignore="LabelFor" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="5"
-                            android:text="@string/Maintenance_Odometer" />
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="5"
-                            android:text="@string/Maintenance_Location" />
-                    </LinearLayout>
-                    <LinearLayout
+                        android:layout_weight="5"
+                        android:text="@string/Maintenance_CurrencyType" />
+                    <Spinner
+                        android:id="@+id/spCurrencyType"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:baselineAligned="false">
-                        <EditText
-                            android:id="@+id/etOdometer"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_weight="5"
-                            android:inputType="numberDecimal"
-                            android:nextFocusDown="@+id/etLocation"
-                            android:textSize="12sp"
-                            android:importantForAutofill="no"
-                            tools:ignore="LabelFor" />
-                        <EditText
-                            android:id="@+id/etLocation"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_weight="5"
-                            android:autofillHints="no"
-                            android:inputType="text"
-                            android:nextFocusDown="@+id/etDetail"
-                            android:textSize="12sp"
-                            tools:ignore="LabelFor" />
-                    </LinearLayout>
+                        android:layout_weight="5"
+                        android:autofillHints="no"
+                        android:inputType="numberDecimal"
+                        android:textSize="12sp"
+                        tools:ignore="LabelFor" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="5"
+                        android:text="@string/Maintenance_Value" />
+                    <EditText
+                        android:id="@+id/etValue"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="5"
+                        android:autofillHints="no"
+                        android:inputType="numberDecimal"
+                        android:nextFocusDown="@+id/etLocation"
+                        android:textSize="12sp"
+                        tools:ignore="LabelFor" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="5"
+                        android:text="@string/Maintenance_Location" />
+                    <EditText
+                        android:id="@+id/etLocation"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="5"
+                        android:autofillHints="no"
+                        android:inputType="text"
+                        android:nextFocusDown="@+id/etOdometer"
+                        android:textSize="12sp"
+                        tools:ignore="LabelFor" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="5"
+                        android:text="@string/Maintenance_Odometer" />
+                    <EditText
+                        android:id="@+id/etOdometer"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="5"
+                        android:inputType="numberDecimal"
+                        android:nextFocusDown="@+id/etDetail"
+                        android:textSize="12sp"
+                        android:importantForAutofill="no"
+                        tools:ignore="LabelFor" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="5"
+                        android:text="@string/Maintenance_Detail" />
                     <EditText
                         android:id="@+id/etDetail"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_weight="5"
                         android:autofillHints="no"
-                        android:hint="@string/Maintenance_Detail"
                         android:nextFocusDown="@+id/etNote"
                         android:textSize="12sp"
-                        android:inputType="text" />
+                        android:inputType="text"
+                        tools:ignore="LabelFor" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="5"
+                        android:text="@string/Maintenance_Note" />
                     <EditText
                         android:id="@+id/etNote"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="5"
                         android:autofillHints="no"
-                        android:hint="@string/Maintenance_Note"
                         android:inputType="text"
                         android:nextFocusDown="@+id/btSaveMaintenance"
-                        android:textSize="12sp" />
-                </LinearLayout>
+                        android:textSize="12sp"
+                        tools:ignore="LabelFor" />
+                    </LinearLayout>
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
@@ -198,15 +232,16 @@
                 app:layout_constraintEnd_toEndOf="@+id/btAddMaintenanceItem"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
             <ImageButton
                 android:id="@+id/btAddMaintenanceItem"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_gravity="center_horizontal"
+                android:contentDescription="@string/bt_Add"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:srcCompat="@drawable/ic_button_add_circle"
-                android:contentDescription="@string/bt_Add" />
+                app:srcCompat="@drawable/ic_button_add_circle" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.cardview.widget.CardView

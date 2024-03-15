@@ -9,6 +9,7 @@ public interface MaintenanceISchema {
     String MAINTENANCE_DETAIL = "detail";
     String MAINTENANCE_DATE = "date";
     String MAINTENANCE_ODOMETER = "odometer";
+    String MAINTENANCE_CURRENCY_TYPE = "currency_type";
     String MAINTENANCE_VALUE = "value";
     String MAINTENANCE_LOCATION = "location";
     String MAINTENANCE_NOTE = "note";
@@ -26,12 +27,17 @@ public interface MaintenanceISchema {
             + MAINTENANCE_NOTE + " STRING "
             + ")";
 
+    // Version 89
+    String ALTER_TABLE_MAINTENANCE_V89 = "ALTER TABLE " + MAINTENANCE_TABLE
+            + " ADD COLUMN " + MAINTENANCE_CURRENCY_TYPE + " STRING ";
+
     String[] MAINTENANCE_COLUMNS = new String[] {
             MAINTENANCE_ID,
             MAINTENANCE_VEHICLE_ID,
             MAINTENANCE_DETAIL,
             MAINTENANCE_DATE,
             MAINTENANCE_ODOMETER,
+            MAINTENANCE_CURRENCY_TYPE,
             MAINTENANCE_VALUE,
             MAINTENANCE_LOCATION,
             MAINTENANCE_NOTE

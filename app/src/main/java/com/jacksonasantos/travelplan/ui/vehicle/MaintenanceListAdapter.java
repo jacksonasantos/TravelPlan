@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.jacksonasantos.travelplan.R;
@@ -30,31 +31,29 @@ public class MaintenanceListAdapter extends RecyclerView.Adapter<MaintenanceList
     final Context context;
 
     final Globals g = Globals.getInstance();
-
     final Locale locale = new Locale(g.getLanguage(), g.getCountry());
     final NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(locale);
     final NumberFormat numberFormatter = NumberFormat.getNumberInstance(locale);
 
     public static class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
+        public final ConstraintLayout clMaintenance;
         public final TextView txtMaintenanceDate;
         public final TextView txtVehicleName;
         public final TextView txtMaintenanceOdometer;
         public final TextView txtMaintenanceValue;
         public final TextView txtMaintenanceDetail;
-        public final ImageButton btnEdit;
         public final ImageButton btnDelete;
 
         public MyViewHolder(View v) {
             super(v);
+            clMaintenance = v.findViewById(R.id.clMaintenance);
             txtMaintenanceDate = v.findViewById(R.id.txtMaintenanceDate);
             txtVehicleName = v.findViewById(R.id.txtVehicleName);
             txtMaintenanceOdometer = v.findViewById(R.id.txtMaintenanceOdometer);
             txtMaintenanceValue = v.findViewById(R.id.txtMaintenanceValue);
             txtMaintenanceDetail = v.findViewById(R.id.txtMaintenanceDetail);
-            btnEdit = v.findViewById(R.id.btnEdit);
             btnDelete = v.findViewById(R.id.btnDelete);
-            btnEdit.setOnClickListener(this);
             btnDelete.setOnClickListener(this);
         }
 
@@ -91,15 +90,15 @@ public class MaintenanceListAdapter extends RecyclerView.Adapter<MaintenanceList
         holder.txtMaintenanceOdometer.setText(numberFormatter.format(maintenance.getOdometer()));
         holder.txtMaintenanceDetail.setText(maintenance.getDetail());
 
-        // btnEdit
-        holder.btnEdit.setOnClickListener (v12 -> {
+        // Edit
+        holder.clMaintenance.setOnClickListener (v12 -> {
             Intent intent = new Intent (v12.getContext(), MaintenanceActivity.class);
             intent.putExtra("maintenance_id", maintenance.getId());
             context.startActivity(intent);
             notifyItemChanged(position);
         });
 
-        // btnDelete
+        // Delete
         holder.btnDelete.setOnClickListener (v1 -> new AlertDialog.Builder(v1.getContext())
                 .setTitle(R.string.Maintenance_Deleting)
                 .setMessage(R.string.Msg_Confirm)

@@ -9,6 +9,7 @@ public class Maintenance {
     public String detail;
     public Date date;
     public int odometer;
+    public int currency_type;
     public Double value;
     public String location;
     public String note;
@@ -30,6 +31,9 @@ public class Maintenance {
 
     public int getOdometer() { return odometer; }
     public void setOdometer(int odometer) { this.odometer = odometer; }
+
+    public int getCurrency_type() { return currency_type; }
+    public void setCurrency_type(int currency_type) { this.currency_type = currency_type; }
 
     public Double getValue() { return value; }
     public void setValue(Double value) { this.value = value; }

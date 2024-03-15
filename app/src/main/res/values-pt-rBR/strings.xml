@@ -593,4 +593,5 @@
     <string name="VehicleStatistics_TotalType">Total</string>
     <string name="VehicleStatistics_TotalTypeKm">Total (Km)</string>
     <string name="Transport_Voo_Currency_Type">Tipo Moeda</string>
+    <string name="Maintenance_CurrencyType">Tipo Moeda</string>
 </resources>

@@ -3,6 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/clMaintenance"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     tools:context=".ui.vehicle.MaintenanceFragment">
@@ -47,20 +48,19 @@
         app:autoSizeStepGranularity="1sp"
         app:autoSizeTextType="uniform"
         app:layout_constraintEnd_toStartOf="@+id/txtMaintenanceOdometer"
-        app:layout_constraintTop_toTopOf="@+id/txtMaintenanceOdometer" />
+        app:layout_constraintTop_toBottomOf="@+id/txtVehicleName" />
 
     <TextView
         android:id="@+id/txtMaintenanceOdometer"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/labels_margin"
         android:gravity="end|center_vertical"
         app:autoSizeMaxTextSize="12sp"
         app:autoSizeMinTextSize="4sp"
         app:autoSizeStepGranularity="1sp"
         app:autoSizeTextType="uniform"
-        app:layout_constraintEnd_toStartOf="@+id/btnEdit"
-        app:layout_constraintTop_toTopOf="@+id/btnEdit" />
+        app:layout_constraintEnd_toStartOf="@+id/btnDelete"
+        app:layout_constraintTop_toBottomOf="@+id/txtVehicleName" />
 
     <TextView
         android:id="@+id/txtMaintenanceDetail"
@@ -71,29 +71,17 @@
         app:autoSizeMinTextSize="4sp"
         app:autoSizeStepGranularity="1sp"
         app:autoSizeTextType="uniform"
-        app:layout_constraintBottom_toBottomOf="@+id/btnEdit"
         app:layout_constraintEnd_toEndOf="@+id/txtMaintenanceOdometer"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtMaintenanceValue" />
-
-    <ImageButton
-        android:id="@+id/btnEdit"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:contentDescription="@string/bt_Edit"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/btnDelete"
-        app:layout_constraintTop_toBottomOf="@+id/txtVehicleName"
-        app:srcCompat="@drawable/ic_button_edit" />
 
     <ImageButton
         android:id="@+id/btnDelete"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:contentDescription="@string/bt_Delete"
-        app:layout_constraintBottom_toBottomOf="@+id/btnEdit"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/btnEdit"
+        app:layout_constraintTop_toBottomOf="@+id/txtVehicleName"
         app:srcCompat="@drawable/ic_button_delete" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

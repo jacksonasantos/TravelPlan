@@ -88,6 +88,7 @@ public class MaintenanceDAO extends DbContentProvider implements MaintenanceISch
             if (c.getColumnIndex(MAINTENANCE_DETAIL) != -1)          {m.setDetail(c.getString(c.getColumnIndexOrThrow(MAINTENANCE_DETAIL))); }
             if (c.getColumnIndex(MAINTENANCE_DATE) != -1)            {m.setDate(Utils.dateParse(c.getString(c.getColumnIndexOrThrow(MAINTENANCE_DATE)))); }
             if (c.getColumnIndex(MAINTENANCE_ODOMETER) != -1)        {m.setOdometer(c.getInt(c.getColumnIndexOrThrow(MAINTENANCE_ODOMETER))); }
+            if (c.getColumnIndex(MAINTENANCE_CURRENCY_TYPE) != -1)   {m.setCurrency_type(c.getInt(c.getColumnIndexOrThrow(MAINTENANCE_CURRENCY_TYPE))); }
             if (c.getColumnIndex(MAINTENANCE_VALUE) != -1)           {m.setValue(c.getDouble(c.getColumnIndexOrThrow(MAINTENANCE_VALUE))); }
             if (c.getColumnIndex(MAINTENANCE_LOCATION) != -1)        {m.setLocation(c.getString(c.getColumnIndexOrThrow(MAINTENANCE_LOCATION))); }
             if (c.getColumnIndex(MAINTENANCE_NOTE) != -1)            {m.setNote(c.getString(c.getColumnIndexOrThrow(MAINTENANCE_NOTE))); }
@@ -102,6 +103,7 @@ public class MaintenanceDAO extends DbContentProvider implements MaintenanceISch
         initialValues.put(MAINTENANCE_DETAIL, m.detail);
         initialValues.put(MAINTENANCE_DATE, Utils.dateFormat(m.date));
         initialValues.put(MAINTENANCE_ODOMETER, m.odometer);
+        initialValues.put(MAINTENANCE_CURRENCY_TYPE, m.currency_type);
         initialValues.put(MAINTENANCE_VALUE, m.value);
         initialValues.put(MAINTENANCE_LOCATION, m.location);
         initialValues.put(MAINTENANCE_NOTE, m.note);
