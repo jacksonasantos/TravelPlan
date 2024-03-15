@@ -10,7 +10,6 @@ import com.jacksonasantos.travelplan.ui.utility.Globals;
 import java.util.Calendar;
 import java.util.Date;
 
-// TODO - Inclusion currency_type
 public class Insurance implements Cloneable {
     public Integer id;
     public Integer insurance_company_id;
