@@ -112,7 +112,7 @@
     <string name="Vehicle_Estimated_Value">Valor Estimado</string>
     <string name="menu_insurance_company">Seguradoras</string>
     <string name="Insurance_Company_Deleting">Excluindo Seguradora</string>
-    <string name="Insurance_Company">Companhia de Seguros</string>
+    <string name="Insurance_Company">Companhia</string>
     <string name="Vehicle_Fuel_Type">Tipo de Combustível</string>
     <string name="VehicleStatistics">Estatísticas do Veículo</string>
     <string name="Currency_Quote_Deleting">Excluindo Cotação da Moeda</string>
@@ -147,9 +147,9 @@
     <string name="Insurance_Total_Premium_Value">Valor Total Prêmio</string>
     <string name="Insurance_Insurance_Deductible">Franquia do Seguro</string>
     <string name="Insurance_Bonus_Class">Classe de Bonus</string>
-    <string name="Insurance_Note">Observação do Seguro</string>
+    <string name="Insurance_Note">Observação</string>
     <string name="Insurance_Deleting">Excluindo Seguro</string>
-    <string name="Insurance_Status">Status do Seguro</string>
+    <string name="Insurance_Status">Status</string>
     <string name="menu_insurance">Seguros</string>
     <string name="Insurance_Description">Descrição</string>
     <string name="InsuranceExpiration">Vencimento de Seguros</string>

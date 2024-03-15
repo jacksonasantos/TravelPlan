@@ -122,6 +122,7 @@ public class InsuranceDAO extends DbContentProvider implements InsuranceISchema,
             if (c.getColumnIndex(INSURANCE_ISSUANCE_DATE) != -1)           {i.setIssuance_date(Utils.dateParse(c.getString( c.getColumnIndexOrThrow(INSURANCE_ISSUANCE_DATE)))); }
             if (c.getColumnIndex(INSURANCE_INITIAL_EFFECTIVE_DATE) != -1)  {i.setInitial_effective_date(Utils.dateParse(c.getString(c.getColumnIndexOrThrow(INSURANCE_INITIAL_EFFECTIVE_DATE)))); }
             if (c.getColumnIndex(INSURANCE_FINAL_EFFECTIVE_DATE) != -1)    {i.setFinal_effective_date(Utils.dateParse(c.getString(c.getColumnIndexOrThrow(INSURANCE_FINAL_EFFECTIVE_DATE)))); }
+            if (c.getColumnIndex(INSURANCE_CURRENCY_TYPE) != -1)           {i.setCurrency_type(c.getInt(c.getColumnIndexOrThrow(INSURANCE_CURRENCY_TYPE))); }
             if (c.getColumnIndex(INSURANCE_NET_PREMIUM_VALUE) != -1)       {i.setNet_premium_value(c.getDouble(c.getColumnIndexOrThrow(INSURANCE_NET_PREMIUM_VALUE))); }
             if (c.getColumnIndex(INSURANCE_TAX_AMOUNT) != -1)              {i.setTax_amount(c.getDouble(c.getColumnIndexOrThrow(INSURANCE_TAX_AMOUNT))); }
             if (c.getColumnIndex(INSURANCE_TOTAL_PREMIUM_VALUE) != -1)     {i.setTotal_premium_value(c.getDouble(c.getColumnIndexOrThrow(INSURANCE_TOTAL_PREMIUM_VALUE))); }
@@ -148,6 +149,7 @@ public class InsuranceDAO extends DbContentProvider implements InsuranceISchema,
         initialValues.put(INSURANCE_ISSUANCE_DATE, Utils.dateFormat(i.issuance_date));
         initialValues.put(INSURANCE_INITIAL_EFFECTIVE_DATE, Utils.dateFormat(i.initial_effective_date));
         initialValues.put(INSURANCE_FINAL_EFFECTIVE_DATE, Utils.dateFormat(i.final_effective_date));
+        initialValues.put(INSURANCE_CURRENCY_TYPE, i.currency_type);
         initialValues.put(INSURANCE_NET_PREMIUM_VALUE, i.net_premium_value);
         initialValues.put(INSURANCE_TAX_AMOUNT, i.tax_amount);
         initialValues.put(INSURANCE_TOTAL_PREMIUM_VALUE, i.total_premium_value);

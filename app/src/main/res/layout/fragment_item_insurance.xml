@@ -28,7 +28,7 @@
 
     <TextView
         android:id="@+id/txtPolicy"
-        android:layout_width="100dp"
+        android:layout_width="120dp"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal|center_vertical"
         app:autoSizeMaxTextSize="12sp"
@@ -50,27 +50,19 @@
         app:autoSizeStepGranularity="1sp"
         app:autoSizeTextType="uniform"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/btnEdit"
+        app:layout_constraintEnd_toStartOf="@+id/btnDelete"
         app:layout_constraintStart_toEndOf="@+id/txtPolicy"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageButton
-        android:id="@+id/btnEdit"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:contentDescription="@string/bt_Edit"
-        app:layout_constraintEnd_toStartOf="@+id/btnDelete"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_button_edit" />
 
     <ImageButton
         android:id="@+id/btnDelete"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:contentDescription="@string/bt_Delete"
-        app:layout_constraintBottom_toBottomOf="@+id/btnEdit"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/btnEdit"
+        app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_button_delete" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

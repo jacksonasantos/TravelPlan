@@ -33,7 +33,6 @@ public class InsuranceListAdapter extends RecyclerView.Adapter<InsuranceListAdap
         public final TextView txtInsuranceDescription;
         public final ImageView imInsuranceType;
         public final ImageView imInsuranceStatus;
-        public final ImageButton btnEdit;
         public final ImageButton btnDelete;
 
         public MyViewHolder(View v) {
@@ -43,10 +42,8 @@ public class InsuranceListAdapter extends RecyclerView.Adapter<InsuranceListAdap
             imInsuranceStatus = v.findViewById(R.id.imInsuranceStatus);
             txtInsurancePolicy = v.findViewById(R.id.txtPolicy);
             txtInsuranceDescription = v.findViewById(R.id.txtDescription);
-            btnEdit = v.findViewById(R.id.btnEdit);
             btnDelete = v.findViewById(R.id.btnDelete);
             clInsurance.setOnClickListener(this);
-            btnEdit.setOnClickListener(this);
             btnDelete.setOnClickListener(this);
         }
         @Override
@@ -80,14 +77,14 @@ public class InsuranceListAdapter extends RecyclerView.Adapter<InsuranceListAdap
         holder.txtInsurancePolicy.setText(insurance.getInsurance_policy());
         holder.txtInsuranceDescription.setText(insurance.getDescription());
 
-        // btnEdit
-        holder.btnEdit.setOnClickListener (v -> {
+        // Edit
+        holder.clInsurance.setOnClickListener (v -> {
             Intent intent = new Intent (v.getContext(), InsuranceActivity.class);
             intent.putExtra("insurance_id", insurance.getId());
             context.startActivity(intent);
             notifyItemChanged(position);
         });
-        // btnDelete
+        // Delete
         holder.btnDelete.setOnClickListener (v -> new AlertDialog.Builder(v.getContext())
                 .setTitle(R.string.Insurance_Deleting)
                 .setMessage(R.string.Msg_Confirm)

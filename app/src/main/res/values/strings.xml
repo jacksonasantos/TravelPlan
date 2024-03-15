@@ -275,8 +275,8 @@
     <string name="Insurance_Total_Premium_Value">Total Premium Value</string>
     <string name="Insurance_Insurance_Deductible">Insurance Deductible</string>
     <string name="Insurance_Bonus_Class">Bonus Class</string>
-    <string name="Insurance_Note">Insurance Note</string>
-    <string name="Insurance_Status">Insurance Status</string>
+    <string name="Insurance_Note">Note</string>
+    <string name="Insurance_Status">Status</string>
     <string name="Insurance_Well_Insured">Well Insured</string>
     <string name="Insurance_Validity">Validity</string>
     <string name="Insurance_To">to</string>
@@ -298,7 +298,7 @@
     <string name="travel">Travel</string>
 
     <!-- Insurance Company Fragment -->
-    <string name="Insurance_Company">Insurance Company</string>
+    <string name="Insurance_Company">Company</string>
     <string name="Insurance_Company_Deleting">Deleting Insurance Company</string>
 
     <string name="Insurance_Company_Name">Company Name</string>

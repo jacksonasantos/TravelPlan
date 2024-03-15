@@ -98,10 +98,49 @@
                         android:layout_gravity="center"
                         android:layout_weight="3"
                         android:autofillHints="no"
-                        android:nextFocusDown="@+id/spinInsurance_Company"
+                        android:nextFocusDown="@+id/etNote"
                         android:inputType="text|textCapWords"
                         android:textSize="12sp"
                         tools:ignore="LabelFor" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="7"
+                        android:text="@string/Insurance_Note" />
+                    <EditText
+                        android:id="@+id/etNote"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="3"
+                        android:autofillHints="no"
+                        android:inputType="text|textCapCharacters"
+                        android:nextFocusDown="@+id/etInsurance_Policy"
+                        android:textSize="12sp"
+                        tools:ignore="LabelFor" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="7"
+                        android:text="@string/Insurance_Status" />
+                    <RadioGroup
+                        android:id="@+id/rgInsuranceStatus"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="3"
+                        android:orientation="horizontal"
+                        android:gravity="center_horizontal"
+                        android:hint="@string/Insurance_Status">
+                    </RadioGroup>
                 </LinearLayout>
             </LinearLayout>
         </androidx.cardview.widget.CardView>
@@ -255,48 +294,88 @@
                             android:textSize="12sp"
                             tools:ignore="LabelFor" />
                     </LinearLayout>
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
+                </LinearLayout>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/labels_space_top"
+            app:cardBackgroundColor="@color/colorBackgroundCard"
+            app:cardCornerRadius="@dimen/cardCornerRadius"
+            app:cardElevation="@dimen/cardElevation">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/labels_margin">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="10">
                         <TextView
-                            android:layout_width="match_parent"
+                            android:id="@+id/tvCurrencyType"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="5"
-                            android:text="@string/Insurance_Net_Premium_Value" />
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="5"
-                            android:text="@string/Insurance_Tax_Amount" />
-                    </LinearLayout>
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:baselineAligned="false">
-                        <EditText
-                            android:id="@+id/etNet_Premium_Value"
-                            android:layout_width="match_parent"
+                            android:text="@string/Transport_Hiring_Currency_Type"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:textSize="14sp" />
+                        <Spinner
+                            android:id="@+id/spCurrencyType"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="5"
                             android:autofillHints="no"
-                            android:inputType="numberDecimal"
-                            android:textAllCaps="true"
-                            android:nextFocusDown="@+id/etTax_Amount"
+                            android:gravity="center"
+                            android:inputType="textCapWords"
                             android:textSize="12sp"
                             tools:ignore="LabelFor" />
-                        <EditText
-                            android:id="@+id/etTax_Amount"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="5"
-                            android:autofillHints="no"
-                            android:inputType="numberDecimal"
-                            android:nextFocusDown="@+id/etTotal_Premium_Value"
-                            android:textSize="12sp"
-                            tools:ignore="LabelFor" />
-                    </LinearLayout>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="5"
+                        android:text="@string/Insurance_Net_Premium_Value" />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="5"
+                        android:text="@string/Insurance_Tax_Amount" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <EditText
+                        android:id="@+id/etNet_Premium_Value"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="5"
+                        android:autofillHints="no"
+                        android:inputType="numberDecimal"
+                        android:gravity="end"
+                        android:nextFocusDown="@+id/etTax_Amount"
+                        android:textSize="12sp"
+                        tools:ignore="LabelFor" />
+                    <EditText
+                        android:id="@+id/etTax_Amount"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="5"
+                        android:autofillHints="no"
+                        android:inputType="numberDecimal"
+                        android:gravity="end"
+                        android:nextFocusDown="@+id/etTotal_Premium_Value"
+                        android:textSize="12sp"
+                        tools:ignore="LabelFor" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -315,6 +394,7 @@
                         android:layout_weight="5"
                         android:autofillHints="no"
                         android:inputType="numberDecimal"
+                        android:gravity="end"
                         android:nextFocusDown="@+id/etInsurance_Deductible"
                         android:textSize="12sp"
                         tools:ignore="LabelFor" />
@@ -338,68 +418,29 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:baselineAligned="false">
-                     <EditText
+                    android:orientation="horizontal">
+                    <EditText
                         android:id="@+id/etInsurance_Deductible"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="5"
                         android:autofillHints="no"
                         android:inputType="numberDecimal"
+                        android:gravity="end"
                         android:nextFocusDown="@+id/etBonus_Class"
                         android:textSize="12sp"
-                         tools:ignore="LabelFor" />
-                     <EditText
+                        tools:ignore="LabelFor" />
+                    <EditText
                         android:id="@+id/etBonus_Class"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="5"
                         android:autofillHints="no"
                         android:inputType="number"
-                        android:nextFocusDown="@+id/etNote"
-                        android:textSize="12sp"
-                        tools:ignore="LabelFor,TextFields" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="5"
-                        android:text="@string/Insurance_Note" />
-                    <EditText
-                        android:id="@+id/etNote"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="5"
-                        android:autofillHints="no"
-                        android:inputType="text|textCapCharacters"
+                        android:gravity="end"
                         android:nextFocusDown="@+id/btSaveInsurance"
                         android:textSize="12sp"
-                        tools:ignore="LabelFor" />
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="6"
-                        android:text="@string/Insurance_Status" />
-                    <RadioGroup
-                        android:id="@+id/rgInsuranceStatus"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="4"
-                        android:orientation="horizontal"
-                        android:gravity="center_horizontal"
-                        android:hint="@string/Insurance_Status">
-                    </RadioGroup>
+                        tools:ignore="LabelFor,TextFields" />
                 </LinearLayout>
             </LinearLayout>
         </androidx.cardview.widget.CardView>

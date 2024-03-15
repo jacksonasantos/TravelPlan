@@ -30,7 +30,7 @@ import com.jacksonasantos.travelplan.ui.utility.Utils;
 
 import java.util.List;
 
-public  class InsuranceActivity extends AppCompatActivity {
+public class InsuranceActivity extends AppCompatActivity {
 
     private RadioGroup rgInsuranceType;
     private int rbInsuranceType;
@@ -43,6 +43,8 @@ public  class InsuranceActivity extends AppCompatActivity {
     private Integer nrSpinBroker;
     private EditText etInitial_Effective_Date;
     private EditText etFinal_Effective_Date;
+    private Spinner spCurrencyType;
+    private int nrSpCurrencyType;
     private EditText etNet_Premium_Value;
     private EditText etTax_Amount;
     private EditText etTotal_Premium_Value;
@@ -89,7 +91,7 @@ public  class InsuranceActivity extends AppCompatActivity {
             if (extras.getInt( "travel_id") > 0) {
                 insurance.setTravel_id(extras.getInt("travel_id"));
                 List<Insurance> i = Database.mInsuranceDao.findReminderInsurance("T", insurance.getTravel_id());
-                if (i.size() > 0) {
+                if (!i.isEmpty()) {
                     insurance = i.get(0);
                     opInsert = false;
                 }
@@ -111,6 +113,7 @@ public  class InsuranceActivity extends AppCompatActivity {
         spinBroker = findViewById(R.id.spinBroker);
         etInitial_Effective_Date = findViewById(R.id.etInitial_Effective_Date);
         etFinal_Effective_Date = findViewById(R.id.etFinal_Effective_Date);
+        spCurrencyType = findViewById(R.id.spCurrencyType);
         etNet_Premium_Value = findViewById(R.id.etNet_Premium_Value);
         etTax_Amount = findViewById(R.id.etTax_Amount);
         etTotal_Premium_Value = findViewById(R.id.etTotal_Premium_Value);
@@ -267,6 +270,21 @@ public  class InsuranceActivity extends AppCompatActivity {
         });
         adapterV.notifyDataSetChanged();
 
+        Utils.createSpinnerResources(R.array.currency_array, spCurrencyType, this);
+        nrSpCurrencyType = insurance.getCurrency_type();
+        spCurrencyType.setSelection(nrSpCurrencyType);
+        spCurrencyType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long idx) {
+                nrSpCurrencyType = position;
+                spCurrencyType.setSelection(nrSpCurrencyType);
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                nrSpCurrencyType =0;
+            }
+        });
+
         etIssuance_Date.addTextChangedListener(new DateInputMask(etIssuance_Date));
         etInitial_Effective_Date.addTextChangedListener(new DateInputMask(etInitial_Effective_Date));
         etFinal_Effective_Date.addTextChangedListener(new DateInputMask(etFinal_Effective_Date));
@@ -298,6 +316,8 @@ public  class InsuranceActivity extends AppCompatActivity {
             }
             etInitial_Effective_Date.setText(Utils.dateToString(insurance.getInitial_effective_date()));
             etFinal_Effective_Date.setText(Utils.dateToString(insurance.getFinal_effective_date()));
+            spCurrencyType.setSelection(nrSpCurrencyType);
+            nrSpCurrencyType = insurance.getCurrency_type();
             etNet_Premium_Value.setText(String.valueOf(insurance.getNet_premium_value()));
             etTax_Amount.setText(String.valueOf(insurance.getTax_amount()));
             etTotal_Premium_Value.setText(String.valueOf(insurance.getTotal_premium_value()));
@@ -356,6 +376,7 @@ public  class InsuranceActivity extends AppCompatActivity {
                 i1.setBroker_id(nrSpinBroker);
                 i1.setInitial_effective_date(Utils.stringToDate(etInitial_Effective_Date.getText().toString()));
                 i1.setFinal_effective_date(Utils.stringToDate(etFinal_Effective_Date.getText().toString()));
+                i1.setCurrency_type(nrSpCurrencyType);
                 i1.setNet_premium_value(Double.parseDouble(etNet_Premium_Value.getText().toString()));
                 i1.setTax_amount(Double.parseDouble(etTax_Amount.getText().toString()));
                 i1.setTotal_premium_value(Double.parseDouble(etTotal_Premium_Value.getText().toString()));
@@ -403,6 +424,7 @@ public  class InsuranceActivity extends AppCompatActivity {
                 //&& nrSpinBroker!=0
                 && !etInitial_Effective_Date.getText().toString().trim().isEmpty()
                 //&& !etFinal_Effective_Date.getText().toString().trim().isEmpty()
+                //&& nrSpCurrencyType!=0
                 && !etNet_Premium_Value.getText().toString().trim().isEmpty()
                 && !etTax_Amount.getText().toString().trim().isEmpty()
                 && !etTotal_Premium_Value.getText().toString().trim().isEmpty()

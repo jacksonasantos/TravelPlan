@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import com.jacksonasantos.travelplan.dao.general.DbContentProvider;
 import com.jacksonasantos.travelplan.dao.interfaces.CurrencyQuoteIDAO;
 import com.jacksonasantos.travelplan.dao.interfaces.CurrencyQuoteISchema;
+import com.jacksonasantos.travelplan.dao.interfaces.InsuranceISchema;
 import com.jacksonasantos.travelplan.dao.interfaces.ReservationISchema;
 import com.jacksonasantos.travelplan.dao.interfaces.TransportISchema;
 import com.jacksonasantos.travelplan.ui.utility.Utils;
@@ -53,7 +54,7 @@ SELECT DISTINCT r.currency_type  currency_type
                       AND DATE(cq.quote_date ) = DATE('NOW'))
    AND (r.currency_type != null OR r.currency_type > 0)
    AND r.STATUS_RESERVATION != 3
-union
+UNION
 SELECT DISTINCT t.currency_type  currency_type
   FROM transport t
  WHERE NOT EXISTS (SELECT 1
@@ -62,6 +63,15 @@ SELECT DISTINCT t.currency_type  currency_type
                       AND DATE(cq.quote_date ) = DATE('NOW'))
    AND (t.currency_type != null OR t.currency_type > 0)
    AND t.end_date >= date('now')
+UNION
+SELECT DISTINCT i.currency_type currency_type
+  FROM insurance i
+ WHERE NOT EXISTS (SELECT 1
+                     FROM currency_quote cq
+                    WHERE cq.currency_type = i.currency_type
+                      AND DATE(cq.quote_date ) = DATE('NOW'))
+   AND (i.currency_type != null OR i.currency_type > 0)
+   AND i.status >= 1
  */
     public List<Integer> findCurrencyNoQuoteDay() {
         List<Integer> list = new ArrayList<>();
@@ -74,7 +84,7 @@ SELECT DISTINCT t.currency_type  currency_type
                                           " AND DATE(cq." + CurrencyQuoteISchema.CURRENCY_QUOTE_QUOTE_DATE + ") = DATE('NOW')) " +
                        " AND (r." + ReservationISchema.RESERVATION_CURRENCY_TYPE + " != null OR r." + ReservationISchema.RESERVATION_CURRENCY_TYPE+ " > 0) " +
                        " AND r." + ReservationISchema.RESERVATION_STATUS_RESERVATION + " != 3 "+
-                    " UNION " +
+                     " UNION " +
                     " SELECT DISTINCT t."+ TransportISchema.TRANSPORT_CURRENCY_TYPE +" currency_type " +
                       " FROM " + TransportISchema.TRANSPORT_TABLE+ " t " +
                      " WHERE NOT EXISTS (SELECT 1 " +
@@ -82,7 +92,16 @@ SELECT DISTINCT t.currency_type  currency_type
                                         " WHERE cq." + CurrencyQuoteISchema.CURRENCY_QUOTE_CURRENCY_TYPE + " = t." + TransportISchema.TRANSPORT_CURRENCY_TYPE +
                                           " AND DATE(cq." + CurrencyQuoteISchema.CURRENCY_QUOTE_QUOTE_DATE + ") = DATE('NOW')) " +
                        " AND (t." + TransportISchema.TRANSPORT_CURRENCY_TYPE + " != null OR t." + TransportISchema.TRANSPORT_CURRENCY_TYPE + " > 0) " +
-                       " AND t."+TransportISchema.TRANSPORT_END_DATE + " >= DATE('now')", null);
+                       " AND t."+TransportISchema.TRANSPORT_END_DATE + " >= DATE('now')" +
+                     " UNION " +
+                    " SELECT DISTINCT i." + InsuranceISchema.INSURANCE_CURRENCY_TYPE + " currency_type "+
+                      " FROM " + InsuranceISchema.INSURANCE_TABLE + " i " +
+                     " WHERE NOT EXISTS (SELECT 1 " +
+                                         " FROM " + CurrencyQuoteISchema.CURRENCY_QUOTE_TABLE + " cq " +
+                                        " WHERE cq." + CurrencyQuoteISchema.CURRENCY_QUOTE_CURRENCY_TYPE + " = i." + InsuranceISchema.INSURANCE_CURRENCY_TYPE +
+                                          " AND DATE(cq." + CurrencyQuoteISchema.CURRENCY_QUOTE_QUOTE_DATE + ") = DATE('NOW')) " +
+                       " AND (i." + CURRENCY_QUOTE_CURRENCY_TYPE + " != null OR i."+InsuranceISchema.INSURANCE_CURRENCY_TYPE + " > 0) " +
+                       " AND i." + InsuranceISchema.INSURANCE_STATUS + " >= 1", null);
         if (cursor != null) {
             cursor.moveToFirst();
             while (!cursor.isAfterLast()) {

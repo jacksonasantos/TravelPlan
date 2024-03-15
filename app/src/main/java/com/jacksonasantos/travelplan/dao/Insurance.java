@@ -21,6 +21,7 @@ public class Insurance implements Cloneable {
     public Date issuance_date;
     public Date initial_effective_date;
     public Date final_effective_date;
+    public int currency_type;
     public double net_premium_value;
     public double tax_amount;
     public double total_premium_value;
@@ -100,6 +101,9 @@ public class Insurance implements Cloneable {
 
     public Date getFinal_effective_date() { return final_effective_date; }
     public void setFinal_effective_date(Date final_effective_date) { this.final_effective_date = final_effective_date; }
+
+    public int getCurrency_type() { return currency_type; }
+    public void setCurrency_type(int currency_type) { this.currency_type = currency_type; }
 
     public double getNet_premium_value() { return net_premium_value; }
     public void setNet_premium_value(double net_premium_value) { this.net_premium_value = net_premium_value; }

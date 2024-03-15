@@ -73,7 +73,7 @@ public class Database {
     private final Context mContext;
 
     private static final String DATABASE_NAME = "TravelPlan.db";
-    private static final int DATABASE_VERSION = 87;
+    private static final int DATABASE_VERSION = 88;
 
     public static AccommodationDAO mAccommodationDao;
     public static AccountDAO mAccountDao;
@@ -299,6 +299,7 @@ public class Database {
             db.execSQL(PendingVehicleISchema.ALTER_TABLE_PENDING_VEHICLE_V85);Log.w("Table "+PendingVehicleISchema.PENDING_VEHICLE_TABLE,"V85 - Alter Table...");
             db.execSQL(ReservationISchema.ALTER_TABLE_RESERVATION_V86);Log.w("Table "+ReservationDAO.RESERVATION_TABLE,"V86 - Alter Table...");
             db.execSQL(TransportISchema.ALTER_TABLE_TRANSPORT_V87);Log.w("Table "+TransportISchema.TRANSPORT_TABLE,"V87 - Alter Table...");
+            db.execSQL(InsuranceISchema.ALTER_TABLE_INSURANCE_V88);Log.w("Table "+InsuranceISchema.INSURANCE_TABLE,"V88 - Alter Table...");
         }
 
         @SuppressLint("SQLiteString")
@@ -577,6 +578,9 @@ public class Database {
                         break;
                     case 87:
                         db.execSQL(TransportISchema.ALTER_TABLE_TRANSPORT_V87);Log.w("Table "+TransportISchema.TRANSPORT_TABLE,"V87 - Alter Table...");
+                        break;
+                    case 88:
+                        db.execSQL(InsuranceISchema.ALTER_TABLE_INSURANCE_V88);Log.w("Table "+InsuranceISchema.INSURANCE_TABLE,"V88 - Alter Table...");
                         break;
                     default:
                         break;

@@ -13,6 +13,7 @@ public interface InsuranceISchema {
     String INSURANCE_ISSUANCE_DATE = "issuance_date";
     String INSURANCE_INITIAL_EFFECTIVE_DATE = "initial_effective_date";
     String INSURANCE_FINAL_EFFECTIVE_DATE = "final_effective_date";
+    String INSURANCE_CURRENCY_TYPE = "currency_type";
     String INSURANCE_NET_PREMIUM_VALUE = "net_premium_value";
     String INSURANCE_TAX_AMOUNT = "tax_amount";
     String INSURANCE_TOTAL_PREMIUM_VALUE = "total_premium_value";
@@ -53,25 +54,29 @@ public interface InsuranceISchema {
     String ALTER_TABLE_INSURANCE_V19_2 = "ALTER TABLE " + INSURANCE_TABLE
             + " ADD COLUMN " + INSURANCE_VEHICLE_ID + " INTEGER REFERENCES " + VehicleISchema.VEHICLE_TABLE+ " ("+VehicleISchema.VEHICLE_ID+") ";
 
+    // Version 88
+    String ALTER_TABLE_INSURANCE_V88 = "ALTER TABLE " + INSURANCE_TABLE
+            + " ADD COLUMN " + INSURANCE_CURRENCY_TYPE + " INT ";
 
     String[] INSURANCE_COLUMNS = new String[] {
-            INSURANCE_ID,
-            INSURANCE_INSURANCE_COMPANY_ID,
-            INSURANCE_BROKER_ID,
-            INSURANCE_INSURANCE_TYPE,
-            INSURANCE_DESCRIPTION,
-            INSURANCE_INSURANCE_POLICY,
-            INSURANCE_ISSUANCE_DATE,
-            INSURANCE_INITIAL_EFFECTIVE_DATE,
-            INSURANCE_FINAL_EFFECTIVE_DATE,
-            INSURANCE_NET_PREMIUM_VALUE,
-            INSURANCE_TAX_AMOUNT,
-            INSURANCE_TOTAL_PREMIUM_VALUE,
-            INSURANCE_INSURANCE_DEDUCTIBLE,
-            INSURANCE_BONUS_CLASS,
-            INSURANCE_NOTE,
-            INSURANCE_STATUS,
-            INSURANCE_TRAVEL_ID,
-            INSURANCE_VEHICLE_ID
+             INSURANCE_ID,
+             INSURANCE_INSURANCE_COMPANY_ID,
+             INSURANCE_BROKER_ID,
+             INSURANCE_INSURANCE_TYPE,
+             INSURANCE_DESCRIPTION,
+             INSURANCE_INSURANCE_POLICY,
+             INSURANCE_ISSUANCE_DATE,
+             INSURANCE_INITIAL_EFFECTIVE_DATE,
+             INSURANCE_FINAL_EFFECTIVE_DATE,
+             INSURANCE_CURRENCY_TYPE,
+             INSURANCE_NET_PREMIUM_VALUE,
+             INSURANCE_TAX_AMOUNT,
+             INSURANCE_TOTAL_PREMIUM_VALUE,
+             INSURANCE_INSURANCE_DEDUCTIBLE,
+             INSURANCE_BONUS_CLASS,
+             INSURANCE_NOTE,
+             INSURANCE_STATUS,
+             INSURANCE_TRAVEL_ID,
+             INSURANCE_VEHICLE_ID
     };
 }
