@@ -330,7 +330,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         String lang = settings.getString("language", "");
-        if (!"".equals(lang) && !config.getLocales().get(0).getLanguage().equals(lang)) {
+        if (!lang.isEmpty() && !config.getLocales().get(0).getLanguage().equals(lang)) {
             g.setLanguage(lang);
             Locale myLocale = new Locale(lang);
             LocaleList localeList = new LocaleList(myLocale);

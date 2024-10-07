@@ -67,8 +67,8 @@ public class MaintenanceActivity extends AppCompatActivity {
         setContentView(R.layout.activity_maintenance);
 
         Bundle extras = getIntent().getExtras();
+        maintenance = new Maintenance();
         if (extras != null) {
-            maintenance = new Maintenance();
             maintenance.setVehicle_id(extras.getInt("vehicle_id"));
             nrVehicle_id = extras.getInt("vehicle_id");
             if (extras.getInt( "maintenance_id") > 0) {

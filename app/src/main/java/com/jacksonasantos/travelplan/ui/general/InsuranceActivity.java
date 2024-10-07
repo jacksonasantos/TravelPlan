@@ -81,8 +81,8 @@ public class InsuranceActivity extends AppCompatActivity {
         setContentView(R.layout.activity_insurance);
 
         Bundle extras = getIntent().getExtras();
+        insurance = new Insurance();
         if (extras != null) {
-            insurance = new Insurance();
             if (extras.getInt( "insurance_id") > 0) {
                 insurance.setId(extras.getInt("insurance_id"));
                 insurance = Database.mInsuranceDao.fetchInsuranceById(insurance.getId());
