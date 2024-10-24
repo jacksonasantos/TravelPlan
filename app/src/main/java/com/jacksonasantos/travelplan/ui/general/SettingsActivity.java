@@ -113,7 +113,7 @@ public class SettingsActivity extends AppCompatActivity {
             Globals g = Globals.getInstance();
             Resources res = getResources();
             Configuration config = res.getConfiguration();
-            if (lang != null && !"".equals(lang) && !config.getLocales().get(0).getLanguage().equals(lang)) {
+            if (lang != null && !lang.isEmpty() && !config.getLocales().get(0).getLanguage().equals(lang)) {
                 g.setLanguage(lang);
                 Locale myLocale = new Locale(lang);
                 LocaleList localeList = new LocaleList(myLocale);

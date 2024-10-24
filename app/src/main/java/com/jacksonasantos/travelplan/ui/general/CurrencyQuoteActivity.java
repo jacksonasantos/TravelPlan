@@ -94,16 +94,13 @@ public class CurrencyQuoteActivity extends AppCompatActivity {
             etCurrencyValue.setText(String.valueOf(currencyQuote.getCurrency_value()));
         }
         if (opInsert) {
-            etCurrencyValue.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-                @Override
-                public void onFocusChange(View view, boolean hasFocus) {
-                    if (hasFocus) {
-                        MainActivity.DownloadCurrencyQuote( nrSpinCurrencyType );
+            etCurrencyValue.setOnFocusChangeListener((view, hasFocus) -> {
+                if (hasFocus) {
+                    MainActivity.DownloadCurrencyQuote( nrSpinCurrencyType );
 
-                        //TODO - Receber online o valor da cotação que foi adquirida logo acima de maneira assincrona
-                        CurrencyQuote c1 = Database.mCurrencyQuoteDao.findDayQuote(nrSpinCurrencyType, Utils.stringToDate(etQuoteDate.getText().toString()));
-                        etCurrencyValue.setText(String.valueOf(c1.getCurrency_value()));
-                    }
+                    //TODO - Receber online o valor da cotação que foi adquirida logo acima de maneira assincrona
+                    CurrencyQuote c1 = Database.mCurrencyQuoteDao.findDayQuote(nrSpinCurrencyType, Utils.stringToDate(etQuoteDate.getText().toString()));
+                    etCurrencyValue.setText(String.valueOf(c1.getCurrency_value()));
                 }
             });
         }

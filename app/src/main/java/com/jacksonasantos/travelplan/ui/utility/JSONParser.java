@@ -1,6 +1,8 @@
 package com.jacksonasantos.travelplan.ui.utility;
 
+import android.content.Context;
 import android.util.Log;
+import android.widget.Toast;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;

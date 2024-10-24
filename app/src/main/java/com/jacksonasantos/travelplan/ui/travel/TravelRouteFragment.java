@@ -178,9 +178,8 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
                 try {
                     if (txt_Search == null) {
                         if (!flgModeAchievement) {
-                            if (registryMarker(point)) {
-                                drawMarker(point, "", Color.RED, 0);
-                            }
+                            registryMarker(point);
+                            drawMarker(point, "", Color.RED, 0);
                         } else {
                             Intent intent = new Intent(getContext(), AchievementActivity.class);
                             intent.putExtra("Latlng_Achievement", point.latitude + "," + point.longitude);
@@ -317,7 +316,7 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
         zoomMarkers();
     }
 
-    private boolean registryMarker(@NonNull final LatLng point) {
+    private void registryMarker(@NonNull final LatLng point) {
         Intent intent = new Intent (requireContext(), MarkerActivity.class);
         intent.putExtra("travel_id", nrTravel_Id);
         if (nrItinerary_Id != null) intent.putExtra("itinerary_id", nrItinerary_Id);
@@ -327,7 +326,6 @@ public class TravelRouteFragment extends Fragment implements LocationListener {
         startActivity(intent);
 
         drawItinerary(nrTravel_Id);
-        return true;
     }
 
     private Bitmap addBorder(Bitmap bmp, int borderSize) {

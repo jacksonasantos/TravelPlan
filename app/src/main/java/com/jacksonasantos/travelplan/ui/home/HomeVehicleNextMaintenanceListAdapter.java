@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -112,7 +113,7 @@ public class HomeVehicleNextMaintenanceListAdapter extends RecyclerView.Adapter<
                             vStatus = 1;
                         }
                     } catch (ParseException e) {
-                        e.printStackTrace();
+                        Toast.makeText(itemViewHolder.itemView.getContext(), e.getMessage(), Toast.LENGTH_LONG).show();
                     }
                 }
             }

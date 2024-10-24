@@ -569,7 +569,7 @@ public class FuelSupplyActivity extends AppCompatActivity implements PlacesAdapt
                         vLastOdometer = vt1.getLast_odometer();
                     }
                     String vTxtOdometerFuelSupply = etVehicleOdometer.getText().toString();
-                    if (vTxtOdometerFuelSupply.equals("0") || vTxtOdometerFuelSupply.equals("")) {
+                    if (vTxtOdometerFuelSupply.equals("0") || vTxtOdometerFuelSupply.isEmpty()) {
                         vTxtOdometerFuelSupply = null;
                     }
                     if (!(vTxtOdometerFuelSupply == null) && vlFullTank == 1) {
@@ -737,7 +737,7 @@ public class FuelSupplyActivity extends AppCompatActivity implements PlacesAdapt
 
     private String getCityNameByCoordinates(double lat, double lon) throws IOException {
         List<Address> addresses = mGeocoder.getFromLocation(lat, lon, 1);
-        if (addresses != null && addresses.size() > 0) {
+        if (addresses != null && !addresses.isEmpty()) {
             return addresses.get(0).getSubAdminArea() + "/"+ Abbreviations.getAbbreviationFromState(addresses.get(0).getAdminArea())+ " - "+ addresses.get(0).getCountryCode();
         }
         return null;
@@ -749,7 +749,7 @@ public class FuelSupplyActivity extends AppCompatActivity implements PlacesAdapt
             etGasStation.setText(position.getPlace().getName());
             etGasStationLocation.setText(getCityNameByCoordinates(Objects.requireNonNull(position.getPlace().getLatLng()).latitude, Objects.requireNonNull(position.getPlace().getLatLng()).longitude));
         } catch (IOException e) {
-            e.printStackTrace();
+            Toast.makeText(getApplicationContext(),  e.getMessage(), Toast.LENGTH_LONG).show();
         }
         listPlaces.setVisibility(View.GONE);
     }

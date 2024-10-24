@@ -26,10 +26,6 @@
         android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar"
         android:vmSafeMode="true"
         tools:targetApi="s">
-        <service
-            android:name=".ws.general.RetrofitService"
-            android:enabled="true"
-            android:exported="true" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
